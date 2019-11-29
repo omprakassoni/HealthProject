@@ -12,7 +12,7 @@ public interface ConsaltantDao extends CrudRepository<Consaltantant,Integer>{
 	
 	
 	@Modifying
-	@Query("update Consaltantant set  descriptionConsaltant=:description ,nameConsaltant=:name, uploadConsaltantImage=:uploadVideo where id=:id")
+	@Query("update Consaltantant set  descriptionConsaltant=?1 ,nameConsaltant=?2, uploadConsaltantImage=?3 where id=?4")
 	 int updateconsalantant(String description,String name, String uploadVideo,int id);
 
 

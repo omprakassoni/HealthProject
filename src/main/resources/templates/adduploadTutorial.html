@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">  
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="s/css/style.css"/>
+  <link rel="stylesheet" href="s/css/bootstrap.min.css"/>
+  
+</head>
+      <header role="banner">
+              <div class="top-bar">
+                <a href="Admin_Template.html">  <img src="img/logo.png "></img></a><span style="color: indianred">Health Nutrition</span>
+                <div class="container">
+                  <div class="row">
+    
+                  </div>
+                </div>
+              </div>
+         
+         <!--blue line end-->      
+      </header> 
+  <body>
+ 
+      <div class="#">
+        <div class="row" style="padding-top: 150px">
+                  <div class="col-4">
+
+                  </div>
+                  <div class="col-4 shadow p-3 mb-5 bg-white rounded">
+ 
+                      <div class="h4 text-centre" style="color: chocolate; text-align: center; padding-top: 8px" >Upload Tutorial</div>
+ 
+                            <form class="form-horizontal"  th:action="@{/addTutorail}"  method="post"  enctype="multipart/form-data">
+              
+                          <div class="row" style="padding-top: 40px">
+
+                             <div class="row" style="padding-top: 20px">
+
+                                    <div class="col-5" style="padding-left:35px; padding-top: 10px"  >
+                                                   <label for="categorySelected">Select Category</label> 
+                                     </div>
+
+                                    <div class="col-7" style="padding-left: 25px">
+				
+                                    <div>
+                                         <select class="form-control" name="categoryName" id="categorySelected" style="width: 300px"  required="required">
+                                         
+			       							<option>Select Class</option>
+			       							<span th:each="product: ${categorys}">
+			  								<option ><span  th:text="${product.categoryname}"></span></option>
+
+			  								</span>
+										 </select> 
+                              
+                                    </div>
+													 
+                                   </div>
+                              </div>
+          
+          				 <div class="row" style="padding-top: 20px">
+
+                                    <div class="col-5" style="padding-left:35px; padding-top: 8px">
+                                                   <label for="topicName"> Topic Name</label> 
+                                     </div>
+                                    <div class="col-7" style="padding-left: 34px">
+
+										<div>    
+										      
+               						 <input type="text" class="form-control" id="topicName" name="topicName" style="width: 300px;" required="required"/>
+
+										</div>
+					
+										 		
+                                     </div>
+                              	</div>
+                                <div class="row" style="padding-top: 20px">
+
+                                    <div class="col-5" style="padding-left:35px; padding-top: 8px">
+                                                   <label for="language">Add Language</label> 
+                                     </div>
+
+                                    <div class="col-7" style="padding-left: 28px">
+
+										<div>    
+										      
+               						 <input type="text" class="form-control" id="language" name="languageName" style="width: 300px;" required="required"/>
+
+										</div>
+					
+										 		
+                                     </div>
+                              </div>
+                              
+                              
+                               
+                              
+                              
+                              
+                              
+                            <div class="row" style="padding-top: 20px">
+
+                                    <div class="col-5" style="padding-left:40px;padding-top: 8px">
+                                        
+                                                   <label for="outlineDetail" >Outline</label>
+                                        
+                                     </div>
+
+                                    <div class="col-7" style="padding-left: 45px">
+                                              
+                                              
+                                    	<input type="file" class="form-control-file" id="outlineDetail"  name="outline" placeholder="select Outline" required="required"/>	          
+                                              
+                                               <!--  <textarea class="form-control" rows="5" id="categoryDescription" style="width: 300px"></textarea> -->
+                                        
+                                     </div>
+                              </div>
+                              
+                              
+                              
+                              
+                              		<div class="row" style="padding-top: 20px">
+
+                                                    <div class="col-5" style="padding-left:35px">                                               
+                                                              <label for="script" style="padding-top: 8px">Add  Script</label> 
+                                                     </div>
+                                        <div class="col-7">    
+				                                                                                                
+										<input type="file" style="padding-right: 82px" class="form-control-file" id="script"  name="script" placeholder=" add script" required="required"/>													
+										
+				   							  </div>
+                                        </div>
+                              
+                        
+                              		<div class="row" style="padding-top: 20px">
+
+                                                    <div class="col-5" style="padding-left:35px">                                               
+                                                              <label for="timeScript" style="padding-top: 8px">Add TimeScript</label> 
+                                                     </div>
+                                        <div class="col-7">   
+				                                                                                                
+										<input type="file" style="padding-right: 49px" class="form-control-file" id="timeScript"  name="timeScript" placeholder="uploadFile" required="required"/>													
+										
+				   							  </div>
+                                        </div>
+   
+                              		<div class="row" style="padding-top: 20px">
+
+                                                    <div class="col-5" style="padding-left:35px">                                               
+                                                              <label for="tutorial" style="padding-top: 8px">Add Tutorial</label> 
+                                                     </div>
+                                        <div class="col-7">    
+				                                                                                                
+										<input type="file" style="padding-right: 72px" class="form-control-file" id="tutorial"  name="tutorial" placeholder="tutorial" required="required"/>													
+										
+				   							  </div>
+                                        </div>
+                              
+                                </div>
+ 						
+                   
+                                            <div class="row">  
+                                                    
+                                                  <div class=""  style="padding-left: 190px; padding-top: 20px">
+                                                            <button type="submit"  class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                             <button type="reset" class="btn btn-success">Reset</button>
+                                                             
+     
+                                                  </div>
+                                             
+                                              </div>
+
+                      </form>
+            </div>
+          </div>
+      </div>
+      
+    <div class="">
+    
+               
+      
+      
+      </div>
+      
+      
+ 
+<!-- 
+         	 <script type="text/javascript">
+         	 
+         	
+      		
+				$('#languageSelected').change(function(){
+					
+					var category=$(this).find(":selected").val();
+					
+					var json={
+							
+							"categoryNewName":category,
+										
+					};
+				
+					$.ajax({
+					  	type: "POST",
+			        	contentType: "application/json",
+			       		 url: "/showTutorialLanguageDemo",
+			       		 data: JSON.stringify(json),
+			       		 dataType: 'json',
+			       		 cache: false,
+			        	 timeout: 600000,
+			       		 success: function (data){
+			       	    var html = '';
+			            var len = data.length;
+			            html += '<option value="0">Select Topic</option>';
+			            for (var i = 0; i < len; i++) {
+			             html += '<option value="' + data[i] + '">'
+			               + data[i]
+			               + '</option>';
+			            }
+			            html += '</option>';
+			            
+			            
+						},
+						
+						error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+						
+						
+					});
+					
+				 
+				  
+				});
+				
+		
+             </script>         	 -->
+         	
+         	}
+         	
+    
+    
+<!--footer --> 
+      <div class="#">
+  
+          <div class="aaic-grbg1 pt-3 py-3 " style="height:300px">
+              
+              <h3></h3>
+              
+          </div>div
+          
+      </div>
+      
+        <script src="static/css/all.css"></script>
+         <script src="static/js/all.js"></script>
+         <script src="static/js/jquery-3.2.1.min.js"></script>
+         
+        <script src="static/css/bootstrap.min.css" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="static/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

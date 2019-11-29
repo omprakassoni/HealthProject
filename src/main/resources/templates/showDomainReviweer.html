@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-
 
 <head>	
 
 	<meta charset="utf-8"/> 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700" rel="stylesheet"/>
     <link rel="stylesheet" href="/s/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/s/css/animate.css"/>
@@ -39,9 +38,7 @@
 						<div sec:authorize="isAuthenticated()"> 
 						  
 						   Logged user: Welcome Admin <span sec:authentication="name"></span> |
-							 Roles: <span sec:authentication="principal.authorities"></span>
-					
-						 
+		 
 						</div>
 							
 				<div class="row">
@@ -71,8 +68,7 @@
           		<div class="row">
           	
          			 	<div class="col">
-          	
-          	
+
    			 	 <table class="table table-striped">
 					            <tr>
 					                <th>Id</th>

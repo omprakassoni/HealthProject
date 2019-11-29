@@ -37,6 +37,10 @@ header {
   z-index: 5;
 }
 
+.pad-extra{
+    margin: 10px;
+    
+}
 header .navbar-brand {
   text-transform: uppercase;
   letter-spacing: .2em;
@@ -632,7 +636,7 @@ header .navbar .dropdown-menu a {
 
 .media-custom .media-body {
   padding: 30px;
-}
+}n
 
 .media-custom .media-body h3 {
   font-size: 20px;
@@ -772,6 +776,19 @@ box {
   padding: 50px;
   margin: 20px;
     height: 300px;
+}
+
+
+.video{
+	
+	
+	width:200px;
+	height:200px;
+	border:medium;
+	color: aqua;
+	
+
+
 }
 
 //

@@ -29,7 +29,8 @@ import com.health.service.UserService;
 import com.health.service.roleService;
 
 @Controller
-public class userController {
+public class userController 
+{
 
 	@Autowired
 	roleService roleservice;
@@ -207,9 +208,9 @@ public class userController {
 
 		int status = 0;
 		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
-
+	
 		List<User> userAddInformation = new ArrayList<>();
-
+	
 		for (UserRole ur : userByStatus) {
 
 			User userInformation = userRepository.findOne(ur.getUser().getId());
@@ -353,6 +354,7 @@ public class userController {
 	@RequestMapping("/addMasterTrainerRoleById/add/{id}")
 	public String addMasterTrainerRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
 
+
 		// User user=-userRepository.findByUserId(id);
 
 		User user = userRepository.findOne(id);
@@ -380,16 +382,9 @@ public class userController {
 		return "showQualityReviweer";
 	}
 	
-
 	
 	
-
-		
-		
-		
-		
-		
-
+	
 	
 
 }

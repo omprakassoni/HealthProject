@@ -28,10 +28,7 @@ public class UserRole {
 	@JoinColumn(name="role_id")
 	private Role role;
 
-	
 	private int status;
-
-
 
 	public UserRole(){}
 	

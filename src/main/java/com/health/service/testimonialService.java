@@ -14,12 +14,10 @@ public interface testimonialService {
 	
     void deleteProduct(Integer id);
     
-    Testimonial getProductById(Integer id);
+    Testimonial getProductById(int id);
     
 
 	Boolean updateTestimonial(String description,String name, String uploadVideo,int consalantant_id);
 	
-	  
-	
-	
+
 }

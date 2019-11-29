@@ -1,6 +1,7 @@
 package com.health.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
@@ -24,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.health.domain.security.PasswordResetToken;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
-import com.health.model.User;
+import com.health.model.Category;
+import com.health.model.User;import com.health.repository.CategoryDao;
 import com.health.service.UserService;
+import com.health.service.categoryService;
 import com.health.service.impl.UserSecurityService;
 import com.health.utility.MailConstructor;
 import com.health.utility.SecurityUtility;
@@ -33,6 +36,7 @@ import com.health.utility.SecurityUtility;
 @Controller
 public class HomeController {
 
+	
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -45,9 +49,20 @@ public class HomeController {
 	@Autowired
 	private UserSecurityService userSecurityService;
 
+	@Autowired
+	private categoryService categoryservice;
+	
 	@RequestMapping("/")
-	public String index(){
-
+	public String index(Model model){
+		
+	List<Category> category=categoryservice.findAll();
+	
+	model.addAttribute("categorys",category);
+	
+	
+	
+			
+			
 		return "index";
 	}
 	
@@ -59,13 +74,17 @@ public class HomeController {
 		return "myAccount";
 		
 	}
-	
 	@RequestMapping("/HomeRemove")
 	public String homeLogin(){
 
 		return "HomeRemove";
 	}
+	
 
+
+	
+	
+	
 	@RequestMapping("/forgetPassword")
 	public String forgetPassword(
 			HttpServletRequest request,
@@ -123,6 +142,7 @@ public class HomeController {
 		model.addAttribute("classActiveNewAccount", true);
 		model.addAttribute("email", userEmail);
 		model.addAttribute("username", username);
+		
 		
 		if (userService.findByUsername(username) != null) {
 			model.addAttribute("usernameExists", true);

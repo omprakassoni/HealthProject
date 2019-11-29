@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="s/css/style.css"/>
+  <link rel="stylesheet" href="s/css/bootstrap.min.css"/>
+  
+</head>
+      <header role="banner">
+              <div class="top-bar">
+                    <a herf="Admin_Template.html">  
+                    <img src="img/logo.png "></img></a><span style="color: indianred">Health Nutrition</span>
+                	<div class="container">
+                  <div class="row">
+                  </div>
+                </div>
+              </div>
+         <!--blue line end-->  
+      </header> 
+  <body>
+      <div class="#">
+        <div class="row" style="padding-top: 180px">
+                  <div class="col-4">
+
+                  </div>
+                  <div class="col-4 shadow p-3 mb-5 bg-white rounded">
+ 
+                      <div class="h4 text-centre" style="color: chocolate; text-align: center; padding-top: 8px" >CONSALTANT</div>
+
+                            <form class="form-horizontal"  th:action="@{/addConsaltant}" method="post"  enctype="multipart/form-data">
+                          
+                          <div class="row" style="padding-top: 40px">
+
+                             <div class="row" style="padding-top: 20px">
+
+                                    <div class="col-5" style="padding-left:35px">
+                                                   <label for="nameConsaltant">Enter Name</label> 
+                                     </div>
+
+                                 <div class="col-7" style="padding-left: 25px">
+                                                <input type="text" class="form-control input-lg" id="nameConsaltant" name="nameConsaltant" style="width: 300px;" required="required"/>
+   												  
+                                     </div>
+                              </div>
+                              
+                              
+                                    <div class="row" style="padding-top: 20px">
+                                  
+
+                                                <div class="col-5" style="padding-left:35px">
+                                                               <label for="descriptionConsaltant" style="padding-top: 40px">Enter Description</label>  
+                                                 </div>
+
+									<div class="col-7" >
+
+                                            <textarea class="form-control" rows="5" id="descriptionConsaltant" name="descriptionConsaltant" style="width: 300px" required="required" ></textarea>
+                                                 </div>
+
+                                    </div>
+ 											<div class="row" style="padding-top: 20px">
+
+                                                    <div class="col-5" style="padding-left:35px">                                               
+                                                              <label for="consaltantImage" style="padding-top: 8px">Add Image</label> 
+                                                     </div>
+				         		 <div class="col-7">    
+				                               
+      
+      
+      
+    
+<!--footer -->                                                            
+										<input type="file" style="padding-right: 50px" class="form-control-file" id="consaltantImage"  name="uploadConsaltantImage" placeholder="uploadFile"   accept=".jpg, .jpeg ,img,.png" required="required"/>													
+										
+				   							  </div>
+                                        </div>
+                                                              
+                                            <div class="row">  
+                                                    
+                                                  <div class=""  style="padding-left: 250px; padding-top: 20px">
+                                                            <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
+                                                             <button type="submit" class="btn btn-success">Cancel</button>
+                                                  </div>                                                  
+                                              </div>
+                              
+                              </div>
+                                              
+                      </form>
+            </div>
+          </div>
+      </div>
+      
+    <div class="">
+    
+   
+      </div>
+
+      <!--
+      end the body conmtaine 
+    -->
+      
+      
+      
+    
+<!--footer --> 
+      <div class="#">
+          
+          
+          <div class="aaic-grbg1 pt-3 py-3 " style="height:300px">
+              
+              <h3></h3>
+              
+          </div>       	
+      </div>
+        <script src="static/s/css/all.css"></script>
+         <script src="static/s/js/all.js"></script>
+        <script src="static/s/css/bootstrap.min.css" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="static/s/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -15,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadController {
 
 	 public static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
-	  @RequestMapping("/")
+	
+	 
+	 @RequestMapping("/")
 	  public String UploadPage(Model model) {
 		  return "uploadview";
 	  }
@@ -32,6 +34,7 @@ public class FileUploadController {
 			}
 		  }
 		  model.addAttribute("msg", "Successfully uploaded files "+fileNames.toString());
+		  
 		  return "uploadstatusview"; 
 
 		  

@@ -15,6 +15,7 @@ public class Consaltantant {
 	private String nameConsaltant;
 	private String descriptionConsaltant;
 	private String uploadConsaltantImage;
+
 	public String getNameConsaltant() {
 		return nameConsaltant;
 	}

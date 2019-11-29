@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">  
+<head>
+
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="s/css/style.css"/>
+  <link rel="stylesheet" href="s/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="s/js/jquery.min"/>
+
+
+</head>
+      <header role="banner">
+              <div class="top-bar">
+                  <a href="Admin_Template.html">  <img src="img/logo.png "></img></a> <span style="color: indianred">Health Nutrition</span>
+                <div class="container">
+                  <div class="row">
+                  
+                  </div>
+                </div>
+              </div>
+      
+    
+      </header> 
+  <body>
+       
+
+      <div class="#">
+          
+          
+        <div class="row" style="padding-top: 180px">
+                  <div class="col-4">
+
+
+                  </div>
+            
+                  <div class="col-4 shadow p-3 mb-5 bg-white rounded">
+ 
+                     <div class="h4 text-centre" style="color: chocolate; text-align: center; padding-top: 8px" >TESTIMONIAL</div>
+                          
+                        
+      
+                      <form class="form-horizontal"  th:action="@{/addTestimonial}" method="post"  enctype="multipart/form-data">
+ 
+                          <div class="row" style="padding-top: 40px">
+                
+   
+                             <div class="row" style="padding-top: 20px">
+                                  
+                               
+                                    <div class="col-5" style="padding-left:35px">
+                                                   <label for="testimonialName">Enter Name</label> 
+                                     </div>
+
+                                    <div class="col-7" style="padding-left: 25px">
+                                                   <input type="text" class="form-control" id="testimonialName" name="testimonialName" style="width: 300px;"/>
+                                     </div>
+                              </div>
+                              
+                                    <div class="row" style="padding-top: 20px">
+                                  
+
+                                                <div class="col-5" style="padding-left:35px">
+                                                               <label for="testimonialDescription" style="padding-top: 40px">Enter Description</label> 
+                                                 </div>
+
+                                            <div class="col-7">
+                                                       <textarea class="form-control" rows="5" id="testimoniaqlDescription" name="testimoniaqlDescription" style="width: 300px"></textarea>
+                                             </div>
+                                    </div>
+                                    <div class="row" style="padding-top: 20px">
+
+                                                    <div class="col-5" style="padding-left:35px">                                               
+                                                              <label for="testimonialVideo" style="padding-top: 8px">Add  Video</label> 
+                                                     </div>
+                                                     
+				         		 <div class="col-7">    
+	                                                                                                
+										<input type="file" style="padding-right: 50px" class="form-control-file" id="testimonialVideo"  name="uploadTestiminial"  accept=".mp4" placeholder="uploadFile"/>
+							
+															
+				   							  </div>
+                                        </div>
+                                            <div class="row"> 
+                                                  
+                                                  <div class=""  style="padding-left: 250px; padding-top: 20px">
+                                                  
+                                                  
+                                                  
+                                                            <button type="submit" value="showAlert" onclick="showAlert();"  class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
+                                                             <button type="reset" class="btn btn-success">Reset</button>
+                                                  </div>
+                                              </div>    
+                  </div>
+                      </form>
+            </div>
+         
+          </div>
+      </div>
+  
+  
+  
+<!--footer --> 
+      <div class="#">sm
+          <div class="aaic-grbg1 pt-3 py-3 " style="height:300px">    
+              <h3></h3>         
+          </div>
+      </div>
+        <script src="/s/css/all.css"></script>
+         <script src="/s/js/all.js"></script>
+        <script src="/s/css/bootstrap.min.css" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="/s/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
+

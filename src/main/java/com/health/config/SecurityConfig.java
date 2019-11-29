@@ -37,6 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/login",
 			"/s/**",
 			"/adminDeatail/**",
+			"/loadByCategoryTuturial",
+			"/showTutorial",
+			"/findTutorialByLanand",
+			"/showVideoWithContained",
 			"/fonts/**"	
 	};
 	@Override
@@ -49,7 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(PUBLIC_MATCHERS).
 				permitAll().anyRequest().authenticated().
 				and()
-				.exceptionHandling().accessDeniedPage("/access-denied");;
+				.exceptionHandling().accessDeniedPage("/access-denied");
+		
+			http.headers().frameOptions().disable();
+		
 		
 		/*
 		 * http

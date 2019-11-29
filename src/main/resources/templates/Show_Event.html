@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+<head>	
+
+	<meta charset="utf-8"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700" rel="stylesheet"/>
+    <link rel="stylesheet" href="/s/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/s/css/animate.css"/>
+    <link rel="stylesheet" href="/s/css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="/s/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="/s/css/jquery.timepicker.css"/>
+    <link rel="stylesheet" href="/s/fonts/ionicons/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="/s/fonts/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/s/fonts/flaticon/font/flaticon.css"/>
+    <!-- Theme Style-->
+    <link rel="stylesheet" href="/s/css/style.css"/>
+    
+    
+</head>
+<body>
+
+    <header role="banner">
+      <div class="top-bar">
+        <div class="container">              
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-5">
+              <ul class="social list-unstyled">      
+   
+              </ul>
+            </div>
+            <div class="col-md-6 col-sm-6 col-7 text-right">
+  
+  
+  
+						<div sec:authorize="isAuthenticated()"> 
+						  
+						   Logged user: Welcome Admin <span sec:authentication="name"></span> |
+		 
+						</div>
+							
+				<div class="row">
+
+						<div class="col">
+						<a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New User</a>
+						<a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">MY ACCOUNT</a>
+						<a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a>
+				</div>
+		
+			</div>
+            </div>
+              <marquee direction="left">1800 180 0101</marquee>
+  
+          </div><!--
+            Herwe we write login button -->
+       
+          <!--  <a class="btn btn-success float-right" th:href="@{/login}">Login</a>  -->
+   
+        </div>
+      </div>
+     
+  
+</header>
+
+
+      <div class="#">
+          
+        
+          <div class="row" style="padding-top: 150px">
+
+              <div class="col-2">                 
+              </div> 
+              <div class="col-8">
+          
+                     <div>
+					        <h2>EVENTS LIST</h2>
+					        
+					        <table class="table table-striped">
+					            <tr>
+					                <th>Id</th>
+					                <th>Name</th>
+					                <th>Date</th>
+					                <th>Description</th>
+					                <th>Venue Name</th>
+					                <th>Contact Person</th>	
+					                <th>Contact Number</th>	
+    		                   
+					          	    <th>Email</th>
+					          	    
+					   
+					                <th>Edit</th>
+					                <th>Delete</th>
+					                
+					                
+					            </tr>
+					            	<tr th:each="event : ${events}">
+						                <td th:text="${event.id}">description</td>  
+						                <td th:text="${event.eventname}">descirption</td>
+						                <td th:text="${event.date}">descirption</td>
+						                <td th:text="${event.description}">description</td>  
+						                <td th:text="${event.venuename}">descirption</td>
+						                <td th:text="${event.contactperson}">descirption</td>
+						                <td th:text="${event.contactnumber}">descirption</td>
+									   <td th:text="${event.email}">descirption</td>
+
+					                <td><a th:href="${'event/edit/' + event.id}">Edit</a></td>  
+   
+					                <td><a th:href="${'/event/delete/' + event.id}">Delete</a></td>
+    
+					            </tr>
+					        </table>
+					    </div>
+              </div>
+              
+              <div class="col-2">
+                  
+              </div>
+ 
+<!--footer --> 
+     </div>
+    
+          
+      </div>
+      
+        <script src="/static/s/css/all.css"></script>
+         <script src="/static/s/js/all.js"></script>
+        <script src="/static/s/css/bootstrap.min.css" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="/static/s/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

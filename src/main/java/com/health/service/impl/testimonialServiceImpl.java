@@ -47,15 +47,16 @@ public class testimonialServiceImpl implements  testimonialService {
 		        
 		    }
 		   
-	/*
-	 * @Override public Testimonial getProductById(Integer id){
-	 * 
-	 * Optional<Testimonial> var=testimonialdao.findOne(id) //findById(id);
-	 * 
-	 * return var.get();
-	 * 
-	 * }
-	 */
+	
+	  @Override 
+	  public Testimonial getProductById(int id){
+	  
+	  Testimonial var=testimonialdao.findOne(id) ;//findById(id);
+	  
+	  return var;
+	  
+	  }
+	 
 		   
 		   
 		   @Override
@@ -78,11 +79,6 @@ public class testimonialServiceImpl implements  testimonialService {
 
 
 
-		@Override
-		public Testimonial getProductById(Integer id) {
-			// TODO Auto-generated method stub
-			return null;
-		}
 
 	
 	

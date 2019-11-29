@@ -33,7 +33,6 @@ public class User implements UserDetails{
 	private String lastName;
 	private String address;
 	
-	
 	public String getAddress() {
 		return address;
 	}

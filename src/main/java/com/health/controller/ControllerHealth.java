@@ -1,999 +1,1093 @@
-/*
- * package com.health.controller;
- * 
- * import java.io.File; import java.io.IOException; import java.nio.file.Files;
- * import java.nio.file.Path; import java.nio.file.Paths; import
- * java.util.ArrayList; import java.util.Iterator; import java.util.List;
- * 
- * import javax.security.auth.Subject; import
- * javax.servlet.http.HttpServletRequest; import javax.validation.Valid;
- * 
- * import org.springframework.beans.factory.annotation.Autowired; import
- * org.springframework.http.HttpRequest; import
- * org.springframework.stereotype.Controller; import
- * org.springframework.ui.Model; import
- * org.springframework.web.bind.annotation.PathVariable; import
- * org.springframework.web.bind.annotation.RequestBody; import
- * org.springframework.web.bind.annotation.RequestMapping; import
- * org.springframework.web.bind.annotation.RequestMethod; import
- * org.springframework.web.bind.annotation.RequestParam; import
- * org.springframework.web.bind.annotation.ResponseBody; import
- * org.springframework.web.multipart.MultipartFile; import
- * org.springframework.web.servlet.ModelAndView;
- * 
- * 
- * 
- * @Controller public class ControllerHealth {
- * 
- * public static String uploadDirectoryConsaltant = "src/main/resources/static"
- * + "/Media/content" + "/Consaltant";
- * 
- * 
- * public static String uploadDirectory = "src/main/resources/static" +
- * "/Media/content" + "/Testimonial";
- * 
- * public String pathfile = uploadDirectory;
- * 
- * @Autowired(required = false) private Daolayer daolayer;
- * 
- * @Autowired(required = false) private UserServiceREMOVE userservice;
- * 
- * @Autowired(required = false) private classservice classservice;
- * 
- * @Autowired private testimonialService testimonialService;
- * 
- * @Autowired(required = false) private ConsaltantService consaltantservice;
- * 
- * @Autowired(required = false) private eventService eventService;
- * 
- * @Autowired(required = false) private category_languageService catlanservice;
- * 
- * @Autowired(required = false) private catlanguageDao languagNewDao;
- * 
- * @Autowired(required = false) private LanguageService LanguageService;
- * 
- * @Autowired(required = false) private categoryNewdao categoryNewDao;;
- * 
- * @Autowired(required = false) private categoryNewService categoryNewService;
- * 
- * 
- * @RequestMapping("/") public String Admin(){
- * 
- * return "Admin_Template"; }
- * 
- * 
- * @RequestMapping("/h1") public String Admin2(){
- * 
- * return "Admin_Template"; }
- * 
- * 
- * @RequestMapping("/index") public String Index() {
- * 
- * return "index"; }
- * 
- * @RequestMapping("/Category") public String category() {
- * 
- * return "Category"; }
- * 
- * @RequestMapping("/Consaltant") public String Consaltant() {
- * 
- * return "Consaltant";
- * 
- * }
- * 
- * @RequestMapping("/Testimonial") public String Testimonial() {
- * 
- * return "Testimonial"; }
- * 
- * @RequestMapping("/Language") public String Language() {
- * 
- * return "addLanguage";
- * 
- * }
- * 
- * @RequestMapping("Event") public String Event() {
- * 
- * return "addEvent";
- * 
- * }
- * 
- * @RequestMapping("/Upload_Question") public String uploadquestion() {
- * 
- * return "Upload_Question";
- * 
- * }
- * 
- * 
- * @RequestMapping("/login") public String Login() {
- * 
- * return "Login"; }
- * 
- * 
- * @RequestMapping("/UploadVideo") public String uploadVideo() {
- * 
- * return "adduploadTutorial";
- * 
- * }
- * 
- * 
- * 
- * Here we write code for category
- * 
- * @RequestMapping(value = "/saveinfo", method = RequestMethod.POST) public
- * String add(HttpServletRequest req, Model model) {
- * 
- * String categoryName = req.getParameter("name");
- * 
- * UserReview user = new UserReview(); user.setName(categoryName);
- * 
- * userservice.saveProduct(user); model.addAttribute("msg",
- * "Successfully upload File");
- * 
- * return "Admin_Template";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here we write code for add testimonial
-	 *************************************************************************/
-/*
- * 
- * String filepath;
- * 
- * @RequestMapping("/addTestimonial") public String upload(HttpServletRequest
- * req, Model model,
- * 
- * @RequestParam("uploadTestiminial") MultipartFile[] files) {
- * 
- * String path = null; String testimonialName =
- * req.getParameter("testimonialName"); String testimoniaqlDescription =
- * req.getParameter("testimoniaqlDescription");
- * 
- * String abc = uploadDirectory + "/" + testimonialName;
- * 
- * new File(abc).mkdir();
- * 
- * StringBuilder fileNames = new StringBuilder(); for (MultipartFile file :
- * files) { Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
- * 
- * fileNames.append(file.getOriginalFilename() + " ");
- * 
- * try { Files.write(fileNameAndPath, file.getBytes());
- * System.out.println(fileNameAndPath.toString());
- * 
- * filepath = fileNameAndPath.toString();
- * 
- * } catch (IOException e) { e.printStackTrace(); }
- * 
- * }
- * 
- * String substring = filepath.substring(26);
- * 
- * Testimonial testimonial = new Testimonial();
- * 
- * testimonial.setTestimonialName(testimonialName);
- * testimonial.setTestimoniaqlDescription(testimoniaqlDescription);
- * 
- * testimonial.setUploadTestiminial(substring);
- * 
- * userservice.save(testimonial);
- * 
- * model.addAttribute("msg", "Successfully uploaded files " +
- * fileNames.toString());
- * 
- * return "Admin_Template"; }
- * 
- *//*****************************************************
-	 * Here we End write code for add testimonial
-	 *************************************************************************/
-/*
 
-*//*****************************************************
+package com.health.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.health.domain.security.Role;
+import com.health.domain.security.UserRole;
+import com.health.model.Category;
+import com.health.model.Consaltantant;
+import com.health.model.Event;
+import com.health.model.Testimonial;
+import com.health.model.Tutorial;
+import com.health.model.User;
+import com.health.model.category_Tutorial;
+import com.health.repository.CategoryDao;
+import com.health.repository.CategoryTutorialDao;
+import com.health.repository.ConsaltantDao;
+import com.health.repository.EventDao;
+import com.health.repository.RoleRepository;
+import com.health.repository.TestimonialDao;
+import com.health.repository.TutorialDao;
+import com.health.repository.UserRepository;
+import com.health.repository.UserRoleRepositary;
+import com.health.service.ConsaltantService;
+import com.health.service.categoryService;
+import com.health.service.eventService;
+import com.health.service.testimonialService;
+
+@Controller
+public class ControllerHealth {
+
+	public static String uploadDirectoryConsaltant = "src/main/resources/static" + "/Media/content" + "/Consaltant";
+
+	public static String uploadDirectory = "src/main/resources/static" + "/Media/content" + "/Testimonial";
+
+	public static String uploadDirectorOutLine = "src/main/resources/static" + "/Media/content" + "/Tutorial/Outline";
+	public static String uploadDirectorScript = "src/main/resources/static" + "/Media/content" + "/Tutorial/Script";
+	public static String uploadDirectorTimeScript = "src/main/resources/static" + "/Media/content"
+			+ "/Tutorial/TimeScript";
+	public static String uploadDirectorVideo = "src/main/resources/static" + "/Media/content" + "/Tutorial/Video";
+	public static String uploadDirectorKeyWord = "src/main/resources/static" + "/Media/content" + "/Tutorial/KeyWord";
+
+	public String pathfile = uploadDirectory;
+
+	@Autowired
+	private ConsaltantService consaltantservice;
+
+	@Autowired
+	private ConsaltantDao consalttantDao;
+
+	@Autowired
+	private testimonialService testimonialService;
+
+	@Autowired
+	private TestimonialDao testimonialDao;
+
+	@Autowired
+	private CategoryDao categoryDao;
+
+	@Autowired
+	private categoryService categoryService;
+
+	@Autowired
+	private eventService eventService;
+
+	@Autowired
+	private EventDao eventDao;
+
+	@Autowired
+	private TutorialDao tutorialDao;
+
+	@Autowired
+	private CategoryTutorialDao categoryTutorialDao;
+
+	@Autowired
+	private RoleRepository rolerespositary;
+
+	@Autowired
+	private UserRoleRepositary userRoleRepositary;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@RequestMapping("/Consaltant")
+	public String Consaltant() {
+
+		return "addConsaltant";
+
+	}
+
+	@RequestMapping("/show_consalantant")
+	public String show_consalantant() {
+
+		return "Show_Consaltant";
+
+	}
+
+	@RequestMapping("/Testimonial")
+	public String Testimonial() {
+
+		return "addTestimonial";
+
+	}
+
+	@RequestMapping("/Event")
+	public String Event() {
+
+		return "addEvent";
+
+	}
+
+	@RequestMapping("/adminShowDomainReviweer")
+	public String adminShowQualityreviweer(Model model) {
+
+		int rolId = 3;
+		Role role = rolerespositary.findByIdRoles(rolId);
+
+		int status = 0;
+		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
+
+		List<User> userAddInformation = new ArrayList<>();
+
+		for (UserRole ur : userByStatus) {
+
+			User userInformation = userRepository.findOne(ur.getUser().getId());
+
+			userAddInformation.add(userInformation);
+
+		}
+
+		model.addAttribute("statusByApprov", userAddInformation);
+
+		return "adminShowDomainReviweer";
+
+	}
+
+	@RequestMapping("/adminShowQualityreviweer")
+	public String adminshowDomainReviweer(Model model) {
+
+		int rolId = 1;
+		Role role = rolerespositary.findByIdRoles(rolId);
+
+		int status = 0;
+		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
+
+		List<User> userAddInformation = new ArrayList<>();
+
+		for (UserRole ur : userByStatus) {
+
+			User userInformation = userRepository.findOne(ur.getUser().getId());
+
+			userAddInformation.add(userInformation);
+
+		}
+
+		model.addAttribute("statusByApprov", userAddInformation);
+
+		return "adminShowQualityReviweer";
+
+	}
+
+	@RequestMapping("/adminShowMasterTrainer")
+	public String showMasterTrainer(Model model) {
+
+		int rolId = 4;
+
+		Role role = rolerespositary.findByIdRoles(rolId);
+		int status = 0;
+		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
+
+		List<User> userAddInformation = new ArrayList<>();
+
+		for (UserRole ur : userByStatus) {
+
+			User userInformation = userRepository.findOne(ur.getUser().getId());
+
+			userAddInformation.add(userInformation);
+
+		}
+
+		model.addAttribute("masterTrainerDetail", userAddInformation);
+
+		return "adminShowMasterTrainer";
+	}
+
+	@RequestMapping("/Category")
+	public String addCategory() {
+
+		return "addCategory";
+	}
+
+	@RequestMapping("/TutorialAdd")
+	public String tutorialAdd(Model model) {
+
+		List<Category> categoryList = (List<Category>) categoryService.findAll();
+
+		model.addAttribute("categorys", categoryList);
+		return "adduploadTutorial";
+	}
+
+	@RequestMapping("/show_category")
+	public String show_category(Model model) {
+
+		List<Category> category = (List<Category>) categoryDao.findAll();
+
+		model.addAttribute("products", category);
+
+		return "showCategory";
+	}
+
+	/*****************************************************
 	 * Here we write code for add conslantant
 	 *************************************************************************/
-/*
- * 
- * String fileconsalantant;
- * 
- * @RequestMapping("addConsaltant") public String
- * uploadConsaltant(HttpServletRequest req, Model model,
- * 
- * @RequestParam("uploadConsaltantImage") MultipartFile[] files) {
- * 
- * String path = null; String nameConsaltant =
- * req.getParameter("nameConsaltant"); String descriptionConsaltant =
- * req.getParameter("descriptionConsaltant");
- * 
- * String abc = uploadDirectoryConsaltant + "/" + nameConsaltant; new
- * File(abc).mkdir();
- * 
- * StringBuilder fileNames = new StringBuilder(); for (MultipartFile file :
- * files) { Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
- * fileNames.append(file.getOriginalFilename() + " ");
- * 
- * try { Files.write(fileNameAndPath, file.getBytes());
- * 
- * fileconsalantant = fileNameAndPath.toString();
- * 
- * } catch (IOException e) { e.printStackTrace(); } }
- * 
- * String substring = fileconsalantant.substring(26);
- * 
- * Consaltantant consaltantant = new Consaltantant();
- * 
- * consaltantant.setNameConsaltant(nameConsaltant);
- * consaltantant.setDescriptionConsaltant(descriptionConsaltant);
- * consaltantant.setUploadConsaltantImage(substring);
- * 
- * userservice.save(consaltantant);
- * 
- * System.err.println(uploadDirectory);
- * 
- * model.addAttribute("msg", "Successfully uploaded files " +
- * fileNames.toString());
- * 
- * return "Admin_Template"; }
- * 
- *//*****************************************************
-	 * Here we End write code for add Language
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping("/addlanguage") public String AddLanaguage(HttpServletRequest
- * req, Model model) {
- * 
- * String lang = req.getParameter("language");
- * 
- * language language = new language(); language.setLanguage(lang);
- * userservice.save(language);
- * 
- * return "redirect:/Language";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here End write code for add language
-	 *************************************************************************/
-/*
 
-*//*****************************************************
-	 * Here Star write
-	 *************************************************************************/
-/*
- * 
- * Here code for access category
- * 
- * @RequestMapping(value = "/addabc", method = RequestMethod.GET)
- * 
- * public ModelAndView addClassget(ModelAndView mv) {
- * 
- * ArrayList<UserReview> standard = (ArrayList<UserReview>)
- * classservice.findAll();
- * 
- * ArrayList<String> newNonExistClass = new ArrayList<String>();
- * 
- * newNonExistClass.add("Breast Crawl");
- * newNonExistClass.add("Cross cradle hold for breastfeeding ");
- * newNonExistClass.add("Breastfeeding latching");
- * newNonExistClass.add("Breastfeeding difficulties ");
- * newNonExistClass.add("Science of breastmilk");
- * newNonExistClass.add("Nipple conditions");
- * newNonExistClass.add("Breast conditions");
- * 
- * for (UserReview s : standard) {
- * 
- * if (newNonExistClass.contains(s.getName()))
- * newNonExistClass.remove(s.getName()); } mv.addObject("classExist",
- * newNonExistClass); mv.setViewName("Language");
- * 
- * return mv;
- * 
- * }
- * 
- *//*****************************************************
-	 * ???????????
-	 *************************************************************************/
-/*
+	String fileconsalantant;
 
-*//*****************************************************
-	 * ???????????
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/addabc", method = RequestMethod.POST) public
- * ModelAndView addClassPost(@RequestParam(name = "classSelected") String
- * classSelected, ModelAndView mv) {
- * 
- * UserReview class_data = new UserReview();
- * 
- * class_data.setName(classSelected); classservice.save(class_data);
- * 
- * mv.addObject("status", "Ad		\n" + "		ded Sucessfully");
- * 
- * ArrayList<UserReview> standard = (ArrayList<UserReview>)
- * classservice.findAll();
- * 
- * ArrayList<String> newNonExistClass = new ArrayList<String>();
- * newNonExistClass.add("Class 1"); newNonExistClass.add("Class 2");
- * newNonExistClass.add("Class 3"); newNonExistClass.add("Class 4");
- * newNonExistClass.add("Class 5"); newNonExistClass.add("Class 6");
- * newNonExistClass.add("Class 7"); newNonExistClass.add("Class 8");
- * newNonExistClass.add("Class 9"); newNonExistClass.add("Class 10");
- * newNonExistClass.add("Class 11"); newNonExistClass.add("Class 12");
- * 
- * for (UserReview s : standard) { if (newNonExistClass.contains(s.getName()))
- * newNonExistClass.remove(s.getName());
- * 
- * }
- * 
- * mv.addObject("classExist", newNonExistClass); mv.setViewName("addclass");
- * return mv;
- * 
- * }
- * 
- *//*****************************************************
-	 * ???????????
-	 *************************************************************************/
-/*
+	@RequestMapping("/addConsaltant")
+	public String uploadConsaltant(HttpServletRequest req, Model model,
+			@RequestParam("uploadConsaltantImage") MultipartFile[] files)
 
-*//*****************************************************
-	 * here We write code for Upload tutorial
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/uploadTutorial", method = RequestMethod.GET) public
- * String list(Model model) {
- * 
- * List<UserReview> name = classservice.findAll();
- * 
- * model.addAttribute("products", name);
- * 
- * System.out.println("Returning rpoducts:");
- * 
- * return "Upload_Video";
- * 
- * }
- * 
- * 
- * Here we feching information User by id
- * 
- * 
- * @RequestMapping("product/{id}") public String showProduct(@PathVariable
- * Integer id, Model model) {
- * 
- * model.addAttribute("product", classservice.getProductById(id));
- * 
- * return "productshow";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here We end upload Testimonial
-	 *************************************************************************/
-/*
- * 
- * Here we Edit information User by id
- * 
- * @RequestMapping("product/edit/{id}") public String edit(@PathVariable Integer
- * id, Model model, HttpServletRequest req) {
- * 
- * String categoryName = req.getParameter("name");
- * 
- * System.err.println(categoryName);
- * 
- * UserReview user = classservice.getProductById(id);
- * 
- * user.setName(categoryName);
- * 
- * userservice.saveProduct(user);
- * 
- * model.addAttribute("product", classservice.getProductById(id));
- * 
- * System.err.println(categoryName);
- * 
- * return "productform";
- * 
- * }
- * 
- * Here we Edit and new item information User by id
- * 
- * @RequestMapping("product/new") public String newProduct(Model model) {
- * model.addAttribute("product", new UserReview());
- * 
- * return "productform"; }
- * 
- *//*****************************************************
-	 * Here Start Write code to Show category
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/show_category", method = RequestMethod.GET) public
- * String showcategory(Model model) {
- * 
- * List<UserReview> name = classservice.findAll();
- * 
- * model.addAttribute("products", name);
- * 
- * return "Show_category"; }
- * 
- *//*****************************************************
-	 * Here End Write code to Show category
-	 *************************************************************************/
-/*
+	{
 
-*//*****************************************************
-	 * Here Start Write code to Show Testimonial
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/show_testimonial", method = RequestMethod.GET)
- * 
- * public String showtestimonial(Model model) {
- * 
- * List<Testimonial> name = testimonialService.findAll();
- * 
- * model.addAttribute("testimonials", name);
- * 
- * return "Show_Testimonial";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here End Write code to End show testimonial
-	 *************************************************************************/
-/*
+		String path = null;
+		String nameConsaltant = req.getParameter("nameConsaltant");
+		String descriptionConsaltant = req.getParameter("descriptionConsaltant");
 
-*//*****************************************************
-	 * Here Write code to Edit Testimonial
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping("productTesdtimonial/edit/{id}") public String
- * editconsalantantDemo(@PathVariable Integer id, Model model,
- * HttpServletRequest req) {
- * 
- * Testimonial testimonial = new Testimonial();
- * 
- * testimonial = testimonialService.getProductById(id);
- * 
- * model.addAttribute("testimonials", testimonial);
- * 
- * return "Update_Testimonial";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here Write code to End Edit Testimonial
-	 *************************************************************************/
-/*
+		String abc = uploadDirectoryConsaltant + "/" + nameConsaltant;
+		new File(abc).mkdir();
 
-*//*****************************************************
-	 * Here Write code to update Testimonial
-	 ****************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/updateTetimonial", method = RequestMethod.POST)
- * public String updateTestimonial(HttpServletRequest
- * req, @RequestParam("uploadTestiminial") MultipartFile[] files) {
- * 
- * String id = req.getParameter("testimonialId"); String path = null; String
- * nametestimonial = req.getParameter("testimonialName"); String
- * descriptionTestimonial = req.getParameter("testimoniaqlDescription"); int
- * testimonial_id = Integer.parseInt(id);
- * 
- * String abc = uploadDirectoryConsaltant + "/" + nametestimonial; new
- * File(abc).mkdir();
- * 
- * StringBuilder fileNames = new StringBuilder(); for (MultipartFile file :
- * files) { Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
- * fileNames.append(file.getOriginalFilename() + " ");
- * 
- * try { Files.write(fileNameAndPath, file.getBytes()); fileconversion =
- * fileNameAndPath.toString();
- * 
- * } catch (IOException e) { e.printStackTrace(); } }
- * 
- * String substring = fileconversion.substring(26);
- * 
- * String var = substring.toString(); System.out.println(var);
- * 
- * testimonialService.updateTestimonial(nametestimonial, descriptionTestimonial,
- * var, testimonial_id);
- * 
- * System.err.println(uploadDirectory);
- * 
- * return "redirect:/show_testimonial";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here End code update to Testimonial
-	 *************************************************************************/
-/*
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : files) {
+			Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+			fileNames.append(file.getOriginalFilename() + " ");
 
-*//*****************************************************
-	 * Here Start Write code to delete Testimonial
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping("testimonial/delete/{id}") public String
- * deleteTestimonial(@PathVariable Integer id, Model model, ModelAndView mv) {
- * 
- * testimonialService.deleteProduct(id);
- * 
- * return "redirect:/show_testimonial";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here End Write code to Event delete
-	 *************************************************************************/
-/*
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
 
-*//*****************************************************
-	 * Here Start Write code to delete consalantant
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping("product/delete/{id}") public String delete(@PathVariable
- * Integer id, Model model, ModelAndView mv) {
- * 
- * testimonialService.deleteProduct(id);
- * 
- * return "redirect:/show_testimonial";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here End Write code to delete consalantant
-	 *************************************************************************/
-/*
+				fileconsalantant = fileNameAndPath.toString();
 
-*//*****************************************************
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		String substring = fileconsalantant.substring(26);
+
+		Consaltantant consaltantant = new Consaltantant();
+
+		consaltantant.setNameConsaltant(nameConsaltant);
+		consaltantant.setDescriptionConsaltant(descriptionConsaltant);
+		consaltantant.setUploadConsaltantImage(substring);
+
+		consalttantDao.save(consaltantant);
+
+		System.err.println(uploadDirectory);
+
+		model.addAttribute("msg", "Successfully uploaded files " + fileNames.toString());
+
+		return "addConsaltant";
+
+	}
+
+	/*****************************************************
 	 * Here Start Write code to show consalantant
 	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/show_consalantant", method = RequestMethod.GET)
- * 
- * public String showconsaltant(Model model) {
- * 
- * List<Consaltantant> name = consaltantservice.findAll();
- * 
- * model.addAttribute("products", name);
- * 
- * return "Show_Consaltant";
- * 
- * }
- * 
- *//*****************************************************
+
+	@RequestMapping(value = "/show_consalantant", method = RequestMethod.GET)
+
+	public String showconsaltant(Model model) {
+
+		List<Consaltantant> name = consaltantservice.findAll();
+
+		model.addAttribute("products", name);
+
+		return "Show_Consaltant";
+
+	}
+
+	/*****************************************************
 	 * Here End Write code to show consalantant
 	 *************************************************************************/
-/*
 
-*//*****************************************************
+	/*****************************************************
 	 * Here Start Write code to consalantant delete
 	 *************************************************************************/
-/*
- * 
- * @RequestMapping("consalantant/delete/{id}") public String
- * deleteconsalantant(@PathVariable Integer id, Model model, ModelAndView mv) {
- * 
- * consaltantservice.deleteProduct(id);
- * 
- * return "redirect:/show_consalantant";
- * 
- * }
- * 
- *//*****************************************************
+
+	@RequestMapping("/consalantant/delete/{id}")
+	public String deleteconsalantant(@PathVariable Integer id, Model model, ModelAndView mv) {
+
+		consaltantservice.deleteProduct(id);
+
+		return "redirect:/show_consalantant";
+
+	}
+
+	/*****************************************************
 	 * Here End Write code to consalantant delete
 	 *************************************************************************/
-/*
 
-*//*****************************************************
+	/*****************************************************
 	 * Here Start Write code to consalantant select by id for Edit
 	 *************************************************************************/
-/*
- * 
- * Here we Edit information User by id
- * 
- * @RequestMapping("productconsalantant/edit/{id}") public String
- * editconsalantant(@PathVariable Integer id, Model model, HttpServletRequest
- * req) {
- * 
- * Consaltantant consaltantant = consaltantservice.getProductById(id);
- * 
- * model.addAttribute("products", consaltantant);
- * 
- * return "Update_Consalantant";
- * 
- * return "Update _ConsalantantTwo";
- * 
- * }
- * 
- *//*****************************************************
+
+	/* Here we Edit information User by id */
+
+	@RequestMapping("productconsalantant/edit/{id}")
+	public String editconsalantant(@PathVariable Integer id, Model model, HttpServletRequest req) {
+
+		Consaltantant consaltantant = consaltantservice.getProductById(id);
+
+		model.addAttribute("products", consaltantant);
+
+		// return "Update_Consalantant"; categoryService
+
+		return "Update _ConsalantantTwo";
+
+	}
+
+	/*****************************************************
 	 * Here End Write code to consalantant select by id for Edit
 	 *************************************************************************/
-/*
 
-*//*****************************************************
+	/*****************************************************
 	 * Here Write code to update consalantant
 	 *************************************************************************/
-/*
- * 
- * String fileconversion;
- * 
- * @RequestMapping(value = "/consalantantupdate", method = RequestMethod.POST)
- * public String uploadConsaltantUpdate(HttpServletRequest req,
- * 
- * @RequestParam("uploadConsaltantImage") MultipartFile[] files) {
- * 
- * String id = req.getParameter("productId");
- * 
- * String path = null; String nameConsaltant =
- * req.getParameter("nameConsaltant"); String descriptionConsaltant =
- * req.getParameter("descriptionConsaltant"); int consalantant_id =
- * Integer.parseInt(id);
- * 
- * System.out.println("hi" + consalantant_id); System.err.println("Hi" +
- * consalantant_id); System.err.println(descriptionConsaltant);
- * System.out.println(nameConsaltant);
- * 
- * String abc = uploadDirectoryConsaltant + "/" + nameConsaltant; new
- * File(abc).mkdir();
- * 
- * StringBuilder fileNames = new StringBuilder(); for (MultipartFile file :
- * files) { Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
- * fileNames.append(file.getOriginalFilename() + " ");
- * 
- * try { Files.write(fileNameAndPath, file.getBytes()); fileconversion =
- * fileNameAndPath.toString();
- * 
- * } catch (IOException e) { e.printStackTrace(); } }
- * 
- * String substring = fileconversion.substring(26);
- * 
- * String var = substring.toString(); System.out.println(var);
- * 
- * consaltantservice.UpdateConsalantant(descriptionConsaltant, nameConsaltant,
- * var, consalantant_id);
- * 
- * System.err.println(uploadDirectory);
- * 
- * return "Admin_Template";
- * 
- * }
- * 
- *//*****************************************************
+
+	String fileconversion;
+
+	@RequestMapping(value = "/consalantantupdate", method = RequestMethod.POST)
+	public String uploadConsaltantUpdate(HttpServletRequest req,
+			@RequestParam("uploadConsaltantImage") MultipartFile[] files) {
+
+		String id = req.getParameter("productId");
+
+		String path = null;
+		String nameConsaltant = req.getParameter("nameConsaltant");
+		String descriptionConsaltant = req.getParameter("descriptionConsaltant");
+		int consalantant_id = Integer.parseInt(id);
+
+		System.out.println("hi" + consalantant_id);
+		System.err.println("Hi" + consalantant_id);
+		System.err.println(descriptionConsaltant);
+		System.out.println(nameConsaltant);
+
+		String abc = uploadDirectoryConsaltant + "/" + nameConsaltant;
+		new File(abc).mkdir();
+
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : files) {
+			Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+			fileNames.append(file.getOriginalFilename() + " ");
+
+			try {
+
+				Files.write(fileNameAndPath, file.getBytes());
+				fileconversion = fileNameAndPath.toString();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		String substring = fileconversion.substring(26);
+
+		String var = substring.toString();
+		System.out.println(var);
+
+		consaltantservice.UpdateConsalantant(descriptionConsaltant, nameConsaltant, var, consalantant_id);
+
+		System.err.println(uploadDirectory);
+
+		return "redirect:/show_consalantant";
+
+	}
+
+	/*****************************************************
 	 * Here End code update of consalantant
 	 *************************************************************************/
-/*
 
-*//*****************************************************
-	 * Here we write code for add Event
+	/*****************************************************
+	 * Here we write code for add testimonial
 	 *************************************************************************/
-/*
- * 
- * @RequestMapping("/addEvent") public String addEvent(HttpServletRequest req,
- * Model model) {
- * 
- * System.out.println(req.getParameter("eventname"));
- * 
- * String eventname = req.getParameter("eventname"); String date =
- * req.getParameter("date"); String description =
- * req.getParameter("description"); String venuename =
- * req.getParameter("venuename"); String contactperson =
- * req.getParameter("contactperson"); String contactnumber =
- * req.getParameter("contactnumber"); String email = req.getParameter("email");
- * 
- * System.out.println(eventname + "" + date + "" + description);
- * 
- * com.example.demo.Model.Event event1 = new com.example.demo.Model.Event();
- * 
- * event1.setEventname(eventname); event1.setDate(date);
- * event1.setDescription(description); event1.setVenuename(venuename);
- * event1.setContactperson(contactperson);
- * event1.setContactnumber(contactnumber); event1.setEmail(email);
- * model.addAttribute("msg", "Succefully Add Event");
- * 
- * userservice.save(event1);
- * 
- * return "addEvent";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here we end write code for add Event
-	 *************************************************************************/
-/*
 
-*//*****************************************************
-	 * Here Start Write code to show Event
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/show_Event", method = RequestMethod.GET) public
- * String showEvent(Model model) {
- * 
- * List<com.example.demo.Model.Event> name = eventService.findAll();
- * 
- * model.addAttribute("events", name);
- * 
- * return "Show_Event";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here End Write code to show event
-	 *************************************************************************/
-/*
+	String filepath;
 
-*//*****************************************************
-	 * Here Start Write code to Event delete
+	@RequestMapping("/addTestimonial")
+	public String upload(HttpServletRequest req, Model model,
+			@RequestParam("uploadTestiminial") MultipartFile[] files) {
+
+		String path = null;
+		String testimonialName = req.getParameter("testimonialName");
+		String testimoniaqlDescription = req.getParameter("testimoniaqlDescription");
+
+		String abc = uploadDirectory + "/" + testimonialName;
+
+		new File(abc).mkdir();
+
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : files) {
+			Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+
+			fileNames.append(file.getOriginalFilename() + " ");
+
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+				System.out.println(fileNameAndPath.toString());
+
+				filepath = fileNameAndPath.toString();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+		String substring = filepath.substring(26);
+
+		Testimonial testimonial = new Testimonial();
+
+		testimonial.setTestimonialName(testimonialName);
+		testimonial.setTestimoniaqlDescription(testimoniaqlDescription);
+
+		testimonial.setUploadTestiminial(substring);
+
+		testimonialDao.save(testimonial);
+
+		model.addAttribute("msg", "Successfully uploaded files " + fileNames.toString());
+
+		return "addTestimonial";
+	}
+
+	/*****************************************************
+	 * Here we End write code for add testimonial
 	 *************************************************************************/
-/*
- * 
- * @RequestMapping("event/delete/{id}")
- * 
- * public String deleteEvent(@PathVariable Integer id, Model model, ModelAndView
- * mv) {
- * 
- * eventService.deleteProduct(id);
- * 
- * return "redirect:/show_Event";
- * 
- * }
- * 
- *//*****************************************************
+
+	/*****************************************************
+	 * Here Start Write code to Show Testimonial
+	 *************************************************************************/
+
+	@RequestMapping(value = "/show_testimonial", method = RequestMethod.GET)
+
+	public String showtestimonial(Model model) {
+
+		List<Testimonial> name = testimonialService.findAll();
+
+		model.addAttribute("testimonials", name);
+
+		return "show_Testimonial";
+
+	}
+
+	/*****************************************************
+	 * Here End Write code to End show testimonial
+	 *************************************************************************/
+
+	/*****************************************************
+	 * Here Write code to Edit Testimonial
+	 *************************************************************************/
+
+	@RequestMapping("productTesdtimonial/edit/{id}")
+	public String editconsalantantDemo(@PathVariable Integer id, Model model, HttpServletRequest req) {
+
+		Testimonial testimonial = new Testimonial();
+
+		testimonial = testimonialService.getProductById(id);
+
+		model.addAttribute("testimonials", testimonial);
+
+		return "updateTestimonial";
+
+	}
+
+	/*****************************************************
+	 * Here Write code to End Edit Testimonial
+	 *************************************************************************/
+
+	/*****************************************************
+	 * Here Write code to update Testimonial
+	 ****************************************************************************/
+
+	@RequestMapping(value = "/updateTetimonial", method = RequestMethod.POST)
+	public String updateTestimonial(HttpServletRequest req, @RequestParam("uploadTestiminial") MultipartFile[] files) {
+
+		String id = req.getParameter("testimonialId");
+		String path = null;
+		String nametestimonial = req.getParameter("testimonialName");
+		String descriptionTestimonial = req.getParameter("testimoniaqlDescription");
+		int testimonial_id = Integer.parseInt(id);
+
+		String abc = uploadDirectoryConsaltant + "/" + nametestimonial;
+		new File(abc).mkdir();
+
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : files) {
+			Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+			fileNames.append(file.getOriginalFilename() + " ");
+
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+				fileconversion = fileNameAndPath.toString();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		String substring = fileconversion.substring(26);
+
+		String var = substring.toString();
+		System.out.println(var);
+
+		testimonialService.updateTestimonial(nametestimonial, descriptionTestimonial, var, testimonial_id);
+
+		System.err.println(uploadDirectory);
+
+		return "redirect:/show_testimonial";
+
+	}
+
+	/*****************************************************
+	 * Here End code update to Testimonial
+	 *************************************************************************/
+
+	/*****************************************************
+	 * Here Start Write code to delete Testimonial
+	 *************************************************************************/
+
+	@RequestMapping("testimonial/delete/{id}")
+	public String deleteTestimonial(@PathVariable Integer id, Model model, ModelAndView mv) {
+
+		testimonialService.deleteProduct(id);
+
+		return "redirect:/show_testimonial";
+
+	}
+
+	/*****************************************************
 	 * Here End Write code to Event delete
 	 *************************************************************************/
-/*
 
-*//*****************************************************
+	/*****************************************************
+	 * Here we write code for add Event
+	 *************************************************************************/
+
+	@RequestMapping("/addEvent")
+	public String addEvent(HttpServletRequest req, Model model) {
+
+		System.out.println(req.getParameter("eventname"));
+
+		String eventname = req.getParameter("eventname");
+		String date = req.getParameter("date");
+		String description = req.getParameter("description");
+		String venuename = req.getParameter("venuename");
+		String contactperson = req.getParameter("contactperson");
+		String contactnumber = req.getParameter("contactnumber");
+		String email = req.getParameter("email");
+
+		System.out.println(eventname + "" + date + "" + description);
+
+		Event event1 = new Event();
+
+		event1.setEventname(eventname);
+		event1.setDate(date);
+		event1.setDescription(description);
+		event1.setVenuename(venuename);
+		event1.setContactperson(contactperson);
+		event1.setContactnumber(contactnumber);
+		event1.setEmail(email);
+		model.addAttribute("msg", "Succefully Add Event");
+
+		eventDao.save(event1);
+
+		return "addEvent";
+
+	}
+
+	/*****************************************************
+	 * Here we end write code for add Event
+	 **************************************************************************/
+
+	/*****************************************************
+	 * Here Start Write code to show Event
+	 *************************************************************************/
+
+	@RequestMapping(value = "/show_Event", method = RequestMethod.GET)
+	public String showEvent(Model model) {
+
+		List<Event> name = eventService.findAll();
+		model.addAttribute("events", name);
+		return "Show_Event";
+
+	}
+
+	/*****************************************************
+	 * Here End Write code to show event
+	 *************************************************************************/
+
+	/*****************************************************
+	 * Here Start Write code to Event delete
+	 *************************************************************************/
+
+	@RequestMapping("event/delete/{id}")
+
+	public String deleteEvent(@PathVariable Integer id, Model model, ModelAndView mv) {
+
+		eventService.deleteProduct(id);
+
+		return "redirect:/show_Event";
+
+	}
+
+	/*****************************************************
+	 * Here End Write code to Event delete
+	 *************************************************************************/
+
+	/*****************************************************
 	 * Here Start Write code to Event select by id for Edit
 	 *************************************************************************/
-/*
- * 
- * Here we Edit information User by id
- * 
- * @RequestMapping("event/edit/{id}") public String editEvent(@PathVariable
- * Integer id, Model model, HttpServletRequest req) {
- * 
- * com.example.demo.Model.Event event = eventService.getProductById(id);
- * 
- * model.addAttribute("events", event);
- * 
- * return "Update_Event";
- * 
- * }
- * 
- *//*****************************************************
+
+	/* Here we Edit information User by id */
+
+	@RequestMapping("event/edit/{id}")
+	public String editEvent(@PathVariable Integer id, Model model, HttpServletRequest req) {
+
+		Event event = eventService.getProductById(id);
+
+		model.addAttribute("events", event);
+
+		System.err.println(event.getDate() + "" + event.getEmail() + "" + event.getDescription());
+
+		return "Update_Event";
+
+	}
+
+	/*****************************************************
 	 * Here End Write code to Event select by id for Edit
 	 *************************************************************************/
-/*
 
-*//*****************************************************
+	/*****************************************************
 	 * Here Write code to update Event
 	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/eventUpdate", method = RequestMethod.POST) public
- * String eventUpdate(HttpServletRequest req) { String eventname =
- * req.getParameter("eventname"); String date = req.getParameter("date"); String
- * description = req.getParameter("description"); String venuename =
- * req.getParameter("venuename"); String contactperson =
- * req.getParameter("contactperson"); String contactnumber =
- * req.getParameter("contactnumber");
- * 
- * String email = req.getParameter("email");
- * 
- * String id_event = req.getParameter("eventId");
- * 
- * int id = Integer.parseInt(id_event);
- * 
- * eventService.UpdateEvent(eventname, date, description, venuename,
- * contactperson, contactnumber, email, id);
- * 
- * return "redirect:/show_Event";
- * 
- * }
- * 
- *//*****************************************************
+
+	@RequestMapping(value = "/eventUpdate", method = RequestMethod.POST)
+	public String eventUpdate(HttpServletRequest req) {
+		String eventname = req.getParameter("eventname");
+		String date = req.getParameter("date");
+		String description = req.getParameter("description");
+		String venuename = req.getParameter("venuename");
+		String contactperson = req.getParameter("contactperson");
+		String contactnumber = req.getParameter("contactnumber");
+		String email = req.getParameter("email");
+
+		String id_event = req.getParameter("eventId");
+
+		int id = Integer.parseInt(id_event);
+
+		System.err.println("hi" + id);
+
+		eventService.UpdateEvent(eventname, date, description, venuename, contactperson, contactnumber, email, id);
+
+		return "redirect:/show_Event";
+
+	}
+
+	/*****************************************************
 	 * Here End code update of Event
 	 *************************************************************************/
-/*
 
-*//*****************************************************
-	 * Here we write code for mapping hibernate One To Many Relationship
+	/*****************************************************
+	 * Here we write code save category
 	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/category_laguage", method = RequestMethod.POST)
- * public String addcategoryLanguge(HttpServletRequest req, Model model,
- * 
- * @RequestParam(name = "language_select") List<String> language_select) {
- * 
- * {
- * 
- * String categoryName = req.getParameter("category");
- * System.err.println(categoryName);
- * 
- * List<CategorynNEW> local = new ArrayList<CategorynNEW>();
- * 
- * CategorynNEW data = new CategorynNEW(); data.setCategoryName(categoryName);
- * local.add(data);
- * 
- * Iterator<String> iter = language_select.iterator();
- * 
- * System.out.println("\nThe iterator values" + " of list are: "); for (String
- * temp : language_select) {
- * 
- * System.err.println(temp);
- * 
- * languageNew a1 = catlanservice.getProductById(Integer.parseInt(temp));
- * 
- * data.setLanNew(a1);
- * 
- * a1.getList().addAll(local);
- * 
- * languagNewDao.save(a1);
- * 
- * } model.addAttribute("msg", "Successfully upload File");
- * 
- * return "Admin_Template";
- * 
- * }
- * 
- * }
- * 
- *//*****************************************************
-	 * Here End write code for mapping hibernate One To Many Relationship
-	 *************************************************************************/
-/*
 
-*//*****************************************************
-	 * Here access value form languageNew table
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/languageShow", method = RequestMethod.GET)
- * 
- * public String showlanguage(Model model) {
- * 
- * List<languageNew> name = (List<languageNew>) LanguageService.findAll();
- * 
- * for (languageNew a : name) { System.out.println(a.getLanguageName()); }
- * model.addAttribute("languages", name);
- * 
- * return "addcategoryLanguage";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here end access value form languageNew table
-	 *************************************************************************/
-/*
+	@RequestMapping(value = "/savecategory", method = RequestMethod.POST)
+	public String add(HttpServletRequest req, Model model) {
 
-*//*****************************************************
-	 * Here we access value from language table
-	 *************************************************************************/
-/*
- * 
- * @RequestMapping(value = "/tutorialShow", method = RequestMethod.GET) public
- * String tutorialShow(Model model) {
- * 
- * List<languageNew> name = (List<languageNew>) LanguageService.findAll();
- * 
- * List<CategorynNEW> categoryName = (List<CategorynNEW>)
- * categoryNewDao.findAll();
- * 
- * for (languageNew a : name) { System.out.println(a.getLanguageName());
- * 
- * System.err.println(a.getList());
- * 
- * } model.addAttribute("languages", name); model.addAttribute("categorys",
- * categoryName);
- * 
- * return "adduploadTutorial";
- * 
- * }
- * 
- *//*****************************************************
-	 * Here we access value from language tab
-	 *************************************************************************/
-/*
+		String categoryName = req.getParameter("categoryname");
 
-*//*****************************************************
-	 * Here we access value from language table by categorr name
+		Category category = new Category();
+
+		category.setCategoryname(categoryName);
+
+		categoryDao.save(category);
+
+		model.addAttribute("msg", "Successfully upload File");
+
+		return "addCategory";
+
+	}
+
+	/*****************************************************
+	 * Here we write code End save category
 	 *************************************************************************/
-/*
- * 
- * 
- * 
- * 
- * @RequestMapping(value = "/showTutorialLanguageDemo",method =
- * RequestMethod.GET) public String tutorialShowDemo(Model
- * model,HttpServletRequest request) {
- * 
- * 
- * String selectedValue=request.getParameter("classSelected");
- * 
- * 
- * List<String> topicName=new ArrayList<String>();
- * 
- * Boolean
- * categoryNewName=categoryNewService.findCategoryNewName(selectedValue);
- * 
- * 
- * 
- * return selectedValue;
- * 
- * 
- * 
- * }
- * 
- * 
- * 
- * 
- * 
- *//*****************************************************
-	 * Here we access value from language table by categorr name
+
+	/*****************************************************
+	 * Here we write code Tutorial category
 	 *************************************************************************/
-/*
- * 
- * 
- * @RequestMapping(value = "/showTutorialLanguageDemo",method =
- * RequestMethod.POST) public @ResponseBody List<String>
- * showTutorialLanguage(@Valid @RequestBody categorNewyAjaxQueryResolver
- * categoryNewSelect) {
- * 
- * System.out.println("adashdgashgdhas"); List<String> data=new
- * ArrayList<String>();
- * 
- * List<CategorynNEW>
- * categoryNewName=categoryNewService.findByCategoryNewName(categoryNewSelect.
- * getCategoryNewName());
- * 
- * for(CategorynNEW local:categoryNewName){
- * 
- * 
- * System.err.println("develop language"+local.getLanNew().getLanguageName());
- * 
- * 
- * }
- * 
- * return data;
- * 
- * 
- * 
- * }
- * 
- *//*************************************************
-	 * Only Role******************************
-	 *//*
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * }
+
+	@RequestMapping(value = "/addTutorail", method = RequestMethod.POST)
+	public String addTutorail(HttpServletRequest req, Model model, @RequestParam("outline") MultipartFile[] outline,
+			@RequestParam("script") MultipartFile[] script, @RequestParam("timeScript") MultipartFile[] timeScript,
+			@RequestParam("tutorial") MultipartFile[] video, @RequestParam(name = "categoryName") String categoryName
+
+	) {
+		System.err.println(categoryName);
+		String topicname = req.getParameter("topicName");
+		String languageName = req.getParameter("languageName");
+
+//OutLine	
+
+		String path = null;
+		String abc = uploadDirectorOutLine + "/" + topicname;
+		new File(abc).mkdir();
+
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : outline) {
+
+			Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+
+			fileNames.append(file.getOriginalFilename() + " ");
+
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+				System.out.println(fileNameAndPath.toString());
+
+				filepath = fileNameAndPath.toString();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		String outlinefile = filepath.substring(26);
+
+		// script
+
+		String pathScript = null;
+		String Script = uploadDirectorScript + "/" + topicname;
+		new File(Script).mkdir();
+
+		StringBuilder Scriptname = new StringBuilder();
+		for (MultipartFile file : script) {
+
+			Path fileNameAndPath = Paths.get(Script, file.getOriginalFilename());
+
+			Scriptname.append(file.getOriginalFilename() + " ");
+
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+				System.out.println(fileNameAndPath.toString());
+
+				filepath = fileNameAndPath.toString();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+		String scriptfile = filepath.substring(26);
+
+//TimeScript
+		String pathTimeScript = null;
+		String TimeScript = uploadDirectorTimeScript + "/" + topicname;
+		new File(TimeScript).mkdir();
+
+		StringBuilder TimeScriptname = new StringBuilder();
+		for (MultipartFile file : timeScript) {
+
+			Path fileNameAndPath = Paths.get(TimeScript, file.getOriginalFilename());
+
+			Scriptname.append(file.getOriginalFilename() + " ");
+
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+				System.out.println(fileNameAndPath.toString());
+
+				filepath = fileNameAndPath.toString();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		String TimeScriptfile = filepath.substring(26);
+
+//Video
+		String pathVideo = null;
+		String Video = uploadDirectorVideo + "/" + topicname;
+		new File(Video).mkdir();
+
+		StringBuilder videoname = new StringBuilder();
+		for (MultipartFile file : video) {
+
+			Path fileNameAndPath = Paths.get(Video, file.getOriginalFilename());
+
+			Scriptname.append(file.getOriginalFilename() + " ");
+
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+				System.out.println(fileNameAndPath.toString());
+
+				filepath = fileNameAndPath.toString();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		String Videofile = filepath.substring(26);
+
+		Category category = categoryService.findBycategoryname(categoryName);
+
+		Set<category_Tutorial> category_Tutorials = new HashSet<>();
+
+		Tutorial turorial = new Tutorial();
+		turorial.setTopicname(topicname);
+		turorial.setLanguage(languageName);
+		turorial.setOutlin(outlinefile);
+		turorial.setScript(scriptfile);
+		turorial.setTimeScript(TimeScriptfile);
+		turorial.setVideo(Videofile);
+
+		category_Tutorial cate_tutorial = new category_Tutorial(category, turorial);
+
+		/*
+		 * category_Tutorials.add(new category_Tutorial(category, turorial));
+		 * categoryTutorialDao.save(category_Tutorials);
 		 */
+
+		// userService.createUser(user1, userRoles);
+
+		categoryTutorialDao.save(cate_tutorial);
+
+		model.addAttribute("msg", "Successfully uploaded files " + fileNames.toString());
+
+		return "adduploadTutorial";
+
+	}
+
+	/*****************************************************
+	 * Here we write code End Tutorial category
+	 *************************************************************************/
+	////
+
+	/*****************************************************
+	 * Here Start Write code to category delete
+	 *************************************************************************/
+
+	@RequestMapping("category/delete/{id}")
+
+	public String deleteCategory(@PathVariable Integer id, Model model, ModelAndView mv) {
+
+		categoryService.deleteProduct(id);
+
+		return "redirect:/show_category";
+
+	}
+
+	/*****************************************************
+	 * Here End Write code to category delete
+	 *************************************************************************/
+
+	/*****************************************************
+	 * Here Start Write code to category select by id for Edit
+	 *************************************************************************/
+
+	/* Here we Edit information User by id */
+
+	@RequestMapping("category/edit/{id}")
+	public String editCategory(@PathVariable Integer id, Model model, HttpServletRequest req) {
+
+		Category category = categoryService.getProductById(id);
+		model.addAttribute("category", category);
+		return "updateCategory";
+	}
+
+	/*****************************************************
+	 * Here Start Write code to end category select by id for Edit
+	 *************************************************************************/
+
+	/*
+	 * @RequestMapping("/loadByCategoryTuturial") public String
+	 * loadByCategory(@PathVariable Integer id, Model model, HttpServletRequestnew
+	 * req,@RequestParam(name = "categoryName") String categoryName){
+	 * 
+	 * 
+	 * Category category=categoryService.findBycategoryname(categoryName);
+	 * 
+	 * category_Tutorial
+	 * categoryTutorials=categoryTutorialDao.findOne(category.getId());
+	 * 
+	 * String lan=categoryTutorials.getTutorial().getLanguage();
+	 * 
+	 * model.addAttribute("languages",lan);
+	 * 
+	 * ///
+	 * 
+	 * 
+	 * Category cat=categoryService.findBycategoryname(categoryName);
+	 * 
+	 * List<category_Tutorial> categoryTutorial=(List<category_Tutorial>)
+	 * categoryTutorialDao.findOne(cat.getId());
+	 * 
+	 * List<Tutorial> userAddInformation = new ArrayList<>();
+	 * 
+	 * 
+	 * 
+	 * for (category_Tutorial ur : categoryTutorial) {
+	 * 
+	 * 
+	 * Tutorial userInformation =
+	 * tutorialDao.findOne(ur.getTutorial().getTutorialid());
+	 * 
+	 * userAddInformation.add(userInformation); }
+	 * 
+	 * model.addAttribute("languages", userAddInformation);
+	 * 
+	 * return "index"; }
+	 */
+	 
+	
+	@RequestMapping(value = "/findTutorialByLanand", method = RequestMethod.GET)
+	public String viewCoursesAvailable(@RequestParam(value="categoryName") int categoryNameId,@RequestParam(name="inputLanguage") String inputLanguage,Model model) {
+	
+	
+		System.err.println("cat Id:"+categoryNameId);
+		
+		List<Tutorial> addlanguage=new ArrayList<>();
+		
+		Category category=categoryDao.findByid(categoryNameId);
+		
+		  
+		 
+		  Tutorial  tutorials=tutorialDao.findBylanguage(inputLanguage);
+		  
+		  System.err.println(tutorials.getTutorialid());
+		
+		 
+		 List<category_Tutorial> categtory_tutorials=(List<category_Tutorial>)categoryTutorialDao.findBycategoryAndlanguageza(category,tutorials);
+		
+		 System.err.println(categtory_tutorials.size());
+		  for(category_Tutorial s:categtory_tutorials) 
+		  {
+			 
+		
+			 Tutorial tutorial=tutorialDao.findOne(s.getTutorial().getTutorialid());
+			 
+			 addlanguage.add(tutorial);
+		
+			  System.err.println("Hiiii"+s.getCat().getCategoryname());
+			  
+	  
+	 }
+		  
+		  model.addAttribute("cat_Tu",categtory_tutorials);
+		
+		return "showTutorial";	
+		
+	}
+	
+	@RequestMapping("/loadByCategoryTuturial")
+	public @ResponseBody  List<String> getAllSubcategories(@RequestParam(value="id") int id)
+	{
+	
+
+	    System.err.println("hjasdhgh");
+	    
+	    List<String> topicName=new ArrayList<String>();
+		
+		//Category cat=categoryService.findBycategoryname(category.getCategoryname());
+		
+		Category cat=categoryService.findByid(id);
+		
+		
+		System.err.println("category_id"+cat.getId());
+	
+		List<category_Tutorial> catTut=(List<category_Tutorial>) categoryTutorialDao.findByCategory(cat);
+	
+		
+		//List<category_Tutorial> categoryTutorials=(List<category_Tutorial>) categoryTutorialDao.findOne(cat);
+		
+		
+		for(category_Tutorial s:catTut)
+		{
+
+			//System.err.println("Language is"+s.getTutorial().getLanguage());
+			
+			topicName.add(s.getTutorial().getLanguage());
+
+			
+		}
+	
+		return topicName;   
+
+	}
+	
+	
+	@RequestMapping(value = "/fetchInformation", method = RequestMethod.POST)
+    public @ResponseBody  List<String> getAllSubcategories1(@RequestParam(value="id") int id) {
+				
+			
+			List<String> topicName=new ArrayList<String>();
+			
+			//Category cat=categoryService.findBycategoryname(category.getCategoryname());
+			
+			Category cat=categoryService.findByid(id);
+			
+			List<category_Tutorial> categoryTutorial=(List<category_Tutorial>) categoryTutorialDao.findOne(cat.getId());
+			
+			
+			for(category_Tutorial s:categoryTutorial)
+			{
+				
+				topicName.add(s.getTutorial().getLanguage());
+	
+			}
+		
+		return topicName;
+		
+      
+    }
+	
+	@RequestMapping("/masterTrainer")
+	public @ResponseBody  List<String> masterTrainer(@RequestParam(value="id") int id)
+	{
+	
+
+	    System.err.println("hjasdhgh");
+	    
+	    List<String> topicName=new ArrayList<String>();
+		
+		//Category cat=categoryService.findBycategoryname(category.getCategoryname());
+		
+		Category cat=categoryService.findByid(id);
+		
+		
+		System.err.println("category_id"+cat.getId());
+	
+		List<category_Tutorial> catTut=(List<category_Tutorial>) categoryTutorialDao.findByCategory(cat);
+	
+		
+		//List<category_Tutorial> categoryTutorials=(List<category_Tutorial>) categoryTutorialDao.findOne(cat);
+		
+		
+		for(category_Tutorial s:catTut)
+		{
+
+			//System.err.println("Language is"+s.getTutorial().getLanguage());
+			
+			topicName.add(s.getTutorial().getLanguage());
+
+			
+		}
+	
+		return topicName;   
+
+	}
+	
+	
+
+
+	
+	
+	
+	
+
+}

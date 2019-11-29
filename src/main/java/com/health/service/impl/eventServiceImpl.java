@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.model.Event;
+import com.health.model.Testimonial;
 import com.health.repository.EventDao;
 import com.health.service.eventService;
 
@@ -33,18 +34,21 @@ public class eventServiceImpl implements eventService {
 	  eventdao.delete(id);
 	  
 	  }
+		
+	  @Override 
+	  public Event getProductById(int id){
 	  
-	/*
-	 * @Override public Event getProductById(Integer id) {
-	 * 
-	 * Optional<Event> var = eventdao.findById(id); return var.get(); }
-	 */
-
+	  Event var=eventdao.findOne(id);
+	  
+	  return var;
+	  
+	  }
+ 
 	  @Override
 	  @Transactional
 	  public Boolean UpdateEvent(String eventname,String date, String description,String venuename, String contactperson,String contactnumber,String email,int id) {
 	  
-       int status= eventdao.UpdateEvent(eventname, date, description, venuename, contactperson,contactnumber, email, id);
+       int status= eventdao.UpdateEvent(eventname, date, description, venuename, contactperson,contactnumber,email, id);
 
 	  System.err.println(status);
 	  
@@ -53,18 +57,6 @@ public class eventServiceImpl implements eventService {
 	  
 	  }
 
-
-	@Override
-	public Event getProductById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	  
-	  
-	  
-	  
-	  
-	 
 
 	
 

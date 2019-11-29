@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="/s/fonts/flaticon/font/flaticon.css"/>
     <!-- Theme Style-->
     <link rel="stylesheet" href="/s/css/style.css"/>
+    
+
 
 </head>
 <body>
@@ -49,7 +51,7 @@
 						<div sec:authorize="isAuthenticated()"> 
 						  
 						   Logged user: <span sec:authentication="name"></span> |
-						 Roles: <span sec:authentication="principal.authorities"></span>
+			
 						</div>
 							
 				<div class="row">
@@ -61,25 +63,35 @@
 				
 			
 			</div>
-				
-				
+			
+			
    
          
               <p class="mb-0">
-                <a href="#" class="cta-btn" data-toggle="modal" data-target="#modalAppointment">Make an Appointment</a></p>
+               <!--  <a href="#" class="cta-btn" data-toggle="modal" data-target="#modalAppointment">Make an Appointment</a> --></p>
             </div>
               <marquee direction="left">1800 180 0101</marquee>
   
           </div><!--
             Herwe we write login button -->
        
-           <a class="btn btn-success float-right" th:href="@{/login}">Login</a>    
+   <!--         <a class="btn btn-success float-right" th:href="@{/login}" style="padding-top: 27px">Login</a>     -->
    
         </div>
+        
+        
+        
+        <div>
+        
+        
+        
+        </div>
+            <div id="postResultDiv"></div>
+      
       </div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand" href="index.html">Medi<span>+</span>  </a>
+          <a class="navbar-brand" href="index.html">logo<span>+</span>  </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -90,34 +102,96 @@
                 <a class="nav-link active" href="index.html">Home</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="services.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
+               <!--  <a class="nav-link dropdown-toggle" href="services.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                   <a class="dropdown-item" href="#">Institute</a>
                   <a class="dropdown-item" href="#">Departments</a>
                   <a class="dropdown-item" href="services.html">Services</a>
-                </div>
+                </div> -->
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="doctors.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Doctors</a>
+           <!--      <a class="nav-link dropdown-toggle" href="doctors.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Doctors</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown05">
                   <a class="dropdown-item" href="doctors.html">Find Doctors</a>
                   <a class="dropdown-item" href="#">Practitioner</a>
-                </div>
+                </div> -->
+                <a class="nav-link" href="#tab-1">Courses</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="news.html">News</a>
+                <a class="nav-link" href="#tab-2">Event</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
+                <a class="nav-link" href="#tab-3">Consaltant</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
+                <a class="nav-link" href="#tab-4">Testimonial</a>
+                
+     
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
+    
+    
+    	<!-- selection foss -->
+			
+	<div >
+		<div class="container" id="Home" >
+        <div class="row">
+            <div class="col-1">
+               
+            </div>
+            
+            <div class="col-sm">
+            <form th:action="@{/findTutorialByLanand}" class="form-inline" >
+       
+                    <div class="pad-extra">  
+                   <label class="sr-only" for="inputState">Category</label>
+                
+                    <select id="categoryname" class="form-control" name="categoryName"  style="width: 400px" >
+                    
+                        <option selected="selected">Select Category</option>      
+                        <span th:each="category: ${categorys}">
+  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+  						</span>
+                    </select> 
+                      </div>
+		                <div class="pad-extra">     
+		               <label class="sr-only" for="inputState" >language</label>
+		       
+		                    <select id="inputLanguage" class="form-control" name="inputLanguage" style="width:400px" >
+		                    
+		   				
+		                    </select> 
+   				 <div id="idselection"></div>
+                </div>
+                
+                <div class="pad-extra">  
+                	
+    	<button type="submit" class="btn btn-primary btn-rounded" id="headerSubmit" >Search</button>
+                
+                </div>
+        
+            </form>
+            </div>
+           	 <div>
+ 
+      		
+            </div>
+            
+            
+        </div>
+        </div>
+       </div>
+			
+				
+				
+				
+				
+				<!-- selection  Endfoss -->
+				
    
     <section class="home-slider owl-carousel">
       <div class="slider-item" style="background-image: url('s/img/slider-2.jpg');">
@@ -145,38 +219,10 @@
       </div>
     </section>
     <!-- END slider -->
-
-    <section class="container home-feature mb-5">
-      <div class="row">
-        <div class="col-md-4 p-0 one-col element-animate">
-          <div class="col-inner p-xl-5 p-lg-5 p-md-4 p-sm-4 p-4">
-            <span class="icon flaticon-hospital-bed"></span>
-            <h2>Patient Services</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
-          </div>
-          <a href="#" class="btn-more">Read More</a>
-        </div>
-        <div class="col-md-4 p-0 two-col element-animate">
-          <div class="col-inner p-xl-5 p-lg-5 p-md-4 p-sm-4 p-4">
-            <span class="icon flaticon-first-aid-kit"></span>
-            <h2>Medical Services</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
-          </div>
-          <a href="#" class="btn-more">Read More</a>
-        </div>
-        <div class="col-md-4 p-0 three-col element-animate">
-          <div class="col-inner p-xl-5 p-lg-5 p-md-4 p-sm-4 p-4">
-            <span class="icon flaticon-hospital"></span>
-            <h2>Amenities</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
-          </div>
-          <a href="#" class="btn-more">Read More</a>
-        </div>
-      </div>
-    </section>
+	
     <!-- END section -->
 
-    <section class="section stretch-section">
+    <section class="section stretch-section" id="tab-1">
       <div class="container">
         <div class="row justify-content-center mb-5 element-animate">
           <div class="col-md-8 text-center mb-5">
@@ -316,15 +362,18 @@
     <section class="section custom-tabs">
       <div class="container">
         <div class="row">
-
+		<div id="tab-2">
           <div class="col-md-4 border-right element-animate">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span> Current Event</a>
-              <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span>02</span> Past Event</a>
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" >
+              <a  class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span> Current Event</a>
+             <!--  <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span>02</span> Past Event</a> -->
         <!--      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span>03</span> Notification </a>
               <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span>04</span> Expert Doctors</a>-->
+           
             </div>
           </div>
+          
+       </div>   
           <div class="col-md-1"></div>
           <div class="col-md-7 element-animate">
             
@@ -333,7 +382,7 @@
                 <span class="icon flaticon-hospital"></span>
                 <h2 class="text-primary"> Current Event</h2>
                 <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
-                <p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
+                <p>Inventore fugit error iure nisi rei    <div id="postResultDiv"> hi</div>ciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
                 <p><a href="#" class="btn btn-primary">Learn More</a></p>
               </div>
               <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -363,11 +412,12 @@
       </div>
     </section>
     <!-- END section -->
-    <section class="section bg-light">
-      <div class="container">
+    
+    <section class="section bg-light" id="tab-3">
+      <div class="container" >
         <div class="row justify-content-center mb-5 element-animate">
           <div class="col-md-8 text-center mb-5">
-            <h2 class="text-uppercase heading border-bottom mb-4">Our Consaltant</h2>
+            <h2 class="text-uppercase heading border-bottom mb-4" >Our Consaltant</h2>
             <p class="mb-0 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
           </div>
         </div>
@@ -511,7 +561,7 @@
       <div class="container">
         <div class="row justify-content-center mb-5 element-animate">
           <div class="col-md-8 text-center mb-5">
-            <h2 class="text-uppercase heading border-bottom mb-4">News &amp; Events</h2>
+            <h2 class="text-uppercase heading border-bottom mb-4" id="tab-4">Testimonial</h2>
             <p class="mb-0 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
           </div>
         </div>
@@ -749,7 +799,12 @@
         </div>
       </div>
     </div>
+
+
     
+    
+	  
+	 <script src="/js/jquery.min.js"></script>
     <script src="/s/js/jquery-3.2.1.min.js"></script>
     <script src="/s/js/popper.min.js"></script>
     <script src="/s/js/bootstrap.min.js"></script>
@@ -758,7 +813,11 @@
     <script src="/s/js/jquery.timepicker.min.js"></script>
     <script src="/s/js/jquery.waypoints.min.js"></script>
     <script src="/s/js/main.js"></script>
+     <script src="/js/ajaxSupport.js"></script>
  
 	<!-- <div th:replace="common/header :: body-bottom-scripts" /> -->
+	
+	
+	
 </body>
 </html>

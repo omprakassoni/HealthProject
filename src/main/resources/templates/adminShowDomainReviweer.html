@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+<head>	
+
+	<meta charset="utf-8"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700" rel="stylesheet"/>
+    <link rel="stylesheet" href="/s/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/s/css/animate.css"/>
+    <link rel="stylesheet" href="/s/css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="/s/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="/s/css/jquery.timepicker.css"/>
+    <link rel="stylesheet" href="/s/fonts/ionicons/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="/s/fonts/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/s/fonts/flaticon/font/flaticon.css"/>
+    
+    <link rel="stylesheet" href="/s/css/style.css"/>
+
+</head>
+<body>
+
+    <header role="banner">
+      <div class="top-bar">
+        <div class="container">              
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-5">
+              <ul class="social list-unstyled">      
+   
+              </ul>
+            </div>
+            <div class="col-md-6 col-sm-6 col-7 text-right">
+  
+  
+  
+						<div sec:authorize="isAuthenticated()"> 
+						  
+						   Logged user: Welcome Admin <span sec:authentication="name"></span> |
+						
+							 
+						</div>
+							
+				<div class="row">
+
+						<div class="col">
+						<a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New User</a>
+						<a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">MY ACCOUNT</a>
+						<a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a>
+				</div>
+		
+			</div>
+            </div>
+              <marquee direction="left">1800 180 0101</marquee>
+  
+          </div><!--
+            Herwe we write login button -->
+       
+          <!--  <a class="btn btn-success float-right" th:href="@{/login}">Login</a>  -->
+   
+        </div>
+      </div>
+     
+  
+</header>
+          	<div class="container" style="padding-top: 120px">
+          	    
+    
+          		<div class="row">
+          	
+         			 	<div class="col">
+
+   			 	 <table class="table table-striped">
+					            <tr>
+					                <th>Id</th>
+					                <th>User Name</th> 
+					                <th>First Name</th>
+					                <th>Last Name</th>
+					                <th>Address</th>  
+					                
+ 	           
+					            </tr>
+					            	<tr th:each="approve : ${statusByApprov}">
+					                <td th:text="${approve.id}">ID</td>  
+					                <td th:text="${approve.username}">User Name</td>
+					                <td th:text="${approve.firstName}">First Name</td>
+					                <td th:text="${approve.lastName}">Last name</td>
+					                <td th:text="${approve.address}">Address</td>
+	
+		
+				
+	
+					            </tr>
+					        </table>
+					</div>
+				</div>
+			</div>        
+				
+
+
+    <script src="/s/js/jquery-3.2.1.min.js"></script>
+    <script src="/s/js/popper.min.js"></script>
+    <script src="/s/js/bootstrap.min.js"></script>
+    <script src="/s/js/owl.carousel.min.js"></script>
+    <script src="/s/js/bootstrap-datepicker.js"></script>
+    <script src="/s/js/jquery.timepicker.min.js"></script>
+    <script src="/s/js/jquery.waypoints.min.js"></script>
+    <script src="/s/js/main.js"></script>
+ 
+</body>
+
+
+</html>

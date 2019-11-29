@@ -38,18 +38,15 @@ public class consaltantServiceImpl implements ConsaltantService {
 	}
 //chage the method
 	@Override
-	/*
-	 * public Consaltantant getProductById(Integer id) {
-	 * 
-	 * 
-	 * Optional<Consaltantant> var = consaltantdao.findById(id);
-	 * 
-	 * 
-	 * 
-	 * return var.get();
-	 * 
-	 * }
-	 */
+	
+	  public Consaltantant getProductById(Integer id) {
+	  
+	  Consaltantant var = consaltantdao.findOne(id);
+	  
+	  return var;
+	  
+	  }
+	 
 	
 	@Transactional																																																							
 	public Boolean UpdateConsalantant(String description,String name, String uploadVideo,int id) {
@@ -73,11 +70,10 @@ public class consaltantServiceImpl implements ConsaltantService {
         return consaltantdao.save(product);
     }
 
-	@Override
-	public Consaltantant getProductById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/*
+	 * @Override public Consaltantant getProductById(Integer id) { // TODO
+	 * Auto-generated method stub return null; }
+	 */
 	
 
 
