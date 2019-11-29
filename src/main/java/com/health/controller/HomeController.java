@@ -81,9 +81,6 @@ public class HomeController {
 	}
 	
 
-
-	
-	
 	
 	@RequestMapping("/forgetPassword")
 	public String forgetPassword(

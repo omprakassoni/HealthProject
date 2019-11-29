@@ -119,32 +119,6 @@ public class userController
 	public String addMeAsDomainRevieweer(Authentication authentication) {
 	
 
-		
-		/*
-		 * String domain = "DomainReviweer";
-		 * 
-		 * Role checkvalue = rolerespositary.findByname(domain);
-		 * 
-		 * 
-		 * UserRole userRole = userRoleRepositary.findAll();
-		 * 
-		 * UserRole userRole=
-		 */
-		
-		
-	
-		/*
-		 * if(userRole.getRole().getRoleId()==3) {
-		 * 
-		 * 
-		 * return ""
-		 * 
-		 * }
-		 */
-		
-		//System.err.println("Hi"+userRole.getRole().getRoleId());
-	
-		
 
 		User user = userService.findByClassname(authentication.getName());
 
