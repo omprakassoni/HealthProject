@@ -15,10 +15,9 @@ import com.health.model.User;
 @Table(name="user_role")
 public class UserRole {
 
-
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long userRoleId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private  Long userRoleId;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
@@ -30,7 +29,9 @@ public class UserRole {
 
 	private int status;
 
-	public UserRole(){}
+	public UserRole(){
+		
+}
 	
 	public UserRole(User user, Role role) {
 		this.user = user;

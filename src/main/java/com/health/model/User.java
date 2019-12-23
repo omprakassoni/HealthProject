@@ -2,8 +2,8 @@ package com.health.model;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,9 +49,16 @@ public class User implements UserDetails{
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
 	
+	
+	  @OneToMany(mappedBy ="user",cascade =
+	  {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH
+	  }) List<topic> topics;
+	 
+	
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -72,6 +79,12 @@ public class User implements UserDetails{
 	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+	public List<topic> getTopics() {
+		return topics;
+	}
+	public void setTopics(List<topic> topics) {
+		this.topics = topics;
 	}
 	public String getLastName() {
 		return lastName;

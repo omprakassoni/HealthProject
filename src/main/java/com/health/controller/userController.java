@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,16 +23,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
+import com.health.model.Category;
+import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.model.partipantDeatil;
+import com.health.model.state;
 import com.health.repository.RoleRepository;
+import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
+import com.health.repository.participantDao;
+import com.health.repository.stateRespositary;
 import com.health.service.UserService;
+import com.health.service.categoryService;
 import com.health.service.roleService;
+import com.health.service.tutorialService;
 
 @Controller
-public class userController 
-{
+public class userController {
 
 	@Autowired
 	roleService roleservice;
@@ -47,6 +57,20 @@ public class userController
 	@Autowired
 	private UserRoleRepositary userRoleRepositary;
 
+	@Autowired
+	private categoryService categoryservice;
+	
+	@Autowired
+	private tutorialService tutorialService;
+	
+	@Autowired TutorialDao tutorialDao;
+	
+	@Autowired participantDao participantDao;
+	
+	
+	@Autowired UserRepository userDao;
+	
+	
 	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
 	public String accessDeny() {
 
@@ -54,12 +78,45 @@ public class userController
 
 	}
 
+	@Autowired
+	private stateRespositary statedao;
+	
 	@RequestMapping(value = "/adminDeatail", method = RequestMethod.GET)
 	public String adminDeatail(Model model, Authentication authentication) {
+		
+
+		List<Category> category = categoryservice.findAll();
+
+		model.addAttribute("categorys", category);
+	
+		List<Tutorial> tutorial=tutorialService.findAll();
+	
+	
+		
+			List<partipantDeatil> participantdeatail=(List<partipantDeatil>) participantDao.findAll();
+			
+			
+			model.addAttribute("tutorials",tutorial);
+	
+			model.addAttribute("parcipantDeatails", participantdeatail);
+		
+		
+			List<state> state=(List<com.health.model.state>) statedao.findAll();
+			
+			model.addAttribute("stateInfo",state);
+			
+			User user=userDao.findByUsername(authentication.getName());
+		/*
+		 * 
+		 * UserRole userRole=userRoleRepositary.findByUserInfo(user);
+		 * 
+		 */
+		
+			model.addAttribute("userInfo",user);
 
 		return "roleAdminDetail";
+		
 	}
-
 	@RequestMapping(value = "/userDetail", method = RequestMethod.GET)
 	public String userDetail(Model model, Authentication authentication) {
 
@@ -113,13 +170,33 @@ public class userController
 	 * 
 	 * }
 	 * 
-	 */ 
+	 */
+	
+	@RequestMapping(value = "/addMeAsContributer", method = RequestMethod.GET)
+	public String aaddMeAsContributer(Authentication authentication, Model model) 
+	{
+		
+		User user = userService.findByClassname(authentication.getName());
+		
+		String name = "Contributer";
+		
+		Role role = rolerespositary.findByname(name);
+
+		int status = 0;
+		UserRole userRoles = new UserRole(user, role);
+		userRoles.setStatus(status);
+		userRoleRepositary.save(userRoles);
+
+		return "roleAdminDetail";
+		
+		
+		
+	}
 	
 	@RequestMapping(value = "/addMeAsDomainRevieweer", method = RequestMethod.GET)
-	public String addMeAsDomainRevieweer(Authentication authentication) {
+	public String addMeAsDomainRevieweer(Authentication authentication, Model model) 
+	{
 	
-
-
 		User user = userService.findByClassname(authentication.getName());
 
 		String name = "DomainReviweer";
@@ -182,9 +259,9 @@ public class userController
 
 		int status = 0;
 		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
-	
+
 		List<User> userAddInformation = new ArrayList<>();
-	
+
 		for (UserRole ur : userByStatus) {
 
 			User userInformation = userRepository.findOne(ur.getUser().getId());
@@ -196,8 +273,68 @@ public class userController
 		model.addAttribute("statusByApprov", userAddInformation);
 
 		return "showDomainReviweer";
+		
+		
+	}	
+	@RequestMapping(value = "/approveMeAsContributer", method = RequestMethod.GET)
+	public String approveMeAsContributer(Model model, Authentication autheticate) {
+
+		int rolId = 5;
+		Role role = rolerespositary.findByIdRoles(rolId);
+
+		int status = 0;
+		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
+
+		List<User> userAddInformation = new ArrayList<>();
+
+		for (UserRole ur : userByStatus) {
+
+			User userInformation = userRepository.findOne(ur.getUser().getId());
+
+			userAddInformation.add(userInformation);
+		}
+		model.addAttribute("statusByApprov", userAddInformation);
+
+		
+		return "showContributer";
+		
+		
+	}
+	
+	@RequestMapping("/addContributerRoleById/add/{id}")
+	public String addContributerRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
+
+		// User user=-userRepository.findByUserId(id);
+
+		User user = userRepository.findOne(id);
+
+		String name = "Contributer";
+
+		Role role = rolerespositary.findByname(name);
+
+		int status = 1;
+
+		UserRole userRole = userRoleRepositary.findByUserAndRole(user, role);
+
+		userRole.setStatus(status);
+
+		userRoleRepositary.save(userRole);
+
+		return "showContributer";
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping("/addDomainRoleById/add/{id}")
 	public String addDomainRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
@@ -222,19 +359,23 @@ public class userController
 
 	}
 
-	@RequestMapping("/addRejectRoleById/add/{id}")
+	@RequestMapping("addRejectRoleById/reject/{id}")
 	public String addRejectRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
 
-		// Disable
-
+		System.err.println(id);
+		EntityManager em = null;
+		
+		  int deletedCount = em.createQuery("delete from UserRole u where u.user:=39").executeUpdate();
+		
+		
 		return "showDomainReviweer";
+		
+		
 
 	}
 
-
 	/* add the Quality Revieweer */
-	
-	
+
 	@RequestMapping(value = "/approveMeAsQualityRevieweer", method = RequestMethod.GET)
 	public String approveMeAsQualityRevieweer(Model model, Authentication autheticate) {
 
@@ -259,8 +400,7 @@ public class userController
 		return "showQualityReviweer";
 
 	}
-	
-	
+
 	/* fetching information by Id */
 
 	@RequestMapping("/addQualityRoleById/add/{id}")
@@ -288,19 +428,20 @@ public class userController
 
 	@RequestMapping("/addQualityRoleRejectById/add/{id}")
 	public String addQualityRoleRejectById(@PathVariable Long id, Model model, HttpServletRequest req) {
-
-		
-		return "showQualityReviweer";
-	}
+				
 	
+			
+				return "showQualityReviweer";
+				
+	}
 
 	/* approve the master Trainer */
-	
+
 	@RequestMapping(value = "/approveMeAsMasterTrainer", method = RequestMethod.GET)
 	public String approveMeAsMasterTrainer(Model model, Authentication autheticate) {
 
 		int rolId = 4;
-		
+
 		Role role = rolerespositary.findByIdRoles(rolId);
 		int status = 0;
 		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
@@ -317,17 +458,14 @@ public class userController
 
 		model.addAttribute("statusByApprov", userAddInformation);
 
-		
 		return "showMasterTrainer";
 
 	}
 
-	
 	/* fetching information by Id */
 
 	@RequestMapping("/addMasterTrainerRoleById/add/{id}")
 	public String addMasterTrainerRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
-
 
 		// User user=-userRepository.findByUserId(id);
 
@@ -348,12 +486,21 @@ public class userController
 		return "showMasterTrainer";
 
 	}
-	
+
 	@RequestMapping("/addmasterRoleRejectById/add/{id}")
 	public String addMasterRoleRejectById(@PathVariable Long id, Model model, HttpServletRequest req) {
 
-
 		return "showQualityReviweer";
+	}
+	
+	
+	@RequestMapping("/approveRole")
+	public String approveRole() {
+		
+		
+		return "approveRoleLink";
+		
+		
 	}
 	
 	

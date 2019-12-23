@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+<head th:replace="common/trail :: common-trail" />
+
+  <body>
+  
+  		<div th:replace="common/trail :: navbar1"/>
+  		
+  		
+								<div class="container"> 
+								<div class="row" style="padding-top: 120px"  >
+								
+								
+								 <nav>
+									  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+									    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+									    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="/approveMeAsDomainRevieweer" role="tab" aria-controls="nav-profile" aria-selected="false">Domain Revieweer</a>
+									    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="/approveMeAsMasterTrainer" role="tab" aria-controls="nav-contact" aria-selected="false">MasterTrainer Revieweer</a>
+									  	<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="/approveMeAsContributer" role="tab" aria-controls="nav-contact" aria-selected="false">Contributer</a>
+										<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="/approveMeAsQualityRevieweer" role="tab" aria-controls="nav-contact" aria-selected="false">Quality Revieweer</a>
+									 
+									  </div>
+									</nav>
+									<div class="tab-content" id="nav-tabContent">
+									  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">.</div>
+									  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+									  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">..</div>
+									</div>
+								 
+								 </div>
+						</div>
+			<div th:fragment="body-bottom-scripts"></div>
+ </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

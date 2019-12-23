@@ -4,6 +4,8 @@ import java.security.Timestamp;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,14 +13,29 @@ import javax.persistence.Table;
 @Table(name="feedback")
 public class feedback {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private  int id;
+	
 	private String name;
 	private String email;
 	private String description;
-	private Timestamp date;
+
+	private String datetime; 
+	
+	//private Date vardates;
+	
 	public int getId() {
 		return id;
 	}
+
+	public String getDatetime() {
+		return datetime;
+	}
+
+	public void setDatetime(String currentTime) {
+		this.datetime = currentTime;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -40,13 +57,7 @@ public class feedback {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Timestamp getDate() {
-		return date;
-	}
-	public void setDate(Timestamp date) {
-		this.date = date;
-	} 
-	
+
 	
 	
 	

@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+
+
+<head th:replace="common/trail :: common-trail" />
+
+  <body>
+  
+  			<div th:replace="common/trail :: navbar1"/>
+
+      <div class="#">
+      
+      
+        <div class="row" style="padding-top: 180px">
+        
+        
+                  <div class="col-4">
+
+                  </div>
+                  <div class="col-4 shadow p-3 mb-5 bg-white rounded">
+      
+
+                       <form style="padding-left: 120px" class="form-horizontal"  th:action="@{/savecategory}" onsubmit="return submitForm(this);" method="post"  >
+						    
+						<!-- 	<div class="row" style=""><strong> Category</strong></div> -->
+							
+							
+						 <div class="form-group">
+							<label for="Category">Add Category</label>       
+               						 <input type="text" class="form-control w-75" id="Category" name="categoryname"  required="required"/>
+					
+					<span
+												style="color: red;" th:if="${msg}">Catgory
+												already exists. Choose a different one.</span>
+						 	</div>	
+						 	
+						 	
+						 	
+						
+						   
+					   
+						   
+						   	<button type="submit" class="btn  btn-success" onclick="">Submit</button>
+						     <button type="reset" class="btn btn-success">Reset</button>       
+						        		  
+			
+			
+				 			 <!-- Modal -->
+			 
+								  
+						</form>
+               
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+                      
+             
+                  </div>
+                    <div class="col-4">
+                        
+                    </div>
+          </div>
+      </div>
+      
+			<div th:fragment="body-bottom-scripts"></div>
+ </body>
+</html>

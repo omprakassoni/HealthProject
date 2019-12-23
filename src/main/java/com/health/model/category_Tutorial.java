@@ -30,7 +30,6 @@ public class category_Tutorial {
 		return catLanId;
 	}
 
-
 	public void setCatLanId(Long catLanId) {
 		this.catLanId = catLanId;
 	}
@@ -48,7 +47,6 @@ public class category_Tutorial {
 	public void setCat(Category cat) {
 		this.cat = cat;
 	}
-
 
 	public Tutorial getTutorial() {
 		return tutorial;
@@ -69,8 +67,62 @@ public class category_Tutorial {
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
-	@JoinColumn(name="language_id")
+	@JoinColumn(name="topicresourese_id")
 	private Tutorial tutorial;
+	
+	
+
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+	@JoinColumn(name="lan_id")
+	private language language;
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+	@JoinColumn(name="topic_id")
+	private topic topic;
+
+
+	public language getLanguage() {
+		return language;
+	}
+
+
+	public void setLanguage(language language) {
+		this.language = language;
+	}
+
+
+	public topic getTopic() {
+		return topic;
+	}
+
+
+	public void setTopic(topic topic) {
+		this.topic = topic;
+	}
+
+
+	public category_Tutorial(Category cat,  com.health.model.topic topic) {
+		super();
+		this.cat = cat;
+		this.topic = topic;
+	}
+
+	
+	/*
+	 * 
+	 * @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+	 * 
+	 * @JoinColumn(name="question-id") private Question question;
+	 * 
+	 * 
+	 * public Question getQuestion() { return question; }
+	 * 
+	 * 
+	 * public void setQuestion(Question question) { this.question = question; }
+	 * 
+	 * 
+	 */
 	
 
 }

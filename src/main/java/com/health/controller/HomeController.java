@@ -26,7 +26,12 @@ import com.health.domain.security.PasswordResetToken;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
-import com.health.model.User;import com.health.repository.CategoryDao;
+import com.health.model.Event;
+import com.health.model.User;
+import com.health.model.state;
+import com.health.repository.CategoryDao;
+import com.health.repository.EventDao;
+import com.health.repository.stateRespositary;
 import com.health.service.UserService;
 import com.health.service.categoryService;
 import com.health.service.impl.UserSecurityService;
@@ -46,24 +51,40 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@Autowired
 	private UserSecurityService userSecurityService;
 
 	@Autowired
 	private categoryService categoryservice;
 	
+	@Autowired
+	private stateRespositary statedao;
+	
+	@Autowired
+	private EventDao eventDao;
+
+	
 	@RequestMapping("/")
-	public String index(Model model){
+	public String index(Model model)
+	{
+	
 		
 	List<Category> category=categoryservice.findAll();
 	
 	model.addAttribute("categorys",category);
 	
-	
-	
-			
-			
-		return "index";
+		
+		  List<Event> event=eventDao.getAllEvent();
+		  
+		  
+		  
+		  model.addAttribute("events",event);
+		  
+		 
+
+	return "index";
+		
 	}
 	
 	@RequestMapping("/login")
@@ -167,17 +188,7 @@ public class HomeController {
 		
 		 userService.save(user);
 		 
-		 /*
-		 * Role role = new Role();
-		 * 
-		 * role.setRoleId(0); role.setName("USER");
-		 * 
-		 * Set<UserRole> userRoles = new HashSet<>();
-		 * 
-		 * userRoles.add(new UserRole(user, role));
-		 * 
-		 * userService.createUser(user, userRoles);
-		 */
+
 		
 		
 		String token = UUID.randomUUID().toString();

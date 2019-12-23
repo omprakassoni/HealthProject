@@ -1,6 +1,7 @@
 package com.health.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 import com.health.service.impl.UserSecurityService;
 import com.health.utility.SecurityUtility;
@@ -27,6 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private BCryptPasswordEncoder passwordEncoder() {
 		return SecurityUtility.passwordEncoder();
 	}
+	
+
+ 
 	private static final String[] PUBLIC_MATCHERS = {
 			"/css/**",
 			"/js/**",
@@ -34,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/",
 			"/newUser",
 			"/forgetPassword",
+			"/feedcustomerdat",
 			"/login",
 			"/s/**",
 			"/adminDeatail/**",
@@ -45,6 +51,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	};
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		http
+		
+		.headers()
+			.frameOptions().sameOrigin()
+			.httpStrictTransportSecurity().disable();
+		http
+		// ...
+		.headers()
+			// do not use any default headers unless explicitly listed
+			.defaultsDisabled()
+			.cacheControl();
+		
 		http
 			.authorizeRequests()
 			.antMatchers("/").hasAnyAuthority()
@@ -68,11 +87,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		  http.
 		  formLogin().
-		  defaultSuccessUrl("/adminDeatail", true);
+		  defaultSuccessUrl("/", true);
 		 
 		
-		
-		 
 		http
 			.csrf().disable().cors().disable()
 			.formLogin().failureUrl("/login?error")

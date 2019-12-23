@@ -12,20 +12,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.health.model.Category;
 import com.health.model.Tutorial;
-import com.health.model.category_Tutorial;
+
 import com.health.repository.CategoryDao;
 import com.health.repository.CategoryTutorialDao;
 import com.health.repository.TutorialDao;
 import com.health.service.categoryService;
 
+
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
-	
 	
 	
 	@Autowired
@@ -36,11 +37,18 @@ public class RestController {
 	public TutorialDao tutorialDao;
 	
 	
-	@Autowired
-	public CategoryTutorialDao categoryTutorialDao;
-	
-	
-	
+	/*
+	 * @Autowired private participantDeatailImpl cs;
+	 * 
+	 * @RequestMapping(path="feedcustomerdat") public void Setdata() {
+	 * 
+	 * cs.saveData();
+	 * 
+	 * 
+	 * }
+	 * 
+	 * 
+	 */
 	/*
 	 * @PostMapping("/loadByCategoryTuturial") public String
 	 * postLoadByCategory(@PathVariable Integer id, Model model, HttpServletRequest
@@ -98,7 +106,7 @@ public class RestController {
 	 * }
 	 */
 	
-	
+
 	
 
 }

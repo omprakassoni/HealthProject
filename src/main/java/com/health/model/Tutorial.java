@@ -2,29 +2,42 @@ package com.health.model;
 
 import java.security.Timestamp;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.websocket.OnError;
 
+
 @Entity
-@Table(name="tutorial")
-public class Tutorial{
+@Table(name="tutorial_resoureses")
+public class Tutorial
+{
+
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id", nullable = false, updatable = false)
 	private int tutorialid;
+	
 	private String topicname;
-	public String getTopicname() {
+	
+	
+	
+	public String getTopicname() 
+	{
 		return topicname;
 	}
 
@@ -39,20 +52,80 @@ public class Tutorial{
 		this.language = language;
 	}
 
-	public Set<category_Tutorial> getCategoryTutorials() {
-		return categoryTutorials;
-	}
-
-	public void setCategoryTutorials(Set<category_Tutorial> categoryTutorials) {
-		this.categoryTutorials = categoryTutorials;
-	}
-
-
 	private String script;
+	private String scriptStatus;
+	
 	private String outlin;
+	private String outlineScript;
+	
 	private String video;
+	private String videoStatus;
+	
 	private String timeScript;
+	
+	private String prerequisite;
+	
+
+	public String getPrerequisite() {
+		return prerequisite;
+	}
+
+	public void setPrerequisite(String prerequisite) {
+		this.prerequisite = prerequisite;
+	}
+
+	public void setDate(String date) {
+		Date = date;
+	}
+
 	private String keyword;
+	private String keywordStatus;
+	
+	private String Date;
+	
+	public String getScriptStatus() {
+		return scriptStatus;
+	}
+
+	public void setScriptStatus(String scriptStatus) {
+		this.scriptStatus = scriptStatus;
+	}
+
+	public String getOutlineScript() {
+		return outlineScript;
+	}
+
+	public void setOutlineScript(String outlineScript) {
+		this.outlineScript = outlineScript;
+	}
+
+	public String getVideoStatus() {
+		return videoStatus;
+	}
+
+	public void setVideoStatus(String videoStatus) {
+		this.videoStatus = videoStatus;
+	}
+
+	public String getKeywordStatus() {
+		return keywordStatus;
+	}
+
+	public void setKeywordStatus(String keywordStatus) {
+		this.keywordStatus = keywordStatus;
+	}
+
+	private int status;
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
+
 	public String getKeyword() {
 		return keyword;
 	}
@@ -61,10 +134,6 @@ public class Tutorial{
 		this.keyword = keyword;
 	}
 
-
-	private Timestamp date;
-	
-	
 	private String language;
 
 	public int getTutorialid() {
@@ -78,6 +147,8 @@ public class Tutorial{
 
 
 	public String getScript() {
+
+
 		return script;
 	}
 
@@ -85,7 +156,8 @@ public class Tutorial{
 
 	public void setScript(String script) {
 		this.script = script;
-	}
+	}	/* System.err.println("Hi Topic"+inputTopic); */
+	
 
 
 
@@ -96,10 +168,8 @@ public class Tutorial{
 
 
 	public void setOutlin(String outlin) {
-		this.outlin = outlin;
+		this.outlin = outlin;	
 	}
-
-
 
 	public String getVideo() {
 		return video;
@@ -128,26 +198,54 @@ public class Tutorial{
 	public String getTimeScript() {
 		return timeScript;
 	}
-
+	
 	public void setTimeScript(String timeScript) {
 		this.timeScript = timeScript;
+		
 	}
-
-	public Timestamp getDate() {
-		return date;
-	}
-
-
-
-	public void setDate(Timestamp date) {
-		this.date = date;
-	}
-
-
-	@OneToMany(mappedBy = "tutorial", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private Set<category_Tutorial> categoryTutorials=new HashSet<>();
-
+	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		@JoinColumn(name="category_id")
+	 private Category category;
 	
+	 
+	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="langaueg_id")
+	 private language lan;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="topic_id")
+	private topic topic;
+
+
+
+		public Category getCategory() {
+			return category;
+		}
+
+		public void setCategory(Category category) {
+			this.category = category;
+		}
+
+		public language getLan() {
+			return lan;
+		}
+
+		public void setLan(language lan) {
+			this.lan = lan;
+		}
+
+		public topic getTopic() {
+			return topic;
+		}
+
+		public void setTopic(topic topic) {
+			this.topic = topic;
+		}
+
+		public String getDate() {
+			return Date;
+		}
+		
 	
 	
 }

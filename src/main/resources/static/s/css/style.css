@@ -22,6 +22,24 @@ h1, h2, h3, h4, h5 {
   color: #000;
 }
 
+.nav-link{
+   
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #4e9a06;
+    background-color: rgb(10,42,102);
+}
+
+.nav-link{
+   
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #73d216;
+    background-color: rgb(10,42,102);
+}
+
 .btn, .form-control {
   outline: none;
   -webkit-box-shadow: none !important;
@@ -786,9 +804,11 @@ box {
 	height:200px;
 	border:medium;
 	color: aqua;
-	
-
 
 }
+
+
+
+
 
 //

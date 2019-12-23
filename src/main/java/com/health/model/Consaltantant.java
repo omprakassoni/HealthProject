@@ -11,6 +11,7 @@ public class Consaltantant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	
+	
 	private int id                    ;
 	private String nameConsaltant;
 	private String descriptionConsaltant;

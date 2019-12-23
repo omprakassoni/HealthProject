@@ -21,6 +21,4 @@ public interface categoryService {
     Category findByid(int id);
     
     
-    
-    
 }

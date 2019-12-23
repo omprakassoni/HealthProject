@@ -23,8 +23,14 @@ public class HealthNutrition implements CommandLineRunner {
 	private UserService userService;
 
 	public static void main(String[] args) {
+		
+		
+	
+		
 		SpringApplication.run(HealthNutrition.class, args);
 
+		
+	
 		
 		new File(ControllerHealth.uploadDirectory).mkdir();
 		new File(ControllerHealth.uploadDirectoryConsaltant).mkdir();
@@ -32,14 +38,21 @@ public class HealthNutrition implements CommandLineRunner {
 		new File(ControllerHealth.uploadDirectorScript).mkdir();
 		new File(ControllerHealth.uploadDirectorTimeScript).mkdir();
 		new File(ControllerHealth.uploadDirectorVideo).mkdir();
+		
+		new File(ControllerHealth.uploadMasterTrainer).mkdir();
+		new File(ControllerHealth.uploadMasterTrainerPhoto).mkdir();
+		new File(ControllerHealth.uploadQusetion).mkdir();
 
+		
+		
 	}
 	
 	@Override
 	public void run(String... args) throws Exception {
 		
-		
 		/*
+		 * 
+		 * 
 		 * User user1 = new User();
 		 * 
 		 * user1.setFirstName("John"); user1.setLastName("Adams");
@@ -49,14 +62,16 @@ public class HealthNutrition implements CommandLineRunner {
 		 * HashSet<>();
 		 * 
 		 * 
+		 * 
 		 * Role role1= new Role(); role1.setRoleId(1); role1.setName("ROLE_USER");
+		 * 
 		 * userRoles.add(new UserRole(user1, role1));
 		 * 
 		 * userService.createUser(user1, userRoles);
+		 * 
 		 */
-		   
 		 
-	
+		
 		
 	}
 }
