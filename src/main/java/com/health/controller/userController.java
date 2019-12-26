@@ -209,6 +209,7 @@ public class userController {
 		userRoleRepositary.save(userRoles);
 
 		return "roleAdminDetail";
+		
 
 	}
 
@@ -252,7 +253,8 @@ public class userController {
 	/* approve the domain Revieweer */
 
 	@RequestMapping(value = "/approveMeAsDomainRevieweer", method = RequestMethod.GET)
-	public String approveMeAsDomainRevieweer(Model model, Authentication autheticate) {
+	public String approveMeAsDomainRevieweer(Model model, Authentication autheticate){
+		
 
 		int rolId = 3;
 		Role role = rolerespositary.findByIdRoles(rolId);
@@ -320,22 +322,14 @@ public class userController {
 
 		userRoleRepositary.save(userRole);
 
-		return "showContributer";
+		/* return "showContributer"; */
+		
+		return "redirect:/approveRole";
+
 
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	@RequestMapping("/addDomainRoleById/add/{id}")
 	public String addDomainRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
 
@@ -355,7 +349,11 @@ public class userController {
 
 		userRoleRepositary.save(userRole);
 
-		return "showDomainReviweer";
+		/* return "showDomainReviweer"; */
+		return "redirect:/approveRole";
+		
+		
+		
 
 	}
 
@@ -368,7 +366,10 @@ public class userController {
 		  int deletedCount = em.createQuery("delete from UserRole u where u.user:=39").executeUpdate();
 		
 		
-		return "showDomainReviweer";
+		  
+		  
+		  return "redirect:/approveRole";
+		/* return "showDomainReviweer"; */
 		
 		
 
@@ -422,16 +423,22 @@ public class userController {
 
 		userRoleRepositary.save(userRole);
 
-		return "showQualityReviweer";
+		
+		return "redirect:/approveRole";
+		/* return "showQualityReviweer"; */
 
 	}
 
 	@RequestMapping("/addQualityRoleRejectById/add/{id}")
 	public String addQualityRoleRejectById(@PathVariable Long id, Model model, HttpServletRequest req) {
-				
 	
+		
+		
+		
 			
-				return "showQualityReviweer";
+		
+		return "redirect:/approveRole";
+		/* return "showQualityReviweer"; */
 				
 	}
 
@@ -482,22 +489,111 @@ public class userController {
 		userRole.setStatus(status);
 
 		userRoleRepositary.save(userRole);
-
-		return "showMasterTrainer";
+		
+		
+		return "redirect:/approveRole";
+			
+		/* return "showMasterTrainer"; */
 
 	}
 
 	@RequestMapping("/addmasterRoleRejectById/add/{id}")
 	public String addMasterRoleRejectById(@PathVariable Long id, Model model, HttpServletRequest req) {
 
-		return "showQualityReviweer";
+		
+		
+		
+		return "redirect:/approveRole";
+		/* return "showQualityReviweer"; */
 	}
 	
 	
 	@RequestMapping("/approveRole")
-	public String approveRole() {
+	public String approveRole(Model model) {
+		
+		int rolId = 3;
+		Role role = rolerespositary.findByIdRoles(rolId);
+
+		int status = 0;
+		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
+
+		List<User> userAddInformation = new ArrayList<>();
+
+		for (UserRole ur : userByStatus) {
+			
+
+			User userInformation = userRepository.findOne(ur.getUser().getId());
+
+			userAddInformation.add(userInformation);
+			System.out.println(userInformation.getFirstName());
+		}
+
+		model.addAttribute("statusByApprovDomain", userAddInformation);
+		
+	
+		int rolIdMaster = 4;
+
+		Role roleMaster = rolerespositary.findByIdRoles(rolIdMaster);
+		//int status = 0;
+		List<UserRole> userByStatusMaster = userRoleRepositary.findByStatus(status, roleMaster);
+
+		List<User> userAddInformationMaster = new ArrayList<>();
+
+		for (UserRole ur : userByStatusMaster) {
+
+			User userInformation = userRepository.findOne(ur.getUser().getId());
+
+			userAddInformationMaster.add(userInformation);
+
+		}
+
+		model.addAttribute("statusByApprovMaster", userAddInformationMaster);
+		
+	
 		
 		
+		int rolIdContributer = 5;
+		Role roleContributer = rolerespositary.findByIdRoles(rolIdContributer);
+
+		/* int status = 0; */
+		List<UserRole> userByStatusContributer = userRoleRepositary.findByStatus(status, roleContributer);
+
+		List<User> userAddInformationContributer = new ArrayList<>();
+
+		for (UserRole ur : userByStatusContributer) {
+
+			User userInformation = userRepository.findOne(ur.getUser().getId());
+
+			userAddInformationContributer.add(userInformation);
+		}
+		model.addAttribute("statusByApprovContributer", userAddInformationContributer);
+
+		
+		
+		
+
+		int rolIdQuality = 1;
+		Role roleQuality = rolerespositary.findByIdRoles(rolIdQuality);
+
+		/* int status = 0; */
+		List<UserRole> userByStatusQuality = userRoleRepositary.findByStatus(status, roleQuality);
+
+		List<User> userAddInformationQuality = new ArrayList<>();
+
+		for (UserRole ur : userByStatusQuality) {
+
+			User userInformation = userRepository.findOne(ur.getUser().getId());
+
+			userAddInformationQuality.add(userInformation);
+
+		}
+
+		model.addAttribute("statusByApprovQuality", userAddInformationQuality);
+
+		
+		
+		
+	
 		return "approveRoleLink";
 		
 		

@@ -29,10 +29,8 @@
 	       
 	          <div class="card-body">
 	            <h5 class="card-title text-center">Contributer</h5>
-	            
-	      
-	         <form  th:action="@{/submitTutorial}" method="post">
-	         
+
+	               <form th:action="@{/submitTutorial}" method="post">
 	             
 			        <div class="form-group">  
 			                     <label for="inputUserame">Add Category</label>     
@@ -43,7 +41,7 @@
 								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
 								  						</span>
 							 </select>
-							 
+							</div> 
 				
 	           				 <div class="form-group ">
 		
@@ -64,10 +62,11 @@
 					                    
 						  </div>
 						 
+						 
+						 <button type="submit" value="showAlert"  class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
 						
-			                   <button type="button" class="btn btn-success">Submit</button>  
-		
-	          			 </div>
+			           
+	          			          <button type="button" class="btn btn-success">Submit</button> 
   				 </form>
 	     
 	         

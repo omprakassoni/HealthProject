@@ -2,57 +2,306 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 
-<head th:replace="common/trail :: common-trail" />
+<head th:replace="common/trail :: common-trail" >
+
+ <link rel="stylesheet" type="text/css" href="/datatables.css"/>
+ 
+</head>
 
   <body>
   
-  		<div th:replace="common/trail :: navbar1"/>
+  			<div th:replace="common/trail :: navbar1"/>
+  			
+   
+         
   		
   		
 								<div class="container"> 
 								<div class="row" style="padding-top: 120px"  >
-								
+								<div class="col-12">
 								
 								 <nav>
 									  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-									    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-									    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="/approveMeAsDomainRevieweer" role="tab" aria-controls="nav-profile" aria-selected="false">Domain Revieweer</a>
-									    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="/approveMeAsMasterTrainer" role="tab" aria-controls="nav-contact" aria-selected="false">MasterTrainer Revieweer</a>
-									  	<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="/approveMeAsContributer" role="tab" aria-controls="nav-contact" aria-selected="false">Contributer</a>
-										<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="/approveMeAsQualityRevieweer" role="tab" aria-controls="nav-contact" aria-selected="false">Quality Revieweer</a>
-									 
+										    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+										    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#Domain" role="tab" aria-controls="nav-profile" aria-selected="false">Domain Reviewer</a>
+										    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#MasterTrainer" role="tab" aria-controls="nav-contact" aria-selected="false">MasterTrainer Reviewer</a>
+										  	<a class="nav-item nav-link" id="nav-domain-tab" data-toggle="tab" href="#Contributer" role="tab" aria-controls="nav-contact" aria-selected="false">Contributer</a>
+											<a class="nav-item nav-link" id="nav-quality-tab" data-toggle="tab" href="#Quality" role="tab" aria-controls="nav-contact" aria-selected="false">Quality Reviewer</a>
+										 
 									  </div>
 									</nav>
-									<div class="tab-content" id="nav-tabContent">
-									  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">.</div>
-									  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-									  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">..</div>
+									<!-- <div class="row"> -->
 									</div>
-								 
-								 </div>
-						</div>
-			<div th:fragment="body-bottom-scripts"></div>
+									</div>
+									<div class="row">
+									
+									<div class="col-12">
+									
+									<div class="tab-content" id="nav-tabContent">	
+								
+					 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"></div>
+			
+					 <div class="tab-pane fade" id="Domain" role="tabpanel" aria-labelledby="nav-profile-tab" onloadeddata="return submitA(this);">
+							 
+			
+					<div class="" style="padding-top: 40px">
+						          	
+						          		<div class="row">
+						          	
+						         			 	<div class="col-12">
+						
+						   			 <table id="tableIds" class="table table-striped" >
+						   			 	 
+											         <thead>  
+											           
+											            <tr>
+											          
+											                <th>Id</th>
+											                <th>User Name</th> 
+											                <th>First Name</th>
+											                <th>Last Name</th>
+											                <th>Address</th>  
+											                
+						 	
+											                <th>Approve</th>
+											                <th>Reject</th>             
+											            </tr>
+											          </thead>
+											            	
+											         <tbody>
+											            	
+											            	<tr th:each="domain : ${statusByApprovDomain}">
+											                <td th:text="${domain.id}">ID</td>  
+											                <td th:text="${domain.username}">User Name</td>
+											                <td th:text="${domain.firstName}">First Name</td>
+											                <td th:text="${domain.lastName}">Last name</td>
+											                <td th:text="${domain.address}">Address</td>
+							
+														 <td><a th:href="${'/addDomainRoleById/add/'+ domain.id}">Approve</a></td>
+														<td><a th:href="${'/addRejectRoleById/reject/' + domain.id}">Reject</a></td>  
+							
+												            </tr>
+													</tbody>			            
+											            
+											        </table>
+											</div>
+										</div>
+									</div>        
+							
+			<script src="/js/jquery.min.js"></script>
+		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
+		 
+		<script >
+			
+			function submitA() {
+			$(document).ready( function () {
+			    $('#tableIds').DataTable();
+			    
+			 
+			} );
+			}
+			</script>	
+								
+								
+		
+					<div th:fragment="body-bottom-scripts"></div>								  
+
+	
+	</div>
+ 	<div class="tab-pane fade" id="MasterTrainer" role="tabpanel" aria-labelledby="nav-contact-tab">
+ 
+									  
+			<div class="" style="padding-top: 60px">
+          	
+    					 <div class="row">
+         					  
+									  <table id="tableIdMaster" class="table table-striped">
+					         <thead>
+					         
+					            <tr>
+					                <th>Id</th>
+					                <th>User Name</th> 
+					                <th>First Name</th>
+					                <th>Last Name</th>
+					                <th>Address</th>  
+					                
+ 	
+					                <th>Approve</th>
+					                <th>Reject</th>             
+					            </tr>
+					            
+					            </thead>
+					            
+					            <tbody>
+					            	<tr th:each="master : ${statusByApprovMaster}">
+					                <td th:text="${master.id}">ID</td>  
+					                <td th:text="${master.username}">User Name</td>
+					                <td th:text="${master.firstName}">First Name</td>
+					                <td th:text="${master.lastName}">Last name</td>
+					                <td th:text="${master.address}">Address</td>
+	
+									<td><a th:href="${'/addMasterTrainerRoleById/add/'+ master.id}">Approve</a></td>
+								    <td><a th:href="${'/addmasterRoleRejectById/reject/' + master.id}">Reject</a></td>  
+							
+	
+					            </tr>
+					            </tbody>
+					        </table>
+							</div>
+				</div>
+				
+				
+				<script src="/js/jquery.min.js"></script>
+		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
+		 
+			<script>
+			
+			
+			$(document).ready( function () {
+			    $('#tableIdMaster').DataTable();
+			} );
+			
+			</script>
+									  
+									  
+									  
+									  
+</div>
+			<div class="tab-pane fade" id="Contributer" role="tabpanel" aria-labelledby="nav-contact-tab">.
+				
+					<div class="container-fluid" style="padding-top: 40px">
+				          		<div class="row">
+				          	
+				         			 	<div class="col">
+				
+				   			 	 <table id="tableIdContributer" class="table table-striped">
+									           <thead>
+									           
+									            <tr>
+									                <th>Id</th>
+									                <th>User Name</th> 
+									                <th>First Name</th>
+									                <th>Last Name</th>
+									                <th>Address</th>  
+									                
+				 	
+									                <th>Approve</th>
+									                <th>Reject</th>             
+									            </tr>
+									            
+									            </thead>
+									            
+									            <tbody>
+									            	<tr th:each="contributer : ${statusByApprovContributer}">
+									                <td th:text="${contributer.id}">ID</td>  
+									                <td th:text="${contributer.username}">User Name</td>
+									                <td th:text="${contributer.firstName}">First Name</td>
+									                <td th:text="${contributer.lastName}">Last name</td>
+									                <td th:text="${contributer.address}">Address</td>
+					
+													 <td><a th:href="${'/addContributerRoleById/add/'+ contributer.id}">Approve</a></td>
+												     <td><a th:href="${'/addRejectRoleById/reject/' + contributer.id}">Reject</a></td>  
+											
+					
+									            </tr>
+									            
+									            </tbody>
+									        </table>
+									</div>
+								</div>
+							</div> 	
+							
+			<script src="/js/jquery.min.js"></script>
+		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
+		 
+			<script>
+			
+			
+			$(document).ready( function () {
+			    $('#tableIdContributer').DataTable();
+			} );
+			
+			</script>
+						
+							
+							
+							
+									 
+			 </div>
+		<div class="tab-pane fade" id="Quality" role="tabpanel" aria-labelledby="nav-contact-tab">.
+		
+		
+				<div class="container-fluid" style="padding-top: 40px">
+				          	
+				          		<div class="row">
+				          	
+				         			 	<div class="col">
+				          	
+				          	
+				   			 	 <table id="tableIdQuality" class="table table-striped">
+									            
+									            <thead>
+									            <tr>
+									                <th>Id</th>
+									                <th>User Name</th> 
+									                <th>First Name</th>
+									                <th>Last Name</th>
+									                <th>Address</th>  
+					
+									                <th>Approve</th>
+									                <th>Reject</th>             
+									            </tr>
+									            </thead>
+									            <tbody>
+									            	<tr th:each="quality : ${statusByApprovQuality}">
+									                <td th:text="${quality.id}">ID</td>  
+									                <td th:text="${quality.username}">User Name</td>
+									                <td th:text="${quality.firstName}">First Name</td>
+									                <td th:text="${quality.lastName}">Last name</td>
+									                <td th:text="${quality.address}">Address</td>
+					
+										 <td><a th:href="${'/addQualityRoleById/add/'+ quality.id}">Approve</a></td>
+									     <td><a th:href="${'/addQualityRoleRejectById/reject/' + quality.id}">Reject</a></td>  
+									     
+									            </tr>
+									            
+									            </tbody>
+									        </table>
+									</div>
+								</div>
+							</div> 
+							
+								<script src="/js/jquery.min.js"></script>
+		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
+		 
+			<script>
+			
+			
+			$(document).ready( function () {
+			    $('#tableIdQuality').DataTable();
+			} );
+			
+			</script>	
+							
+							</div>					  
+				</div>							
+		 </div>
+	 </div>						
+</div>
+						
+		
+						
+						
+			<div th:fragment="body-bottom-scripts">
+			
+				<script src="/js/jquery.min.js"></script>
+		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
+		 
+		 
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+			
+			</div>
  </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -371,6 +371,44 @@ $('#categoryname').change(function(){
 			});
 		
 		
+		$('#MasterCategoryId').change(function(){
+			
+			var catgoryid=$(this).find(":selected").val();
+			$.ajax({
+			  	type: "GET",
+	       		 url: "/loadByCategoryByTopic",
+	       		 data: { "id": catgoryid},
+	       		 contentType: "application/json",
+	       		 success: function (result){
+	       			 
+	       		
+	       		  var html = '';
+		            var len = result.length;
+		            html += '<option value="0">Select Topic</option>';
+		            for (var i = 0; i < len; i++) {
+		             html += '<option value="' + result[i] + '">'
+		               + result[i]
+		               + '</option>';
+		            }
+		            html += '</option>';
+		            
+		            $("#inputTopic").prop('disabled',false);
+		            $('#inputTopic').html(html);
+		            
+					},
+					
+						error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+
+			});
+			
+		 
+		  
+		});
+		
+		
+		
 		
 	
 		

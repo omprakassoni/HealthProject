@@ -1218,6 +1218,7 @@ public class ControllerHealth {
 	 * load by category return language
 	 */
 	
+
 	@RequestMapping("/loadByCategoryTuturial")
 	public @ResponseBody  List<String> getAllSubcategories(@RequestParam(value="id") int id)
 	{
@@ -1285,10 +1286,7 @@ public class ControllerHealth {
 	}
 	
 	
-	
-	
-	
-	
+
 	@RequestMapping(value = "/fetchInformation", method = RequestMethod.POST)
     public @ResponseBody  List<String> getAllSubcategories1(@RequestParam(value="id") int id) 
 	{
@@ -1842,7 +1840,7 @@ public class ControllerHealth {
 		}
 		
 		
-		@RequestMapping("/revokeRequest")
+		@RequestMapping("/uploadContributerTutorial")
 		public String revokeRequest(Model model) 
 		{
 			
@@ -1852,11 +1850,8 @@ public class ControllerHealth {
 
 			model.addAttribute("categorys", category);
 			
-			
-			
-			
-			
-			return "selectionContributerCategory";
+		
+			return "Example";
 
 		}
 		
@@ -2015,24 +2010,35 @@ public class ControllerHealth {
 		  
 		
 		@RequestMapping("/submitTutorial")
-		public String submitTutorial(Model model,@RequestParam(name="categoryName") String categoryName,@RequestParam(name="inputTopic") String inputTopic,@RequestParam(name="inputLanguage") String inputLanguage)
+		public String submitTutorial(Model model,@RequestParam(value="categoryName") int categoryName,@RequestParam(name="inputTopic") String inputTopic,@RequestParam(name="inputLanguage") String inputLanguage)
 		{
 			
-			System.err.println(categoryName+""+inputTopic+""+inputLanguage);
+			System.err.println(categoryName+"+topic+"+inputTopic+"Lang"+inputLanguage);
 			
-			com.health.model.language lan=(com.health.model.language) languageDao.findAll();
+		/*
+		 * String str = categoryName; int category = Integer.parseInt(str);
+		 */
 			
-			model.addAttribute("categoryName",categoryName);
+			Category catgory=categoryDao.findByid(categoryName);
 			
-			model.addAttribute("inputTopic",inputTopic);
+			topic topic=topicRepositarydao.findBytopicname(inputTopic);
 			
-			model.addAttribute("inputLanguage",inputLanguage);
+			com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
+			
+				
+				
+			model.addAttribute("categoryName",catgory);
+			
+			model.addAttribute("inputTopic",topic);
+			
+			model.addAttribute("inputLanguage",language);
 			
 			
-			
+		
 			return "addContent";
 		
 		}
+		
 		
 		
 		

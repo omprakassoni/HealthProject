@@ -47,14 +47,15 @@
 					            
 					            
 					            </thead>
-					            <tbody>					            	<tr th:each="product : ${products}">
+					            <tbody>					            	
+					            
+					            
+					            		<tr th:each="product : ${products}">
 						                <td th:text="${product.id}">description</td>  
 						                <td th:text="${product.nameConsaltant}">descirption</td>
 						                <td th:text="${product.descriptionConsaltant}">descirption</td>
 						
-						                <td>
-						    
-						                 
+						                <td> 
 						                  	<img th:src="${product.uploadConsaltantImage}"  width="120" height="180"/>
 						                
 						                </td>  
@@ -70,13 +71,6 @@
 					    </div>
          
 			</div> 
- 
- 
- 			
-        	
-	
-		   
-     
  
  
  			<script src="/js/jquery.min.js"></script>
