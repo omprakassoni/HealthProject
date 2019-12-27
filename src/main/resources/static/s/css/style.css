@@ -806,6 +806,43 @@ box {
 	color: aqua;
 
 }
+.modal {
+	
+		
+		padding-top: 230px;
+			
+		
+
+}
+
+
+
+.vertical-alignment-helper {
+    display:table;
+    height: 500%;
+    width: 500%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:700px;
+    height:500px;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+.ck .ck-content{
+	
+	   width:666px;
+   	   height:200px
+    
+	
+}
+
+
 
 
 

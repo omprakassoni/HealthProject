@@ -1804,10 +1804,7 @@ public class ControllerHealth {
 		    List<String> topicName=new ArrayList<String>();
 		
 			topic topicDemo=topicRepositarydao.findBytopicname(topic);
-			
-			
-			
-			
+		
 			List<Question> question=(List<Question>) questionreposiatryDao.findByTutorial(topicDemo);
 			
 		
@@ -1842,16 +1839,11 @@ public class ControllerHealth {
 		
 		@RequestMapping("/uploadContributerTutorial")
 		public String revokeRequest(Model model) 
-		{
-			
-			List<Category> category = categoryservice.findAll();
-			
-			
-
+		{			
+			List<Category> category = categoryservice.findAll();	
 			model.addAttribute("categorys", category);
-			
 		
-			return "Example";
+			return "selectFossTopicLan";
 
 		}
 		

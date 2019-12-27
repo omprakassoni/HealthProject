@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/s/fonts/flaticon/font/flaticon.css"/>
     <!-- Theme Style-->
     <link rel="stylesheet" href="/s/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/fontawesome-free-5.10.1-web/css/all.css"/>
 
 <script>
 					
@@ -98,33 +99,81 @@
   <div sec:authorize="hasAnyAuthority('Contributer')">
 
 
-		 <link rel="stylesheet" href="css/style3.css"/>
- 	 	<link rel="stylesheet" href="css/bootstrap.min.css"/> 
- 	 	
-		<H4 style="padding-left: 50px ;color: gray;">Welcome to  Contributer</H4>
-
-	<div class="container" style="padding-top: 90px">
-	
-	
-	    <div class="row">
+ <div class="row">
 	      <div class="col-lg-10 col-xl-9 mx-auto">
-	        <div class="card card-signin flex-row my-5">
+	        <div class="card-header card card-signin flex-row my-5">
 	       
 	          <div class="card-body">
-	            <h5 class="card-title text-center">Contributer</h5>
-	       <ul>
-	           
-	           
-	   		 <li><h4><a href="/uploadContributerTutorial">Upload Tutorial</a></h4></li>
-	   		 <li><h4><a href="/addContributerLanguage">Select Language</a></h4></li>
-	   		 
-	   		
-	       </ul>     
-	       
+
+	     <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Welcome to  Contributer </h5>
+	            
+	         
+	         
+		<div class="card" style="width: 600px">
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Contributer </h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								  	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/Update Tutorial</a><br/>
+									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update OutLine</a><br/>
+									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update Slide</a><br/>
+									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update Script</a><br/>
+								
+								</div>
+				
+			  </div>
+		</div>
+	         
+	         <hr/>
+	         
+	        <div class="card" style="width: 600px" >
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Contributer Role </h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 
+									 
+									 
+						 				<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/}"> Revoke Contribution Role</a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	<br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span><br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  <br/>
+						 
+								</div>
+			  		</div>
+			</div>
+	         
+
+
+                     
+  				 	
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
           </div>
         </div>
       </div>
     </div>
+    
+ 	 	
+ 	 	
+ 	 	
+ 	 	
+ 	 	
+ 	 	
+		<H4 style="padding-left: 50px ;color: gray;"></H4>
+
+	<div class="container" style="padding-top: 90px">
+	
+	
+	
   </div>
 
 </div>
@@ -770,29 +819,15 @@
 			 
 				 
 					 </div>
-					
-					
-							
-				    
-			 
-			
-					
-					 
+				 
 					</form>
 				
 					</div>
 				
 		    		</div>
-		    		
-		    		
+		 		
 		    		</div>
-		    
-		    
-		    
-		      
-		      
-		      
-		      
+		
 		      </div>
 		      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 
@@ -827,16 +862,10 @@
 						 <textarea class="form-control w-75"  name="traningInformation" rows="5" id="messageId" style="width: 300px" required="required"></textarea>
  
 							</div>
-								 
-								 
-					    
 						        
 						   <button type="submit" class="btn  btn-success">Submit</button>
 						     <button type="reset" class="btn btn-success">Reset</button>       
-						        		  
-			
-								  
-							</form>
+						</form>
 				
 					</div>
 				
@@ -893,9 +922,6 @@
 				</div>
 			</div> 
 		    		
-		    		
-		    
-				
 					</div>
 				
 		    		</div>
@@ -992,7 +1018,7 @@
     <script src="/s/js/jquery.waypoints.min.js"></script>
     <script src="/s/js/main.js"></script>
      <script src="/js/ajaxSupport.js"></script>
- 
+ 	<script src="/fontawesome-free-5.10.1-web/js/all.js"></script>
 	<!-- <div th:replace="common/header :: body-bottom-scripts" /> -->
 	
 	

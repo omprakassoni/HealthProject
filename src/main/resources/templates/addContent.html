@@ -9,45 +9,41 @@
 		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 		 <link rel="stylesheet" href="css/style3.css"/>
  	 	<link rel="stylesheet" href="css/bootstrap.min.css"/> 
+ 	
+ 			<link rel="stylesheet" href="/s/fonts/fontawesome/css/font-awesome.min.css"/>
+  			<link rel="stylesheet" href="/s/fonts/flaticon/font/flaticon.css"/>
+			<link rel="stylesheet" type="text/css" href="/fontawesome-free-5.10.1-web/css/all.css"/>		
+		
+			<link type="text/css" href="css/sample.css" rel="stylesheet" media="screen" />
+			<script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
 
-
-
-					           
-					         
 			
-
-</head>
+	</head>
   <body>
     						
-					           
-					        
-					         
-					           
-					      
-					             
-					            
-  
+
   		<div th:replace="common/trail :: navbar1"/>
   		
-	<div class="container" style="padding-top: 120px">
+	<div class="" style="padding-top: 90px">
 	
-	
-	    <div class="row">
+	 
+	    <div class="row">	  <script  src="/s/js/widgEditor.js"></script> 
 	      <div class="col-lg-10 col-xl-9 mx-auto">
 	        <div class="card card-signin flex-row my-5">
 	       
 	          <div class="card-body">
-	            <h5 class="card-title text-center">Contributer</h5>
+	            <h5 class="card-title text-center" style="color:maroon;">Upload Tutorial</h5>
 	            
 	                  <form th:action="@{/submitTutorial}" method="post">
 	 
-	                  
+	                
 			               <table class="table table-bordered">
                                     <thead>
                                       <tr>
                                         <th>Foss</th>
                                         <span th:each="catgoryName : ${categoryName}"> 
-                                                <td th:text="${catgoryName.getCategoryname()}"> </td>
+                                           <td style="color:maroon;"  th:text="${catgoryName.getCategoryname()}"> </td>
+                                              
 											</span>							
                                       </tr>
                                     </thead>
@@ -57,17 +53,18 @@
                                       <tr>
                                         <th>Topic Name</th>
                                           <span th:each="topic : ${inputTopic}"> 
-                                        <td th:text="${topic.getTopicname()}">Tutorial Name</td>
+                                        <td style="color:maroon;" th:text="${topic.getTopicname()}">Tutorial Name</td>
                                         </span>
                                       </tr>
+						      
                                     </thead>
 
 
-                                     <thead>
+                                 <thead>
                                       <tr>
                                         <th>Language Name</th>
                                         <span th:each="language : ${inputLanguage}">  
-                                        <td th:text="${language.languageName}">Language Name</td>
+                                        <td style="color:maroon;" th:text="${language.languageName}">Language Name</td>
 										</span>		
                                       </tr>
                                     </thead>
@@ -83,74 +80,181 @@
                 
                             </table>
                                 
-                            <table class="table table-bordered">
-                                    <thead>
+                            <table class="table table-bordered" style="background: lightblue">
+                            
+                            
+                            <thead>
                                       <tr>
                                           
-                                            <th>Sr No</th>
-                                          
-                                           <th>Component</th>
-                                          <th>Status</th>
-                                          <th>User</th>
-                                          
-                                          <th>Icon</th>
-                
+		                                          <th>Sr No</th>
+		                                          <th>Component</th> 
+		                                          <th>Status</th>
+		                                          <th>User</th>  
+		                                          <th>Icon</th>
+		                
 
-                                        </tr>
-                                    </thead>
+                                        </tr>                         
+                             </thead>
 
 
                                       <tbody>
                                       <tr>
                                             
-                                            <th>Tutorial Name</th>
-                                           <th>Tutorial Name</th>
-                                          <th>Tutorial Name</th>
-                                          <th>Tutorial Name</th>
-                                          <th>Tutorial Name</th>
+		                                          <td>1</td>
+		                                          <td>Outline</td>
+		                                          <td>Pending</td>
+		                                          <th>-</th>
+		                                          <th>  <button style="" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i></button>
+		                                          </th>
+
+						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						  
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">Upload  Outline</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						       <form th:action="@{/addOutline}" method="post">
+						       
+						          <div class="form-group">
+						          
+						            <label for="message-text" class="col-form-label">Add Outline</label>
+						            <textarea class="form-control"  name="editor" id="editor" rows="10">
+						        
+						            </textarea>
+						            
+						            
+						          </div>
+						       
+						      <div class="modal-footer">
+						         
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						        <button type="submit" class="btn btn-success">Upload Outline</button>
+						      
+						      </div>   
+						        </form>
+						        
+						      </div>
+						    
+						    </div>
+						  </div>
+						</div>
+
+		
+	<!-- 	<script>
+		
+		$('#exampleModal').on('show.bs.modal', function (event) {
+			  var button = $(event.relatedTarget) // Button that triggered the modal
+			  var recipient = button.data('whatever') // Extract info from data-* attributes
+			  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+			  var modal = $(this)
+			  modal.find('.modal-title').text('New message to ' + recipient)
+			  modal.find('.modal-body input').val(recipient)
+			  
+			})
+		</script> -->
+		
+		
+			  
+                                      </tr>
+                                       <tr>
+                                            
+		                                          <td>2</td>
+		                                          <td>Script</td>
+		                                          <td>Pending</td>
+		                                          <th>-</th>
+		                                          <th>  <i style="color: blue;" class="fas fa-upload"></i></th>
+
+                                     	 </tr>
+                                     	 
+                                     <tr>
+                                            
+		                                          <td>3</td>
+		                                          <td>TimeScript</td>
+		                                          <td>Pending</td>
+		                                          <th>-</th>
+		                                          <th>  <i style="color: blue;" class="fas fa-upload"></i></th>
+
+                                     </tr>
+                                     	 
+                                      <tr>
+                                            
+		                                          <td>4</td>
+		                                          <td>Video</td>
+		                                          <td>Pending</td>
+		                                          <th>-</th>
+		                                          <th> <i style="color: blue;" class="fas fa-upload"></i> </th>
 
                                       </tr>
-                                          
-                                          
+                                     	 
+                                     	 
+                                     	 <tr>                                            
+		                                          <td>5</td>
+		                                          <td>Keywords</td>
+		                                          <td>Pending</td>
+		                                          <th>-</th>
+		                                          <th>  <i style="color: blue;" class="fas fa-upload"></i></th>
+
+                                     	 </tr>
+                                     	 
+                                     	  <tr>                                            
+		                                          <td>6</td>
+		                                          <td>Prerequisite</td>
+		                                          <td>Pending</td>
+		                                          <th>-</th>
+		                                          <th> <i  style="color: blue;" class="fas fa-upload"></i> </th>
+
+                                     	 </tr>
+  
                                     </tbody>
-
-
-                
-                            </table>
-			            
-			          
-									            
+							    </table>
+			     				            
 			          </form>
-	           
-	         
-	           
+	        
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  
-   
-	  
+ 		
+<script src="js/ckeditor.js"></script>
+
+<script>
+
+	ClassicEditor
+		.create( document.querySelector( '#editor' ), {
+			// toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+		} )
+		.then( editor => {
+			window.editor = editor;
+		} )
+		.catch( err => {
+			console.error( err.stack );
+		} );
+	
+</script>										
 					          
+				          
  
 			<div th:fragment="body-bottom-scripts">
-
-        	 <script src="static/js/bootstrap.bundle.min.js"></script>
-       		 <script src="static/js/jquery.slim.min" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 			
-			      
-			      	 <script src="/js/jquery.min.js"></script>
+				
+        		 <script src="static/js/bootstrap.bundle.min.js"></script>
+       			 <script src="static/js/jquery.slim.min" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+			
+				<script src="/fontawesome-free-5.10.1-web/js/all.js"></script>
+		
 			    <script src="/s/js/jquery-3.2.1.min.js"></script>
-			    <script src="/s/js/popper.min.js"></script>
+			    <script src="/s/js/popper.min.js"></script> 
 			    <script src="/s/js/bootstrap.min.js"></script>
-			    <script src="/s/js/owl.carousel.min.js"></script>
-			    <script src="/s/js/bootstrap-datepicker.js"></script>
-			    <script src="/s/js/jquery.timepicker.min.js"></script>
-			    <script src="/s/js/jquery.waypoints.min.js"></script>
-			    <script src="/s/js/main.js"></script>
-			     <script src="/js/ajaxSupport.js"></script>
+			    
+	<!-- 		 <script src="/s/js/main.js"></script>
+			     <script src="/js/ajaxSupport.js"></script> -->
 						
 			</div>
  </body>
