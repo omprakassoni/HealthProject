@@ -12,13 +12,12 @@ import com.health.model.topic;
 
 public interface topicRepositary extends CrudRepository<topic , Integer>{
 	
-		topic findBytopicname(String topic);
+		 topic findBytopicname(String topic);
 	
 	
-	
-	  @Query("from topic u where u.category=?1")
-	  List<topic>  findByCategory(Category category);
-	 
+		  @Query("from topic u where u.category=?1")
+		  List<topic>  findByCategory(Category category);
+		 
 
 
 }

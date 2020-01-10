@@ -7,9 +7,9 @@ import com.health.model.language;
 
 public interface languagedao extends CrudRepository<language,Integer> {
 	
-	
+	  
 
-language findBylanguageName(String name);
+		language findBylanguageName(String name);
 	
 
 }

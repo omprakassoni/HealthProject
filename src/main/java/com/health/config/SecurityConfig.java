@@ -64,6 +64,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.defaultsDisabled()
 			.cacheControl();
 		
+		   http
+		      // ...
+		   .headers().disable();
+		   
+
+		   
+		
 		http
 			.authorizeRequests()
 			.antMatchers("/").hasAnyAuthority()

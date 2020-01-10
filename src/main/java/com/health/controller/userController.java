@@ -20,18 +20,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.model.language;
 import com.health.model.partipantDeatil;
 import com.health.model.state;
 import com.health.repository.RoleRepository;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
+import com.health.repository.languagedao;
 import com.health.repository.participantDao;
 import com.health.repository.stateRespositary;
 import com.health.service.UserService;
@@ -40,7 +43,8 @@ import com.health.service.roleService;
 import com.health.service.tutorialService;
 
 @Controller
-public class userController {
+public class userController 
+{
 
 	@Autowired
 	roleService roleservice;
@@ -63,14 +67,18 @@ public class userController {
 	@Autowired
 	private tutorialService tutorialService;
 	
-	@Autowired TutorialDao tutorialDao;
+	@Autowired 
+	private TutorialDao tutorialDao;
 	
-	@Autowired participantDao participantDao;
+	@Autowired 
+	private participantDao participantDao;
 	
+	@Autowired 
+	private UserRepository userDao;
 	
-	@Autowired UserRepository userDao;
-	
-	
+	@Autowired
+	private languagedao languagedao; 
+		
 	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
 	public String accessDeny() {
 
@@ -123,58 +131,38 @@ public class userController {
 		return "roleUserDetail";
 	}
 
-	/* Admin Deatil information */
-	/*
-	 * @RequestMapping(value = "/addMeAsAdmin", method = RequestMethod.GET) public
-	 * String addMeAsAdmin( Authentication authentication){
-	 * 
-	 * //find informaton based on username User user =
-	 * userService.findByClassname(authentication.getName()); Role
-	 * role=roleservice.findByIdRoles(id);
-	 * 
-	 * System.err.println("Hi"+user.getUserRoles());
-	 * 
-	 * String name= "ROLE_ADMIN";
-	 * 
-	 * Role role=rolerespositary.findByname(name);
-	 * 
-	 * Authentication authentication2 =
-	 * SecurityContextHolder.getContext().getAuthentication();
-	 * 
-	 * Set<String> roles = authentication.getAuthorities().stream() .map(r ->
-	 * r.getAuthority()).collect(Collectors.toSet());
-	 * 
-	 * System.err.println(roles.toString());
-	 * 
-	 * 
-	 * Authentication authentication1 =
-	 * SecurityContextHolder.getContext().getAuthentication();
-	 * 
-	 * boolean hasUserRole = authentication1.getAuthorities().stream()
-	 * 
-	 * .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-	 * 
-	 * 
-	 * 
-	 * if(hasUserRole== false){
-	 * 
-	 * UserRole userRoles=new UserRole(user,role); userRoles.setStatus(0);
-	 * 
-	 * userRoleRepositary.save(userRoles);
-	 * 
-	 * return "index";
-	 * 
-	 * }else {
-	 * 
-	 * return "error"; }
-	 * 
-	 * }
-	 * 
-	 */
-	
-	@RequestMapping(value = "/addMeAsContributer", method = RequestMethod.GET)
-	public String aaddMeAsContributer(Authentication authentication, Model model) 
+
+	@RequestMapping(value = "/addMeAsContributer", method = RequestMethod.POST)
+	public String aaddMeAsContributer(Authentication authentication, Model model,@RequestParam(value="contributerLanguage") String lanId) 
 	{
+		
+		/*
+		 * User userInfo=userDao.findByUsername(authentication.getName());
+		 * 
+		 * int st=0;
+		 * 
+		 * if(userRoleRepositary.findByStatusAndUser(st,userInfo)!=null) {
+		 * 
+		 * model.addAttribute("ac", true);
+		 * 
+		 * return "roleAdminDetail"; }
+		 */
+		
+		
+		String str = lanId;	
+		int inum = Integer.parseInt(str);
+		
+		language lan=languagedao.findOne(inum);
+		
+		int languageId=lan.getId();
+		System.err.println("Hi language id"+languageId);
+		
+		java.util.Date dt = new java.util.Date();
+
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String currentTime = sdf.format(dt);
 		
 		User user = userService.findByClassname(authentication.getName());
 		
@@ -182,14 +170,20 @@ public class userController {
 		
 		Role role = rolerespositary.findByname(name);
 
-		int status = 0;
-		UserRole userRoles = new UserRole(user, role);
-		userRoles.setStatus(status);
-		userRoleRepositary.save(userRoles);
-
+		int status = 0;	
+		
+		UserRole userRoles = new UserRole(user, role);	
+		
+			userRoles.setLanguage(lan);		
+			userRoles.setCreated(currentTime);		
+			userRoles.setStatus(status);
+			userRoleRepositary.save(userRoles);
+			
+		model.addAttribute("request","Request Send Successfully");
+		
+			
+		
 		return "roleAdminDetail";
-		
-		
 		
 	}
 	
@@ -274,13 +268,13 @@ public class userController {
 
 		model.addAttribute("statusByApprov", userAddInformation);
 
-		return "showDomainReviweer";
-		
-		
+		return "showDomainReviweer";	
 	}	
+	
 	@RequestMapping(value = "/approveMeAsContributer", method = RequestMethod.GET)
-	public String approveMeAsContributer(Model model, Authentication autheticate) {
-
+	public String approveMeAsContributer(Model model, Authentication autheticate) 
+	{
+	
 		int rolId = 5;
 		Role role = rolerespositary.findByIdRoles(rolId);
 
@@ -288,16 +282,17 @@ public class userController {
 		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
 
 		List<User> userAddInformation = new ArrayList<>();
-
-		for (UserRole ur : userByStatus) {
+		for (UserRole ur : userByStatus) 
+		{
 
 			User userInformation = userRepository.findOne(ur.getUser().getId());
-
-			userAddInformation.add(userInformation);
+					
+			userAddInformation.add(userInformation);		
 		}
-		model.addAttribute("statusByApprov", userAddInformation);
 
-		
+		model.addAttribute("statusByApprov", userByStatus);
+		/* model.addAttribute("statusByApprov", userAddInformation); */
+	
 		return "showContributer";
 		
 		
@@ -325,7 +320,6 @@ public class userController {
 		/* return "showContributer"; */
 		
 		return "redirect:/approveRole";
-
 
 	}
 	
@@ -502,14 +496,14 @@ public class userController {
 
 		
 		
-		
 		return "redirect:/approveRole";
 		/* return "showQualityReviweer"; */
 	}
 	
 	
 	@RequestMapping("/approveRole")
-	public String approveRole(Model model) {
+	public String approveRole(Model model)
+	{
 		
 		int rolId = 3;
 		Role role = rolerespositary.findByIdRoles(rolId);
@@ -519,7 +513,8 @@ public class userController {
 
 		List<User> userAddInformation = new ArrayList<>();
 
-		for (UserRole ur : userByStatus) {
+		for (UserRole ur : userByStatus) 
+		{
 			
 
 			User userInformation = userRepository.findOne(ur.getUser().getId());
@@ -549,9 +544,8 @@ public class userController {
 
 		model.addAttribute("statusByApprovMaster", userAddInformationMaster);
 		
+		
 	
-		
-		
 		int rolIdContributer = 5;
 		Role roleContributer = rolerespositary.findByIdRoles(rolIdContributer);
 
@@ -566,12 +560,10 @@ public class userController {
 
 			userAddInformationContributer.add(userInformation);
 		}
-		model.addAttribute("statusByApprovContributer", userAddInformationContributer);
-
-		
-		
+		model.addAttribute("statusByApprovContributer", userByStatusContributer);
 		
 
+	
 		int rolIdQuality = 1;
 		Role roleQuality = rolerespositary.findByIdRoles(rolIdQuality);
 
@@ -585,22 +577,14 @@ public class userController {
 			User userInformation = userRepository.findOne(ur.getUser().getId());
 
 			userAddInformationQuality.add(userInformation);
-
 		}
 
 		model.addAttribute("statusByApprovQuality", userAddInformationQuality);
 
-		
-		
-		
 	
 		return "approveRoleLink";
-		
-		
+			
 	}
-	
-	
-	
 	
 	
 

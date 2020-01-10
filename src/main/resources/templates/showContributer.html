@@ -1,4 +1,4 @@
-
+\
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 
@@ -26,26 +26,27 @@
 					                <th>User Name</th> 
 					                <th>First Name</th>
 					                <th>Last Name</th>
-					                <th>Address</th>  
-					                
- 	
+					                <th>Language</th>  
 					                <th>Approve</th>
-					                <th>Reject</th>             
+					                <th>Reject</th>      
+					                       
 					            </tr>
 					            
-					            </thead>
-					            
+					            </thead>					            
 					            <tbody>
+					            
 					            	<tr th:each="approve : ${statusByApprov}">
-					                <td th:text="${approve.id}">ID</td>  
-					                <td th:text="${approve.username}">User Name</td>
-					                <td th:text="${approve.firstName}">First Name</td>
-					                <td th:text="${approve.lastName}">Last name</td>
-					                <td th:text="${approve.address}">Address</td>
+					                <td th:text="${approve.getUser().id}">ID</td>  
+					                <td th:text="${approve.getUser().username}">User Name</td>
+					                <td th:text="${approve.getUser().firstName}">First Name</td>
+					                <td th:text="${approve.getUser().lastName}">Last name</td>
+					                <td th:text="${approve.getLanguage().languageName}">Language Name</td>
+					                 <td th:text="${approve.getLanguage().id}">Language Name</td>
+					              
+					                
 	
 									 <td><a th:href="${'/addContributerRoleById/add/'+ approve.id}">Approve</a></td>
 								     <td><a th:href="${'/addRejectRoleById/reject/' + approve.id}">Reject</a></td>  
-							
 	
 					            </tr>
 					            

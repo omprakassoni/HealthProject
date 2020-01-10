@@ -13,7 +13,7 @@
   <body>
   		<div th:replace="common/trail :: navbar1"/>
   		
-  		<div class="container" style="padding-top: 150px">
+  		<div class="container" style="padding-top: 90px">
 
 	    <div class="row">
 	      <div class="col-lg-10 col-xl-9 mx-auto">
@@ -22,14 +22,12 @@
 	          <div class="card-body">
 	           <h5 class="card-title text-center" style="color:maroon; font-size: 20px">
     			<div class="">    
-                                <div th:if="${msg}">
-   								 <span th:text="${msg}"></span>
+                                <div th:if="${msgSuccefull}">
+   								 <span th:text="${msgSuccefull}"></span>
  									 </div> </div></h5>
 	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">  Add Language </h5>
-	            
 	         
-	         
-	       	   <form class="form-horizontal"  th:action="@{/addLanguage}" method="post"  enctype="multipart/form-data" onsubmit="return submitForm(this);">
+	       <form class="form-horizontal"  th:action="@{/addLanguage}" method="post"  enctype="multipart/form-data" onsubmit="return submitForm()(this);">
  
 				    	
 						<div class="form-group">  
@@ -48,22 +46,13 @@
 	 						 	
 						</div>
 	
-	 			<!-- 		<div class="form-group">  
-	 
-	                        <label for="languageId">Language Name</label> 
-	 						 <input type="text" class="form-control" id="languageId" name="languageName" required="required"/>
-	 						 
-	 						
-						</div> -->
-	 
-	
- 
+	 		
                           <button type="submit" value="showAlert"  class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
                            <button type="reset" class="btn btn-success">Reset</button>
                                                 
               
                      </form>
-                     
+              
                      
   				 	
 					<script>
@@ -79,6 +68,27 @@
       </div>
     </div>
   </div>
+  
+    <div class="container">
+	    <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card card-signin flex-row my-5">
+	          <div class="card-body">
+	           <h5 class="card-title text-center" style="color:maroon; font-size: 15px"> Alredy Added language </h5>
+					<ul>
+	    		    	 	<span th:each="lan : ${languageAll}">  
+						<li >     <span style="color: green;" th:text="${lan.languageName}">descirption</span ></li>
+						
+								</span>
+					</ul>
+			
+  			 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
  
 			<div th:fragment="body-bottom-scripts">
 

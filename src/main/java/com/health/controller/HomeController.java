@@ -70,20 +70,15 @@ public class HomeController {
 	{
 	
 		
-	List<Category> category=categoryservice.findAll();
-	
-	model.addAttribute("categorys",category);
-	
+		List<Category> category=categoryservice.findAll();
 		
-		  List<Event> event=eventDao.getAllEvent();
-		  
-		  
-		  
-		  model.addAttribute("events",event);
-		  
-		 
+		model.addAttribute("categorys",category);
+		
+		List<Event> event=eventDao.getAllEvent();
+			  
+		model.addAttribute("events",event);
 
-	return "index";
+		return "index";
 		
 	}
 	

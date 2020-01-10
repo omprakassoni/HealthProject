@@ -6,14 +6,20 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GeneratorType;
 
 @Entity
 public class Role {
 
-	@Id
-	private int roleId;
+	@Id	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	private int roleId;		
 	private String name;
 	
 	@OneToMany(mappedBy = "role", cascade=CascadeType.ALL, fetch=FetchType.LAZY)

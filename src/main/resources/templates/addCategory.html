@@ -26,30 +26,30 @@
    								 <span th:text="${msg1}"></span>
  									 </div> </div></h5>
 	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Category </h5>
-	            
-	         
-	         
 
-                       <form style="padding-left: 120px" class="form-horizontal"  th:action="@{/savecategory}" onsubmit="return submitForm(this);" method="post"  >
+            <form style="padding-left: 120px" class="form-horizontal"  th:action="@{/assignTutorialInformation}" onsubmit="return submitForm(this);" method="post"  >
 						    
 						<!-- 	<div class="row" style=""><strong> Category</strong></div> -->
 							
 							
 						 <div class="form-group">
+						 
 							<label for="Category">Add Category</label>       
                						 <input type="text" class="form-control w-75" id="Category" name="categoryname"  required="required"/>
 					
-					<span
-												style="color: red;" th:if="${msg}">Catgory
-												already exists. Choose a different one.</span>
+								<span style="color: red;" th:if="${msg}">Catgory
+									already exists. Choose a different one.</span>
 						</div>	
-						 	
-						 	
-						 	
 						
-						   
-					   
-						   
+					 <div class="form-group">
+						 
+							<label for="Category">Status</label>       
+               				<input type="checkbox" id="myCheck" class="form-control"  name="checkboxName"/>	
+               				
+					</div>	
+				
+		
+
 						   	<button type="submit" class="btn  btn-success" onclick="">Submit</button>
 						     <button type="reset" class="btn btn-success">Reset</button>       
 						        		  
@@ -59,10 +59,7 @@
 			 
 								  
 						</form>
-               
 
-                     
-  				 	
 					<script>
 					function submitForm() {
 						  return confirm('Do you really want to submit the form?');
@@ -82,8 +79,6 @@
         	 <script src="static/js/bootstrap.bundle.min.js"></script>
        		 <script src="static/js/jquery.slim.min" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 			
-			
-					
 				<script src="/js/jquery.min.js"></script>
 			    <script src="/s/js/jquery-3.2.1.min.js"></script>
 			    <script src="/s/js/popper.min.js"></script>

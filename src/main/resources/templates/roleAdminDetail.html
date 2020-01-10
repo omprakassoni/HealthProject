@@ -21,10 +21,9 @@
     <link rel="stylesheet" type="text/css" href="/fontawesome-free-5.10.1-web/css/all.css"/>
 
 <script>
-					
+
 					function submitA() {
 						  return confirm('Do you really want to Send Request ');
-						  
 						  alert("Request Send succefully");
 						  
 						}
@@ -98,7 +97,6 @@
     
   <div sec:authorize="hasAnyAuthority('Contributer')">
 
-
  <div class="row">
 	      <div class="col-lg-10 col-xl-9 mx-auto">
 	        <div class="card-header card card-signin flex-row my-5">
@@ -106,8 +104,6 @@
 	          <div class="card-body">
 
 	     <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Welcome to  Contributer </h5>
-	            
-	         
 	         
 		<div class="card" style="width: 600px">
 		
@@ -122,7 +118,7 @@
 								
 								</div>
 				
-			  </div>
+			 		 </div>
 		</div>
 	         
 	         <hr/>
@@ -134,9 +130,7 @@
 				
 								 <div class="form-group">
 								 
-									 
-									 
-						 				<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/}"> Revoke Contribution Role</a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}"> Revoke Contribution Role</a></span><br/>	
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	<br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span><br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  <br/>
@@ -145,10 +139,7 @@
 			  		</div>
 			</div>
 	         
-
-
-                     
-  				 	
+ 	
 					<script>
 					function submitForm() {
 						  return confirm('Do you really want to submit the form?');
@@ -164,10 +155,6 @@
     
  	 	
  	 	
- 	 	
- 	 	
- 	 	
- 	 	
 		<H4 style="padding-left: 50px ;color: gray;"></H4>
 
 	<div class="container" style="padding-top: 90px">
@@ -181,7 +168,6 @@
 		<!-- Only Admin Can See detail -->
 		
 		<div sec:authorize="hasAnyAuthority('Admin')">
-		
 	
 		   <div class="#">
 		                    <div class="row" style="padding-top:  100px; padding-left: 30px">
@@ -198,7 +184,7 @@
                          
                                                      <ul>  
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Event}">Home</a>
-                                                        </li>  
+														</li>  
       
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a  th:href="@{Category}">Add Category</a></li>
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{displaytopiform}">Add Topic</a></li> 
@@ -213,9 +199,10 @@
                                                 
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{addUploadQuestion}">Upload Question</a></li>
                                                        
-                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Master Trainer</a></li>
-                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Quality Reviweer</a></li>
-                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Domain Reviweer</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{roleNew}">Add New Role</a></li>
+                                                   	 	<li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Master Reviwer</a></li>  
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Quality Reviwer</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Domain Reviwer</a></li>
                                                          
                                                      </ul> 
                                                     </div>
@@ -234,16 +221,15 @@
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{adminShowQualityreviweer}">List Quality Reviweer</a></li>
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{adminShowDomainReviweer}">List Domain Reviweer</a></li>
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{listparicipant}">List Participant</a></li>
+   														<li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{listContributor}">List Contributor</a></li>					
    
+   	
                                                         </ul>
                                                 </div>
-
-                            </div> 
-                        
-              </div>
-      </div> 
-
- </div>
+                       			     </div>             
+            				  </div>
+    					  </div> 
+				</div>
  
  
  <div class="#">
@@ -267,22 +253,19 @@
  </div>
  
 </div>
-
-
-				
-				
-
-			 
-   <section   style="background: lightblue" sec:authorize="!hasAnyAuthority('DomainReviweer','Admin','MasterTrainer','Contributer')">
-   	
  
-
+  <section   style="background: lightblue" sec:authorize="!hasAnyAuthority('DomainReviweer','Admin','MasterTrainer','Contributer','QualityReviweer')">
+   
+		          <!--   <div class="">    
+                               <div th:if="${request}">
+   								<span th:text="${request}"></span>
+ 											 </div> </div> -->
    	<div class="#">
-   		
    	
    		<div class="row"  style="padding-top: 160px; padding-left: 950px">
-   			
-   			
+		
+					<span style="color: maroon;" th:if="${ac}">Already Role exists.</span>
+			
    		<div class="col-4 shadow p-3 mb-5 bg-white rounded">
 	
 	<!-- 
@@ -290,7 +273,7 @@
 	   		 <div>
 	   		 			   <ul>	
 	   		 			    
-					     		<li>	<span>	<a onclick="return submitA(this);"	  th:href="@{/addMeAsContributer}"> Add me as Contributer </a></span>	</li>	
+ 					     		<li>	<span>	<a onclick="return submitA(this);"	th:href="@{/contributerSelectionLanguage}">Add me as Contributer</a></span></li>	
 								<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	</li>
 								<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span></li>
 								<li>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  </li>
@@ -375,11 +358,7 @@
 							      
 							    </div>
 							  </div>
-						  
-						    <!-- 
-							  
- Trainer -->
-							  
+					  
 				 <div class="modal fade" id="myModal3" role="dialog">
 						   
 						   
@@ -403,10 +382,7 @@
 							      
 							    </div>
 							  </div>
-						  
-						  
-						  
-
+					
 	    	</div>
 
    			</div>
@@ -454,8 +430,7 @@
 		      </div>
 		      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 		      
-		      
-		      
+		  
 		    		<div class="container">
 		    		
 		    		<div class="">
@@ -463,10 +438,7 @@
 		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >View  Tutorial</div>
 		    		
 		    		<div class=" col-md-12" style="padding-left: 10px">
-		    		
-	
-
-
+		    
           	     <div>
 					        <h2>Tutorial List</h2>
 					        
@@ -502,24 +474,9 @@
 					        </table>
 					    </div>
 		
-		
-		
-		
-		
-	
-					
-					
-							
-				    
-												   <button type="submit" class="btn  btn-success">Submit</button>
-												     <button type="reset" class="btn btn-success">Reset</button>       
+			 <button type="submit" class="btn  btn-success">Submit</button>
+			 <button type="reset" class="btn btn-success">Reset</button>       
 												        		  
-			
-								
-								  
-								  
-								  
-					
 		
 					</div>
 				
@@ -527,9 +484,6 @@
 		    		
 		    		
 		    		</div>
-		    
-		    
-		   
 		      
 		      </div>
 		      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">

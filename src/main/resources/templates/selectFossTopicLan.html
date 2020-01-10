@@ -25,37 +25,44 @@
                                 <div th:if="${msg}">
    								 <span th:text="${msg}"></span>
  									 </div> </div></h5>
-	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">  Select Language </h5>
+	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px"> <i class="fas fa-tasks"></i> Tutorial Upload Index </h5>
 	            
-	         
-	         
 	       	   <form class="form-horizontal"  th:action="@{/submitTutorial}" method="post"  onsubmit="return submitForm(this);">
- 
+ 			
+ 				
  					 <div class="form-group">  
 			                     <label for="inputUserame">Add Category</label>     
-			              <select id="MasterCategoryId" class="form-control " name="categoryName"   required="required" >
+			              <select id="categoryContributor" class="form-control " name="categoryName"   required="required" >
 								               
-								                        <option selected="selected">Select Category</option>      
-								                        <span th:each="category: ${categorys}">
-								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-								  						</span>
-							 </select>
-							</div> 
+							 <option id="categoryContributor"  selected="selected">Select Category</option>  
+							     
+								      <span th:each="category: ${categorys}">
+								  		
+											<option th:value="${category.getCategory().categoryname}">
+									
+									<span th:text="${category.getCategory().categoryname}"></span>
+								
+								</option>	
+						</span>
+						</select>
+						
+						
+					</div> 
 				
-	           				 <div class="form-group ">
+	           		 <div class="form-group ">
 		
-					               <label for="inputTopic">Topic Name</label>
-					                  <select id="inputTopic" class="form-control" name="inputTopic"  required="required">
+					       <label for="inputTopicContributor">Topic Name</label>
+					       <select id="inputTopicContributor" class="form-control" name="inputTopic"  required="required">
 					              
 					                	</select> 
 					                	
-							 </div>
+					 </div>
 
 			              <div class="form-group ">
 		
-					               <label for="inputLanguage">Select Language</label>
+					               <label for="inputLanguageContributor">Select Language</label>
 					               
-					                    <select id="inputLanguage" class="form-control" name="inputLanguage"  required="required">
+					                    <select id="inputLanguageContributor" class="form-control" name="inputLanguage"  required="required">
 					              
 					                </select> 
 					                    
@@ -94,7 +101,7 @@
 			    <script src="/s/js/jquery.timepicker.min.js"></script>
 			    <script src="/s/js/jquery.waypoints.min.js"></script>
 			    <script src="/s/js/main.js"></script>
-			     <script src="/js/ajaxSupport.js"></script>
+			    <script src="/js/ajaxSupport.js"></script>
 			
 			</div>
  </body>

@@ -2,6 +2,11 @@
 
 $(function(){
 
+	$('#keywordModale').on('hidden.bs.modal', function () {
+		location.reload();
+	});
+	
+	
 $('#categoryname').change(function(){
   					
   					var catgoryid=$(this).find(":selected").val();
@@ -213,8 +218,6 @@ $('#categoryname').change(function(){
 		/*
 					master trainer depending on language wet topic*/
 		
-		
-		
 		$('#inputLanguage').change(function(){
 		  				
 		  					var catgoryid=$(this).find(":selected").val();
@@ -293,9 +296,11 @@ $('#categoryname').change(function(){
 		/* Access topic according to langaueg*/
 		
 		$('#MasterCategoryId').change(function(){
+			alert("Hi");
 		
 				var catgoryid=$(this).find(":selected").val();
 				$.ajax({
+					
 				  	type: "GET",
 		       		 url: "/loadByCategoryByTopic",
 		       		 data: { "id": catgoryid},
@@ -315,6 +320,83 @@ $('#categoryname').change(function(){
 			            
 			            $("#inputTopic").prop('disabled',false);
 			            $('#inputTopic').html(html);
+			            
+						},
+						
+							error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
+					}
+
+				});
+				
+			 
+			  
+			});
+				
+		/*load Topic by catgory contributor*/
+		
+		$('#categoryContributor').change(function(){
+		
+			var catgoryid=$(this).find(":selected").val();
+				$.ajax({
+					
+				  	type: "GET",
+		       		 url: "/loadTopicByCategoryContributor",
+		       		 data: { "id": catgoryid},
+		       		 contentType: "application/json",
+		       		 success: function (result){
+		       			 
+		       		
+		       		  var html = '';
+			            var len = result.length;
+			            html += '<option value="0">Select Topic</option>';
+			            for (var i = 0; i < len; i++) {
+			             html += '<option value="' + result[i] + '">'
+			               + result[i]
+			               + '</option>';
+			            }
+			            html += '</option>';
+			            
+			            $("#inputTopicContributor").prop('disabled',false);
+			            $('#inputTopicContributor').html(html);
+			            
+						},
+						
+							error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
+					}
+
+				});
+				
+			 
+			  
+			});
+		
+		/*contributor languages*/
+		
+		$('#inputTopicContributor').change(function(){
+	
+			var catgoryid=$(this).find(":selected").val();
+				$.ajax({
+					
+				  	type: "GET",
+		       		 url: "/loadLanguageByTopicId",
+		       		 data: { "id": catgoryid},
+		       		 contentType: "application/json",
+		       		 success: function (result){
+		       		
+		       		  var html = '';
+			            var len = result.length;
+			            html += '<option value="0">Select Topic</option>';
+			            for (var i = 0; i < len; i++) {
+			             html += '<option value="' + result[i] + '">'
+			               + result[i]
+			               + '</option>';
+			            }
+			            html += '</option>';
+			            
+			            $("#inputLanguageContributor").prop('disabled',false);
+			            $('#inputLanguageContributor').html(html);
 			            
 						},
 						
@@ -365,35 +447,39 @@ $('#categoryname').change(function(){
 					}
 
 				});
-				
-			 
-			  
+		  
 			});
 		
 		
-		$('#MasterCategoryId').change(function(){
+		$('#outlineId').click(function()	
+		{
 			
-			var catgoryid=$(this).find(":selected").val();
+			
+	/*		 var TextGrab = CKEDITOR.instances['editor'].getData();
+		        TextGrab = $(TextGrab).text();        
+		        TextGrab = TextGrab.replace(/\r?\n|\r/gm," "); 
+		        TextGrab = TextGrab.replace(/\s\s+/g, " ").trim(); */
+		
+			/*
+		   var myTextFieldValue = CKEDITOR.instances.editor.document.getBody().getText();
+		    var words = myTextFieldValue.split(' ');
+			*/
+			alert("Hi");
+			var catgoryid=$("#keyword").val();
+
+			alert("content");
+	
+			
 			$.ajax({
 			  	type: "GET",
-	       		 url: "/loadByCategoryByTopic",
-	       		 data: { "id": catgoryid},
+	       		 url: "/outline",
+	       		 data: { "id": TextGrab},
 	       		 contentType: "application/json",
-	       		 success: function (result){
+	       		 success: function(result)
+	       		 {
 	       			 
-	       		
-	       		  var html = '';
-		            var len = result.length;
-		            html += '<option value="0">Select Topic</option>';
-		            for (var i = 0; i < len; i++) {
-		             html += '<option value="' + result[i] + '">'
-		               + result[i]
-		               + '</option>';
-		            }
-		            html += '</option>';
-		            
-		            $("#inputTopic").prop('disabled',false);
-		            $('#inputTopic').html(html);
+	       			 $("#inputTopic").prop('disabled',false);
+	       			 $('#inputTopic').html(html);
 		            
 					},
 					
@@ -402,43 +488,249 @@ $('#categoryname').change(function(){
 				}
 
 			});
-			
-		 
+  
+		});
+		
+		
+		/*Save keyWord information into table*/
+		
+	
+		$('#keywordId').click(function()			
+		{
+				
+				var keywordArea=$("#keyword").val();
+				var categoryid=$("#catId").val();
+				var topicid=$("#topicId").val();
+				var lanId=$("#lanId").val();
+				
+				$.ajax({
+					  	type: "GET",
+			       		 url: "/keyword",
+			       		 data: { "id": keywordArea,"categorname" : categoryid,"topicid":topicid,"lanId":lanId },			
+			       		 contentType: "application/json",
+			       		 success: function(result)
+			       		 {
+			     
+			       			 $("#statuskeyword").prop('disabled',false);
+			       			 $('#statuskeyword').html(result);
+			       		
+							},
+							
+								error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+
+					});
 		  
-		});
+				});
 		
 		
-	
-		$("buttonA").click(function(e){
+		
+	$('#myCheck').click(function()			
+	{
+				
+		var checkbox=$("#myCheck").val();
 			
-			alert("Hi");
-			
-		    e.preventDefault();
-		    $.ajax({
-		    	
-		        type: "POST",
-		        url: "/addOutline",
-		        data: 
-		        { 
-		        	
-		            id: $(this).val(), // < note use of 'this' here
-		            access_token: $("#access_token").val() 
-		        },
-		        success: function(result) {
-		            alert('ok');
-		        },
-		        error: function(result) {
-		            alert('error');
-		        }
-		    });
-		});
-		
-		
+				$.ajax({
+					
+					  	type: "GET",
+			       		 url: "/keyword",
+			       		 data: { "id": keywordArea },			
+			       		 contentType: "application/json",
+			       		 success: function(result)
+			       		 {
+			       			 $("#statuskeyword").prop('disabled',false);
+			       			 $('#statuskeyword').html(result);
+			       		
+							},
+							
+								error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+
+					});
+		  
+				});
 	
+	
+	/*here  calling approve button for contributor*/
+	
+	$('#approveContributorId').click(function()			
+	{
+		
+				
+				var contributionId=$("#contributorId").val();
+				
+						$.ajax({
+							  	type: "GET",
+					       		 url: "/addContributerRoleById",
+					       		 data: { "id": contributionId},			
+					       		 contentType: "application/json",
+					       		 success: function(result)
+					       		{
+
+			       			 $("#statusContributor").prop('disabled',false);
+			       			 $('#statusContributor').html(result);
+				       	
+							},
+										
+									error : function(err){
+									console.log("not working. ERROR: "+JSON.stringify(err));
+								}
+
+							});
+				  
+			});
+	
+	$('#rejectContributionId').click(function()			
+			{
+	
+						var contributionId=$("#contributorId").val();
+						
+								$.ajax({
+									  	type: "GET",
+							       		 url: "/rejectContributorById",
+							       		 data: { "id": contributionId},			
+							       		 contentType: "application/json",
+							       		 success: function(result)
+							       		{
+
+					       			 $("#statusContributor").prop('disabled',false);
+					       			 $('#statusContributor').html(result);
+						       	
+									},
+												
+											error : function(err){
+											console.log("not working. ERROR: "+JSON.stringify(err));
+										}
+
+									});
+						  
+					});
+			
+			/*load By Contributor user only //Contributor assign from 	*/
+	
+	
+			$('#contributorId').click(function()			
+			{	
+				
+				var userContributor=$(this).find(':selected').val();
+
+								$.ajax({
+									type: "GET",
+						       		 url: "/loadLanguageByUser",
+						       		 data: { "id": userContributor},
+						       		 contentType: "application/json",
+						       		 success: function (result){
+		
+						       			 	
+						       			 var html = '';
+						       			 var len = result.length;
+							             html += '<option value="0">Select Language</option>';
+							             for (var i = 0; i < len; i++) {
+							             html += '<option value="' + result[i] + '">'
+							               + result[i]
+							               + '</option>';
+							             }
+							             html += '</option>';
+							            
+							            $("#lanId").prop('disabled',false);
+							            $('#lanId').html(html);
+							            
+										},
+										
+										error : function(err){
+											console.log("not working. ERROR: "+JSON.stringify(err));
+										}
+									});
+						  
+				});
+				
+			
+			
+					$('#lanId').click(function()			
+					{			
+						var languageName=$("#lanId :selected").text();
+					
+								$.ajax({
+											type: "GET",
+								       		 url: "/loadCategoryByLanguage",
+								       		 data: { "id": languageName},
+								       		 contentType: "application/json",
+								       		 success: function (result){
+				
+								       			 	
+								       			 var html = '';
+								       			 var len = result.length;
+									             html += '<option value="0">Select Category</option>';
+									             for (var i = 0; i < len; i++) {
+									             html += '<option value="' + result[i] + '">'
+									               + result[i]
+									               + '</option>';
+									             }
+									             html += '</option>';
+									            
+									            $("#catgoryByContributor").prop('disabled',false);
+									            $('#catgoryByContributor').html(html);
+									            
+												},
+												
+												error : function(err){
+													console.log("not working. ERROR: "+JSON.stringify(err));
+												}
+											});
+								  
+						});										
+						$('#catgoryByContributor').click(function()			
+						{			
+								var category=$(this).find("option:selected").val();
+	
+									$.ajax({
+													 type: "GET",
+										       		 url: "/loadTopicByCategory",
+										       		 data: { "id": category },
+										       		 contentType: "application/json",
+										       		 success: function (result){
+						
+										       			 1	
+										       			 var html = '';
+										       			 var len = result.length;
+											             html += '<option value="0">Select Topic</option>';
+											             for (var i = 0; i < len; i++) {
+											             html += '<option value="' + result[i] + '">'
+											               + result[i]
+											               + '</option>';
+											             }
+											             html += '</option>';
+											            
+											            $("#inputTopic").prop('disabled',false);
+											            $('#inputTopic').html(html);
+											            
+														},	
+														error : function(err){
+															console.log("not working. ERROR: "+JSON.stringify(err));
+														}
+													});
+										  
+								});
+			
+				/*load By Contributor user only //Contributor assign from End	*/
+				
+	
+/*		$('#revokeId').on('hidden.bs.modal', function () {
+				
+				location.reload();
+			});*/
+						
+		$('#approveContributorId').on('hidden.bs.modal',function () {
+			
+			location.reload();
+		});
+	
+		
 		
 
-		
-	
+
 });
 
 

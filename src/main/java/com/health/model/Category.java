@@ -27,10 +27,41 @@ public class Category {
 	@Column(name="id", nullable = false, updatable = false)
 	private int id;
 	private String categoryname;
+	private int status;
+	private String created;
 
-	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getCreated() {
+		return created;
+	}
+
+	public void setCreated(String created) {
+		this.created = created;
+	}
+
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
+
+	private Long userid;
+
 	  @OneToMany(mappedBy = "category",cascade =CascadeType.ALL) private
 	  List<Tutorial> tutorials;
+	  
+	  @OneToMany(mappedBy = "category",cascade =CascadeType.ALL) private
+	  List<contributor_Role> contributor_Roles;
+	  
 	  
 
 	  @OneToMany(mappedBy = "category",cascade =CascadeType.ALL) 

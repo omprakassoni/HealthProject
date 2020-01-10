@@ -1,4 +1,3 @@
-
 package com.health.controller;
 
 import java.io.BufferedReader;
@@ -44,8 +43,10 @@ import com.health.model.TraningInformation;
 import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.model.category_Tutorial;
+import com.health.model.contributor_Role;
 import com.health.model.feedback;
 import com.health.model.feedbackMasterTrainer;
+import com.health.model.newRole;
 import com.health.model.partipantDeatil;
 import com.health.model.topic;
 import com.health.repository.CategoryDao;
@@ -59,6 +60,7 @@ import com.health.repository.TraninigInformationRespositary;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
+import com.health.repository.contributor_RoleDao;
 import com.health.repository.feedbackRespositary;
 import com.health.repository.languagedao;
 import com.health.repository.participantDao;
@@ -68,6 +70,7 @@ import com.health.service.categoryService;
 import com.health.service.eventService;
 import com.health.service.participantService;
 import com.health.service.testimonialService;
+import com.health.service.tutorialService;
 import com.health.service.impl.catgoryServiceImpl;
 
 
@@ -88,11 +91,10 @@ public class ControllerHealth {
 	public static String uploadMasterTrainer = "src/main/resources/static" + "/Media/content" + "/MasterTrainer/ParicipantsDeatail";
 	public static String uploadMasterTrainerPhoto = "src/main/resources/static" + "/Media/content" + "/MasterTrainer/Photo";
 	
-	public static String uploadQusetion= "src/main/resources/static" + "/Media/content" + "/Question";
-	
+	public static String uploadQusetion= "src/main/resources/static" + "/Media/content" + "/Question";	
 
 	public String pathfile = uploadDirectory;
-
+	
 	@Autowired
 	private ConsaltantService consaltantservice;
 
@@ -147,7 +149,6 @@ public class ControllerHealth {
 	@Autowired
 	private topicRepositary topicRepositarydao;
 	
-	
 	@Autowired
 	private feedbackRespositary feedbackRespositary;
 
@@ -160,16 +161,53 @@ public class ControllerHealth {
 	@Autowired
 	private languagedao languageDao;
 	
-	@RequestMapping("/homeContraoller")
-	public String  language(){
+	
+	@Autowired
+	private contributor_RoleDao contributorRoleDao;
+	
+	@RequestMapping("/listContributor")
+	public String  listContributor(Model model)
+	{
+			int status=1;
 		
+			int id=5;			
+			Role role=rolerespositary.findOne(id);	
+			
+			/* List<UserRole> userByContributor=userRoleRepositary.finbyRole(role); */			
+			List<UserRole> userByContributor=(List<UserRole>) userRoleRepositary.finbyRoleUser(status,role);
+			
+			model.addAttribute("userByContributors",userByContributor);	
+			
+			
+		return "showAdminContributorList";		
+	}
 		
-		
-		return "homecontroller";
+	@RequestMapping("/contributerSelectionLanguage")
+	public String  addContributerLanguage(Model model,Authentication authetication)
+	{
+			
+		List<com.health.model.language> language= (List<com.health.model.language>) languageDao.findAll();	
+				
+		model.addAttribute("languages",language);
+				
+		return "addContributerRoleRequest";	
 		
 	}
 	
-	
+	@RequestMapping("/homeContraoller")
+	public String  language(){
+		
+		return "homecontroller";
+		
+		
+	}		
+	@RequestMapping("/roleNew")
+	public String role(){
+		
+		return "addNewRole";
+		
+		
+	}
 	
 	  
 	@RequestMapping("/listparicipant")
@@ -184,9 +222,6 @@ public class ControllerHealth {
 		
 		return "showparticipantdeatail";
 	}
-	
-	
-	
 	
 
 	@RequestMapping("/Consaltant")
@@ -225,27 +260,14 @@ public class ControllerHealth {
 	
 
 	@RequestMapping("/language")
-	public String language(Model model,HttpServletRequest request) {
+	public String language(Model model,HttpServletRequest request)
+	{
+
+		List<com.health.model.language> language=(List<com.health.model.language>) languageDao.findAll();
 		
-		
-		
-		
-		
-		
-		/*
-		 * String language=request.getParameter("languageName");
-		 * 
-		 * com.health.model.language lan=new com.health.model.language();
-		 * 
-		 * lan.setLanguageName(language);
-		 * 
-		 * languageDao.save(lan);
-		 * 
-		 * System.err.println(language);
-		 */
+		model.addAttribute("languageAll",language);
 		
 		return "addlanguage";
-		
 		
 		
 	}
@@ -271,22 +293,15 @@ public class ControllerHealth {
 		
 	
 	
-	
-	
 	/*
 	 * Here code for adding topic into database
 	 */
 	
 	@RequestMapping("/addTopic")
-	public String addtopic(Model model,HttpServletRequest request, @RequestParam(name="categoryName") String categoryName,Authentication authentication) 
+	public String addtopic(Model model,HttpServletRequest request,@RequestParam(name="categoryName") String categoryName,Authentication authentication,@RequestParam(value = "checkboxName", required = false) String checkboxValue) 
 	{
 	
-		
-		
-		
-		
-		
-	
+
 		String topicName=request.getParameter("topicName");
 		System.err.println("Topic name"+topicName);
 		System.err.println("categor name"+categoryName);
@@ -304,31 +319,35 @@ public class ControllerHealth {
 		Category  category=categoryDao.findByid(categoryid);//findBycategoryname(categoryName);
 		System.err.println("cat Id"+category.getId());
 	
-
 		java.util.Date dt = new java.util.Date();
 
 		java.text.SimpleDateFormat sdf = 
 		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		String currentTime = sdf.format(dt);
-		
-		
+			
 		topic topic=new topic(category,user);
 
 		topic.setTopicname(topicName);
-		topic.setStatus(0);
+		
+		 if(checkboxValue != null)
+		  {
+				topic.setStatus(1);
+		  }
+		  else
+		  {
+			  category.setStatus(0);
+		  }
+	
 		/*
 		 * topic.setCategory(category); topic.setUser(user);
 		 */
 		topic.setDate(currentTime);
 		
 		
-		
-		
-		
 		topicRepositarydao.save(topic);
 	
-		model.addAttribute("msg","Succesfully Save Recored");
+		model.addAttribute("msg","Successfully Added Your Recored");
 
 
 		return "addTopic";
@@ -357,6 +376,7 @@ public class ControllerHealth {
 
 	}
 	
+	/* Here upload Question */	
 	@RequestMapping("/addUploadQuestion")
 	public String addQuestion(Model model)
 	{
@@ -366,7 +386,6 @@ public class ControllerHealth {
 		model.addAttribute("categorys",category);
 	
 		
-		 
 		return  "addUploadQuestion";
 	}
 
@@ -916,6 +935,7 @@ public class ControllerHealth {
 
 	@RequestMapping(value = "/eventUpdate", method = RequestMethod.POST)
 	public String eventUpdate(HttpServletRequest req) {
+		
 		String eventname = req.getParameter("eventname");
 		String date = req.getParameter("date");
 		String description = req.getParameter("description");
@@ -945,21 +965,41 @@ public class ControllerHealth {
 	 *************************************************************************/
 
 	@RequestMapping(value = "/savecategory", method = RequestMethod.POST)
-	public String add(HttpServletRequest req, Model model) {
-
-		String categoryName = req.getParameter("categoryname");
+	public String add(HttpServletRequest req, Model model,Authentication authentication,
+			@RequestParam(value = "checkboxName", required = false) String checkboxValue) 
+	{
 	
+		String categoryName = req.getParameter("categoryname");
 
 		if (categoryDao.findBycategoryname(categoryName)!=null){
 			model.addAttribute("msg", true);
 			
 			return "addCategory";
 		}
+		User user=userRepository.findByUsername(authentication.getName());
+		
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+
+		String currentTime = sdf.format(dt);
+
 	
 		Category category = new Category();
 
 		category.setCategoryname(categoryName);
-
+		category.setCreated(currentTime);
+		
+		
+		category.setUserid(user.getId());
+		
+		  if(checkboxValue != null)
+		  {
+		    category.setStatus(1);
+		  }
+		  else
+		  {
+			  category.setStatus(0);
+		  }
 		categoryDao.save(category);
 		
 		model.addAttribute("msg1", "Successfully Added Your Recored");
@@ -1205,13 +1245,10 @@ public class ControllerHealth {
 	
 	 }
 		  
-		  model.addAttribute("cat_Tu",categtory_tutorials);
-		
-		  return "showTutorial";	
+			  model.addAttribute("cat_Tu",categtory_tutorials);
+			
+			  return "showTutorial";	
 	
-		  
-		  
-		  
 	}
 	
 	/*
@@ -1569,21 +1606,11 @@ public class ControllerHealth {
 								participantDeatail.setGender(data[4]);
 								participantDeatail.setLastname(data[5]);
 								
-								
-								
-					participantDao.save(participantDeatail);
-					
-					
+								participantDao.save(participantDeatail);
 					
 				//	participantService.deleteByQuery(participantDeatail.getParticipantId(),participantDeatail.getAdharNumber());
 					
 				//	participantDao.deleteByQuery();
-					
-					
-					
-					
-					
-					
 			
 					//participantDao.deleteByQuery();
 			
@@ -1709,7 +1736,6 @@ public class ControllerHealth {
 	 */ 
 	  
 		@RequestMapping(value = "/show_participantDeatail", method = RequestMethod.GET)
-
 		public String showparticipantDeatail(Model model) {
 		
 			List<partipantDeatil> participantdeatail=(List<partipantDeatil>) participantDao.findAll();
@@ -1799,8 +1825,6 @@ public class ControllerHealth {
 
 		  System.err.println("topic is"+topic);
 		  
-		  
-		  
 		    List<String> topicName=new ArrayList<String>();
 		
 			topic topicDemo=topicRepositarydao.findBytopicname(topic);
@@ -1838,23 +1862,35 @@ public class ControllerHealth {
 		
 		
 		@RequestMapping("/uploadContributerTutorial")
-		public String revokeRequest(Model model) 
-		{			
-			List<Category> category = categoryservice.findAll();	
-			model.addAttribute("categorys", category);
+		public String revokeRequest(Model model,Authentication authentication) 
+		{
 		
+		
+		  User user=userRepository.findByUsername(authentication.getName());
+		  
+		  List<contributor_Role> contributorRole= (List<contributor_Role>) contributorRoleDao.findByContributorRole(user);
+		  
+			/*
+			 * List<Category> category = categoryservice.findAll();
+			 */
+	
+			model.addAttribute("categorys",contributorRole);
+			
+			
+						
 			return "selectFossTopicLan";
+			
+			
 
 		}
 		
 	
 		@RequestMapping("/addLanguage")
-		public String addLanguage(Model model,HttpServletRequest req) 
+		public String addLanguage(Model model,HttpServletRequest req,Authentication authentication) 
 		{
-			
-			
+		
 			String  language=req.getParameter("languageName");
-			
+
 			
 			if (language==null){
 				
@@ -1872,13 +1908,10 @@ public class ControllerHealth {
 					return "addlanguage";
 					
 		}
-			
-			
-			
+
 			java.util.Date dt = new java.util.Date();
 
-			java.text.SimpleDateFormat sdf = 
-			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 
 			String currentTime = sdf.format(dt);
 			
@@ -1886,13 +1919,15 @@ public class ControllerHealth {
 			
 					lan.setLanguageName(language);
 					lan.setDate(currentTime);
-			
+					lan.setCreatedBy(authentication.getName());
+					
 					languageDao.save(lan);
 					
 			System.err.println(language);
+			
+			model.addAttribute("msgSuccefull","Successfully Added Your Recored");
 
-		
-			return "redirect:/adminDeatail";
+			return "addlanguage";
 
 			}
 		
@@ -1901,6 +1936,8 @@ public class ControllerHealth {
 		@RequestMapping("/loadByCategoryByTopic")
 		public @ResponseBody  List<String> getTopicByCategory(@RequestParam(value="id") int id)
 		{  
+			
+			
 	
 		    List<String> topicName=new ArrayList<String>();
 			
@@ -1913,10 +1950,11 @@ public class ControllerHealth {
 		
 		  List<topic> topic=(List<topic>) topicRepositarydao.findByCategory(cat);
 		  
-		  for(topic s:topic) {
+		  for(topic s:topic) 
+		  {
 		  
-		  topicName.add(s.getTopicname());
-		  System.err.println(s.getTopicname());
+			  topicName.add(s.getTopicname());
+			  System.err.println(s.getTopicname());
 		  
 		  }
 			return topicName;  
@@ -1978,14 +2016,25 @@ public class ControllerHealth {
 		
 		}
 		
+		/* Here load language according to contributor selectopn language */
+		
 		@RequestMapping("/loadlanguage")
-		public @ResponseBody  List<String> getloadlanguage(@RequestParam(value="id") int id)
+		public @ResponseBody  List<String> getloadlanguage(@RequestParam(value="id") int id,Authentication authetication)
 		{  
 			
-		
-			    List<String> topicName=new ArrayList<String>();
+			
+		/* UserRole userRole=UserRoleRepositary. */
+			
+				String contributorName=authetication.getName();
 				
-			    
+				List<com.health.model.language> loadlanguages= (List<com.health.model.language>) languageDao.findAll();
+				
+				
+				System.err.println("Contributort Name"+contributorName);
+				
+			
+			    List<String> topicName=new ArrayList<String>();
+	    
 			    List<com.health.model.language> language= (List<com.health.model.language>) languageDao.findAll();
 			    
 			    for(com.health.model.language  lan:language) 
@@ -2000,48 +2049,215 @@ public class ControllerHealth {
 		
 		}
 		  
+	
 		
-		@RequestMapping("/submitTutorial")
-		public String submitTutorial(Model model,@RequestParam(value="categoryName") int categoryName,@RequestParam(name="inputTopic") String inputTopic,@RequestParam(name="inputLanguage") String inputLanguage)
+	/* Add New Role into Role table */
+		
+		@RequestMapping(value = "/addRole", method = RequestMethod.POST)
+		public String addRole(Model model,HttpServletRequest request) {
+		
+		
+			String rolename=request.getParameter("roleName");
+		
+			if(rolerespositary.findByname(rolename)!=null) {
+				model.addAttribute("msg", true);
+				return "addNewRole";
+				
+			}
+			Role role=new Role();
+			
+			
+			role.setName(rolename);	
+			rolerespositary.save(role);
+
+			model.addAttribute("msgSuccefull","Successfully Added Your Recored");	
+
+			return "addNewRole";
+		}
+		
+		
+	/* Accessing the value for approve contributors */
+		
+		@RequestMapping("/addContributerRoleById")
+		public @ResponseBody  List<String> approveContributor(@RequestParam(value="id") Long id,Model model)
 		{
 			
-			System.err.println(categoryName+"+topic+"+inputTopic+"Lang"+inputLanguage);
 			
-		/*
-		 * String str = categoryName; int category = Integer.parseInt(str);
-		 */
-			
-			Category catgory=categoryDao.findByid(categoryName);
-			
-			topic topic=topicRepositarydao.findBytopicname(inputTopic);
-			
-			com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
-			
-				
-				
-			model.addAttribute("categoryName",catgory);
-			
-			model.addAttribute("inputTopic",topic);
-			
-			model.addAttribute("inputLanguage",language);
-			
+			List<String> topicName=new ArrayList<>();
+		
+			UserRole userRoles =userRoleRepositary.findOne(id);
 			
 		
-			return "addContent";
+			String name = "Contributer";
+			Role role = rolerespositary.findByname(name);	
+			int status = 1;
+			
+			UserRole userRole = userRoleRepositary.findByContributorId(userRoles.getUserRoleId(),role);	
+			
+	
+			userRole.setStatus(status);	
+			userRoleRepositary.save(userRole);
+		
+			topicName.add("Approve Role Successfully");
+						
+			return topicName;
+
+		}		
+		@RequestMapping("/rejectContributorById")
+		public @ResponseBody  List<String> rejectContributor(@RequestParam(value="id") Long id,Model model)
+		{
+			
+			System.err.println(id);			
+			List<String> topicName=new ArrayList<>();
+		
+			UserRole userRoles =userRoleRepositary.findOne(id);
+			
+		
+			String name = "Contributer";
+			Role role = rolerespositary.findByname(name);
+			
+			int status = 0;
+			UserRole userRole = userRoleRepositary.findByContributorId(userRoles.getUserRoleId(),role);		
+			userRole.setStatus(status);	
+			userRoleRepositary.save(userRole);
+		
+			topicName.add("Reject Role Successfully");
+						
+			return topicName;
+
+		}
+		
+		/* Accesing language according to user contributor */
+		
+		@RequestMapping("/loadLanguageByUser")
+		public @ResponseBody  List<String> getLanguageByUser(@RequestParam(value="id") Long id)
+		{ 
+		 
+		List<String> topicName=new ArrayList<String>();
+		    
+		User user=userRepository.findOne(id);
+				
+		List<UserRole> userrole=userRoleRepositary.findBylanguage(user);
+				
+		for (UserRole ur : userrole) 
+		{	
+			topicName.add(ur.getLanguage().getLanguageName());
+			
+				
+		}
+			return topicName;  			
+}		
+		/* Accesing category according to user contributor */	
+		
+		@RequestMapping("/loadCategoryByLanguage")
+		public @ResponseBody  List<String> getCategoryByUser(@RequestParam(value="id") String id)
+		{  
+		
+		    List<String> topicName=new ArrayList<String>();
+		    
+		    System.err.println(id);
+		    
+			List<Category> category=(List<Category>)categoryDao.findAll();
+
+			for (Category cat : category) 
+			{
+				
+				topicName.add(cat.getCategoryname());
+				
+			}
+			
+			return topicName;  	
+		}
+		
+		@RequestMapping("/loadTopicByCategory")
+		public @ResponseBody  List<String> getTopicByCategoryName(@RequestParam(value="id") String categoryName)
+		{  
+			
+		    List<String> topicName=new ArrayList<String>();
+		
+			Category cat=categoryService.findBycategoryname(categoryName);
+			
+			System.err.println("category_id"+cat.getId());
+		
+			List<topic> topic=(List<topic>) topicRepositarydao.findByCategory(cat);
+		  
+			  for(topic s:topic) 
+			  {
+			  
+				  topicName.add(s.getTopicname());
+				  System.err.println(s.getTopicname());		  
+			  }		
+			  
+			  return topicName;  
+					
+		}
+		
+		/*Contribution Role saving into foreign key */
+		
+		@RequestMapping(value = "/contribution_roles", method = RequestMethod.POST)
+		public String contributionRole(Model model,@RequestParam(value="contributorName") Long contributorId,
+				@RequestParam(name="languageName") String inputLanguage,
+				@RequestParam(name="contributorCategory") String contributorCategory,
+				@RequestParam(name="inputTopic") String inputTopic,
+				@RequestParam(value = "checkboxName", required = false) String checkboxValue)
+		
+		{
+			
+			java.util.Date dt = new java.util.Date();
+			java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+			String currentTime = sdf.format(dt);
+		
+		User user=userRepository.findOne(contributorId);
+		
+		com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
+		
+		Category category=categoryDao.findBycategoryname(contributorCategory);
+		
+		topic topic=topicdao.findBytopicname(inputTopic);
+		
+			
+		
+		contributor_Role contributorRole=new contributor_Role();
+		
+		contributorRole.setUser(user);
+		contributorRole.setLan(language);
+		contributorRole.setCategory(category);
+		contributorRole.setTopic(topic);
+		
+
+		
+		contributorRole.setDate(currentTime);
+		
+		 if(checkboxValue != null)
+		  {
+			 contributorRole.setStatus(1);
+		  }
+		  else
+		  {
+			  contributorRole.setStatus(0);
+		  }
+		 
+		contributorRoleDao.save(contributorRole);
+		
+		Tutorial tutorialDaoSave=new Tutorial();
+		tutorialDaoSave.setUser(user);
+		tutorialDaoSave.setLan(language);
+		tutorialDaoSave.setCategory(category);
+		tutorialDaoSave.setTopic(topic);
+		tutorialDaoSave.setDate(currentTime);
+	
+		tutorialDao.save(tutorialDaoSave);
+		
+		model.addAttribute("msg","Succefully Save Recored ");
+		
+			
+			return "showAdminContributorList";
 		
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
 	
-	
+		
 	 
 
 }

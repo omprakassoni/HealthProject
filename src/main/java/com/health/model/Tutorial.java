@@ -25,16 +25,12 @@ import javax.websocket.OnError;
 public class Tutorial
 {
 
-	
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id", nullable = false, updatable = false)
 	private int tutorialid;
 	
 	private String topicname;
-	
-	
 	
 	public String getTopicname() 
 	{
@@ -57,7 +53,15 @@ public class Tutorial
 	
 	private String outlin;
 	private String outlineScript;
-	
+	/*
+	 * private Long outline_user_id;
+	 * 
+	 * public Long getOutline_user_id() { return outline_user_id; }
+	 * 
+	 * public void setOutline_user_id(Long outline_user_id) { this.outline_user_id =
+	 * outline_user_id; }
+	 */
+
 	private String video;
 	private String videoStatus;
 	
@@ -79,8 +83,36 @@ public class Tutorial
 	}
 
 	private String keyword;
-	private String keywordStatus;
+	private int keywordStatusSet;
+	private long keyword_user_id;
 	
+
+	public Tutorial() {
+		super();
+	}
+
+	public Tutorial(String keyword,int keywordStatusSet,long keyword_user_id){
+		super();
+		this.keyword = keyword;
+		this.keywordStatusSet = keywordStatusSet;
+		this.keyword_user_id = keyword_user_id;
+	}
+
+	public long getKeyword_user_id() {
+		return keyword_user_id;
+	}
+
+	public void setKeyword_user_id(long keyword_user_id) {
+		this.keyword_user_id = keyword_user_id;
+	}
+
+	public int getKeywordStatusSet() {
+		return keywordStatusSet;
+	}
+
+	public void setKeywordStatusSet(int keywordStatusSet) {
+		this.keywordStatusSet = keywordStatusSet;
+	}
 	private String Date;
 	
 	public String getScriptStatus() {
@@ -107,13 +139,7 @@ public class Tutorial
 		this.videoStatus = videoStatus;
 	}
 
-	public String getKeywordStatus() {
-		return keywordStatus;
-	}
-
-	public void setKeywordStatus(String keywordStatus) {
-		this.keywordStatus = keywordStatus;
-	}
+ 
 
 	private int status;
 	public int getStatus() {
@@ -144,15 +170,11 @@ public class Tutorial
 		this.tutorialid = tutorialid;
 	}
 
-
-
 	public String getScript() {
 
 
 		return script;
 	}
-
-
 
 	public void setScript(String script) {
 		this.script = script;
@@ -204,19 +226,31 @@ public class Tutorial
 		
 	}
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		@JoinColumn(name="category_id")
+	 @JoinColumn(name="category_id")
 	 private Category category;
 	
 	 
-	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="langaueg_id")
 	 private language lan;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="topic_id")
 	private topic topic;
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
+	@JoinColumn(name="user_id")
+	private  User user;
+	
 
+		public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 		public Category getCategory() {
 			return category;
@@ -245,7 +279,5 @@ public class Tutorial
 		public String getDate() {
 			return Date;
 		}
-		
-	
 	
 }

@@ -50,11 +50,26 @@ public class User implements UserDetails{
 	private Set<UserRole> userRoles = new HashSet<>();
 	
 	
-	  @OneToMany(mappedBy ="user",cascade =
-	  {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH
-	  }) List<topic> topics;
-	 
+	@OneToMany(mappedBy ="user",cascade =
+	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
+	 List<topic> topics;
 	
+	 
+	@OneToMany(mappedBy ="user",cascade =
+	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	 
+	 List<contributor_Role> contributor_Roles;
+	
+	 
+	@OneToMany(mappedBy ="user",cascade =
+	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
+	List<Tutorial> tutorial;
+	 
+	/*
+	 * @OneToMany(mappedBy ="user",cascade =
+	 * {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH
+	 * }) List<language> language;
+	 */
+	  	
 	public Long getId() {
 		return id;
 	}
@@ -124,7 +139,6 @@ public class User implements UserDetails{
 				authorites.add(new Authority(x.getRole().getName()));
 			}
 		}
-		//userRoles.forEach(ur -> authorites.add(new Authority(ur.getRole().getName())));
 		
 		
 		

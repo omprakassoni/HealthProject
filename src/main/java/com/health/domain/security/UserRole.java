@@ -1,5 +1,7 @@
 package com.health.domain.security;
 
+import java.security.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,11 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.health.model.User;
+import com.health.model.language;
 
 @Entity
 @Table(name="user_role")
-public class UserRole {
-
+public class UserRole 
+{	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private  Long userRoleId;
@@ -23,14 +26,37 @@ public class UserRole {
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	public language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(language language) {
+		this.language = language;
+	}
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="role_id")
 	private Role role;
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="lan_id")
+	private language language;
 
 	private int status;
 
-	public UserRole(){
-		
+
+	public String getCreated() {
+		return created;
+	}
+
+	public void setCreated(String created) {
+		this.created = created;
+	}
+
+	private String created;
+
+	public UserRole(){		
 }
 	
 	public UserRole(User user, Role role) {
@@ -42,12 +68,9 @@ public class UserRole {
 		this.user = user;
 		this.status = status;
 	}
-
-
 	public Long getUserRoleId() {
 		return userRoleId;
 	}
-
 
 	public void setUserRoleId(Long userRoleId) {
 		this.userRoleId = userRoleId;
@@ -56,7 +79,6 @@ public class UserRole {
 	public User getUser() {
 		return user;
 	}
-
 
 	public void setUser(User user) {
 		this.user = user;

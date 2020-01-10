@@ -37,8 +37,8 @@
 								 	  
 									   <label for="MasterCategoryId">Select category </label>
 									    
-                                        <select id="MasterCategoryId" class="form-control" name="categoryName"   required="required" >
-								               
+                                       <select id="MasterCategoryId" class="form-control" name="categoryName"   required="required" >
+			
 								                        <option selected="selected" >Select Category</option>      
 								                        <span th:each="category: ${categorys}" >
 								  								<option th:value="${category.getId()}"><span  th:text="${category.categoryname}"></span></option>		

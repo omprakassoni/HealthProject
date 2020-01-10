@@ -9,17 +9,13 @@
 </head>
 
   <body>
-  
-  			<div th:replace="common/trail :: navbar1"/>
+
+  <div th:replace="common/trail :: navbar1"/>
   			
-   
-         
-  		
-  		
-								<div class="container"> 
+   	<div class="container"> 
 								<div class="row" style="padding-top: 120px"  >
 								<div class="col-12">
-								
+	
 								 <nav>
 									  <div class="nav nav-tabs" id="nav-tab" role="tablist">
 										    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
@@ -29,7 +25,8 @@
 											<a class="nav-item nav-link" id="nav-quality-tab" data-toggle="tab" href="#Quality" role="tab" aria-controls="nav-contact" aria-selected="false">Quality Reviewer</a>
 										 
 									  </div>
-									</nav>
+									  
+								</nav>
 									<!-- <div class="row"> -->
 									</div>
 									</div>
@@ -61,13 +58,11 @@
 											                <th>First Name</th>
 											                <th>Last Name</th>
 											                <th>Address</th>  
-											                
-						 	
+							
 											                <th>Approve</th>
 											                <th>Reject</th>             
 											            </tr>
-											          </thead>
-											            	
+											          </thead>      	
 											         <tbody>
 											            	
 											            	<tr th:each="domain : ${statusByApprovDomain}">
@@ -151,23 +146,22 @@
 				</div>
 				
 				
-				<script src="/js/jquery.min.js"></script>
+			<script src="/js/jquery.min.js"></script>
 		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
 		 
 			<script>
 			
-			
-			$(document).ready( function () {
-			    $('#tableIdMaster').DataTable();
-			} );
+				$(document).ready( function () {
+				    $('#tableIdMaster').DataTable();
+				} );
 			
 			</script>
 									  
-									  
-									  
-									  
+			<!-- 	th:text="${approve.getUser().id}" -->					  									  
 </div>
 			<div class="tab-pane fade" id="Contributer" role="tabpanel" aria-labelledby="nav-contact-tab">.
+				
+				<h6  id="statusContributor" style="color: maroon; padding-left: 200px"> </h6>
 				
 					<div class="container-fluid" style="padding-top: 40px">
 				          		<div class="row">
@@ -175,33 +169,38 @@
 				         			 	<div class="col">
 				
 				   			 	 <table id="tableIdContributer" class="table table-striped">
-									           <thead>
-									           
+									           <thead>										           							           
 									            <tr>
 									                <th>Id</th>
 									                <th>User Name</th> 
 									                <th>First Name</th>
 									                <th>Last Name</th>
-									                <th>Address</th>  
-									                
-				 	
+									                <th>Language</th>  
 									                <th>Approve</th>
 									                <th>Reject</th>             
-									            </tr>
+									           </tr>
 									            
-									            </thead>
-									            
+									            </thead>									            
 									            <tbody>
-									            	<tr th:each="contributer : ${statusByApprovContributer}">
-									                <td th:text="${contributer.id}">ID</td>  
-									                <td th:text="${contributer.username}">User Name</td>
-									                <td th:text="${contributer.firstName}">First Name</td>
-									                <td th:text="${contributer.lastName}">Last name</td>
-									                <td th:text="${contributer.address}">Address</td>
-					
-													 <td><a th:href="${'/addContributerRoleById/add/'+ contributer.id}">Approve</a></td>
-												     <td><a th:href="${'/addRejectRoleById/reject/' + contributer.id}">Reject</a></td>  
-											
+									            	<tr th:each="approve : ${statusByApprovContributer}">
+   	
+												<td ><input id="contributorId" style="width: 100px" readonly="readonly" th:value="${approve.getUserRoleId()}"/></td>  
+													
+													
+									                <td th:text="${approve.getUser().username}">User Name</td>
+									                <td th:text="${approve.getUser().firstName}">First Name</td>
+									                <td th:text="${approve.getUser().lastName}">Last name</td>
+									                <td th:text="${approve.getLanguage().getLanguageName()}">Language Name</td>              
+								 					<td>
+													<button id="approveContributorId" type="button" value="showAlert"  class="btn btn-success">Approve</button>
+													   
+													<!-- 	<a th:href="${'/addContributerRoleById/add/'+ approve.getUser().id}">Approve</a> -->
+													</td>
+						 					<td>
+												<button id="rejectContributionId" type="button" value="showAlert"  class="btn btn-success">Reject</button>
+												    
+										<!-- 	   <a th:href="${'/addRejectRoleById/reject/' + approve.getUser().id}">Reject</a> -->
+												</td>  
 					
 									            </tr>
 									            
@@ -212,8 +211,7 @@
 							</div> 	
 							
 			<script src="/js/jquery.min.js"></script>
-		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
-		 
+		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>		 
 			<script>
 			
 			
@@ -223,10 +221,7 @@
 			
 			</script>
 						
-							
-							
-							
-									 
+													 
 			 </div>
 		<div class="tab-pane fade" id="Quality" role="tabpanel" aria-labelledby="nav-contact-tab">.
 		
@@ -291,16 +286,30 @@
 						
 		
 						
-						
 			<div th:fragment="body-bottom-scripts">
 			
-				<script src="/js/jquery.min.js"></script>
-		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
-		 
+			<script src="/js/jquery.min.js"></script>
+		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script> 
 		 
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+			
+
+        	 <script src="static/js/bootstrap.bundle.min.js"></script>
+       		 <script src="static/js/jquery.slim.min" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+			
+				<script src="/js/jquery.min.js"></script>
+			    <script src="/s/js/jquery-3.2.1.min.js"></script>
+			    <script src="/s/js/popper.min.js"></script>
+			    <script src="/s/js/bootstrap.min.js"></script>
+			    <script src="/s/js/owl.carousel.min.js"></script>
+			    <script src="/s/js/bootstrap-datepicker.js"></script>
+			    <script src="/s/js/jquery.timepicker.min.js"></script>
+			    <script src="/s/js/jquery.waypoints.min.js"></script>
+			    <script src="/s/js/main.js"></script>
+			    <script src="/js/ajaxSupport.js"></script>
+			
 			
 			</div>
  </body>
