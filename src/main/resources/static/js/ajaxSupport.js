@@ -1,13 +1,14 @@
 
 
+
 $(function(){
 
-	$('#keywordModale').on('hidden.bs.modal', function () {
+/*	$('#keywordModale').on('hidden.bs.modal', function () {
 		location.reload();
-	});
+	});*/
 	
 	
-$('#categoryname').change(function(){
+	$('#categoryname').change(function(){
   					
   					var catgoryid=$(this).find(":selected").val();
   					$.ajax({
@@ -338,7 +339,8 @@ $('#categoryname').change(function(){
 		$('#categoryContributor').change(function(){
 		
 			var catgoryid=$(this).find(":selected").val();
-				$.ajax({
+				
+			$.ajax({
 					
 				  	type: "GET",
 		       		 url: "/loadTopicByCategoryContributor",
@@ -367,8 +369,6 @@ $('#categoryname').change(function(){
 					}
 
 				});
-				
-			 
 			  
 			});
 		
@@ -453,36 +453,25 @@ $('#categoryname').change(function(){
 		
 		$('#outlineId').click(function()	
 		{
-			
-			
-	/*		 var TextGrab = CKEDITOR.instances['editor'].getData();
-		        TextGrab = $(TextGrab).text();        
-		        TextGrab = TextGrab.replace(/\r?\n|\r/gm," "); 
-		        TextGrab = TextGrab.replace(/\s\s+/g, " ").trim(); */
 		
-			/*
-		   var myTextFieldValue = CKEDITOR.instances.editor.document.getBody().getText();
-		    var words = myTextFieldValue.split(' ');
-			*/
-			alert("Hi");
-			var catgoryid=$("#keyword").val();
+			var saveInfo=editor.getData();
+			var keywordArea=$("#keyword").val();
+			var categoryid=$("#categoryId").val();
+			var topicid=$("#topicId").val();
+			var lanId=$("#lanId").val();
 
-			alert("content");
-	
-			
 			$.ajax({
 			  	type: "GET",
-	       		 url: "/outline",
-	       		 data: { "id": TextGrab},
+	       		 url: "/outline",	
+	       		 data: { "saveOutline": saveInfo,"id": keywordArea,"categorname" : categoryid,"topicid":topicid,"lanId":lanId},
 	       		 contentType: "application/json",
 	       		 success: function(result)
 	       		 {
 	       			 
-	       			 $("#inputTopic").prop('disabled',false);
-	       			 $('#inputTopic').html(html);
-		            
-					},
-					
+	       			 $("#statusOutline").prop('disabled',false);
+	       			 $('#statusOutline').html(html);
+	       			 
+					},		
 						error : function(err){
 					console.log("not working. ERROR: "+JSON.stringify(err));
 				}
@@ -491,7 +480,6 @@ $('#categoryname').change(function(){
   
 		});
 		
-		
 		/*Save keyWord information into table*/
 		
 	
@@ -499,10 +487,10 @@ $('#categoryname').change(function(){
 		{
 				
 				var keywordArea=$("#keyword").val();
-				var categoryid=$("#catId").val();
+				var categoryid=$("#categoryId").val();
 				var topicid=$("#topicId").val();
 				var lanId=$("#lanId").val();
-				
+			
 				$.ajax({
 					  	type: "GET",
 			       		 url: "/keyword",
@@ -524,9 +512,198 @@ $('#categoryname').change(function(){
 		  
 				});
 		
+		/*
+		Here is code for script*/
 		
 		
-	$('#myCheck').click(function()			
+		$('#scriptId').click(function()	
+				{
+			
+			
+			
+							var categoryid=$("#categoryId").val();
+							var topicid=$("#topicId").val();
+							var lanId=$("#lanId").val();
+							
+							
+							var form = $('#upload-file-form-script')[0]; 
+							var formData = new FormData(form); 
+		
+						
+							formData.append('categoryid', categoryid);
+							formData.append('topicid', topicid);
+							formData.append('lanId', lkeywordModaleViewanId);
+							 
+					
+							
+							$.ajax({
+								
+								type: "POST",
+							    url: "/scriptUpload",
+							    data: formData,
+							    enctype: 'multipart/form-data',
+							    processData: false,
+							    contentType: false,
+							    cache: false,
+							    success: function (result)
+							{
+								    	
+							    	
+							
+						    
+						       			 $("#statusofScript").prop('disabled',true);
+						       			 $('#statusofScript').html(result);				       								
+							 },
+						
+							error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
+					}
+							 keywordModaleView
+				});
+	  
+			});
+		
+		
+		
+		
+		/*here we write  code for slide 
+		*/
+		
+
+			$('#slideId').click(function()	
+			{
+		
+						var categoryid=$("#categoryId").keywordModaleViewval();
+						var topicid=$("#topicId").val();
+						var lanId=$("#lanId").val();
+						
+						
+						var form = $('#upload-file-form')[0]; 
+						var formData = new FormData(form); 
+	
+					
+						formData.append('categoryid', categoryid);
+						formData.append('topicid', topicid);
+						formData.append('lanId', lanId);
+
+						$.ajax({
+							    type: "POST",
+							    url: "/slideUpload",
+							    data: formData,keywordModaleView
+							    enctype: 'multipart/form-data',
+							    processData: false,
+							    contentType: false,
+							    cache: false,
+							    success: function (result)
+							    {
+							    	
+					    
+					       			 $("#statusofSlide").prop('disabled',true);
+					       			 $('#statusofSlide').html(result);				       		
+					
+							    },
+					
+						error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+							    keywordModaleView
+			});
+  
+		});
+			
+	/*		video for thumnail and video*/
+			
+			
+	$('#videoId').click(function()	
+		{
+				
+								var categoryid=$("#categoryId").val();
+								var topicid=$("#topicId").val();
+								var lanId=$("#lanId").val();
+								
+								
+								var form = $('#upload-file-form-video')[0]; 
+								var formData = new FormData(form); 
+			
+							
+								formData.append('categoryid', categoryid);
+								formData.append('topicid', topicid);
+								formData.append('lanId', lanId);
+								
+			
+							$.ajax({keywordModaleView
+									    type: "POST",
+									    url: "/videoUpload",
+									    data: formData,
+									    enctype: 'multipart/form-data',
+									    processData: false,
+									    contentType: false,
+									    cache: false,
+									    success: function (result)
+									    {
+									    	
+							    
+							       			 $("#statusofVideo").prop('disabled',true);
+							       			 $('#statusofVideo').html(result);				       		
+							       			 
+									    },
+							
+								error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+
+					});
+		  
+				});
+	
+	
+	
+	$('#PrerequisiteVideoId').click(function()	
+	{
+				
+								var categoryid=$("#categoryId").val();
+								var topicid=$("#topicId")keywordModaleView.val();
+								var lanId=$("#lanId").val();
+								
+								
+								var form = $('#upload-file-form-prerequisite')[0]; 
+								var formData = new FormData(form); 
+			
+							
+								formData.append('categoryid', categoryid);
+								formData.append('topicid', topicid);
+								formData.append('lanId', lanId);
+				
+							$.ajax({
+									    type: "POST",
+									    url: "/prerequisite",
+									    data: formData,
+									    enctype: 'multipart/form-data',
+									    processData: false,
+									    contentType: false,
+									    cache: false,
+									    success: function (result)
+									    {
+									    	alert("succeskeywordModaleViews");
+							    
+							       			 $("#statusofprerequisite").prop('disabled',true);
+							       			 $('#statusofprerequisite').html(result);				       		
+							       			 
+									    },
+							
+								error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+
+					});
+		  
+				});
+	
+	
+			
+			
+			
+	$('#myCheck').click(function()			 
 	{
 				
 		var checkbox=$("#myCheck").val();
@@ -553,12 +730,13 @@ $('#categoryname').change(function(){
 				});
 	
 	
-	/*here  calling approve button for contributor*/
+	/*here  calling approve button for contributor */
 	
 	$('#approveContributorId').click(function()			
 	{
 		
-				
+		
+		
 				var contributionId=$("#contributorId").val();
 				
 						$.ajax({
@@ -569,16 +747,19 @@ $('#categoryname').change(function(){
 					       		 success: function(result)
 					       		{
 
-			       			 $("#statusContributor").prop('disabled',false);
-			       			 $('#statusContributor').html(result);
-				       	
-							},
+				       			 $("#statusContributor").prop('disabled',false);
+				       			 $('#statusContributor').html(result);
+					       	
+					       		},
 										
 									error : function(err){
-									console.log("not working. ERROR: "+JSON.stringify(err));
+									console.lo3g("not working. ERROR: "+JSON.stringify(err));
 								}
 
 							});
+						
+						$("#approveContributorId").attr("disabled", true);
+						
 				  
 			});
 	
@@ -643,14 +824,16 @@ $('#categoryname').change(function(){
 											console.log("not working. ERROR: "+JSON.stringify(err));
 										}
 									});
-						  
+
+								
+							
 				});
 				
 			
 			
-					$('#lanId').click(function()			
-					{			
-						var languageName=$("#lanId :selected").text();
+	$('#lanId').click(function()			
+	{			
+							var languageName=$("#lanId :selected").text();
 					
 								$.ajax({
 											type: "GET",
@@ -680,7 +863,8 @@ $('#categoryname').change(function(){
 												}
 											});
 								  
-						});										
+						});	
+					
 						$('#catgoryByContributor').click(function()			
 						{			
 								var category=$(this).find("option:selected").val();
@@ -721,11 +905,11 @@ $('#categoryname').change(function(){
 				
 				location.reload();
 			});*/
-						
+		/*				
 		$('#approveContributorId').on('hidden.bs.modal',function () {
 			
 			location.reload();
-		});
+		});*/
 	
 		
 		

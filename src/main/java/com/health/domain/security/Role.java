@@ -16,16 +16,16 @@ import org.hibernate.annotations.GeneratorType;
 @Entity
 public class Role {
 
-	@Id	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+	@Id		
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int roleId;		
 	private String name;
 	
 	@OneToMany(mappedBy = "role", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<UserRole> userRoles = new HashSet<>();
 
-	public int getRoleId() {
+	public int getRoleId() 
+	{
 		return roleId;
 	}
 
@@ -48,6 +48,5 @@ public class Role {
 	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
-	
 	
 }

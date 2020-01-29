@@ -36,27 +36,26 @@
 								               
 							 <option id="categoryContributor"  selected="selected">Select Category</option>  
 							     
-								      <span th:each="category: ${categorys}">
+								    <span th:each="category: ${categorys}">
 								  		
-											<option th:value="${category.getCategory().categoryname}">
+											<option th:value="${category}">
 									
-									<span th:text="${category.getCategory().categoryname}"></span>
+									<span th:text="${category}"></span>
 								
-								</option>	
-						</span>
+									</option>	
+								</span>
 						</select>
-						
 						
 					</div> 
 				
-	           		 <div class="form-group ">
+	           				 <div class="form-group ">
 		
 					       <label for="inputTopicContributor">Topic Name</label>
 					       <select id="inputTopicContributor" class="form-control" name="inputTopic"  required="required">
 					              
-					                	</select> 
+					       </select> 
 					                	
-					 </div>
+							 </div>
 
 			              <div class="form-group ">
 		

@@ -39,8 +39,10 @@
                                        <select id="languageContributerId" class="form-control" name="contributerLanguage"   required="required" >
 			
 								                        <option selected="selected" >Select Category</option>      
-								                        <span th:each="lan: ${languages}" >
-								  								<option th:value="${lan.id}"><span  th:text="${lan.languageName}"></span></option>		
+								                        <span th:each="lan : ${languages}">
+								                     
+								  								<option th:value="${lan}"><span  th:text="${lan}"></span></option>		
+								  						
 								  						</span>
 									  </select>
 								 </div>	            

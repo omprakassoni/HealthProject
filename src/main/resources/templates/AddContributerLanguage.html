@@ -40,8 +40,10 @@
 								               
 								                        <option selected="selected" >Select Language</option>  
 								                            
-								                        <span th:each="language : ${lan}" >
-								  								<option th:value="${language.languageName}"><span  th:text="${language.languageName}"></span></option>		
+								                        <span th:each="language : ${lan}">
+								                        
+								  								<option th:value="${language.languageName}">
+								  								<span  th:text="${language.languageName}"></span></option>		
 								  						</span>
 								 </select>
 						

@@ -34,7 +34,6 @@ public class language
 	
 	  private String createdBy;
 	
-
 	  public String getCreatedBy() {
 		  return createdBy;
 	  }
@@ -49,7 +48,6 @@ public class language
 	 * @JoinColumn(name="user_id") private User user;
 	 */
 
-
 	@OneToMany(mappedBy = "lan",cascade =CascadeType.ALL) 
 	private List<Tutorial> tutorials;
 	
@@ -59,8 +57,22 @@ public class language
 	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<UserRole> userRoles = new HashSet<>();
 
+	
+	@OneToMany(mappedBy = "lan", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private Set<language_assign> languages= new HashSet<>();
+	
+	
 	public Set<UserRole> getUserRoles() {
+		
 		return userRoles;
+	}
+
+	public List<contributor_Role> getContributor_Roles() {
+		return contributor_Roles;
+	}
+
+	public void setContributor_Roles(List<contributor_Role> contributor_Roles) {
+		this.contributor_Roles = contributor_Roles;
 	}
 
 	public void setUserRoles(Set<UserRole> userRoles) {
@@ -69,6 +81,14 @@ public class language
 
 	public List<Tutorial> getTutorials() {
 		return tutorials;
+	}
+
+	public Set<language_assign> getLanguages() {
+		return languages;
+	}
+
+	public void setLanguages(Set<language_assign> languages) {
+		this.languages = languages;
 	}
 
 	public void setTutorials(List<Tutorial> tutorials) {
@@ -90,7 +110,6 @@ public class language
 		public int getId() { 
 		  return id; }
 	  
-	 
 	  public void setId(int id) { 
 		  this.id = id; }
 	  

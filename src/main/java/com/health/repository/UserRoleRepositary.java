@@ -21,7 +21,11 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 				
 		@Query("from UserRole u where u.status=?1 and role=?2")
 		UserRole findByAlreadyUser(int status,User userA);
-			
+		
+		@Query("from UserRole u where u.status=?1 and u.user=?2")
+		List<UserRole> findByUserAndStatuslanguages(int status,User userA);
+		
+		
 		@Query("from UserRole u where u.user=?1")
 		UserRole findByRoleCheck(Role role);
 		
@@ -31,14 +35,16 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 		
 		@Query(" from UserRole u where u.user=?1")
 		UserRole findByUserInfo(User role);
+		
+		@Query(" from UserRole u where u.user=?1")
+		List<UserRole> findByUser(User role);
+		
 
-	
 		/* accesing value according contributor */
 	 
 		@Query("from UserRole u where u.status=?1 and user_id=?2")
 		List<UserRole> findByStatusAndUser(int status,User user);
 	
-		
 		/* revoke on the basis of language */
 		
 		@Query("from UserRole u where u.user=?1 and lan_id=?2")
@@ -49,9 +55,11 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 		List<UserRole> findByuserAndRole(User user,Role role);
 	
 	   /* access the user contribution */	
-		
-		@Query("from UserRole u where u.status=?1 and u.role=?2") 
+		@Query(" from UserRole u where u.status=?1 and u.role=?2") 	
 		List<UserRole> finbyRoleUser(int status,Role role);
+		
+		
+		
 		
 		@Query(" from UserRole u where u.user=?1")
 		List<UserRole> findBylanguage(User user);

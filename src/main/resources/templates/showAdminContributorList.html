@@ -28,6 +28,8 @@
 	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px"> <i class="fas fa-tasks"></i>Assign Tutorial Contribution Form </h5>
 	            
 	       	   <form class="form-horizontal"  th:action="@{/contribution_roles}" method="post"  onsubmit="return submitForm(this);">
+ 			
+ 					
  					
  				<div class="form-group">  
 			              
@@ -36,13 +38,12 @@
 								                       <option selected="selected">Select User</option>      
 								<span th:each="contributors: ${userByContributors}">
 								
-									  		<option th:value="${contributors.getUser().id}"><span th:text="${contributors.getUser().firstName}"></span></option>		
-								
+									  		<option th:value="${contributors}"><span th:text="${contributors}"></span></option>	
+									  											
 								</span>
 								  			  						
 						</select>					
 				</div>
-					
 					
 					    <div class="form-group">
 					    		
@@ -50,8 +51,7 @@
 					               
 					                    <select id="lanId" class="form-control" name="languageName"  required="required">
 					              
-					                	</select> 
-					                    
+					                	</select> 				                    
 						  </div>
 					 	
 					 <div class="form-group">  

@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.health.controller.ControllerHealth;
+import com.health.controller.controllerContributer;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.User;
@@ -25,12 +26,9 @@ public class HealthNutrition implements CommandLineRunner {
 	public static void main(String[] args) {
 		
 		
-	
 		
 		SpringApplication.run(HealthNutrition.class, args);
 
-		
-	
 		
 		new File(ControllerHealth.uploadDirectory).mkdir();
 		new File(ControllerHealth.uploadDirectoryConsaltant).mkdir();
@@ -42,11 +40,15 @@ public class HealthNutrition implements CommandLineRunner {
 		new File(ControllerHealth.uploadMasterTrainer).mkdir();
 		new File(ControllerHealth.uploadMasterTrainerPhoto).mkdir();
 		new File(ControllerHealth.uploadQusetion).mkdir();
-
+		new File(controllerContributer.uploadDirectoryCreation).mkdirs();
+		new File(controllerContributer.uploadDirectoryCreationScripts).mkdirs();
+		new File(controllerContributer.uploadDirectoryCreationVideo).mkdirs();
 		
 		
-	}
+		
+		
 	
+	}
 	@Override
 	public void run(String... args) throws Exception {
 		

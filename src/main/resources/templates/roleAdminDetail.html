@@ -164,10 +164,57 @@
   </div>
 
 </div>
-
 		<!-- Only Admin Can See detail -->
 		
 		<div sec:authorize="hasAnyAuthority('Admin')">
+		
+<!-- 		////
+		<div class="container">
+		
+		<div class="row" style="padding-left: 60px; padding-top: 100px" >
+	
+		
+			<ul class="nav nav-tabs">
+			  <li class="nav-item">
+			    <a class="nav-link active" href="#">Active</a>
+			  </li>
+			  <li class="nav-item dropdown">
+			    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+			    <div class="dropdown-menu">
+			    
+			  <i class="fas fa-chevron-circle-right"></i><a th:href="@{language}">Add Language</a>
+			    
+			    
+			      <a class="dropdown-item" href="#">Action</a>
+			      <a class="dropdown-item" href="#">Another action</a>
+			      <a class="dropdown-item" href="#">Something else here</a>
+			      <div class="dropdown-divider"></div>
+			      <a class="dropdown-item" href="#">Separated link</a>
+			    </div>
+			  </li>
+			    <li class="nav-item dropdown">
+			    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+			    <div class="dropdown-menu">
+			      <a class="dropdown-item" href="#">Action</a>
+			      <a class="dropdown-item" href="#">Another action</a>
+			      <a class="dropdown-item" href="#">Something else here</a>
+			      <div class="dropdown-divider"></div>
+			      <a class="dropdown-item" href="#">Separated link</a>
+			    </div>
+			  </li>
+
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">Link</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link disabled" href="#">Disabled</a>
+			  </li>
+			</ul>
+			
+			</div>
+	</div>			
+		/// -->
+		
 	
 		   <div class="#">
 		                    <div class="row" style="padding-top:  100px; padding-left: 30px">

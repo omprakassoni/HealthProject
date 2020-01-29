@@ -54,7 +54,12 @@ public class User implements UserDetails{
 	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
 	 List<topic> topics;
 	
-	 
+	 @OneToMany(mappedBy = "user",cascade =
+	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
+	 List<language_assign> languageassigns;
+			 
+			 
+			 
 	@OneToMany(mappedBy ="user",cascade =
 	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	 
 	 List<contributor_Role> contributor_Roles;
@@ -64,12 +69,33 @@ public class User implements UserDetails{
 	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
 	List<Tutorial> tutorial;
 	 
+	
+	
+	
 	/*
 	 * @OneToMany(mappedBy ="user",cascade =
 	 * {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH
 	 * }) List<language> language;
 	 */
 	  	
+	public List<language_assign> getLanguageassigns() {
+		return languageassigns;
+	}
+	public void setLanguageassigns(List<language_assign> languageassigns) {
+		this.languageassigns = languageassigns;
+	}
+	public List<contributor_Role> getContributor_Roles() {
+		return contributor_Roles;
+	}
+	public void setContributor_Roles(List<contributor_Role> contributor_Roles) {
+		this.contributor_Roles = contributor_Roles;
+	}
+	public List<Tutorial> getTutorial() {
+		return tutorial;
+	}
+	public void setTutorial(List<Tutorial> tutorial) {
+		this.tutorial = tutorial;
+	}
 	public Long getId() {
 		return id;
 	}

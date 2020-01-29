@@ -49,27 +49,48 @@ public class Tutorial
 	}
 
 	private String script;
-	private String scriptStatus;
+	private int scriptStatus;
 	
 	private String outlin;
-	private String outlineScript;
-	/*
-	 * private Long outline_user_id;
-	 * 
-	 * public Long getOutline_user_id() { return outline_user_id; }
-	 * 
-	 * public void setOutline_user_id(Long outline_user_id) { this.outline_user_id =
-	 * outline_user_id; }
-	 */
+	private int outlineStatus;
+
+	
+	private String slide;
+	private int slideStatus;
+	private int slide_user_id;
+	
+	public String getSlide() {
+		return slide;
+	}
+
+	public void setSlide(String slide) {
+		this.slide = slide;
+	}
+
+	public int getSlideStatus() {
+		return slideStatus;
+	}
+
+	public void setSlideStatus(int slideStatus) {
+		this.slideStatus = slideStatus;
+	}
+
+	public int getSlide_user_id() {
+		return slide_user_id;
+	}
+
+	public void setSlide_user_id(int slide_user_id) {
+		this.slide_user_id = slide_user_id;
+	}
 
 	private String video;
-	private String videoStatus;
+	private int videoStatus;
+	
 	
 	private String timeScript;
-	
 	private String prerequisite;
 	
-
+	
 	public String getPrerequisite() {
 		return prerequisite;
 	}
@@ -81,13 +102,12 @@ public class Tutorial
 	public void setDate(String date) {
 		Date = date;
 	}
-
+	
 	private String keyword;
 	private int keywordStatusSet;
 	private long keyword_user_id;
-	
 
-	public Tutorial() {
+	public Tutorial(){
 		super();
 	}
 
@@ -110,32 +130,42 @@ public class Tutorial
 		return keywordStatusSet;
 	}
 
+	public int getOutlineStatus() {
+		return outlineStatus;
+	}
+
+	public void setOutlineStatus(int outlineStatus) {
+		this.outlineStatus = outlineStatus;
+	}
+
 	public void setKeywordStatusSet(int keywordStatusSet) {
 		this.keywordStatusSet = keywordStatusSet;
 	}
+	public java.sql.Timestamp getDateInfo() 
+	{
+		return dateInfo;
+	}
+
+	public void setDateInfo(java.sql.Timestamp timestamp) {
+		this.dateInfo = timestamp;
+	}
+
 	private String Date;
+	private java.sql.Timestamp dateInfo;
 	
-	public String getScriptStatus() {
+	public int getScriptStatus() {
 		return scriptStatus;
 	}
 
-	public void setScriptStatus(String scriptStatus) {
+	public void setScriptStatus(int scriptStatus) {
 		this.scriptStatus = scriptStatus;
 	}
 
-	public String getOutlineScript() {
-		return outlineScript;
-	}
-
-	public void setOutlineScript(String outlineScript) {
-		this.outlineScript = outlineScript;
-	}
-
-	public String getVideoStatus() {
+	public int getVideoStatus() {
 		return videoStatus;
 	}
 
-	public void setVideoStatus(String videoStatus) {
+	public void setVideoStatus(int videoStatus) {
 		this.videoStatus = videoStatus;
 	}
 
@@ -180,14 +210,9 @@ public class Tutorial
 		this.script = script;
 	}	/* System.err.println("Hi Topic"+inputTopic); */
 	
-
-
-
 	public String getOutlin() {
 		return outlin;
 	}
-
-
 
 	public void setOutlin(String outlin) {
 		this.outlin = outlin;	
@@ -202,19 +227,6 @@ public class Tutorial
 	public void setVideo(String video) {
 		this.video = video;
 	}
-
-
-
-	public String getSlide() {
-		return timeScript;
-	}
-
-
-
-	public void setSlide(String slide) {
-		this.timeScript = slide;
-	}
-
 
 
 	public String getTimeScript() {

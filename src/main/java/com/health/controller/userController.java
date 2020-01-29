@@ -28,12 +28,14 @@ import com.health.model.Category;
 import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.model.language;
+import com.health.model.language_assign;
 import com.health.model.partipantDeatil;
 import com.health.model.state;
 import com.health.repository.RoleRepository;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
+import com.health.repository.languageAssignDao;
 import com.health.repository.languagedao;
 import com.health.repository.participantDao;
 import com.health.repository.stateRespositary;
@@ -78,6 +80,9 @@ public class userController
 	
 	@Autowired
 	private languagedao languagedao; 
+	
+	@Autowired 
+	private  languageAssignDao languageAssignDao;
 		
 	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
 	public String accessDeny() {
@@ -133,9 +138,10 @@ public class userController
 
 
 	@RequestMapping(value = "/addMeAsContributer", method = RequestMethod.POST)
-	public String aaddMeAsContributer(Authentication authentication, Model model,@RequestParam(value="contributerLanguage") String lanId) 
+	public String aaddMeAsContributer(Authentication authentication, Model model,@RequestParam(value="contributerLanguage") String languageName) 
 	{
 		
+		System.err.println("hi");
 		/*
 		 * User userInfo=userDao.findByUsername(authentication.getName());
 		 * 
@@ -148,11 +154,14 @@ public class userController
 		 * return "roleAdminDetail"; }
 		 */
 		
+		/*
+		 * String str = lanId; int inum = Integer.parseInt(str);
+		 * 
+		 * language lan=languagedao.findOne(languageName);
+		 */
 		
-		String str = lanId;	
-		int inum = Integer.parseInt(str);
 		
-		language lan=languagedao.findOne(inum);
+		language lan=languagedao.findBylanguageName(languageName);
 		
 		int languageId=lan.getId();
 		System.err.println("Hi language id"+languageId);
@@ -177,11 +186,15 @@ public class userController
 			userRoles.setLanguage(lan);		
 			userRoles.setCreated(currentTime);		
 			userRoles.setStatus(status);
+			
 			userRoleRepositary.save(userRoles);
 			
+	
+			
+	
 		model.addAttribute("request","Request Send Successfully");
 		
-			
+		
 		
 		return "roleAdminDetail";
 		

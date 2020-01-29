@@ -68,8 +68,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String index(Model model)
 	{
-	
-		
+
 		List<Category> category=categoryservice.findAll();
 		
 		model.addAttribute("categorys",category);

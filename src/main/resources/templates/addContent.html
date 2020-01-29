@@ -52,7 +52,7 @@
                                     <td>
                       
 										  <span id="catId" th:each="catgoryName : ${categoryName}">
-										  		<input  id="categoryId"  name="categoryName"  th:value="${catgoryName.getCategoryname()}" readonly="readonly"></input>		
+										  		<input class="form-control"  id="categoryId"  name="categoryName"  th:value="${catgoryName.getCategoryname()}" readonly="readonly"></input>		
 										 </span>
 
 								
@@ -63,7 +63,7 @@
                                            <td   style="color:maroon;"  th:text="${catgoryName.getCategorylname()}"> </td>
     
 										</span>	 -->
-														
+													
                                       </tr>
                                     </thead>
 
@@ -74,7 +74,7 @@
                                         <th>Topic Name</th>
                                         <td>
 			                                          <span id="topicName" th:each="topic : ${inputTopic}">  
-			   										<input  id="topicId" name="categoryName"  th:value="${topic.getTopicname()}" readonly="readonly"></input>		
+			   										<input class="form-control"  id="topicId" name="categoryName"  th:value="${topic.getTopicname()}" readonly="readonly"></input>		
 			                                        </span>
                                         </td>
                                       </tr>
@@ -85,23 +85,31 @@
                                       <tr>
                                         <th>Language Name</th>
                                         <td>
-			                                        <span id="lan" th:each="language : ${inputLanguage}">  
-			                         				 <input  id="lanId" name="categoryName"  th:value="${language.languageName}" readonly="readonly"></input>		
+			                                  <span id="lan" th:each="language : ${inputLanguage}">  
+			                         					 <input class="form-control" id="lanId" name="languageName"  th:value="${language.languageName}" readonly="readonly"></input>		
 			                                   
-													</span>		
+												</span>		
 										</td>
                                       </tr>
-                                    </thead>
+                                   </thead>
 
-                                     <thead>
+                             <!--   <thead>
                                           <tr>
-                                              <th>Started date</th>
-                                              <td>Started date</td>
+   
+                                <th> Date</th>               
+  
+                                <td>
+                                	date remaining
+                                
+			                                  <span id="lan" th:each="language : ${inputLanguage}">  
+			                         					 <input class="form-control" id="lanId" name="languageName"   readonly="readonly"></input>		
+			                                   
+												</span>		
+										</td>
+                              						</tr>
+                                    </thead> -->
 
-                                          </tr>
-                                    </thead>
-
-                
+               
                             </table>
                                 
                             <table class="table table-bordered" style="background: lightblue">
@@ -115,24 +123,30 @@
 		                                          <th>Component</th> 
 		                                          <th>Status</th>
 		                                          <th>User</th>  
-		                                          <th><i style="color: purple; width:30px " class="fas fa-cogs"></i></th>
+		                                          <th>
+		                                          <i style="color: purple; width:30px " class="fas fa-cogs"></i>
+		                                          </th>
 		                
                                         </tr>                         
                              </thead>
 
 
                                       <tbody>
-                                      <tr>
-                                            
+                                      <tr>  
 		                                          <td>1</td>
 		                                          <td>Outline</td>
-		                                          <td>
-		                                        <!--    <span th:each="tutorial: ${tutorials}">  
-				                                        <span style="color:maroon;" th:text="${tutorial.keywordStatusSet}">Pending</span>
-														</span>	 -->
+		                                          <td>	                                          
+		                                              <span th:each="statusOutline : ${statusOutline}">  
+				                                    	<span style="color:green;" th:text="${statusOutline}">Pending</span>
+													</span>	
+		                        	
 												 </td>
 		                                          <th>-</th>
-		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i></button>
+		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i>
+		                                          		</button>
+		                                          		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button>
+		                                          		
 		                                          </th>
 
 					
@@ -142,9 +156,20 @@
                                             
 		                                          <td>2</td>
 		                                          <td>Script</td>
-		                                          <td>Pending</td>
+		                                      		 <td>
+		                                  
+		                                              <span th:each="statusScript :${statusScript}">  
+				                                    	<span style="color:green;" th:text="${statusScript}">Pending</span>
+														</span>	
+		                                          
+		                        	
+												 </td>
+		                                      
 		                                          <th>-</th>
-		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="/" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#scriptModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button>
+		                                          
 		                                          </th>
 
                                      	 </tr>
@@ -153,19 +178,34 @@
                                             
 		                                          <td>3</td>
 		                                          <td>Slide</td>
-		                                          <td>Pending</td>
+		                                       	   <td>		                                  
+		                                              <span th:each="statusSlide: ${statusSlide}">  
+				                                    	<span style="color:green;" th:text="${statusSlide}">Pending</span>
+														</span>	
+		                            
+												  </td>
+		                                       
 		                                          <th>-</th>
-		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button></th>
-
+		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button></th>
+ 	
                                      </tr>
                                      	 
                                       <tr>
                                             
 		                              			  <td>4</td>
 		                                          <td>Video</td>
-		                                          <td>Pending</td>
+		                                		 <td>		                                  
+		                                              <span th:each="statusVideo : ${statusVideo}">  
+				                                    	<span style="color:green;" th:text="${statusVideo}">Pending</span>
+													 </span>	
+												 </td>
+		                                
 		                                          <th>-</th>
-		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoModel" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoModel" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> 
+		                                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button></th>
 
                                       </tr>
                                      	 
@@ -174,16 +214,20 @@
 		                                          <td>5</td>
 		                                          <td>Keywords</td>
 		                                          <td> 
-		                                          	<!--  <span th:each="tutorial: ${tutorials}">  
-				                                    	<span style="color:maroon;" th:text="${tutorial.keywordStatusSet}">Pending</span>
-													</span>	 -->
+		                                          	 <span th:each=" statusKeyword: ${statusKeyword}">  
+				                                    	<span style="color:green;" th:text="${statusKeyword}">Pending</span>
+													</span>	
+													
 		                                         </td>
 		                                          <th>-</th>
-		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button></th>
+		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModaleView" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button>
+		                                          </th>
 
                                      	 </tr>
                                      	 
-                                     	  <tr>   
+                                     <!-- 	  <tr>   
                                      	                                          
 		                                          <td>6</td>
 		                                          <td>Prerequisite</td>
@@ -191,7 +235,7 @@
 		                                          <th>-</th>
 		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#prerequisiteModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
 
-                                     	 </tr>
+                                     	 </tr> -->
   
                                     </tbody>
 							    </table>
@@ -204,11 +248,19 @@
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalLabel">Upload  Outline</h5>
+						      						      
+						        <h5 class="modal-title" id="exampleModalLabel">Upload  Outline</h5> 						        
+						         <span  style="color: green; padding-left: 50px"  id="statusOutline">
+						          		
+				
+								 </span>
+								 								  
 						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						          <span aria-hidden="true">&times;</span>
 						        </button>
 						      </div>
+						      
+						           
 						      <div class="modal-body">
 						       <form th:action="@{/addOutline}" method="post">
 						   
@@ -218,7 +270,7 @@
 							            <textarea class="form-control editor"  name="editor" id="editor" rows="10">
 							        
 							            </textarea>
-							  
+					  
 						          </div>
 						        <button id="outlineId" type="button" class="btn btn-success">Upload Outline</button>
 						     
@@ -239,40 +291,56 @@
 				
 				
 				<!-- 		Video Div	 -->	
-				<div class="modal fade" id="videoModel" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+				<div class="modal fade" id="videoModel" tabindex="-1" role="dialog" aria-labelledby="exampleVideoModalLabel" aria-hidden="true">
 						
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalLabel">Upload  Outline</h5>
+						        <h5 class="modal-title" id="exampleVideoModalLabel">Upload  Video</h5>
+						        
+						    		 <span  style="color: green; padding-left: 50px"  id="statusofVideo">
+						          		
+								 	</span>
+								 	
 						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						          <span aria-hidden="true">&times;</span>
 						        </button>
 						      </div>
 						      <div class="modal-body">
 						
-						   
-							 <form class="form-horizontal"  th:action="@{/addConsaltant}" method="post"  enctype="multipart/form-data"  onsubmit="return submitForm(this);">
-				                          
-				                        
+			
+						 <form id="upload-file-form-video"  onsubmit="return submitForm(this);">
+		 	                        
 				                <div class="form-group"> 
 				                         		
-									                          <label for="consaltantImage" style="padding-top: 8px">Add Video</label> 
-									                  	 	<input type="file" style="padding-right: 50px" class="form-control-file" id="consaltantImage"  name="uploadConsaltantImage" placeholder="uploadFile"   accept=".mp4" required="required"/>													
-									                                 
-				                                 </div> 
-				                        
-				                        
-				                        
+									                   <label for="videoFileId" style="padding-top: 8px">Add Video</label> 
+									                   <input type="file" style="" class="form-control-file" id="videoFileIdA"  name="videoFileName" placeholder="uploadVideo"   accept=".mp4" required="required"></input>												
+									                 
+				                   </div> 
+				         
 				                         		<div class="form-group"> 
-				                         		
-									                          <label for="consaltantImage" style="padding-top: 8px">Select Minute</label> 
-									       			 <select id="categoryname" class="form-control" name="categoryName"  >
+	              		
+								 <label for="consaltantImage" style="padding-top: 8px">Select Minute</label> 
+									 <select id="categoryname" class="form-control" name="categoryName"  >
 				                    
-							                        <option selected="selected">Select Minute</option>      
-							                        <span th:each="category: ${categorys}">
-							  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-				  						</span>
+											  <option selected="selected" >Select Minute</option>  
+												   
+												    <option value="val1"> 1</option>
+												    <option value="val2"> 2</option>
+												    <option value="val3"> 3</option>
+												    <option value="val3"> 4</option>
+												    <option value="val3"> 5</option>
+												    <option value="val3"> 6</option>
+												    <option value="val3"> 7</option>
+												    <option value="val3"> 8</option>
+												    <option value="val3"> 9</option>
+												    <option value="val3"> 10</option>
+												    <option value="val3"> 11</option>
+												    <option value="val3"> 12</option>
+												       
+							                    <!--  <span th:each="category: ${categorys}">
+							  					<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+				  									</span> -->
 				  						
 				                    </select>             
 				                                 </div>         
@@ -280,21 +348,28 @@
 				                                 
 				             <div class="form-group"> 
 				                         		
-									      <label for="consaltantImage" style="padding-top: 8px">Select Seconds</label>
+									    <label for="consaltantImage" style="padding-top: 8px">Select Seconds</label>
 										 <select id="categoryname" class="form-control" name="categoryName" >
-				                    
-							                        <option selected="selected">Select Seconds</option>      
-							                        <span th:each="category: ${categorys}">
+				               
+							                   <option selected="selected">Select Seconds</option>      
+							          
+		
+							            <!--             <span th:each="category: ${categorys}">
 							  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-				  						</span>
+				  					
+				  					
+				  						</span> -->
 				                   		 </select> 
 									                                 
 				             </div>  
+				             
 				                                 
 				         
-				            		  <button type="submit" class="btn btn-success">Upload</button>&nbsp;&nbsp;&nbsp;
+				            		  <button id="videoId" type="button" class="btn btn-success">Upload</button>&nbsp;&nbsp;&nbsp;
 				                        
-				                      
+		
+				
+			
 				           </form>
 				  				 
   			
@@ -313,17 +388,20 @@
 				<!-- 	End	Video Div	 -->
 				
 					<!-- star KeyWord-->
+		
+				
+			
 	<div class="modal fade" id="keywordModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelKeyWord" aria-hidden="true">
 						
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalLabelKeyWord">Upload  KeyWord</h5>
+						        <h5 class="modal-title" id="exampleModalLabelKeyWord">Upload KeyWord</h5>
 						        <div class="modal-title">
 						        
 						         </div>
 						         <span  style="color: green; padding-left: 50px"  id="statuskeyword"> 
-
+										
 								 </span>
 						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						          <span aria-hidden="true">&times;</span>
@@ -336,12 +414,110 @@
 						          <div class="form-group">
 						          
 							            <label for="message-text" class="col-form-label">Add Keyword</label>
-							            <textarea class="form-control"  name="keywordArea" id="keyword" rows="10">
+							            <textarea class="form-control"  name="keywordArea" id="keyword" rows="10" required="required">
 							        
 							            </textarea>
 						          </div>
 						        <button id="keywordId" type="button" class="btn btn-success">Upload</button>	        
 					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						     
+					</form>
+						    
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							       
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div>					  
+	</div>
+	
+			<!-- View keyword into textbox -->
+			
+					
+	<div class="modal fade" id="keywordModaleView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelKeyWordView" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelKeyWordView">View KeyWord</h5>
+						        <div class="modal-title">
+						        
+						         </div>
+						         <span  style="color: green; padding-left: 50px"  id="statuskeyword"> 
+										
+								 </span>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+				 <form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+						          <div class="form-group">
+						          
+							            <label for="message-text" class="col-form-label">View Keyword</label>
+							            <textarea class="form-control"  name="keywordArea" id="keyword" rows="10" required="required">
+							        
+							            </textarea>
+						          </div>
+						        <button id="keywordId" type="button" class="btn btn-success">Upload</button>	        
+					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						     
+					</form>
+						    
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div>					  
+	</div>	
+			
+			
+		<!-- End View keyword into textbox -->
+			
+	
+	
+		<div class="modal fade" id="keywordModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelprerequisite" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelprerequisite">Upload Prerequisite</h5>
+						        <div class="modal-title">
+						        
+						         </div>
+						         <span  style="color: green; padding-left: 50px"  id="statusofprerequisite"> 
+										
+								 </span>									  
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+				 <form id="upload-file-form-prerequisite"   onsubmit="return submitForm(this);" method="post" >
+
+						          <div class="form-group">
+							          <label for="message-text" class="col-form-label">Add Prerequisite</label>
+							          
+							            <textarea class="form-control"  name="PrerequisiteVideo" id="PrerequisiteVideo" rows="10" required="required">
+							        
+							            </textarea>
+						          </div>
+						        <button id="PrerequisiteVideoId" type="button" class="btn btn-success">Upload</button>	        
+					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						   
 						     
 					</form>
 						    
@@ -369,7 +545,7 @@
 				
 							<!-- End KeyWord-->
 						
-						<!-- Start prerequisiteModale-->
+						<!-- Start  prerequistic -->
 							
 					<div class="modal fade" id="prerequisiteModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelKeyword" aria-hidden="true">
 						
@@ -378,20 +554,26 @@
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelKeyword">Upload  Prerequisite</h5>
 						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
+						         
 						        </button>
 						      </div>
 						      <div class="modal-body">
-						       <form th:action="@{/addOutline}" method="post">
+						       <form th:action="@{/}"  method="post">
 						       
 							 <div class="form-group">  
-			                     <label for="inputUserame">Add Category</label>     
+			                     <label for="inputUserame">Add Prerequisite</label>     
 			             			 <select id="preRequsite" class="form-control" name="preRequsite"   required="required" >
 								               
 								                        <option selected="selected">Select Category</option>      
-								                        <span th:each="category: ${categorys}">
+								                        <!-- <span th:each="category: ${categorys}">
 								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-								  						</span>
+								  						</span> -->
+								 		
+										  <span id="catId" th:each="catgoryName : ${categoryName}">
+										  
+										  		<option class="form-control"  id="categoryId"  name="categoryName"  th:text="${catgoryName.getCategoryname()}" readonly="readonly"></option>		
+										 </span>	 
+								  						
 							 </select>
 							</div> 
 				
@@ -411,40 +593,92 @@
 						        
 						      </div>
 						    
-						    </div>
 						  </div>
+				</div>
 						  
-						</div>
+			</div>
 						
 						<!-- End prerequisiteModale-->
-						
-		<!-- 	star Slide -->
-						
-			<div class="modal fade" id="slideModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelSlide" aria-hidden="true">
+					
+				<!-- star script -->	
+				
+				<div class="modal fade" id="scriptModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelScript" aria-hidden="true">
+				
 						
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalLabelSlide">Upload  Slide</h5>
+						        <h5 class="modal-title" id="exampleModalLabelScript">Upload  Script</h5>
+						         <span  style="color: green; padding-left: 50px"  id="statusofScript"> 
+								
+							
+								 </span>
+						        
 						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						          <span aria-hidden="true">&times;</span>
 						        </button>
 						      </div>
 						      <div class="modal-body">
 				
-								 <form class="form-horizontal"  th:action="@{/a}" method="post"  enctype="multipart/form-data"  onsubmit="return submitForm(this);">
+								 <form id="upload-file-form-script" submit="return submitForm(this);">
+				                          
+								<div class="form-group" style="padding-top: 80px"> 
+				                         		
+											<label for="uploadsScriptId" >Add Script</label> 
+											<input  style="padding-left:300px height: 300px, width:200px ; border: red;" type="file"  class="form-control-file w-50" id="uploadScriptFile"   name="uploadsScriptFile" placeholder="uploadFile"  accept=".pdf" required="required"></input>									
+		          
+				                </div> 
+				                        
+							  					<button id="scriptId" type="button" class="btn btn-success">Upload</button>&nbsp;&nbsp;&nbsp;
+				                      
+				         	  </form>
+					  </div>
+				 </div>
+		 </div>
+	
+	</div>
+				
+				
+				<!-- 
+				end script
+				 -->	
+					
+					
+					
+						
+		<!-- 	star Slide -->
+						
+			<div class="modal fade" id="slideModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelSlide" aria-hidden="true">
+				
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelSlide">Upload  Slide</h5>
+						         <span  style="color: green; padding-left: 50px"  id="statusofSlide"> 
+										
+								 </span>
+						        
+						        
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+				
+								 <form id="upload-file-form" submit="return submitForm(this);">
 				                          
 			
 				                        	<div class="form-group" style="padding-top: 80px"> 
 				                         		
-									                          <label for="consaltantImage" >Add Slide</label> 
-									                  	 	<input type="file"  class="form-control-file" id="consaltantImage"  name="uploadConsaltantImage" placeholder="uploadFile"   accept=".zip" required="required"/>													
-                    
-				                                 </div> 
+													   <label for="uploadsSlideFileId" >Add Slide</label> 
+													   <input  style="padding-left:300px height: 300px, width:200px ; border: red;" type="file"  class="form-control-file w-50" id="uploadsSlideFileId"   name="uploadsSlideFile" placeholder="uploadFile"   accept=".zip" required="required"></input>									
+				                  
+				                               </div> 
 				                        
-				        
-				            		  <button type="submit" class="btn btn-success">Upload</button>&nbsp;&nbsp;&nbsp;
-				                        
+							  					<button id="slideId" type="button" class="btn btn-success">Upload</button>&nbsp;&nbsp;&nbsp;
+				
+
 				                      
 				         	  </form>
 					  </div>
@@ -465,31 +699,36 @@
 
 	<script>
 	
-		ClassicEditor
-			.create( document.querySelector( '#editor' ), {
-				// toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
-			} )
-			.then( editor => {
-				window.editor = editor;
-			} )
-			.catch( err => {
-				console.error( err.stack );
-			} );
-		
-		
-		// const editorData = window.editor.getData();
-		 
- 		/* 	
-	 		document.querySelector( '#outlineId' ).addEventListener( 'click', () => {
-		    const editorData = window.editor.getData()
-		    console.log();
-		    
-	 		`	}  */
+	
+	let editor;
+
+	ClassicEditor
+	    .create( document.querySelector( '#editor' ) )
+	    .then( newEditor => {
+	        editor = newEditor;
+	    } )
+	    .catch( error => {
+	        console.error( error );"@{/}"
+	    } );
+
+	// Assuming there is a <button id="submit">Submit</button> in your application.
+		document.querySelector( '#outlineId' ).addEventListener( 'click', () => {
+	    const editorData = editor.getData();
+	  
+	    return editor.getData();
+
+	    // ...
+	} );
+	
+
 	</script>										
-					          
-				          
- 
+
 			<div th:fragment="body-bottom-scripts">
+			
+
+			    <script src="js/moment.min.js"></script> 
+			    <script src="js/combodate.js"></script> 
+			    
 			
         		 <script src="static/js/bootstrap.bundle.min.js"></script>
        			 <script src="static/js/jquery.slim.min" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>			

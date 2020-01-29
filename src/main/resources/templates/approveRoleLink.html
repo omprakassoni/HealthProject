@@ -182,9 +182,9 @@
 									            
 									            </thead>									            
 									            <tbody>
-									            	<tr th:each="approve : ${statusByApprovContributer}">
+										<tr th:each="approve : ${statusByApprovContributer}">
    	
-												<td ><input id="contributorId" style="width: 100px" readonly="readonly" th:value="${approve.getUserRoleId()}"/></td>  
+									<td ><input id="contributorId" style="width: 100px" readonly="readonly" th:value="${approve.getUserRoleId()}"/></td>  
 													
 													
 									                <td th:text="${approve.getUser().username}">User Name</td>
@@ -194,9 +194,9 @@
 								 					<td>
 													<button id="approveContributorId" type="button" value="showAlert"  class="btn btn-success">Approve</button>
 													   
-													<!-- 	<a th:href="${'/addContributerRoleById/add/'+ approve.getUser().id}">Approve</a> -->
+												<!-- 	<a th:href="${'/addContributerRoleById/add/'+ approve.getUser().id}">Approve</a> -->
 													</td>
-						 					<td>
+						 			<td>
 												<button id="rejectContributionId" type="button" value="showAlert"  class="btn btn-success">Reject</button>
 												    
 										<!-- 	   <a th:href="${'/addRejectRoleById/reject/' + approve.getUser().id}">Reject</a> -->
