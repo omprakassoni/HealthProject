@@ -61,6 +61,9 @@ public class language
 	@OneToMany(mappedBy = "lan", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<language_assign> languages= new HashSet<>();
 	
+	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private Set<commentOnComponent>  commentOnComponent= new HashSet<>();
+	
 	
 	public Set<UserRole> getUserRoles() {
 		

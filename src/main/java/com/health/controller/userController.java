@@ -164,6 +164,7 @@ public class userController
 		language lan=languagedao.findBylanguageName(languageName);
 		
 		int languageId=lan.getId();
+		
 		System.err.println("Hi language id"+languageId);
 		
 		java.util.Date dt = new java.util.Date();
@@ -210,15 +211,56 @@ public class userController
 
 		Role role = rolerespositary.findByname(name);
 
+		java.util.Date dt = new java.util.Date();
+
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String currentTime = sdf.format(dt);
+		
+		
 		int status = 0;
 		UserRole userRoles = new UserRole(user, role);
 		userRoles.setStatus(status);
+		userRoles.setCreated(currentTime);
 		userRoleRepositary.save(userRoles);
 
 		return "roleAdminDetail";
 		
 
 	}
+	@RequestMapping(value = "/addMeAsAdminReviwer", method = RequestMethod.GET)
+	public String addMeAsAdminReviwer(Authentication authentication, Model model) 
+	{
+	
+		User user = userService.findByClassname(authentication.getName());
+		
+		String name = "VideoReviwer";
+		
+		
+		java.util.Date dt = new java.util.Date();
+
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String currentTime = sdf.format(dt);
+		
+		Role role = rolerespositary.findByname(name);
+
+		int status = 0;
+		UserRole userRoles = new UserRole(user, role);
+		userRoles.setStatus(status);
+		userRoles.setCreated(currentTime);
+		
+		userRoleRepositary.save(userRoles);
+
+		return "roleAdminDetail";
+		
+
+	}
+	
+	
+	
 
 	@RequestMapping(value = "/addMeAsQualityRevieweer", method = RequestMethod.GET)
 	public String addMeAsQualityRevieweer(Authentication authentication) {
@@ -340,8 +382,7 @@ public class userController
 	@RequestMapping("/addDomainRoleById/add/{id}")
 	public String addDomainRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
 
-		// User user=-userRepository.findByUserId(id);
-
+		
 		User user = userRepository.findOne(id);
 
 		String name = "DomainReviweer";
@@ -349,20 +390,44 @@ public class userController
 		Role role = rolerespositary.findByname(name);
 
 		int status = 1;
+		
+		UserRole userRole = userRoleRepositary.findByUserAndRole(user,role);
 
+		userRole.setStatus(status);
+
+		userRoleRepositary.save(userRole);
+
+	
+		return "redirect:/approveRole";
+		
+
+	}
+	
+	@RequestMapping("/addAdminRoleById/add/{id}")
+	public String addAdminRoleById(@PathVariable Long id, Model model, HttpServletRequest req) 
+	{
+
+		// User user=-userRepository.findByUserId(id);
+
+		User user = userRepository.findOne(id);
+
+		String name = "VideoReviwer";
+
+		Role role = rolerespositary.findByname(name);
+
+		int status = 1;
+		
 		UserRole userRole = userRoleRepositary.findByUserAndRole(user, role);
 
 		userRole.setStatus(status);
 
 		userRoleRepositary.save(userRole);
 
-		/* return "showDomainReviweer"; */
 		return "redirect:/approveRole";
-		
-		
-		
 
 	}
+	
+	
 
 	@RequestMapping("addRejectRoleById/reject/{id}")
 	public String addRejectRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
@@ -513,7 +578,9 @@ public class userController
 		/* return "showQualityReviweer"; */
 	}
 	
-	
+	/*
+	 * here approve request from user like Domain reviewer
+	 */
 	@RequestMapping("/approveRole")
 	public String approveRole(Model model)
 	{
@@ -594,6 +661,24 @@ public class userController
 
 		model.addAttribute("statusByApprovQuality", userAddInformationQuality);
 
+
+		int rolIdVideo = 6;
+		Role roleVideo = rolerespositary.findByIdRoles(rolIdVideo);
+
+		/* int status = 0; */
+		List<UserRole> userByStatusVideo = userRoleRepositary.findByStatus(status, roleVideo);
+
+		List<User> userAddInformationVideo = new ArrayList<>();
+
+		for (UserRole ur : userByStatusVideo) {
+
+			User userInformation = userRepository.findOne(ur.getUser().getId());
+			
+			
+
+			userAddInformationVideo.add(userInformation);
+		}
+		model.addAttribute("statusByApprovAdmin",userAddInformationVideo);
 	
 		return "approveRoleLink";
 			

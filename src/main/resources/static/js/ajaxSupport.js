@@ -1,6 +1,5 @@
 
 
-
 $(function(){
 
 /*	$('#keywordModale').on('hidden.bs.modal', function () {
@@ -347,7 +346,11 @@ $(function(){
 		       		 data: { "id": catgoryid},
 		       		 contentType: "application/json",
 		       		 success: function (result){
-		       			 
+
+			             html += '<option value="' + result[i] + '">'
+			               + result[i]
+			               + '</option>';
+			            
 		       		
 		       		  var html = '';
 			            var len = result.length;
@@ -513,14 +516,15 @@ $(function(){
 				});
 		
 		/*
-		Here is code for script*/
+		Here is code for save script*/
 		
 		
 		$('#scriptId').click(function()	
-				{
+		{
+		
 			
-			
-			
+
+					
 							var categoryid=$("#categoryId").val();
 							var topicid=$("#topicId").val();
 							var lanId=$("#lanId").val();
@@ -532,8 +536,8 @@ $(function(){
 						
 							formData.append('categoryid', categoryid);
 							formData.append('topicid', topicid);
-							formData.append('lanId', lkeywordModaleViewanId);
-							 
+							formData.append('lanId', lanId);	
+							
 					
 							
 							$.ajax({
@@ -548,9 +552,7 @@ $(function(){
 							    success: function (result)
 							{
 								    	
-							    	
 							
-						    
 						       			 $("#statusofScript").prop('disabled',true);
 						       			 $('#statusofScript').html(result);				       								
 							 },
@@ -558,7 +560,7 @@ $(function(){
 							error : function(err){
 						console.log("not working. ERROR: "+JSON.stringify(err));
 					}
-							 keywordModaleView
+							 
 				});
 	  
 			});
@@ -573,7 +575,7 @@ $(function(){
 			$('#slideId').click(function()	
 			{
 		
-						var categoryid=$("#categoryId").keywordModaleViewval();
+						var categoryid=$("#categoryId").val();
 						var topicid=$("#topicId").val();
 						var lanId=$("#lanId").val();
 						
@@ -589,7 +591,7 @@ $(function(){
 						$.ajax({
 							    type: "POST",
 							    url: "/slideUpload",
-							    data: formData,keywordModaleView
+							    data: formData,
 							    enctype: 'multipart/form-data',
 							    processData: false,
 							    contentType: false,
@@ -606,7 +608,7 @@ $(function(){
 						error : function(err){
 					console.log("not working. ERROR: "+JSON.stringify(err));
 				}
-							    keywordModaleView
+							    
 			});
   
 		});
@@ -631,7 +633,7 @@ $(function(){
 								formData.append('lanId', lanId);
 								
 			
-							$.ajax({keywordModaleView
+							$.ajax({
 									    type: "POST",
 									    url: "/videoUpload",
 									    data: formData,
@@ -662,7 +664,7 @@ $(function(){
 	{
 				
 								var categoryid=$("#categoryId").val();
-								var topicid=$("#topicId")keywordModaleView.val();
+								var topicid=$("#topicId").val();
 								var lanId=$("#lanId").val();
 								
 								
@@ -684,7 +686,7 @@ $(function(){
 									    cache: false,
 									    success: function (result)
 									    {
-									    	alert("succeskeywordModaleViews");
+									    	alert("success");
 							    
 							       			 $("#statusofprerequisite").prop('disabled',true);
 							       			 $('#statusofprerequisite').html(result);				       		
@@ -758,7 +760,7 @@ $(function(){
 
 							});
 						
-						$("#approveContributorId").attr("disabled", true);
+						
 						
 				  
 			});
@@ -804,7 +806,7 @@ $(function(){
 						       		 contentType: "application/json",
 						       		 success: function (result){
 		
-						       			 	
+						       			
 						       			 var html = '';
 						       			 var len = result.length;
 							             html += '<option value="0">Select Language</option>';
@@ -824,7 +826,7 @@ $(function(){
 											console.log("not working. ERROR: "+JSON.stringify(err));
 										}
 									});
-
+								
 								
 							
 				});
@@ -898,27 +900,777 @@ $(function(){
 										  
 								});
 			
-				/*load By Contributor user only //Contributor assign from End	*/
-				
 	
-/*		$('#revokeId').on('hidden.bs.modal', function () {
-				
-				location.reload();
-			});*/
-		/*				
-		$('#approveContributorId').on('hidden.bs.modal',function () {
-			
-			location.reload();
-		});*/
-	
-		
-		
+						//here write code for keyword view	//add content form
+						
+						
+						$('#keywordModaleView').click(function()			
+								{
+												
+												var categoryid=$("#categoryId").val();
+												var topicid=$("#topicId").val();
+												var lanId=$("#lanId").val();
+												
+												$.ajax({
+													  	type: "GET",
+											       		 url: "/viewKeyword",
+											       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },			
+											       		 contentType: "application/json",
+											       		 success: function(result)
+											       		 {
 
+											       			 
+											       			 $("#keywordView").prop('disabled',false);
+											       			 $('#keywordView').html(result);
+											       		
+															},
+															
+																error : function(err){
+															console.log("not working. ERROR: "+JSON.stringify(err));
+														}
+								
+													});
+										  
+												});
+						
+				$('#videoViewId').click(function()			
+				{
+											
+												var categoryid=$("#categoryId").val();
+												var topicid=$("#topicId").val();
+												var lanId=$("#lanId").val();
+												
+												alert(categoryid+""+topicid+""+lanId);
+												var x;
+												
+												$.ajax({
+													
+													  	type: "GET",
+											       		 url: "/viewVideo",
+											       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+											       		 contentType: "application/json",
+											       		 success: function(result)
+											       		 {
+											       					 
+											       			
+											       			 //$("#VideoView").prop('disabled',false);
+											       			 //$('#VideoView').html(result);
+											       			
+											       		        var res =  result;
+											       		        //alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
+
+											       		        source =  document.getElementById('storedVideoId');
+											       		        source.setAttribute('src', res);
+											       		        source.setAttribute('type','video/mp4')
+
+											       		        source.play(); //test playback of new video
+											       		        
+											       		       // $('#videoDiv').show()
+											       		   
+											       		
+															},
+															
+																error : function(err){
+															console.log("not working. ERROR: "+JSON.stringify(err));
+														}
+								
+													});
+										  
+												});
+						
+						
+						//here code outline View
+						
+						$('#outlineViewModel').click(function()			
+						{
+							
+												var categoryid=$("#categoryId").val();
+												var topicid=$("#topicId").val();
+												var lanId=$("#lanId").val();
+												$.ajax({
+													
+													  	type: "GET",
+											       		 url: "/outlineView",
+											       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+											       		 contentType: "application/json",
+											       		 success: function(result)
+											       		 {
+											       			 
+											       			 $("#outlineViewResponse").prop('disabled',false);
+											       			 $('#outlineViewResponse').html(result);
+											       		
+															},
+															
+																error : function(err){
+															console.log("not working. ERROR: "+JSON.stringify(err));
+														}
+								
+													});
+										  
+												});
+						
+						//Script View  Contributor
+						
+					
+						$('#viewScriptId').click(function()			
+						{
+											
+																var categoryid=$("#categoryId").val();
+																var topicid=$("#topicId").val();
+																var lanId=$("#lanId").val();
+																$.ajax({
+																	
+																	  	type: "GET",
+															       		 url: "/scriptPdf",
+															       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+															       		 contentType: "application/json",
+															       		 success: function(result)
+															       		 {
+															       		 	var res =  result;
+															       		      //  alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
+
+															       		        source =  document.getElementById('ScriptPdf');
+															       		        source.setAttribute('href',res);
+															       		        
+															       		       // source.setAttribute('type','video/mp4')
+															       		        source.play(); 
+															       			 
+															      
+																			},
+																			
+																				error : function(err){
+																			console.log("not working. ERROR: "+JSON.stringify(err));
+																		}
+												
+																	});
+														  
+																});
+						
+						
+						//Contributor Script modelView
+						
+							$('#slideModaleView').click(function()			
+								{
+											
+																var categoryid=$("#categoryId").val();
+																var topicid=$("#topicId").val();
+																var lanId=$("#lanId").val();
+																$.ajax({
+																	
+																	  	type: "GET",
+															       		 url: "/sliedPdf",
+															       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+															       		 contentType: "application/json",
+															       		 success: function(result)
+															       		 {
+															       		 	var res =  result;
+															       		      //  alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
+
+															       		        source =  document.getElementById('sliedPdf');
+															       		        source.setAttribute('href',res);
+															       		       // source.setAttribute('type','video/mp4')
+
+															       		        source.play(); 
+															       			 
+															      
+																			},
+																			
+																				error : function(err){
+																			console.log("not working. ERROR: "+JSON.stringify(err));
+																		}
+												
+																	});
+														  
+																});
+							
+							//Display  comment box for need to improvemnet
+							
+							$('#AddrType').click(function()			
+								{
+										
+										var vals=$("#AddrType").val();
+										
+										 if(vals === '0'){
+											 
+											  $('#NeedImprovement').css({'visibility':'hidden'});         
+						 		          
+										 }
+										 else if(vals === '1'){
+											 
+											  $('#NeedImprovement').css({'visibility':'visible'}); 
+											 
+										 }
+											  
+									});
+							
+							$('#scriptAccept').click(function()			
+								{	
+								
+										var vals=$("#scriptAccept").val();
+	
+										 if(vals === '0')
+										 { 
+											  $('#scriptNeedImprovement').css({'visibility':'hidden'});         
+						 		          }
+										 else if(vals==='1'){
+											 
+											  $('#scriptNeedImprovement').css({'visibility':'visible'}); 
+										 }
+										 
+											  
+									});
+							
+							
+							$('#VideoAccept').click(function()			
+									{
+								
+											//var vals=$("#VideoAccept").val();
+											
+											var vals=$(this).find(":selected").val();
+		
+										
+											 if(vals === '0')
+											 { 
+												  $('#videoNeedImprovement').css({'visibility':'hidden'}); 
+												  
+							 		          }
+											 else if(vals === '1')
+											 {
+												 
+												 $('#videoNeedImprovement').css({'visibility':'visible'}); 											 
+												 
+
+											 }
+												  
+										});
+							
+						
+							
+							
+			$('#VideoAcceptAdmin').click(function()			
+					{
+				
+							var vals=$(this).find(":selected").val();
+							
+							
+							
+							 if(vals === '0')
+							 { 
+								  $('#videoNeedImprovement').css({'visibility':'hidden'}); 
+								  
+								  alert("Hi  Demo examplwe");
+								  
+			 		          }
+							 else if(vals === '1'){
+								 
+					
+								  $('#videoNeedImprovement').css({'visibility':'hidden'}); 
+
+							 }
+							 else if(vals === '2')
+							 {
+								 
+								 $('#videoNeedImprovement').css({'visibility':'visible'}); 											 
+								 
+
+							 }
+							 
+							 
+					});
+	
+						//Display domain Outline
+					
+							$('#outlineViewModelDomain').click(function()			
+						{
+									
+								
+															var categoryid=$("#categoryId").val();
+															var topicid=$("#topicId").val();
+															var lanId=$("#lanId").val();
+															$.ajax({
+																
+																  	type: "GET",
+														       		 url: "/outlineViewDomain",
+														       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+														       		 contentType: "application/json",
+														       		 success: function(result)
+														       		 {
+														       		
+														       			$("#outlineViewResponseDomain").prop('disabled',false);
+														       			$('#outlineViewResponseDomain').html(result);
+														       		
+														       		 },
+																		
+																			error : function(err){
+																		console.log("not working. ERROR: "+JSON.stringify(err));
+																	}
+											
+																});
+													  
+															});
+							
+					/*		View Script from domain */
+							
+							$('#viewScriptIdDomain').click(function()			
+						 {
+								
+													var categoryid=$("#categoryId").val();
+													var topicid=$("#topicId").val();
+													var lanId=$("#lanId").val();
+											
+								$.ajax({
+																			 type: "get",
+																       		 url: "/scriptPdfDomain",
+																       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+																       		 contentType: "application/json",
+																       		 success: function(result)
+																       		 {
+																       			var res = result;
+																       			 
+																       			 alert("NEW video path :" + res); 
+																       			 
+																       		        source =  document.getElementById('scriptPdfDomain');
+																       		        source.setAttribute('href',res);
+																       		        
+
+																				},
+																				
+																					error : function(err){
+																				console.log("not working. ERROR: "+JSON.stringify(err));
+																			}
+													
+																		});
+															  
+																	});
+								
+							/*view Video By Domain*/
+							
+							$('#videoViewIdDomain').click(function()			
+						{
+											
+								
+												var categoryid=$("#categoryId").val();
+												var topicid=$("#topicId").val();
+												var lanId=$("#lanId").val();
+																	
+											$.ajax({
+																		
+														type: "GET",
+														url: "/viewVideoDomain",
+														data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+														contentType: "application/json",
+														success: function(result)
+													 {
+											       					 
+											       		
+											       		      var res = result;
+											       		      
+											       		   //  alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
+
+
+											       		        source =  document.getElementById('storedVideoIdDomain');
+											       		        source.setAttribute('src', "http://localhost:8081/"+res);
+											       		        source.setAttribute('type','video/mp4')
+
+											       		        source.play(); 
+
+											       		        
+															},
+																												  
+																				error : function(err){
+																				console.log("not working. ERROR: "+JSON.stringify(err));
+																			}
+													
+																		});
+															  
+																	});
+							
+							
+							/*Here is code for comment on componenet outline*/
+							
+								$('#submitCommentId').click(function()			
+								{
+									alert("call submit");
+												
+																	var categoryid=$("#categoryId").val();
+																	var topicid=$("#topicId").val();
+																	var lanId=$("#lanId").val();
+																	var commentOutlineMsg=$("#msgCommentOutline").val();
+																	
+																	alert(commentOutlineMsg);
+																	
+																	$.ajax({
+																		
+																		  	type: "GET",
+																       		 url: "/commentOnOutline",
+																       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,"commentOutlineMsg":commentOutlineMsg,},		
+																       		 contentType: "application/json",
+																       		 success: function(result)
+																       		 {
+																       			 $("#saveComment").prop('disabled',false);
+																       			 $('#saveComment').html(result);
+																       		
+																       			 
+																				},
+																				
+																					error : function(err){
+																				console.log("not working. ERROR: "+JSON.stringify(err));
+																			}
+													
+																		});
+															  
+																	});		
+							
+							
+			/*Here is code for comment on componenet script*/
+							
+					$('#scriptAcceptOrNeedToImprovemenet').click(function()			
+										{
+													
+														
+																			var categoryid=$("#categoryId").val();
+																			var topicid=$("#topicId").val();
+																			var lanId=$("#lanId").val();
+																			var msgScript=$("#msgScript").val();
+																			
+																		
+																			
+																			$.ajax({
+																				
+																				  	type: "GET",
+																		       		 url: "/commentOnScript",
+																		       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,"msgScript":msgScript},		
+																		       		 contentType: "application/json",
+																		       		 success: function(result)
+																		       		 {
+																		       			 
+																		       			 
+																		       			 $("#saveCommentScript").prop('disabled',false);
+																		       			 $('#saveCommentScript').html(result);
+																		       		
+																		       			 
+																						},
+																						
+																							error : function(err){
+																						console.log("not working. ERROR: "+JSON.stringify(err));
+																					}
+															
+																				});
+																	  
+																			});	
+					
+					/*Here is code for comment on componenet Video*/
+					
+					$('#videoAcceptOrNeedToImprovemenet').click(function()			
+					{
+								
+											
+																var categoryid=$("#categoryId").val();
+																var topicid=$("#topicId").val();
+																var lanId=$("#lanId").val();
+																var videoCommentMsg=$("#videoCommentMsg").val();
+																
+																
+																
+																$.ajax({
+																	
+																	  	type: "GET",
+															       		 url: "/commentOnVideo",
+															       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,"videoCommentMsg":videoCommentMsg},		
+															       		 contentType: "application/json",
+															       		 success: function(result)
+															       		 {
+															       			
+															       			
+															       			 $("#saveCommentVideo").prop('disabled',false);
+															       			 $('#saveCommentVideo').html(result);
+															       		
+															       			 
+																			},
+																			
+																				error : function(err){
+																			console.log("not working. ERROR: "+JSON.stringify(err));
+																		}
+												
+																	});
+														  
+																});	
+					
+					
+					
+			/*		Here is code for admin Video*/
+					
+					$('#videoViewIdAdmin').click(function()			
+							{
+														
+															var categoryid=$("#categoryId").val();
+															var topicid=$("#topicId").val();
+															var lanId=$("#lanId").val();
+														
+															
+															$.ajax({
+																
+																  	type: "GET",
+														       		 url: "/viewVideoAdmin",
+														       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+														       		 contentType: "application/json",
+														       		 success: function(result)
+														       		 {
+														       					 
+														       			
+														       			 //$("#VideoView").prop('disabled',false);
+														       			 //$('#VideoView').html(result);
+														       			
+														       		        var res =  result;
+														       		        //alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
+
+														       		        source =  document.getElementById('storedVideoId');
+														       		        source.setAttribute('src', "http://localhost:8081/"+res);
+														       		        source.setAttribute('type','video/mp4')
+
+														       		        source.play(); //test playback of new video
+														       		        
+														       		       // $('#videoDiv').show()
+														       		
+																		},
+																		
+																			error : function(err){
+																		console.log("not working. ERROR: "+JSON.stringify(err));
+																	}
+											
+																});
+													  
+															});
+					
+				
+					
+					$('#videoViewIdAdmin').click(function()			
+							{
+														
+															var categoryid=$("#categoryId").val();
+															var topicid=$("#topicId").val();
+															var lanId=$("#lanId").val();
+														
+															
+															$.ajax({
+																
+																  	type: "GET",
+														       		 url: "/viewVideoAdmin",
+														       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+														       		 contentType: "application/json",
+														       		 success: function(result)
+														       		 {
+														       		
+														       		        var res =  result;
+														       		        
+														       		        //alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
+
+														       		        source =  document.getElementById('storedVideoId');
+														       		     source.setAttribute('src', "http://localhost:8081/"+res);
+														       		        source.setAttribute('type','video/mp4')
+
+														       		        source.play(); //test playback of new video
+														       		        
+														       		       // $('#videoDiv').show()
+														       		   
+														       		
+																		},
+																		
+																			error : function(err){
+																		console.log("not working. ERROR: "+JSON.stringify(err));
+																	}
+											
+																});
+													  
+															});
+					
+					
+					/*here is code for video accepet or need to improvement*/
+					
+					$('#videoAcceptOrNeedToImprovemenetByAdmin').click(function()			
+					{
+						
+						var categoryid=$("#categoryId").val();
+						var topicid=$("#topicId").val();
+						var lanId=$("#lanId").val();
+					
+						
+						var vals=$("#VideoAcceptAdmin").val();
+						
+						alert(vals);
+						
+						if(vals == '0')
+						 { 
+							  alert("Select Accept Or Need To Improvement"); 
+							  
+		 		          }
+						 else if(vals == '1'){
+							
+							 
+								$.ajax({
+									
+								  	type: "GET",
+						       		 url: "/acceptAdminVideo",
+						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+						       		 contentType: "application/json",
+						       		 success: function(result)
+						       		{
+
+						       			
+						       			 
+					       			 $("#statusVideoByAdmin").prop('disabled',false);
+					       			 $('#statusVideoByAdmin').html(result);
+						       	
+						       		},
+											
+										error : function(err){
+										console.lo3g("not working. ERROR: "+JSON.stringify(err));
+									}
+
+								});	 
+							  
+
+						 }
+						 else if(vals == '2')
+						 {
+							 
+							$.ajax({
+									
+								  	type: "GET",
+						       		 url: "/needToImprovemenet",
+						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+						       		 contentType: "application/json",
+						       		 success: function(result)
+						       		{
+
+	 
+					       			 $("#statusVideoByAdmin").prop('disabled',false);
+					       			 $('#statusVideoByAdmin').html(result);
+						       	
+						       		},
+											
+										error : function(err){
+										console.lo3g("not working. ERROR: "+JSON.stringify(err));
+									}
+
+								});									 
+							 
+
+						 }
+						
+
+					});
+					
+					
+					/*here is code for domain review  Video Acdept or Need To improvemenet*/
+					
+					$('#VideoAcceptDomain').click(function()			
+							{
+						
+									var vals=$("#VideoAcceptDomain").val();
+				
+									 if(vals === '0')
+									 { 
+										  $('#videoNeedImprovement').css({'visibility':'hidden'}); 
+					 		          }
+									 else if(vals === '1')
+									 {
+										 	$('#videoNeedImprovement').css({'visibility':'hidden'}); 
+				
+									 }
+									 else if(vals === '2')
+									 {
+										 
+										 $('#videoNeedImprovement').css({'visibility':'visible'}); 											 
+										 
+
+									 }
+									 
+									 
+							});
+					
+	/*here is code for video accepet or need to improvement*/
+					
+		$('#videoAcceptOrNeedToImprovemenetByDomain').click(function()			
+		{
+					
+					
+						var categoryid=$("#categoryId").val();
+						var topicid=$("#topicId").val();
+						var lanId=$("#lanId").val();
+					
+						
+						var vals=$("#VideoAcceptDomain").val();
+						
+						alert(vals);
+						
+						if(vals == '0')
+						 { 
+							  alert("Select Accept Or Need To Improvement"); 
+							  
+		 		          }
+						 else if(vals == '1')
+						 {
+							 alert("save");
+						
+								$.ajax({
+									
+								  	type: "GET",
+						       		 url: "/acceptVideoByDomain",
+						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+						       		 contentType: "application/json",
+						       		 success: function(result)
+						       		{
+						       			 			alert(result);
+					       			 $("#statusVideoByDomain").prop('disabled',false);
+					       			 $('#statusVideoByDomain').html(result);
+						       	
+						       		},
+											
+										error : function(err){
+										console.lo3g("not working. ERROR: "+JSON.stringify(err));
+									}
+
+								});	 
+							  
+
+						 }
+						 else if(vals == '2')
+						 {
+							 
+					$.ajax({
+									
+								  	type: "GET",
+						       		 url: "/needToImprovemenetByDomain",
+						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+						       		 contentType: "application/json",
+						       		 success: function(result)
+						       		{
+						       			 
+					       			 $("#statusVideoByDomain").prop('disabled',false);
+					       			 $('#statusVideoByDomain').html(result);
+						       	
+						       		},
+											
+										error : function(err){
+										console.lo3g("not working. ERROR: "+JSON.stringify(err));
+									}
+
+								});									 
+							 
+
+						 }
+						
+
+					});
+					
+					
+				
+					
+					
+					
 
 });
-
-
-
 
 
 

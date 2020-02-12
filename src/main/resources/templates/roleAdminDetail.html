@@ -301,7 +301,9 @@
  
 </div>
  
-  <section   style="background: lightblue" sec:authorize="!hasAnyAuthority('DomainReviweer','Admin','MasterTrainer','Contributer','QualityReviweer')">
+ 
+ 
+  <section   style="background: lightblue" sec:authorize="!hasAnyAuthority('VideoReviwer','DomainReviweer','Admin','MasterTrainer','Contributer','QualityReviweer')">
    
 		          <!--   <div class="">    
                                <div th:if="${request}">
@@ -324,7 +326,8 @@
 								<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	</li>
 								<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span></li>
 								<li>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  </li>
-						 
+						 		<li>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsAdminReviwer}">Add me as as Admin Reviwer</a> </span>  </li>
+						 		
 						 
 						  </ul>						  
 						   <div class="modal fade" id="myModal" role="dialog">
@@ -433,7 +436,7 @@
 	    	</div>
 
    			</div>
-   			
+   				
    			<div class="col-4 ">
    			
 
@@ -453,145 +456,130 @@
 
 <div sec:authorize="hasAnyAuthority('DomainReviweer')">
 
-		<H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviweer</H4>
-		
-		
-			<div class="#">
-	<div class="" style="padding-left: 50px; padding-top: 100px">
-	
-	<div class="row">
-		  <div class="col-2">
-		    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-		      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-		      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Review Tutorial	</a>
-		      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Feedback Form</a>
-		    </div>
-		  </div>
-		  <div class="col-10">
-		    <div class="tab-content" id="v-pills-tabContent">..
-		    
-		      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-		      
-		    		
-  
-		      </div>
-		      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-		      
-		  
-		    		<div class="container">
-		    		
-		    		<div class="">
-		    		
-		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >View  Tutorial</div>
-		    		
-		    		<div class=" col-md-12" style="padding-left: 10px">
-		    
-          	     <div>
-					        <h2>Tutorial List</h2>
-					        
-					        <table class="table table-striped">
-					            <tr>
-					                <th>Name</th>
-					                <th>Language</th>
-					          	    <th>Image</th>
-					                <th >View</th>
-					                <th>Edit</th>
-				                <th>Delete</th>
-					            </tr>
-					            	<tr th:each="tutorials : ${tutorials}" style=""> 
-						            	<td th:text="${tutorials.topicname}">Name</td>
-						       			 <td th:text="${tutorials.language}">Language</td>
-						               
-						                <td>
-				
-						                  	 <iframe width="330" height="215" th:src="${tutorials.video}" frameborder="0"
-						   					 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true">	 
-						   			
-						   			 		</iframe>
-						   			 		
-						                </td>  
-						                
-						                
-					               <!--  <td><a th:href="${'/tutorials/'+ tutorials.id}">View</a></td>
-					                <td><a th:href="${'tutorials/edit/' + tutorials.id}">Edit</a></td>
-					                
-					                <td><a th:href="${'/tutorials/delete/' + tutorials.id}">Delete</a></td>
-       -->
-				            </tr>
-					        </table>
-					    </div>
-		
-			 <button type="submit" class="btn  btn-success">Submit</button>
-			 <button type="reset" class="btn btn-success">Reset</button>       
-												        		  
-		
-					</div>
-				
-		    		</div>
-		    		
-		    		
-		    		</div>
-		      
-		      </div>
-		      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 
-							<div class="container">
-		    		
-		    		<div class="row shadow p-3 mb-5 bg-white rounded">
-		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Feedback form</div>
-		    		<div class=" col-md-12" style="padding-left: 100px">
-		    		
-		    
-						    <form action="/feedback" >
-						   
-								 
-						<div class="form-group ">
-									  
-								 <label for="nameOfMasterTrainerId">Name</label> 
-								 <input type="text" class="form-control w-75" id="nameOfMasterTrainerId" name="nameOfMasterTrainer" required="required"/>
-													  
-						</div>
-									   
-					      	<div class="form-group ">
-					      
-					               <label for="emailId">Email</label>
-							<input type="text" class="form-control w-75" id="emailId" name="email" required="required"/>
+		<!-- <H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4> -->
+		
+		 <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card-header card card-signin flex-row my-5">
+	       
+	          <div class="card-body">
 
-							</div>
-								 
-					<div class="form-group ">
-					      
-					               <label for="messageId">Enter  Message</label>
-					       	
-						 <textarea class="form-control w-75"  name="traningInformation" rows="5" id="messageId" style="width: 300px" required="required"></textarea>
- 
-							</div>
-								 
-								 
-					    
-						        
-						   <button type="submit" class="btn  btn-success">Submit</button>
-						     <button type="reset" class="btn btn-success">Reset</button>       
-					  
-				</form>
-				
-					</div>
-				
-		    		</div>
-		    		
-		    		
-		    		</div>
+	     <h5 class="card-title text-center" style="color: gray; font-size: 30px">Welcome to Domain Reviwer</h5>
 
-				</div>
-		      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-		    </div>
-		  </div>
+	         
+		<div class="card" style="width: 600px">
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Domain Reviwer </h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 	<i class="fas fa-angle-double-right"></i> <a href="/listDomainReviewrTutorial">Tutorials waiting for Domain review</a><br/>
+									<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials Reviewed</a><br/>
+								</div>
+				
+			 		 </div>
 		</div>
+	         
+	         <hr/>
+	        <div class="card" style="width: 600px" >
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Creation Role</h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
+						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>
+						 
+								</div>
+			  		</div>
+			</div>
 	
-	
-	</div>
-	</div>
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
+          </div>
+        </div>
+      </div>
+    </div>
+    
+		
 </div>
+
+<!-- video reviwer -->
+
+<div sec:authorize="hasAnyAuthority('VideoReviwer')">
+
+
+		<!-- <H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4> -->
+		
+		 <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card-header card card-signin flex-row my-5">
+	       
+	          <div class="card-body">
+
+	     <h5 class="card-title text-center" style="color: gray; font-size: 30px">Welcome to Admin Reviwer</h5>
+
+	         
+		<div class="card" style="width: 600px">
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Admin Reviwer</h5>
+					  <div class="card-body">
+								 <div class="form-group">
+								 	<i class="fas fa-angle-double-right"></i> <a href="/listTutorialAdminReviwer">Tutorials waiting for Admin Review</a><br/>
+									<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials Reviewed</a><br/>
+								
+								</div>
+				
+			 		 </div>
+		</div>	         
+	         <hr/>
+	        <div class="card" style="width: 600px" >
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Creation Role</h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
+						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>
+						 
+								</div>
+			  		</div>
+			</div>
+	
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
+          </div>
+        </div>
+      </div>
+    </div>
+    		
+</div>
+
+
+
+
+
 
 <div sec:authorize="hasAnyAuthority('MasterTrainer')">
 
@@ -963,48 +951,76 @@
 </div>
 
 	
-	<div sec:authorize="hasAnyAuthority('')">
-	
-	
-	
-	</div>
-	
-	
 	
 <div sec:authorize="hasAnyAuthority('QualityReviweer')">
 
-<h4>Welcome to Quality </h4>
 
-<div class="container">
-
-   		<div class="row" style="padding-top: 160px">
+		<!-- <H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4> -->
 		
-   		<div class="col-4 shadow p-3 mb-5 bg-white rounded" >	
-	   		 <div>
-	   		 
-	   		 			     <ul>	 
-					     				<!-- <a  th:href="@{/addMeAsAdmin}">Add me as Admin</a> -->
-								<li>	<span>	<a  th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	</li>	
-								<li>	<span>	<a  th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span></li>
-								<li>	<span>	<a  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  </li>
-							</ul>
+		 <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card-header card card-signin flex-row my-5">
+	       
+	          <div class="card-body">
+
+	     <h5 class="card-title text-center" style="color: gray; font-size: 30px">Welcome to Quality Reviwer</h5>
+
+	         
+		<div class="card" style="width: 600px">
 		
-	    	</div>
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Quality Reviwer </h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials waiting for Quality Review</a><br/>
+									<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials waiting mark as Public review</a><br/>
+											 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials ready to publish</a><br/>
+									<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials under public review</a><br/>
+								<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials Reviewed</a><br/>
+								<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Remove Video  from youtube</a><br/>
+								<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials Reviewed</a><br/>
+							
+							
+								</div>
+				
+			 		 </div>
+		</div>
+	         
+	         <hr/>
+	        <div class="card" style="width: 600px" >
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Creation Role</h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
+						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>
+						 
+								</div>
+			  		</div>
+			</div>
+	         
+ 	
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
+          </div>
+        </div>
+      </div>
+    </div>
+    
 
-   			</div>
-   			
-   			<div class="col-4 ">
-   			
 
-   			</div>
-			   			<div class="col-4">
-			   			
-			   			</div>
 
-   	
-   			</div>
-   		
-   		</div>
 
 
 </div>

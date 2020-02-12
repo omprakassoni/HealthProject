@@ -61,11 +61,13 @@ public class Category {
 	  
 	  @OneToMany(mappedBy = "category",cascade =CascadeType.ALL) private
 	  List<contributor_Role> contributor_Roles;
-	  
-	  
 
 	  @OneToMany(mappedBy = "category",cascade =CascadeType.ALL) 
 	  private List<topic>  topic;
+	 
+	  @OneToMany(mappedBy = "category",cascade =CascadeType.ALL) 
+	  private List<commentOnComponent>  commentOnComponent;
+	  
 	  
 	  
 	  @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)

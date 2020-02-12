@@ -19,6 +19,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.websocket.OnError;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.health.domain.security.UserRole;
+
 
 @Entity
 @Table(name="tutorial_resoureses")
@@ -52,8 +55,16 @@ public class Tutorial
 	private int scriptStatus;
 	
 	private String outlin;
-	private int outlineStatus;
-
+	private int outlineStatus;	
+	private int outline_status_id;
+	
+	
+	/*
+	 * @ManyToOne(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name="outline_user_id")
+	 */
+	
 	
 	private String slide;
 	private int slideStatus;
@@ -116,6 +127,8 @@ public class Tutorial
 		this.keyword = keyword;
 		this.keywordStatusSet = keywordStatusSet;
 		this.keyword_user_id = keyword_user_id;
+		
+		
 	}
 
 	public long getKeyword_user_id() {
@@ -126,7 +139,7 @@ public class Tutorial
 		this.keyword_user_id = keyword_user_id;
 	}
 
-	public int getKeywordStatusSet() {
+	public int getKeywordStatusSet(){
 		return keywordStatusSet;
 	}
 
@@ -254,6 +267,13 @@ public class Tutorial
 	@ManyToOne(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private  User user;
+	
+	
+	@OneToMany(mappedBy = "tutorial", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<commentOnComponent> commentOnComponent = new HashSet<>();
+	
+	
 	
 
 		public User getUser() {

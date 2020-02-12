@@ -404,10 +404,6 @@ public class controllerContributer {
 		   tutorialService.updateVideo(videopath,videoStatus,user,topic,category);
 
 		   
-		   
-		   
-		   
-		   
 		/*
 		 * try { File input = new File(videopath); BufferedImage inputBuffer =
 		 * ImageIO.read(input); File outputimage = new File("thumbnail.jpg");
@@ -501,10 +497,10 @@ public class controllerContributer {
 			
 				  
 			@RequestMapping("/loadTopicByCategoryContributor")
-			public @ResponseBody  List<String> getTopicByCategoryContributor(@RequestParam(value="id") String categoryname,Authentication autheticateion)
+			public @ResponseBody  Set<String> getTopicByCategoryContributor(@RequestParam(value="id") String categoryname,Authentication autheticateion)
 			{  
 		
-			    List<String> topicName=new ArrayList<String>();
+			    ArrayList<String> topicName=new ArrayList<String>();
 			   
 			    User user=userRepositorydao.findByUsername(autheticateion.getName());
 			    
@@ -520,47 +516,43 @@ public class controllerContributer {
 												    
 				  }
 				  
+				  Set<String> disticttopic=new HashSet<>(topicName);
 				  
 				  
-				  return topicName;  
+				  return disticttopic;  
 		
 						
 			}
-				
+			
+			//load  Topic by catgory inTutorial Upload Index
+			
+			
 			@RequestMapping("/loadLanguageByTopicId")
-			public @ResponseBody  List<String> getLanguageByTopic(@RequestParam(value="id") String TopicName,Authentication authetication)
+			public @ResponseBody  Set<String> getLanguageByTopic(@RequestParam(value="id") String TopicName,Authentication authetication)
 			{  
 		
 			System.err.println("TopicName is"+TopicName);
 				
-			    List<String> topicName=new ArrayList<String>();
-			    
-			    
-			    
+			    ArrayList<String> topicName=new ArrayList<String>();
 			    
 			    
 			    User user=userRepositorydao.findByUsername(authetication.getName());
-			   
-			    //Category category=categoryService.findBycategoryname(categoryname);
-			    
+			  
 			    topic topic=topicRepositarydao.findBytopicname(TopicName);
-			    
-				 System.err.println("Helo1");
 
 				List<Tutorial> tutorialByTopic=tutorialDao.findByTopicByLanguage(user,topic);
 				
-				 System.err.println("Hel2");
-				 
-				 
+				
 
 				 for(Tutorial s : tutorialByTopic) 
 				  {			
 		
-					 topicName.add(s.getLan().getLanguageName());
-					  		  
+					 topicName.add(s.getLan().getLanguageName());				  		  
 				  }  
+				 
+				 Set<String> topicnameDistict=new HashSet<String>(topicName);
 			
-				return topicName;  
+				return topicnameDistict;  
 		
 			}
 			
@@ -570,7 +562,6 @@ public class controllerContributer {
 		@RequestMapping("/submitTutorial")
 		public String submitTutorial(Model model,@RequestParam(value="categoryName") String categoryId,@RequestParam(name="inputTopic") String inputTopic,@RequestParam(name="inputLanguage") String inputLanguage,Authentication authetication)
 		{
-
 			
 				Category catgory=categoryDao.findBycategoryname(categoryId);
 				
@@ -588,11 +579,15 @@ public class controllerContributer {
 								if(t.getOutlineStatus()==0)
 								{		
 									model.addAttribute("statusOutline","Pending");
-
+									
+	
 								}else if (t.getOutlineStatus()==1)
-								{
+								{ 
 							
 									model.addAttribute("statusOutline","Wating for Domain Review");
+									model.addAttribute("statusOutlineTrue", true);
+									
+									
 								} 
 								
 								if(t.getScriptStatus()==0) 
@@ -605,6 +600,7 @@ public class controllerContributer {
 								{
 
 									model.addAttribute("statusScript","Wating for Domain Review");
+									model.addAttribute("statusScriptTrue", true);
 									
 								}
 								
@@ -618,6 +614,7 @@ public class controllerContributer {
 								{
 
 									model.addAttribute("statusSlide","Wating for Domain Review");
+									model.addAttribute("statusSlideTrue", true);
 									
 								}
 								
@@ -628,13 +625,27 @@ public class controllerContributer {
 	
 								}else if (t.getVideoStatus()==1) 
 								
-								{
+								{ 
 
-									model.addAttribute("statusVideo","Wating for Domain Review");
+									model.addAttribute("statusVideo","Wating for Admin Review");
+									model.addAttribute("statusVideoTrue", true);
+									
+								}else if (t.getVideoStatus()==2) 
+									
+									{ 
+
+										model.addAttribute("statusVideo","Wating for Domain Review");
+										model.addAttribute("statusVideoTrue", true);
+										
+									}			
+								else if (t.getVideoStatus()==3) 
+									
+								{ 
+
+									model.addAttribute("statusVideo","Wating for Quality Review");
+									model.addAttribute("statusVideoTrue", true);
 									
 								}
-								
-								
 								if(t.getKeywordStatusSet()==0)
 								{
 									
@@ -643,13 +654,15 @@ public class controllerContributer {
 								}else if (t.getKeywordStatusSet()==1) 
 								
 								{
-									model.addAttribute("statusKeyword","Wating for Domain Review");	
+									model.addAttribute("statusKeyword","Wating for Domain Review");
+									model.addAttribute("statusKeywordTrue", true);
 								}
 								
 								
 				}
 				model.addAttribute("tutorials",tutorial);
-						
+	
+					
 				model.addAttribute("categoryName",catgory);
 				
 				model.addAttribute("inputTopic",topic);
@@ -662,10 +675,168 @@ public class controllerContributer {
 		
 				return "addContent";
 			
-				
 			}
+		
+				/* write code for keyword view  addcontent*/
+		
+		@RequestMapping("/viewKeyword")
+		  public @ResponseBody List<String>
+		  viewKeywordContent(
+				  @RequestParam(value = "categorname") String categorname,
+				  @RequestParam(value = "topicid") String topicid,
+				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
+		 {
+	  	  
+			  System.err.println(categorname);
+			  
+			  List<String> topicName = new ArrayList<String>();
+			  
+			  User user=userRepository.findByUsername(authentication.getName());
+			  
+			  topic topic = topicRepositaryDao.findBytopicname(topicid);		  
+			  
+			  Category category=categoryDao.findBycategoryname(categorname);
+		
+			  language language=languageDao.findBylanguageName(lanId);
+		
+			  int status = 1;
+			  
+			  Tutorial tutorial=tutorialDao.finByKeywordContent(user,topic,category,language);
+			
+			  topicName.add(tutorial.getKeyword());
+			  
+			return topicName;
+			  
+		 }	
+		
+	
+		@RequestMapping("/viewVideo")
+		  public @ResponseBody List<String>
+		  viewVideoContent(
+				  @RequestParam(value = "categorname") String categorname,
+				  @RequestParam(value = "topicid") String topicid,
+				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
+		 {
+	  	  
+			
+			  
+			  List<String> videoframe = new ArrayList<String>();
+			  
+			  User user=userRepository.findByUsername(authentication.getName());
+			  
+			  topic topic = topicRepositaryDao.findBytopicname(topicid);		  
+			  
+			  Category category=categoryDao.findBycategoryname(categorname);
+		
+			  language language=languageDao.findBylanguageName(lanId);
+		
+			  int status = 1;
+			  
+			  Tutorial tutorial=tutorialDao.finByKeywordContent(user,topic,category,language);
+			
+			  videoframe.add(tutorial.getVideo());
+			  
+			   
+			return videoframe;
+			  
+		 }
+		
+	/*
+	 * Contributor View for outline View
+	 */
+		
+		@RequestMapping("/outlineView")
+		  public @ResponseBody List<String>
+		  viewOutlineContent(
+				  @RequestParam(value = "categorname") String categorname,
+				  @RequestParam(value = "topicid") String topicid,
+				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
+		 {
 
+			  List<String> videoframe = new ArrayList<String>();
+			  
+			  User user=userRepository.findByUsername(authentication.getName());
+			  
+			  topic topic = topicRepositaryDao.findBytopicname(topicid);		  
+			  
+			  Category category=categoryDao.findBycategoryname(categorname);
+		
+			  language language=languageDao.findBylanguageName(lanId);
+		
+			  int status = 1;
+			 
+			  Tutorial tutorial=tutorialDao.finByKeywordContent(user,topic,category,language);
+			
+			  videoframe.add(tutorial.getOutlin());
+			  
+			   
+			return videoframe;
+			  
+		 }
+		
+	
+		
+		@RequestMapping("/scriptPdf")
+		  public @ResponseBody List<String>
+		  viewScriptPdf(
+				  @RequestParam(value = "categorname") String categorname,
+				  @RequestParam(value = "topicid") String topicid,
+				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
+		 {
 
+			  List<String> script = new ArrayList<String>();
+			  
+			  User user=userRepository.findByUsername(authentication.getName());
+			  
+			  topic topic = topicRepositaryDao.findBytopicname(topicid);		  
+			  
+			  Category category=categoryDao.findBycategoryname(categorname);
+		
+			  language language=languageDao.findBylanguageName(lanId);
+		
+			  int status = 1;
+			 
+			  Tutorial tutorial=tutorialDao.finByKeywordContent(user,topic,category,language);
+			  
+			  script.add(tutorial.getScript());
+			
+			return script;
+			  
+		}
+		@RequestMapping("/sliedPdf")
+		  public @ResponseBody List<String>
+		  viewSlidePdf(
+				  @RequestParam(value = "categorname") String categorname,
+				  @RequestParam(value = "topicid") String topicid,
+				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
+		 {
+
+			  List<String> script = new ArrayList<String>();
+			  
+			  User user=userRepository.findByUsername(authentication.getName());
+			  
+			  topic topic = topicRepositaryDao.findBytopicname(topicid);		  
+			  
+			  Category category=categoryDao.findBycategoryname(categorname);
+		
+			  language language=languageDao.findBylanguageName(lanId);
+		
+			  int status = 1;
+			 
+			  Tutorial tutorial=tutorialDao.finByKeywordContent(user,topic,category,language);
+			
+			  script.add(tutorial.getSlide());
+			  
+			  
+			  	return script;
+			  
+		 }
+
+		
+		
+
+		
+		
 
 
 }

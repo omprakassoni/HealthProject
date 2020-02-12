@@ -41,14 +41,14 @@ import java.util.Set;
 	@JoinColumn(name="user_id")
 	private User  user;
 	
-		 
+	 
 
 		 @OneToMany(mappedBy = "topic",cascade =CascadeType.ALL) 
 		 private List<Tutorial> tutorials;
 		 
 		 @OneToMany(mappedBy = "topic",cascade =CascadeType.ALL) 
 		 private List<contributor_Role> contributor_Roles;
-		 
+		                                                                                                     
 		
 		 @OneToMany(mappedBy = "topics",cascade = CascadeType.ALL)
 		 private List<TraningInformation> traningInformations;
@@ -57,9 +57,12 @@ import java.util.Set;
 		 @OneToMany(mappedBy = "topic",cascade = CascadeType.ALL)
 		 private List<Question> question; 
 		 
-		
 		 
-		  
+		 @OneToMany(mappedBy = "topic",cascade = CascadeType.ALL)
+		 private List<commentOnComponent> commentOnComponent;
+		 
+	
+		 
 		  public List<Question> getQuestion() {
 			return question;
 		}

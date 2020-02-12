@@ -214,9 +214,6 @@ public class ControllerHealth {
 	}
 	
 	
-	
-	
-	
 	////
 	/*
 	 * @RequestMapping(value="/contributerSelectionLanguage", method =
@@ -551,6 +548,8 @@ public class ControllerHealth {
 	
 	}
 	
+			
+
 	
 	@RequestMapping("/show_consalantant")
 	public String show_consalantant() {
@@ -1907,7 +1906,6 @@ public class ControllerHealth {
 			String currentTime = sdf.format(dt);
 			    
 			
-			
 			feedbackMasterTrainer feedback=new feedbackMasterTrainer();
 			
 			feedback.setName(name);
@@ -2060,7 +2058,7 @@ public class ControllerHealth {
 		
 		@RequestMapping("/uploadContributerTutorial")
 		public String revokeRequest(Model model,Authentication authentication) 
-		{
+	{
 		
 		  User user=userRepository.findByUsername(authentication.getName());
 	 
@@ -2068,24 +2066,20 @@ public class ControllerHealth {
 		 
 		 ArrayList<String> categoryAdd=new ArrayList<>();
 		 
-		 for(Tutorial tutorial : contributorRole) 
-		 {
-			
-			 categoryAdd.add(tutorial.getCategory().getCategoryname());	
-		 }
-		 
-		  
-		 HashSet<String> setcategory=new HashSet<String>(categoryAdd); 
-		 
+			 for(Tutorial tutorial : contributorRole) 
+			 {				
+				 categoryAdd.add(tutorial.getCategory().getCategoryname());	
+			 }
+			 
+			 HashSet<String> setcategory=new HashSet<String>(categoryAdd); 
 		
-			model.addAttribute("categorys",setcategory);
+			 model.addAttribute("categorys",setcategory);
 			
 						
 			return "selectFossTopicLan";
 	
 		}
 		
-	
 		@RequestMapping("/addLanguage")
 		public String addLanguage(Model model,HttpServletRequest req,Authentication authentication) 
 		{
@@ -2205,12 +2199,9 @@ public class ControllerHealth {
 				for(Question s:question)
 				{
 
-					//String substring=s.getQuetionpath().substring(23);
-					
-					topicName.add(s.getQuetionpath());
-					
-				}
-				
+					//String substring=s.getQuetionpath().substring(23);						
+					topicName.add(s.getQuetionpath());					
+				}			
 				model.addAttribute("questions",question);
 		
 				return "questionInPdf";
@@ -2265,7 +2256,7 @@ public class ControllerHealth {
 			role.setName(rolename);	
 			rolerespositary.save(role);
 
-			model.addAttribute("msgSuccefull","Successfully Added Your Recored");	
+			model.addAttribute("msgSucuploadContributerTutorialcefull","Successfully Added Your Recored");	
 
 			return "addNewRole";
 		}

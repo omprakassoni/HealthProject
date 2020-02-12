@@ -17,7 +17,28 @@ import com.health.model.topic;
 
 public interface TutorialDao extends CrudRepository<Tutorial, Integer>{
 
-	Tutorial findBylanguage(String name);
+	 Tutorial findBylanguage(String name);
+	 
+	/* Admin Reviwer */
+	
+	 
+	
+	/*
+	 * @Query("from Tutorial u where u.videoStatus=1") List<Tutorial>
+	 * findByOutlineScriptVideo(outlineStatus,);
+	 */
+
+	 
+
+	@Query("from Tutorial u where u.videoStatus=1")
+	List<Tutorial> finByVideoStatus(); 
+	
+	 
+	@Query("from Tutorial u where u.user=?1 and topic=?2 and category=?3 and langaueg_id=?4")
+	Tutorial finByKeywordContent(User user,topic topic,Category category,language language);
+	
+	@Query("from Tutorial u where  topic=?1 and category=?2 and langaueg_id=?3")
+	Tutorial finByKeywordContentDomain(topic topic,Category category,language language);
 	
 	@Query("from Tutorial u where u.category=?1 and langaueg_id=?2")
 	List<Tutorial> findByCategoryAndlanguage(Category category,language language);
@@ -53,6 +74,12 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer>{
 	@Modifying
 	@Query("update Tutorial set video=?1, videoStatus=?2 where user_id=?3 and topic_id=?4 and category_id=?5")
 	int updateVideo(String video,int videoStatus,User user,topic topic,Category category);
+	
+	//Admin Update status Video
+	
+	@Modifying
+	@Query("update Tutorial set videoStatus=?1 where  topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int updateVideoStatusByAdmin(int videoStatus,topic topic,Category category, language language);
 	
 	
  }

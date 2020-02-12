@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.health.model.Category;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.model.language;
 import com.health.model.topic;
 import com.health.repository.TutorialDao;
 import com.health.service.tutorialService;
@@ -43,8 +44,6 @@ public class tutorialServiceImpl implements tutorialService {
 			return false;
 		}
 	}
-	
-	
 	
 	
 	
@@ -112,6 +111,27 @@ public class tutorialServiceImpl implements tutorialService {
 			return false;
 		}
 		
+	}
+
+	//admin update status =2
+	
+	@Transactional
+	public Boolean updateVideoStatusByAdmin(int StatusByAdmin,topic topic,Category category,language language)
+	{
+
+		int statusByAdmin=tutorialDao.updateVideoStatusByAdmin( StatusByAdmin, topic, category, language);
+		
+		if(statusByAdmin>0)
+		{
+			
+			return true;
+		}else {
+			
+			return false;
+		}
+			
+		
+	
 	}
 	
 	

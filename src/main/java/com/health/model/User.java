@@ -50,6 +50,12 @@ public class User implements UserDetails{
 	private Set<UserRole> userRoles = new HashSet<>();
 	
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<commentOnComponent> commentOnComponent = new HashSet<>();
+	
+	
+	
 	@OneToMany(mappedBy ="user",cascade =
 	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
 	 List<topic> topics;
@@ -69,8 +75,6 @@ public class User implements UserDetails{
 	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
 	List<Tutorial> tutorial;
 	 
-	
-	
 	
 	/*
 	 * @OneToMany(mappedBy ="user",cascade =
