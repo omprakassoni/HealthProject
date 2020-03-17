@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.rmi.Remote;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -484,13 +485,26 @@ public class ControllerHealth {
 			return "addTopic";
 		
 		}
+
+		public static Timestamp getCurrentTime() 
+		{																	// Current Date
+			
+		java.util.Date date =new java.util.Date();
+					
+			long t=date.getTime();
+			Timestamp st=new Timestamp(t);
+			
+			return st;
+		}
+
 		
-	
-	
 	/*
 	 * Here code for adding topic into database
 	 */
 	
+	
+
+
 	@RequestMapping("/addTopic")
 	public String addtopic(Model model,HttpServletRequest request,@RequestParam(name="categoryName") String categoryName,Authentication authentication,@RequestParam(value = "checkboxName", required = false) String checkboxValue) 
 	{
@@ -513,6 +527,11 @@ public class ControllerHealth {
 		Category  category=categoryDao.findByid(categoryid);//findBycategoryname(categoryName);
 		System.err.println("cat Id"+category.getId());
 	
+		
+		
+	
+		
+		
 		java.util.Date dt = new java.util.Date();
 
 		java.text.SimpleDateFormat sdf = 
@@ -536,8 +555,8 @@ public class ControllerHealth {
 		/*
 		 * topic.setCategory(category); topic.setUser(user);
 		 */
-		topic.setDate(currentTime);
-		
+		 
+		topic.setTimedate(getCurrentTime());
 		
 		topicRepositarydao.save(topic);
 	
@@ -717,6 +736,16 @@ public class ControllerHealth {
 				e.printStackTrace();
 			}
 		}
+		
+		
+	       java.util.Date dt = new java.util.Date();
+
+			java.text.SimpleDateFormat sdf = 
+			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			String currentTime = sdf.format(dt);     
+	               
+		
 		String substring = fileconsalantant.substring(26);
 
 		Consaltantant consaltantant = new Consaltantant();
@@ -724,6 +753,8 @@ public class ControllerHealth {
 		consaltantant.setNameConsaltant(nameConsaltant);
 		consaltantant.setDescriptionConsaltant(descriptionConsaltant);
 		consaltantant.setUploadConsaltantImage(substring);
+		
+		consaltantant.setTimaedate(getCurrentTime());
 
 		consalttantDao.save(consaltantant);
 
@@ -742,10 +773,18 @@ public class ControllerHealth {
 
 	@RequestMapping(value = "/show_consalantant", method = RequestMethod.GET)
 
-	public String showconsaltant(Model model) {
+	public String showconsaltant(Model model) 
+	{
 
-		List<Consaltantant> name = consaltantservice.findAll();
-
+		List<Consaltantant> name=consalttantDao.findBydateConsalant();
+		
+		for (Consaltantant consaltantant : name) {
+			
+			consaltantant.getUploadConsaltantImage();
+			
+		}
+		
+		
 		model.addAttribute("products", name);
 
 		return "Show_Consaltant";
@@ -866,7 +905,8 @@ public class ControllerHealth {
 
 	@RequestMapping("/addTestimonial")
 	public String upload(HttpServletRequest req, Model model,
-			@RequestParam("uploadTestiminial") MultipartFile[] files) {
+			@RequestParam("uploadTestiminial") MultipartFile[] files) 
+	{
 
 		String path = null;
 		String testimonialName = req.getParameter("testimonialName");
@@ -875,6 +915,15 @@ public class ControllerHealth {
 		String abc = uploadDirectory + "/" + testimonialName;
 
 		new File(abc).mkdir();
+		
+		
+		java.util.Date dt = new java.util.Date();
+
+		java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+	
+		String currentTime = sdf.format(dt);
+		
+		
 		
 		StringBuilder fileNames = new StringBuilder();
 		for (MultipartFile file : files) {
@@ -901,7 +950,9 @@ public class ControllerHealth {
 		testimonial.setTestimoniaqlDescription(testimoniaqlDescription);
 
 		testimonial.setUploadTestiminial(substring);
-
+		testimonial.setTimedate(getCurrentTime());
+		
+	
 		testimonialDao.save(testimonial);
 
 		model.addAttribute("msg", "Successfully uploaded Record ");
@@ -919,9 +970,19 @@ public class ControllerHealth {
 
 	@RequestMapping(value = "/show_testimonial", method = RequestMethod.GET)
 
-	public String showtestimonial(Model model) {
+	public String showtestimonial(Model model) 
+	{
 
-		List<Testimonial> name = testimonialService.findAll();
+		  List<Testimonial> name=testimonialDao.findBydate();
+		
+		/*
+		 * List<Testimonial> name
+		 * =testimonialService.findAll(org.springframework.data.domain.Sort.by(org.
+		 * springframework.data.domain.Sort.Direction.ASC, "timedate"));
+		 * 
+		 */	  
+		  
+	  
 
 		model.addAttribute("testimonials", name);
 
@@ -1042,12 +1103,16 @@ public class ControllerHealth {
 		event1.setDate(date);
 		
 		
-	
+		
+		event1.setTimedate(getCurrentTime());
+		
 		event1.setDescription(description);
 		event1.setVenuename(venuename);
 		event1.setContactperson(contactperson);
 		event1.setContactnumber(contactnumber);
 		event1.setEmail(email);
+		
+		
 		model.addAttribute("msg", "Succefully Add Event");
 
 		eventDao.save(event1);
@@ -1074,8 +1139,16 @@ public class ControllerHealth {
 	@RequestMapping(value = "/show_Event", method = RequestMethod.GET)
 	public String showEvent(Model model) {
 
-		List<Event> name = eventService.findAll();
+		/*
+		 * List<Event> name = eventService.findAll();
+		 */	
+
+		List<Event> name = eventDao.findBylatestdate();
+		
+		
 		model.addAttribute("events", name);
+		
+		
 		return "Show_Event";
 
 	}
@@ -1171,6 +1244,7 @@ public class ControllerHealth {
 			model.addAttribute("msg", true);
 			
 			return "addCategory";
+			
 		}
 		User user=userRepository.findByUsername(authentication.getName());
 		
@@ -1183,12 +1257,13 @@ public class ControllerHealth {
 		Category category = new Category();
 
 		category.setCategoryname(categoryName);
-		category.setCreated(currentTime);
-		
-		
+		category.setCreated(getCurrentTime());	
 		category.setUserid(user.getId());
-		
-		  if(checkboxValue != null)
+			
+			
+			
+			
+			  if(checkboxValue != null)
 		  {
 		    category.setStatus(1);
 		  }
@@ -2113,7 +2188,9 @@ public class ControllerHealth {
 			com.health.model.language lan=new com.health.model.language();
 			
 					lan.setLanguageName(language);
-					lan.setDate(currentTime);
+				
+					lan.setTimedate(getCurrentTime());
+					
 					lan.setCreatedBy(authentication.getName());
 					
 					languageDao.save(lan);
@@ -2272,7 +2349,6 @@ public class ControllerHealth {
 			List<String> topicName=new ArrayList<>();
 		
 			UserRole userRoles =userRoleRepositary.findOne(id);
-			
 		
 			String name = "Contributer";
 			Role role = rolerespositary.findByname(name);	
@@ -2340,7 +2416,6 @@ public class ControllerHealth {
 		}
 		 
 		List<String> topicName=new ArrayList<String>();
-		
 		
 		
 		User user=userRepository.findByUsername(username);

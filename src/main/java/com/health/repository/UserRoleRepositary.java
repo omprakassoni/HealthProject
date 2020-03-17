@@ -11,9 +11,14 @@ import com.health.model.language;
 
 public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 	
+		
+			
+	
 	
 		@Query("from UserRole u where u.status=?1 and role=?2")
 		List<UserRole> findByStatus(int status,Role rolId);
+		
+		List<UserRole> findByuser_id(Long long1);
 		
 		
 		@Query("from UserRole u where u.user=?1 and role=?2")
@@ -32,6 +37,10 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 		@Query(" delete from UserRole u where u.user=?1")
 		UserRole findByAndDelete(User role);
 	
+		@Query(" from UserRole u where u.user=?1")
+		UserRole findByRejectElement(User role);
+	
+		
 		
 		@Query(" from UserRole u where u.user=?1")
 		UserRole findByUserInfo(User role);

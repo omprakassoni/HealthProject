@@ -1,5 +1,6 @@
 package com.health.model;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +29,16 @@ public class Category {
 	private int id;
 	private String categoryname;
 	private int status;
-	private String created;
+	private Timestamp created;
+	
+
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
 
 	public int getStatus() {
 		return status;
@@ -38,13 +48,6 @@ public class Category {
 		this.status = status;
 	}
 
-	public String getCreated() {
-		return created;
-	}
-
-	public void setCreated(String created) {
-		this.created = created;
-	}
 
 	public Long getUserid() {
 		return userid;

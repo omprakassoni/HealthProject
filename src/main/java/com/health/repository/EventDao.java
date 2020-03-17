@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 
 import com.health.model.Event;
+import com.health.model.Testimonial;
 
 
 
@@ -22,8 +23,10 @@ public interface EventDao extends  CrudRepository<Event, Integer> {
 	List<Event> getAllEvent();
 	
 	
-	
-	
+	@Query("from Event  order by timedate desc")
+	List<Event> findBylatestdate();
+
+
 	/*
 	 * @Modifying
 	 * 

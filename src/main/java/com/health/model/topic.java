@@ -1,7 +1,8 @@
 
   package com.health.model;
   
-  import java.util.HashSet;
+  import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
   
@@ -25,10 +26,20 @@ import java.util.Set;
   @GeneratedValue(strategy=GenerationType.AUTO) 
   @Column(name="topicid", nullable = false, updatable = false)
   private int topicid;
+  private Timestamp timedate;
   
 
-	  private String topicname;
-	  private String date; 
+	public Timestamp getTimedate() {
+	return timedate;
+}
+
+
+public void setTimedate(Timestamp timedate) {
+	this.timedate = timedate;
+}
+
+	private String topicname;
+	
 	  private int status;
 		
 	
@@ -124,13 +135,6 @@ import java.util.Set;
 				this.status = status;
 			}
 			
-			public String getDate() {
-				return date;
-			}
-			
-			public void setDate(String date) {
-				this.date = date;
-			}
 			
 			
 			public void setTopicid(int topicid) {

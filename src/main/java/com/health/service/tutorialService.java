@@ -25,6 +25,27 @@ public interface tutorialService {
 	
 	Boolean updateVideoStatusByAdmin(int StatusByAdmin,topic topic,Category category,language language);
 	
+	// Domain Accept Or Need To Improvement
 	
-
+	Boolean updateOutlineStatusByDomain(int outlineStautusByDomain,topic topic,Category category,language language);
+	
+	Boolean updateScriptStatusByDomain(int scriptStautusByDomain,topic topic,Category category,language language);
+	
+	// Quality review Or need To Improvements
+	
+	Boolean updateOutLineStatusByQuality(int scriptStautusByQuality,topic topic,Category category,language language);
+	
+	Boolean upadateSlideStatusByQuality(int scriptStautusByQuality,topic topic,Category category,language language);
+	
+	Boolean upadateScriptStatusByQuality(int scriptStautusByQuality,topic topic,Category category,language language);
+	
+	Boolean upadateKeywordByQuality(int scriptStautusByQuality,topic topic,Category category,language language);
+	
+	Boolean upadateVideoByQuality(int videoStautusByQuality,topic topic,Category category,language language);
+	
+	// here is code for upadet Status when click as public
+	
+	Boolean updateStatusByQualityApprove(int StatusApprove,int IdByrecord);
+	
+	
 }

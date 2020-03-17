@@ -15,11 +15,10 @@
 		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 		 <link rel="stylesheet" href="css/style3.css"/>
  	 	<link rel="stylesheet" href="css/bootstrap.min.css"/> 
- 	 	
- 	 	<link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
+ 	 
 
   <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+ 
  	
 	</head>
   <body>
@@ -199,6 +198,87 @@
 
                                     </tbody>
 							    </table>
+							    
+	<!-- 	Here is code for comment View -->  
+	
+	
+			<span th:each="mesComment : ${CommentMsg}">  
+				               
+					<span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Video'}">
+				                  
+				       <div class="alert alert-info">
+				                  
+				               <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
+				                  
+				                     <span style="color:green;" th:text="${mesComment.getCommentInfo()}">
+				                   
+				                   	</span>
+				                   	
+				             	</div>      	
+				                   	</span>
+				             	
+				                   	
+				     
+				                   	
+				              <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Outline'}">
+				                   	    
+				                  <div class="alert alert-info">
+				                    
+				                 <strong style="color:green; text-transform:uppercase;">  <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span>	</strong>
+				                    	
+				                    	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				                  </div>
+				                    
+				              	</span> 
+				                   	
+				            <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Script'}">
+				            
+				               <div class="alert alert-info">
+				                    
+				                   <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
+				                    
+				               <span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    	
+				                   </div> 
+				                    
+				           </span> 
+				                   	
+				              <!--   </div> -->
+				                   	
+				              	
+				                	
+				          <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Slide'}">
+				                   	 
+				               <div class="alert alert-info">
+				                    
+				                  <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
+				                    
+									<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				               </div>
+				                    
+				           </span> 
+				                   
+				                 
+				               <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()==keyword}">
+				                 
+				                   	 <div class="alert alert-info">	 
+				                    
+				                   <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
+				                    
+				                    	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				                    </div>
+				                    
+				                   	</span>
+									
+										
+			
+			</span>
+	
+						    
+							    
 			     				            
 			          </form>
 		
@@ -375,30 +455,9 @@
 	
 		 		
 		<div id="storedVideoId"  name="videoDivDomain" class="container" height="240" width="320" scrolling="auto" autoplay="autoplay">
-		   
-		    <video 
-						    id="storedVideoIdDomain"
-						    class="video-js"
-						    controls="controls"
-						    preload="auto"
-						    width="600"
-						    height="450"
-						    poster="MY_VIDEO_POSTER.jpg"
-						    data-setup="{}"
-						  >
-						
-						    <p class="vjs-no-js">
-						      To view this video please enable JavaScript, and consider upgrading to a
-						      web browser that
-						      <a href="https://videojs.com/html5-video-support/" target="_blank"
-						        >supports HTML5 video</a
-						      >
-						    </p>
-						    
-						     
-  		</video>
+		  
 		    
-		     <script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+		   
 		</div>
 			
 			
@@ -666,14 +725,16 @@
 						          </div>
 						          
 				 <div id="videoNeedImprovement" style="visibility: hidden">
-								 <textarea class="form-control"  name="videoCommentMsg" id="videoCommentMsg" rows="10" required="required" />
+				 
+				 
+								 <textarea class="form-control"  name="msgVideoCommentByAdmin" id="msgVideoCommentByAdmin" rows="10" required="required" />
 							
 				</div>
 				<br/>
 				              
 				 <button id="videoAcceptOrNeedToImprovemenetByAdmin"  type="button" class="btn btn-success">Submit</button>	   
 
-					</form>
+		</form>	
 						    
 						       <div class="modal-footer">
 						          

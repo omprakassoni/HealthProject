@@ -75,7 +75,7 @@
               <p class="mb-0">
                <!--  <a href="#" class="cta-btn" data-toggle="modal" data-target="#modalAppointment">Make an Appointment</a> --></p>
             </div>
-              <marquee direction="left">1800 180 0101</marquee>
+             <!--  <marquee direction="left">1800 180 0101</marquee> -->
   
           </div><!--
             Herwe we write login button -->
@@ -95,6 +95,31 @@
     
     </header>
     
+    
+<!--     Here is code video reviwer and Domain  reviwer
+ -->    
+     
+<!--       <div th:if="hasAnyAuthority('DomainReviweer','Videoreviwer') ">
+    
+      <h4>Hello Welcome to Domain reviwer	and Video Reviwer</h4>
+      
+      
+      	<div class="card" style="width: 600px">
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Admin Reviwer</h5>
+					  <div class="card-body">
+								 <div class="form-group">
+								 	<i class="fas fa-angle-double-right"></i> <a href="/listTutorialAdminReviwer">Tutorials waiting for Admin Review</a><br/>
+								
+									 <i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorial Under Need To Improvement State</a><br/>		
+								
+								</div>
+				
+			 		 </div>
+		</div>
+
+      </div> -->
+    
   <div sec:authorize="hasAnyAuthority('Contributer')">
 
  <div class="row">
@@ -111,10 +136,14 @@
 					  <div class="card-body">
 				
 								 <div class="form-group">
-								  	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/Update Tutorial</a><br/>
-									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update OutLine</a><br/>
-									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update Slide</a><br/>
+								 
+								  		<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/Update Tutorial</a><br/>
+								  		<i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorial Under Need To Improvement State</a><br/>		
+								  		<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/Update OutLine </a><br/>
 									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update Script</a><br/>
+									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update Slide</a><br/>
+									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update Video</a><br/>
+										<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update keyword</a><br/>
 								
 								</div>
 				
@@ -134,7 +163,8 @@
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	<br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span><br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  <br/>
-						 
+						 				<!-- <i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as  Trainer</a> </span>  <br/>
+						  -->
 								</div>
 			  		</div>
 			</div>
@@ -220,7 +250,7 @@
 		                    <div class="row" style="padding-top:  100px; padding-left: 30px">
 		                                      
                             <div class="col-md-8 ">
-                                
+        
                                 <div class="">    
                                 <div th:if="${msg}">
    								 <span th:text="${msg}"></span>
@@ -296,7 +326,7 @@
                                        	</ul>
                        		</div>                                          
       </div>
- 
+ 	
  </div>
  
 </div>
@@ -304,6 +334,10 @@
  
  
   <section   style="background: lightblue" sec:authorize="!hasAnyAuthority('VideoReviwer','DomainReviweer','Admin','MasterTrainer','Contributer','QualityReviweer')">
+  
+   <span style="color: red; padding-left: 150px"  th:if="${requestSend}" ><b>Already Request Sent </b></span>
+   
+   
    
 		          <!--   <div class="">    
                                <div th:if="${request}">
@@ -475,7 +509,7 @@
 				
 								 <div class="form-group">
 								 	<i class="fas fa-angle-double-right"></i> <a href="/listDomainReviewrTutorial">Tutorials waiting for Domain review</a><br/>
-									<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials Reviewed</a><br/>
+									<i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorials Reviewed</a><br/>
 								</div>
 				
 			 		 </div>
@@ -537,7 +571,8 @@
 					  <div class="card-body">
 								 <div class="form-group">
 								 	<i class="fas fa-angle-double-right"></i> <a href="/listTutorialAdminReviwer">Tutorials waiting for Admin Review</a><br/>
-									<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials Reviewed</a><br/>
+								
+									 <i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorial Under Need To Improvement State</a><br/>		
 								
 								</div>
 				
@@ -551,12 +586,11 @@
 				
 								 <div class="form-group">
 								 
-										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
-										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor </a></span><br/>	
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
-										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
-						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>
-						 
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsDomainRevieweer}">Add me as as Domain reviewer Role</a> </span>  <br/>
+						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality reviewer Role</a> </span>  <br/>
+
 								</div>
 			  		</div>
 			</div>
@@ -928,8 +962,8 @@
 	</div>
 	</div>
 
-
 <div class="container">
+   	
    		
    		<div class="row" style="padding-top: 160px" >
    			
@@ -950,8 +984,6 @@
 
 </div>
 
-	
-	
 <div sec:authorize="hasAnyAuthority('QualityReviweer')">
 
 
@@ -971,17 +1003,17 @@
 					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Quality Reviwer </h5>
 					  <div class="card-body">
 				
-								 <div class="form-group">
-								 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials waiting for Quality Review</a><br/>
-									<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials waiting mark as Public review</a><br/>
-											 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials ready to publish</a><br/>
-									<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials under public review</a><br/>
-								<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials Reviewed</a><br/>
-								<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Remove Video  from youtube</a><br/>
-								<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Tutorials Reviewed</a><br/>
+		 <div class="form-group">
+		 
+		 
+								<i class="fas fa-angle-double-right"></i> <a href="/listQualityReviewrTutorial">Tutorials waiting for Quality Review</a><br/>
+								<i class="fas fa-angle-double-right"></i> <a href="/listQualityMarkAsPublicReviewTutorial">Tutorials ready to publish</a><br/>
+								<i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorial Under Need To Improvement State</a><br/>
+								<i class="fas fa-angle-double-right"></i> <a href="/qualityreviewByQuality">Tutorials Reviewed</a><br/>
+	
 							
 							
-								</div>
+		</div>
 				
 			 		 </div>
 		</div>
@@ -994,7 +1026,7 @@
 				
 								 <div class="form-group">
 								 
-										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor</a></span><br/>	
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>

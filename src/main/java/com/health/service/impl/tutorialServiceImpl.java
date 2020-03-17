@@ -29,7 +29,7 @@ public class tutorialServiceImpl implements tutorialService {
 		return local;
 
 	}
-
+	
 	@Transactional
 	public Boolean updateKeyword(String keywordMessage,int status,User user,topic topic ,Category category) 
 	{	
@@ -74,7 +74,6 @@ public class tutorialServiceImpl implements tutorialService {
 		}else {
 			return false;
 		}
-
 	
 	}
 
@@ -135,5 +134,151 @@ public class tutorialServiceImpl implements tutorialService {
 	}
 	
 	
+	
+	@Transactional
+	public Boolean updateOutlineStatusByDomain(int StatusByDomain,topic topic,Category category,language language)
+	{
+
+		int statusByAdmin=tutorialDao.updateOutlineStatusByDomain(StatusByDomain, topic, category, language);
+		
+		
+		
+		if(statusByAdmin>0)
+		{
+			
+			return true;
+		}else {
+			
+			return false;
+		}
+			
+	
+	}
+
+
+	@Transactional
+	public Boolean updateScriptStatusByDomain(int scriptStautusByDomain, topic topic, Category category,language language) 
+	{
+		int statusByDomain=tutorialDao.updateScriptStatusByDomain(scriptStautusByDomain, topic, category, language);
+		
+
+		if(statusByDomain>0)
+		{
+			
+			return true;
+		}else {
+			
+			return false;
+		}
+		
+	}
+
+	@Transactional
+	public Boolean updateOutLineStatusByQuality(int scriptStautusByQuality, topic topic, Category category,language language)
+	{
+
+		int statusByQuality=tutorialDao.updateOutLineStatusByQuality(scriptStautusByQuality, topic, category, language);
+		
+
+		if(statusByQuality>0)
+		{
+			
+			return true;
+		}else {
+			
+			return false;
+		}
+
+	
+	
+	
+	}
+
+	@Transactional
+	public Boolean upadateSlideStatusByQuality(int scriptStautusByQuality, topic topic, Category category,language language)
+	{
+			
+		int statusByQualitSlide=tutorialDao.upadateSlideStatusByQuality(scriptStautusByQuality,topic,category,language);
+		
+		if(statusByQualitSlide>0)
+		{
+			
+			return true;
+		}else {
+			
+			return false;
+		}
+
+	}
+
+	@Transactional
+	public Boolean upadateScriptStatusByQuality(int scriptStautusByQuality, topic topic, Category category,language language)
+	{
+		
+		int statusByQualitScript=tutorialDao.upadateScriptStatusByQuality(scriptStautusByQuality,topic,category,language);
+		
+		if(statusByQualitScript>0)
+		{
+			
+			
+			return true;
+		}else {
+			
+			return false;
+		}
+
+	}
+
+	@Transactional
+	public Boolean upadateKeywordByQuality(int scriptStautusByQuality, topic topic, Category category,language language) 
+	{
+		
+	  int statusByQuality=tutorialDao.upadateKeywordByQuality(scriptStautusByQuality,topic,category,language);
+	
+		if(statusByQuality>0)
+		{
+			
+			
+			return true;
+		}else {
+			
+			return false;
+		}
+	}
+
+	@Transactional
+	public Boolean upadateVideoByQuality(int videoStautusByQuality, topic topic, Category category, language language) {
+	
+		
+		  int statusByQuality=tutorialDao.upadateVideoByQuality(videoStautusByQuality,topic,category,language);
+			
+			if(statusByQuality>0)
+			{
+				
+				
+				return true;
+			}else {
+				
+				return false;
+			}
+	}
+
+	@Transactional
+	public Boolean updateStatusByQualityApprove(int StatusApprove, int IdByrecord) {
+	
+		 int statusByQualityApprove=tutorialDao.updateStatusByQualityApprove(StatusApprove,IdByrecord);
+		
+				if(statusByQualityApprove>0)
+				{
+					
+					return true;
+				}else {
+					
+					return false;
+				}
+		
+		
+	}
+
 
 }

@@ -26,11 +26,15 @@ import com.health.domain.security.PasswordResetToken;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
+import com.health.model.Consaltantant;
 import com.health.model.Event;
+import com.health.model.Testimonial;
 import com.health.model.User;
 import com.health.model.state;
 import com.health.repository.CategoryDao;
+import com.health.repository.ConsaltantDao;
 import com.health.repository.EventDao;
+import com.health.repository.TestimonialDao;
 import com.health.repository.stateRespositary;
 import com.health.service.UserService;
 import com.health.service.categoryService;
@@ -42,6 +46,8 @@ import com.health.utility.SecurityUtility;
 public class HomeController {
 
 	
+	private static final List<Consaltantant> List = null;
+
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -63,6 +69,14 @@ public class HomeController {
 	
 	@Autowired
 	private EventDao eventDao;
+	
+	
+	@Autowired
+	private TestimonialDao testimonialdao;
+	
+	
+	@Autowired
+	private ConsaltantDao consalatantDao;
 
 	
 	@RequestMapping("/")
@@ -77,6 +91,31 @@ public class HomeController {
 			  
 		model.addAttribute("events",event);
 
+		List<Consaltantant> consalatant=consalatantDao.findByConsaltantantDate();
+
+		for (Consaltantant consaltantant : consalatant) 
+		{
+			
+			System.err.println(consaltantant.getNameConsaltant());
+			
+		}
+				
+		List<Testimonial> testimonial=testimonialdao.findBydate();
+	
+		
+		for (Testimonial videotestimonial : testimonial) 
+		{
+			
+			System.err.println(videotestimonial.getUploadTestiminial());
+			
+		}
+		
+		
+		model.addAttribute("listofConsalatatnt",consalatant);
+		model.addAttribute("listofTestimonial",testimonial);
+		
+		
+		
 		return "index";
 		
 	}

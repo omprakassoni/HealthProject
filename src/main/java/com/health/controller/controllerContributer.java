@@ -33,6 +33,7 @@ import com.health.model.Category;
 import com.health.model.Question;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.model.commentOnComponent;
 import com.health.model.contributor_Role;
 import com.health.model.language;
 import com.health.model.topic;
@@ -41,6 +42,7 @@ import com.health.repository.RoleRepository;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
+import com.health.repository.commentOnComponentDao;
 import com.health.repository.contributor_RoleDao;
 import com.health.repository.languagedao;
 import com.health.repository.topicRepositary;
@@ -92,8 +94,11 @@ public class controllerContributer {
 	@Autowired
 	private contributor_RoleDao contributor_RoleDao;
 	
-	
 	@Autowired
+	private commentOnComponentDao commentOnComponentDao;
+	
+	
+	@Autowired									
 	private tutorialService tutorialService;
 
 	@Autowired
@@ -114,7 +119,7 @@ public class controllerContributer {
 	/* show languages */
 	@RequestMapping("/rovekeRequest")
 	public String  revokelanguage(Model model,Authentication authentication)
-	{
+	{									
 	
 		int status=1;	
 		User user=userRepository.findByUsername(authentication.getName());
@@ -135,7 +140,7 @@ public class controllerContributer {
 		User user = userRepository.findByUsername(authentications.getName());
 		
 		int status =0 ;
-
+		
 		UserRole userRole = userRoleRepositary.findByLanguageAnduser(user,language);
 
 		userRole.setStatus(status);
@@ -150,12 +155,12 @@ public class controllerContributer {
 	@RequestMapping("/addScript")
 	public String addScript(Model model, Authentication authentication, HttpServletRequest request) 
 	{
-
+		
 		return "addContent";
 
 	}
 
-	@RequestMapping(value = "/addkeyword", method = RequestMethod.POST)
+	@RequestMapping(value = "/addkeyword", method = RequestMethod.POST)									
 	public String addkeyword(Model model, Authentication authentication, HttpServletRequest request) {
 
 		String keywordArea = request.getParameter("keywordArea");
@@ -176,6 +181,7 @@ public class controllerContributer {
 			  Model model,Authentication authentication) 
 	{	
 		
+	
 		List<String> topicName = new ArrayList<String>();
 		
 		System.err.println(outlineMessagae);
@@ -186,9 +192,10 @@ public class controllerContributer {
 		
 		Category category=CategoryDao.findBycategoryname(categorname);
 	
-		int outlineStatus=1;
+	
+		int outlineStatusUpdate=1;
 		
-		tutorialService.updateOutline(outlineMessagae,outlineStatus, user,topic,category);
+		tutorialService.updateOutline(outlineMessagae,outlineStatusUpdate, user,topic,category);
 		
 		topicName.add("Save Outline Succefully");
 		
@@ -320,6 +327,7 @@ public class controllerContributer {
 			  
 			  
 			  Files.write(fileNameAndPath, file.getBytes()); 
+				
 		  fileconversion =fileNameAndPath.toString();
 		  
 		  
@@ -350,6 +358,7 @@ public class controllerContributer {
 				Date date=new Date();
 				long t=date.getTime();
 				Timestamp st=new Timestamp(t);
+				
 				
 				return st;
 			}
@@ -407,7 +416,7 @@ public class controllerContributer {
 		/*
 		 * try { File input = new File(videopath); BufferedImage inputBuffer =
 		 * ImageIO.read(input); File outputimage = new File("thumbnail.jpg");
-		 * 
+		 * 									
 		 * //Output image as File Thumbnails.of(inputBuffer).size(100,
 		 * 100).outputFormat("jpg").toFile(outputimage);
 		 * 
@@ -422,7 +431,7 @@ public class controllerContributer {
 		 * } catch (IOException e) { e.printStackTrace(); }
 		 */
 		   
-	   
+			
 		   
 		    topicName.add("Update Video Succefully");
 	  			  
@@ -568,46 +577,95 @@ public class controllerContributer {
 				topic topic=topicRepositarydao.findBytopicname(inputTopic);
 				
 				com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
+				
+				System.err.println(topic.getTopicname());
+				
 							
 				//List<Tutorial> tutorial= (List<Tutorial>) tutorialDao.finByCategoryAndlanguage(catgory, topic);
 				
-				List<Tutorial> tutorial=(List<Tutorial>) tutorialDao.findByCategoryAndlanguage(catgory,language);
+				List<Tutorial> tutorial=(List<Tutorial>) tutorialDao.findByCategoryAndlanguage(catgory,language,topic);
 
 				for (Tutorial t : tutorial) 
 				{
-				
+		
 								if(t.getOutlineStatus()==0)
 								{		
 									model.addAttribute("statusOutline","Pending");
-									
-	
+									model.addAttribute("uploadIcon",true);
+								
 								}else if (t.getOutlineStatus()==1)
 								{ 
 							
 									model.addAttribute("statusOutline","Wating for Domain Review");
 									model.addAttribute("statusOutlineTrue", true);
+									model.addAttribute("uploadIcon",true);
 									
 									
-								} 
+									
+								}else if(t.getOutlineStatus()==3){
+									
+
+									model.addAttribute("statusOutline","Waiting for Quality Review");
+									model.addAttribute("statusOutlineTrue", true);
+									
+							
+									
+								}else if(t.getOutlineStatus()==5)
+								{
+									
+									model.addAttribute("statusOutline","Need To Improvement");
+									model.addAttribute("statusOutlineTrue", true);
+						
+								}else if (t.getOutlineStatus()==4) {
+									
+									model.addAttribute("statusOutline","Waiting For Publish");
+									model.addAttribute("statusOutlineTrue", true);
+									
+								}
+								
+								
+			/* outline */
 								
 								if(t.getScriptStatus()==0) 
 								{
 									
 									model.addAttribute("statusScript", "Pending");
-	
-								}else if (t.getScriptStatus()==1) 
-								
+									model.addAttribute("uploadIcon",true);
+									
+								}else if (t.getScriptStatus()==1) 	
 								{
 
 									model.addAttribute("statusScript","Wating for Domain Review");
 									model.addAttribute("statusScriptTrue", true);
 									
+								}else if(t.getScriptStatus()==3){
+									
+									model.addAttribute("statusScript","Wating for Quality Review");
+									model.addAttribute("statusScriptTrue", true);
+						
+									
+								}else if(t.getScriptStatus()==4){
+									
+									model.addAttribute("statusScript","Wating for Publish");
+									model.addAttribute("statusScriptTrue", true);
+						
+									
 								}
+								else if(t.getScriptStatus()==5)
+								{
+									model.addAttribute("statusScript","Need To Impprovement");
+									model.addAttribute("statusScriptTrue", true);
+							
+								
+								}
+								
+			/* script */			
 								
 								if(t.getSlideStatus()==0) 
 								{
 									
 									model.addAttribute("statusSlide", "Pending");
+									model.addAttribute("uploadIcon",true);
 	
 								}else if (t.getSlideStatus()==1) 
 								
@@ -616,53 +674,147 @@ public class controllerContributer {
 									model.addAttribute("statusSlide","Wating for Domain Review");
 									model.addAttribute("statusSlideTrue", true);
 									
+								}else if(t.getSlideStatus()==3){
+									
+									model.addAttribute("statusSlide","Waiting for Quality Review");
+									model.addAttribute("statusSlideTrue", true);
+									
 								}
+								
+								else if(t.getSlideStatus()==5){
+									
+									model.addAttribute("statusSlide","Need To Improvement");
+									model.addAttribute("statusSlideTrue", true);
+									
+								}else if (t.getOutlineStatus()==4) {
+									
+
+									model.addAttribute("statusSlide","Wating for Publish");
+									model.addAttribute("statusSlideTrue", true);
+									
+								}
+								
+								
+			/*	Video	*/			
+								
 								
 								if(t.getVideoStatus()==0) 
 								{
 									
 									model.addAttribute("statusVideo", "Pending");
+									model.addAttribute("uploadIcon",true);
 	
-								}else if (t.getVideoStatus()==1) 
-								
+								}
+								else if (t.getVideoStatus()==1) 
 								{ 
 
 									model.addAttribute("statusVideo","Wating for Admin Review");
 									model.addAttribute("statusVideoTrue", true);
 									
 								}else if (t.getVideoStatus()==2) 
-									
-									{ 
+								{ 
 
 										model.addAttribute("statusVideo","Wating for Domain Review");
 										model.addAttribute("statusVideoTrue", true);
 										
-									}			
+								}				
 								else if (t.getVideoStatus()==3) 
-									
 								{ 
 
 									model.addAttribute("statusVideo","Wating for Quality Review");
 									model.addAttribute("statusVideoTrue", true);
-									
+						
 								}
+								else if(t.getVideoStatus()==5)
+								{
+									
+									model.addAttribute("statusVideo","Need To Improvement");
+									model.addAttribute("statusVideoTrue", true);
+								
+								}else if (t.getOutlineStatus()==4) 
+								 {
+									 
+									 model.addAttribute("statusVideo","Wating for Publish");
+									 model.addAttribute("statusVideoTrue", true);
+								} 
+								 
+			/*	keyword*/
+							
 								if(t.getKeywordStatusSet()==0)
 								{
 									
 									model.addAttribute("statusKeyword", "Pending");
+									model.addAttribute("uploadIcon",true);
 	
 								}else if (t.getKeywordStatusSet()==1) 
 								
 								{
 									model.addAttribute("statusKeyword","Wating for Domain Review");
 									model.addAttribute("statusKeywordTrue", true);
+									
+								}else if (t.getKeywordStatusSet()==3) {
+									
+									model.addAttribute("statusKeyword","Waiting for Quality Review");
+									model.addAttribute("statusKeywordTrue", true);
+						
+									
+								}else if (t.getOutlineStatus()==4)
+								{
+									
+									model.addAttribute("statusKeyword","Wating for Publish");
+									model.addAttribute("statusKeywordTrue", true);
+									
 								}
 								
+								else if(t.getKeywordStatusSet()==5)
+								{
+									
+									model.addAttribute("statusKeyword","Need To Improvement");
+									model.addAttribute("statusKeywordTrue", true);
+									
+								}
 								
-				}
-				model.addAttribute("tutorials",tutorial);
-	
 					
+				}	
+				
+		for (Tutorial tutorial2 : tutorial) {
+			
+		Tutorial tutorialobject=tutorialDao.findOne(tutorial2.getTutorialid());
+		
+		List<commentOnComponent> commentComponent=(List<commentOnComponent>) commentOnComponentDao.findBytutorial_id(tutorialobject);	
+		
+		
+			  for (commentOnComponent mesComment : commentComponent) {
+			  
+				
+				if(mesComment.getCommentId()!=0) 
+				{
+				  
+				  System.err.println(mesComment.getCommentId());
+				  System.err.println(mesComment.getCommentInfo());
+				  System.err.println(mesComment.getComponenenetDeatail());
+				  
+				  
+				  model.addAttribute("title",mesComment.getComponenenetDeatail());
+				  model.addAttribute("messageBody",mesComment.getCommentInfo());
+				  
+				  
+				  model.addAttribute("msg",mesComment.getCommentId());
+				  
+				  
+				  }
+				
+			  }
+		
+			model.addAttribute("CommentMsg",commentComponent);
+		
+		
+		
+		
+		}		
+		
+				model.addAttribute("tutorials",tutorial);
+		
 				model.addAttribute("categoryName",catgory);
 				
 				model.addAttribute("inputTopic",topic);
@@ -709,6 +861,7 @@ public class controllerContributer {
 			  
 		 }	
 		
+			/* here is view Video into contributor Side */
 	
 		@RequestMapping("/viewVideo")
 		  public @ResponseBody List<String>
@@ -718,6 +871,10 @@ public class controllerContributer {
 				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
 		 {
 	  	  
+			
+			
+			System.err.println(categorname+""+topicid+""+lanId);
+			
 			
 			  
 			  List<String> videoframe = new ArrayList<String>();
@@ -733,6 +890,7 @@ public class controllerContributer {
 			  int status = 1;
 			  
 			  Tutorial tutorial=tutorialDao.finByKeywordContent(user,topic,category,language);
+			  
 			
 			  videoframe.add(tutorial.getVideo());
 			  
@@ -831,6 +989,23 @@ public class controllerContributer {
 			  	return script;
 			  
 		 }
+		
+		
+		@RequestMapping("/contributorComponenentStatus")
+		public String contributorStausComponenent(Model model) 
+		{
+			
+			
+			List<Tutorial> tutorial=(List<Tutorial>) tutorialDao.findAll();
+			
+			model.addAttribute("listContributorListAcceptOrNeeToImp",tutorial);
+			
+			
+			
+	
+			return "listTutorialContributorAccepOrNeedToImprovement";
+			
+		}
 
 		
 		

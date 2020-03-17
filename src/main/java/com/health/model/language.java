@@ -1,6 +1,7 @@
 
   package com.health.model;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,10 +30,20 @@ public class language
   		
   	private int id;
 	private  String languageName ;
-	private String date;
+	
+	private Timestamp timedate;
+	
 
 	
-	  private String createdBy;
+	  public Timestamp getTimedate() {
+		return timedate;
+	}
+
+	public void setTimedate(Timestamp timedate) {
+		this.timedate = timedate;
+	}
+
+	private String createdBy;
 	
 	  public String getCreatedBy() {
 		  return createdBy;
@@ -99,17 +110,6 @@ public class language
 	}
 
 
-
-	public String getDate() {
-		return date;
-	  }
-	
-	
-	  public void setDate(String date) {
-		this.date = date;
-		}
-	
-	
 		public int getId() { 
 		  return id; }
 	  

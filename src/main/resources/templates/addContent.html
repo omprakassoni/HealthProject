@@ -15,7 +15,6 @@
 		 <link rel="stylesheet" href="css/style3.css"/>
  	 	<link rel="stylesheet" href="css/bootstrap.min.css"/> 
  	 	
- 	 	
  	
 	</head>
   <body>
@@ -191,8 +190,9 @@
 		                        	
 												 </td>
 		                                          <th>-</th>
-		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i>
-		                                          		</button>
+		                                          <th> <span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i>
+		                                          		
+		                                          		</button></span>
 		                                          		<span  th:if="${statusOutlineTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#outlineViewModel" data-whatever="@mdo"><i class="fas fa-eye"></i>
 		                                          		</button></span>
 		                                          		
@@ -212,9 +212,10 @@
 												  </td>
 		                                      
 		                                          <th>-</th>
-		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#scriptModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
-		                                        <span th:if="${statusScriptTrue}">  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewScriptId" data-whatever="@mdo"><i class="fas fa-eye"></i>
-		                                          		</button></span>
+		                                          <th><span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#scriptModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          </span>
+		                                       	 <span th:if="${statusScriptTrue}">  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewScriptId" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                         	</button></span>
 		                                          
 		                                          </th>
 
@@ -232,7 +233,7 @@
 												  </td>
 		                                       
 		                                          <th>-</th>
-		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          <th> <span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button></span>
 		                                          <span th:if="${statusSlideTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModaleView" data-whatever="@mdo"><i class="fas fa-eye"></i>
 		                                          </button>
 		                                          </span></th>
@@ -250,7 +251,8 @@
 												 </td>
 		                                
 		                                          <th>-</th>
-		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoModel" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> 
+		                                          <th><span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoModel" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> 
+		                                          </span>
 		                                          <span th:if="${statusVideoTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoViewId" data-whatever="@mdo"><i class="fas fa-eye"></i>
 		                                          		</button>
 		                                          	</span>	</th>
@@ -268,7 +270,8 @@
 													
 		                                         </td>
 		                                          <th>-</th>
-		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          <th> <span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          </span>
 		                                          	<span th:if="${statusKeywordTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModaleView" data-whatever="@mdo"><i class="fas fa-eye"></i>
 		                                          		</button>
 		                                          		</span>
@@ -289,8 +292,95 @@
   
                                     </tbody>
 							    </table>
-			     				            
-			          </form>
+						
+						
+			<span th:each="mesComment : ${CommentMsg}">  
+				               
+					<span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Video'}">
+				                  
+				       <div class="alert alert-info">
+				                 
+				                   <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				            
+				               <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                  
+				                    &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i>	  <span style="color:green;" th:text="${mesComment.getCommentInfo()}">
+				                   
+				                   	</span>
+				                   	
+				             	</div>      	
+				                   	</span>
+				             	
+				                   	
+				     
+				                   	
+				              <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Outline'}">
+				                   	    
+				                  <div class="alert alert-info">
+				                  	 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                    
+				                 <strong style="color:green; text-transform:uppercase;">  <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                    	
+				                  &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i>	   	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				                  </div>
+				                    
+				              	</span> 
+				                   	
+				            <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Script'}">
+				            
+				               <div class="alert alert-info">
+				               	 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                    
+				                   <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                    
+				              &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i>  <span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    	
+				                   </div> 
+				                    
+				           </span> 
+				                   	
+				              <!--   </div> -->
+				                   	
+				              	
+				                	
+				          <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Slide'}">
+				                   	 
+				               <div class="alert alert-info">
+				                    
+				                    	 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                    <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                    
+									 &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i><span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				               </div> 
+				                    
+				           </span> 
+				                   
+				                 
+				               <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()==keyword}">
+				                 
+				                   	 <div class="alert alert-info">	 
+				                    
+				                    	 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                     <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
+				                    
+				                    	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				                    </div>
+				                    
+				               </span>
+									
+												
+											<!-- 	
+									</div> -->
+									
+								
+												
+					<!-- 	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span> -->
+			
+			</span>
+				</form>
 			          
 					<!--  Outline   Start-->
 			         	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -369,7 +459,7 @@
 									                 
 				                   </div> 
 				         
-				                         		<div class="form-group"> 
+				        <!--                  		<div class="form-group"> 
 	              		
 								 <label for="consaltantImage" style="padding-top: 8px">Select Minute</label> 
 									 <select id="categoryname" class="form-control" name="categoryName"  >
@@ -389,15 +479,15 @@
 												    <option value="val3"> 11</option>
 												    <option value="val3"> 12</option>
 												       
-							                    <!--  <span th:each="category: ${categorys}">
+							                     <span th:each="category: ${categorys}">
 							  					<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-				  									</span> -->
+				  									</span>
 				  				 
 				  						
 				                    </select>             
-				                                 </div>         
+				                                 </div>   -->       
 				                                 
-				                                 
+		<!-- 		                                 
 				             <div class="form-group"> 
 				                         		
 									    <label for="consaltantImage" style="padding-top: 8px">Select Seconds</label>
@@ -406,14 +496,14 @@
 							                   <option selected="selected">Select Seconds</option>      
 							          
 		
-							            <!--             <span th:each="category: ${categorys}">
+							                        <span th:each="category: ${categorys}">
 							  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
 				  					
 				  					
-				  						</span> -->
+				  						</span>
 				                   		 </select> 
 									                                 
-				             </div>  
+				             </div>   -->
 				             
 				                                 
 				         
@@ -555,8 +645,7 @@
 
 						          <div class="form-group">
 						            
-						            
-							     		 <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a>
+							      <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a>
 					      
 						          </div>
 						          
@@ -680,7 +769,7 @@
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalLabelKeyWordView">View Video</h5>
+						        <h5 class="modal-title" id="exampleModalLabelKeyWordView">View KeyWord</h5>
 						        <div class="modal-title">
 						        
 						         </div>
@@ -719,7 +808,11 @@
 		    
 		</div>
 		
-	          </div>
+		
+		   				
+				   		 					
+				   	
+						          </div>
 						 <button id="videoClick" type="button" class="btn btn-success" >View</button>	   
 						             
 					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
@@ -864,7 +957,7 @@
 						        <h5 class="modal-title" id="exampleModalLabelScript">Upload  Script</h5>
 						         <span  style="color: green; padding-left: 50px"  id="statusofScript"> 
 								
-
+							
 								 </span>
 						        
 						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">

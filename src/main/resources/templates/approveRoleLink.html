@@ -26,6 +26,9 @@
 												<a class="nav-item nav-link" id="nav-quality-tab" data-toggle="tab" href="#Quality" role="tab" aria-controls="nav-contact" aria-selected="false">Quality Reviewer</a>
 												<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#MasterTrainer" role="tab" aria-controls="nav-contact" aria-selected="false">MasterTrainer Reviewer</a>
 										
+										
+										
+										
 									  </div>
 									  
 								</nav>
@@ -61,7 +64,7 @@
 											                <th>Last Name</th>
 											                <th>Address</th>  
 											                <th>Approve</th>
-											                <th>Reject</th>             
+											                <!-- <th>Reject</th>  -->            
 											            </tr>
 											          </thead>      	
 											         <tbody>
@@ -74,8 +77,8 @@
 											                <td th:text="${admin.address}">Address</td>
 							
 														 <td><a th:href="${'addAdminRoleById/add/'+ admin.id}">Approve</a></td>
-														<td><a th:href="${'/addRejectRoleById/reject/' + admin.id}">Reject</a></td>  
-							
+<!-- 														<td><a th:href="${'/addRejectRoleById/reject/' + admin.id}">Reject</a></td>  
+ -->							
 												            </tr>
 													</tbody>			            
 											            
@@ -128,7 +131,7 @@
 											                <th>Address</th>  
 							
 											                <th>Approve</th>
-											                <th>Reject</th>             
+											           <!--      <th>Reject</th>  -->            
 											            </tr>
 											          </thead>      	
 											         <tbody>
@@ -141,8 +144,8 @@
 											                <td th:text="${domain.address}">Address</td>
 							
 														 <td><a th:href="${'/addDomainRoleById/add/'+ domain.id}">Approve</a></td>
-														<td><a th:href="${'/addRejectRoleById/reject/' + domain.id}">Reject</a></td>  
-							
+<!-- 														<td><a th:href="${'/addRejectRoleById/reject/' + domain.id}">Reject</a></td>  
+ -->							
 												            </tr>
 													</tbody>			            
 											            
@@ -190,7 +193,7 @@
 					                
  	
 					                <th>Approve</th>
-					                <th>Reject</th>             
+					                <!-- <th>Reject</th>   -->           
 					            </tr>
 					            
 					            </thead>
@@ -204,7 +207,7 @@
 					                <td th:text="${master.address}">Address</td>
 	
 									<td><a th:href="${'/addMasterTrainerRoleById/add/'+ master.id}">Approve</a></td>
-								    <td><a th:href="${'/addmasterRoleRejectById/reject/' + master.id}">Reject</a></td>  
+<!-- 								    <td><a th:href="${'/addmasterRoleRejectById/reject/' + master.id}">Reject</a></td>   -->
 							
 	
 					            </tr>
@@ -227,7 +230,7 @@
 									  
 			<!-- 	th:text="${approve.getUser().id}" -->					  									  
 </div>
-			<div class="tab-pane fade" id="Contributer" role="tabpanel" aria-labelledby="nav-contact-tab">.
+			<div class="tab-pane fade" id="ContributerPage" role="tabpanel" aria-labelledby="nav-contact-tab">.
 				
 				<h6  id="statusContributor" style="color: maroon; padding-left: 200px"> </h6>
 				
@@ -245,30 +248,37 @@
 									                <th>Last Name</th>
 									                <th>Language</th>  
 									                <th>Approve</th>
-									                <th>Reject</th>             
+									              <!--   <th>Reject</th>  -->            
 									           </tr>
 									            
 									            </thead>									            
 									            <tbody>
-										<tr th:each="approve : ${statusByApprovContributer}">
+								<tr th:each="approve : ${statusByApprovContributer}">
    	
-									<td ><input id="contributorId" style="width: 100px" readonly="readonly" th:value="${approve.getUserRoleId()}"/></td>  
-													
+						<td>
+						<input id="contributorId" class="conID" style="width: 100px" readonly="readonly" th:value="${approve.getUserRoleId()}"/>
+						</td>  
 													
 									                <td th:text="${approve.getUser().username}">User Name</td>
 									                <td th:text="${approve.getUser().firstName}">First Name</td>
 									                <td th:text="${approve.getUser().lastName}">Last name</td>
 									                <td th:text="${approve.getLanguage().getLanguageName()}">Language Name</td>              
 								 					<td>
-													<button id="approveContributorId" type="button" value="showAlert"  class="btn btn-success">Approve</button>
+	<button id="approveContributorId" type="button"  th:value="${approve.getUserRoleId()}" class="btn btn-success approveContributor">Approve</button>
 													   
-												<!-- 	<a th:href="${'/addContributerRoleById/add/'+ approve.getUser().id}">Approve</a> -->
+<!-- 	<a th:href="${'/addContributerRoleById/add/'+ approve.getUser().id}">Approve</a> 
+ -->													
 													</td>
 						 			<td>
-												<button id="rejectContributionId" type="button" value="showAlert"  class="btn btn-success">Reject</button>
-												    
-										<!-- 	   <a th:href="${'/addRejectRoleById/reject/' + approve.getUser().id}">Reject</a> -->
-												</td>  
+											
+											<span th:if="approve.getStatus"></span>
+							<!-- 					
+							<button id="rejectContributionId" type="button" value="showAlert"  class="btn btn-success">Reject</button>
+							 -->					    
+									<!--   <a th:href="${'/addRejectRoleById/reject/' + approve.getUser().id}">Reject</a>  -->	
+									
+									
+									</td>  
 					
 									            </tr>
 									            
@@ -310,22 +320,25 @@
 									                <th>First Name</th>
 									                <th>Last Name</th>
 									                <th>Address</th>  
-					
 									                <th>Approve</th>
-									                <th>Reject</th>             
+									                <!-- <th>Reject</th>     -->         
 									            </tr>
 									            </thead>
 									            <tbody>
 									            	<tr th:each="quality : ${statusByApprovQuality}">
-									                <td th:text="${quality.id}">ID</td>  
+							 <td>
+									                
+									             
+									                
+									                </td>  
 									                <td th:text="${quality.username}">User Name</td>
 									                <td th:text="${quality.firstName}">First Name</td>
 									                <td th:text="${quality.lastName}">Last name</td>
 									                <td th:text="${quality.address}">Address</td>
 					
 										 <td><a th:href="${'/addQualityRoleById/add/'+ quality.id}">Approve</a></td>
-									     <td><a th:href="${'/addQualityRoleRejectById/reject/' + quality.id}">Reject</a></td>  
-									     
+									     <!-- <td><a th:href="${'/addQualityRoleRejectById/reject/' + quality.id}">Reject</a></td>  
+									      -->
 									            </tr>
 									            
 									            </tbody>

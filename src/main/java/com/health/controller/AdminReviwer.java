@@ -3,8 +3,10 @@ package com.health.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.lang.model.element.Element;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.text.StrBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,11 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.health.model.Category;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.model.commentOnComponent;
 import com.health.model.language;
 import com.health.model.topic;
 import com.health.repository.CategoryDao;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
+import com.health.repository.commentOnComponentDao;
 import com.health.repository.languagedao;
 import com.health.service.tutorialService;
 
@@ -42,11 +46,14 @@ public class AdminReviwer
 	@Autowired
 	private CategoryDao categoryDao;
 	
-	@Autowired
+	@Autowired	
 	private languagedao languageDao;
 	
 	@Autowired
 	private tutorialService tutorialService;
+	
+	@Autowired
+	private commentOnComponentDao commentOnComponentdao;
 	
 	
 	@RequestMapping("/listTutorialAdminReviwer")
@@ -54,7 +61,6 @@ public class AdminReviwer
 	{	
 		
 		List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.finByVideoStatus();
-	
 
 		model.addAttribute("AdminListTutorias",tutorial);
 	
@@ -66,7 +72,6 @@ public class AdminReviwer
 	@RequestMapping("/adminreview/review/{id}")
 	public String componenettutorialReview(@PathVariable Integer id, Model model,HttpServletRequest req) 
 	{	
-		
 		
 					Tutorial tutorial=tutorialdao.findOne(id);
 
@@ -82,6 +87,7 @@ public class AdminReviwer
 							model.addAttribute("statusOutlineTrue",true);
 						} 
 						
+					
 						if(tutorial.getScriptStatus()==0) 
 						{
 							
@@ -111,6 +117,7 @@ public class AdminReviwer
 						}
 						
 						if(tutorial.getVideoStatus()==0) 
+							
 						{
 							
 							model.addAttribute("statusVideo", "Pending");
@@ -119,8 +126,20 @@ public class AdminReviwer
 						
 						{
 
-							model.addAttribute("statusVideo","Wating for Domain Review");
+							model.addAttribute("statusVideo","Wating for Admin Review");
 							model.addAttribute("statusVideoTrue", true);
+							
+						}else if (tutorial.getVideoStatus()==2){
+							
+							model.addAttribute("statusVideo","Waiting for Domain Review ");
+							
+						}else if (tutorial.getVideoStatus()==3) {
+							model.addAttribute("statusVideo","Waiting for Quality review");
+							
+						}else if (tutorial.getVideoStatus()==5)
+						{
+							
+							model.addAttribute("statusVideo","Need To Improvemenet");
 							
 						}
 					
@@ -136,12 +155,17 @@ public class AdminReviwer
 							model.addAttribute("statusKeywordTrue", true);
 						}
 						
-						model.addAttribute("tutorialComponenet",tutorial);	
-		
 						
-			return "addContentAdminReview";
-
-	}
+						
+			
+						
+								model.addAttribute("tutorialComponenet",tutorial);
+						
+							return "addContentAdminReview";
+							
+		}
+	
+	
 		@RequestMapping("/viewVideoAdmin")
 	  public @ResponseBody List<String> viewVideoContentAdmin(@RequestParam(value = "categorname") String categorname,
 			  @RequestParam(value = "topicid") String topicid,
@@ -160,9 +184,8 @@ public class AdminReviwer
 		  language language=languageDao.findBylanguageName(lanId);
 	
 		  int status = 1;
-		  
 		
-		Tutorial tutorial=tutorialdao.finByKeywordContentDomain(topic,category, language);
+		 Tutorial tutorial=tutorialdao.finByKeywordContentDomain(topic,category, language);
 			
 		  videoframe.add(tutorial.getVideo());
 		   
@@ -179,7 +202,7 @@ public class AdminReviwer
 				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
 		  
 		{
-			
+			  
 			  List<String> videoStatusUpdate = new ArrayList<String>();
 			  
 			  User user=userRepository.findByUsername(authentication.getName());
@@ -204,31 +227,116 @@ public class AdminReviwer
 		  @RequestMapping("/needToImprovemenetByAdmin")
 		  public @ResponseBody List<String> needToImprovemenetByAdmin(@RequestParam(value = "categorname") String categorname,
 				  @RequestParam(value = "topicid") String topicid,
-				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)	  
+				  @RequestParam(value = "lanId") String lanId,Model model,
+				  @RequestParam(value = "msg") String msgCommentVideo,
+				  Authentication authentication)	  
 		{
+			  
+			  
+			  	System.err.println("Hello CDemo");
+			  
+			  String video="Video";
+			  
 			
 			  List<String> videoStatusUpdate = new ArrayList<String>();
 			  
 			  User user=userRepository.findByUsername(authentication.getName());
 			  
+		
 			  topic topic = topicRepositary.findBytopicname(topicid);		  
 			  
 			  Category category=categoryDao.findBycategoryname(categorname);
 		
 			  language language=languageDao.findBylanguageName(lanId);
-		  
+			  
+			  Tutorial tutorial=tutorialdao.findByTutorialForComment(topic, category, language);
+		
 			  //Admin set to need to improvement
 			  
 			  int AdminStatus=5;
 			  
 			  tutorialService.updateVideoStatusByAdmin(AdminStatus, topic, category,language);
+			 
 			  
-			  videoStatusUpdate.add("Video Staus Update UpadateSuccefully");
+				java.util.Date dt = new java.util.Date();
+				java.text.SimpleDateFormat sdf = 
+				     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+				String currentTime = sdf.format(dt);
+	
+				commentOnComponent commentonComponet= new commentOnComponent();
+			 
+						 commentonComponet.setUser(user);
+						 commentonComponet.setTopic(topic);
+						 commentonComponet.setLanguage(language);
+						 commentonComponet.setCategory(category);
+						 commentonComponet.setTutorial(tutorial);
+						 commentonComponet.setCommentdate(currentTime);
+						 commentonComponet.setCommentInfo(msgCommentVideo);
+						 commentonComponet.setComponenenetDeatail(video);
+						
+					
+			   commentOnComponentdao.save(commentonComponet);
+		
+			  videoStatusUpdate.add("Video Stauts Update Succefully");
 			  
 			  return videoStatusUpdate;
 
 		}
 		  
+		 /* here is code admin review*/
+		  
+			@RequestMapping("/listAdminVideoAceeptOrNeToImp")
+			public String listTutorialAdminreview(Model model) 
+			{	
+			
+				
+				List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findByVideoStatusByAdmin();
+			
+			
+
+					for (Tutorial StatusVideo : tutorial) 
+					{				
+				//admin 2=approve 3=domain 5=Quality approve 
+				
+			
+					if( StatusVideo.getVideoStatus()==5)
+					{
+										
+											System.err.println("reject");
+											model.addAttribute("statusVideoTrue","Reject");
+									
+					} 
+					if(StatusVideo.getVideoStatus()==3 || StatusVideo.getVideoStatus()== 2 || StatusVideo.getVideoStatus()== 4)
+					{
+								
+								
+											System.err.println("Accept");			
+											model.addAttribute("statusVideoTrue","Accept");
+										
+					} if(StatusVideo.getStatus()==0) {
+							  
+									  model.addAttribute("mainStatus","Pending");
+									  
+					 }else if(StatusVideo.getStatus()==1){
+										  
+									
+									  model.addAttribute("mainStatus","Accept");
+									  
+									  
+					 }
+			 
+					
+					
+			}
+						
+					model.addAttribute("listVideoAdminAcceptOrNeeToImp",tutorial);
+				
+			
+				return "listTutorialAdminAccepOrNeedToImprovement";
+
+				
+			}
 		  
 		  
 		

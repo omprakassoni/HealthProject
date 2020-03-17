@@ -1,6 +1,7 @@
 package com.health.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,16 @@ public class Event {
 	private String contactperson;
 	private String contactnumber;
 	private String email;
+	private java.sql.Timestamp timedate;
+	
+	public Timestamp getTimedate() {
+		
+		
+		return timedate;
+	}
+	public void setTimedate(Timestamp timedate) {
+		this.timedate = timedate;
+	}
 	public String getEventname() {
 		return eventname;
 	}

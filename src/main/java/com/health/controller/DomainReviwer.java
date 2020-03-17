@@ -78,20 +78,21 @@ public class DomainReviwer {
 			{
 				
 			List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findAll();	
+			
+			for (Tutorial tutorial2 : tutorial) {
+				
+				
+			
+			}
+			
 				int outlineStatus=1;
 				int scriptStatus=1;
 				int videoStatus=1;
 				
 				
-	//List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findByOutlineScriptVideo(outlineStatus,scriptStatus,videoStatus);
+				 //List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findByOutlineScriptVideo(outlineStatus,scriptStatus,videoStatus);
 				
-				
-				
-				for (Tutorial tutorial2 : tutorial) 
-				{
-				
-					
-				}
+		
 				model.addAttribute("DomainLisTutorias",tutorial);
 				
 				return "listTutorialDomainReview";
@@ -103,8 +104,10 @@ public class DomainReviwer {
 			public String componenettutorialReview(@PathVariable Integer id, Model model,HttpServletRequest req) 
 			{	
 				
+				
 							Tutorial tutorial=tutorialdao.findOne(id);
 
+							
 								if(tutorial.getOutlineStatus()==0)
 								{		
 									model.addAttribute("statusOutline","Pending");
@@ -112,31 +115,71 @@ public class DomainReviwer {
 								}	
 								else if(tutorial.getOutlineStatus()==1)
 								{ 
-							
+									
 									model.addAttribute("statusOutline","Wating for Domain Review");
 									model.addAttribute("statusOutlineTrue",true);
-								} 
+									
+								
+								}else if (tutorial.getOutlineStatus()==3){
+									
+									model.addAttribute("statusOutline","Waiting for Quality Review");
+									
+									
+								}else if (tutorial.getOutlineStatus()==5) {
+									
+									model.addAttribute("statusOutline","Need To Improvement");
+									
+								}	
+								
+								else if (tutorial.getOutlineStatus()==4) {
+									
+									model.addAttribute("statusOutline","Waiting For Publish");
+									
+								}	
+								
+				/* outline */		
 								
 								if(tutorial.getScriptStatus()==0) 
 								{
 									
 									model.addAttribute("statusScript", "Pending");
 									
-	
 								}else if (tutorial.getScriptStatus()==1) 								
 								{
 
 									model.addAttribute("statusScript","Wating for Domain Review");
 									model.addAttribute("statusScriptTrue", true);
 									
+								}else if (tutorial.getScriptStatus()==3)
+								{
+									
+									model.addAttribute("statusScript","Waiting For Quality Review");
+
 								}
+								else if (tutorial.getScriptStatus()==4) 
+								{
+									
+										model.addAttribute("statusScript","Waiting for Publish");
+								}
+								
+								else if(tutorial.getScriptStatus()==5)
+								{
+									
+									model.addAttribute("statusScript","Need To Improvement");
+								
+									
+								}
+								
+								
+		/* slide */					
 								
 								if(tutorial.getSlideStatus()==0) 
 								{
 									
 									model.addAttribute("statusSlide", "Pending");
 	
-								}else if (tutorial.getSlideStatus()==1) 
+								}else if (tutorial.getSlideStatus()==1) 				  
+
 								
 								{
 
@@ -144,6 +187,24 @@ public class DomainReviwer {
 									model.addAttribute("statsuSlideTrue", true);
 									
 								}
+								else if (tutorial.getSlideStatus()==3) 
+								{
+
+										model.addAttribute("statusSlide","Wating for Quality Review");
+										
+								}else if (tutorial.getSlideStatus()==5) 
+								{
+								
+									model.addAttribute("statusSlide","Wating for Quality Review");
+							
+								}
+								else if (tutorial.getSlideStatus()==4) 
+								{
+								
+									model.addAttribute("statusSlide","Wating for Publish");
+							
+								}
+								
 								
 								
 								if(tutorial.getVideoStatus()==0) 
@@ -151,7 +212,8 @@ public class DomainReviwer {
 									
 									model.addAttribute("statusVideo", "Pending");
 	
-								}else if (tutorial.getVideoStatus()==2) 
+								}
+								else if (tutorial.getVideoStatus()==2) 
 								
 								{
 
@@ -169,35 +231,33 @@ public class DomainReviwer {
 									
 									model.addAttribute("statusVideo","Wating for Quality  Review");
 									
+								} else if (tutorial.getVideoStatus()==5) {
 									
-								} 
-								
-								if(tutorial.getKeywordStatusSet()==0)
-								{
 									
-									model.addAttribute("statusKeyword", "Pending");
-	
-								}else if (tutorial.getKeywordStatusSet()==1) 
-								
-								{
-									model.addAttribute("statusKeyword","Wating for Domain Review");	
-									model.addAttribute("statusKeywordTrue", true);
-								}
-								else if (tutorial.getVideoStatus()==1) 	
-								{
-									model.addAttribute("statusKeyword","Wating for Domain Review");	
-									model.addAttribute("statusKeywordTrue", true);
+									model.addAttribute("statusVideo","Need To Improvement");
+									
+								}else if(tutorial.getVideoStatus()==4) {
+									
+									
+									model.addAttribute("statusVideo","Waiting For Publish");
+									
 								}
 								
+				
+			// here is code domain reviwer write comments
 								
-								
-								
-								
-								model.addAttribute("tutorialComponenet",tutorial);	
+				Tutorial tutorialobject=tutorialDao.findOne(tutorial.getTutorialid());
+									
+					List<commentOnComponent> commentComponent=(List<commentOnComponent>) commentOnComponentDao.findBytutorial_id(tutorialobject);	
+									
+					model.addAttribute("CommentMsg",commentComponent);
+									
+						
+					model.addAttribute("tutorialComponenet",tutorial);	
 								
 		
-						
 					return "addContentDomainReview";
+					
 
 	}
 			
@@ -343,12 +403,14 @@ public class DomainReviwer {
 				  
 					java.util.Date dt = new java.util.Date();
 					java.text.SimpleDateFormat sdf = 
-					     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					     new java.text.SimpleDateFormat("yyyy-MM-d				  \n" + 
+					     		"d HH:mm:ss");
 
 					String currentTime = sdf.format(dt);
 
 					commentOnComponent commentOnComponenet=new commentOnComponent();
-				  
+			
+			
 					 commentOnComponenet.setCommentdate(currentTime);
 					 commentOnComponenet.setCommentInfo(msgCommentOutline);			 
 					 commentOnComponenet.setUser(user);
@@ -368,8 +430,10 @@ public class DomainReviwer {
 			}
 			
 	/* comment on script */
+		
 			
-			@RequestMapping("/commentOnScript")
+			
+			@RequestMapping("/acommentOnScript")
 			  public @ResponseBody List<String>
 			  commentOnComponenetScript(
 					  @RequestParam(value = "categorname") String categorname,
@@ -378,7 +442,7 @@ public class DomainReviwer {
 					  @RequestParam(value = "msgScript") String msgCommentOutline,Authentication authentication)		  
 		 {
 				
-						System.err.println("Hi Demo");
+				
 				
 				  List<String> CommentOnOutline = new ArrayList<String>();
 		
@@ -418,12 +482,15 @@ public class DomainReviwer {
 				 
 				 
  
-				 CommentOnOutline.add("Save Recored succefully");
+				 CommentOnOutline.add("Save Recored succesfully");
 				 
 				  
 				return CommentOnOutline;
 				  
 			}
+			
+			
+			
 			//comment on video
 			
 			@RequestMapping("/commentOnVideo")
@@ -472,7 +539,7 @@ public class DomainReviwer {
 			
 				 commentOnComponentDao.save(commentOnComponenet);
 				
-				 CommentOnOutline.add("Save Recored succefully");
+				 CommentOnOutline.add("Save Recored succesfully");
 				 
 				  
 				return CommentOnOutline;
@@ -504,7 +571,7 @@ public class DomainReviwer {
 				  
 				  tutorialService.updateVideoStatusByAdmin(AdminStatus, topic, category,language);
 				  
-				  videoStatusUpdate.add("Video Staus Update Upadate Succefully");
+				  videoStatusUpdate.add("Video Stauts Update  Succesfully");
 				  
 				  return videoStatusUpdate;
 
@@ -530,15 +597,207 @@ public class DomainReviwer {
 			  
 				  //Admin set to need to improvement
 				  
-				  int AdminStatus=3;
+				  int DomainStatus=5;
 				  
-				  tutorialService.updateVideoStatusByAdmin(AdminStatus, topic, category,language);
+				  tutorialService.updateVideoStatusByAdmin(DomainStatus, topic, category,language);
 				  
-				  videoStatusUpdate.add("Video Staus Update Upadate Succefully");
+				  videoStatusUpdate.add("Video Status Update  Succesfully");
 				  
 				  return videoStatusUpdate;
 
 			}
+			  
+			 // code for outline status into Domain  
+				
+			  @RequestMapping("/acceptOutlineByDomain")
+			  public @ResponseBody List<String> acceptOutlineByDomain(@RequestParam(value = "categorname") String categorname,
+					  @RequestParam(value = "topicid") String topicid,
+					  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)	  
+			{
+				
+				  List<String> outlineDomain = new ArrayList<String>();
+				  
+				  User user=userRepository.findByUsername(authentication.getName());
+				  
+				  topic topic = topicRepositary.findBytopicname(topicid);		  
+				  
+				  Category category=categoryDao.findBycategoryname(categorname);
+			
+				  language language=languageDao.findBylanguageName(lanId);
+			  
+			  
+				  int DomainStatus=3;
+				  
+				  tutorialService.updateOutlineStatusByDomain(DomainStatus, topic, category,language);
+				  
+				  outlineDomain.add("Outline Status Update  Succesfully");
+				  
+				  return outlineDomain;
+
+			}
+			  
+			  @RequestMapping("/needToImpOutlineByDomain")
+			  public @ResponseBody List<String> needToImprovementsOutlineByDomain(@RequestParam(value = "categorname") String categorname,
+					  @RequestParam(value = "topicid") String topicid,
+					  @RequestParam(value = "msg") String msgComment,
+					  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)	  
+			{
+				
+				  List<String> outlineDomain = new ArrayList<String>();
+				  
+				  User user=userRepository.findByUsername(authentication.getName());
+				  
+				  topic topic = topicRepositary.findBytopicname(topicid);		  
+				  
+				  Category category=categoryDao.findBycategoryname(categorname);
+			
+				  language language=languageDao.findBylanguageName(lanId);
+				  
+				  Tutorial tutorial=tutorialdao.findByTutorialForComment(topic, category, language);
+				  
+				  int DomainStatus=5;
+				  
+				  
+				  String outline="Outline";
+				  tutorialService.updateOutlineStatusByDomain(DomainStatus, topic, category,language);
+			
+					java.util.Date dt = new java.util.Date();
+					java.text.SimpleDateFormat sdf = 
+					     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+					String currentTime = sdf.format(dt);
+		
+					commentOnComponent commentonComponet= new commentOnComponent();
+				 
+							 commentonComponet.setUser(user);
+							 commentonComponet.setTopic(topic);
+							 commentonComponet.setLanguage(language);
+							 commentonComponet.setCategory(category);
+							 commentonComponet.setTutorial(tutorial);
+							 commentonComponet.setCommentdate(currentTime);
+							 commentonComponet.setCommentInfo(msgComment);
+							 
+							 commentonComponet.setComponenenetDeatail(outline);
+							 					 
+							 commentOnComponentDao.save(commentonComponet);
+				  
+				  
+				 outlineDomain.add("Outline Status Update  Succesfully");
+				 
+				  
+				  return outlineDomain;
+
+			}
+			  
+			  //here is code Accept script for domain review
+			  
+			  @RequestMapping("/commentOnScript")
+			  public @ResponseBody List<String> acceptScriptByDomain(@RequestParam(value = "categorname") String categorname,
+					  @RequestParam(value = "topicid") String topicid,
+					  @RequestParam(value = "lanId") String lanId,
+					  Model model,Authentication authentication)	  
+			{
+				  
+				  
+				  List<String> outlineDomain = new ArrayList<String>();
+				  
+				  User user=userRepository.findByUsername(authentication.getName());
+				  
+				  topic topic = topicRepositary.findBytopicname(topicid);		  
+				  
+				  Category category=categoryDao.findBycategoryname(categorname);
+			
+				  language language=languageDao.findBylanguageName(lanId);
+			    
+				  int DomainStatus=3;
+				  
+					 
+				  tutorialService.updateScriptStatusByDomain(DomainStatus, topic, category,language);
+					 
+				  
+				  outlineDomain.add("Script Status Update  Succesfully");
+				  
+				  return outlineDomain;
+
+			}
+			  
+			  //here is code needTo improvement script for domain review  
+			  
+			  @RequestMapping("/needToImpScriptByDomain")
+			  public @ResponseBody List<String> needToImprovementsScriptByDomain(@RequestParam(value = "categorname") String categorname,
+					  @RequestParam(value = "topicid") String topicid,
+					  @RequestParam(value = "msgScript") String msgComment,
+					  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)	  
+			{
+				
+				  	System.err.println("Need To improvement");
+				  
+				  
+				  List<String> scriptDomain = new ArrayList<String>();
+				  
+				  User user=userRepository.findByUsername(authentication.getName());
+				  
+				
+				  
+				  topic topic = topicRepositary.findBytopicname(topicid);		  
+				  
+				  Category category=categoryDao.findBycategoryname(categorname);
+			
+				  language language=languageDao.findBylanguageName(lanId);
+				  
+				  Tutorial tutorial=tutorialdao.findByTutorialForComment(topic, category, language);
+				 
+				  
+				  
+				  int DomainStatus=5;
+				  
+			
+				  tutorialService.updateOutlineStatusByDomain(DomainStatus, topic, category,language);
+				  
+				  String outline="Outline";
+			
+					java.util.Date dt = new java.util.Date();
+					java.text.SimpleDateFormat sdf = 
+					     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+					String currentTime = sdf.format(dt);
+		
+					commentOnComponent commentonComponet= new commentOnComponent();
+				 
+							 commentonComponet.setUser(user);
+							 commentonComponet.setTopic(topic);
+							 commentonComponet.setLanguage(language);
+							 commentonComponet.setCategory(category);
+							 commentonComponet.setTutorial(tutorial);
+							 commentonComponet.setCommentdate(currentTime);
+							 commentonComponet.setCommentInfo(msgComment);
+							 
+							 commentonComponet.setComponenenetDeatail(outline);
+							 					 
+							 commentOnComponentDao.save(commentonComponet);
+				  
+							 scriptDomain.add("Script Status Update  Succesfully");
+							 
+							 
+				 
+				  return scriptDomain;
+
+			}
+			  
+		  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
 			
 			
 			

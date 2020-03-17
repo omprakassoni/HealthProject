@@ -191,11 +191,7 @@ public class userController
 			userRoleRepositary.save(userRoles);
 			
 	
-			
-	
 		model.addAttribute("request","Request Send Successfully");
-		
-		
 		
 		return "roleAdminDetail";
 		
@@ -204,9 +200,25 @@ public class userController
 	@RequestMapping(value = "/addMeAsDomainRevieweer", method = RequestMethod.GET)
 	public String addMeAsDomainRevieweer(Authentication authentication, Model model) 
 	{
-	
+		
 		User user = userService.findByClassname(authentication.getName());
-
+	
+		List<UserRole> findAlreadyPresent=(List<UserRole>) userRoleRepositary.findByuser_id(user.getId());
+		
+		for (UserRole  exitRole : findAlreadyPresent) 
+		{
+			
+			if(exitRole.getRole().getRoleId()==3)
+			{	
+			
+				model.addAttribute("requestSend",true);
+				
+				return "roleAdminDetail";
+				
+			}
+			
+		}
+			
 		String name = "DomainReviweer";
 
 		Role role = rolerespositary.findByname(name);
@@ -234,6 +246,23 @@ public class userController
 	{
 	
 		User user = userService.findByClassname(authentication.getName());
+		
+
+		List<UserRole> findAlreadyPresent=(List<UserRole>) userRoleRepositary.findByuser_id(user.getId());
+		
+		for (UserRole  exitRole : findAlreadyPresent) 
+		{
+			
+			if(exitRole.getRole().getRoleId()==6)
+			{	
+			
+				model.addAttribute("requestSend",true);
+				
+				return "roleAdminDetail";
+				
+			}
+			
+		}
 		
 		String name = "VideoReviwer";
 		
@@ -263,17 +292,43 @@ public class userController
 	
 
 	@RequestMapping(value = "/addMeAsQualityRevieweer", method = RequestMethod.GET)
-	public String addMeAsQualityRevieweer(Authentication authentication) {
+	public String addMeAsQualityRevieweer(Authentication authentication,Model model) {
 
 		User user = userService.findByClassname(authentication.getName());
 
+
+		List<UserRole> findAlreadyPresent=(List<UserRole>) userRoleRepositary.findByuser_id(user.getId());
+		
+		for (UserRole  exitRole : findAlreadyPresent) 
+		{
+			
+			if(exitRole.getRole().getRoleId()==1)
+			{	
+			
+				model.addAttribute("requestSend",true);
+				
+				return "roleAdminDetail";
+				
+			}
+			
+			
+		}
+		
 		String name = "QualityReviweer";
+		
+		java.util.Date dt = new java.util.Date();
+
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String currentTime = sdf.format(dt);
 
 		Role role = rolerespositary.findByname(name);
 
 		int status = 0;
 		UserRole userRoles = new UserRole(user, role);
 		userRoles.setStatus(status);
+		userRoles.setCreated(currentTime);
 		userRoleRepositary.save(userRoles);
 
 		return "roleAdminDetail";
@@ -281,18 +336,44 @@ public class userController
 	}
 
 	@RequestMapping(value = "/addMeAsMasterTrainer", method = RequestMethod.GET)
-	public String addMeAsMasterTrainer(Authentication authentication) {
+	public String addMeAsMasterTrainer(Authentication authentication,Model model) {
 
 		User user = userService.findByClassname(authentication.getName());
 
+
+		List<UserRole> findAlreadyPresent=(List<UserRole>) userRoleRepositary.findByuser_id(user.getId());
+		
+		for (UserRole  exitRole : findAlreadyPresent) 
+		{
+			
+			if(exitRole.getRole().getRoleId()==4)
+			{	
+			
+				model.addAttribute("requestSend",true);
+				
+				return "roleAdminDetail";
+				
+			}
+			
+		}
+		
 		String name = "MasterTrainer";
 
 		Role role = rolerespositary.findByname(name);
+		
+		java.util.Date dt = new java.util.Date();
+
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String currentTime = sdf.format(dt);
 
 		int status = 0;
 
 		UserRole userRoles = new UserRole(user, role);
 		userRoles.setStatus(status);
+		userRoles.setCreated(currentTime);
+		
 		userRoleRepositary.save(userRoles);
 
 		return "roleAdminDetail";
@@ -353,6 +434,8 @@ public class userController
 		
 	}
 	
+	/* Here is code for Contributor Approve */
+	
 	@RequestMapping("/addContributerRoleById/add/{id}")
 	public String addContributerRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
 
@@ -378,6 +461,37 @@ public class userController
 
 	}
 	
+	/* here is code reject Contributor */
+	@RequestMapping("/addRejectRoleById/reject/{id}")
+	public String rejectContributorById(@PathVariable Long id, Model model, HttpServletRequest req) 
+	{ 
+		
+		User user = userRepository.findOne(id);
+		
+		UserRole userRoles =userRoleRepositary.findByRejectElement(user);
+		
+		System.err.println("print value"+userRoles.getUserRoleId());
+		
+	
+		String name = "Contributer";
+		Role role = rolerespositary.findByname(name);
+		
+	
+		
+		int status = 0;
+		UserRole userRole = userRoleRepositary.findByContributorId(userRoles.getUserRoleId(),role);		
+		userRole.setStatus(status);
+		
+		
+		userRoleRepositary.save(userRole);
+		
+		
+		
+		
+		return "redirect:/approveRole";
+	
+	}
+
 	
 	@RequestMapping("/addDomainRoleById/add/{id}")
 	public String addDomainRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
@@ -396,9 +510,12 @@ public class userController
 		userRole.setStatus(status);
 
 		userRoleRepositary.save(userRole);
+		
+		model.addAttribute("viewActive","active");
+		
+		
 
-	
-		return "redirect:/approveRole";
+		return "approveRoleLink";
 		
 
 	}
@@ -427,25 +544,6 @@ public class userController
 
 	}
 	
-	
-
-	@RequestMapping("addRejectRoleById/reject/{id}")
-	public String addRejectRoleById(@PathVariable Long id, Model model, HttpServletRequest req) {
-
-		System.err.println(id);
-		EntityManager em = null;
-		
-		  int deletedCount = em.createQuery("delete from UserRole u where u.user:=39").executeUpdate();
-		
-		
-		  
-		  
-		  return "redirect:/approveRole";
-		/* return "showDomainReviweer"; */
-		
-		
-
-	}
 
 	/* add the Quality Revieweer */
 
@@ -634,14 +732,13 @@ public class userController
 
 		List<User> userAddInformationContributer = new ArrayList<>();
 
-		for (UserRole ur : userByStatusContributer) {
+		for (UserRole ur : userByStatusContributer) {	
 
 			User userInformation = userRepository.findOne(ur.getUser().getId());
 
 			userAddInformationContributer.add(userInformation);
 		}
 		model.addAttribute("statusByApprovContributer", userByStatusContributer);
-		
 
 	
 		int rolIdQuality = 1;

@@ -33,7 +33,19 @@ public class commentOnComponent {
 		this.commentInfo = commentInfo;
 	}
 	private String commentInfo;
+	
 	private String commentdate;
+	
+	private  String componenenetDeatail;
+	
+	
+	
+	public String getComponenenetDeatail() {
+		return componenenetDeatail;
+	}
+	public void setComponenenetDeatail(String componenenetDeatail) {
+		this.componenenetDeatail = componenenetDeatail;
+	}
 	public String getCommentdate(){
 		return commentdate;
 	}

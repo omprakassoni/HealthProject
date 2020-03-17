@@ -1,14 +1,103 @@
 
-
 $(function(){
 
-/*	$('#keywordModale').on('hidden.bs.modal', function () {
+	// Here is code for refreash  page  Domain
+	
+	$('#OutlineAcceptOrNeedTiImprovemenet').on('hidden.bs.modal', function () {
 		location.reload();
-	});*/
+		
+	});
 	
 	
-	$('#categoryname').change(function(){
-  					
+	$('#scriptStatusAcceptDomain').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+
+	$('#VideoStatusAccept').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	
+	//Contributor
+	
+	// here is code for keyword review
+	$('#keywordModale').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	// here is  code for 
+	$('#exampleModal').on('hidden.bs.modal', function () {
+		location.reload();
+		
+		
+	});
+	
+	// here is code for Script
+	$('#scriptModale').on('hidden.bs.modal', function () {
+		location.reload();
+		
+		
+	});
+	
+	
+	// Here  is code for 
+	$('#slideModale').on('hidden.bs.modal', function () {
+		location.reload();
+		
+		
+	});
+	
+	
+	$('#videoModel').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	
+	//Admin
+	
+	$('#VideoStatusAccept').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	//Quality
+	
+	$('#OutlineAccepOrNeedToImprovementQuality').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+
+	$('#scriptStatusAccept').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+
+	$('#slideAcceptOrNeedImp').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	$('#VideoAccepOrNeedToImprovementQuality').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	
+	$('#keywordAccepOrNeedToImprovementQuality').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	
+	$('#categoryname').change(function()
+	{
+		
   					var catgoryid=$(this).find(":selected").val();
   					$.ajax({
   					  	type: "GET",
@@ -125,7 +214,6 @@ $(function(){
   				}); 	
 
 
-		/////////////
 		
 		$('#catId').change(function(){
 			
@@ -173,6 +261,7 @@ $(function(){
 					
 
 				var catgoryid=$(this).find(":selected").val();
+				
 				$.ajax({	
 				  	type: "GET",
 		       		 url: "/downloadQuestion",
@@ -221,6 +310,7 @@ $(function(){
 		$('#inputLanguage').change(function(){
 		  				
 		  					var catgoryid=$(this).find(":selected").val();
+		  					
 		  					$.ajax({
 		  					  	type: "GET",
 		  			       		 url: "/loadByLangugaeTopic",
@@ -257,7 +347,8 @@ $(function(){
 		
 		$('#catId').change(function(){
 			
-				var catgoryid=$(this).find(":selected").val();
+			var catgoryid=$(this).find(":selected").val();
+				
 				$.ajax({
 				  	type: "GET",
 		       		 url: "/loadBycategorylanguage",
@@ -471,9 +562,13 @@ $(function(){
 	       		 success: function(result)
 	       		 {
 	       			 
+	       			 alert("Save data succefully");
+	       			 
+	       			 
 	       			 $("#statusOutline").prop('disabled',false);
 	       			 $('#statusOutline').html(html);
-	       			 
+	       			
+	       		
 					},		
 						error : function(err){
 					console.log("not working. ERROR: "+JSON.stringify(err));
@@ -732,14 +827,14 @@ $(function(){
 				});
 	
 	
-	/*here  calling approve button for contributor */
+	/*here  calling approve button for contributorvideoUpload */
 	
-	$('#approveContributorId').click(function()			
+	
+	$('.approveContributor').click(function()			
 	{
 		
 		
-		
-				var contributionId=$("#contributorId").val();
+				var contributionId=$(this).val();
 				
 						$.ajax({
 							  	type: "GET",
@@ -751,6 +846,16 @@ $(function(){
 
 				       			 $("#statusContributor").prop('disabled',false);
 				       			 $('#statusContributor').html(result);
+				       			 
+				       			 
+				       		$('#ContributerPage').on('hidden.bs.modal', function () 
+				    		  {
+				       			
+				       				location.reload();
+				       				
+				       			});  			 
+				       			 
+				       			 
 					       	
 					       		},
 										
@@ -759,7 +864,6 @@ $(function(){
 								}
 
 							});
-						
 						
 						
 				  
@@ -932,16 +1036,48 @@ $(function(){
 													});
 										  
 												});
+					
+				// Here is Code for Quality	Review keyword View
 						
-				$('#videoViewId').click(function()			
-				{
-											
+			$('#keywordModaleViewInQuality').click(function()			
+			{
+			
 												var categoryid=$("#categoryId").val();
 												var topicid=$("#topicId").val();
 												var lanId=$("#lanId").val();
 												
-												alert(categoryid+""+topicid+""+lanId);
-												var x;
+												$.ajax({
+													  	type: "GET",
+											       		 url: "/viewKeywordInQuality",
+											       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },			
+											       		 contentType: "application/json",
+											       		 success: function(result)
+											       		 { 
+											       			
+											       			 
+											       			 $("#keywordViewInKeyword").prop('disabled',false);
+											       			 $('#keywordViewInKeyword').html(result);
+											       		
+															},
+															
+																error : function(err){
+															console.log("not working. ERROR: "+JSON.stringify(err));
+														}
+								
+													});
+										  
+												});
+						
+						
+						
+				$('#videoViewId').click(function()			
+				{
+							
+					
+							
+												var categoryid=$("#categoryId").val();
+												var topicid=$("#topicId").val();
+												var lanId=$("#lanId").val();
 												
 												$.ajax({
 													
@@ -957,10 +1093,9 @@ $(function(){
 											       			 //$('#VideoView').html(result);
 											       			
 											       		        var res =  result;
-											       		        //alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
-
+											       		      
 											       		        source =  document.getElementById('storedVideoId');
-											       		        source.setAttribute('src', res);
+											       		        source.setAttribute('src',res);
 											       		        source.setAttribute('type','video/mp4')
 
 											       		        source.play(); //test playback of new video
@@ -978,7 +1113,60 @@ $(function(){
 										  
 												});
 						
-						
+					
+				// here is code for Quality View
+				
+				
+				$('#videoViewId').click(function()			
+				{
+							
+					
+							
+												var categoryid=$("#categoryId").val();
+												var topicid=$("#topicId").val();
+												var lanId=$("#lanId").val();
+												
+												$.ajax({
+													
+													  	type: "GET",
+											       		 url: "/viewVideo",
+											       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+											       		 contentType: "application/json",
+											       		 success: function(result)
+											       		 {
+											       					 
+											       			
+											       			 //$("#VideoView").prop('disabled',false);
+											       			 //$('#VideoView').html(result);
+											       			
+											       		        var res =  result;
+											       		      
+											       		        source =  document.getElementById('storedVideoId');
+											       		        source.setAttribute('src',res);
+											       		        source.setAttribute('type','video/mp4')
+
+											       		        source.play(); //test playback of new video
+											       		        
+											       		       // $('#videoDiv').show()
+											       		   
+											       		
+															},
+															
+																error : function(err){
+															console.log("not working. ERROR: "+JSON.stringify(err));
+														}
+								
+													});
+										  
+												});
+				
+				
+				
+			
+				
+				
+				
+				
 						//here code outline View
 						
 						$('#outlineViewModel').click(function()			
@@ -1014,6 +1202,7 @@ $(function(){
 					
 						$('#viewScriptId').click(function()			
 						{
+							
 											
 																var categoryid=$("#categoryId").val();
 																var topicid=$("#topicId").val();
@@ -1027,7 +1216,7 @@ $(function(){
 															       		 success: function(result)
 															       		 {
 															       		 	var res =  result;
-															       		      //  alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
+															       		       //alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
 
 															       		        source =  document.getElementById('ScriptPdf');
 															       		        source.setAttribute('href',res);
@@ -1083,26 +1272,119 @@ $(function(){
 														  
 																});
 							
-							//Display  comment box for need to improvemnet
+							//Display  comment box for need to improvemnet on outline
 							
-							$('#AddrType').click(function()			
+							$('#outlineAcceptOtrNeedImp').click(function()			
 								{
+								
 										
-										var vals=$("#AddrType").val();
+										var vals=$("#outlineAcceptOtrNeedImp").val();
 										
 										 if(vals === '0'){
 											 
-											  $('#NeedImprovement').css({'visibility':'hidden'});         
+											  $('#OutlineNeedImp').css({'visibility':'hidden'});         
 						 		          
 										 }
 										 else if(vals === '1'){
 											 
-											  $('#NeedImprovement').css({'visibility':'visible'}); 
+											  $('#OutlineNeedImp').css({'visibility':'hidden'}); 
 											 
-										 }
+										 }else if ( vals === '2') {
+											
+											 $('#OutlineNeedImp').css({'visibility':'visible'});
+										}
+										
 											  
 									});
 							
+					$('#outlineAcceptOrNeedToImpClick').click(function()
+					{
+								
+						
+						var categoryid=$("#categoryId").val();
+						var topicid=$("#topicId").val();
+						var lanId=$("#lanId").val();
+					
+						
+						var vals=$("#outlineAcceptOtrNeedImp").val();	
+						
+						
+						 if(vals === '0'){
+							 
+							 
+						 $('#OutlineNeedImp').css({'visibility':'hidden'});  
+							  
+							  alert("Select Accept Or Need To Improvement");  
+							  
+							
+						 }
+						 else if(vals === '1'){
+							 
+							  $('#OutlineNeedImp').css({'visibility':'hidden'}); 
+							  
+							  
+								$.ajax({
+									
+								  	type: "GET",
+						       		 url: "/acceptOutlineByDomain",
+						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+						       		 contentType: "application/json",
+						       		 success: function(result)
+						       		{
+						       			 
+					       			 $("#statusOutlineByDomain").prop('disabled',false);
+					       			 $('#statusOutlineByDomain').html(result);
+						       	
+						       		},
+											
+										error : function(err){
+										console.lo3g("not working. ERROR: "+JSON.stringify(err));
+									}
+
+								});	 
+							  
+							  
+							 
+						 }else if ( vals === '2') {
+							
+							 $('#OutlineNeedImp').css({'visibility':'visible'});
+							 
+							 var msg=$("#msgCommentOutline").val();
+							 
+							 
+							 alert()
+							 
+								$.ajax({
+									
+								  	type: "GET",
+						       		 url: "/needToImpOutlineByDomain",
+						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,'msg':msg},		
+						       		 contentType: "application/json",
+						       		 success: function(result)
+						       		{
+						       			 
+					       			 $("#statusOutlineByDomain").prop('disabled',false);
+					       			 $('#statusOutlineByDomain').html(result);
+						       	
+						       		},
+											
+										error : function(err){
+										console.lo3g("not working. ERROR: "+JSON.stringify(err));
+									}
+
+								});	 
+							 
+						 			
+						 
+						 
+						 }
+						
+							});
+							
+							
+					
+					//here is code for Script for domain 
+					
 							$('#scriptAccept').click(function()			
 								{	
 								
@@ -1112,13 +1394,24 @@ $(function(){
 										 { 
 											  $('#scriptNeedImprovement').css({'visibility':'hidden'});         
 						 		          }
-										 else if(vals==='1'){
+										 else if(vals==='1')
+										 {
+											 
+											  $('#scriptNeedImprovement').css({'visibility':'hidden'}); 
+											  
+											  
+										 }else if (vals === '2') {
+											 
 											 
 											  $('#scriptNeedImprovement').css({'visibility':'visible'}); 
-										 }
+											 
+											 
+											
+										}
 										 
 											  
 									});
+							
 							
 							
 							$('#VideoAccept').click(function()			
@@ -1146,25 +1439,28 @@ $(function(){
 							
 						
 							
-							
 			$('#VideoAcceptAdmin').click(function()			
-					{
+		{
 				
 							var vals=$(this).find(":selected").val();
-							
 							
 							
 							 if(vals === '0')
 							 { 
 								  $('#videoNeedImprovement').css({'visibility':'hidden'}); 
 								  
-								  alert("Hi  Demo examplwe");
+								 
+								  
 								  
 			 		          }
 							 else if(vals === '1'){
 								 
 					
 								  $('#videoNeedImprovement').css({'visibility':'hidden'}); 
+								  
+								  l
+								  
+								  
 
 							 }
 							 else if(vals === '2')
@@ -1195,9 +1491,9 @@ $(function(){
 														       		 contentType: "application/json",
 														       		 success: function(result)
 														       		 {
-														       		
-														       			$("#outlineViewResponseDomain").prop('disabled',false);
-														       			$('#outlineViewResponseDomain').html(result);
+														       
+													       			 $('#outlineViewResponseDomain').val(result)
+													       			
 														       		
 														       		 },
 																		
@@ -1227,12 +1523,11 @@ $(function(){
 																       		 {
 																       			var res = result;
 																       			 
-																       			 alert("NEW video path :" + res); 
+																       			
 																       			 
 																       		        source =  document.getElementById('scriptPdfDomain');
 																       		        source.setAttribute('href',res);
-																       		        
-
+																       		       
 																				},
 																				
 																					error : function(err){
@@ -1290,14 +1585,14 @@ $(function(){
 							
 								$('#submitCommentId').click(function()			
 								{
-									alert("call submit");
+									
 												
 																	var categoryid=$("#categoryId").val();
 																	var topicid=$("#topicId").val();
 																	var lanId=$("#lanId").val();
 																	var commentOutlineMsg=$("#msgCommentOutline").val();
 																	
-																	alert(commentOutlineMsg);
+																	
 																	
 																	$.ajax({
 																		
@@ -1322,44 +1617,8 @@ $(function(){
 																	});		
 							
 							
-			/*Here is code for comment on componenet script*/
-							
-					$('#scriptAcceptOrNeedToImprovemenet').click(function()			
-										{
-													
-														
-																			var categoryid=$("#categoryId").val();
-																			var topicid=$("#topicId").val();
-																			var lanId=$("#lanId").val();
-																			var msgScript=$("#msgScript").val();
-																			
-																		
-																			
-																			$.ajax({
-																				
-																				  	type: "GET",
-																		       		 url: "/commentOnScript",
-																		       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,"msgScript":msgScript},		
-																		       		 contentType: "application/json",
-																		       		 success: function(result)
-																		       		 {
-																		       			 
-																		       			 
-																		       			 $("#saveCommentScript").prop('disabled',false);
-																		       			 $('#saveCommentScript').html(result);
-																		       		
-																		       			 
-																						},
-																						
-																							error : function(err){
-																						console.log("not working. ERROR: "+JSON.stringify(err));
-																					}
-															
-																				});
-																	  
-																			});	
 					
-					/*Here is code for comment on componenet Video*/
+					/*Here is code for comment on componenet Video Domain*/
 					
 					$('#videoAcceptOrNeedToImprovemenet').click(function()			
 					{
@@ -1422,8 +1681,7 @@ $(function(){
 														       			 //$('#VideoView').html(result);
 														       			
 														       		        var res =  result;
-														       		        //alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
-
+														       		     
 														       		        source =  document.getElementById('storedVideoId');
 														       		        source.setAttribute('src', "http://localhost:8081/"+res);
 														       		        source.setAttribute('type','video/mp4')
@@ -1487,8 +1745,8 @@ $(function(){
 					
 					/*here is code for video accepet or need to improvement*/
 					
-					$('#videoAcceptOrNeedToImprovemenetByAdmin').click(function()			
-					{
+		$('#videoAcceptOrNeedToImprovemenetByAdmin').click(function()			
+		{
 						
 						var categoryid=$("#categoryId").val();
 						var topicid=$("#topicId").val();
@@ -1497,15 +1755,17 @@ $(function(){
 						
 						var vals=$("#VideoAcceptAdmin").val();
 						
-						alert(vals);
 						
 						if(vals == '0')
 						 { 
+							 $('#msgVideoCommentByAdmin').css({'visibility':'hidden'}); 
+							
 							  alert("Select Accept Or Need To Improvement"); 
 							  
 		 		          }
 						 else if(vals == '1'){
 							
+							 $('#msgVideoCommentByAdmin').css({'visibility':'hidden'}); 
 							 
 								$.ajax({
 									
@@ -1514,13 +1774,13 @@ $(function(){
 						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
 						       		 contentType: "application/json",
 						       		 success: function(result)
-						       		{
-
+						       		{			 
+									
 						       			
-						       			 
-					       			 $("#statusVideoByAdmin").prop('disabled',false);
-					       			 $('#statusVideoByAdmin').html(result);
-						       	
+						       			 $("#statusVideoByAdmin").prop('disabled',false);
+						       			 $('#statusVideoByAdmin').html(result);
+							       	
+					       		
 						       		},
 											
 										error : function(err){
@@ -1533,17 +1793,25 @@ $(function(){
 						 }
 						 else if(vals == '2')
 						 {
+
+					$('#msgVideoCommentByAdmin').css({'visibility':'visible'}); 
 							 
+							 
+							var msg=$("#msgVideoCommentByAdmin").val();
+								
+								alert("mse admin player"+msg);
+								
 							$.ajax({
+															
 									
 								  	type: "GET",
-						       		 url: "/needToImprovemenet",
-						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+						       		 url: "/needToImprovemenetByAdmin",
+						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,"msg":msg },		
 						       		 contentType: "application/json",
 						       		 success: function(result)
 						       		{
-
-	 
+						       			 	
+	
 					       			 $("#statusVideoByAdmin").prop('disabled',false);
 					       			 $('#statusVideoByAdmin').html(result);
 						       	
@@ -1602,8 +1870,7 @@ $(function(){
 						
 						var vals=$("#VideoAcceptDomain").val();
 						
-						alert(vals);
-						
+					
 						if(vals == '0')
 						 { 
 							  alert("Select Accept Or Need To Improvement"); 
@@ -1611,7 +1878,7 @@ $(function(){
 		 		          }
 						 else if(vals == '1')
 						 {
-							 alert("save");
+							 
 						
 								$.ajax({
 									
@@ -1621,7 +1888,7 @@ $(function(){
 						       		 contentType: "application/json",
 						       		 success: function(result)
 						       		{
-						       			 			alert(result);
+						       			 
 					       			 $("#statusVideoByDomain").prop('disabled',false);
 					       			 $('#statusVideoByDomain').html(result);
 						       	
@@ -1664,13 +1931,731 @@ $(function(){
 
 					});
 					
+		// Here is code for Domain review Accept or Need To Improvement
+		
+		
+		$('#scriptAcceptOrNeedToImprovemenetDomain').click(function()			
+	{
+						
+							var categoryid=$("#categoryId").val();
+							var topicid=$("#topicId").val();
+							var lanId=$("#lanId").val();
+			
+							var vals=$("#scriptAcceptDomain").val();
+							
+							
+
+							if(vals == '0')
+							{ 
+								  alert("Select Accept Or Need To Improvement"); 
+								  
+							}
+							 else if(vals == '1')
+							 {		
+								
+										$.ajax({
+																										
+										  	type: "GET",
+								       		 url: "/commentOnScript",
+								       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId},		
+								       		 contentType: "application/json",
+								       		 success: function(result)
+								       		 {
+								       			 
+								       			 $("#saveCommentScript").prop('disabled',false);
+								       			 $('#saveCommentScript').html(result);
+								       		
+								       			 
+												},
+												
+													error : function(err){
+												console.log("not working. ERROR: "+JSON.stringify(err));
+											}
+							
+										});
 					
+							 }else if (vals == "2") 
+							 {
+							  
+								 var msgScript=$("#msgScriptDomain").val();
+							
+						$.ajax({
+								 		
+										
+									  	type: "GET",
+							       		 url: "/needToImpScriptByDomain",
+							       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,"msgScript":msgScript},		
+							       		 contentType: "application/json",
+							       		 success: function(result)
+							       		 {
+							       			
+							       			 
+							       			 $("#saveCommentScript").prop('disabled',false);
+							       			 $('#saveCommentScript').html(result);
+							       		
+							       			 
+											},
+											
+												error : function(err){
+											console.log("not working. ERROR: "+
+													
+													
+														JSON.stringify(err));
+										}
+						
+									});
+								 
+								 
+								 
+								 
+							}
+		  
+				});
 				
-					
+		
+		
+		
+		
+	/*Here is code for comment on componenet script Quality accept or need To Improvement*/
+		
+		$('#scriptAcceptOrNeedToImprovemenet').click(function()			
+		{
+				
+					var categoryid=$("#categoryId").val();
+					var topicid=$("#topicId").val();
+					var lanId=$("#lanId").val();
 					
 					
 
+					var vals=$("#scriptAccept").val();
+					
+					
+
+					if(vals == '0')
+					{ 
+						  alert("Select Accept Or Need To Improvement"); 
+						  
+					}
+					 else if(vals == '1')
+					 {		
+								
+					
+						 
+								$.ajax({
+																								
+								  	type: "GET",
+						       		 url: "/commentOnScriptByQuality",
+						       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId},		
+						       		 contentType: "application/json",
+						       		 success: function(result)
+						       		 {
+						       			 
+						       			
+						       			 $("#saveCommentScript").prop('disabled',false);
+						       			 $('#saveCommentScript').html(result);
+						       		
+						       			 
+										},
+										
+											error : function(err){
+										console.log("not working. ERROR: "+JSON.stringify(err));
+									}
+					
+								});
+			
+			
+					 }else if (vals == "2") 
+					 {
+					  
+						 var msgScript=$("#msgScriptQuality").val();
+					
+				$.ajax({
+						 		
+								
+							  	type: "GET",
+					       		 url: "/needToImpScriptByQuality",
+					       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,"msgScript":msgScript},		
+					       		 contentType: "application/json",
+					       		 success: function(result)
+					       		 {
+					       			
+					       			 
+					       			 $("#saveCommentScript").prop('disabled',false);
+					       			 $('#saveCommentScript').html(result);
+					       		
+					       			 
+									},
+									
+										error : function(err){
+									console.log("not working. ERROR: "+
+											
+											
+												JSON.stringify(err));
+								}
+				
+							});
+						 
+						 
+						 
+						 
+					}
+  
+		});
+		
+		// Here is  code for Quality outline selection 
+		
+	$('#OutlineAccepOrNeedToImprovementQuality').click(function()			
+	{
+		
+		
+			var vals=$("#outlineQualitAceept").val();
+			
+			
+			if(vals ==='0')
+			 { 
+				  $('#msgQualitytOutline').css({'visibility':'hidden'}); 
+				  
+		      }
+			
+			 else if(vals === '1')
+			 {
+				 	$('#msgQualitytOutline').css({'visibility':'hidden'});
+					 
+
+			 }
+			 else if(vals === '2')
+			 {
+				 
+				 $('#msgQualitytOutline').css({'visibility':'visible'}); 											 
+				 
+			 }
+	
+		});
+		
+		// here is code for Quality Outline Code  for submition 
+		
+		
+		$('#submitQualityOutlineStatus').click(function()			
+		{
+			
+			
+			var categoryid=$("#categoryId").val();
+			var topicid=$("#topicId").val();
+			var lanId=$("#lanId").val();
+			
+			var vals=$("#outlineQualitAceept").val();
+			
+			if(vals == '0')	
+			 { 
+				alert("Accept Or Need To Improvement");
+	
+		       }
+			 else if(vals == '1')
+			 {
+				 
+				 alert("save data")
+				 	
+		$.ajax({
+			
+		
+						
+					  	type: "GET",
+			       		 url: "/acceptOutlineByQuality",
+			       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId},		
+			       		 contentType: "application/json",
+			       		 success: function(result)
+			       		 {
+			       			 
+			       			 
+			       			 
+			       			 $("#commentOutlineByQuality").prop('disabled',false);
+			       			 $('#commentOutlineByQuality').html(result);
+			       		
+			       			 
+							},
+							
+								error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+		
+					}); 	
+
+			 }
+			 else if(vals == '2')
+			 {
+			
+				 var msg=$("#msgQualitytOutline").val();
+				 
+		$.ajax({
+						
+				     type: "GET",
+		       		 url: "/needToImprovementOutLineByQuality",
+		       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,"msg":msg},		
+		       		 contentType: "application/json",
+		       		 success: function(result)
+		       		 {
+		       			 
+		       			 $("#commentOutlineByQuality").prop('disabled',false);
+		       			 $('#commentOutlineByQuality').html(result);
+		       		
+		       			 
+						},
+						
+							error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
+					}
+	
+				}); 
+	
+				 
+				 
+			 }
+			
+			
+			
+		});
+		
+	// Here is code for slide View into Quality		
+		
+		$('#slideModaleView').click(function()			
+	{
+							
+			
+			
+												var categoryid=$("#categoryId").val();
+												var topicid=$("#topicId").val();
+												var lanId=$("#lanId").val();
+												$.ajax({
+													
+													  	type: "GET",
+											       		 url: "/slidePdfQuality",
+											       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+											       		 contentType: "application/json",
+											       		 success: function(result)
+											       		 {
+											       		 	var res =  result;
+											       		 	
+											       		        source =  document.getElementById('SlidePdfQuality');
+											       		        source.setAttribute('href',res);
+											       		       // source.setAttribute('type','video/mp4')
+
+											       		        source.play(); 
+											       			 
+											      
+															},
+															
+																error : function(err){
+															console.log("not working. ERROR: "+JSON.stringify(err));
+														}
+								
+													});
+										  
+												});
+		
 });
 
+ // Slide Accept Or Need To Improvement
 
+
+	$('#slideAcceptOrNeedImp').click(function()			
+		{
+		
+			var vals=$("#slideAcceptByQuality").val();
+			
+		
+			if(vals === '0')
+			 { 
+				  $('#slideNeedToImp').css({'visibility':'hidden'}); 
+		          }
+			 else if(vals === '1')
+			 {
+				 
+				 	$('#slideNeedToImp').css({'visibility':'hidden'});
+
+			 }
+			 else if(vals === '2')
+			 {
+				 
+				 $('#slideNeedToImp').css({'visibility':'visible'}); 											 
+				 
+			 }
+	
+		
+		});
+	
+	//Here is code for save comment into  slide
+	
+			$('#slideAcceptOrNeedToImprovemenetByQuality').click(function()			
+			{
+		
+						var categoryid=$("#categoryId").val();
+						var topicid=$("#topicId").val();
+						var lanId=$("#lanId").val();
+						var vals=$("#slideAcceptByQuality").val();
+		
+				if(vals == '0')
+				 { 
+					
+						alert("Select Accept Or Need To Improvement");
+					
+						// here is  code for Script 	// here is  code for Script css({'visibility':'hidden'}); 
+					 
+			     }
+				 else if(vals == '1')
+				 {
+			
+					 	 $.ajax({
+								
+							  	type: "GET",
+					       		 url: "/acceptSlideByQuality",
+					    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+					       		 contentType: "application/json",
+					       		 success: function(result)
+					       		{
+					       			
+					       		 alert("result is"+result);
+					       			 
+				       			 $("#statusSlideByQuality").prop('disabled',false);
+				       			 $('#statusSlideByQuality').html(result);
+				       		
+					       		},
+										
+									error : function(err){
+									console.lo3g("not working. ERROR: "+JSON.stringify(err));
+								}
+
+							});	  
+	
+				 }
+				 else if(vals == '2')
+				 {
+					 
+				 $('#slideNeedToImp').css({'visibility':'visible'}); 
+					 
+					 var msg=$("#slideCommentMsg").val();
+					 
+					 $.ajax({
+							
+						  	type: "GET",
+				       		 url: "/needToImprovementSlideByQuality",
+				    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,'msg':msg},		
+				       		 contentType: "application/json",
+				       		 success: function(result)
+				       		{
+				       			
+				       	
+					       			 $("#statusSlideByQuality").prop('disabled',false);
+					       			 $('#statusSlideByQuality').html(result);
+						     
+				       		},
+									
+								error : function(err){
+								console.lo3g("not working. ERROR: "+JSON.stringify(err));
+							}
+
+						});	  
+					 
+					 
+				 }
+				
+				
+			});
+				
+		// here is  code for Script for Quality Review					
+		$('#scriptStatusAccept').click(function()			
+			{
+					
+					var vals=$("#scriptAccept").val();
+					if(vals === '0')
+					{ 
+						$('#msgScriptQuality').css({'visibility':'hidden'}); 
+					}
+					else if(vals === '1')
+				   {
+										 
+						$('#msgScriptQuality').css({'visibility':'hidden'});
+		
+					}
+					else if(vals === '2')
+					{
+											 
+						$('#msgScriptQuality').css({'visibility':'visible'}); 											 
+											 
+					 }
+				
+		});
+		
+		// Here is code for Script for Domain review
+		
+		$('#scriptStatusAcceptDomain').click(function()			
+				{
+						
+						var vals=$("#scriptAcceptDomain").val();
+						
+						if(vals === '0')
+						{ 
+							$('#msgScriptDomain').css({'visibility':'hidden'}); 
+						}
+						else if(vals === '1')
+					   {
+											 
+							$('#msgScriptDomain').css({'visibility':'hidden'});
+			
+						}
+						else if(vals === '2')
+						{
+												 
+							$('#msgScriptDomain').css({'visibility':'visible'}); 											 
+												 
+						 }
+						
+					
+			});
+		
+		// Here is code for Accept Or Need To Improvement
+		
+		
+		
+		
+	
+		// Here is code  for keyword   Quality Review	
+		
+		$('#keywordAccepOrNeedToImprovementQuality').click(function()			
+		{
+			
+			
+			
+				var vals=$("#keywordQualitAceept").val();
+		
+			
+				
+						if(vals === '0')
+						{ 
+							
+							$('#msgkeywordQuality').css({'visibility':'hidden'}); 
+							
+						}
+						else if(vals === '1')
+					   {
+											 
+							$('#msgkeywordQuality').css({'visibility':'hidden'});
+			
+						}
+						else if(vals === '2')
+						{
+												 
+							$('#msgkeywordQuality').css({'visibility':'visible'}); 											 
+												 
+						}
+		
+		});
+		
+		// here is code for Video review into Quality
+		
+		$('#VideoAccepOrNeedToImprovementQuality').click(function()			
+				{
+					
+				
+						var vals=$("#videoQualitAceept").val();
+				
+					
+						
+								if(vals === '0')
+								{ 
+									
+									$('#msgVideoQuality').css({'visibility':'hidden'}); 
+									
+								}
+								else if(vals === '1')
+							   {
+													 
+									$('#msgVideoQuality').css({'visibility':'hidden'});
+					
+								}
+								else if(vals === '2')
+								{
+														 
+									$('#msgVideoQuality').css({'visibility':'visible'}); 											 
+														 
+								}
+				
+				});
+		
+		
+		// Here is code for review  For Quality  
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//here is code for  Accept Or Need To Improvement Script
+		
+		$('#KeyWordAcceptOrNeedToImprovemenetByQuality').click(function()			
+		{
+			
+							var categoryid=$("#categoryId").val();
+							var topicid=$("#topicId").val();
+							var lanId=$("#lanId").val();
+							
+							
+							var vals=$("#keywordQualitAceept").val();
+			
+					if(vals == '0')
+					 { 
+						
+							alert("Select Accept Or Need To Improvement");
+						
+							// here is  code for Script 	// here is  code for Script css({'visibility':'hidden'}); 
+						 
+				     }
+					 else if(vals == '1')
+					 {
+				
+						 
+						 	 $.ajax({
+									
+								  	type: "GET",
+						       		 url: "/acceptKeywordByQuality",
+						    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+						       		 contentType: "application/json",
+						       		 success: function(result)
+						       		{
+						       		
+						       			 
+					       			 $("#statusKeywordByQuality").prop('disabled',false);
+					       			 $('#statusKeywordByQuality').html(result);
+					       		
+						       		},
+											
+										error : function(err){
+										console.lo3g("not working. ERROR: "+JSON.stringify(err));
+									}
+
+								});	  
+		
+					 }
+					 else if(vals == '2')
+					 {
+	 
+						 var msg=$("#msgkeywordQuality").val();
+						
+						 $.ajax({
+								
+							  	type: "GET",
+					       		 url: "/needToImprovementKeywordByQuality",
+					    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,'msg':msg},		
+					       		 contentType: "application/json",
+					       		 success: function(result)
+					       		{
+					       			 
+					       			 $("#statusKeywordByQuality").prop('disabled',false);
+						       		 $('#statusKeywordByQuality').html(result);
+						       			 
+							     
+					       		},
+										
+									error : function(err){
+									console.lo3g("not working. ERROR: "+JSON.stringify(err));
+								}
+
+							});	  
+						 
+						 
+					 }
+					
+
+		});
+		
+		$('#VideoAcceptOrNeedToImprovemenetByQuality').click(function()			
+				{
+			//chage
+	
+					
+									var categoryid=$("#categoryId").val();
+									var topicid=$("#topicId").val();
+									var lanId=$("#lanId").val();
+									
+									
+									var vals=$("#videoQualitAceept").val();
+					
+							if(vals == '0')
+							 { 
+								
+									alert("Select Accept Or Need To Improvement");
+								
+									// here is  code for Script 	// here is  code for Script css({'visibility':'hidden'}); 
+								 
+						     }
+							 else if(vals == '1')
+							 {
+						
+								 
+								 	 $.ajax({
+											
+										  	type: "GET",
+								       		 url: "/acceptVideoByQuality",
+								    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+								       		 contentType: "application/json",
+								       		 success: function(result)
+								       		{
+								       			 
+							       			 $("#statusQualityByQuality").prop('disabled',false);
+							       			 $('#statusQualityByQuality').html(result);
+							       		
+								       		},
+													
+												error : function(err){
+												console.lo3g("not working. ERROR: "+JSON.stringify(err));
+											}
+
+										});	  
+				
+							 }
+							 else if(vals == '2')
+							 {
+			 
+								 var msg=$("#msgkeywordQuality").val();
+								
+								 $.ajax({
+										
+									  	type: "GET",
+							       		 url: "/needToImprovementQualityByQuality",
+							    		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId,'msg':msg},		
+							       		 contentType: "application/json",
+							       		 success: function(result)
+							       		{
+							       			 
+							       			 $("#statusQualityByQuality").prop('disabled',false);
+								       		 $('#statusQualityByQuality').html(result);
+								       			 
+									     
+							       		},
+												
+											error : function(err){
+											console.lo3g("not working. ERROR: "+JSON.stringify(err));
+										}
+
+									});	  
+								 
+								 
+							 }
+							
+							
+
+							
+							
+							
+				
+				
+				});
+				
+				
+		
+		
+		
+		
 

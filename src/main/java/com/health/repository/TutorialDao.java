@@ -19,29 +19,58 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer>{
 
 	 Tutorial findBylanguage(String name);
 	 
-	/* Admin Reviwer */
-	
+	//Admin Video Approve  
 	 
+	@Query("from Tutorial u where u.videoStatus IN (2,5,4,3)")
+	List<Tutorial> findByVideoStatusByAdmin(); 
+	
+	@Query("from Tutorial u where u.outlineStatus=4 or slideStatus=4 or  scriptStatus=4 or  videoStatus=4 or keywordStatusSet=4")
+	List<Tutorial>  findByTutorialQualityReview(); 
+	
+	
+	/* Only other than Englisdh language */
 	
 	/*
-	 * @Query("from Tutorial u where u.videoStatus=1") List<Tutorial>
-	 * findByOutlineScriptVideo(outlineStatus,);
+	 * @Query("from Tutorial u where u.lan Not IN (1)") List<Tutorial>
+	 * findBylanguageIdForMarkAsPublicReview();
 	 */
+	
+	// Here is  code for Approve Tutorial  
 
-	 
+	@Query("from Tutorial u where u.status=0 and u.outlineStatus=4 and slideStatus=4 and  scriptStatus=4 and  videoStatus=4 and keywordStatusSet=4")
+	List<Tutorial>  findByIdStausForApprove(); 
+	
+ 
+	/*
+	 * @Query("from Tutorial u where u.videoStatus IN ()") List<Tutorial>
+	 * findByContributorStatus();
+	 */
 
 	@Query("from Tutorial u where u.videoStatus=1")
 	List<Tutorial> finByVideoStatus(); 
 	
-	 
+	
+	
+	@Query("from Tutorial u where  topic=?1 and category=?2 and langaueg_id=?3")
+	Tutorial findByTutorialForComment(topic topic,Category category,language language);
+	
+
 	@Query("from Tutorial u where u.user=?1 and topic=?2 and category=?3 and langaueg_id=?4")
 	Tutorial finByKeywordContent(User user,topic topic,Category category,language language);
+	
+	//Access Keyword  information into Quality
+	@Query("from Tutorial u where  topic=?1 and category=?2 and langaueg_id=?3")
+	Tutorial findByKeywordInQuality(topic topic,Category category,language language);
+	
+	
+	
+	
 	
 	@Query("from Tutorial u where  topic=?1 and category=?2 and langaueg_id=?3")
 	Tutorial finByKeywordContentDomain(topic topic,Category category,language language);
 	
-	@Query("from Tutorial u where u.category=?1 and langaueg_id=?2")
-	List<Tutorial> findByCategoryAndlanguage(Category category,language language);
+	@Query("from Tutorial u where u.category=?1 and langaueg_id=?2 and topic=?3")
+	List<Tutorial> findByCategoryAndlanguage(Category category,language language,topic topic);
 
 	@Query("from Tutorial  u where u.user=?1 and u.category=?2")
 	List<Tutorial> findByContributorTopic(User user,Category category);
@@ -55,6 +84,7 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer>{
 	@Modifying
 	@Query("update Tutorial set keyword=?1, keywordStatusSet=?2 where user_id=?3 and topic_id=?4 and category_id=?5")
 	int updateKeyword(String keywordmeassage,int keywordstatus,User user,topic topic,Category category);
+	
 	
 	@Modifying
 	@Query("update Tutorial set outlin=?1, outlineStatus=?2 where user_id=?3 and topic_id=?4 and category_id=?5")
@@ -75,11 +105,55 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer>{
 	@Query("update Tutorial set video=?1, videoStatus=?2 where user_id=?3 and topic_id=?4 and category_id=?5")
 	int updateVideo(String video,int videoStatus,User user,topic topic,Category category);
 	
-	//Admin Update status Video
+	//Admin Update status VideotutorialDao
 	
 	@Modifying
 	@Query("update Tutorial set videoStatus=?1 where  topic_id=?2 and category_id=?3 and langaueg_id=?4")
 	int updateVideoStatusByAdmin(int videoStatus,topic topic,Category category, language language);
+	
+	//Domain update status for Component
+	
+	@Modifying
+	@Query("update Tutorial set outlineStatus=?1 where  topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int updateOutlineStatusByDomain(int outlineStatus,topic topic,Category category, language language);
+	
+	@Modifying
+	@Query("update Tutorial set scriptStatus=?1 where  topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int updateScriptStatusByDomain(int scriptStatus,topic topic,Category category, language language);
+
+	// Quality  review for the component
+	
+	@Modifying
+	@Query("update Tutorial set outlineStatus=?1 where  topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int updateOutLineStatusByQuality(int outlineStatus,topic topic,Category category, language language);
+	
+	@Modifying
+	@Query("update Tutorial set slideStatus=?1 where  topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int upadateSlideStatusByQuality(int slideStataus,topic topic,Category category, language language);
+	
+	//Script 
+	
+	@Modifying
+	@Query("update Tutorial set scriptStatus=?1 where topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int upadateScriptStatusByQuality(int scriptStatus,topic topic,Category category, language language);
+	
+	//keyword
+
+	@Modifying  
+	@Query("update Tutorial set keywordStatusSet=?1 where topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int upadateKeywordByQuality(int keywordStatus,topic topic,Category category, language language);
+	
+	
+	@Modifying  
+	@Query("update Tutorial set videoStatus=?1 where topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int upadateVideoByQuality(int videoStatus,topic topic,Category category, language language);
+	
+	
+	//here is code for upadate  Status Approves
+
+	@Modifying  
+	@Query("update Tutorial set  status=?1 where id=?2")
+	int updateStatusByQualityApprove(int statusApproveByQuality,int idStatus);
 	
 	
  }
