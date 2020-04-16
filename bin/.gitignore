@@ -21,4 +21,5 @@ build/
 nbbuild/
 dist/
 nbdist/
+src/main/resources/static/s/Media/content/
 .nb-gradle/

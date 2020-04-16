@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">  
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="s/css/style.css"/>
+  <link rel="stylesheet" href="s/css/bootstrap.min.css"/>
+  
+</head>
+      <header role="banner">
+              <div class="top-bar">
+                <a href="Admin_Template.html">  <img src="img/logo.png "></img></a><span style="color: indianred">Health Nutrition</span>
+                <div class="container">
+                  <div class="row">
+    
+                  </div>
+                </div>
+              </div>
+         
+         <!--blue line end-->      
+      </header> 
+  <body>
+
+      <div class="#">
+        <div class="row" style="padding-top: 180px">
+                  <div class="col-4">
+
+                  </div>
+                  <div class="col-4 shadow p-3 mb-5 bg-white rounded">
+
+                      
+ 				<form class="form-horizontal"  th:action="@{/savecategory}" method="post">
+                          
+                          <div class="row" style="padding-top: 40px">
+                              
+                              <div class="col-5" style="padding-left:35px">
+                                  
+                                  
+                                  </div>
+                                  
+                              
+                                     <div class="row" style="padding-top: 20px">
+                                  
+                                    <div class="col-5" style="padding-left: 100px">
+                                                   <label for="category">Enter Category</label> 
+                                        
+                                     </div>
+                                    <div class="col-7" style="padding-left: 61px">
+                                        
+                                                   <input type="text" class="form-control" id="category" name="categoryname" style="width: 250px;" required="required"/>
+                                     </div>
+
+                              </div>
+                            
+                              <div class="row">   
+                                  <div class=""  style="padding-left: 250px; padding-top: 20px">
+  
+                                            <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
+                                             <button type="reset" class="btn btn-success">Reset</button>
+                                      
+                                      
+                                  </div>
+                              </div>
+                              
+                  
+                          </div>
+
+
+                        <div class="form-group">
+                              
+            
+                        </div>
+                       
+                      </form>
+
+                  </div>
+                    <div class="col-4">
+                        
+                    </div>
+          </div>
+      </div>
+      
+    	
+      <div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>	
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ 
+      
+      
+      
+    
+<!--footer --> 
+      <div class="#">
+          
+          
+          <div class="aaic-grbg1 pt-3 py-3 " style="height:300px">
+              
+              <h3></h3>
+              
+          </div>
+          
+      </div>
+      
+        <script src="static/css/all.css"></script>
+         <script src="static/js/all.js"></script>
+        <script src="static/css/bootstrap.min.css" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="static/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

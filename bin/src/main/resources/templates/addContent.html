@@ -1,0 +1,1097 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+<head th:replace="common/trail :: common-trail">
+
+
+  			<link rel="stylesheet" href="/s/fonts/flaticon/font/flaticon.css"/>
+			<link rel="stylesheet" type="text/css" href="/fontawesome-free-5.10.1-web/css/all.css"/>		
+		
+			<link type="text/css" href="css/sample.css" rel="stylesheet" media="screen" />
+		
+	<meta charset="utf-8"/>
+		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+		 <link rel="stylesheet" href="css/style3.css"/>
+ 	 	<link rel="stylesheet" href="css/bootstrap.min.css"/> 
+ 	 	
+ 	
+	</head>
+  <body>
+  
+  		<div th:replace="common/trail :: navbar1"/>
+  		
+	<div class="" style="padding-top: 90px">
+
+	<script src="js/jquery-3.3.1.js"></script>
+	
+	
+<!-- 	 <script type="text/javascript">
+ 	 	$(document).ready(function(){
+ 	 		
+ 	 		$("#videoViewId").click(){
+ 	 			alert("Hi");
+ 	 			
+ 	 			var videoIframe=document.getElementById("VideoView").src;  
+		
+ 	 			
+ 	 			document.getElementById("myImg").src = "hackanm.gif";
+ 	 			 var scriptPdf = document.getElementById("scriptPdf");
+ 	 		
+ 	 			 $('#videoSet').attr('src',number);
+ 	 			 
+ 	 	
+ 	 	 });
+ 	});
+ 	 			
+ 		</script> -->
+ 		
+ 		<script type="text/javascript">
+ 		
+ 	 	$(document).ready(function(){
+ 	 		
+ 	 		/*
+ 	 		$("#videoClick").click(function()
+ 		 {
+ 	 		
+ 	 	 	  alert("Hi");
+ 	 		  var link="Media/content/Creation/Video/Yoga with Nutrition/English/Yoga/006 Start Project with Index Page.mp4";
+ 	 		  
+ 	 		  	//var response = $(data).find('#videoSet')[0].outerHTML;
+ 	 		  	//alert(respone); 
+ 	 		  	
+ 	 		  	var setVideo= document.getElementById('VideoView').getAttribute('value');
+ 	 		  
+ 	 		  	alert(setVideo); 
+ 	 		  			
+			 		 $('#videoSet').attr('src',link);
+			 	 
+			 		 
+			 		
+ 	 	 });	
+ 	 		 */	
+	
+ 	 	 	 	  
+ 	 	 	 	   	 	  
+ 	 	  
+ 	 	  
+ 	 });
+ 	 			
+ 		</script>
+ 		
+ 		
+
+
+	    <div class="row">	  
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card card-signin flex-row my-5">
+	       
+	       
+	
+	       
+	          <div class="card-body">
+	            <h5 class="card-title text-center" style="color:maroon;"><i class="fas fa-align-justify"></i>  Upload Tutorial</h5>
+	            
+	                  <form th:action="@{/submitTutorial}" method="post">
+
+			               <table class="table table-bordered">
+                                    <thead>
+                                      <tr>
+                                        <th>Foss</th>
+                                    <td>
+                      
+										  <span id="catId" th:each="catgoryName : ${categoryName}">
+										  		<input class="form-control"  id="categoryId"  name="categoryName"  th:value="${catgoryName.getCategoryname()}" readonly="readonly"></input>		
+										 </span>
+
+								
+									
+                                     </td> 
+                         
+    							<!--        <span  th:each="catgoryName : ${categoryName}"> 
+                                           <td   style="color:maroon;"  th:text="${catgoryName.getCategorylname()}"> </td>
+    
+										</span>	 -->
+													
+                                      </tr>
+                                    </thead>
+
+                                     <thead>
+                                      <tr>
+                                      
+                                      
+                                        <th>Topic Name</th>
+                                        <td>
+			                                          <span id="topicName" th:each="topic : ${inputTopic}">  
+			   										<input class="form-control"  id="topicId" name="categoryName"  th:value="${topic.getTopicname()}" readonly="readonly"></input>		
+			                                        </span>
+                                        </td>
+                                      </tr>
+						      
+                                    </thead>
+
+                                 <thead>
+                                      <tr>
+                                        <th>Language Name</th>
+                                        <td>
+			                                  <span id="lan" th:each="language : ${inputLanguage}">  
+			                         					 <input class="form-control" id="lanId" name="languageName"  th:value="${language.languageName}" readonly="readonly"></input>		
+			                                   
+												</span>		
+										</td>
+                                      </tr>
+                                   </thead>
+
+                             <!--   <thead>
+                                          <tr>
+   
+                                <th> Date</th>               
+  
+                                <td>
+                                	date remaining
+                                
+			                                  <span id="lan" th:each="language : ${inputLanguage}">  
+			                         					 <input class="form-control" id="lanId" name="languageName"   readonly="readonly"></input>		
+			                                   
+												</span>		
+										</td>
+                              						</tr>
+                                    </thead> -->
+
+               
+                            </table>
+                                
+                            <table class="table table-bordered" style="background: lightblue">
+                            
+                            
+                            
+                            <thead>
+                                      <tr>
+                                          
+		                                          <th>Sr No</th>
+		                                          <th>Component</th> 
+		                                          <th>Status</th>
+		                                          <th>User</th>  
+		                                          <th>
+		                                          <i style="color: purple; width:30px " class="fas fa-cogs"></i>
+		                                          </th>
+		                
+                                        </tr>                         
+                             </thead>
+
+                                      <tbody>
+                                      <tr>  
+		                                          <td>1</td>
+		                                          <td>Outline</td>
+		                                          <td>	                                          
+		                                              <span th:each="statusOutline : ${statusOutline}">  
+				                                    	<span style="color:green;" th:text="${statusOutline}">Pending</span>
+													</span>	
+		                        	
+												 </td>
+		                                          <th>-</th>
+		                                          <th> <span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i>
+		                                          		
+		                                          		</button></span>
+		                                          		<span  th:if="${statusOutlineTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#outlineViewModel" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button></span>
+		                                          		
+		                                          </th>
+
+                                      </tr>
+                                       <tr>
+                                            
+		                                          <td>2</td>
+		                                          <td>Script</td>
+		                                      		<td>
+		                                  
+		                                              <span th:each="statusScript :${statusScript}">  
+				                                    	<span style="color:green;" th:text="${statusScript}">Pending</span>
+														</span>	
+		                            
+												  </td>
+		                                      
+		                                          <th>-</th>
+		                                          <th><span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#scriptModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          </span>
+		                                       	 <span th:if="${statusScriptTrue}">  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewScriptId" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                         	</button></span>
+		                                          
+		                                          </th>
+
+                                     	 </tr>
+                                     	 
+                                     <tr>
+                                            
+		                                          <td>3</td>
+		                                          <td>Slide</td>
+		                                       	   <td>		                                  
+		                                              <span th:each="statusSlide: ${statusSlide}">  
+				                                    	<span style="color:green;" th:text="${statusSlide}">Pending</span>
+														</span>	
+		                            
+												  </td>
+		                                       
+		                                          <th>-</th>
+		                                          <th> <span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button></span>
+		                                          <span th:if="${statusSlideTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModaleView" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          </button>
+		                                          </span></th>
+ 	
+                                     </tr>
+                                     	 
+                                      <tr>
+                                            
+		                              			  <td>4</td>
+		                                          <td>Video</td>
+		                                		 <td>		                                  
+		                                              <span th:each="statusVideo : ${statusVideo}">  
+				                                    	<span style="color:green;" th:text="${statusVideo}">Pending</span>
+													 </span>	
+												 </td>
+		                                
+		                                          <th>-</th>
+		                                          <th><span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoModel" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> 
+		                                          </span>
+		                                          <span th:if="${statusVideoTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoViewId" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button>
+		                                          	</span>	</th>
+
+                                    </tr>
+                                     	 
+                                     	 
+                                     	 <tr>                                            
+		                                          <td>5</td>
+		                                          <td>Keywords</td>
+		                                          <td> 
+		                                          	 <span th:each=" statusKeyword: ${statusKeyword}">  
+				                                    	<span style="color:green;" th:text="${statusKeyword}">Pending</span>
+													</span>	
+													
+		                                         </td>
+		                                          <th>-</th>
+		                                          <th> <span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          </span>
+		                                          	<span th:if="${statusKeywordTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModaleView" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button>
+		                                          		</span>
+		                                          	
+		                                          </th>
+
+                                     	 </tr>
+                                     	 
+                                     <!-- 	  <tr>   
+                                     	                                          
+		                                          <td>6</td>
+		                                          <td>Prerequisite</td>
+		                                          <td>Pending</td>
+		                                          <th>-</th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#prerequisiteModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
+
+                                     	 </tr> -->
+  
+                                    </tbody>
+							    </table>
+						
+						
+			<span th:each="mesComment : ${CommentMsg}">  
+				               
+					<span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Video'}">
+				                  
+				       <div class="alert alert-info">
+				                 
+				                   <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				            
+				               <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                  
+				                    &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i>	  <span style="color:green;" th:text="${mesComment.getCommentInfo()}">
+				                   
+				                   	</span>
+				                   	
+				             	</div>      	
+				                   	</span>
+				             	
+				                   	
+				     
+				                   	
+				              <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Outline'}">
+				                   	    
+				                  <div class="alert alert-info">
+				                  	 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                    
+				                 <strong style="color:green; text-transform:uppercase;">  <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                    	
+				                  &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i>	   	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				                  </div>
+				                    
+				              	</span> 
+				                   	
+				            <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Script'}">
+				            
+				               <div class="alert alert-info">
+				               	 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                    
+				                   <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                    
+				              &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i>  <span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    	
+				                   </div> 
+				                    
+				           </span> 
+				                   	
+				              <!--   </div> -->
+				                   	
+				              	
+				                	
+				          <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Slide'}">
+				                   	 
+				               <div class="alert alert-info">
+				                    
+				                    	 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                    <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                    
+									 &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i><span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				               </div> 
+				                    
+				           </span> 
+				                   
+				                 
+				               <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()==keyword}">
+				                 
+				                   	 <div class="alert alert-info">	 
+				                    
+				                    	 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                     <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
+				                    
+				                    	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				                    </div>
+				                    
+				               </span>
+									
+												
+											<!-- 	
+									</div> -->
+									
+								
+												
+					<!-- 	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span> -->
+			
+			</span>
+				</form>
+			          
+					<!--  Outline   Start-->
+			         	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						      						      
+						        <h5 class="modal-title" id="exampleModalLabel">Upload  Outline</h5> 						        
+						         <span  style="color: green; padding-left: 50px"  id="statusOutline">
+						          		
+				
+								 </span>
+								 								  
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      
+						           
+						      <div class="modal-body">
+						       <form th:action="@{/addOutline}" method="post">
+						   
+						          <div class="form-group">
+						          
+							            <label for="message-text" class="col-form-label">Add Outline</label>
+							            <textarea class="form-control editor"  name="editor" id="editor" rows="10">
+							        
+							            </textarea>
+					  
+						          </div>
+						        <button id="outlineId" type="button" class="btn btn-success">Upload Outline</button>
+						     
+						        </form>
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							       
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div> 
+						</div> 
+				 <!--  Outline   End-->
+				
+			
+				
+				<!-- Video Div	 -->	
+				<div class="modal fade" id="videoModel" tabindex="-1" role="dialog" aria-labelledby="exampleVideoModalLabel" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleVideoModalLabel">Upload  Video</h5>
+						        
+						    		 <span  style="color: green; padding-left: 50px"  id="statusofVideo">
+						          		
+								 	</span>
+								 	
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						
+			
+						 <form id="upload-file-form-video"  onsubmit="return submitForm(this);">
+		 	                        
+				                <div class="form-group"> 
+				                         		
+									                   <label for="videoFileId" style="padding-top: 8px">Add Video</label> 
+									                   <input type="file" style="" class="form-control-file" id="videoFileIdA"  name="videoFileName" placeholder="uploadVideo"   accept=".mp4" required="required"></input>												
+									                 
+				                   </div> 
+				         
+				        <!--                  		<div class="form-group"> 
+	              		
+								 <label for="consaltantImage" style="padding-top: 8px">Select Minute</label> 
+									 <select id="categoryname" class="form-control" name="categoryName"  >
+				                    
+											  <option selected="selected" >Select Minute</option>  
+												   
+												    <option value="val1"> 1</option>
+												    <option value="val2"> 2</option>
+												    <option value="val3"> 3</option>
+												    <option value="val3"> 4</option>
+												    <option value="val3"> 5</option>
+												    <option value="val3"> 6</option>
+												    <option value="val3"> 7</option>
+												    <option value="val3"> 8</option>
+												    <option value="val3"> 9</option>
+												    <option value="val3"> 10</option>
+												    <option value="val3"> 11</option>
+												    <option value="val3"> 12</option>
+												       
+							                     <span th:each="category: ${categorys}">
+							  					<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+				  									</span>
+				  				 
+				  						
+				                    </select>             
+				                                 </div>   -->       
+				                                 
+		<!-- 		                                 
+				             <div class="form-group"> 
+				                         		
+									    <label for="consaltantImage" style="padding-top: 8px">Select Seconds</label>
+										 <select id="categoryname" class="form-control" name="categoryName" >
+				               
+							                   <option selected="selected">Select Seconds</option>      
+							          
+		
+							                        <span th:each="category: ${categorys}">
+							  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+				  					
+				  					
+				  						</span>
+				                   		 </select> 
+									                                 
+				             </div>   -->
+				             
+				                                 
+				         
+				            		  <button id="videoId" type="button" class="btn btn-success">Upload</button>&nbsp;&nbsp;&nbsp;
+				                        
+		
+			
+				           </form>
+				  				 
+  			
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div>
+						  
+				</div> 	
+				<!-- 	End	Video Div	 -->
+				
+					<!-- star KeyWord-->
+		
+				
+			
+	<div class="modal fade" id="keywordModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelKeyWord" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelKeyWord">Upload KeyWord</h5>
+						        <div class="modal-title">
+						        
+						         </div>
+						         <span  style="color: green; padding-left: 50px"  id="statuskeyword"> 
+										
+								 </span>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+				 <form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+						          <div class="form-group">
+						          
+							            <label for="message-text" class="col-form-label">Add Keyword</label>
+							            <textarea class="form-control"  name="keywordArea" id="keyword" rows="10" required="required">
+							        
+							            </textarea>
+						          </div>
+						        <button id="keywordId" type="button" class="btn btn-success">Upload</button>	        
+					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						     
+					</form>
+						    
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							       
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>th:src="hell"
+						  </div>					  
+	</div>
+	
+	<!-- outline show -->
+					
+	<div class="modal fade" id="outlineViewModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelOutlineView" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelOutlineView">View OutLine</h5>
+						        <div class="modal-title">
+						        
+						         </div>
+						         
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+				 <form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+						          <div class="form-group">
+						          
+							        <span id="outlineViewResponse" width="200" height="500">
+							        
+							        </span>
+							        
+						          </div>
+						          
+						        <button id="outlineView" type="button" class="btn btn-success">View</button>	   
+						             
+					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						     
+					</form>
+						    
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div>					  
+	</div>	
+	
+		<!-- view script -->
+		
+		<div class="modal fade" id="viewScriptId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelViewScript" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelViewScript">View Script</h5>
+						        <div class="modal-title">
+						        
+						         </div>
+						         
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+				 <form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+						          <div class="form-group">
+						            
+							      <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a>
+					      
+						          </div>
+						          
+						    <!--   <button id="outlineView" type="button" class="btn btn-success">View</button>	  -->  
+						             
+					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						     
+					</form>
+						    
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div>					  
+	</div>	
+	
+	
+	
+			<!-- view slide -->
+		
+		<div class="modal fade" id="slideModaleView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelViewSlide" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelViewSlide">View Slide</h5>
+						        <div class="modal-title">
+						        
+						         </div>
+						         
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+				 <form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+						          <div class="form-group">
+						            
+							      			<a name="sliedPdf" target="_blank" id="sliedPdf">Click To View</a>
+					      
+						          </div>
+						          
+						    <!--   <button id="outlineView" type="button" class="btn btn-success">View</button>	  -->  
+						             
+					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						     
+					</form>
+						    
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div>					  
+	</div>	
+	
+	
+	
+	
+	<!-- View keyword into textbox -->
+			
+					
+	<div class="modal fade" id="keywordModaleView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelKeyWordView" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelKeyWordView">View KeyWord</h5>
+						        <div class="modal-title">
+						        
+						         </div>
+						         
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+				 <form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+						          <div class="form-group">
+						          
+							            <label for="message-text" class="col-form-label">View Keyword</label>
+							        <textarea class="form-control"  name="keywordArea" id="keywordView" rows="10" required="required" readonly="readonly">
+							       
+							        </textarea>
+						          </div>
+						        <button id="keywordView" type="button" class="btn btn-success">View</button>	   
+						             
+					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						   
+					</form>
+						    
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div>					  
+	</div>	
+
+	<!-- Video View  -->
+				
+	<div class="modal fade" id="videoViewId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelKeyWordView" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelKeyWordView">View KeyWord</h5>
+						        <div class="modal-title">
+						        
+						         </div>
+						         
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+				 <form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+						          <div class="form-group">
+						            
+							   		<div  id="VideoView">
+							   		
+							   		
+							   		</div>
+							        
+							        <span id="VideoView1">
+							        
+							        </span>
+							        
+							        
+					
+  				
+		 <!-- <iframe src="about:blank" name="videoSet" id="videoSet"  height="240" width="320" scrolling="auto" autoplay="autoplay">
+		 </iframe>	 
+		 --> 
+		 		
+		<div id="videoDiv" class="container" height="240" width="320" scrolling="auto" autoplay="autoplay">
+		   
+		    <video id='storedVideoId' height="240" width="320" controls="controls">
+		    
+		    </video>
+		    
+		</div>
+		
+		
+		   				
+				   		 					
+				   	
+						          </div>
+						 <button id="videoClick" type="button" class="btn btn-success" >View</button>	   
+						             
+					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						     
+					</form>
+						    
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div>					  
+	</div>	
+	
+		
+		<!-- End View keyword into textbox -->
+	
+		<div class="modal fade" id="keywordModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelprerequisite" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelprerequisite">Upload Prerequisite</h5>
+						        <div class="modal-title">
+						        
+						         </div>
+						         <span  style="color: green; padding-left: 50px"  id="statusofprerequisite"> 
+										
+								 </span>									  
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+				 <form id="upload-file-form-prerequisite"   onsubmit="return submitForm(this);" method="post" >
+
+						          <div class="form-group">
+							          <label for="message-text" class="col-form-label">Add Prerequisite</label>
+							          
+							            <textarea class="form-control"  name="PrerequisiteVideo" id="PrerequisiteVideo" rows="10" required="required">
+							        
+							            </textarea>
+						          </div>
+						        <button id="PrerequisiteVideoId" type="button" class="btn btn-success">Upload</button>	        
+					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						   
+						     
+					</form>
+						    
+						       <div class="modal-footer">
+						         
+							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+							       
+							      
+						      </div> 
+						        
+						      </div>
+						    
+						    </div>
+						  </div>
+						  
+	</div>
+	
+	<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+				
+							<!-- End KeyWord-->
+						
+						<!-- Start  prerequistic -->
+							
+					<div class="modal fade" id="prerequisiteModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelKeyword" aria-hidden="true">
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelKeyword">Upload  Prerequisite</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						         
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						       <form th:action="@{/}"  method="post">
+						       
+							 <div class="form-group">  
+			                     <label for="inputUserame">Add Prerequisite</label>     
+			             			 <select id="preRequsite" class="form-control" name="preRequsite"   required="required" >
+								               
+								                        <option selected="selected">Select Category</option>      
+								                        <!-- <span th:each="category: ${categorys}">
+								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+								  						</span> -->
+								 		
+										  <span id="catId" th:each="catgoryName : ${categoryName}">
+								
+										  		<option class="form-control"  id="categoryId"  name="categoryName"  th:text="${catgoryName.getCategoryname()}" readonly="readonly"></option>		
+										 </span>	 
+								  						
+							 </select>
+							</div> 
+				
+	           				 <div class="form-group ">
+		
+					               <label for="inputTopic">Topic Name</label>
+					                  <select id="inputTopic" class="form-control" name="inputTopic"  required="required">
+					              
+					                </select> 
+					                	
+							 </div>
+							 
+						        <button id="outlineId" type="button" class="btn btn-success">Upload </button>
+						     
+						        </form>
+					
+						        
+						      </div>
+						    
+						  </div>
+				</div>
+						  
+			</div>
+						
+						<!-- End prerequisiteModale-->
+					
+				<!-- star script -->	
+				
+				<div class="modal fade" id="scriptModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelScript" aria-hidden="true">
+				
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelScript">Upload  Script</h5>
+						         <span  style="color: green; padding-left: 50px"  id="statusofScript"> 
+								
+							
+								 </span>
+						        
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+				
+								 <form id="upload-file-form-script" submit="return submitForm(this);">
+				                          
+								<div class="form-group" style="padding-top: 80px"> 
+				                         		
+											<label for="uploadsScriptId" >Add Script</label> 
+											<input  style="padding-left:300px height: 300px, width:200px ; border: red;" type="file"  class="form-control-file w-50" id="uploadScriptFile"   name="uploadsScriptFile" placeholder="uploadFile"  accept=".pdf" required="required"></input>									
+		          
+				                </div> 
+				                        
+							  					<button id="scriptId" type="button" class="btn btn-success">Upload</button>&nbsp;&nbsp;&nbsp;
+				                      
+				         	  </form>
+					  </div>
+				 </div>
+		 </div>
+	
+	</div>
+				
+				
+				<!-- 
+				end script
+				 -->	
+					
+					
+					
+						
+		<!-- 	star Slide -->
+						
+			<div class="modal fade" id="slideModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelSlide" aria-hidden="true">
+				
+						
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabelSlide">Upload  Slide</h5>
+						         <span  style="color: green; padding-left: 50px"  id="statusofSlide"> 
+										
+								 </span>
+						        
+						        
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+				
+								 <form id="upload-file-form" submit="return submitForm(this);">
+				                          
+			
+				                        	<div class="form-group" style="padding-top: 80px"> 
+				                         		
+													   <label for="uploadsSlideFileId" >Add Slide</label> 
+													   <input  style="padding-left:300px height: 300px, width:200px ; border: red;" type="file"  class="form-control-file w-50" id="uploadsSlideFileId"   name="uploadsSlideFile" placeholder="uploadFile"   accept=".pdf" required="required"></input>									
+				                  
+				                               </div> 
+				                        
+							  					<button id="slideId" type="button" class="btn btn-success">Upload</button>&nbsp;&nbsp;&nbsp;
+				
+
+				                      
+				         	  </form>
+					  </div>
+	 </div>
+ </div>
+						  
+						</div>
+			<!-- 	End Slide -->	
+							
+				
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 		
+<script src="js/ckeditor.js"></script>
+
+	<script>
+	
+	
+	let editor;
+
+	ClassicEditor
+	    .create( document.querySelector( '#editor' ) )
+	    .then( newEditor => {
+	        editor = newEditor;
+	    } )
+	    .catch( error => {
+	        console.error( error );"@{/}"
+	    } );
+
+	// Assuming there is a <button id="submit">Submit</button> in your application.
+		document.querySelector( '#outlineId' ).addEventListener( 'click', () => {
+	    const editorData = editor.getData();
+	  
+	    return editor.getData();
+
+	    // ...
+	} );
+	
+
+	</script>										
+
+			<div th:fragment="body-bottom-scripts">
+			
+
+			    <script src="js/moment.min.js"></script> 
+			    <script src="js/combodate.js"></script> 
+			    <script src="js/jquery-3.3.1.js"></script> 
+			    
+			    
+			
+        		 <script src="static/js/bootstrap.bundle.min.js"></script>
+       			 <script src="static/js/jquery.slim.min" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>			
+				<script src="/fontawesome-free-5.10.1-web/js/all.js"></script>
+			    <script src="/s/js/jquery-3.2.1.min.js"></script>
+			    <script src="/s/js/popper.min.js"></script> 
+			    <script src="/s/js/bootstrap.min.js"></script>
+			
+			 <script src="/s/js/main.js"></script>
+			  <script src="/js/ajaxSupport.js"></script>
+			     
+			     
+				
+			</div>
+ </body>
+</html>
+ 
+ 

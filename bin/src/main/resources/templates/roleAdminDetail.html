@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+<!-- <head th:replace="common/header :: common-header" /> -->
+
+
+<head>	
+	<meta charset="utf-8"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700" rel="stylesheet"/>
+    <link rel="stylesheet" href="/s/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/s/css/animate.css"/>
+    <link rel="stylesheet" href="/s/css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="/s/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="/s/css/jquery.timepicker.css"/>
+    <link rel="stylesheet" href="/s/fonts/ionicons/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="/s/fonts/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/s/fonts/flaticon/font/flaticon.css"/>
+    <!-- Theme Style-->
+    <link rel="stylesheet" href="/s/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/fontawesome-free-5.10.1-web/css/all.css"/>
+
+<script>
+
+					function submitA() {
+						  return confirm('Do you really want to Send Request ');
+						  alert("Request Send succefully");
+						  
+						}
+					
+				</script>
+</head>
+<body>
+<!-- 
+<div th:replace="common/header :: navbar" /> -->
+
+    <header role="banner">
+      <div class="top-bar">
+        <div class="#">              
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-5">
+              <ul class="social list-unstyled">      
+   
+              </ul>
+            </div>
+            <div class="col-md-6 col-sm-6 col-7 text-right">
+  
+  
+<!--   
+  
+            	<ul class="  navbar-right">
+						<li><a href="#"> </a></li>
+						<li><a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New User</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">MY ACCOUNT</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a></li>
+				</ul> -->
+				
+						<div sec:authorize="isAuthenticated()"> 
+						  
+						   Logged user: <span sec:authentication="name"></span> |
+			
+						</div>
+							
+				<div class="row">
+						<div class="col">
+						<a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New User</a>
+						<a sec:authorize="isAuthenticated()" th:href="@{/adminDeatail}">MY ACCOUNT</a>|
+						<a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a>
+				</div>
+				
+			
+			</div>
+			
+	 
+              <p class="mb-0">
+               <!--  <a href="#" class="cta-btn" data-toggle="modal" data-target="#modalAppointment">Make an Appointment</a> --></p>
+            </div>
+             <!--  <marquee direction="left">1800 180 0101</marquee> -->
+  
+          </div><!--
+            Herwe we write login button -->
+       
+  	 <!--         <a class="btn btn-success float-right" th:href="@{/login}" style="padding-top: 27px">Login</a>     -->
+   
+        </div>
+        
+        
+        
+        <div>
+       
+        </div>
+            <div id="postResultDiv"></div>
+      
+      </div>
+    
+    </header>
+    
+    
+<!--     Here is code video reviwer and Domain  reviwer
+ -->    
+     
+<!--       <div th:if="hasAnyAuthority('DomainReviweer','Videoreviwer') ">
+    
+      <h4>Hello Welcome to Domain reviwer	and Video Reviwer</h4>
+      
+      
+      	<div class="card" style="width: 600px">
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Admin Reviwer</h5>
+					  <div class="card-body">
+								 <div class="form-group">
+								 	<i class="fas fa-angle-double-right"></i> <a href="/listTutorialAdminReviwer">Tutorials waiting for Admin Review</a><br/>
+								
+									 <i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorial Under Need To Improvement State</a><br/>		
+								
+								</div>
+				
+			 		 </div>
+		</div>
+
+      </div> -->
+    
+  <div sec:authorize="hasAnyAuthority('Contributer')">
+
+ <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card-header card card-signin flex-row my-5">
+	       
+	          <div class="card-body">
+
+	     <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Welcome to  Contributer </h5>
+	         
+		<div class="card" style="width: 600px">
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Contributer </h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 
+								  		<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/Update Tutorial</a><br/>
+								  		<i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorial Under Need To Improvement State</a><br/>		
+								  		<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/Update OutLine </a><br/>
+									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update Script</a><br/>
+									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update Slide</a><br/>
+									 	<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update Video</a><br/>
+										<i class="fas fa-angle-double-right"></i> <a href="/uploadContributerTutorial">Upload/ Update keyword</a><br/>
+								
+								</div>
+				
+			 		 </div>
+		</div>
+	         
+	         <hr/>
+	         
+	        <div class="card" style="width: 600px" >
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Contributer Role </h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}"> Revoke Contribution Role</a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	<br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span><br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  <br/>
+						 				<!-- <i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as  Trainer</a> </span>  <br/>
+						  -->
+								</div>
+			  		</div>
+			</div>
+	         
+ 	
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
+          </div>
+        </div>
+      </div>
+    </div>
+    
+ 	 	
+ 	 	
+		<H4 style="padding-left: 50px ;color: gray;"></H4>
+
+	<div class="container" style="padding-top: 90px">
+	
+	
+	
+  </div>
+
+</div>
+		<!-- Only Admin Can See detail -->
+		
+		<div sec:authorize="hasAnyAuthority('Admin')">
+		
+<!-- 		////
+		<div class="container">
+		
+		<div class="row" style="padding-left: 60px; padding-top: 100px" >
+	
+		
+			<ul class="nav nav-tabs">
+			  <li class="nav-item">
+			    <a class="nav-link active" href="#">Active</a>
+			  </li>
+			  <li class="nav-item dropdown">
+			    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+			    <div class="dropdown-menu">
+			    
+			  <i class="fas fa-chevron-circle-right"></i><a th:href="@{language}">Add Language</a>
+			    
+			    
+			      <a class="dropdown-item" href="#">Action</a>
+			      <a class="dropdown-item" href="#">Another action</a>
+			      <a class="dropdown-item" href="#">Something else here</a>
+			      <div class="dropdown-divider"></div>
+			      <a class="dropdown-item" href="#">Separated link</a>
+			    </div>
+			  </li>
+			    <li class="nav-item dropdown">
+			    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+			    <div class="dropdown-menu">
+			      <a class="dropdown-item" href="#">Action</a>
+			      <a class="dropdown-item" href="#">Another action</a>
+			      <a class="dropdown-item" href="#">Something else here</a>
+			      <div class="dropdown-divider"></div>
+			      <a class="dropdown-item" href="#">Separated link</a>
+			    </div>
+			  </li>
+
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">Link</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link disabled" href="#">Disabled</a>
+			  </li>
+			</ul>
+			
+			</div>
+	</div>			
+		/// -->
+		
+	
+		   <div class="#">
+		                    <div class="row" style="padding-top:  100px; padding-left: 30px">
+		                                      
+                            <div class="col-md-8 ">
+        
+                                <div class="">    
+                                <div th:if="${msg}">
+   								 <span th:text="${msg}"></span>
+ 											 </div> </div>
+ 											 
+                                                <div class="row" style="padding-left: 50px;"> 
+                                                    <div class="col-md-5  shadow p-3 mb-5 bg-white rounded" style="padding-right: 15px ; width: 180px">
+                         
+                                                     <ul>  
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Event}">Home</a>
+														</li>  
+      
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a  th:href="@{Category}">Add Category</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{displaytopiform}">Add Topic</a></li> 
+                                    
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{language}">Add Language</a></li> 
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Testimonial}">Add Testimonial</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Consaltant}">Add Consalantant</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Event}">Add Event</a></li>
+                                                       
+                                                 
+                                                 	    <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{TutorialAdd}">Upload Tutorial</a></li>
+                                                
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{addUploadQuestion}">Upload Question</a></li>
+                                                       
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{roleNew}">Add New Role</a></li>
+                                                   	 	<li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Master Reviwer</a></li>  
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Quality Reviwer</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Domain Reviwer</a></li>
+                                                         
+                                                     </ul> 
+                                                    </div>
+                                                    <div class="col-md-1">          
+                                                    </div>  
+                                                    <div class="col-md-5  shadow p-3 mb-5 bg-white rounded"  style="padding-left: 30px" >
+                                                       <ul> 
+                                                        
+                                                       <!--  <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_category}">Show Category</a></li> -->
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_testimonial}">List Testimonial</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_consalantant}">List Consalantant</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_Event}">List Event</a></li> 
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_language}">List Language</a></li>
+                                                        
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{adminShowMasterTrainer}">List Master Trainer</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{adminShowQualityreviweer}">List Quality Reviweer</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{adminShowDomainReviweer}">List Domain Reviweer</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{listparicipant}">List Participant</a></li>
+   														<li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{listContributor}">List Contributor</a></li>					
+   
+   	
+                                                        </ul>
+                                                </div>
+                       			     </div>             
+            				  </div>
+    					  </div> 
+				</div>
+ 
+ 
+ <div class="#">
+        <div class="row"  style="padding-left: 80px; padding-right: 50px">
+        
+    						 <div class="col-4 shadow p-3 mb-5sdaasdas bg-white rounded">
+                                          <ul>              
+        
+                                   				<li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="/approveRole">Approve Role</a></li>            
+                                            <!--    
+                                                <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Tutorial</a></li>            
+                                                <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Consalantant</a></li>
+                                                         
+                                                <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Testimonial</a></li>
+                                             -->                
+                                               
+                                       	</ul>
+                       		</div>                                          
+      </div>
+ 	
+ </div>
+ 
+</div>
+ 
+ 
+ 
+  <section   style="background: lightblue" sec:authorize="!hasAnyAuthority('VideoReviwer','DomainReviweer','Admin','MasterTrainer','Contributer','QualityReviweer')">
+  
+   <span style="color: red; padding-left: 150px"  th:if="${requestSend}" ><b>Already Request Sent </b></span>
+   
+   
+   
+		          <!--   <div class="">    
+                               <div th:if="${request}">
+   								<span th:text="${request}"></span>
+ 											 </div> </div> -->
+   	<div class="#">
+   	
+   		<div class="row"  style="padding-top: 160px; padding-left: 950px">
+		
+					<span style="color: maroon;" th:if="${ac}">Already Role exists.</span>
+			
+   		<div class="col-4 shadow p-3 mb-5 bg-white rounded">
+	
+	<!-- 
+	 data-toggle="modal" data-target="#exampleModal" -->
+	   		 <div>
+	   		 			   <ul>	
+	   		 			    
+ 					     		<li>	<span>	<a onclick="return submitA(this);"	th:href="@{/contributerSelectionLanguage}">Add me as Contributer</a></span></li>	
+								<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	</li>
+								<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span></li>
+								<li>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  </li>
+						 		<li>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsAdminReviwer}">Add me as as Admin Reviwer</a> </span>  </li>
+						 		
+						 
+						  </ul>						  
+						   <div class="modal fade" id="myModal" role="dialog">
+						   
+						   
+							    <div class="modal-dialog">
+							    
+							      <!-- Modal content-->
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title"> Contributer</h4>
+							        </div>
+							        <div class="modal-body">
+							          <p>Request send to Contributer</p>        
+							        </div>
+							        
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							        </div>
+							      </div>
+							      
+							    </div>
+							  </div>
+							  
+							  <!-- 
+							  Domain Reviweer -->
+							  
+							  
+							     <div class="modal fade" id="myModal1" role="dialog">
+						   
+						   
+							    <div class="modal-dialog">
+							    
+							      <!-- Modal content-->
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title"> Domain Reviewer</h4>
+							        </div>
+							        
+							        <div class="modal-body">
+							          <p>Request  send to Domain Reviewer</p>        
+							        </div>
+							        
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							        </div>
+							      </div>
+							      
+							    </div>
+							  </div>
+							  
+							  	  
+							  <!-- 
+							  Quality Reviweer -->
+							  		  
+							     <div class="modal fade" id="myModal2" role="dialog">
+						   
+						   
+							    <div class="modal-dialog">
+							    
+							      <!-- Modal content-->
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title"> Domain Reviewer</h4>
+							        </div>
+							        
+							        <div class="modal-body">
+							          <p>Request  send to Domain Reviewer</p>        
+							        </div>
+							        
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							        </div>
+							      </div>
+							      
+							    </div>
+							  </div>
+					  
+				 <div class="modal fade" id="myModal3" role="dialog">
+						   
+						   
+							    <div class="modal-dialog">
+							    
+							      <!-- Modal content-->
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title"> Master Trainer</h4>
+							        </div>
+							        
+							        <div class="modal-body">
+							          <p>Request  send to Master Trainer</p>        
+							        </div>
+							        
+							        <div class="modal-footer">
+							          <button type="submit" class="btn btn-default" data-dismiss="modal">Submit</button>
+							        </div>
+							      </div>
+							      
+							    </div>
+							  </div>
+					
+	    	</div>
+
+   			</div>
+   				
+   			<div class="col-4 ">
+   			
+
+   			</div>
+			   			<div class="col-4">
+			   			
+			   			</div>
+   			
+   	
+   			</div>
+   		
+   		</div>
+   		</section>
+   	
+<!-- </div> -->
+
+
+<div sec:authorize="hasAnyAuthority('DomainReviweer')">
+
+
+		<!-- <H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4> -->
+		
+		 <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card-header card card-signin flex-row my-5">
+	       
+	          <div class="card-body">
+
+	     <h5 class="card-title text-center" style="color: gray; font-size: 30px">Welcome to Domain Reviwer</h5>
+
+	         
+		<div class="card" style="width: 600px">
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Domain Reviwer </h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 	<i class="fas fa-angle-double-right"></i> <a href="/listDomainReviewrTutorial">Tutorials waiting for Domain review</a><br/>
+									<i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorials Reviewed</a><br/>
+								</div>
+				
+			 		 </div>
+		</div>
+	         
+	         <hr/>
+	        <div class="card" style="width: 600px" >
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Creation Role</h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
+						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>
+						 
+								</div>
+			  		</div>
+			</div>
+	
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
+          </div>
+        </div>
+      </div>
+    </div>
+    
+		
+</div>
+
+<!-- video reviwer -->
+
+<div sec:authorize="hasAnyAuthority('VideoReviwer')">
+
+
+		<!-- <H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4> -->
+		
+		 <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card-header card card-signin flex-row my-5">
+	       
+	          <div class="card-body">
+
+	     <h5 class="card-title text-center" style="color: gray; font-size: 30px">Welcome to Admin Reviwer</h5>
+
+	         
+		<div class="card" style="width: 600px">
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Admin Reviwer</h5>
+					  <div class="card-body">
+								 <div class="form-group">
+								 	<i class="fas fa-angle-double-right"></i> <a href="/listTutorialAdminReviwer">Tutorials waiting for Admin Review</a><br/>
+								
+									 <i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorial Under Need To Improvement State</a><br/>		
+								
+								</div>
+				
+			 		 </div>
+		</div>	         
+	         <hr/>
+	        <div class="card" style="width: 600px" >
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Creation Role</h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor </a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsDomainRevieweer}">Add me as as Domain reviewer Role</a> </span>  <br/>
+						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality reviewer Role</a> </span>  <br/>
+
+								</div>
+			  		</div>
+			</div>
+	
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
+          </div>
+        </div>
+      </div>
+    </div>
+    		
+</div>
+
+
+
+
+
+
+<div sec:authorize="hasAnyAuthority('MasterTrainer')">
+
+							  
+	<H4 style="padding-left: 50px ;color: gray;">Welcome to  Master Trainer</H4>
+ 								
+	<div class="#">
+	<div class="" style="padding-left: 50px; padding-top: 160px">
+	
+	<div class="row">
+		  <div class="col-3">
+		    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+		      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Training Information</a>
+		      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Questionaire	</a>
+		      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Feedback Form</a>
+		     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">View Participant deatail</a>
+
+		    </div>
+		  </div>
+		  <div class="col-9">
+		    <div class="tab-content" id="v-pills-tabContent">
+		      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+		      
+		    		<div class="container">
+		    					
+ 					
+				
+		    		
+		    		<div class="row shadow p-3 mb-5 bg-white rounded">
+		    		
+		    		<span style="color: gray; font-family: cursive; text-shadow: 10px"><H2> </H2></span>
+		    		
+		    		
+		    		  <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 250px" >Add Traning Information</div>
+		    		  
+	
+		    		<div class=" col-md-12" style="padding-left: 100px">
+		    		
+ 
+ 					<p id="demo"></p>
+ 		
+			   <script>
+						function submitForm() {
+							
+							
+							  return confirm('Do you really want to submit the form?');
+							  
+							  alert("Submit form succefully");
+							}
+						
+			  </script>
+						    <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);">
+						    
+									  <div class="form-group ">
+									    <label for="date">Date </label>
+									    <input type="date" class="form-control w-75" name="date" id="date" required="required"/>
+									  </div>
+  
+								 <div class="form-group">
+								 	  
+									   <label for="categoryName">Select category </label>
+									    
+                                        <select id="MasterCategoryId" class="form-control w-75" name="categoryName"  style="width: 400px" required="required" >
+								               
+								                        <option selected="selected">Select Category</option>      
+								                        <span th:each="category: ${categorys}">
+								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+								  						</span>
+								  						
+									  </select>								  
+								 </div>	 
+								 
+								 
+								   <div class="form-group ">
+		
+										<label for="inputLanguage">Select Topic</label>
+													       	
+										  <select id="inputTopic" class="form-control w-75" name="inputTopic" style="width:400px" required="required">
+													              
+										  </select> 
+								           	
+								                	
+									</div>
+			
+								   
+							 <!--      <div class="form-group ">
+							      
+							               <label for="selectLanguageId">Select Language</label>
+							       				   
+							                    <select id="selectLanguageId" class="form-control w-75" name="selectlanguage" style="width:400px" required="required">
+							              
+							                    </select> 
+									</div> -->
+								   
+				
+
+<!-- 
+						<div class="form-group">
+									    <label for="participants">Participants</label>
+									    <input type="number" class="form-control w-75" pattern="[0-9]" id="participants" required="required"/>
+					
+						 </div>	  -->
+						 
+						 <div class="form-group">
+						 
+						 
+									    <label for="traningInformationId">Traning Information</label>
+								
+		
+                                         <textarea class="form-control w-75"  name="traningInformation" rows="5" id="traningInformationId" style="width: 300px" required="required"></textarea>
+	
+						 </div>	 
+					 
+					<!-- 	 <div class="form-group">
+									    <label for="state">State</label>
+									    <input type="text" class="form-control w-75" name="stateName" id="state" required="required"/>
+						 </div> -->
+						 
+						 <div class="form-group">
+						 
+							   <label for="state">State</label>
+							   <select id="stateId" class="form-control w-75" name="stateName"  style="width: 400px" required="required" >
+									               
+									                        <option selected="selected">Select Category</option>      
+									                        <span th:each="state: ${stateInfo}">
+									  								<option th:value="${state. getStateName()}"><span th:text="${state. getStateName()}"></span></option>		
+									  						</span>
+									  						
+								</select>
+								
+						 </div>
+						 
+						  
+						 
+						 	 <div class="form-group">
+									    <label for="pinCodeId">PinCode</label>
+									    <input type="number" class="form-control w-75" name="pinCode" pattern="[0-9]" id="pinCodeId"   minlength="6"  maxlength="6"  required="required"/>
+						 </div>	
+							
+
+						  <div class="form-group">
+						
+						  		 <label for="paricipantsDe">Paricipants Deatail</label>
+						      <input type="file" class="form-control w-75" id="paricipantsDeatailId" accept=".csv" name="paricipantsDeatail" required="required"/>
+				
+						    </div>
+						    
+						    
+						    		  
+						  <div class="form-group">
+						
+						  		 <label for="paricipantsPhoto">Paricipants Photo</label>
+						      <input type="file" class="form-control w-75" id="paricipantsPhotoId" accept=".jpg,.jpeg,.zip" name="paricipantsPhoto" required="required"/>
+				
+						    </div>
+						    
+						        
+						   <button type="submit" class="btn  btn-success"  data-toggle="modal" onclick="myFunction()">Submit</button>
+						     <button type="reset" class="btn btn-success">Reset</button>       
+						      
+		</form>
+				
+					</div>
+
+		    		</div>
+	
+		    		</div>
+  
+		      </div>
+		      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+		      
+		      
+		      
+		    		<div class="container">
+		    		
+		    		<div class="row shadow p-3 mb-5 bg-white rounded">
+		    		
+		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Download Question</div>
+		    		
+		    		<div class=" col-md-12" style="padding-left: 100px">
+		    		
+		    
+						    <form action="/displayQuestion" method="post">
+						    
+			 
+			 				    
+						 <div class="form-group">
+								 	  
+									   <label for="categoryName">Select category </label>
+									    
+                                        <select id="catId" class="form-control w-75" name="categoryname"  style="width: 400px" required="required" >
+								               
+								                        <option selected="selected">Select Category</option>      
+								                        <span th:each="category: ${categorys}">
+								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+								  						</span>
+									  </select>
+								 </div>	   
+			 
+			 
+					 <div class="form-group ">
+		
+					               <label for="inputLanguage">Select Topic</label>
+					               
+					                    <select id="inputLanguage1" class="form-control w-75"  name="inputLanguage" style="width:400px" required="required">
+	
+	
+					                    </select> 
+					</div>
+					
+					 <div class="form-group ">
+					 
+						<label for="inputLanguage" style="color: green;">
+						
+						</label>
+			
+			
+							<div class="">		               
+				
+				<!-- 		<span  id="inputdiv" class="pdfclass" target="_blank">Click To Open</span> -->
+							 
+							 </div>
+							 
+			 
+		  						<button type="submit" class="btn  btn-success">Submit</button>
+			 
+				 
+					 </div>
+				 
+					</form>
+				
+					</div>
+				
+		    		</div>
+		 		
+		    		</div>
+		
+		      </div>
+		      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+							<div class="container">
+		    		
+		    		<div class="row shadow p-3 mb-5 bg-white rounded">
+		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Feedback form</div>
+		    		<div class=" col-md-12" style="padding-left: 100px">
+		    		
+		    
+						    <form action="/feedback" >
+						    
+								 
+									  <div class="form-group ">
+									  
+								 <label for="nameOfMasterTrainerId">Name</label> 
+								 <input type="text" class="form-control w-75" id="nameOfMasterTrainerId" name="nameOfMasterTrainer" required="required"/>
+													  	
+									   </div>
+									   
+					      		<div class="form-group ">
+					      
+					               <label for="emailId">Email</label>
+							<input type="email" class="form-control w-75" id="emailId" name="email" required="required"/>
+
+							</div>
+								 
+						<div class="form-group ">
+					      
+					               <label for="messageId">Enter  Message</label>
+					       	
+						 <textarea class="form-control w-75"  name="traningInformation" rows="5" id="messageId" style="width: 300px" required="required"></textarea>
+ 
+							</div>
+						        
+						   <button type="submit" class="btn  btn-success">Submit</button>
+						     <button type="reset" class="btn btn-success">Reset</button>       
+						</form>
+				
+					</div>
+				
+		    		</div>
+		    		
+		    		
+		    		</div>
+
+				</div>
+		      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+		      
+		      
+		     				<div class="">
+		    		
+		    		<div class="row ">
+		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px;padding-left: 400px">List Participant Deatail</div>
+		    		<div class=" col-md-12" >
+		    		
+		    		   	<div class="#" style="padding-top: 20px">
+          	
+          		<div class="row">
+          	
+         			 	<div class="col">
+          	
+          	
+   			 	 <table class="table table-striped">
+					           <tr>
+					                <th>Id</th>				               
+					                <th>First Name</th>
+					                <th>Last Name</th>
+					                 <th>Email</th> 
+					                <th>Aadhar Number</th>  
+					                <th>Gender</th> 
+					                <th>Language</th>   
+					                <th>Edit</th>   
+					 
+					             
+					            </tr>
+					            	<tr th:each="approve : ${parcipantDeatails}">
+					                <td th:text="${approve.participantId}">ID</td>  
+					                <td th:text="${approve.firstname}">First Name</td>
+					                <td th:text="${approve.lastname}">Last Name</td>
+					                <td th:text="${approve.email}">Email</td>
+					                <td th:text="${approve.adharNumber}">Aadhar Number</td>
+									 <td th:text="${approve.gender}">Gender</td>
+ 									 <td th:text="${approve.language}">Gender</td>
+ 
+									<td><a th:href="${'editParticipantDeatail/edit/' + approve.id}">Edit</a></td>
+					                
+					        
+					            </tr>
+					        </table>
+					</div>
+				</div>
+			</div> 
+		    		
+					</div>
+				
+		    		</div>
+		    		
+		    		
+		    		</div>
+		      
+		      
+		      .</div>
+		    </div>
+		  </div>
+		</div>
+	
+	
+	</div>
+	</div>
+
+<div class="container">
+   	
+   		
+   		<div class="row" style="padding-top: 160px" >
+   			
+ 
+   			
+   			<div class="col-4 ">
+   			
+
+   			</div>
+			   			<div class="col-4">
+			   			
+			   			</div>
+   			
+   
+   			</div>
+   		
+   		</div>
+
+</div>
+
+<div sec:authorize="hasAnyAuthority('QualityReviweer')">
+
+
+		<!-- <H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4> -->
+		
+		 <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card-header card card-signin flex-row my-5">
+	       
+	          <div class="card-body">
+
+	     <h5 class="card-title text-center" style="color: gray; font-size: 30px">Welcome to Quality Reviwer</h5>
+
+	         
+		<div class="card" style="width: 600px">
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Quality Reviwer </h5>
+					  <div class="card-body">
+				
+		 <div class="form-group">
+		 
+		 
+								<i class="fas fa-angle-double-right"></i> <a href="/listQualityReviewrTutorial">Tutorials waiting for Quality Review</a><br/>
+								<i class="fas fa-angle-double-right"></i> <a href="/listQualityMarkAsPublicReviewTutorial">Tutorials ready to publish</a><br/>
+								<i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorial Under Need To Improvement State</a><br/>
+								<i class="fas fa-angle-double-right"></i> <a href="/qualityreviewByQuality">Tutorials Reviewed</a><br/>
+	
+							
+							
+		</div>
+				
+			 		 </div>
+		</div>
+	         
+	         <hr/>
+	        <div class="card" style="width: 600px" >
+		
+					  <h5 class="card-header" style="background: lightblue"><i class="fab fa-accusoft"></i> Creation Role</h5>
+					  <div class="card-body">
+				
+								 <div class="form-group">
+								 
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor</a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
+						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>
+						 
+								</div>
+			  		</div>
+			</div>
+	         
+ 	
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+
+
+
+
+</div>
+
+	 <script src="/js/jquery.min.js"></script>
+    <script src="/s/js/jquery-3.2.1.min.js"></script>
+    <script src="/s/js/popper.min.js"></script>
+    <script src="/s/js/bootstrap.min.js"></script>
+    <script src="/s/js/owl.carousel.min.js"></script>
+    <script src="/s/js/bootstrap-datepicker.js"></script>
+    <script src="/s/js/jquery.timepicker.min.js"></script>
+    <script src="/s/js/jquery.waypoints.min.js"></script>
+    <script src="/s/js/main.js"></script>
+     <script src="/js/ajaxSupport.js"></script>
+ 	<script src="/fontawesome-free-5.10.1-web/js/all.js"></script>
+	<!-- <div th:replace="common/header :: body-bottom-scripts" /> -->
+	
+	
+	
+</body>
+</html>
+
+ 
