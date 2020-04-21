@@ -177,8 +177,14 @@ public class ControllerHealth {
 	
 	@Autowired
 	private contributor_RoleDao contributorRoleDao;
+
+	@RequestMapping("/showListTutorial")
+	public String  showListTutorial(Model model)
+	{
+		
+		return "showListOfTutorial";
 	
-	
+	}
 	//contributor list who assign by admin
 
 	@RequestMapping("/listContributor")
@@ -2547,7 +2553,7 @@ public class ControllerHealth {
 
 		tutorialDao.save(tutorialDaoSave);
 		
-		model.addAttribute("msg","Succefully Save Recored ");
+		model.addAttribute("msg","Succesfully Save Recored ");
 		
 			
 			return "showAdminContributorList";

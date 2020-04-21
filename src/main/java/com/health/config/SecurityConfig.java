@@ -29,9 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private BCryptPasswordEncoder passwordEncoder() {
 		return SecurityUtility.passwordEncoder();
 	}
-	
 
- 
 	private static final String[] PUBLIC_MATCHERS = {
 			"/css/**",
 			"/js/**",
@@ -47,9 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/loadByCategoryTuturial",
 			"/showTutorial",
 			"/findTutorialByLanand",
+			"/showListTutorial",
 			"/showVideoWithContained",
 			"/fonts/**"	
 	};
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
