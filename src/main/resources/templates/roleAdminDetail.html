@@ -40,6 +40,17 @@
           <div class="row">
             <div class="col-md-6 col-sm-6 col-5">
               <ul class="social list-unstyled">      
+              
+              							<p class="mb-0">
+
+								<a th:href="@{/}"> <img
+									src="/image/spokenLogo.png" href="www.google."
+									alt="Smiley face" height="60" width="200"> </img>
+
+								</a>
+
+
+							</p>
    
               </ul>
             </div>
@@ -349,7 +360,7 @@
 		
 					<span style="color: maroon;" th:if="${ac}">Already Role exists.</span>
 			
-   		<div class="col-4 shadow p-3 mb-5 bg-white rounded">
+   		<div class=" shadow p-3 mb-5 bg-white rounded">
 	
 	<!-- 
 	 data-toggle="modal" data-target="#exampleModal" -->
@@ -523,9 +534,9 @@
 				
 								 <div class="form-group">
 								 
-										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
+										<!-- <i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
-										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
+										 --><i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
 						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>
 						 
@@ -737,7 +748,7 @@
 							   <label for="state">State</label>
 							   <select id="stateId" class="form-control w-75" name="stateName"  style="width: 400px" required="required" >
 									               
-									                        <option selected="selected">Select Category</option>      
+									                        <option selected="selected">Select State</option>      
 									                        <span th:each="state: ${stateInfo}">
 									  								<option th:value="${state. getStateName()}"><span th:text="${state. getStateName()}"></span></option>		
 									  						</span>
@@ -1009,7 +1020,6 @@
 								<i class="fas fa-angle-double-right"></i> <a href="/listQualityReviewrTutorial">Tutorials waiting for Quality Review</a><br/>
 								<i class="fas fa-angle-double-right"></i> <a href="/listQualityMarkAsPublicReviewTutorial">Tutorials ready to publish</a><br/>
 								<i class="fas fa-angle-double-right"></i> <a href="/contributorComponenentStatus">Tutorial Under Need To Improvement State</a><br/>
-								<i class="fas fa-angle-double-right"></i> <a href="/qualityreviewByQuality">Tutorials Reviewed</a><br/>
 	
 							
 							
@@ -1026,8 +1036,8 @@
 				
 								 <div class="form-group">
 								 
-										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor</a></span><br/>	
-										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
+								<!-- 		<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor</a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/> -->
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
 						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>

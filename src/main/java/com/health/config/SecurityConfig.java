@@ -43,10 +43,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/s/**",
 			"/adminDeatail/**",
 			"/loadByCategoryTuturial",
+			"/ControllerHealth",
 			"/showTutorial",
 			"/findTutorialByLanand",
 			"/showListTutorial",
 			"/showVideoWithContained",
+			"/showListOfTutorial",
+			"/showListTutorial",
+			"/viewVideo/view/{id}",
+			"viewVideoList/view/{id}",
 			"/fonts/**"	
 	};
 	

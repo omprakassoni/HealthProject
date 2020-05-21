@@ -85,9 +85,9 @@ import com.health.service.tutorialService;
 import com.health.service.impl.catgoryServiceImpl;
 
 
-
 @Controller
-public class ControllerHealth {
+public class ControllerHealth 
+{
 
 	public static String uploadDirectoryConsaltant = "src/main/resources/static" + "/Media/content" + "/Consaltant";
 
@@ -174,18 +174,49 @@ public class ControllerHealth {
 	@Autowired
 	private languagedao languageDao;
 	
-	
 	@Autowired
 	private contributor_RoleDao contributorRoleDao;
 
+	
 	@RequestMapping("/showListTutorial")
-	public String  showListTutorial(Model model)
+	public String  showListTutorial(Model model, @RequestParam(value ="categoryName") int categoryname,@RequestParam(name="inputLanguage") String inputLanguage)		
 	{
 		
-		return "showListOfTutorial";
-	
+		//List<Category> categoryDropDown=categoryservice.findAll();
+		
+		/*
+		 * List<Category> category=CategoryDao.findByHomeAllCategory();
+		 */
+		
+		List<Tutorial> categoryDropDown=tutorialDao.finBystatus();
+		
+		
+		model.addAttribute("categorys",categoryDropDown);
+		
+		Category category=categoryDao.findOne(categoryname);
+		
+		com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
+		
+		List<Tutorial> tutorialResource=tutorialDao.findByCategoryLan(category);
+		
+		List<Tutorial> tutorialResources=tutorialDao.findByLan(language);
+		
+	    List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(category,language);
+	    
+	    //  model.addAttribute("tutorialList",tutorialRes);
+	    for (Tutorial tutorial : tutorialRes)
+	    {	
+	    	
+	    	String video=tutorial.getVideo(); 
+	    	model.addAttribute("tutorialList",video);	
+	    }
+	    
+	    model.addAttribute("list",tutorialRes);
+	    
+	    
+	    	return "showListOfTutorial";	    
 	}
-	//contributor list who assign by admin
+	//contributor list who assign by Admin
 
 	@RequestMapping("/listContributor")
 	public String  listContributor(Model model)
@@ -194,6 +225,7 @@ public class ControllerHealth {
 			int status=1;	
 			int id=5;			
 			Role role=rolerespositary.findOne(id);	
+			
 			
 			List<UserRole> userByContributor=(List<UserRole>) userRoleRepositary.finbyRoleUser(status,role);
 		
@@ -397,8 +429,8 @@ public class ControllerHealth {
 	@RequestMapping("/homeContraoller")
 	public String  language(){ 
 		
-		return "homecontroller";
-		
+		 	 return "homecontroller";
+		 	 
 		
 	}		
 	@RequestMapping("/roleNew")
@@ -532,11 +564,6 @@ public class ControllerHealth {
 		Category  category=categoryDao.findByid(categoryid);//findBycategoryname(categoryName);
 		System.err.println("cat Id"+category.getId());
 	
-		
-		
-	
-		
-		
 		java.util.Date dt = new java.util.Date();
 
 		java.text.SimpleDateFormat sdf = 
@@ -1460,7 +1487,7 @@ public class ControllerHealth {
 		categoryService.deleteProduct(id);
 
 		return "redirect:/show_category";
-
+		
 	}
 
 	/*****************************************************
@@ -1533,32 +1560,27 @@ public class ControllerHealth {
 	
 
 	@RequestMapping("/loadByCategoryTuturial")
-	public @ResponseBody  List<String> getAllSubcategories(@RequestParam(value="id") int id)
+	public @ResponseBody  Set<String> getAllSubcategories(@RequestParam(value="id") int id)
 	{
-
-
-	    List<String> topicName=new ArrayList<String>();
-		
+	    List<String> languageName=new ArrayList<String>();
 
 		Category cat=categoryService.findByid(id);
 		
-		
-		System.err.println("category_id"+cat.getId());
-		
+		List<Tutorial> Tutorial = (List<Tutorial>) tutorialDao.findByCategoryLan(cat);
 	
-	  List<topic> topic=(List<topic>) topicRepositarydao.findByCategory(cat);
-	  
-	  for(topic s:topic) {
-	  
-	  topicName.add(s.getTopicname());
-	  System.err.println(s.getTopicname());
-	  
-	  
-	  }
-	 
-		return topicName;  
 		
-		
+		  ArrayList<String> tutorialLanguageExits=new ArrayList<String>();
+		 
+
+		  for (Tutorial tutorialData : Tutorial) 
+		  {
+			  languageName.add(tutorialData.getLan().getLanguageName()); 
+		  }
+
+		  Set<String> lanSet = new LinkedHashSet<String>(languageName); 
+		  
+		  
+		return lanSet;  
 
 	}
 	/*
@@ -1717,8 +1739,7 @@ public class ControllerHealth {
 			  @RequestParam(name="stateName") String stateName,
 			  @RequestParam(value="categoryName") int categoryId,
 			/* @RequestParam(name="inputTopic") String inputTopic, */
-			  @RequestParam(name="inputTopic") String inputTopic 
-			  
+			   @RequestParam(name="inputTopic") String inputTopic 
 		) throws ParseException, IOException
 	  
 	  {
@@ -1729,10 +1750,6 @@ public class ControllerHealth {
 			java.util.Date dateUtil=sd1.parse(date);
 			Date dataofCamp=new Date(dateUtil.getTime());
 		 
-		  
-		  
-		  
-		  
 		  Category category=categoryDao.findByid(categoryId);
 		  
 		  topic topic=topicdao.findBytopicname(inputTopic);
@@ -2410,7 +2427,7 @@ public class ControllerHealth {
 		 {
 			 
 			 tutorialLanguageExits.add(tutoriaLanguage.getLan().getLanguageName());			
-		}
+		 }
 	 
 	 
 	 for (String string : tutorialLanguageExits) {
@@ -2421,7 +2438,6 @@ public class ControllerHealth {
 		}
 		 
 		List<String> topicName=new ArrayList<String>();
-		
 		
 		User user=userRepository.findByUsername(username);
 		
@@ -2436,7 +2452,7 @@ public class ControllerHealth {
 		}
 		
 		
-		topicName.removeAll(tutorialLanguageExits);
+		//topicName.removeAll(tutorialLanguageExits);
 		
 			return topicName;  			
 	}	
@@ -2452,13 +2468,10 @@ public class ControllerHealth {
 			List<String> topicName=new ArrayList<String>();
 			
 			List<Category> category=(List<Category>)categoryDao.findBystatus(status);
-					
-		
 		
 			for (Category cat : category) 
 			{				
 				topicName.add(cat.getCategoryname());
-				
 				
 			}
 			
@@ -2504,10 +2517,9 @@ public class ControllerHealth {
 			java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 			String currentTime = sdf.format(dt);
 		
-		//User user=userRepository.findOne(contributorId);
+			//User user=userRepository.findOne(contributorId);
 			
-			User user=userRepository.findByUsername(contributorId);
-			
+		User user=userRepository.findByUsername(contributorId);
 			
 		com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
 		

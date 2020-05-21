@@ -197,7 +197,7 @@ public class controllerContributer {
 		
 		tutorialService.updateOutline(outlineMessagae,outlineStatusUpdate, user,topic,category);
 		
-		topicName.add("Save Outline Succefully");
+		topicName.add("Save Outline successfully");
 		
 		return topicName;
 
@@ -229,7 +229,7 @@ public class controllerContributer {
 			  tutorialService.updateKeyword(keywordMessgae,status,user,topic,category);
 			  
 			  
-			  topicName.add("Update Keyword Succefully");
+			  topicName.add("Update Keyword Successfully");
   			  
 			return topicName;
 			  
@@ -286,7 +286,7 @@ public class controllerContributer {
 		  	
 			tutorialService.updateScript(substring,slideStatus,user,topic,category);
 			 
-			topicName.add("Update Script Succefully");
+			topicName.add("Update Script Successfully");
 		  
 			return topicName;
 			  
@@ -342,7 +342,7 @@ public class controllerContributer {
 	
 		tutorialService.updateSlide(slide,slideStatus,user,topic,category);
 	  
-			 topicName.add("Update Slide Succefully");
+			 topicName.add("Update Slide Successfully");
   			  
 			return topicName;
 			  
@@ -433,7 +433,7 @@ public class controllerContributer {
 		   
 			
 		   
-		    topicName.add("Update Video Succefully");
+		    topicName.add("Update Video Successfully");
 	  			  
 			return topicName;
 			  
@@ -493,7 +493,7 @@ public class controllerContributer {
 		   tutorialService.updateVideo(videopath,videoStatus,user,topic,category);
 
 	   
-		    topicName.add("Update Video Succefully");
+		    topicName.add("Update Video successfully");
 	  			  
 			return topicName;
 			  

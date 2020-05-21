@@ -9,7 +9,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700"
+href="https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700"
 	rel="stylesheet" />
 <link rel="stylesheet" href="/s/css/bootstrap.min.css" />
 <link rel="stylesheet" href="/s/css/animate.css" />
@@ -37,7 +37,7 @@
 
 							<p class="mb-0">
 
-								<a href="https://www.google.com"> <img
+								<a th:href="@{/}"> <img
 									src="/image/spokenLogo.png" href="www.google."
 									alt="Smiley face" height="60" width="200"> </img>
 
@@ -50,14 +50,7 @@
 					<div class="col-md-6 col-sm-6 col-7 text-right">
 
 
-						<!--   
-  
-            	<ul class="  navbar-right">
-						<li><a href="#"> </a></li>
-						<li><a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New User</a></li>
-						<li><a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">MY ACCOUNT</a></li>
-						<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a></li>
-				</ul> -->
+	
 
 						<div sec:authorize="isAuthenticated()">
 
@@ -77,8 +70,6 @@
 
 
 						</div>
-
-
 
 						<!--             <img href="/HealthNutrition/src/main/resources/static/image/spokenLogo.png"  data-target="#modalAppointment">Make an Appointment</img></p>
  -->
@@ -155,22 +146,23 @@
 			<form th:action="@{/showListTutorial}" class="form-inline">
 
 						<div class="pad-extra">
-							<label class="sr-only" for="inputState">Category</label> <select
-								id="categoryname" class="form-control" name="categoryName"
-								style="width: 400px">
+							<label class="sr-only" for="inputState">Category</label> 
+			<select id="categoryname" class="form-control" name="categoryName" style="width: 400px">
 
-								<option selected="selected">Select Category</option>
-								<span th:each="category: ${categorys}">
-									<option th:value="${category.getId()}"><span
-											th:text="${category.categoryname}"></span></option>
-							</span>
-							</select>
+						<option selected="selected">Select Category</option>
+						
+						<span th:each="category: ${categorys}">
+								
+								
+								<option th:value="${category.getCategory().getId()}">
+								<span th:text="${category.getCategory().getCategoryname()}"></span></option>							
+						</span>
+			  </select>
 						</div>
 						<div class="pad-extra">
-							<label class="sr-only" for="inputState">language</label> <select
-								id="inputLanguage" class="form-control" name="inputLanguage"
+							<label class="sr-only" for="inputState">language</label> 
+							<select	id="inputLanguage" class="form-control" name="inputLanguage"
 								style="width: 400px">
-
 
 							</select>
 							<div id="idselection"></div>

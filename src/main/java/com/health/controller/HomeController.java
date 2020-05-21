@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,12 +30,14 @@ import com.health.model.Category;
 import com.health.model.Consaltantant;
 import com.health.model.Event;
 import com.health.model.Testimonial;
+import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.model.state;
 import com.health.repository.CategoryDao;
 import com.health.repository.ConsaltantDao;
 import com.health.repository.EventDao;
 import com.health.repository.TestimonialDao;
+import com.health.repository.TutorialDao;
 import com.health.repository.stateRespositary;
 import com.health.service.UserService;
 import com.health.service.categoryService;
@@ -70,20 +73,62 @@ public class HomeController {
 	@Autowired
 	private EventDao eventDao;
 	
-	
 	@Autowired
 	private TestimonialDao testimonialdao;
 	
-	
 	@Autowired
 	private ConsaltantDao consalatantDao;
+	
+	@Autowired
+	private TutorialDao tutorialDao;
+	
+	
+	@RequestMapping("/viewVideo/view/{id}")
+	public String viewVideo(Model model,@PathVariable Integer id)
+	{
+	
+		Tutorial tutorials=tutorialDao.findOne(id);
+		
+		
+		tutorials.getTopic().getTopicname();
+		
+		
+		List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(tutorials.getCategory(),tutorials.getLan());
 
+		 model.addAttribute("list",tutorials);
+		 model.addAttribute("listOfTutorial",tutorialRes);
+		
+		
+		return "showVideo";
+	}	
+	
+	@RequestMapping("/viewVideoList/view/{id}")
+	public String viewVideoList(Model model,@PathVariable Integer id)
+	{
+	
+		Tutorial tutorials=tutorialDao.findOne(id);
+		
+		tutorials.getTopic().getTopicname();
+		
+		
+		List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(tutorials.getCategory(),tutorials.getLan());
+
+		 model.addAttribute("list",tutorials);
+		 model.addAttribute("listOfTutorial",tutorialRes);
+		
+		return "showVideo";
+	}	
+	
+	
 	
 	@RequestMapping("/")
 	public String index(Model model)
 	{
 
-		List<Category> category=categoryservice.findAll();
+		//List<Category> category=categoryservice.findAll();
+		
+		List<Tutorial> category=tutorialDao.finBystatus();
+		
 		
 		model.addAttribute("categorys",category);
 		
@@ -94,20 +139,15 @@ public class HomeController {
 		List<Consaltantant> consalatant=consalatantDao.findByConsaltantantDate();
 
 		for (Consaltantant consaltantant : consalatant) 
-		{
-			
-			System.err.println(consaltantant.getNameConsaltant());
-			
-		}
-				
+		{			
+			System.err.println(consaltantant.getNameConsaltant());	
+		}		
 		List<Testimonial> testimonial=testimonialdao.findBydate();
 	
 		
 		for (Testimonial videotestimonial : testimonial) 
-		{
-			
-			System.err.println(videotestimonial.getUploadTestiminial());
-			
+		{	
+			System.err.println(videotestimonial.getUploadTestiminial());	
 		}
 		
 		

@@ -571,7 +571,7 @@ public class DomainReviwer {
 				  
 				  tutorialService.updateVideoStatusByAdmin(AdminStatus, topic, category,language);
 				  
-				  videoStatusUpdate.add("Video Stauts Update  Succesfully");
+				  videoStatusUpdate.add("Video Stauts Update  successfully");
 				  
 				  return videoStatusUpdate;
 
@@ -601,7 +601,7 @@ public class DomainReviwer {
 				  
 				  tutorialService.updateVideoStatusByAdmin(DomainStatus, topic, category,language);
 				  
-				  videoStatusUpdate.add("Video Status Update  Succesfully");
+				  videoStatusUpdate.add("Video Status Update  successfully");
 				  
 				  return videoStatusUpdate;
 
@@ -630,7 +630,7 @@ public class DomainReviwer {
 				  
 				  tutorialService.updateOutlineStatusByDomain(DomainStatus, topic, category,language);
 				  
-				  outlineDomain.add("Outline Status Update  Succesfully");
+				  outlineDomain.add("Outline Status Update  successfully");
 				  
 				  return outlineDomain;
 
@@ -682,7 +682,7 @@ public class DomainReviwer {
 							 commentOnComponentDao.save(commentonComponet);
 				  
 				  
-				 outlineDomain.add("Outline Status Update  Succesfully");
+				 outlineDomain.add("Outline Status Update  successfully");
 				 
 				  
 				  return outlineDomain;
@@ -715,7 +715,7 @@ public class DomainReviwer {
 				  tutorialService.updateScriptStatusByDomain(DomainStatus, topic, category,language);
 					 
 				  
-				  outlineDomain.add("Script Status Update  Succesfully");
+				  outlineDomain.add("Script Status Update  successfully");
 				  
 				  return outlineDomain;
 
@@ -776,7 +776,7 @@ public class DomainReviwer {
 							 					 
 							 commentOnComponentDao.save(commentonComponet);
 				  
-							 scriptDomain.add("Script Status Update  Succesfully");
+							 scriptDomain.add("Script Status Update  successfully");
 							 
 							 
 				 

@@ -94,12 +94,52 @@ $(function(){
 		
 	});
 	
+	$('#categoryNameList').change( function () {
+	
+			
+		
+		var catgoryid=$(this).find(":selected").val();
+			$.ajax({
+				
+			  	type: "GET",
+	       		 url: "/loadByCategoryTuturial",
+	       		 data: { "id": catgoryid},
+	       		 contentType: "application/json",
+	       		 success: function (result){
+	       			 
+	       		
+	       		  var html = '';
+		            var len = result.length;
+		            html += '<option value="0">Select language</option>';
+		            for (var i = 0; i < len; i++) {
+		            	
+		             html += '<option value="' + result[i] + '">'
+		               + result[i]
+		               + '</option>';
+		            }
+		            html += '</option>';
+		            
+		            $("#inputLanguageList").prop('disabled',false);
+		            $('#inputLanguageList').html(html);
+		            
+					},
+					
+						error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+				
+			});
+		
+	});
+	
 	
 	$('#categoryname').change(function()
 	{
 		
   					var catgoryid=$(this).find(":selected").val();
   					$.ajax({
+  						
   					  	type: "GET",
   			       		 url: "/loadByCategoryTuturial",
   			       		 data: { "id": catgoryid},
@@ -387,7 +427,7 @@ $(function(){
 		/* Access topic according to langaueg*/
 		
 		$('#MasterCategoryId').change(function(){
-			alert("Hi");
+			
 		
 				var catgoryid=$(this).find(":selected").val();
 				$.ajax({
@@ -1352,7 +1392,6 @@ $(function(){
 							 var msg=$("#msgCommentOutline").val();
 							 
 							 
-							 alert()
 							 
 								$.ajax({
 									
@@ -1557,7 +1596,6 @@ $(function(){
 														success: function(result)
 													 {
 											       					 
-											       		
 											       		      var res = result;
 											       		      
 											       		   //  alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4

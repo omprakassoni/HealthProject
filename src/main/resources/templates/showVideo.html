@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+<head th:replace="common/trail :: common-trail">
+
+	<meta charset="utf-8"/>
+		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+		 <link rel="stylesheet" href="css/style3.css"/>
+ 	 	<link rel="stylesheet" href="css/bootstrap.min.css"/> 
+
+</head>
+  <body>
+  	<!-- 	<div th:replace="common/trail :: navbar1"/> -->
+  		
+  		<div class="" style="padding-top: ">
+
+    <div class="mdb-lightbox">
+	
+	<header role="banner">
+		<div class="top-bar">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-5">
+						<ul class="social list-unstyled">
+
+							<p class="mb-0">
+
+								<a th:href="@{/}"> <img
+									src="/image/spokenLogo.png" href="www.google."
+									alt="Smiley face" height="60" width="200"> </img>
+								</a>
+							</p>
+						</ul>
+					</div>
+					<div class="col-md-6 col-sm-6 col-7 text-right">
+
+						<div sec:authorize="isAuthenticated()">
+
+							Logged user: <span sec:authentication="name"></span> |
+
+						</div>
+
+						<div class="row">
+
+
+							<div class="col">
+								<a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New
+									User</a> <a sec:authorize="isAuthenticated()"
+									th:href="@{/adminDeatail}">MY ACCOUNT</a> <a
+									sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a>
+							</div>
+
+
+						</div>
+
+		<!--             <img href="/HealthNutrition/src/main/resources/static/image/spokenLogo.png"  data-target="#modalAppointment">Make an Appointment</img></p>
+ -->
+					</div>
+
+
+					<marquee direction="left">1800 180 0101</marquee>
+
+				</div>
+				<!--
+            Herwe we write login button -->
+
+				<!--         <a class="btn btn-success float-right" th:href="@{/login}" style="padding-top: 27px">Login</a>     -->
+
+			</div>
+
+		</div>
+
+	</header>
+<!-- menu section -->
+	<div class="container " style="padding-top: 50px">
+				
+		<div class="bg-secondary text-white">
+		
+		
+		
+				<div class="row" style="background-color: bg-secondary text-white ;">
+			<div class="col-md-12">	
+				
+
+				</div>
+				</div>		
+		</div>	
+			
+	</div>
+	<!-- end menu section -->
+		
+		<span th:each="tutorial : ${list}">
+		
+	<div class="container  rounded" style="padding-top: 70px">
+		
+	
+		<div class="row  border border-light-10" style="padding-top: 20px; padding-bottom: 20px">
+					
+				<div class="col-md-8">
+						
+							<video style="padding-top: 8px;padding-bottom: 4px; padding-left: 4px; padding-right: 4px"  th:src="${'http://localhost:8081/' +tutorial.getVideo()}" id="tutorialView" height="400"
+								  width="750" controls="controls">
+								  
+							</video>
+			
+			   </div>
+								    
+			<div class="col-md-4 " style="padding-right: 20px">
+						
+						<span th:each="tutorials : ${listOfTutorial}">	
+						
+		<div class="row rounded bg-light" style="padding-left: 80px; padding-top:8px;">
+								
+							<!-- <video th:src="${'http://localhost:8081/' +tutorials.getVideo()}" id="tutorialView" height="100"
+											  controls="controls">
+											  
+							</video> -->
+							
+							<a th:href="${tutorials.getTutorialid()}">
+							
+								<img style="borde"  width="200" height="100" src="/image/Classes-And-Objects-Small.png"></img>
+								
+							</a>
+					<br></br>&nbsp;
+							<h6 style="color: blue; padding-right: 25px" th:text="${tutorials.getTopic().getTopicname()}"></h6>
+						
+							
+							</div>	
+						</span>
+						
+			 	</div>		
+		 </div>
+		 
+
+		 
+		</div> 
+		
+		
+			<div class="container card" style="padding-top: 20px">
+				
+				<h6>Outline :</h6> <h6 style="color: blue;" th:text="${tutorial.getOutlin()}"></h6>
+				
+			</div> 
+		 </span> 
+		 
+	
+
+	
+	
+
+    </div>
+  </div>
+ 
+		<div th:fragment="body-bottom-scripts">
+				
+			<script src="/js/jquery.min.js"></script>
+			<script src="/s/js/jquery-3.2.1.min.js"></script>
+			<script src="/s/js/popper.min.js"></script>
+			<script src="/s/js/bootstrap.min.js"></script>
+			<script src="/s/js/owl.carousel.min.js"></script>
+			<script src="/s/js/bootstrap-datepicker.js"></script>
+			<script src="/s/js/jquery.timepicker.min.js"></script>
+			<script src="/s/js/jquery.waypoints.min.js"></script>
+			<script src="/s/js/main.js"></script>
+			<script src="/js/ajaxSupport.js"></script>
+	   
+	    </div>
+ </body>
+</html>
+ 
+ 

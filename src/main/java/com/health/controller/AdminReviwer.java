@@ -278,7 +278,7 @@ public class AdminReviwer
 					
 			   commentOnComponentdao.save(commentonComponet);
 		
-			  videoStatusUpdate.add("Video Stauts Update Succefully");
+			  videoStatusUpdate.add("Video Stauts Update successfully");
 			  
 			  return videoStatusUpdate;
 

@@ -1,33 +1,195 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1"></meta>
-<title>Insert title here</title>
-</head>
-<body>
 
-				<H1> Welcome To india</H1>
-	 
-	      <div class="row">
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap"></img>
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>		
-			
-			
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+<head th:replace="common/trail :: common-trail">
+
+	<meta charset="utf-8"/>
+		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+		 <link rel="stylesheet" href="css/style3.css"/>
+ 	 	<link rel="stylesheet" href="css/bootstrap.min.css"/> 
+
+</head>
+  <body>
+  	<!-- 	<div th:replace="common/trail :: navbar1"/> -->
+  		
+  		<div class="" style="padding-top: ">
+
+    <div class="mdb-lightbox">
+	
+	<header role="banner">
+		<div class="top-bar">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-5">
+						<ul class="social list-unstyled">
+									
+									
+																<p class="mb-0">
+
+								<a th:href="@{/}"> <img
+									src="/image/spokenLogo.png" href="www.google."
+									alt="Smiley face" height="60" width="200"> </img>
+
+								</a>
+
+
+							</p>
+									
+						</ul>
+					</div>
+					<div class="col-md-6 col-sm-6 col-7 text-right">
+
+						<div sec:authorize="isAuthenticated()">
+
+							Logged user: <span sec:authentication="name"></span> |
+
+						</div>
+
+						<div class="row">
+
+
+							<div class="col">
+								<a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New
+									User</a> <a sec:authorize="isAuthenticated()"
+									th:href="@{/adminDeatail}">MY ACCOUNT</a> <a
+									sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a>
+							</div>
+
+
+						</div>
+
+		<!--             <img href="/HealthNutrition/src/main/resources/static/image/spokenLogo.png"  data-target="#modalAppointment">Make an Appointment</img></p>
+ -->
+					</div>
+
+
+					<marquee direction="left">1800 180 0101</marquee>
+
+				</div>
+				<!--
+            Herwe we write login button -->
+
+				<!--         <a class="btn btn-success float-right" th:href="@{/login}" style="padding-top: 27px">Login</a>     -->
+
 			</div>
 
+		</div>
 
-</body>
+	</header>
+
+		<div class="container" style="padding-top: 50px">
+				
+		<div class="bg-secondary text-white">
+		
+		
+		
+				<div class="row" style="background-color: bg-secondary text-white ;">
+			<div class="col-md-12">	
+				
+				
+	<form th:action="@{/showListTutorial}" class="form-inline">
+
+		<div class="pad-extra" style="padding-left: 100px">
+							<label class="sr-only" for="inputState">Category</label> 
+			<select id="categoryNameList" class="form-control" name="categoryNameList" style="width: 400px">
+
+						<option selected="selected">Select Category</option>
+						
+						<span th:each="category: ${categorys}">
+								
+								<option th:value="${category.getCategory().getId()}">
+								<span th:text="${category.getCategory().getCategoryname()}"></span></option>
+						
+						</span>	
+			</select>
+			  
+		</div>
+						<div class="pad-extra">
+							<label class="sr-only" for="inputState">language</label> 
+							<select	id="inputLanguageList" class="form-control" name="inputLanguageList"
+									style="width: 400px">
+
+							</select>
+							<div id="idselection"></div>
+						</div>
+
+						<div class="pad-extra">
+
+						 <button type="submit" class="btn btn-primary btn-rounded"
+			
+							   id="headerSubmitList">Search</button>
+
+						</div>
+
+	</form>
+				</div>
+				</div>		
+		</div>		
+	</div>
+		<hr style="padding-top: 50px"></hr>
+		
+	<div class="container" style="padding-top: 50px">
+		
+	<span th:each="tutorial : ${list}">
+	
+		<div class="row" style="padding-top: 65px">
+					
+				<div class="col-md-3">
+						
+		<a th:href="${'viewVideo/view/' + tutorial.getTutorialid()}">	
+			 
+				<img th:href="${'viewVideo/view/' + tutorial.getTutorialid()}" src="/image/Classes-And-Objects-Small.png"></img>
+					
+		</a>
+						
+			   </div>
+								    
+			<div class="col-md-7" style="display: inline-block;">
+								
+				<div class="row" style="padding-top: 25px">
+						
+							<h5 style="color: blue; padding-right: 25px" th:text="${tutorial.getTopic().getTopicname()}"></h5>
+						    	
+				</div>
+			<div class="row" >
+						
+					<h5>Foss :</h5> &nbsp; <h5 style="color: blue; padding-right: 25px" th:text="${tutorial.getCategory().getCategoryname()}"></h5>
+						    
+			</div>
+				
+						<div class="row">
+									
+				<h6>Outline :</h6> &nbsp; <h6 style="color: blue;" th:text="${tutorial.getOutlin()}"></h6>
+								    
+						</div>
+				
+			 	</div>
+				
+		 </div>
+		 </span> 
+		 
+		 
+		</div>
+
+    </div>
+  </div>
+ 
+		<div th:fragment="body-bottom-scripts">
+				
+			<script src="/js/jquery.min.js"></script>
+			<script src="/s/js/jquery-3.2.1.min.js"></script>
+			<script src="/s/js/popper.min.js"></script>
+			<script src="/s/js/bootstrap.min.js"></script>
+			<script src="/s/js/owl.carousel.min.js"></script>
+			<script src="/s/js/bootstrap-datepicker.js"></script>
+			<script src="/s/js/jquery.timepicker.min.js"></script>
+			<script src="/s/js/jquery.waypoints.min.js"></script>
+			<script src="/s/js/main.js"></script>
+			<script src="/js/ajaxSupport.js"></script>
+	   
+	    </div>
+ </body>
 </html>
+ 
+ 

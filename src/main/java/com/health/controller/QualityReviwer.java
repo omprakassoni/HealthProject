@@ -107,7 +107,7 @@ public class QualityReviwer
 				 */	
 			model.addAttribute("approve",ApproveStatu);
 			
-			model.addAttribute("msgSuccess", "Record save Succefully");
+			model.addAttribute("msgSuccess", "Publish Tutorial successfully");
 			
 			
 		 	return "listTutorialPublishQualityReviwer";
@@ -341,7 +341,7 @@ public class QualityReviwer
 			  tutorialService.updateOutLineStatusByQuality(QualittyStatus,topic, category,language);
 			 
 			 
-			  QualityStatusUpdate.add("Outline Status Update  Succesfully");
+			  QualityStatusUpdate.add("Outline Status Update  successfully");
 			  
 			  return QualityStatusUpdate;
 
@@ -399,7 +399,7 @@ public class QualityReviwer
 							 					 
 							 commentOnComponentDao.save(commentonComponet);	 
 				  
-							 outlineQuality.add("Outline Status Update  Succesfully");
+							 outlineQuality.add("Outline Status Update  successfully");
 				 
 				  return outlineQuality;
 
@@ -462,7 +462,7 @@ public class QualityReviwer
 					  
 					  tutorialService.upadateSlideStatusByQuality(QualittyStatus,topic, category,language);
 					 
-					  slideStatusByQuality.add("Slide Status Update  Succesfully");
+					  slideStatusByQuality.add("Slide Status Update  successfully");
 					  
 					  return slideStatusByQuality;
 
@@ -520,7 +520,7 @@ public class QualityReviwer
 								 					 
 								 commentOnComponentDao.save(commentonComponet);	 
 					  
-								 slideQuality.add("Slide Status Update  Succesfully");
+								 slideQuality.add("Slide Status Update  successfully");
 					 
 					
 					  return slideQuality;
@@ -550,7 +550,7 @@ public class QualityReviwer
 						 
 					  tutorialService.upadateScriptStatusByQuality(QualityStatus, topic, category,language);
 					 
-					  scriptQuality.add("Script Status Update  Succesfully");
+					  scriptQuality.add("Script Status Update  successfully");
 					  
 					  return scriptQuality;
 					  
@@ -614,7 +614,7 @@ public class QualityReviwer
 								 					 
 								 commentOnComponentDao.save(commentonComponet);
 					  
-								 scriptQuality.add("Script Status Update  Succesfully");
+								 scriptQuality.add("Script Status Update  successfully");
 								 
 								 
 					 
@@ -648,7 +648,7 @@ public class QualityReviwer
 					
 					  tutorialService.upadateKeywordByQuality(QualittyStatus,topic, category,language);
 					 
-					  ScriptStatusByQuality.add("KeyWord Status Update  Succesfully");
+					  ScriptStatusByQuality.add("KeyWord Status Update  successfully");
 					  
 					  return ScriptStatusByQuality;
 
@@ -709,7 +709,7 @@ public class QualityReviwer
 								 					 
 								 commentOnComponentDao.save(commentonComponet);
 					  
-								 keywordQuality.add("Keyword Status Update  Succesfully");
+								 keywordQuality.add("Keyword Status Update  successfully");
 								
 								 
 								 
@@ -777,7 +777,7 @@ public class QualityReviwer
 						  
 						  tutorialService.upadateVideoByQuality(QualittyStatus,topic, category,language);
 						  
-						  slideStatusByQuality.add("Video Status Update  Succesfully");
+						  slideStatusByQuality.add("Video Status Update  successfully");
 						  
 						  return slideStatusByQuality;
 
@@ -785,17 +785,5 @@ public class QualityReviwer
 					
 					
 					
-					
-
-						
-					
-					
-					
-					
-					
-					
-				  
-				  
-			  
 	
 }
