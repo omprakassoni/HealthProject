@@ -141,31 +141,10 @@ public class userController
 	public String aaddMeAsContributer(Authentication authentication, Model model,@RequestParam(value="contributerLanguage") String languageName) 
 	{
 		
-		System.err.println("hi");
-		/*
-		 * User userInfo=userDao.findByUsername(authentication.getName());
-		 * 
-		 * int st=0;
-		 * 
-		 * if(userRoleRepositary.findByStatusAndUser(st,userInfo)!=null) {
-		 * 
-		 * model.addAttribute("ac", true);
-		 * 
-		 * return "roleAdminDetail"; }
-		 */
-		
-		/*
-		 * String str = lanId; int inum = Integer.parseInt(str);
-		 * 
-		 * language lan=languagedao.findOne(languageName);
-		 */
-		
-		
 		language lan=languagedao.findBylanguageName(languageName);
 		
 		int languageId=lan.getId();
 		
-		System.err.println("Hi language id"+languageId);
 		
 		java.util.Date dt = new java.util.Date();
 
@@ -188,8 +167,7 @@ public class userController
 			userRoles.setCreated(currentTime);		
 			userRoles.setStatus(status);
 			
-			userRoleRepositary.save(userRoles);
-			
+		userRoleRepositary.save(userRoles);
 	
 		model.addAttribute("request","Request Send Successfully");
 		
@@ -197,27 +175,31 @@ public class userController
 		
 	}
 	
-	@RequestMapping(value = "/addMeAsDomainRevieweer", method = RequestMethod.GET)
-	public String addMeAsDomainRevieweer(Authentication authentication, Model model) 
+	@RequestMapping(value = "/addMeAsDomainRevieweer", method = RequestMethod.POST)
+	public String addMeAsDomainRevieweer(Authentication authentication, Model model,@RequestParam(value="contributerLanguage") String languageName) 
 	{
+
+		
+		language lan=languagedao.findBylanguageName(languageName);
 		
 		User user = userService.findByClassname(authentication.getName());
 	
-		List<UserRole> findAlreadyPresent=(List<UserRole>) userRoleRepositary.findByuser_id(user.getId());
+		//List<UserRole> findAlreadyPresent=(List<UserRole>) userRoleRepositary.findByuser_id(user.getId());
 		
-		for (UserRole  exitRole : findAlreadyPresent) 
-		{
-			
-			if(exitRole.getRole().getRoleId()==3)
-			{	
-			
-				model.addAttribute("requestSend",true);
-				
-				return "roleAdminDetail";
-				
-			}
-			
-		}
+		/*
+		 * for (UserRole exitRole : findAlreadyPresent) {
+		 * 
+		 * if(exitRole.getRole().getRoleId()==3) {
+		 * 
+		 * model.addAttribute("requestSend",true);
+		 * 
+		 * return "roleAdminDetail";
+		 * 
+		 * }
+		 * 
+		 * }
+		 */
+		
 			
 		String name = "DomainReviweer";
 
@@ -233,12 +215,13 @@ public class userController
 		
 		int status = 0;
 		UserRole userRoles = new UserRole(user, role);
+		
 		userRoles.setStatus(status);
+		userRoles.setLanguage(lan);
 		userRoles.setCreated(currentTime);
 		userRoleRepositary.save(userRoles);
 
 		return "roleAdminDetail";
-		
 
 	}
 	@RequestMapping(value = "/addMeAsAdminReviwer", method = RequestMethod.GET)
@@ -693,15 +676,14 @@ public class userController
 
 		for (UserRole ur : userByStatus) 
 		{
-			
-
 			User userInformation = userRepository.findOne(ur.getUser().getId());
 
 			userAddInformation.add(userInformation);
 			System.out.println(userInformation.getFirstName());
+			
 		}
 
-		model.addAttribute("statusByApprovDomain", userAddInformation);
+		model.addAttribute("statusByApprovDomain", userByStatus);
 		
 	
 		int rolIdMaster = 4;
@@ -737,7 +719,7 @@ public class userController
 			User userInformation = userRepository.findOne(ur.getUser().getId());
 
 			userAddInformationContributer.add(userInformation);
-		}
+	    	}
 		model.addAttribute("statusByApprovContributer", userByStatusContributer);
 
 	

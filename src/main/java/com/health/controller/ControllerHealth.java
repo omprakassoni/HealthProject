@@ -190,29 +190,29 @@ public class ControllerHealth
 		
 		List<Tutorial> categoryDropDown=tutorialDao.finBystatus();
 		
-		
 		model.addAttribute("categorys",categoryDropDown);
 		
 		Category category=categoryDao.findOne(categoryname);
 		
+		int status=1;
+		
 		com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
 		
-		List<Tutorial> tutorialResource=tutorialDao.findByCategoryLan(category);
+		//List<Tutorial> tutorialResource=tutorialDao.findByCategoryLan(category);
 		
 		List<Tutorial> tutorialResources=tutorialDao.findByLan(language);
 		
-	    List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(category,language);
-	    
-	    //  model.addAttribute("tutorialList",tutorialRes);
+	    List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(category,language,status);
+	   
 	    for (Tutorial tutorial : tutorialRes)
 	    {	
 	    	
 	    	String video=tutorial.getVideo(); 
 	    	model.addAttribute("tutorialList",video);	
+	    
 	    }
 	    
-	    model.addAttribute("list",tutorialRes);
-	    
+	    	model.addAttribute("list",tutorialRes);
 	    
 	    	return "showListOfTutorial";	    
 	}
@@ -308,24 +308,18 @@ public class ControllerHealth
 		
 		for(UserRole ur :userRoles)
 		{	
-		
 			languageExit.add(ur.getLanguage().getLanguageName());
-		
 		}		
-
 		ArrayList<com.health.model.language> lanDeatail=(ArrayList<com.health.model.language>) languageDao.findAll();
-		
-		
+	
 		ArrayList<String> languageId=new ArrayList<String>();
-		
 		
 		for(com.health.model.language language : lanDeatail)
 		{
-		
 			languageId.add(language.getLanguageName());				
 		}
 		 languageId.removeAll(languageExit); 
-		
+		 
 		for (String integer : languageId) 
 		{
 			
@@ -336,13 +330,54 @@ public class ControllerHealth
 		for (String integer : languageExit) {
 			
 			System.err.println("language Exits"+integer);
-			
 		}
 	
-    
 		model.addAttribute("languages",languageId);
-		
+	
 		return "addContributerRoleRequest";			
+}
+	
+	//Here is code for  selection  language of contributor
+		
+	@RequestMapping(value="/domainLanguage",method = RequestMethod.GET)
+	  public String languagesByDomain(Model model,Authentication authetication)
+	{
+		
+		User user=userRepository.findByUsername(authetication.getName());
+		
+		ArrayList<String> languageExit=new ArrayList<String>();
+		
+		List<UserRole> userRoles=(List<UserRole>) userRoleRepositary.findByUser(user);
+		
+		for(UserRole ur :userRoles)
+		{	
+			languageExit.add(ur.getLanguage().getLanguageName());
+		}		
+		ArrayList<com.health.model.language> lanDeatail=(ArrayList<com.health.model.language>) languageDao.findAll();
+	
+		ArrayList<String> languageId=new ArrayList<String>();
+		
+		for(com.health.model.language language : lanDeatail)
+		{
+			languageId.add(language.getLanguageName());				
+		}
+		 languageId.removeAll(languageExit); 
+		 
+		for (String integer : languageId) 
+		{
+			
+			System.err.println("language All"+integer);
+			
+		}
+			
+		for (String integer : languageExit) {
+			
+			System.err.println("language Exits"+integer);
+		}
+	
+		model.addAttribute("languages",languageId);
+	
+		return "addDomainRoleRequest";			
 }
  
 
@@ -1566,7 +1601,9 @@ public class ControllerHealth
 
 		Category cat=categoryService.findByid(id);
 		
-		List<Tutorial> Tutorial = (List<Tutorial>) tutorialDao.findByCategoryLan(cat);
+		int status=1;
+		
+		List<Tutorial> Tutorial = (List<Tutorial>) tutorialDao.findByCategoryLan(cat,status);
 	
 		
 		  ArrayList<String> tutorialLanguageExits=new ArrayList<String>();
@@ -1577,6 +1614,7 @@ public class ControllerHealth
 			  languageName.add(tutorialData.getLan().getLanguageName()); 
 		  }
 
+		  
 		  Set<String> lanSet = new LinkedHashSet<String>(languageName); 
 		  
 		  
@@ -2012,16 +2050,10 @@ public class ControllerHealth
 			
 			feedbackRespositary.save(feedback);
 			
-			
-			
 
 			return "redirect:/adminDeatail";
 		
 	}
-		
-		
-		
-		
 
 	/*
 	 * Here we Show deatail information of participant deatail
@@ -2373,6 +2405,7 @@ public class ControllerHealth
 			UserRole userRoles =userRoleRepositary.findOne(id);
 		
 			String name = "Contributer";
+			
 			Role role = rolerespositary.findByname(name);	
 			int status = 1;
 			
@@ -2385,7 +2418,37 @@ public class ControllerHealth
 						
 			return topicName;
 
-		}		
+		}
+		
+		
+		@RequestMapping("/addDomainRoleById")
+		public @ResponseBody  List<String> approveDomain(@RequestParam(value="id") Long id,Model model)
+		{
+			
+			List<String> topicName=new ArrayList<>();
+		
+			UserRole userRoles =userRoleRepositary.findOne(id);
+		
+			String name = "DomainReviweer";
+			
+			Role role = rolerespositary.findByname(name);	
+			int status = 1;
+			
+			UserRole userRole = userRoleRepositary.findByContributorId(userRoles.getUserRoleId(),role);	
+				
+			userRole.setStatus(status);	
+			userRoleRepositary.save(userRole);
+		
+			topicName.add("Approve Role Successfully");
+						
+			return topicName;
+
+		}
+		
+		
+		
+		
+		
 		@RequestMapping("/rejectContributorById")
 		public @ResponseBody  List<String> rejectContributor(@RequestParam(value="id") Long id,Model model)
 		{
@@ -2566,14 +2629,30 @@ public class ControllerHealth
 		tutorialDao.save(tutorialDaoSave);
 		
 		model.addAttribute("msg","Succesfully Save Recored ");
-		
 			
 			return "showAdminContributorList";
 		
 		}
 		
+	/*
+	 * @RequestMapping("/loadCategoryAndLanguage") public @ResponseBody List<String>
+	 * viewVideoContent(
+	 * 
+	 * @RequestParam(value = "categorname") String categorname,
+	 * 
+	 * @RequestParam(value = "topicid") String topicid,
+	 * 
+	 * @RequestParam(value = "lanId") String lanId,Model model,Authentication
+	 * authentication) {
+	 * 
+	 * 
+	 * List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(category,language);
+	 * 
+	 * return
+	 * 
+	 * }
+	 */
 		
-	
 		
 	 
 

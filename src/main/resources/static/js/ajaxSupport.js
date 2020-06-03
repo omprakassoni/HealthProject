@@ -32,7 +32,6 @@ $(function(){
 	$('#exampleModal').on('hidden.bs.modal', function () {
 		location.reload();
 		
-		
 	});
 	
 	// here is code for Script
@@ -94,16 +93,23 @@ $(function(){
 		
 	});
 	
-	$('#categoryNameList').change( function () {
-	
-			
+	$('#categoryNameList').change( function (){
 		
-		var catgoryid=$(this).find(":selected").val();
-			$.ajax({
+		
+	});
+	
+	// Here is code for category display into category and language 
+	
+	$('#categoryId').change( function () 
+	{			
+		var categoryid=$("#categoryNameList").val();
+		var languageid=$("#inputLanguageList").val();
+
+		$.ajax({
 				
-			  	type: "GET",
-	       		 url: "/loadByCategoryTuturial",
-	       		 data: { "id": catgoryid},
+	   		  	 type: "GET",
+	       		 url: "/loadCategoryAndLanguage",
+	       		 data: { "id": categoryid,"lanid": language},
 	       		 contentType: "application/json",
 	       		 success: function (result){
 	       			 
@@ -133,7 +139,6 @@ $(function(){
 		
 	});
 	
-	
 	$('#categoryname').change(function()
 	{
 		
@@ -162,8 +167,7 @@ $(function(){
   	  			            $('#inputLanguage').html(html);
   	  			            
   	  						},
-	  						
-	 							error : function(err){
+	 						error : function(err){
 	  						console.log("not working. ERROR: "+JSON.stringify(err));
  						}
   						
@@ -602,9 +606,6 @@ $(function(){
 	       		 success: function(result)
 	       		 {
 	       			 
-	       			 alert("Save data succefully");
-	       			 
-	       			 
 	       			 $("#statusOutline").prop('disabled',false);
 	       			 $('#statusOutline').html(html);
 	       			
@@ -766,9 +767,8 @@ $(function(){
 								formData.append('categoryid', categoryid);
 								formData.append('topicid', topicid);
 								formData.append('lanId', lanId);
-								
 			
-							$.ajax({
+				$.ajax({
 									    type: "POST",
 									    url: "/videoUpload",
 									    data: formData,
@@ -792,7 +792,6 @@ $(function(){
 					});
 		  
 				});
-	
 	
 	
 	$('#PrerequisiteVideoId').click(function()	
@@ -821,7 +820,7 @@ $(function(){
 									    cache: false,
 									    success: function (result)
 									    {
-									    	alert("success");
+									    	
 							    
 							       			 $("#statusofprerequisite").prop('disabled',true);
 							       			 $('#statusofprerequisite').html(result);				       		
@@ -866,9 +865,7 @@ $(function(){
 		  
 				});
 	
-	
 	/*here  calling approve button for contributorvideoUpload */
-	
 	
 	$('.approveContributor').click(function()			
 	{
@@ -908,6 +905,51 @@ $(function(){
 						
 				  
 			});
+	
+// here is code for approve DomainReviwer By admin
+	
+	
+
+	$('.approveDomain').click(function()			
+	{
+		
+		
+				var contributionId=$(this).val();
+				
+						$.ajax({
+							  	type: "GET",
+					       		 url: "/addDomainRoleById",
+					       		 data: { "id": contributionId},			
+					       		 contentType: "application/json",
+					       		 success: function(result)
+					       		{
+
+				       			 $("#statusDomain").prop('disabled',false);
+				       			 $('#statusDomain').html(result);
+				       			 
+				       			 
+				       		$('#ContributerPage').on('hidden.bs.modal', function () 
+				    		  {
+				       			
+				       				location.reload();
+				       				
+				       			});  			 
+				       			 
+				       			 
+					       	
+					       		},
+										
+									error : function(err){
+									console.lo3g("not working. ERROR: "+JSON.stringify(err));
+								}
+
+							});
+						
+						
+				  
+			});
+
+	
 	
 	$('#rejectContributionId').click(function()			
 			{
@@ -1046,7 +1088,6 @@ $(function(){
 			
 	
 						//here write code for keyword view	//add content form
-						
 						
 						$('#keywordModaleView').click(function()			
 								{

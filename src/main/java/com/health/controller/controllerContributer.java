@@ -59,7 +59,6 @@ public class controllerContributer {
 	
 	public static String uploadDirectoryCreationVideo = "src/main/resources/static" + "/Media/content" + "/Creation/Video";
 	
-
 	@Autowired
 	private languagedao languageDao;
 
@@ -112,8 +111,9 @@ public class controllerContributer {
 
 		model.addAttribute("lan", language);
 		
-		return "AddContributerLanguage";
 		
+		return "AddContributerLanguage";
+
 	}
 
 	/* show languages */

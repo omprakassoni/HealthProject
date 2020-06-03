@@ -89,15 +89,12 @@ public class HomeController {
 	
 		Tutorial tutorials=tutorialDao.findOne(id);
 		
+		int status=1;
 		
-		tutorials.getTopic().getTopicname();
-		
-		
-		List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(tutorials.getCategory(),tutorials.getLan());
+		List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(tutorials.getCategory(),tutorials.getLan(),status);
 
 		 model.addAttribute("list",tutorials);
 		 model.addAttribute("listOfTutorial",tutorialRes);
-		
 		
 		return "showVideo";
 	}	
@@ -109,9 +106,9 @@ public class HomeController {
 		Tutorial tutorials=tutorialDao.findOne(id);
 		
 		tutorials.getTopic().getTopicname();
+		int status=1;
 		
-		
-		List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(tutorials.getCategory(),tutorials.getLan());
+		List<Tutorial> tutorialRes=tutorialDao.findByLanAndCat(tutorials.getCategory(),tutorials.getLan(),status);
 
 		 model.addAttribute("list",tutorials);
 		 model.addAttribute("listOfTutorial",tutorialRes);
