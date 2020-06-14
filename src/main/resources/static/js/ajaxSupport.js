@@ -9,6 +9,18 @@ $(function(){
 	});
 	
 	
+	$('#videoViewIdAdmin').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	
+	
+	$('#VideoStatusAccept').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
 	$('#scriptStatusAcceptDomain').on('hidden.bs.modal', function () {
 		location.reload();
 		
@@ -606,6 +618,8 @@ $(function(){
 	       		 success: function(result)
 	       		 {
 	       			 
+	       			 alert("Successfully Save Data");
+	       			 
 	       			 $("#statusOutline").prop('disabled',false);
 	       			 $('#statusOutline').html(html);
 	       			
@@ -906,18 +920,143 @@ $(function(){
 				  
 			});
 	
+	// Here is code for  Admin Reviwer  Approve
+
+	$('.approveAdmin').click(function()			
+	{
+	
+				var contributionId=$(this).val();
+				
+				$.ajax({
+							  	 type: "GET",
+					       		 url: "/addAdminRoleById",
+					       		 data: { "id": contributionId},			
+					       		 contentType: "application/json",
+					       		 success: function(result)
+					       		{
+
+				       			 $("#statusAdmin").prop('disabled',false);
+				       			 $('#statusAdmin').html(result);
+				       			 
+				       			 
+				       		$('#ContributerPage').on('hidden.bs.modal', function () 
+				    		  {
+				       			
+				       				location.reload();
+				       				
+				       			});  			 
+				       			 
+				       			 
+					       	
+					       		},
+										
+									error : function(err){
+									console.lo3g("not working. ERROR: "+JSON.stringify(err));
+								}
+
+							});
+						
+						
+				  
+			});
+	
+	// Here is code for Quality Reviweer
+	
+	$('.approveQuality').click(function()			
+			{
+			
+						var contributionId=$(this).val();
+						
+						$.ajax({
+									  	 type: "GET",
+							       		 url: "/addQualityRoleById",
+							       		 data: { "id": contributionId},			
+							       		 contentType: "application/json",
+							       		 success: function(result)
+							       		{
+
+						       			 $("#statusQuality").prop('disabled',false);
+						       			 $('#statusQuality').html(result);
+						       			 
+						       			 
+						       		$('#ContributerPage').on('hidden.bs.modal', function () 
+						    		  {
+						       			
+						       				location.reload();
+						       				
+						       			});  			 
+						       			 
+						       			 
+							       	
+							       		},
+												
+											error : function(err){
+											console.lo3g("not working. ERROR: "+JSON.stringify(err));
+										}
+
+									});
+								
+								
+						  
+					});
+
+
+	// Here is code for Master Trainer
+	
+	$('.approvemaster').click(function()			
+		{
+			
+						var contributionId=$(this).val();
+						
+						$.ajax({
+									  	 type: "GET",
+							       		 url: "/addMasterRoleById",
+							       		 data: { "id": contributionId},			
+							       		 contentType: "application/json",
+							       		 success: function(result)
+							       		{
+
+						       			 $("#statusMaster").prop('disabled',false);
+						       			 $('#statusMaster').html(result);
+						       			 
+						       			 
+						       		$('#ContributerPage').on('hidden.bs.modal', function () 
+						    		  {
+						       			
+						       				location.reload();
+						       				
+						       			});  			 
+						       			 
+						       			 
+							       	
+							       		},
+												
+											error : function(err){
+											console.lo3g("not working. ERROR: "+JSON.stringify(err));
+										}
+
+									});
+								
+								
+						  
+					});
+	
+	
+	
+	
+	
 // here is code for approve DomainReviwer By admin
+	
 	
 	
 
 	$('.approveDomain').click(function()			
 	{
 		
-		
 				var contributionId=$(this).val();
 				
-						$.ajax({
-							  	type: "GET",
+				$.ajax({
+							  	 type: "GET",
 					       		 url: "/addDomainRoleById",
 					       		 data: { "id": contributionId},			
 					       		 contentType: "application/json",
@@ -2232,7 +2371,7 @@ $(function(){
 			 else if(vals == '1')
 			 {
 				 
-				 alert("save data")
+				 
 				 	
 		$.ajax({
 			
@@ -2723,13 +2862,7 @@ $(function(){
 								 
 							 }
 							
-							
 
-							
-							
-							
-				
-				
 				});
 				
 				

@@ -41,9 +41,12 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 		UserRole findByRejectElement(User role);
 	
 		
-		
 		@Query(" from UserRole u where u.user=?1")
 		UserRole findByUserInfo(User role);
+		
+		@Query(" from UserRole u where u.user=?1 and u.role=?2")
+		UserRole findByUserRole(Role role);
+		
 		
 		@Query(" from UserRole u where u.user=?1")
 		List<UserRole> findByUser(User role);
@@ -62,6 +65,10 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 		
 		@Query("from UserRole u where u.user=?1 and role=?2")
 		List<UserRole> findByuserAndRole(User user,Role role);
+		
+
+		@Query("from UserRole u where u.user=?1 and role=?2")
+		UserRole findByuserAndRoles(User user,Role role);
 	
 	   /* access the user contribution */	
 		@Query(" from UserRole u where u.status=?1 and u.role=?2") 	

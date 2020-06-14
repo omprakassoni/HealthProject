@@ -226,7 +226,6 @@ public class ControllerHealth
 			int id=5;			
 			Role role=rolerespositary.findOne(id);	
 			
-			
 			List<UserRole> userByContributor=(List<UserRole>) userRoleRepositary.finbyRoleUser(status,role);
 		
 			
@@ -242,9 +241,7 @@ public class ControllerHealth
 		  	}
 		  
 		  Set<String> setInfo=new HashSet<String>(userName);
-		
-		  
-	 
+	
 		  model.addAttribute("userByContributors",setInfo);	
 		  
 		
@@ -302,9 +299,11 @@ public class ControllerHealth
 		
 		User user=userRepository.findByUsername(authetication.getName());
 		
+		Role role=rolerespositary.findOne(5);
+		
 		ArrayList<String> languageExit=new ArrayList<String>();
 		
-		List<UserRole> userRoles=(List<UserRole>) userRoleRepositary.findByUser(user);
+		List<UserRole> userRoles=(List<UserRole>) userRoleRepositary.findByuserAndRole(user, role);//findByUser(user);
 		
 		for(UserRole ur :userRoles)
 		{	
@@ -345,36 +344,31 @@ public class ControllerHealth
 		
 		User user=userRepository.findByUsername(authetication.getName());
 		
+		Role role=rolerespositary.findOne(3);
+				
 		ArrayList<String> languageExit=new ArrayList<String>();
 		
-		List<UserRole> userRoles=(List<UserRole>) userRoleRepositary.findByUser(user);
+		List<UserRole> userRoles=(List<UserRole>) userRoleRepositary.findByuserAndRole(user,role);
 		
 		for(UserRole ur :userRoles)
 		{	
+			
 			languageExit.add(ur.getLanguage().getLanguageName());
+			
 		}		
 		ArrayList<com.health.model.language> lanDeatail=(ArrayList<com.health.model.language>) languageDao.findAll();
 	
-		ArrayList<String> languageId=new ArrayList<String>();
+		 ArrayList<String> languageId=new ArrayList<String>();
 		
 		for(com.health.model.language language : lanDeatail)
 		{
-			languageId.add(language.getLanguageName());				
+			languageId.add(language.getLanguageName());
+			
 		}
+		
 		 languageId.removeAll(languageExit); 
-		 
-		for (String integer : languageId) 
-		{
-			
-			System.err.println("language All"+integer);
-			
-		}
-			
-		for (String integer : languageExit) {
-			
-			System.err.println("language Exits"+integer);
-		}
 	
+		 
 		model.addAttribute("languages",languageId);
 	
 		return "addDomainRoleRequest";			
@@ -2445,6 +2439,85 @@ public class ControllerHealth
 
 		}
 		
+		@RequestMapping("/addAdminRoleById")
+		public @ResponseBody  List<String> approveAdmin(@RequestParam(value="id") Long id,Model model)
+		{
+			
+			List<String> topicName=new ArrayList<>();
+		
+			UserRole userRoles =userRoleRepositary.findOne(id);
+		
+			String name = "VideoReviwer";
+			
+			Role role = rolerespositary.findByname(name);	
+			int status = 1;
+			
+			UserRole userRole = userRoleRepositary.findByContributorId(userRoles.getUserRoleId(),role);	
+				
+			userRole.setStatus(status);	
+			userRoleRepositary.save(userRole);
+		
+			topicName.add("Approve Role Successfully");
+						
+			return topicName;
+
+		}
+		
+		@RequestMapping("/addQualityRoleById")
+		public @ResponseBody  List<String> addQualityRoleById(@RequestParam(value="id") Long id,Model model)
+		{
+			
+			List<String> topicName=new ArrayList<>();
+		
+			UserRole userRoles =userRoleRepositary.findOne(id);
+		
+			String name = "QualityReviweer";
+			
+			Role role = rolerespositary.findByname(name);	
+			int status = 1;
+			
+			UserRole userRole = userRoleRepositary.findByContributorId(userRoles.getUserRoleId(),role);	
+				
+			userRole.setStatus(status);	
+			userRoleRepositary.save(userRole);
+		
+			topicName.add("Approve Role Successfully");
+						
+			return topicName;
+
+		}
+		
+		@RequestMapping("/addMasterRoleById")
+		public @ResponseBody  List<String> addMasterRoleById(@RequestParam(value="id") Long id,Model model)
+		{
+			
+			List<String> topicName=new ArrayList<>();
+		
+			UserRole userRoles =userRoleRepositary.findOne(id);
+		
+			String name = "MasterTrainer";
+			
+			Role role = rolerespositary.findByname(name);	
+			int status = 1;
+			
+			UserRole userRole = userRoleRepositary.findByContributorId(userRoles.getUserRoleId(),role);	
+				
+			userRole.setStatus(status);	
+			userRoleRepositary.save(userRole);
+		
+			topicName.add("Approve Role Successfully");
+						
+			return topicName;
+
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -2590,7 +2663,6 @@ public class ControllerHealth
 		
 		topic topic=topicdao.findBytopicname(inputTopic);
 		
-			
 		
 		contributor_Role contributorRole=new contributor_Role();
 		
@@ -2632,7 +2704,7 @@ public class ControllerHealth
 			
 			return "showAdminContributorList";
 		
-		}
+	}
 		
 	/*
 	 * @RequestMapping("/loadCategoryAndLanguage") public @ResponseBody List<String>

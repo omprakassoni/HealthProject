@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.Testimonial;
@@ -27,6 +28,7 @@ import com.health.model.commentOnComponent;
 import com.health.model.language;
 import com.health.model.topic;
 import com.health.repository.CategoryDao;
+import com.health.repository.RoleRepository;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
@@ -73,32 +75,37 @@ public class DomainReviwer {
 	private tutorialService tutorialService;
 	
 	
+	@Autowired
+	private RoleRepository RoleRepository;
+	
+	
 			@RequestMapping("/listDomainReviewrTutorial")
-			public String listTutorials(Model model) 
+			public String listTutorials(Model model,Authentication Authentication) 
 			{
-				
-			List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findAll();	
 			
-			for (Tutorial tutorial2 : tutorial) {
-				
-				
-			
-			}
-			
-				int outlineStatus=1;
-				int scriptStatus=1;
-				int videoStatus=1;
-				
-				
-				 //List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findByOutlineScriptVideo(outlineStatus,scriptStatus,videoStatus);
-				
+			 User user=userRepository.findByUsername(Authentication.getName());
 		
-				model.addAttribute("DomainLisTutorias",tutorial);
-				
-				return "listTutorialDomainReview";
+		/*
+		 * Role role=RoleRepository.findOne(3);
+		 * 
+		 * UserRole userRole= UserRoleRepositary.findByuserAndRoles(user, role);
+		 */
+		    
+		//List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findByLan(user.get);
+            
+
+			 List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findAll();
+            	 
+	
+		  //List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findByOutlineScriptVideo(outlineStatus,scriptStatus,videoStatus);
+		
+			model.addAttribute("DomainLisTutorias",tutorial);
+			
+			
+			return "listTutorialDomainReview";
 			
 				
-			}
+		}
 	
 			@RequestMapping("componenettutorial/review/{id}")
 			public String componenettutorialReview(@PathVariable Integer id, Model model,HttpServletRequest req) 

@@ -156,4 +156,5 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	@Query("update Tutorial set  status=?1 where id=?2")
 	int updateStatusByQualityApprove(int statusApproveByQuality, int idStatus);
 
+
 }

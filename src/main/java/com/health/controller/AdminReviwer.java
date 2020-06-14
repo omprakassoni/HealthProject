@@ -232,11 +232,7 @@ public class AdminReviwer
 				  Authentication authentication)	  
 		{
 			  
-			  
-			  	System.err.println("Hello CDemo");
-			  
 			  String video="Video";
-			  
 			
 			  List<String> videoStatusUpdate = new ArrayList<String>();
 			  

@@ -702,7 +702,7 @@ public class userController
 
 		}
 
-		model.addAttribute("statusByApprovMaster", userAddInformationMaster);
+		model.addAttribute("statusByApprovMaster", userByStatusMaster);
 		
 		
 	
@@ -738,7 +738,7 @@ public class userController
 			userAddInformationQuality.add(userInformation);
 		}
 
-		model.addAttribute("statusByApprovQuality", userAddInformationQuality);
+		model.addAttribute("statusByApprovQuality", userByStatusQuality);
 
 
 		int rolIdVideo = 6;
@@ -752,12 +752,10 @@ public class userController
 		for (UserRole ur : userByStatusVideo) {
 
 			User userInformation = userRepository.findOne(ur.getUser().getId());
-			
-			
 
 			userAddInformationVideo.add(userInformation);
 		}
-		model.addAttribute("statusByApprovAdmin",userAddInformationVideo);
+		model.addAttribute("statusByApprovAdmin",userByStatusVideo);
 	
 		return "approveRoleLink";
 			
