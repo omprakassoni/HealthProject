@@ -96,6 +96,7 @@ public class HomeController {
 		 model.addAttribute("list",tutorials);
 		 model.addAttribute("listOfTutorial",tutorialRes);
 		
+		 
 		return "showVideo";
 	}	
 	
@@ -125,7 +126,6 @@ public class HomeController {
 		//List<Category> category=categoryservice.findAll();
 		
 		List<Tutorial> category=tutorialDao.finBystatus();
-		
 		
 		model.addAttribute("categorys",category);
 		
@@ -265,11 +265,12 @@ public class HomeController {
 		userService.createPasswordResetTokenForUser(user, token);
 		
 		String appUrl = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
-		
-		SimpleMailMessage email = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
-		
-		mailSender.send(email);
-		
+		/*
+		 * SimpleMailMessage email = mailConstructor.constructResetTokenEmail(appUrl,
+		 * request.getLocale(), token, user, password);
+		 * 
+		 * mailSender.send(email);
+		 */
 		model.addAttribute("emailSent", "true");
 		
 		return "myAccount";

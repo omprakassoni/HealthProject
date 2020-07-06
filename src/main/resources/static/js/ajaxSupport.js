@@ -14,6 +14,12 @@ $(function(){
 		
 	});
 	
+	$('#videoViewIdDomain').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	
 	
 	
 	$('#VideoStatusAccept').on('hidden.bs.modal', function () {

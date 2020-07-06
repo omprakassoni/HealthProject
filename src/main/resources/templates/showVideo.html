@@ -80,7 +80,7 @@
 		
 		
 				<div class="row" style="background-color: bg-secondary text-white ;">
-			<div class="col-md-12">	
+			<div class="col-md-12 col-sm-12 col-lg-12">	
 				
 
 				</div>
@@ -97,7 +97,7 @@
 	
 		<div class="row  border border-light-10" style="padding-top: 20px; padding-bottom: 20px">
 					
-				<div class="col-md-8">
+				<div class="col-md-8 col-sm-8 col-lg-8">
 						
 							<video style="padding-top: 8px;padding-bottom: 4px; padding-left: 4px; padding-right: 4px"  th:src="${'http://localhost:8081/' +tutorial.getVideo()}" id="tutorialView" height="400"
 								  width="750" controls="controls">
@@ -106,7 +106,7 @@
 			
 			   </div>
 								    
-			<div class="col-md-4 " style="padding-right: 20px">
+			<div class="col-md-4 col-sm-4 col-lg-4 " style="padding-right: 20px">
 						
 						<span th:each="tutorials : ${listOfTutorial}">	
 						
@@ -131,17 +131,40 @@
 						
 			 	</div>		
 		 </div>
-		 
 
-		 
 		</div> 
 		
+			<div class="container " style="padding-top: 20px">
+			
+					<div class="row">
+					
+						<div class="col-md-8 col-sm-8 col-lg-8 card">
+									  
+							<h6>Outline :</h6> <h6 style="color: blue;" th:text="${tutorial.getOutlin()}"></h6>
+						
+						</div> 
+						
+						<div class="col-md-4 col-sm-4 col-lg-4 card">
+						
+					
+					
+					
+		 <a th:href="${tutorial.getScript()}" target="_blank">	
+				 
+			 <h4> <i style="color:blue; padding-top: 10px; padding-left: 20px" class="fa fa-file-archive-o" aria-hidden="true"></i>&nbsp;&nbsp; Script</h4>
+				
+		</a>
+						
+			</div>
+						
+	</div>
+					
+				
+						
 		
-			<div class="container card" style="padding-top: 20px">
-				
-				<h6>Outline :</h6> <h6 style="color: blue;" th:text="${tutorial.getOutlin()}"></h6>
-				
-			</div> 
+		
+	 </div>
+			
 		 </span> 
 		 
 	
