@@ -74,7 +74,7 @@ public class category_Tutorial {
 
 	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
 	@JoinColumn(name="lan_id")
-	private Language language;
+	private language language;
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
@@ -82,12 +82,12 @@ public class category_Tutorial {
 	private topic topic;
 
 
-	public Language getLanguage() {
+	public language getLanguage() {
 		return language;
 	}
 
 
-	public void setLanguage(Language language) {
+	public void setLanguage(language language) {
 		this.language = language;
 	}
 

@@ -24,15 +24,15 @@ public class language_assign {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="language_id")
-	private Language lan;
+	private language lan;
 
 
-	public Language getLan() {
+	public language getLan() {
 		return lan;
 	}
 
 
-	public void setLan(Language lan) {
+	public void setLan(language lan) {
 		this.lan = lan;
 	}
 

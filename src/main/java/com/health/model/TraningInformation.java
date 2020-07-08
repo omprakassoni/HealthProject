@@ -36,7 +36,7 @@ public class TraningInformation
 	private String traningInformation;
 	
 	@OneToMany(mappedBy = "traningInformation",cascade =CascadeType.ALL) 
-	 private List<ParticipantDetail> partipantDeatil;
+	 private List<partipantDeatil> partipantDeatil;
 	
 		
 		
