@@ -10,17 +10,17 @@ import org.springframework.stereotype.Service;
 
 import com.health.model.Category;
 import com.health.model.User;
-import com.health.model.Language;
+import com.health.model.language;
 import com.health.model.topic;
-import com.health.repository.LanguageDao;
-import com.health.service.LanguageService;
+import com.health.repository.languagedao;
+import com.health.service.languageService;
 
 @Service
-public class LanguageServiceImp implements LanguageService
+public class languageServiceImp implements languageService
 {
 
 	@Autowired
-	private LanguageDao languagedao;
+	private languagedao languagedao;
 	
 	
 	

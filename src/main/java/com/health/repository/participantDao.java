@@ -6,13 +6,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 
-import com.health.model.ParticipantDetail;
+import com.health.model.partipantDeatil;
 
-public interface ParticipantDao extends CrudRepository<ParticipantDetail, Integer> {
+public interface participantDao extends CrudRepository<partipantDeatil, Integer> {
 
 	
 	@Modifying
-	@Query("update ParticipantDetail set  firstname=?1 ,lastname=?2, email=?3,adharNumber=?4,gender=?5,language=?6 where id=?7")
+	@Query("update partipantDeatil set  firstname=?1 ,lastname=?2, email=?3,adharNumber=?4,gender=?5,language=?6 where id=?7")
 	 int updateparticipantDeatail(String firstname, String lastname,String email,String adharNumber, String gender,String language,int participant_id);
 
 	

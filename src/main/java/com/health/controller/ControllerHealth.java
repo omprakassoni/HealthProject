@@ -46,7 +46,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
-import com.health.model.Consultant;
+import com.health.model.Consaltantant;
 import com.health.model.Event;
 import com.health.model.Question;
 import com.health.model.Testimonial;
@@ -55,14 +55,14 @@ import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.model.category_Tutorial;
 import com.health.model.contributor_Role;
-import com.health.model.Feedback;
+import com.health.model.feedback;
 import com.health.model.feedbackMasterTrainer;
 import com.health.model.newRole;
-import com.health.model.ParticipantDetail;
+import com.health.model.partipantDeatil;
 import com.health.model.topic;
 import com.health.repository.CategoryDao;
 import com.health.repository.CategoryTutorialDao;
-import com.health.repository.ConsultantDao;
+import com.health.repository.ConsaltantDao;
 import com.health.repository.EventDao;
 import com.health.repository.Questionreposiatry;
 import com.health.repository.RoleRepository;
@@ -73,10 +73,10 @@ import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
 import com.health.repository.contributor_RoleDao;
 import com.health.repository.feedbackRespositary;
-import com.health.repository.LanguageDao;
-import com.health.repository.ParticipantDao;
+import com.health.repository.languagedao;
+import com.health.repository.participantDao;
 import com.health.repository.topicRepositary;
-import com.health.service.ConsultantService;
+import com.health.service.ConsaltantService;
 import com.health.service.categoryService;
 import com.health.service.eventService;
 import com.health.service.participantService;
@@ -109,10 +109,10 @@ public class ControllerHealth
 	public String pathfile = uploadDirectory;
 	
 	@Autowired
-	private ConsultantService consultantService;
+	private ConsaltantService consaltantservice;
 
 	@Autowired
-	private ConsultantDao consalttantDao;
+	private ConsaltantDao consalttantDao;
 
 	@Autowired
 	private testimonialService testimonialService;
@@ -166,13 +166,13 @@ public class ControllerHealth
 	private feedbackRespositary feedbackRespositary;
 
 	@Autowired 
-	private  ParticipantDao participantDao;
+	private  participantDao participantDao;
 	
 	@Autowired
 	private topicRepositary topicdao;
 	
 	@Autowired
-	private LanguageDao languageDao;
+	private languagedao languageDao;
 	
 	@Autowired
 	private contributor_RoleDao contributorRoleDao;
@@ -196,7 +196,7 @@ public class ControllerHealth
 		
 		int status=1;
 		
-		com.health.model.Language language=languageDao.findBylanguageName(inputLanguage);
+		com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
 		
 		//List<Tutorial> tutorialResource=tutorialDao.findByCategoryLan(category);
 		
@@ -309,11 +309,11 @@ public class ControllerHealth
 		{	
 			languageExit.add(ur.getLanguage().getLanguageName());
 		}		
-		ArrayList<com.health.model.Language> lanDeatail=(ArrayList<com.health.model.Language>) languageDao.findAll();
+		ArrayList<com.health.model.language> lanDeatail=(ArrayList<com.health.model.language>) languageDao.findAll();
 	
 		ArrayList<String> languageId=new ArrayList<String>();
 		
-		for(com.health.model.Language language : lanDeatail)
+		for(com.health.model.language language : lanDeatail)
 		{
 			languageId.add(language.getLanguageName());				
 		}
@@ -356,11 +356,11 @@ public class ControllerHealth
 			languageExit.add(ur.getLanguage().getLanguageName());
 			
 		}		
-		ArrayList<com.health.model.Language> lanDeatail=(ArrayList<com.health.model.Language>) languageDao.findAll();
+		ArrayList<com.health.model.language> lanDeatail=(ArrayList<com.health.model.language>) languageDao.findAll();
 	
 		 ArrayList<String> languageId=new ArrayList<String>();
 		
-		for(com.health.model.Language language : lanDeatail)
+		for(com.health.model.language language : lanDeatail)
 		{
 			languageId.add(language.getLanguageName());
 			
@@ -385,7 +385,7 @@ public class ControllerHealth
 	  
 	  System.err.println(languagName);
 	  
-	  List<com.health.model.Language> language= (List<com.health.model.Language>) languageDao.findAll();
+	  List<com.health.model.language> language= (List<com.health.model.language>) languageDao.findAll();
 	  
 	  
 	  
@@ -394,7 +394,7 @@ public class ControllerHealth
 	  newNonExit.add("Marathi"); newNonExit.add("English");
 	  newNonExit.add("Hindi");
 	  
-	  for(com.health.model.Language s: language) {
+	  for(com.health.model.language s: language) {
 	   
 	  // Validating each class tuple against its non availability in
 	 if(newNonExit.contains(s.getLanguageName()))
@@ -476,7 +476,7 @@ public class ControllerHealth
 		
 		
 		
-		List<ParticipantDetail> participantDeatail=(List<ParticipantDetail>) participantDao.findAll();
+		List<partipantDeatil> participantDeatail=(List<partipantDeatil>) participantDao.findAll();
 		
 
 		model.addAttribute("parcipantDeatails", participantDeatail);
@@ -496,7 +496,7 @@ public class ControllerHealth
 	public String show_language(Model model,HttpServletRequest request) {
 		
 		
-		Iterable<com.health.model.Language> language=languageDao.findAll();
+		Iterable<com.health.model.language> language=languageDao.findAll();
 		
 		model.addAttribute("lan",language);
 		
@@ -524,7 +524,7 @@ public class ControllerHealth
 	public String language(Model model,HttpServletRequest request)
 	{
 
-		List<com.health.model.Language> language=(List<com.health.model.Language>) languageDao.findAll();
+		List<com.health.model.language> language=(List<com.health.model.language>) languageDao.findAll();
 		
 		model.addAttribute("languageAll",language);
 		
@@ -809,13 +809,13 @@ public class ControllerHealth
 		
 		String substring = fileconsalantant.substring(26);
 
-		Consultant consaltantant = new Consultant();
+		Consaltantant consaltantant = new Consaltantant();
 
-		consaltantant.setName(nameConsaltant);
-		consaltantant.setDescription(descriptionConsaltant);
-		consaltantant.setUploadConsultantImage(substring);
+		consaltantant.setNameConsaltant(nameConsaltant);
+		consaltantant.setDescriptionConsaltant(descriptionConsaltant);
+		consaltantant.setUploadConsaltantImage(substring);
 		
-		consaltantant.setDateAdded(getCurrentTime());
+		consaltantant.setTimaedate(getCurrentTime());
 
 		consalttantDao.save(consaltantant);
 
@@ -837,11 +837,11 @@ public class ControllerHealth
 	public String showconsaltant(Model model) 
 	{
 
-		List<Consultant> name=consalttantDao.findBydateConsalant();
+		List<Consaltantant> name=consalttantDao.findBydateConsalant();
 		
-		for (Consultant consaltantant : name) {
+		for (Consaltantant consaltantant : name) {
 			
-			consaltantant.getUploadConsultantImage();
+			consaltantant.getUploadConsaltantImage();
 			
 		}
 		
@@ -863,7 +863,7 @@ public class ControllerHealth
 	@RequestMapping("/consalantant/delete/{id}")
 	public String deleteconsalantant(@PathVariable Integer id, Model model, ModelAndView mv) {
 
-		consultantService.deleteProduct(id);
+		consaltantservice.deleteProduct(id);
 
 		return "redirect:/show_consalantant";
 
@@ -882,7 +882,7 @@ public class ControllerHealth
 	@RequestMapping("productconsalantant/edit/{id}")
 	public String editconsalantant(@PathVariable Integer id, Model model, HttpServletRequest req) {
 
-		Consultant consaltantant = consultantService.getProductById(id);
+		Consaltantant consaltantant = consaltantservice.getProductById(id);
 
 		model.addAttribute("products", consaltantant);
 
@@ -943,7 +943,7 @@ public class ControllerHealth
 		String var = substring.toString();
 		System.out.println(var);
 
-		consultantService.updateConsultant(descriptionConsaltant, nameConsaltant, var, consalantant_id);
+		consaltantservice.UpdateConsalantant(descriptionConsaltant, nameConsaltant, var, consalantant_id);
 
 		System.err.println(uploadDirectory);
 
@@ -1920,7 +1920,7 @@ public class ControllerHealth
 								String [] data=line.split(",");
 								
 				
-								ParticipantDetail participantDeatail=new ParticipantDetail();
+								partipantDeatil participantDeatail=new partipantDeatil();
 								
 								
 								participantDeatail.setFirstname(data[0]);
@@ -1967,7 +1967,7 @@ public class ControllerHealth
 
 			
 			
-			ParticipantDetail participantDeatail=participantDao.findOne(id);
+			partipantDeatil participantDeatail=participantDao.findOne(id);
 			
 
 			model.addAttribute("parcipantDeatails", participantDeatail);
@@ -2056,7 +2056,7 @@ public class ControllerHealth
 		@RequestMapping(value = "/show_participantDeatail", method = RequestMethod.GET)
 		public String showparticipantDeatail(Model model) {
 		
-			List<ParticipantDetail> participantdeatail=(List<ParticipantDetail>) participantDao.findAll();
+			List<partipantDeatil> participantdeatail=(List<partipantDeatil>) participantDao.findAll();
 			
 			
 		
@@ -2169,7 +2169,7 @@ public class ControllerHealth
 		public String editConsaltant(@PathVariable Integer id, Model model, HttpServletRequest req) 
 		{
 
-			Consultant consaltantant = consultantService.getProductById(id);
+			Consaltantant consaltantant = consaltantservice.getProductById(id);
 
 			model.addAttribute("products", consaltantant);
 
@@ -2233,7 +2233,7 @@ public class ControllerHealth
 
 			String currentTime = sdf.format(dt);
 			
-			com.health.model.Language lan=new com.health.model.Language();
+			com.health.model.language lan=new com.health.model.language();
 			
 					lan.setLanguageName(language);
 				
@@ -2344,7 +2344,7 @@ public class ControllerHealth
 			
 				String contributorName=authetication.getName();
 				
-				List<com.health.model.Language> loadlanguages= (List<com.health.model.Language>) languageDao.findAll();
+				List<com.health.model.language> loadlanguages= (List<com.health.model.language>) languageDao.findAll();
 				
 				
 				System.err.println("Contributort Name"+contributorName);
@@ -2352,9 +2352,9 @@ public class ControllerHealth
 			
 			    List<String> topicName=new ArrayList<String>();
 	    
-			    List<com.health.model.Language> language= (List<com.health.model.Language>) languageDao.findAll();
+			    List<com.health.model.language> language= (List<com.health.model.language>) languageDao.findAll();
 			    
-			    for(com.health.model.Language  lan:language) 
+			    for(com.health.model.language  lan:language) 
 			    {
 			    
 			    	topicName.add(lan.getLanguageName());
@@ -2657,7 +2657,7 @@ public class ControllerHealth
 			
 		User user=userRepository.findByUsername(contributorId);
 			
-		com.health.model.Language language=languageDao.findBylanguageName(inputLanguage);
+		com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
 		
 		Category category=categoryDao.findBycategoryname(contributorCategory);
 		

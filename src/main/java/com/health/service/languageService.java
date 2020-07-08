@@ -4,7 +4,7 @@ import com.health.model.Category;
 import com.health.model.User;
 import com.health.model.topic;
 
-public interface LanguageService 
+public interface languageService 
 {
 	
 	/*

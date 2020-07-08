@@ -12,14 +12,14 @@ import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.User;
-import com.health.model.Language;
+import com.health.model.language;
 
-public interface LanguageDao extends JpaRepository<Language,Integer> {
+public interface languagedao extends JpaRepository<language,Integer> {
 
-	Language findBylanguageName(String name);
+	language findBylanguageName(String name);
 
-	@Query("from Language u where u.languageName = ?1") 
-	ArrayList<Language> findByExcludeLanguages(String language);
+	@Query("from language u where u.languageName = ?1") 
+	ArrayList<language> findByExcludeLanguages(String language);
 
 	/*
 	 * @Query("from language u where u.languageName =?1") ArrayList<language>
