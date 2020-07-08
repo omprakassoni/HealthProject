@@ -8,6 +8,13 @@ $(function(){
 		
 	});
 	
+
+	$('#approveContributorId').on('show.bs.tab',function () {
+		location.reload();
+		
+		
+	});
+	
 	
 	$('#videoViewIdAdmin').on('hidden.bs.modal', function () {
 		location.reload();
@@ -18,9 +25,6 @@ $(function(){
 		location.reload();
 		
 	});
-	
-	
-	
 	
 	$('#VideoStatusAccept').on('hidden.bs.modal', function () {
 		location.reload();

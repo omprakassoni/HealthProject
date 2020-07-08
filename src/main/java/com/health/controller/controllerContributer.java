@@ -578,10 +578,6 @@ public class controllerContributer {
 				
 				com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
 				
-				System.err.println(topic.getTopicname());
-				
-							
-				//List<Tutorial> tutorial= (List<Tutorial>) tutorialDao.finByCategoryAndlanguage(catgory, topic);
 				
 				List<Tutorial> tutorial=(List<Tutorial>) tutorialDao.findByCategoryAndlanguage(catgory,language,topic);
 

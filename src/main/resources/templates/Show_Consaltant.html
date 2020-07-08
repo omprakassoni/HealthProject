@@ -50,9 +50,9 @@
 						                
 						                </td>  
 					   
-					                <td><a th:href="${'productconsalantant/edit/' + product.id}">Edit</a></td>
+					                <td><a  th:href="${'productconsalantant/edit/' + product.id}">Edit</a></td>
 					                
-					                <td><a th:href="${'/consalantant/delete/' + product.id}">Delete</a></td>
+					                <td><a onclick="submitForm()" th:href="${'/consalantant/delete/' + product.id}">Delete</a></td>
       
 					            </tr>
 					            </tbody>
@@ -62,6 +62,13 @@
          
 			</div> 
  
+ 			<script>
+					function submitForm() {
+						  return confirm('Do you really want to Delete the record');
+						  
+						  alert("Delete  Recored succefully");
+						}
+					</script>
  
  			<script src="/js/jquery.min.js"></script>
 		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>

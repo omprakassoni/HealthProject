@@ -55,7 +55,7 @@
 					                </td> 
 					
 					                <td><a th:href="${'/productTesdtimonial/edit/' + testimonial.id}">Edit</a></td>
-					                <td><a th:href="${'/testimonial/delete/' + testimonial.id}">Delete</a></td>  
+					                <td><a onclick="submitForm()" th:href="${'/testimonial/delete/' + testimonial.id}">Delete</a></td>  
 		
 					            </tr>
 					            
@@ -77,6 +77,14 @@
 			
 			</script>
  
+ 
+ 	<script>
+					function submitForm() {
+						  return confirm('Do you really want to Delete Recored');
+						  
+						  alert("Delete Recored succefully");
+						}
+					</script>
 			<div th:fragment="body-bottom-scripts">
 
         	 <script src="static/js/bootstrap.bundle.min.js"></script>

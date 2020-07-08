@@ -60,7 +60,7 @@
 						                <td th:text="${event.contactnumber}">descirption</td>
 									   <td th:text="${event.email}">descirption</td>
 
-					                <td><a th:href="${'event/edit/' + event.id}">Edit</a></td>  
+					                <td><a onclick="submitForm()" th:href="${'event/edit/' + event.id}">Edit</a></td>  
    
 					                <td><a th:href="${'/event/delete/' + event.id}">Delete</a></td>
     
@@ -70,6 +70,15 @@
 					        </table>
 					    </div>
               </div>
+              
+              
+ 	<script>
+					function submitForm() {
+						  return confirm('Do you really want to Delete Recored');
+						  
+						  alert("Delete Recored succefully");
+						}
+					</script>
               
               <div class="col-2">
                   

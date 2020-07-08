@@ -368,8 +368,8 @@ public class ControllerHealth
 		
 		 languageId.removeAll(languageExit); 
 	
-		 
 		model.addAttribute("languages",languageId);
+		
 	
 		return "addDomainRoleRequest";			
 }
@@ -664,14 +664,14 @@ public class ControllerHealth
 		
 		return  "addUploadQuestion";
 	}
-
+// change function name
 	@RequestMapping("/adminShowDomainReviweer")
 	public String adminShowQualityreviweer(Model model){
 
 		int rolId = 3;
 		Role role = rolerespositary.findByIdRoles(rolId);
 
-		int status = 0;
+		int status = 1;
 		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
 
 		List<User> userAddInformation = new ArrayList<>();
@@ -695,7 +695,7 @@ public class ControllerHealth
 		int rolId = 1;
 		Role role = rolerespositary.findByIdRoles(rolId);
 
-		int status = 0;
+		int status = 1;
 		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
 
 		List<User> userAddInformation = new ArrayList<>();
@@ -721,7 +721,7 @@ public class ControllerHealth
 		int rolId = 4;
 
 		Role role = rolerespositary.findByIdRoles(rolId);
-		int status = 0;
+		int status = 1;
 		List<UserRole> userByStatus = userRoleRepositary.findByStatus(status, role);
 
 		List<User> userAddInformation = new ArrayList<>();
