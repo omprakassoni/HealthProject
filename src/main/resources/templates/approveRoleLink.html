@@ -26,6 +26,7 @@
   <div th:replace="common/trail :: navbar1"/>
   			
    	<div class="container"> 
+   	<div style="border:1px solid red;"></div>
 								<div class="row" style="padding-top: 120px"  >
 								<div class="col-12">
 	
@@ -49,6 +50,7 @@
 									<!-- <div class="row"> -->
 									</div>
 									</div>
+									
 									<div class="row">
 									
 									<div class="col-12">
@@ -60,7 +62,7 @@
 		
 			 <div class="tab-pane fade" id="Admin" role="tabpanel" aria-labelledby="nav-admin-tab" onloadeddata="return submitA(this);">
 			
-			<h6  id="statusAdmin" style="color: maroon; padding-left: 200px; padding-top: 20px" > </h6>
+			<h6  id="statusAdmin" class="approve-success-msg" style="color: maroon; padding-left: 200px; padding-top: 20px" > </h6>
 							 
 					<div class="" style="padding-top: 40px">
 						          	
@@ -133,7 +135,7 @@
 					 <div class="tab-pane fade" id="Domain" role="tabpanel" aria-labelledby="nav-profile-tab" onloadeddata="return submitA(this);">
 							 
 							 
-					<h6  id="statusDomain" style="color: maroon; padding-left: 200px; padding-top: 30px"> </h6>
+					<h6  id="statusDomain" class="approve-success-msg" style="color: maroon; padding-left: 200px; padding-top: 30px"> </h6>
 			
 					<div class="Domain" style="padding-top: 40px">
 						          	
@@ -216,7 +218,7 @@
 	</div>
  	<div class="tab-pane fade" id="MasterTrainer" role="tabpanel" aria-labelledby="nav-contact-tab">
  
- <h6  id="statusMaster" style="color: maroon; padding-left: 200px; padding-top: 30px" > </h6>
+ <h6  id="statusMaster" class="approve-success-msg" style="color: maroon; padding-left: 200px; padding-top: 30px" > </h6>
 									  
 			<div class="" style="padding-top: 60px">
           	
@@ -262,7 +264,6 @@
 				</div>
 				<script type="text/javascript">
 								function refreshPage(){
-									
 										location.reload();
 													
 								}
@@ -357,7 +358,7 @@
 	 -->
 	<div class="tab-pane fade" id="Contributer" role="tabpanel" aria-labelledby="nav-contact-tab">.
 				
-				<h6  id="statusContributor" style="color: maroon; padding-left: 200px"> </h6>
+				<h6  id="statusContributor" class="approve-success-msg" style="color: maroon; padding-left: 200px"> </h6>
 				
 					<div class="container-fluid" style="padding-top: 40px">
 				          		<div class="row">
@@ -389,7 +390,7 @@
 									                <td th:text="${approve.getUser().lastName}">Last name</td>
 									                <td th:text="${approve.getLanguage().getLanguageName()}">Language Name</td>              
 								 					<td>
-	<button  id="approveContributorId" type="button"  th:value="${approve.getUserRoleId()}" class="btn btn-success approveContributor">Approve</button>
+	<button  id="approveContributorId"  type="button"  th:value="${approve.getUserRoleId()}" class="btn btn-success approveContributor">Approve</button>
 													   
 <!-- 	<a th:href="${'/addContributerRoleById/add/'+ approve.getUser().id}">Approve</a> 
  -->													
@@ -429,7 +430,7 @@
 	 							
 	 	<div class="tab-pane fade" id="Quality" role="tabpanel" aria-labelledby="nav-contact-tab">.
 		
-		<h6  id="statusQuality" style="color: maroon; padding-left: 200px; padding-top: 20px"> </h6>
+		<h6  id="statusQuality" class="approve-success-msg" style="color: maroon; padding-left: 200px; padding-top: 20px"> </h6>
 				
 				<div class="container-fluid" style="padding-top: 30px">
 				          	
