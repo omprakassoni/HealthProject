@@ -12,7 +12,7 @@ $( document ).ready(function() {
 	$('#OutlineAcceptOrNeedTiImprovemenet').on('hidden.bs.modal', function () {
 		location.reload();
 		
-<<<<<<< HEAD
+
 	});
 	
 
@@ -30,9 +30,9 @@ $( document ).ready(function() {
 	
 	
 	
-=======
-	});	
->>>>>>> a097765868455a3c9a68c96b0ef5b9192e756843
+
+
+
 	
 	$('#videoViewIdAdmin').on('hidden.bs.modal', function () {
 		location.reload();
