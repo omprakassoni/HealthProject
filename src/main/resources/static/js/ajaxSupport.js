@@ -1,11 +1,18 @@
-
-$(function(){
-
-	// Here is code for refreash  page  Domain
+$( document ).ready(function() {
 	
+//	retrieve latest tab shown before refresh
+	var activeTab = localStorage.getItem('activeTab');
+	if(activeTab){
+		$('#nav-tab a[href="#' + activeTab + '"]').tab('show');
+		localStorage.setItem('activeTab', "");
+		$( '.approve-success-msg' ).text( localStorage.getItem('msg') );
+		localStorage.setItem('msg', "");
+	}
+	 	
 	$('#OutlineAcceptOrNeedTiImprovemenet').on('hidden.bs.modal', function () {
 		location.reload();
 		
+<<<<<<< HEAD
 	});
 	
 
@@ -23,6 +30,9 @@ $(function(){
 	
 	
 	
+=======
+	});	
+>>>>>>> a097765868455a3c9a68c96b0ef5b9192e756843
 	
 	$('#videoViewIdAdmin').on('hidden.bs.modal', function () {
 		location.reload();
@@ -48,6 +58,12 @@ $(function(){
 		location.reload();
 		
 	});
+	
+	$('.nav-item').on('click', function () {
+		localStorage.setItem('msg', "");
+		$( '.approve-success-msg' ).text( localStorage.getItem('msg') );
+	});
+	
 	
 	
 	//Contributor
@@ -901,8 +917,10 @@ $(function(){
 	
 	$('.approveContributor').click(function()			
 	{
-		
-		
+//				use localStorage to retrieve information on page refresh
+				localStorage.setItem('activeTab', "Contributer");
+				
+				
 				var contributionId=$(this).val();
 				
 						$.ajax({
@@ -914,18 +932,21 @@ $(function(){
 					       		{
 
 				       			 $("#statusContributor").prop('disabled',false);
-				       			 $('#statusContributor').html(result);
+//				       			 $('#statusContributor').html(result);
+				       			 
+				       			localStorage.setItem('msg', result);
+//				       		$('#ContributerPage').on('hidden.bs.modal', function () 
+//				    		  {
+//				       			
+//				       				location.reload();
+//				       				
+//				       				
+//				       			});  			 
 				       			 
 				       			 
-				       		$('#ContributerPage').on('hidden.bs.modal', function () 
-				    		  {
-				       			
-				       				location.reload();
-				       				
-				       			});  			 
-				       			 
-				       			 
-					       	
+				       		location.reload();
+				       		
+				       		
 					       		},
 										
 									error : function(err){
@@ -942,7 +963,8 @@ $(function(){
 
 	$('.approveAdmin').click(function()			
 	{
-	
+//		use localStorage to retrieve information on page refresh
+		localStorage.setItem('activeTab', "Admin");
 				var contributionId=$(this).val();
 				
 				$.ajax({
@@ -954,7 +976,8 @@ $(function(){
 					       		{
 
 				       			 $("#statusAdmin").prop('disabled',false);
-				       			 $('#statusAdmin').html(result);
+//				       			 $('#statusAdmin').html(result);
+				       			localStorage.setItem('msg', result);
 				       			 
 				       			 
 				       		$('#ContributerPage').on('hidden.bs.modal', function () 
@@ -964,7 +987,7 @@ $(function(){
 				       				
 				       			});  			 
 				       			 
-				       			 
+				       		location.reload();
 					       	
 					       		},
 										
@@ -982,7 +1005,8 @@ $(function(){
 	
 	$('.approveQuality').click(function()			
 			{
-			
+				//		use localStorage to retrieve information on page refresh
+						localStorage.setItem('activeTab', "Quality");
 						var contributionId=$(this).val();
 						
 						$.ajax({
@@ -995,7 +1019,7 @@ $(function(){
 
 						       			 $("#statusQuality").prop('disabled',false);
 						       			 $('#statusQuality').html(result);
-						       			 
+						       			localStorage.setItem('msg', result);
 						       			 
 						       		$('#ContributerPage').on('hidden.bs.modal', function () 
 						    		  {
@@ -1004,7 +1028,7 @@ $(function(){
 						       				
 						       			});  			 
 						       			 
-						       			 
+						       		location.reload();
 							       	
 							       		},
 												
@@ -1023,7 +1047,9 @@ $(function(){
 	
 	$('.approvemaster').click(function()			
 		{
-			
+		//		use localStorage to retrieve information on page refresh
+				localStorage.setItem('activeTab', "MasterTrainer");
+				
 						var contributionId=$(this).val();
 						
 						$.ajax({
@@ -1036,7 +1062,7 @@ $(function(){
 
 						       			 $("#statusMaster").prop('disabled',false);
 						       			 $('#statusMaster').html(result);
-						       			 
+						       			localStorage.setItem('msg', result);
 						       			 
 						       		$('#ContributerPage').on('hidden.bs.modal', function () 
 						    		  {
@@ -1045,7 +1071,7 @@ $(function(){
 						       				
 						       			});  			 
 						       			 
-						       			 
+						       		location.reload();
 							       	
 							       		},
 												
@@ -1070,6 +1096,8 @@ $(function(){
 
 	$('.approveDomain').click(function()			
 	{
+		//		use localStorage to retrieve information on page refresh
+		localStorage.setItem('activeTab', "Domain");
 		
 				var contributionId=$(this).val();
 				
@@ -1083,7 +1111,7 @@ $(function(){
 
 				       			 $("#statusDomain").prop('disabled',false);
 				       			 $('#statusDomain').html(result);
-				       			 
+				       			localStorage.setItem('msg', result);
 				       			 
 				       		$('#ContributerPage').on('hidden.bs.modal', function () 
 				    		  {
@@ -1092,7 +1120,7 @@ $(function(){
 				       				
 				       			});  			 
 				       			 
-				       			 
+				       		location.reload();
 					       	
 					       		},
 										
