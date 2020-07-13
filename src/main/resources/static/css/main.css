@@ -1,0 +1,181 @@
+:root {
+  --main-bg-color: coral;
+  --green:#1ebba3;
+  --teal-bright:#00B3CC;
+  --teal-medium:#04A1BE;
+  --teal-dark:#0087AA;
+  --teal-darkest:#006D95;
+  --heading-color:#1C7871;
+  --bright-green:#20B8B8;
+  --grey-text:#757575;
+  --header-small-font:"Comic Sans MS", cursive, sans-serif;
+  --header-small-font:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+  --light-margin-color:#ececec;
+  --white:rgb(255,255,255);
+  --btn-color:#20B8B8;
+  --btn1-color:#0E3A37;
+  --dark-orange:#BF360D;
+  --small-text-color:rgba(19, 9, 71, 0.6);
+  --card1-color:rgb(249,251,231);
+  --card2-color:rgb(232,245,233);
+  --jumbotron-color:rgba(224,242,241,0.4);
+  --beige:rgb(246,243,237);
+}
+
+*{
+	box-sizing: border-box;
+}
+body{
+	padding-top: 0;
+}
+/*-----------------------------------header upper-bar---------------------------*/
+
+/*-----------------------------------/header upper-bar---------------------------*/
+
+/*-----------------------------------Intro text with carousel---------------------------*/
+#intro{
+	margin: 0;
+	padding: 0;
+}
+.health{
+	color: var(--dark-orange)!important;
+	color: #e65100!important;
+}
+.nutrition{
+	color: var(--heading-color)!important;
+}
+.jumbotron{
+	background-color: var(--jumbotron-color)!important;
+}
+
+.about-text{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1rem;
+	color: var(--small-text-color);
+	line-height: 2rem;
+}
+.light-txt{
+	color: var(--small-text-color);
+}
+
+/*-----------------------------------/Intro text with carousel---------------------------*/
+
+/*-----------------------------------Highlights---------------------------*/
+#info{
+	padding:0 10%;
+}
+#info .card h1{
+	color: var(--teal-dark);
+}
+#info .card{
+	border: none;
+}
+#info .card1{
+	background: #f9fbe7;
+}
+#info .card2{
+	background-color: #e8f5e9;
+}
+#info .card3{
+	background-color: #e0f2f1;
+}
+/*-----------------------------------/Highlights---------------------------*/
+
+/*-----------------------------------Contact---------------------------*/
+.contact-info{
+	/*border: 1px solid red;*/
+	display: flex;
+	flex-direction: column;
+}
+.contact-info i{
+	color: var(--btn-color);
+	font-size: 1.2rem;
+	padding: 0.8rem;
+}
+.contact-info i.disable{
+	color:white;
+	padding: 0 0.8rem;
+}
+.contact-info p{
+	margin-bottom: 0;
+}
+.social{
+	border-top: 1px solid grey;
+	padding-top: 20px;
+}
+#contact{
+	padding:0 10%;
+}
+.contact-row{
+	background-color: rgba(232,245,233,0.4);
+	padding : 4% 0;
+}
+/*-----------------------------------/Contact---------------------------*/
+
+/*-----------------------------------Footer---------------------------*/
+footer{
+	background-color: #8CD1D3;
+	background-color: rgba(232,245,233,0.4);
+	background-color: var(--heading-color);
+	padding: 4% 10%;
+	color: white;
+}
+
+footer .logo{
+	width: 140px;
+	height:auto;
+	background-color: var(--heading-color);
+}
+
+footer .row .col-6,.col-12{
+}
+footer a{
+	color: rgba(255,255,255,0.7);
+}
+footer .dev{
+	border-top: 1px solid white;
+}
+/*-----------------------------------/Footer---------------------------*/
+
+/****************************************header************************************************/
+
+/*viewport*/
+/*moving from mobile to desktop*/
+/*Extra small devices (portrait phones, less than 576px)*/
+/*No media query for `xs` since this is the default in Bootstrap*/
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {  }
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {  }
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {  }
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {  }
+
+
+/*moving from desktop to mobile*/
+/*Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) { 
+	
+	
+ }
+
+/*Small devices (landscape phones, less than 768px)*/
+@media (max-width: 767.98px) { 
+	
+	
+}
+
+/*Medium devices (tablets, less than 992px)*/
+@media (max-width: 991.98px) {  
+	
+}
+
+/*Large devices (desktops, less than 1200px)*/
+@media (max-width: 1199.98px) {  }
+
+/*Extra large devices (large desktops)*/
+/*No media query since the extra-large breakpoint has no upper bound on its width*/
