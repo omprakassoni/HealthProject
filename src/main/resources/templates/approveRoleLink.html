@@ -19,6 +19,8 @@
 </script>
   -->
  
+ 
+ 
 </head>
 
   <body>
@@ -94,7 +96,10 @@
 							
 				 <td>
 				 
-				 	<button  id="approveAdminId" type="button"  th:value="${admin.userRoleId}" class="btn btn-success approveAdmin">Approve</button>
+				 
+				 
+				 
+	<button onclick="document.location.reload(true)" id="approveAdminId" type="button"  th:value="${admin.userRoleId}" class="btn btn-success approveAdmin">Approve</button>
 				 
 				 <!-- <a th:href="${'addAdminRoleById/add/'+ admin.id}">Approve</a> -->
 				 </td>
@@ -106,7 +111,10 @@
 											        </table>
 											</div>
 										</div>
-									</div>        
+									</div>    
+									
+									
+									    
 							
 			<script src="/js/jquery.min.js"></script>
 		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
@@ -247,7 +255,7 @@
 					                <td th:text="${master.getUser().address}">Address</td>
 	
 						<td>
-				<button  id="approvemasterId" type="button"  th:value="${master.userRoleId}" class="btn btn-success approvemaster">Approve</button>
+				<button onClick="refreshPage"  id="approvemasterId" type="button"  th:value="${master.userRoleId}" class="btn btn-success approvemaster">Approve</button>
 						
 									<!-- <a th:href="${'/addMasterTrainerRoleById/add/'+ master.id}">Approve</a>
 									 -->
@@ -262,9 +270,8 @@
 				</div>
 				<script type="text/javascript">
 								function refreshPage(){
-									
 										location.reload();
-													
+									
 								}
 				</script>
 				
