@@ -637,6 +637,7 @@ public class ControllerHealth
 	@RequestMapping("/show_consalantant")
 	public String show_consalantant() {
 
+		
 		return "Show_Consaltant";
 
 	}
@@ -867,8 +868,9 @@ public class ControllerHealth
 	public String deleteconsalantant(@PathVariable Integer id, Model model, ModelAndView mv) {
 
 		consaltantservice.deleteProduct(id);
-
-		return "redirect:/show_consalantant";
+		
+		return "redirect:/Consaltant";
+//		return "redirect:/show_consalantant";
 
 	}
 
@@ -2728,6 +2730,42 @@ public class ControllerHealth
 		// merge conflict ends	
 			return "showAdminContributorList";
 }
+		
+		
+		@RequestMapping("/displayConsultants")
+		 public @ResponseBody List<Consaltantant> displayConsultants(Model model,Authentication authentication)	
+
+		{
+
+
+		List<Consaltantant> name=consalttantDao.findBydateConsalant();
+
+		for (Consaltantant consaltantant : name) {
+
+		consaltantant.getUploadConsaltantImage();
+
+		}
+
+		List<partipantDeatil> participantdeatail=(List<partipantDeatil>) participantDao.findAll();
+
+		List<String> consultantsList=new ArrayList<String>();
+
+		for (Consaltantant cons : name) 
+
+		{
+
+		consultantsList.add(cons.getNameConsaltant());
+
+		}
+
+		System.err.print(consultantsList);
+
+		System.err.print(name);
+
+		return name;  
+		}
+
+
 		
 	/*
 	 * @RequestMapping("/loadCategoryAndLanguage") public @ResponseBody List<String>
