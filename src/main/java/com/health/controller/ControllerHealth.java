@@ -220,7 +220,7 @@ public class ControllerHealth
 	    
 	    	return "showListOfTutorial";	    
 	}
-	//contributor list who assign by Admin
+	//Assign topic to User
 
 	@RequestMapping("/listContributor")
 	public String  listContributor(Model model)
@@ -233,10 +233,10 @@ public class ControllerHealth
 			List<UserRole> userByContributor=(List<UserRole>) userRoleRepositary.finbyRoleUser(status,role);
 		
 			
+			
 			ArrayList<String> userName=new ArrayList<>();
  			
 		  for (UserRole userRole : userByContributor) {
-		  
 		
 		  System.err.println(userRole.getUser().getUsername());
 		  
@@ -251,7 +251,6 @@ public class ControllerHealth
 		
 		return "showAdminContributorList";		
 	}
-	
 	
 	////
 	/*
@@ -2565,20 +2564,12 @@ public class ControllerHealth
 		ArrayList<String> tutorialLanguageExits=new ArrayList<String>();
 		
 		
-	 for (Tutorial tutoriaLanguage : tutorial)
+	    for (Tutorial tutoriaLanguage : tutorial)
 		 {
 			 
 			 tutorialLanguageExits.add(tutoriaLanguage.getLan().getLanguageName());			
 		 }
 	 
-	 
-	 for (String string : tutorialLanguageExits) {
-			
-			
-			System.err.println("alerecdy exit"+string);
-			
-		}
-		 
 		List<String> topicName=new ArrayList<String>();
 		
 		User user=userRepository.findByUsername(username);
@@ -2593,8 +2584,8 @@ public class ControllerHealth
 			topicName.add(ur.getLanguage().getLanguageName());		
 		}
 		
+		topicName.removeAll(tutorialLanguageExits);
 		
-		//topicName.removeAll(tutorialLanguageExits);
 		
 			return topicName;  			
 	}	
@@ -2621,16 +2612,16 @@ public class ControllerHealth
 		}
 		
 		@RequestMapping("/loadTopicByCategory")
-		public @ResponseBody  List<String> getTopicByCategoryName(@RequestParam(value="id") String categoryName)
+		public @ResponseBody  List<String> getTopicByCategoryName(@RequestParam(value="id") String categoryName,@RequestParam(value="lanId") String lanId,
+				@RequestParam(value="userName") String userName)
 		{  		
 			
-		/* System.err.println(category name); */
+		
+		    ArrayList<String> alreadyTopicCheck=new ArrayList<>();
 			
 		    List<String> topicName=new ArrayList<String>();
 		    		
 			Category cat=categoryService.findBycategoryname(categoryName);
-			
-			//System.err.println("category_id"+cat.getId());
 		
 			List<topic> topic=(List<topic>) topicRepositarydao.findByCategory(cat);
 		  
@@ -2641,6 +2632,21 @@ public class ControllerHealth
 				 	  
 			  }		
 			  
+			com.health.model.language lan=languageDao.findBylanguageName(lanId);
+			
+			User user=userRepository.findByUsername(userName);
+			
+			  
+		List<Tutorial> Tutorial=tutorialDao.findByuserNameLancat(cat,lan,user);
+		
+			for(Tutorial  t: Tutorial) {
+				
+				alreadyTopicCheck.add(t.getTopic().getTopicname());
+				
+			}	
+			topicName.removeAll(alreadyTopicCheck);
+			
+			
 			  return topicName;  
 					
 		}
@@ -2651,9 +2657,15 @@ public class ControllerHealth
 		public String contributionRole(Model model,@RequestParam(name="contributorName") String contributorId,
 				@RequestParam(name="languageName") String inputLanguage,
 				@RequestParam(name="contributorCategory") String contributorCategory,
-				@RequestParam(name="inputTopic") String inputTopic,
+				@RequestParam(name="inputTopic") String [] inputTopic,
 				@RequestParam(value = "checkboxName", required = false) String checkboxValue)
 	{
+			
+			
+		for (String ListOfTopic : inputTopic) 
+		{
+		
+			
 			
 			java.util.Date dt = new java.util.Date();
 			java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
@@ -2667,8 +2679,9 @@ public class ControllerHealth
 		
 		Category category=categoryDao.findBycategoryname(contributorCategory);
 		
-		topic topic=topicdao.findBytopicname(inputTopic);
+		topic topic=topicdao.findBytopicname(ListOfTopic);
 		
+		//List<topic> topic1=topicdao.findBytopicnameserach(inputTopic);
 		
 		contributor_Role contributorRole=new contributor_Role();
 		
@@ -2707,10 +2720,14 @@ public class ControllerHealth
 		tutorialDao.save(tutorialDaoSave);
 		
 		model.addAttribute("msg",RECORD_SAVE_SUCCESS_MSG);
+	
+			}
 			
+		// merge conflict start
+		// model.addAttribute("msg","Succesfully Save Recored ");
+		// merge conflict ends	
 			return "showAdminContributorList";
-		
-	}
+}
 		
 	/*
 	 * @RequestMapping("/loadCategoryAndLanguage") public @ResponseBody List<String>
