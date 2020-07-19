@@ -26,11 +26,6 @@ $( document ).ready(function() {
 		
 		
 	});
-	
-	
-	
-
-
 
 	
 	$('#videoViewIdAdmin').on('hidden.bs.modal', function () {
@@ -78,6 +73,7 @@ $( document ).ready(function() {
 		location.reload();
 		
 	});
+	
 	
 	// here is code for Script
 	$('#scriptModale').on('hidden.bs.modal', function () {
@@ -183,10 +179,9 @@ $( document ).ready(function() {
 			});
 		
 	});
-	
-	$('#categoryname').change(function()
-	{
-		
+	$('#categoryname').on('change', function() 
+//	$('#categoryname').change(function()
+	{		
   					var catgoryid=$(this).find(":selected").val();
   					$.ajax({
   						
@@ -196,7 +191,6 @@ $( document ).ready(function() {
   			       		 contentType: "application/json",
   			       		 success: function (result){
   			       			 
-  			       		
   			       		  var html = '';
   	  			            var len = result.length;
   	  			            html += '<option value="0">Select language</option>';
@@ -210,7 +204,7 @@ $( document ).ready(function() {
   	  			            
   	  			            $("#inputLanguage").prop('disabled',false);
   	  			            $('#inputLanguage').html(html);
-  	  			            
+
   	  						},
 	 						error : function(err){
 	  						console.log("not working. ERROR: "+JSON.stringify(err));
@@ -570,7 +564,7 @@ $( document ).ready(function() {
 		       		
 		       		  var html = '';
 			            var len = result.length;
-			            html += '<option value="0">Select Topic</option>';
+			            html += '<option value="0">Select Language</option>';
 			            for (var i = 0; i < len; i++) {
 			             html += '<option value="' + result[i] + '">'
 			               + result[i]
@@ -636,23 +630,21 @@ $( document ).ready(function() {
 		
 		$('#outlineId').click(function()	
 		{
-		
+			
 			var saveInfo=editor.getData();
 			var keywordArea=$("#keyword").val();
 			var categoryid=$("#categoryId").val();
 			var topicid=$("#topicId").val();
 			var lanId=$("#lanId").val();
-
+			localStorage.setItem("upload_outline_msg", "Outline updated.");
+			
 			$.ajax({
 			  	type: "GET",
 	       		 url: "/outline",	
 	       		 data: { "saveOutline": saveInfo,"id": keywordArea,"categorname" : categoryid,"topicid":topicid,"lanId":lanId},
 	       		 contentType: "application/json",
 	       		 success: function(result)
-	       		 {
-	       			 
-	       			 alert("Successfully Save Data");
-	       			 
+	       		 {	       			 
 	       			 $("#statusOutline").prop('disabled',false);
 	       			 $('#statusOutline').html(html);
 	       			
@@ -1139,6 +1131,7 @@ $( document ).ready(function() {
 			{
 	
 						var contributionId=$("#contributorId").val();
+						alert(contributionId);
 						
 								$.ajax({
 									  	type: "GET",
@@ -1164,11 +1157,15 @@ $( document ).ready(function() {
 			/*load By Contributor user only contributor assign from 	*/
 	
 	
-			$('#contributorId').click(function()			
+//			$('#contributorId').click(function()	
+					$('#contributorId').on('change', function() 		
 			{	
 				
 					      var userContributor=$(this).find(':selected').val();
-
+//					      console.log(userContributor);
+//					      var userContributor=$('#contributorId option:selected').text();
+//					      var userContributor=$('#contributorId').find(":selected").text();
+					      console.log(userContributor);
 								$.ajax({
 									type: "GET",
 						       		 url: "/loadLanguageByUser",
@@ -1176,7 +1173,7 @@ $( document ).ready(function() {
 						       		 contentType: "application/json",
 						       		 success: function (result){
 		
-						       			
+						       			console.log(result);
 						       			 var html = '';
 						       			 var len = result.length;
 							             html += '<option value="0">Select Language</option>';
@@ -1237,7 +1234,8 @@ $( document ).ready(function() {
 								  
 						});	
 					
-						$('#catgoryByContributor').click(function()			
+						$('#catgoryByContributor').on('change', function()
+//						$('#catgoryByContributor').click(function()			
 						{		
 							   // var languageName = $form.find( '#lanId' ).val(),
 							
@@ -1481,7 +1479,6 @@ $( document ).ready(function() {
 						
 						$('#outlineViewModel').click(function()			
 						{
-							
 												var categoryid=$("#categoryId").val();
 												var topicid=$("#topicId").val();
 												var lanId=$("#lanId").val();

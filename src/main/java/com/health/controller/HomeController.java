@@ -147,7 +147,9 @@ public class HomeController {
 		
 		List<Event> event=eventDao.getAllEvent();
 			  
-		model.addAttribute("events",event);
+		
+		model.addAttribute("events",event.subList(0,4));
+//		model.addAttribute("events",event);
 
 		List<Consaltantant> consalatant=consalatantDao.findByConsaltantantDate();
 

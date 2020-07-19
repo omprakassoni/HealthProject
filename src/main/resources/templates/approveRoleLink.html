@@ -84,7 +84,7 @@ body{
 											                <th>User Name</th> 
 											                <th>First Name</th>
 											                <th>Last Name</th>
-											                <th>Address</th>  
+											                <!-- <th>Address</th> -->  
 											                <th>Approve</th>
 											                <!-- <th>Reject</th>  -->            
 											            </tr>
@@ -96,7 +96,7 @@ body{
 											                <td th:text="${admin.getUser().username}">User Name</td>
 											                <td th:text="${admin.getUser().firstName}">First Name</td>
 											                <td th:text="${admin.getUser().lastName}">Last name</td>
-											                <td th:text="${admin.getUser().address}">Address</td>
+											                <!-- <td th:text="${admin.getUser().address}">Address</td> -->
 							
 				 <td>
 				 
@@ -151,8 +151,8 @@ body{
 											                <td th:text="${domain.getUser().username}">User Name</td>
 											                <td th:text="${domain.getUser().firstName}">First Name</td>
 											                <td th:text="${domain.getUser().lastName}">Last name</td>
-												            <!-- <td th:text="${domain.getLanguage().getLanguageName()}">Language Name</td> -->
-												            <td>Language Name</td>              
+												            <td th:text="${domain.getLanguage().getLanguageName()}">Language Name</td> 
+												            <!-- <td>Language Name</td>    -->           
 							
 											 <td>
 											 
@@ -192,7 +192,7 @@ body{
 					               
 					                <th>First Name</th>
 					                <th>Last Name</th>
-					                <th>Address</th>  
+					                <!-- <th>Address</th>   -->
 					                
  	
 					                <th>Approve</th>
@@ -206,7 +206,7 @@ body{
 					                
 					                <td th:text="${master.getUser().firstName}">First Name</td>
 					                <td th:text="${master.getUser().lastName}">Last name</td>
-					                <td th:text="${master.getUser().address}">Address</td>
+					                <!-- <td th:text="${master.getUser().address}">Address</td> -->
 	
 						<td>
 				<button  id="approvemasterId" type="button"  th:value="${master.userRoleId}" class="btn a-btn approvemaster">Approve</button>
@@ -369,7 +369,7 @@ body{
 									                <th>User Name</th> 
 									                <th>First Name</th>
 									                <th>Last Name</th>
-									                <th>Address</th>  
+									                <!-- <th>Address</th> -->  
 									                <th>Approve</th>
 									                <!-- <th>Reject</th>     -->         
 									            </tr>
@@ -380,7 +380,7 @@ body{
 									                 <td th:text="${quality.getUser().username}">User Name</td>
 									                <td th:text="${quality.getUser().firstName}">First Name</td>
 									                <td th:text="${quality.getUser().lastName}">Last name</td>
-									                <td th:text="${quality.getUser().address}">Address</td>
+									                <!-- <td th:text="${quality.getUser().address}">Address</td> -->
 					
 						 <td> 	<button id="approveQualityId" type="button"  th:value="${quality.getUserRoleId()}" class="btn a-btn approveQuality">Approve</button>
 						 

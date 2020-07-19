@@ -24,13 +24,14 @@ $('select').selectpicker();
   		<!-- <div class="container" style="padding-top: 150px"> -->
   		<div style="display:flex;">
 		<!-- <div th:replace="common/sidebar :: nav_sidebar"></div> -->
-
+		<div th:replace="common/sidebar :: contributor_sidebar"></div>
 	    <div class="row" style="width:100%;">
 	      <div class="col-lg-10 col-xl-9 mx-auto">
-	        <div class="card card-signin flex-row my-5">
+	      <div  class="a-update-msg"></div>
+	        <div class="card card-signin flex-row a-card">
 	       
 	          <div class="card-body">
-	           <h5 class="card-title text-center" style="color:maroon; font-size: 20px">
+	           <h5 class="card-title text-center a-card-title" >
     			<div class="">    
                                 <div th:if="${msg}">
    								 <span th:text="${msg}"></span>
@@ -87,10 +88,8 @@ $('select').selectpicker();
 							 </div>
 							 
 
- 				<div class="form-group">
-						 
-							<label for="Category">Status</label>       
-               				<input type="checkbox" id="checkStatus" class="form-control w-75"  name="checkboxName" />	
+ 				<div class="form-group" style="display:flex;justify-content:flex-start;">
+               				<input type="checkbox" id="checkStatus" class="form-control a-checkbox"  name="checkboxName" /><span><label for="Category">Confirm</label></span>	
 					</div>	
 			          
 						  
@@ -100,10 +99,23 @@ $('select').selectpicker();
  		      </form>
          	
 					<script>
+					$( document ).ready(function() {
+						var msg = localStorage.getItem("assign_contri_msg");
+					    $('.a-update-msg').html(msg);
+					    localStorage.setItem("assign_contri_msg", "");
+					    if(msg!=""){
+					    	alert('not null');
+					    	 $('.a-card').css("margin-top", "40px"); 	
+					    }
+					   
+					});
 					function submitForm() {
-						  return confirm('Do you really want to submit the form?');
+						  /* return confirm('Do you really want to submit the fossrm?'); */
 						  
-						  alert("Submit form succefully");
+						  /* alert("Submit form succefully"); */
+						  var category = $("#catgoryByContributor").val()
+						  localStorage.setItem("assign_contri_msg", "Contributor assigned for - "+ category);
+						  
 						}
 					</script>
   				 

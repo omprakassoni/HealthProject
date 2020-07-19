@@ -19,8 +19,8 @@
     <link rel="stylesheet" type="text/css" href="/fontawesome-free-5.10.1-web/css/all.css"/>
 <script>
 function submitA() {
-	  return confirm('Do you really want to Send Request ');
-	  alert("Request Send succefully");
+	  /* return confirm('Do you really want to Send Request ');
+	  alert("Request Send succefully"); */
 	  
 	}
 </script>
@@ -43,11 +43,12 @@ function submitA() {
 <div th:replace="common/sidebar :: contributor_sidebar"></div>
 </div>
 
-<div style="width:100%;">
+<!-- <div style="width:100%;">
 <div sec:authorize="hasAnyAuthority('Contributer')">
 
  <div class="row">
 	      <div class="col-lg-10 col-xl-9 mx-auto">
+	      <div  class="a-update-msg"></div>
 	        <div class="card-header card card-signin flex-row my-5">
 	       
 	          <div class="card-body">
@@ -87,8 +88,8 @@ function submitA() {
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	<br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span><br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  <br/>
-						 				<!-- <i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as  Trainer</a> </span>  <br/>
-						  -->
+						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as  Trainer</a> </span>  <br/>
+						 
 								</div>
 			  		</div>
 			</div>
@@ -118,14 +119,14 @@ function submitA() {
   </div>
 
 </div>
-		<!-- Only Admin Can See detail -->
+		Only Admin Can See detail
 		
 <div sec:authorize="hasAnyAuthority('Admin')">
 		    
 	
 <div class="#">
 
-<!-- <div class="row" style="padding-top:  100px; padding-left: 30px"> -->
+<div class="row" style="padding-top:  100px; padding-left: 30px">
 <div class="row" style="padding-top:  100px;" >
 		                                      
 <div class="col-md-8 ">
@@ -135,7 +136,7 @@ function submitA() {
 	 <span th:text="${msg}"></span>
  </div> </div>
  
-<!-- <div th:replace="common/sidebar :: nav_sidebar"></div> -->
+<div th:replace="common/sidebar :: nav_sidebar"></div>
 
 
 <div class="row" style="padding-left: 50px;"> 
@@ -150,12 +151,12 @@ function submitA() {
 
         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{language}">Add Language</a></li> 
         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Testimonial}">Add Testimonial</a></li>
-        <!-- <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Consaltant}">Add Consalantant</a></li> -->
-        <!-- <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Event}">Add Event</a></li> -->
+        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Consaltant}">Add Consalantant</a></li>
+        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Event}">Add Event</a></li>
        
  
-<!--  	    <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{TutorialAdd}">Upload Tutorial</a></li>
- -->
+ 	    <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{TutorialAdd}">Upload Tutorial</a></li>
+
         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{addUploadQuestion}">Upload Question</a></li>
        
         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{roleNew}">Add New Role</a></li>
@@ -170,7 +171,7 @@ function submitA() {
     <div class="col-md-5  shadow p-3 mb-5 bg-white rounded"  style="padding-left: 30px" >
        <ul> 
         
-       <!--  <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_category}">Show Category</a></li> -->
+        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_category}">Show Category</a></li>
         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_testimonial}">List Testimonial</a></li>
         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_consalantant}">List Consalantant</a></li>
         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_Event}">List Event</a></li> 
@@ -181,10 +182,10 @@ function submitA() {
         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{adminShowDomainReviweer}">List Domain Reviweer</a></li>
         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{listparicipant}">List Participant</a></li>
 			<li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{listContributor}">Assign Contributor</a></li>					
-			<!-- 
+			
 			<li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{listContributor}">Assign Domain Reviweer</a></li>					
 			<li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{listContributor}">Assign Quality Reviweer</a></li>					
--->
+
 
         </ul>
 </div>
@@ -201,12 +202,12 @@ function submitA() {
 <ul>              
 
 		<li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="/approveRole">Approve Role</a></li>            
-<!--    
+   
     <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Tutorial</a></li>            
     <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Consalantant</a></li>
              
     <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Testimonial</a></li>
- -->                
+                
    
 </ul>
 </div>                                          
@@ -224,10 +225,10 @@ function submitA() {
    
    
    
-		          <!--   <div class="">    
+		            <div class="">    
                                <div th:if="${request}">
    								<span th:text="${request}"></span>
- 											 </div> </div> -->
+ 											 </div> </div>
    	<div class="#">
    	
    		<div class="row"  style="padding-top: 160px; padding-left: 950px">
@@ -236,16 +237,16 @@ function submitA() {
 			
    		<div class=" shadow p-3 mb-5 bg-white rounded">
 	
-	<!-- 
-	 data-toggle="modal" data-target="#exampleModal" -->
+	
+	 data-toggle="modal" data-target="#exampleModal"
 	   		 <div>
 	   		 			   <ul>	
 	   		 			    
  					     		<li>	<span>	<a onclick="return submitA(this);"	th:href="@{/contributerSelectionLanguage}">Add me as Contributer</a></span></li>	
 					 			<li>	<span>	<a onclick="return submitA(this);"	th:href="@{/domainLanguage}">Add me as Domain Reviewer</a></span></li>	
 					
-						<!-- 		<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	</li>
-						 -->		<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span></li>
+								<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as Domain Reviewer</a>	</span>	</li>
+								<li>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as as Quality Reviewer</a> </span></li>
 								<li>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Master Trainer</a> </span>  </li>
 						 		<li>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsAdminReviwer}">Add me as as Admin Reviwer</a> </span>  </li>
 						 		
@@ -256,7 +257,7 @@ function submitA() {
 						   
 							    <div class="modal-dialog">
 							    
-							      <!-- Modal content-->
+							      Modal content
 							      <div class="modal-content">
 							        <div class="modal-header">
 							          <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -274,8 +275,8 @@ function submitA() {
 							    </div>
 							  </div>
 							  
-							  <!-- 
-							  Domain Reviweer -->
+							  
+							  Domain Reviweer
 							  
 							  
 							     <div class="modal fade" id="myModal1" role="dialog">
@@ -283,7 +284,7 @@ function submitA() {
 						   
 							    <div class="modal-dialog">
 							    
-							      <!-- Modal content-->
+							      Modal content
 							      <div class="modal-content">
 							        <div class="modal-header">
 							          <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -303,15 +304,15 @@ function submitA() {
 							  </div>
 							  
 							  	  
-							  <!-- 
-							  Quality Reviweer -->
+							  
+							  Quality Reviweer
 							  		  
 							     <div class="modal fade" id="myModal2" role="dialog">
 						   
 						   
 							    <div class="modal-dialog">
 							    
-							      <!-- Modal content-->
+							      Modal content
 							      <div class="modal-content">
 							        <div class="modal-header">
 							          <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -335,7 +336,7 @@ function submitA() {
 						   
 							    <div class="modal-dialog">
 							    
-							      <!-- Modal content-->
+							      Modal content
 							      <div class="modal-content">
 							        <div class="modal-header">
 							          <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -372,13 +373,13 @@ function submitA() {
    		</div>
    		</section>
    	
-<!-- </div> -->
+</div>
 
 
 <div sec:authorize="hasAnyAuthority('DomainReviweer')">
 
 
-		<!-- <H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4> -->
+		<H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4>
 		
 		 <div class="row">
 	      <div class="col-lg-10 col-xl-9 mx-auto">
@@ -410,9 +411,9 @@ function submitA() {
 				
 								 <div class="form-group">
 								 
-										<!-- <i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor|Revoke  Contributor </a></span><br/>	
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
-										 --><i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
 						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>
 						 
@@ -436,12 +437,12 @@ function submitA() {
 		
 </div>
 
-<!-- video reviwer -->
+video reviwer
 
 <div sec:authorize="hasAnyAuthority('VideoReviwer')">
 
 
-		<!-- <H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4> -->
+		<H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4>
 		
 		 <div class="row">
 	      <div class="col-lg-10 col-xl-9 mx-auto">
@@ -586,23 +587,23 @@ function submitA() {
 									</div>
 			
 								   
-							 <!--      <div class="form-group ">
+							      <div class="form-group ">
 							      
 							               <label for="selectLanguageId">Select Language</label>
 							       				   
 							                    <select id="selectLanguageId" class="form-control w-75" name="selectlanguage" style="width:400px" required="required">
 							              
 							                    </select> 
-									</div> -->
+									</div>
 								   
 				
 
-<!-- 
+
 						<div class="form-group">
 									    <label for="participants">Participants</label>
 									    <input type="number" class="form-control w-75" pattern="[0-9]" id="participants" required="required"/>
 					
-						 </div>	  -->
+						 </div>	 
 						 
 						 <div class="form-group">
 						 
@@ -614,10 +615,10 @@ function submitA() {
 	
 						 </div>	 
 					 
-					<!-- 	 <div class="form-group">
+						 <div class="form-group">
 									    <label for="state">State</label>
 									    <input type="text" class="form-control w-75" name="stateName" id="state" required="required"/>
-						 </div> -->
+						 </div>
 						 
 						 <div class="form-group">
 						 
@@ -720,7 +721,7 @@ function submitA() {
 			
 							<div class="">		               
 				
-				<!-- 		<span  id="inputdiv" class="pdfclass" target="_blank">Click To Open</span> -->
+						<span  id="inputdiv" class="pdfclass" target="_blank">Click To Open</span>
 							 
 							 </div>
 							 
@@ -874,7 +875,7 @@ function submitA() {
 <div sec:authorize="hasAnyAuthority('QualityReviweer')">
 
 
-		<!-- <H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4> -->
+		<H4 style="padding-left: 50px ;color: gray;">Welcome to Domain Reviwer</H4>
 		
 		 <div class="row">
 	      <div class="col-lg-10 col-xl-9 mx-auto">
@@ -912,8 +913,8 @@ function submitA() {
 				
 								 <div class="form-group">
 								 
-								<!-- 		<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor</a></span><br/>	
-										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/> -->
+										<i class="fas fa-angle-double-right"></i>	<span>	<a onclick="return submitA(this);"	  th:href="@{/rovekeRequest}">Add me as Contributor</a></span><br/>	
+										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsDomainRevieweer}"> Add me as External Contributor</a>	</span>	<br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a> </span><br/>
 										<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a> </span>  <br/>
 						 				<i class="fas fa-angle-double-right"></i>	<span>	<a  onclick="return submitA(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as as Quality reviewer Role</a> </span>  <br/>
@@ -924,6 +925,28 @@ function submitA() {
 	         
  	
 					<script>
+					$( document ).ready(function() {
+						alert('yes');
+						var msgq = localStorage.getItem("quality_rev_req");
+						
+					    if(Boolean(msgq)){
+					    	
+					    	var content = '<div class="alert alert-info" role="alert">'+msgq+'</div>';
+					    	/* alert('not null'); */
+					    	$(".a-update-msg").html(content);
+						    localStorage.setItem("quality_rev_req", "");
+					    	$('.a-card').css("margin-top", "20px"); 	
+					    }
+					    var msga = localStorage.getItem("admin_rev_req");
+					    if(Boolean(msga)){
+					    	
+					    	var content = '<div class="alert alert-info" role="alert">'+msga+'</div>';
+					    	/* alert('not null'); */
+					    	$(".a-update-msg").html(content);
+						    localStorage.setItem("admin_rev_req", "");
+					    	$('.a-card').css("margin-top", "20px"); 	
+					    }
+					});
 					function submitForm() {
 						  return confirm('Do you really want to submit the form?');
 						  
@@ -943,7 +966,12 @@ function submitA() {
 
 </div>
 
-</div>
+</div> -->
+
+
+
+
+
 </div>
 
 

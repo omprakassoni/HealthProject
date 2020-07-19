@@ -171,7 +171,9 @@ public class userController
 	
 		model.addAttribute("request","Request Send Successfully");
 		
-		return "roleAdminDetail";
+		return "redirect:/contributerSelectionLanguage";
+//		return "addContributerRoleRequest";
+//		return "roleAdminDetail";
 		
 	}
 	
@@ -221,7 +223,8 @@ public class userController
 		userRoles.setCreated(currentTime);
 		userRoleRepositary.save(userRoles);
 
-		return "roleAdminDetail";
+		return "redirect:/domainLanguage"; 
+//		return "roleAdminDetail";
 
 	}
 	@RequestMapping(value = "/addMeAsAdminReviwer", method = RequestMethod.GET)
@@ -266,7 +269,8 @@ public class userController
 		
 		userRoleRepositary.save(userRoles);
 
-		return "roleAdminDetail";
+		return "redirect:/roleAdminDetail";
+//		return "roleAdminDetail";
 		
 
 	}
@@ -313,7 +317,9 @@ public class userController
 		userRoles.setStatus(status);
 		userRoles.setCreated(currentTime);
 		userRoleRepositary.save(userRoles);
-
+		
+		
+		
 		return "roleAdminDetail";
 
 	}

@@ -2728,7 +2728,8 @@ public class ControllerHealth
 		// merge conflict start
 		// model.addAttribute("msg","Succesfully Save Recored ");
 		// merge conflict ends	
-			return "showAdminContributorList";
+			return "redirect:/listContributor"; 
+//			return "showAdminContributorList";
 }
 		
 		

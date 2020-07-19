@@ -913,7 +913,6 @@ public class controllerContributer {
 				  @RequestParam(value = "topicid") String topicid,
 				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
 		 {
-
 			  List<String> videoframe = new ArrayList<String>();
 			  
 			  User user=userRepository.findByUsername(authentication.getName());
@@ -929,7 +928,6 @@ public class controllerContributer {
 			  Tutorial tutorial=tutorialDao.finByKeywordContent(user,topic,category,language);
 			
 			  videoframe.add(tutorial.getOutlin());
-			  
 			   
 			return videoframe;
 			  
@@ -995,13 +993,16 @@ public class controllerContributer {
 		
 		
 		@RequestMapping("/contributorComponenentStatus")
-		public String contributorStausComponenent(Model model) 
+		public String contributorStausComponenent(Model model,Authentication authentication) 
 		{
 			
-			
+			User user=userRepository.findByUsername(authentication.getName());
 			List<Tutorial> tutorial=(List<Tutorial>) tutorialDao.findAll();
 			
-			model.addAttribute("listContributorListAcceptOrNeeToImp",tutorial);
+			List<Tutorial> contributorRole= tutorialDao.findByContributorRole(user);
+			
+//			model.addAttribute("listContributorListAcceptOrNeeToImp",tutorial);
+			model.addAttribute("listContributorListAcceptOrNeeToImp",contributorRole);
 			
 			
 			

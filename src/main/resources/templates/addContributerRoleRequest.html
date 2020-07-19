@@ -11,22 +11,24 @@
 
 </head>
   <body>
-  		<div th:replace="common/trail :: navbar1"/>
+  		<!-- <div th:replace="common/trail :: navbar1"/> -->
   		
-  		<div class="container" style="padding-top: 90px">
+  		<div style="display:flex;">
+		<div th:replace="common/sidebar :: contributor_sidebar"></div>
 
-	    <div class="row">
+	    <div class="row" style='width:100%;'>
 	    
 	      <div class="col-lg-10 col-xl-9 mx-auto">
-	        <div class="card card-signin flex-row my-5">
+	      <div  class="a-update-msg"></div>
+	        <div class="card card-signin flex-row  a-card">
 	       
 	          <div class="card-body">
-	           <h5 class="card-title text-center" style="color:maroon; font-size: 20px">
+	           <h5 class="card-title text-center a-card-title" >
     			<div class="">    
                      		 <div th:if="${msgSuccefull}">
    								 <span th:text="${msgSuccefull}"></span>
  									 </div> </div></h5>
-	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Add Contributer language</h5>
+	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Add Contributor Language</h5>
 	         
 	       <form class="form-horizontal"  th:action="@{/addMeAsContributer}" method="post"  onsubmit="return submitForm()(this);">
  
@@ -35,11 +37,12 @@
 
 	             <div class="form-group">
 								 	  
-								 <label for="languageContributerId">Select language </label>
+								 <!-- <label for="languageContributerId">Select language </label> -->
+								 <label for="languageContributerId"></label>
     
                                        <select id="languageContributerId" class="form-control" name="contributerLanguage"   required="required" >
 			
-								                        <option selected="selected" >Select language</option>      
+								                        <option selected="selected" >Select Language</option>      
 								                        <span th:each="lan : ${languages}">
 								                     
 								  								<option th:value="${lan}"><span  th:text="${lan}"></span></option>		
@@ -64,10 +67,16 @@
               
         		 	
 					<script>
+					
+					$( document ).ready(function() {
+					    $(".a-update-msg").html(localStorage.getItem("contri_role_msg"));
+					    localStorage.setItem("contri_role_msg", "");
+					});
 					function submitForm() {
-						  return confirm('Do you really want to submit the form?');
-						  
-						  alert("Submit form succefully");
+						  /* return confirm('Do you really want to submit the form?'); */
+						  /* $('.a-update-msg').html("Record Added Successfully !"); */
+						  /* alert("Submit form succefully"); */
+						  localStorage.setItem("contri_role_msg", "Request submitted successfully for contributor role.");
 						}
 					</script>
   				 
