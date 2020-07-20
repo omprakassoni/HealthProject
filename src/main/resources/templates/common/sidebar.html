@@ -331,7 +331,7 @@
 			</div>
 			<li class="item">
 				<a href="#" class="menu-btn">
-					<i class="fas fa-info-circle"></i>
+					<i class="fas fa-home"></i>
 					<span>Home</span>
 				</a>
 				
@@ -428,7 +428,7 @@
 					<span>Contributor<i class="fas fa-chevron-down drop-down"></i></span>
 				</a>
 				<div class="sub-menu">
-					<a th:href="@{uploadContributerTutorial}"><i class="fas fa-image"></i>
+					<a th:href="@{uploadContributerTutorial}"><i class="fas fa-edit"></i>
 						<span>Upload/Update Tutorial</span>
 					</a>
 					<a th:href="@{contributorComponenentStatus}"><i class="fas fa-address-card"></i>
@@ -506,7 +506,7 @@
 
 			<li class="item" id="creation">
 				<a href="#creation" class="menu-btn">
-					<i class="fas fa-user-cog"></i>
+					<i class="fas fa-user-tag"></i>
 					<span>
 						Role Management<i class="fas fa-chevron-down drop-down"></i>
 					</span>
@@ -521,7 +521,7 @@
 					</div>
 
 					<div sec:authorize="hasAnyAuthority('Contributer')">
-					<a th:href="@{/rovekeRequest}"> Revoke Contribution Role<i class="fas fa-envelope-square"></i></a>
+					<a th:href="@{/rovekeRequest}"> Revoke Contribution Role</a>
 					<a  th:href="@{/domainLanguage}"> Add me as a Domain Reviewer</a>
 					<a  onclick="return submitQ(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as a Quality Reviewer</a>
 					<a  onclick="return submitM(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as a Master Trainer</a>

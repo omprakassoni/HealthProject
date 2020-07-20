@@ -73,6 +73,31 @@ $( document ).ready(function() {
 		location.reload();
 		
 	});
+	$('#exampleModal').on('shown.bs.modal', function () {
+		var categoryid=$("#categoryId").val();
+		var topicid=$("#topicId").val();
+		var lanId=$("#lanId").val();
+		$.ajax({
+			
+			  	type: "GET",
+	       		 url: "/outlineView",
+	       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+	       		 contentType: "application/json",
+	       		 success: function(result)
+	       		 {
+	       			 $("#outlineViewResponse").prop('disabled',false);
+	       			 $('#outlineViewResponse').html(result);
+	       			 editor.setData( result[0] );
+	       			editor.isReadOnly = true;
+	       			$('#outlineId').hide();
+					},
+					error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+
+			});
+		
+	});
 	
 	
 	// here is code for Script
@@ -657,6 +682,19 @@ $( document ).ready(function() {
 			});
   
 		});
+		
+		
+		$('#editOutline').click(function()	
+				{
+			editor.isReadOnly = false;
+//			outlineId
+			$('#outlineId').show();
+			 $("#outlineId").html("Save changes");
+		  
+				});
+		
+		
+
 		
 		/*Save keyWord information into table*/
 		
@@ -1475,34 +1513,34 @@ $( document ).ready(function() {
 				
 				
 				
-						//here code outline View
+						//here code outline View : Redundant
 						
-						$('#outlineViewModel').click(function()			
-						{
-												var categoryid=$("#categoryId").val();
-												var topicid=$("#topicId").val();
-												var lanId=$("#lanId").val();
-												$.ajax({
-													
-													  	type: "GET",
-											       		 url: "/outlineView",
-											       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
-											       		 contentType: "application/json",
-											       		 success: function(result)
-											       		 {
-											       			 
-											       			 $("#outlineViewResponse").prop('disabled',false);
-											       			 $('#outlineViewResponse').html(result);
-											       		
-															},
-															
-																error : function(err){
-															console.log("not working. ERROR: "+JSON.stringify(err));
-														}
-								
-													});
-										  
-												});
+//						$('#outlineViewModel').click(function()			
+//						{
+//												alert('outline');
+//												var categoryid=$("#categoryId").val();
+//												var topicid=$("#topicId").val();
+//												var lanId=$("#lanId").val();
+//												$.ajax({
+//													
+//													  	type: "GET",
+//											       		 url: "/outlineView",
+//											       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+//											       		 contentType: "application/json",
+//											       		 success: function(result)
+//											       		 {
+//											       			 
+//											       			 $("#outlineViewResponse").prop('disabled',false);
+//											       			 $('#outlineViewResponse').html(result);
+//															},
+//															
+//																error : function(err){
+//															console.log("not working. ERROR: "+JSON.stringify(err));
+//														}
+//								
+//													});
+//										  
+//												});
 						
 						//Script View  Contributor
 						

@@ -197,8 +197,8 @@
 		                                          <th> <span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i>
 		                                          		
 		                                          		</button></span>
-		                                          		<span  th:if="${statusOutlineTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#outlineViewModel" data-whatever="@mdo"><i class="fas fa-eye"></i>
-		                                          		</button></span>
+		                                          		<!-- <span  th:if="${statusOutlineTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#outlineViewModel" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button></span> -->
 		                                          		
 		                                          </th>
 
@@ -417,6 +417,8 @@
 					  
 						          </div>
 						        <button id="outlineId" type="button" class="btn btn-success">Upload Outline</button>
+								<span style="color:green;"> <i class="fas fa-edit" id="editOutline"></i> Edit</span>       
+						        <!-- <button id="editOutline" type="button" class="btn btn-success">Upload Outline</button> -->
 						     
 						        </form>
 						       <div class="modal-footer">
@@ -1073,7 +1075,8 @@
 	ClassicEditor
 	    .create( document.querySelector( '#editor' ) )
 	    .then( newEditor => {
-	        editor = newEditor;
+	       editor = newEditor;
+	       editor.setReadOnly(true);
 	    } )
 	    .catch( error => {
 	        console.error( error );"@{/}"
@@ -1082,7 +1085,6 @@
 	// Assuming there is a <button id="submit">Submit</button> in your application.
 		document.querySelector( '#outlineId' ).addEventListener( 'click', () => {
 	    const editorData = editor.getData();
-	  
 	    return editor.getData();
 
 	    // ...
@@ -1108,6 +1110,7 @@
 			    <script src="/s/js/bootstrap.min.js"></script>
 			
 			 <script src="/s/js/main.js"></script>
+			 <!-- <script src="js/ckeditor.js"></script> -->
 			  <script src="/js/ajaxSupport.js"></script>
 			     
 			     
