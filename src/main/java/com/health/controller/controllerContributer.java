@@ -270,11 +270,12 @@ public class controllerContributer {
 		 
 		  new File(abc).mkdirs();
 		  
+		  
 		  StringBuilder fileNames = new StringBuilder(); 
 		  for (MultipartFile file : scriptFiles)
 		  { Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
 		  fileNames.append(file.getOriginalFilename() + " ");
-		  
+		  topicName.add(file.getOriginalFilename());
 		  
 		  try { Files.write(fileNameAndPath, file.getBytes());
 		  fileconversion =fileNameAndPath.toString();
@@ -292,9 +293,12 @@ public class controllerContributer {
 		  	System.err.println(substring+"s\n"+slideStatus+"u\n"+user+"t\n"+topic+"c\n"+category);
 		  	
 			tutorialService.updateScript(substring,slideStatus,user,topic,category);
+			
 			 
+			topicName.add(substring);
+			
 			topicName.add(RECORD_SAVED_SUCCESS_MSG);
-		  
+			
 			return topicName;
 			  
 		 }
@@ -328,7 +332,7 @@ public class controllerContributer {
 		  for (MultipartFile file :
 		  slidefile) { Path fileNameAndPath = Paths.get(abc,
 		  file.getOriginalFilename()); fileNames.append(file.getOriginalFilename() + " ");
-		  
+		  topicName.add(file.getOriginalFilename());
 		  
 		  try { 
 			  
@@ -348,9 +352,10 @@ public class controllerContributer {
 				int slideStatus = 1;
 	
 		tutorialService.updateSlide(slide,slideStatus,user,topic,category);
-	  
+		topicName.add(slide);
 			 topicName.add(RECORD_SAVED_SUCCESS_MSG);
-  			  
+			 
+			 
 			return topicName;
 			  
 		 }
@@ -397,7 +402,7 @@ public class controllerContributer {
 				  
 			  { Path fileNameAndPath = Paths.get(abc,
 			  file.getOriginalFilename()); fileNames.append(file.getOriginalFilename() + " ");
-			  
+			  topicName.add(file.getOriginalFilename());
 			  
 			  try { 
 				  Files.write(fileNameAndPath, file.getBytes()); 
@@ -417,6 +422,8 @@ public class controllerContributer {
 		
 			  int videoStatus = 1;
 		    
+			  
+			  topicName.add(videopath);
 		   tutorialService.updateVideo(videopath,videoStatus,user,topic,category);
 
 		   
@@ -958,8 +965,8 @@ public class controllerContributer {
 			  Tutorial tutorial=tutorialDao.finByKeywordContent(user,topic,category,language);
 			  
 			  script.add(tutorial.getScript());
-			
-			return script;
+			  
+			  return script;
 			  
 		}
 		@RequestMapping("/sliedPdf")

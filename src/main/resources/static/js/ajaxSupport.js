@@ -21,6 +21,54 @@ $( document ).ready(function() {
 				
 	});
 	
+	$('#scriptModale').on('shown.bs.modal',function () {
+		
+		var categoryid=$("#categoryId").val();
+		var topicid=$("#topicId").val();
+		var lanId=$("#lanId").val();
+		$.ajax({
+			
+			  	type: "GET",
+	       		 url: "/scriptPdf",
+	       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+	       		 contentType: "application/json",
+	       		 success: function(result)
+	       		 {
+	       		 	var res =  result;
+	       		       //alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
+
+	       		        source =  document.getElementById('viewScript');
+	       		        source.setAttribute('href',res);
+	       		  
+	       		str = result[0].split("/"); 
+	       	 console.log(str);
+	            fileName = str[str.length - 1]; 
+	            console.log(str);
+	            $('#viewScript').html(fileName);
+	       		  
+//	       		var win = window.open(res, '_blank');
+//	       		if (win) {
+//	       		    //Browser has allowed it to be opened
+//	       		    win.focus();
+//	       		} else {
+//	       		    //Browser has blocked it
+//	       		    alert('Please allow popups for this website');
+//	       		}
+	       		       // source.setAttribute('type','video/mp4')
+//	       		        source.play(); 
+	       			 
+	      
+					},
+					
+						error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+
+			});
+
+				
+	});
+	
 	$('#KeywordStatusAccept').on('hidden.bs.modal',function () {
 		location.reload();
 		
@@ -68,6 +116,39 @@ $( document ).ready(function() {
 		
 	});
 	
+	
+	$('#keywordModale').on('shown.bs.modal', function () {
+		alert('keyword shown');
+		var categoryid=$("#categoryId").val();
+		var topicid=$("#topicId").val();
+		var lanId=$("#lanId").val();
+		
+		$.ajax({
+			  	type: "GET",
+	       		 url: "/viewKeyword",
+	       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },			
+	       		 contentType: "application/json",
+	       		 success: function(result)
+	       		 {
+	       			
+//	       			$("textarea#keyword").val(result.exampleMessage);
+	       			$("#keyword").val(result);
+	       			$('#keyword').prop('readonly', true);
+	       			$("#keywordId").hide();
+	       			
+//	       			 $("#keywordView").prop('disabled',false);
+//	       			 $('#keywordView').html(result);
+	       		
+					},
+					
+						error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+
+});
+		
+	});
+	
 	// here is  code for 
 	$('#exampleModal').on('hidden.bs.modal', function () {
 		location.reload();
@@ -105,6 +186,8 @@ $( document ).ready(function() {
 		location.reload();
 		
 		
+		
+		
 	});
 	
 	
@@ -114,10 +197,107 @@ $( document ).ready(function() {
 		
 		
 	});
-	
+	$('#slideModale').on('shown.bs.modal', function () {
+		alert('heress');
+		
+		var categoryid=$("#categoryId").val();
+
+		var topicid=$("#topicId").val();
+
+		var lanId=$("#lanId").val();
+
+		$.ajax({
+
+		  type: "GET",
+
+		       	url: "/sliedPdf",
+
+		       	data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },
+
+		       	contentType: "application/json",
+
+		       	success: function(result)
+
+		       	{
+
+		       	var res =  result;
+
+		            //  alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
+
+
+
+		              source =  document.getElementById('sliedPdf');
+
+		              source.setAttribute('href',res);
+
+		       	      // source.setAttribute('type','video/mp4')
+		              str = result[0].split("/"); 
+		 	       	 console.log(str);
+		 	            fileName = str[str.length - 1]; 
+		 	            console.log(str);
+		 	            $('#sliedPdf').html(fileName);
+
+
+//		              source.play(); 
+
+		},
+
+		error : function(err){
+
+		console.log("not working. ERROR: "+JSON.stringify(err));
+
+		}
+
+		});
+		
+		
+		
+		
+		
+	});
 	
 	$('#videoModel').on('hidden.bs.modal', function () {
 		location.reload();
+		
+	});
+	
+	$('#videoModel').on('shown.bs.modal', function () {
+//		alert('on modal shown');
+		var categoryid=$("#categoryId").val();
+		var topicid=$("#topicId").val();
+		var lanId=$("#lanId").val();
+		
+		$.ajax({
+			
+			  	type: "GET",
+	       		 url: "/viewVideo",
+	       		 data: { "categorname" : categoryid,"topicid":topicid,"lanId":lanId },		
+	       		 contentType: "application/json",
+	       		 success: function(result)
+	       		 {
+	       					 
+	       			
+	       			 //$("#VideoView").prop('disabled',false);
+	       			 //$('#VideoView').html(result);
+	       			
+	       		        var res =  result;
+	       		      
+	       		        source =  document.getElementById('storedVideoId');
+	       		        source.setAttribute('src',res);
+	       		        source.setAttribute('type','video/mp4')
+
+//	       		        source.play(); //test playback of new video
+	       		        
+	       		       // $('#videoDiv').show()
+	       		   
+	       		
+					},
+					
+						error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+
+});
 		
 	});
 	
@@ -693,6 +873,15 @@ $( document ).ready(function() {
 		  
 				});
 		
+		$('#editKeyword').click(function()	
+				{
+			$('#keyword').prop('readonly', false);
+//			outlineId
+			$('#keywordId').show();
+			 $("#keywordId").html("Save changes");
+		  
+				});
+		
 		
 
 		
@@ -736,22 +925,21 @@ $( document ).ready(function() {
 		{
 		
 			
-
+							//here1
 					
 							var categoryid=$("#categoryId").val();
 							var topicid=$("#topicId").val();
 							var lanId=$("#lanId").val();
 							
-							
 							var form = $('#upload-file-form-script')[0]; 
 							var formData = new FormData(form); 
-		
+							alert(form);
+							console.log(form);
+							console.log(form[0]);
 						
 							formData.append('categoryid', categoryid);
 							formData.append('topicid', topicid);
 							formData.append('lanId', lanId);	
-							
-					
 							
 							$.ajax({
 								
@@ -764,10 +952,13 @@ $( document ).ready(function() {
 							    cache: false,
 							    success: function (result)
 							{
-								    	
-							
-						       			 $("#statusofScript").prop('disabled',true);
-						       			 $('#statusofScript').html(result);				       								
+				       			 $("#statusofScript").prop('disabled',true);
+				       			 $('#statusofScript').html(result[2]);		
+				       			 $('#viewScript').html(result[0]);
+				       			 
+				       			source =  document.getElementById('storedVideoId');
+			       		        source.setAttribute('src',result[1]);
+			       		        	
 							 },
 						
 							error : function(err){
@@ -787,7 +978,7 @@ $( document ).ready(function() {
 
 			$('#slideId').click(function()	
 			{
-		
+						
 						var categoryid=$("#categoryId").val();
 						var topicid=$("#topicId").val();
 						var lanId=$("#lanId").val();
@@ -811,10 +1002,12 @@ $( document ).ready(function() {
 							    cache: false,
 							    success: function (result)
 							    {
-							    	
-					    
 					       			 $("#statusofSlide").prop('disabled',true);
-					       			 $('#statusofSlide').html(result);				       		
+					       			 $('#statusofSlide').html(result[2]);
+					       			 
+					       			$('#sliedPdf').html(result[0]);
+					       		 $("#sliedPdf").prop('href',result[1]);
+					       			 
 					
 							    },
 					
@@ -858,7 +1051,13 @@ $( document ).ready(function() {
 									    	
 							    
 							       			 $("#statusofVideo").prop('disabled',true);
-							       			 $('#statusofVideo').html(result);				       		
+							       			 $('#statusofVideo').html(result[2]);	
+							       			 
+							       			source =  document.getElementById('storedVideoId');
+						       		        source.setAttribute('src',result[1]);
+						       		        source.setAttribute('type','video/mp4')
+
+//						       		        source.play();
 							       			 
 									    },
 							
@@ -1418,9 +1617,6 @@ $( document ).ready(function() {
 						
 				$('#videoViewId').click(function()			
 				{
-							
-					
-							
 												var categoryid=$("#categoryId").val();
 												var topicid=$("#topicId").val();
 												var lanId=$("#lanId").val();
@@ -1444,7 +1640,7 @@ $( document ).ready(function() {
 											       		        source.setAttribute('src',res);
 											       		        source.setAttribute('type','video/mp4')
 
-											       		        source.play(); //test playback of new video
+//											       		        source.play(); //test playback of new video
 											       		        
 											       		       // $('#videoDiv').show()
 											       		   
@@ -1491,7 +1687,7 @@ $( document ).ready(function() {
 											       		        source.setAttribute('src',res);
 											       		        source.setAttribute('type','video/mp4')
 
-											       		        source.play(); //test playback of new video
+//											       		        source.play(); //test playback of new video
 											       		        
 											       		       // $('#videoDiv').show()
 											       		   
@@ -1544,11 +1740,10 @@ $( document ).ready(function() {
 						
 						//Script View  Contributor
 						
-					
-						$('#viewScriptId').click(function()			
+						$('#viewScript').click(function()
+//						$('#viewScriptId').click(function()			
 						{
 							
-											
 																var categoryid=$("#categoryId").val();
 																var topicid=$("#topicId").val();
 																var lanId=$("#lanId").val();
@@ -1563,16 +1758,25 @@ $( document ).ready(function() {
 															       		 	var res =  result;
 															       		       //alert("NEW video path : " + res); //should be a valid path eg: https://example.com/myvideo.mp4
 
-															       		        source =  document.getElementById('ScriptPdf');
+															       		        source =  document.getElementById('viewScript');
 															       		        source.setAttribute('href',res);
 															       		        
+															       		var win = window.open(res, '_blank');
+															       		if (win) {
+															       		    //Browser has allowed it to be opened
+															       		    win.focus();
+															       		} else {
+															       		    //Browser has blocked it
+															       		    alert('Please allow popups for this website');
+															       		}
 															       		       // source.setAttribute('type','video/mp4')
-															       		        source.play(); 
+//															       		        source.play(); 
 															       			 
 															      
 																			},
 																			
 																				error : function(err){
+																					alert('failed');
 																			console.log("not working. ERROR: "+JSON.stringify(err));
 																		}
 												
@@ -1604,7 +1808,7 @@ $( document ).ready(function() {
 															       		        source.setAttribute('href',res);
 															       		       // source.setAttribute('type','video/mp4')
 
-															       		        source.play(); 
+//															       		        source.play(); 
 															       			 
 															      
 																			},
@@ -2008,7 +2212,7 @@ $( document ).ready(function() {
 											       		        source.setAttribute('src', "http://localhost:8081/"+res);
 											       		        source.setAttribute('type','video/mp4')
 
-											       		        source.play(); 
+//											       		        source.play(); 
 
 											       		        
 															},
@@ -2127,7 +2331,7 @@ $( document ).ready(function() {
 														       		        source.setAttribute('src', "http://localhost:8081/"+res);
 														       		        source.setAttribute('type','video/mp4')
 
-														       		        source.play(); //test playback of new video
+//														       		        source.play(); //test playback of new video
 														       		        
 														       		       // $('#videoDiv').show()
 														       		
@@ -2168,7 +2372,7 @@ $( document ).ready(function() {
 														       		     source.setAttribute('src', "http://localhost:8081/"+res);
 														       		        source.setAttribute('type','video/mp4')
 
-														       		        source.play(); //test playback of new video
+//														       		        source.play(); //test playback of new video
 														       		        
 														       		       // $('#videoDiv').show()
 														       		   
@@ -2714,7 +2918,7 @@ $( document ).ready(function() {
 											       		        source.setAttribute('href',res);
 											       		       // source.setAttribute('type','video/mp4')
 
-											       		        source.play(); 
+//											       		        source.play(); 
 											       			 
 											      
 															},
