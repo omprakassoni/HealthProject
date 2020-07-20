@@ -46,7 +46,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
+import com.health.model.City;
 import com.health.model.Consaltantant;
+import com.health.model.District;
 import com.health.model.Event;
 import com.health.model.Question;
 import com.health.model.Testimonial;
@@ -59,10 +61,12 @@ import com.health.model.feedback;
 import com.health.model.feedbackMasterTrainer;
 import com.health.model.newRole;
 import com.health.model.partipantDeatil;
+import com.health.model.state;
 import com.health.model.topic;
 import com.health.repository.CategoryDao;
 import com.health.repository.CategoryTutorialDao;
 import com.health.repository.ConsaltantDao;
+import com.health.repository.DistrictRepositary;
 import com.health.repository.EventDao;
 import com.health.repository.Questionreposiatry;
 import com.health.repository.RoleRepository;
@@ -71,10 +75,12 @@ import com.health.repository.TraninigInformationRespositary;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
+import com.health.repository.cityRepositary;
 import com.health.repository.contributor_RoleDao;
 import com.health.repository.feedbackRespositary;
 import com.health.repository.languagedao;
 import com.health.repository.participantDao;
+import com.health.repository.stateRespositary;
 import com.health.repository.topicRepositary;
 import com.health.service.ConsaltantService;
 import com.health.service.categoryService;
@@ -577,8 +583,7 @@ public class ControllerHealth
 	
 
 		String topicName=request.getParameter("topicName");
-		System.err.println("Topic name"+topicName);
-		System.err.println("categor name"+categoryName);
+		
 		
 		System.err.println(authentication.getName());
 		
@@ -1617,6 +1622,73 @@ public class ControllerHealth
 		return lanSet;  
 
 	}
+	
+	
+	//master trainer select Distrci according to lan
+	
+	@Autowired
+	private DistrictRepositary districtRepositary; 
+	
+	@Autowired
+	private stateRespositary stateRespositary; 
+	
+	
+	
+	@RequestMapping("/loadDistrictByState")
+	public @ResponseBody  List<String> getDistrictByState(@RequestParam(value="id") int id)
+	{
+	
+		
+		List<String> DistrictList=new ArrayList<String>();
+		
+    	state state=stateRespositary.findOne(id);
+		
+		List<District> district=districtRepositary.findByState(state);
+		 
+		for (District district2 : district) {
+			
+			
+			DistrictList.add(district2.getDistrictName());
+			
+			
+		}
+		
+		return DistrictList;  
+
+	}
+	
+	@Autowired
+	private cityRepositary cityRepositary;
+	
+	
+	@RequestMapping("/loadCityByDistrict")
+	public @ResponseBody  List<String> getCityByDistrict(@RequestParam(value="id") String distName)
+	{
+	
+		
+		List<String> cityList=new ArrayList<String>();
+		
+		District dist=districtRepositary.findBydistrictName(distName);
+		
+		List<City> cityName=cityRepositary.findBydistrict(dist);
+		
+		
+		  for(City City : cityName) {
+		  
+		  cityList.add(City.getCityName());
+		  
+		  
+		  }
+		 
+		
+		
+		return cityList;  
+
+		
+	}
+	
+	
+	
 	/*
 	 * load by category return by 
 	 */
@@ -1765,47 +1837,52 @@ public class ControllerHealth
 	/*      master Traning Informtion    save */
 	 
 	
-	  @RequestMapping(value = "/traninigMasterInformation")
+	  @RequestMapping("/traninigMasterInformation")
 	  public String addeMaqsterTranierInformation(HttpServletRequest req, Model model, 
 	
 			  @RequestParam("paricipantsDeatail") MultipartFile[] paricipantsDeatail,
 			  @RequestParam("paricipantsPhoto") MultipartFile[] paricipantsPhoto,
-			  @RequestParam(name="stateName") String stateName,
+			  //@RequestParam(name="stateName") String stateName,
 			  @RequestParam(value="categoryName") int categoryId,
-			/* @RequestParam(name="inputTopic") String inputTopic, */
-			   @RequestParam(name="inputTopic") String inputTopic 
+			  		  
+			  @RequestParam(value="traningInformation") String trainingInformation,
+			  @RequestParam(value="stateName") int state,
+			  @RequestParam(value="districtName") String district,
+			  @RequestParam(value="cityName") String city,
+			  @RequestParam(value="addressInformationName") String addressInformationName,
+			  @RequestParam(value="pinCode") int pinCode
+			  
+		
+		//	   @RequestParam(name="inputTopic") String inputTopic 
+			   
 		) throws ParseException, IOException
 	  
 	  {
-		  
 		  
 			String date=req.getParameter("date"); 
 			SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date dateUtil=sd1.parse(date);
 			Date dataofCamp=new Date(dateUtil.getTime());
-		 
-		  Category category=categoryDao.findByid(categoryId);
-		  
-		  topic topic=topicdao.findBytopicname(inputTopic);
-		  
-		   String categorName=category.getCategoryname();
 
-		  System.err.println("Hi"+categoryId);
-		/* System.err.println("Hi Topic"+inputTopic); */
-		  System.err.println("Hi language"+inputTopic);
+			String endDate=req.getParameter("endDate"); 
+			SimpleDateFormat sd2=new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date dateUtil1=sd1.parse(endDate);
+			Date endDateOfTrainingModal=new Date(dateUtil1.getTime());
+			
+			state stateVar=stateRespositary.findOne(state);
+		
+		    Category category=categoryDao.findByid(categoryId);
 		  
-  
-	
-		/* String date=req.getParameter("date"); */
+		    //  topic topic=topicdao.findBytopicname(inputTopic);
+		  
+		    String categorName=category.getCategoryname();
+
 		  String participants=req.getParameter("participants");
 		  String traningInfo=req.getParameter("traningInformation");
-		/* String stateName=req.getParameter("stateName"); */
 		  int pincode=Integer.parseInt(req.getParameter("pinCode")); 
-		
-		  
 		  
 			String path = null;
-			String abc = uploadMasterTrainer + "/" + dataofCamp + inputTopic ;
+			String abc = uploadMasterTrainer + "/" + dataofCamp + category.getCategoryname() ;
 			
 			new File(abc).mkdir();
 
@@ -1817,6 +1894,7 @@ public class ControllerHealth
 				fileNames.append(file.getOriginalFilename() + " ");
 
 				try {
+					
 					Files.write(fileNameAndPath, file.getBytes());
 					System.out.println(fileNameAndPath.toString());
 					
@@ -1832,7 +1910,7 @@ public class ControllerHealth
 			
 		
 			String masterTrainerPhotoPath = null;
-			String masterTrainerPhoto = uploadMasterTrainerPhoto + "/" + dataofCamp + inputTopic;
+			String masterTrainerPhoto = uploadMasterTrainerPhoto + "/" + dataofCamp + category.getCategoryname();
 			new File(masterTrainerPhoto).mkdir();
 
 			StringBuilder fileNamesPhoto = new StringBuilder();
@@ -1851,9 +1929,7 @@ public class ControllerHealth
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-				
-
+			
 			}
 			
 		
@@ -1861,22 +1937,28 @@ public class ControllerHealth
 			
 		  
 		  
-			  TraningInformation traningInformationObject=new TraningInformation(category,topic);
+	  TraningInformation traningInformationObject=new TraningInformation(category);
 			
 			  traningInformationObject.setDate(dataofCamp);
-			  
+			  traningInformationObject.setEndDate(endDateOfTrainingModal);			  
 			  traningInformationObject.setCategoryname(categorName);
 
 			  
-			  traningInformationObject.setTopic(inputTopic);
+			//  traningInformationObject.setTopic(inputTopic);
 			 
 			  traningInformationObject.setParticipant(participants);
-			  traningInformationObject.setTraningInformation(traningInfo);
-			  traningInformationObject.setState(stateName);
+			  traningInformationObject.setTraningInformation(trainingInformation);
+			  traningInformationObject.setState(stateVar.getStateName());
+			  traningInformationObject.setDistricit(district);
+			  traningInformationObject.setCity(city);
+			  
+			  traningInformationObject.setAddressInformation(addressInformationName);
+			 
+			//  traningInformationObject.setState(stateName);
 			  traningInformationObject.setPincode(pincode);
 			  
-				  traningInformationObject.setParticipant(paricipantsDeatailFile);
-			  traningInformationObject.setPhoto(participantdeatailPhoto);
+			traningInformationObject.setParticipant(paricipantsDeatailFile);
+			traningInformationObject.setPhoto(participantdeatailPhoto);
 	
   
 		  traninigInformationRespositary.save(traningInformationObject);
@@ -1894,17 +1976,13 @@ public class ControllerHealth
 					      while (sc.hasNextLine()) {
 					         input = sc.nextLine();
 					         if(set.add(input)) {
+					        	 
 					            writer.append(input+"\n");
 					         }
 					      }
 					      writer.flush();
 					      System.out.println("Contents added............");  
 					      
-					      
-					      
-		  
-		  
-					      	
 	
 				try {
 					String line="";
@@ -1965,14 +2043,12 @@ public class ControllerHealth
 		/* Here  Edit information UserDeatail id */
 
 		@RequestMapping("editParticipantDeatail/edit/{id}")
-		public String editParticipantDeatail(@PathVariable Integer id, Model model, HttpServletRequest req) {
-
-			
+		public String editParticipantDeatail(@PathVariable Integer id, Model model, HttpServletRequest req) 
+		{
 			
 			partipantDeatil participantDeatail=participantDao.findOne(id);
-			
 
-			model.addAttribute("parcipantDeatails", participantDeatail);
+			model.addAttribute("parcipantDeatails",participantDeatail);
 
 			// return "Update_Consalantant"; categoryService
 
@@ -2061,11 +2137,9 @@ public class ControllerHealth
 			List<partipantDeatil> participantdeatail=(List<partipantDeatil>) participantDao.findAll();
 			
 			
-		
-
 			model.addAttribute("parcipantDeatails", participantdeatail);
 
-			return "Show_Consaltant";
+			return "showparticipantdeatail";
 
 		}
 	  

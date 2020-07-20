@@ -139,9 +139,7 @@ public class HomeController {
 		
 		Set<String> categoryList=new LinkedHashSet<String>(tutorialRes);
 		
-	   System.err.println("Prit list"+categoryList);
-		
-		
+	  
 		
 		model.addAttribute("categorys",categoryList);
 		

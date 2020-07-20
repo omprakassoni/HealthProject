@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
+import com.health.model.District;
 import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.model.language;
@@ -115,6 +116,7 @@ public class userController
 		
 		
 			List<state> state=(List<com.health.model.state>) statedao.findAll();
+			
 			
 			model.addAttribute("stateInfo",state);
 			

@@ -25,7 +25,7 @@ public class TraningInformation
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String categoryname;
-	private String topicTraning;
+//	private String topicTraning;
 	private String topic;
 	private String language;
 	private String state;
@@ -33,8 +33,74 @@ public class TraningInformation
 	private String participant;
 	private String photo;
 	private Date date;
+	private Date endDate;
+	private String districit;
+	private String city;
 	private String traningInformation;
+	private String addressInformation;
 	
+
+
+	public String getAddressInformation() {
+		return addressInformation;
+	}
+
+	public void setAddressInformation(String addressInformation) {
+		this.addressInformation = addressInformation;
+	}
+
+	public String getTraningInformation() {
+		return traningInformation;
+	}
+
+	public String getDistricit() {
+		return districit;
+	}
+
+	public void setDistricit(String districit) {
+		this.districit = districit;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public List<partipantDeatil> getPartipantDeatil() {
+		return partipantDeatil;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setPartipantDeatil(List<partipantDeatil> partipantDeatil) {
+		this.partipantDeatil = partipantDeatil;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public topic getTopics() {
+		return topics;
+	}
+
+	public void setTopics(topic topics) {
+		this.topics = topics;
+	}
+
 	@OneToMany(mappedBy = "traningInformation",cascade =CascadeType.ALL) 
 	 private List<partipantDeatil> partipantDeatil;
 	
@@ -76,11 +142,18 @@ public class TraningInformation
 		this.topics = topics;
 	}
 
-	public String getTraningInformation() {
-		return traningInformation;
+	public TraningInformation() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setTraningInformation(String traningInformation) {
+	public TraningInformation(Category category2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	/*
+	 * public String getTraningInformation() { return traningInformation; }
+	 * 
+	 */	public void setTraningInformation(String traningInformation) {
 	}
 
 	public int getId() {
@@ -91,13 +164,13 @@ public class TraningInformation
 		this.id = id;
 	}
 
-	public String getTopicTraning() {
-		return topicTraning;
-	}
-
-	public void setTopicTraning(String topicTraning) {
-		this.topicTraning = topicTraning;
-	}
+	/*
+	 * public String getTopicTraning() { return topicTraning; }
+	 */
+	/*
+	 * public void setTopicTraning(String topicTraning) { this.topicTraning =
+	 * topicTraning; }
+	 */
 
 
 

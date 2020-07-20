@@ -923,6 +923,8 @@ public class controllerContributer {
 			
 			  videoframe.add(tutorial.getOutlin());
 			  
+			  
+			  System.err.println("**********///////"+videoframe);
 			   
 			return videoframe;
 			  

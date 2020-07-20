@@ -627,10 +627,6 @@
 </div>
 
 
-
-
-
-
 <div sec:authorize="hasAnyAuthority('MasterTrainer')">
 
 							  
@@ -684,8 +680,14 @@
 						    <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);">
 						    
 									  <div class="form-group ">
-									    <label for="date">Date </label>
+									    <label for="date">Start Date </label>
 									    <input type="date" class="form-control w-75" name="date" id="date" required="required"/>
+									  </div>
+									  
+									  
+									   <div class="form-group ">
+									    <label for="date">End Date </label>
+									    <input type="date" class="form-control w-75" name="endDate" id="startDate" required="required"/>
 									  </div>
   
 								 <div class="form-group">
@@ -703,7 +705,7 @@
 								 </div>	 
 								 
 								 
-								   <div class="form-group ">
+		<!-- 						   <div class="form-group ">
 		
 										<label for="inputLanguage">Select Topic</label>
 													       	
@@ -712,7 +714,7 @@
 										  </select> 
 								           	
 								                	
-									</div>
+									</div> -->
 			
 								   
 							 <!--      <div class="form-group ">
@@ -750,21 +752,51 @@
 						 
 						 <div class="form-group">
 						 
-							   <label for="state">State</label>
-							   <select id="stateId" class="form-control w-75" name="stateName"  style="width: 400px" required="required" >
+							   <label for="stateName">State</label>
+							   <select id="stateNameId" class="form-control w-75" name="stateName"  style="width: 400px" required="required" >
 									               
 									                        <option selected="selected">Select State</option>      
 									                        <span th:each="state: ${stateInfo}">
-									  								<option th:value="${state. getStateName()}"><span th:text="${state. getStateName()}"></span></option>		
+									  								<option th:value="${state. getId()}"><span th:text="${state. getStateName()}"></span></option>		
 									  						</span>
 									  						
 								</select>
 								
 						 </div>
 						 
-						  
+						  <div class="form-group">
 						 
-						 	 <div class="form-group">
+							   <label for="district">District</label>
+							   <select id="districtId" class="form-control w-75" name="districtName"  style="width: 400px" required="required" >
+									               
+									                        <option selected="selected">Select District</option>      
+									                      
+									  						
+								</select>
+								
+						 </div>
+						 
+						  <div class="form-group">
+						 
+							   <label for="cityName">City</label>
+							   <select id="cityId" class="form-control w-75" name="cityName"  style="width: 400px" required="required" >
+									               
+									                        <option selected="selected">Select City</option>      
+									                       
+								</select>
+								
+						 </div>
+						 
+						<div class="form-group">
+						 
+									    <label for="addressInformationId">Address Information</label>
+		
+                                         <textarea class="form-control w-75"  name="addressInformationName" rows="5" id="addressInformationId" style="width: 300px" required="required"></textarea>
+	
+						 </div>	 
+					 
+					
+						 <div class="form-group">
 									    <label for="pinCodeId">PinCode</label>
 									    <input type="number" class="form-control w-75" name="pinCode" pattern="[0-9]" id="pinCodeId"   minlength="6"  maxlength="6"  required="required"/>
 						 </div>	
@@ -772,7 +804,7 @@
 
 						  <div class="form-group">
 						
-						  		 <label for="paricipantsDe">Paricipants Deatail</label>
+						  		 <label for="paricipantsDe">Pariticipants Deatail</label>
 						      <input type="file" class="form-control w-75" id="paricipantsDeatailId" accept=".csv" name="paricipantsDeatail" required="required"/>
 				
 						    </div>
@@ -782,7 +814,7 @@
 						  <div class="form-group">
 						
 						  		 <label for="paricipantsPhoto">Paricipants Photo</label>
-						      <input type="file" class="form-control w-75" id="paricipantsPhotoId" accept=".jpg,.jpeg,.zip" name="paricipantsPhoto" required="required"/>
+						      <input type="file" class="form-control w-75" id="paricipantsPhotoId" accept=".zip" name="paricipantsPhoto" required="required"/>
 				
 						    </div>
 						    
@@ -790,7 +822,7 @@
 						   <button type="submit" class="btn  btn-success"  data-toggle="modal" onclick="myFunction()">Submit</button>
 						     <button type="reset" class="btn btn-success">Reset</button>       
 						      
-		</form>
+		   </form>
 				
 					</div>
 
@@ -917,7 +949,7 @@
 		      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 		      
 		      
-		     				<div class="">
+		   <div class="">
 		    		
 		    		<div class="row ">
 		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px;padding-left: 400px">List Participant Deatail</div>
