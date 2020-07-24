@@ -260,9 +260,14 @@ $( document ).ready(function() {
 		location.reload();
 		
 	});
+
 	
-	$('#videoModel').on('shown.bs.modal', function () {
-//		alert('on modal shown');
+	
+	
+	
+	$('#videoClick').click(function()	
+//	$('#videoModel').on('shown.bs.modal', function ()
+			{
 		var categoryid=$("#categoryId").val();
 		var topicid=$("#topicId").val();
 		var lanId=$("#lanId").val();
@@ -286,6 +291,8 @@ $( document ).ready(function() {
 	       		        source.setAttribute('src',res);
 	       		        source.setAttribute('type','video/mp4')
 
+	       		        
+	       		        
 //	       		        source.play(); //test playback of new video
 	       		        
 	       		       // $('#videoDiv').show()
@@ -1024,7 +1031,6 @@ $( document ).ready(function() {
 			
 	$('#videoId').click(function()	
 		{
-				
 								var categoryid=$("#categoryId").val();
 								var topicid=$("#topicId").val();
 								var lanId=$("#lanId").val();
@@ -1661,9 +1667,6 @@ $( document ).ready(function() {
 				
 				$('#videoViewId').click(function()			
 				{
-							
-					
-							
 												var categoryid=$("#categoryId").val();
 												var topicid=$("#topicId").val();
 												var lanId=$("#lanId").val();
@@ -2189,7 +2192,7 @@ $( document ).ready(function() {
 							$('#videoViewIdDomain').click(function()			
 						{
 											
-								
+								alert('videoViewIdDomain');
 												var categoryid=$("#categoryId").val();
 												var topicid=$("#topicId").val();
 												var lanId=$("#lanId").val();
@@ -2304,9 +2307,9 @@ $( document ).ready(function() {
 					
 			/*		Here is code for admin Video*/
 					
-					$('#videoViewIdAdmin').click(function()			
+					$('#videoViewAdmin').click(function()
+//					$('#videoViewIdAdmin').click(function()			
 							{
-														
 															var categoryid=$("#categoryId").val();
 															var topicid=$("#topicId").val();
 															var lanId=$("#lanId").val();
@@ -2330,7 +2333,7 @@ $( document ).ready(function() {
 														       		        source =  document.getElementById('storedVideoId');
 														       		        source.setAttribute('src', "http://localhost:8081/"+res);
 														       		        source.setAttribute('type','video/mp4')
-
+														       		        source.play();
 //														       		        source.play(); //test playback of new video
 														       		        
 														       		       // $('#videoDiv').show()
@@ -2349,7 +2352,6 @@ $( document ).ready(function() {
 					
 					$('#videoViewIdAdmin').click(function()			
 							{
-														
 															var categoryid=$("#categoryId").val();
 															var topicid=$("#topicId").val();
 															var lanId=$("#lanId").val();
