@@ -115,13 +115,14 @@
 		
 								<div id="videoDiv" class="row" height="240" width="320" scrolling="auto" autoplay="autoplay">
 								   
-								   <div class="col-sm-6" style="border:2px solid red;">
+								   <div class="col-sm-12" style="border:2px solid red;">
 								   	<video id='storedVideoId' height="240" width="320" controls="controls">
 								    </video>
 								   </div>
-								    
-								    <div style="border: 1px solid green;" class="col-sm-6">
-								    	<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+								</div>
+								<div class="row">
+								<div class="col-md-12" style="border: 1px solid green;">
+								<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
 
 						          <div class="form-group">
 						 
@@ -146,8 +147,7 @@
 				 <button id="videoAcceptOrNeedToImprovemenetByAdmin"  type="button" class="btn btn-success">Submit</button>	   
 
 		</form>	
-								    </div>
-								    
+								</div>
 								</div>
 		
 	            </div>
