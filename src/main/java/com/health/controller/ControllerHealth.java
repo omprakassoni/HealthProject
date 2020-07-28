@@ -1885,20 +1885,23 @@ public class ControllerHealth
 		
 		  			
 					      String filePath = mastertrainer;
+					      Path currentPath = Paths.get(System.getProperty("user.dir"));
+					      Path csvFilePath = Paths.get(currentPath.toString(), filePath);
+						  String file= csvFilePath.toString();
 					      String input = null;
-					      //Instantiating the Scanner class
-					      Scanner sc = new Scanner(new File(filePath));
-					      //Instantiating the FileWriter class
-					      FileWriter writer = new FileWriter(mastertrainer);
-					      //Instantiating the Set class
-					      Set set = new HashSet();
-					      while (sc.hasNextLine()) {
-					         input = sc.nextLine();
-					         if(set.add(input)) {
-					            writer.append(input+"\n");
-					         }
-					      }
-					      writer.flush();
+//					      //Instantiating the Scanner class
+//					      Scanner sc = new Scanner(new File(filePath));
+//					      //Instantiating the FileWriter class
+//					      FileWriter writer = new FileWriter(mastertrainer);
+//					      //Instantiating the Set class
+//					      Set set = new HashSet();
+//					      while (sc.hasNextLine()) {
+//					         input = sc.nextLine();
+//					         if(set.add(input)) {
+//					            writer.append(input+"\n");
+//					         }
+//					      }
+//					      writer.flush();
 					      System.out.println("Contents added............");  
 					      
 					      
@@ -1909,7 +1912,7 @@ public class ControllerHealth
 	
 				try {
 					String line="";
-						String file=filePath;
+//						String file=filePath;
 						
 						BufferedReader br=new BufferedReader(new FileReader(file));
 						
