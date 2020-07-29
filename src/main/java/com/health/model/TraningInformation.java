@@ -36,10 +36,30 @@ public class TraningInformation
 	private Date endDate;
 	private String districit;
 	private String city;
-	private String traningInformation;
-	private String addressInformation;
 	
+	private String addressInformation;
+	private String traingDetail;
+	
+	
+	 public String getTraingDetail() {
+		return traingDetail;
+	}
 
+	public void setTraingDetail(String traingDetail) {
+		this.traingDetail = traingDetail;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	 @JoinColumn(name="user_id")
+	 private User user;
 
 	public String getAddressInformation() {
 		return addressInformation;
@@ -49,9 +69,7 @@ public class TraningInformation
 		this.addressInformation = addressInformation;
 	}
 
-	public String getTraningInformation() {
-		return traningInformation;
-	}
+
 
 	public String getDistricit() {
 		return districit;

@@ -304,6 +304,8 @@
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_consalantant}">List Consalantant</a></li>
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_Event}">List Event</a></li> 
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_language}">List Language</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_traInfo}">List Training Information</a></li>
+                                                        <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_feedbackMasterTrainer}">View Master Feedback Form </a></li>
                                                         
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{adminShowMasterTrainer}">List Master Trainer</a></li>
                                                         <li style="font-size: 25px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{adminShowQualityreviweer}">List Quality Reviweer</a></li>
@@ -738,10 +740,8 @@
 						 <div class="form-group">
 						 
 						 
-									    <label for="traningInformationId">Traning Information</label>
-								
-		
-                                         <textarea class="form-control w-75"  name="traningInformation" rows="5" id="traningInformationId" style="width: 300px" required="required"></textarea>
+									    <label for="traningInformationMasterId">Traning Information</label>
+                                         <textarea class="form-control w-75"  name="traningInfo" rows="5" id="traningInformationMasterId" style="width: 300px" required="required"></textarea>
 	
 						 </div>	 
 					 
@@ -852,25 +852,42 @@
 								 	  
 									   <label for="categoryName">Select category </label>
 									    
-                                        <select id="catId" class="form-control w-75" name="categoryname"  style="width: 400px" required="required" >
+                                        <select id="catMasterId" class="form-control w-75" name="catMasterId"  style="width: 400px" required="required" >
 								               
 								                        <option selected="selected">Select Category</option>      
 								                        <span th:each="category: ${categorys}">
 								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
 								  						</span>
-									  </select>
+									   </select>
 								 </div>	   
 			 
 			 
 					 <div class="form-group ">
 		
-					               <label for="inputLanguage">Select Topic</label>
+					               <label for="lanMasterTrId">Select Topic</label>
 					               
-					                    <select id="inputLanguage1" class="form-control w-75"  name="inputLanguage" style="width:400px" required="required">
+					                    <select id="lanMasterTrId" class="form-control w-75"  name="lanMasterTrId" style="width:400px" required="required">
 	
 	
 					                    </select> 
 					</div>
+					
+					
+							 <div class="form-group">
+								 	  
+									   <label for="languageNameId">Select Language </label>
+									    
+                                       <select id="dwnByLanguageId" class="form-control w-75" name="dwnByLanguageId"   required="required" >
+			
+								                        <option selected="selected" >Select Language</option>      
+								                        <span th:each="lan: ${languagesDisplay}" >
+								  								<option th:value="${lan.getId()}"><span  th:text="${lan.getLanguageName()}"></span></option>		
+								  						</span>
+									  </select>
+						 	 </div>	
+					
+					
+					
 					
 					 <div class="form-group ">
 					 
@@ -910,14 +927,28 @@
 		    		
 		    
 						    <form action="/feedback" >
-						    
+						
+						
+						
+							<div class="form-group">
+								 	  
+									   <label for="categoryId">Select Category </label>
+									    
+                                       <select id="catMasId" class="form-control w-75" name="catMasId"   required="required" >
+			
+								                        <option selected="selected" >Select category</option>      
+								                        <span th:each="category : ${traningInformation}" >
+								  								<option th:value="${category.getCategory().getId()}"><span  th:text="${category.getCategory().getCategoryname()}"></span></option>		
+								  						</span>
+									  </select>
+						 	 </div>
 								 
-									  <div class="form-group ">
+						<div class="form-group">
 									  
 								 <label for="nameOfMasterTrainerId">Name</label> 
 								 <input type="text" class="form-control w-75" id="nameOfMasterTrainerId" name="nameOfMasterTrainer" required="required"/>
 													  	
-									   </div>
+						</div>
 									   
 					      		<div class="form-group ">
 					      

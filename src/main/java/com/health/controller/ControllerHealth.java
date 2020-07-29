@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.rmi.Remote;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -31,6 +32,7 @@ import javax.validation.metadata.MethodType;
 import org.aspectj.weaver.tools.cache.AsynchronousFileCacheBacking.RemoveCommand;
 import org.hibernate.loader.custom.Return;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +65,7 @@ import com.health.model.newRole;
 import com.health.model.partipantDeatil;
 import com.health.model.state;
 import com.health.model.topic;
+import com.health.model.trainingInformationDao;
 import com.health.repository.CategoryDao;
 import com.health.repository.CategoryTutorialDao;
 import com.health.repository.ConsaltantDao;
@@ -234,8 +237,7 @@ public class ControllerHealth
 			Role role=rolerespositary.findOne(id);	
 			
 			List<UserRole> userByContributor=(List<UserRole>) userRoleRepositary.finbyRoleUser(status,role);
-		
-			
+		    
 			
 			ArrayList<String> userName=new ArrayList<>();
  			
@@ -519,10 +521,11 @@ public class ControllerHealth
 		 */
 		
 		return "showLanguage";
-		
-		
 
 	}
+	
+
+	
 	
 	
 
@@ -664,7 +667,11 @@ public class ControllerHealth
 		
 		List<Category> category=categoryservice.findAll();
 		
+		List<com.health.model.language> language=languageDao.findAll();
+		
 		model.addAttribute("categorys",category);
+		
+		model.addAttribute("languages",language);
 	
 		
 		return  "addUploadQuestion";
@@ -1146,28 +1153,42 @@ public class ControllerHealth
 
 	/*****************************************************
 	 * Here we write code for add Event
+	 * @throws ParseException 
 	 *************************************************************************/
 
 	@RequestMapping("/addEvent")
-	public String addEvent(HttpServletRequest req, Model model) {
+	public String addEvent(HttpServletRequest req, Model model) throws ParseException {
 
 		System.out.println(req.getParameter("eventname"));
 
 		String eventname = req.getParameter("eventname");
-		String date = req.getParameter("date");
+		//String date = req.getParameter("date");
 		String description = req.getParameter("description");
 		String venuename = req.getParameter("venuename");
 		String contactperson = req.getParameter("contactperson");
 		String contactnumber = req.getParameter("contactnumber");
 		String email = req.getParameter("email");
+		
+		
 
-		System.out.println(eventname + "" + date + "" + description);
+		String date=req.getParameter("date"); 
+		SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date dateUtil=sd1.parse(date);
+		Date dateStart=new Date(dateUtil.getTime());
+		
+		
+		
+		String endDate=req.getParameter("endDate"); 
+		SimpleDateFormat sd2=new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date dateUtil1=sd2.parse(endDate);
+		Date endDateEvent=new Date(dateUtil1.getTime());
+		
 
 		Event event1 = new Event();
-
-		event1.setEventname(eventname);
-		event1.setDate(date);
 		
+		event1.setEventname(eventname);
+		event1.setDate(dateStart);
+		event1.setEndDate(endDateEvent);
 		
 		
 		event1.setTimedate(getCurrentTime());
@@ -1845,20 +1866,21 @@ public class ControllerHealth
 			  //@RequestParam(name="stateName") String stateName,
 			  @RequestParam(value="categoryName") int categoryId,
 			  		  
-			  @RequestParam(value="traningInformation") String trainingInformation,
+			 
 			  @RequestParam(value="stateName") int state,
 			  @RequestParam(value="districtName") String district,
 			  @RequestParam(value="cityName") String city,
+			  @RequestParam(value="traningInfo") String trainingInformation,
 			  @RequestParam(value="addressInformationName") String addressInformationName,
-			  @RequestParam(value="pinCode") int pinCode
-			  
+			  @RequestParam(value="pinCode") int pinCode,Authentication authetication
 		
-		//	   @RequestParam(name="inputTopic") String inputTopic 
-			   
 		) throws ParseException, IOException
-	  
 	  {
+		
 		  
+		  	User user=userRepository.findByUsername(authetication.getName());
+		  
+		  	
 			String date=req.getParameter("date"); 
 			SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date dateUtil=sd1.parse(date);
@@ -1876,9 +1898,9 @@ public class ControllerHealth
 		    //  topic topic=topicdao.findBytopicname(inputTopic);
 		  
 		    String categorName=category.getCategoryname();
-
+		   // String  trainingInformation=req.getParameter("traningInformation");
 		  String participants=req.getParameter("participants");
-		  String traningInfo=req.getParameter("traningInformation");
+		//  String traningInfo=req.getParameter("trainingInformation");
 		  int pincode=Integer.parseInt(req.getParameter("pinCode")); 
 		  
 			String path = null;
@@ -1947,20 +1969,25 @@ public class ControllerHealth
 			//  traningInformationObject.setTopic(inputTopic);
 			 
 			  traningInformationObject.setParticipant(participants);
-			  traningInformationObject.setTraningInformation(trainingInformation);
+			  
 			  traningInformationObject.setState(stateVar.getStateName());
 			  traningInformationObject.setDistricit(district);
 			  traningInformationObject.setCity(city);
 			  
 			  traningInformationObject.setAddressInformation(addressInformationName);
-			 
-			//  traningInformationObject.setState(stateName);
-			  traningInformationObject.setPincode(pincode);
-			  
-			traningInformationObject.setParticipant(paricipantsDeatailFile);
-			traningInformationObject.setPhoto(participantdeatailPhoto);
 	
-  
+			//  traningInformationObject.setState(stateName);
+			  
+			  traningInformationObject.setPincode(pincode);
+			  traningInformationObject.setCategory(category);     
+			 
+			  traningInformationObject.setTraingDetail(trainingInformation);
+			  
+			 traningInformationObject.setParticipant(paricipantsDeatailFile);
+			 traningInformationObject.setPhoto(participantdeatailPhoto);
+			 traningInformationObject.setUser(user);
+			
+	
 		  traninigInformationRespositary.save(traningInformationObject);
 	
 		
@@ -2020,7 +2047,6 @@ public class ControllerHealth
 					//participantDao.deleteByQuery();
 			
 			}
-								
 				
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -2093,18 +2119,27 @@ public class ControllerHealth
 
 
 	/*
-	 * here code for feedback
+	 * here code for feedback for master trainer
 	 */
 		
+		@Autowired
+		private  trainingInformationDao trainingInformationDao; 
+		
 		@RequestMapping("/feedback")
-		public String feedbackForm(Model model,HttpServletRequest request){
+		public String feedbackForm(Model model,HttpServletRequest request,@RequestParam(value="catMasId") int catMasterId,Authentication authentication)
+		{
 			
+			Category cat=categoryDao.findByid(catMasterId);	
+			
+			User user=userRepository.findByUsername(authentication.getName());
+			
+		   TraningInformation trainingInfo=trainingInformationDao.findByuserOnfeedback(user,cat);
 			
 			String name=request.getParameter("nameOfMasterTrainer");
 			String email=request.getParameter("email");
 			String messgae=request.getParameter("traningInformation");
 		
-				System.err.println(name+"dsds"+email+"jkdjkhasj"+messgae);
+			
 			java.util.Date dt = new java.util.Date();
 
 			java.text.SimpleDateFormat sdf = 
@@ -2113,12 +2148,14 @@ public class ControllerHealth
 			String currentTime = sdf.format(dt);
 			    
 			
-			feedbackMasterTrainer feedback=new feedbackMasterTrainer();
+		   feedbackMasterTrainer feedback=new feedbackMasterTrainer();
 			
 			feedback.setName(name);
 			feedback.setEmail(email);
 			feedback.setDescription(messgae);
 			feedback.setDatetime(currentTime);
+			feedback.setCategory(cat);
+			feedback.setTraningInformation(trainingInfo);
 			
 			feedbackRespositary.save(feedback);
 			
@@ -2153,25 +2190,24 @@ public class ControllerHealth
 	
 			  @RequestParam("questionName") MultipartFile[] questionName,
 			  @RequestParam(value="categoryName") int categoryId,
-			  @RequestParam(name="inputTopicName") String topicName 
+			  @RequestParam(name="inputTopicName") String topicName, 
+			  @RequestParam(name="languageyName") int languageName
 			  ) 
 	{
 		  
+		 System.err.println(""+languageName); 
+		 
 		  topic topic=topicRepositarydao.findBytopicname(topicName);
 		  
+		  Category category=categoryDao.findByid(categoryId);
 		  
+		  com.health.model.language language=languageDao.findOne(languageName);
+				  
 		 // Tutorial tutorial=tutorialDao.findBylanguage(topicName);
-		  	
-		  		System.err.println(questionName);
-		  		System.out.println("Hi category id"+categoryId);		
-				
-				
-		  		System.err.println("Hi Language"+topicName);
 	
-		
 			String path = null;
 	
-			String abc = uploadQusetion+"/" +topicName;
+			String abc = uploadQusetion+"/" +category.getCategoryname() + language.getLanguageName() + topic.getTopicname()  ;
 			new File(abc).mkdir();
 
 			StringBuilder fileNames = new StringBuilder();
@@ -2193,17 +2229,19 @@ public class ControllerHealth
 
 			String substring = filequestion.substring(26);
 
-	
-			
-			
-		  Question question=new Question(topic);
+				
+		  Question question=new Question();
+		
 		
 		  question.setQuetionpath(substring);
-	  
+		  question.setCategory(category);
+		  question.setTopic(topic);
+		  question.setLan(language);
+		  
 		  questionreposiatryDao.save(question);
 		  
 		  
-			model.addAttribute("msg","Succesfully Save Recored");
+			model.addAttribute("msg","Upload Question Successfully");
 
 			
 		  System.out.println(substring);
@@ -2385,21 +2423,56 @@ public class ControllerHealth
 		
 		}
 		
+		
+	    /* here is code for access topic according to category in master trainer */
+		
+		
+		@RequestMapping("/getTopicAccordingToCategory")
+		public @ResponseBody  List<String> getTopicAccordingToCategory(@RequestParam(value="id") int categoryId)
+		{  		
+			
+			System.err.println("test info 080"+categoryId);
+			
+			    List<String> topicName=new ArrayList<String>();
+			    
+			    Category cat=categoryDao.findByid(categoryId);
+			    
+			    
+			    List<topic> topic=topicRepositarydao.findByCategory(cat);
+
+			    for (topic topic2 : topic) {
+			    	
+			    	
+			    	topicName.add(topic2.getTopicname());
+					
+				}
+			    
+			    
+			    return topicName;
+		
+		}
+		
+
+		
 		@RequestMapping("/displayQuestion")
-		public String displatQuestion(@RequestParam(name="inputLanguage") String  topic,Model model) 
+		public String displatQuestion(@RequestParam(name="catMasterId") int  catMasterId,
+				@RequestParam(name="lanMasterTrId") String  topicId,
+				@RequestParam(value="dwnByLanguageId") int  dwnByLanguageId,
+				Model model) 
 		{
 			
-			System.err.println("hi");
+			System.err.println(catMasterId +"Hello"+ topicId+"test "+dwnByLanguageId);
+			
 			    List<String> topicName=new ArrayList<String>();
 			
-				topic topicDemo=topicRepositarydao.findBytopicname(topic);
+			    Category category=categoryDao.findByid(catMasterId);
+				topic topicDemo=topicRepositarydao.findBytopicname(topicId);
+				com.health.model.language language=languageDao.findOne(dwnByLanguageId);				
 				
-				
-				List<Question> question=(List<Question>) questionreposiatryDao.findByTutorial(topicDemo);
+			List<Question> question=(List<Question>) questionreposiatryDao.findByQuestion(topicDemo,category,language);
 
 				for(Question s:question)
 				{
-
 					//String substring=s.getQuetionpath().substring(23);						
 					topicName.add(s.getQuetionpath());					
 				}			
@@ -2660,6 +2733,54 @@ public class ControllerHealth
 		
 			return topicName;  			
 	}	
+		
+		
+		/* Display list of Training information */
+
+		@Autowired
+		private TraninigInformationRespositary TraninigInformationRespositary;
+		
+		@Autowired
+		private feedbackRespositary  feedbackRespositaryDao;
+		
+		
+		
+		@RequestMapping("/show_traInfo")
+		public String show_traInfo(Model model,HttpServletRequest request) 
+		{
+			
+			
+			Iterable<TraningInformation> traningInformation =  TraninigInformationRespositary.findAll();
+			
+			model.addAttribute("traInformation",traningInformation);
+			
+			return "showTraininginformation";
+			
+		}
+		
+		/* Display list of feedback form */
+		
+		@RequestMapping("/show_feedbackMasterTrainer")
+		public String show_feedbackForm(Model model,HttpServletRequest request) 
+		{
+			
+			
+			Iterable<feedbackMasterTrainer> feedbackMasterTrainer = feedbackRespositaryDao.findAll();
+			
+			
+			
+			
+			model.addAttribute("traInfo",feedbackMasterTrainer);
+			
+			
+	
+			
+			return "showMasterTrainerFeedbak";
+			
+		}
+		
+
+		
 		
 		
 		/* Accesing category according to user contributor */	

@@ -424,23 +424,48 @@ $( document ).ready(function() {
 		});
 		
 		
+  /*Here is code for access topic according to category master trainer*/
 		
 		
+		$("#catMasterId").change(function(){
+					
+
+				var catgoryid=$(this).find(":selected").val();
+				
+				
+				$.ajax({	
+				  	type: "GET",
+		       		 url: "/getTopicAccordingToCategory",
+		       		 data: { "id": catgoryid},
+		       		 contentType: "application/json",
+		       		 success: function (result){
+		       			 
+			       		  var html = '';
+				            var len = result.length;
+				            html += '<option value="0">Select Topic</option>';
+				            for (var i = 0; i < len; i++) {
+				             html += '<option value="' + result[i] + '">'
+				               + result[i]
+				               + '</option>';
+				            }
+				            html += '</option>';
+				            
+				            $("#lanMasterTrId").prop('disabled',false);
+				            $('#lanMasterTrId').html(html);
+
+						},
+						
+						
+						error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
+
+					}
+					
+					
+				});
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
-		
-		
+			  
+			});	
 		
 		
 		

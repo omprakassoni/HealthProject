@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -26,12 +27,14 @@ import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.District;
+import com.health.model.TraningInformation;
 import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.model.language;
 import com.health.model.language_assign;
 import com.health.model.partipantDeatil;
 import com.health.model.state;
+import com.health.model.trainingInformationDao;
 import com.health.repository.RoleRepository;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
@@ -50,10 +53,10 @@ public class userController
 {
 
 	@Autowired
-	roleService roleservice;
+	private roleService roleservice;
 
 	@Autowired
-	RoleRepository rolerespositary;
+	private RoleRepository rolerespositary;
 
 	@Autowired
 	private UserService userService;
@@ -95,17 +98,34 @@ public class userController
 	@Autowired
 	private stateRespositary statedao;
 	
+	@Autowired
+	private languagedao languageDao;
+	
+	@Autowired
+	private trainingInformationDao trainingInformationDao;
+	
+	
+	
 	@RequestMapping(value = "/adminDeatail", method = RequestMethod.GET)
 	public String adminDeatail(Model model, Authentication authentication) {
 		
 
 		List<Category> category = categoryservice.findAll();
 
+		List<Category> cats = categoryservice.findAll();
+		
+		ArrayList<String> catInformation=new ArrayList<String>();
+		
+		
+		
+		
 		model.addAttribute("categorys", category);
+		
 	
 		List<Tutorial> tutorial=tutorialService.findAll();
 	
-	
+		List<language> languageAll=languageDao.findAll();
+		
 		
 			List<partipantDeatil> participantdeatail=(List<partipantDeatil>) participantDao.findAll();
 			
@@ -121,15 +141,19 @@ public class userController
 			model.addAttribute("stateInfo",state);
 			
 			User user=userDao.findByUsername(authentication.getName());
-		/*
-		 * 
-		 * UserRole userRole=userRoleRepositary.findByUserInfo(user);
-		 * 
-		 */
-		
+			
+			List<TraningInformation> traningInformation=trainingInformationDao.findByCategoryOnUser(user);
+			
+			
+			
+			model.addAttribute("traningInformation",traningInformation);
+			model.addAttribute("languagesDisplay",languageAll);	
 			model.addAttribute("userInfo",user);
+			
+			
+			
 
-		return "roleAdminDetail";
+		      return "roleAdminDetail";
 		
 	}
 	@RequestMapping(value = "/userDetail", method = RequestMethod.GET)

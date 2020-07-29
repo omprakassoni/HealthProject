@@ -26,43 +26,48 @@
               <div class="col-8">
           
                      <div>
-					        <h2>EVENTS LIST</h2>
+					         <h2>Training Information</h2>
 					        
 					        <table id="tableId" class="table table-striped">
 					        
-					        	<thead>
+					       <thead>
 					        
 					            <tr>
-					                <th>Id</th>
-					                <th>Name</th>
+					              
 					                <th>Start Date</th>
 					                <th>End Date</th>
-					                <th>Description</th>
-					                <th>Venue Name</th>
-					                <th>Contact Person</th>	
-					                <th>Contact Number</th>	
-    		                   
-					          	    <th>Email</th>
-					                <th>Edit</th>
-					                <th>Disable</th>
+					                <th>Category</th>
+					                <th>Training Information</th>
+					                <th>State</th>
+					                <th>District</th>	
+					                <th>City</th>	
+					          	    <th>Address Information</th>
+					                <th>Pin Code</th>
+					                <th>Paricipants Photo</th>
+					            <!--     <th>Edit</th> -->
 					                
 					            </tr>
 					            </thead>
 					            <tbody>
-					            	<tr th:each="event : ${events}">
-						                <td th:text="${event.id}">description</td>  
-						                <td th:text="${event.eventname}">descirption</td>
-						                <td th:text="${event.date}">descirption</td>
-						                 <td th:text="${event.endDate}">descirption</td>
-						                <td th:text="${event.description}">description</td>  
-						                <td th:text="${event.venuename}">descirption</td>
-						                <td th:text="${event.contactperson}">descirption</td>
-						                <td th:text="${event.contactnumber}">descirption</td>
-									   <td th:text="${event.email}">descirption</td>
-
-					                <td><a onclick="submitForm()" th:href="${'event/edit/' + event.id}">Edit</a></td>  
+					            	<tr th:each="traInfo : ${traInformation}">
+						              
+						                <td th:text="${traInfo.date}">descirption</td>
+						                <td th:text="${traInfo.endDate}">descirption</td>
+						                 <td th:text="${traInfo.categoryname}">descirption</td>
+						                <td th:text="${traInfo.traingDetail}">description</td>  
+						                <td th:text="${traInfo.state}">descirption</td>
+						                <td th:text="${traInfo.districit}">descirption</td>
+						                <td th:text="${traInfo.city}">descirption</td>
+									   <td th:text="${traInfo.addressInformation}">descirption</td>
+									   <td th:text="${traInfo.pincode}">descirption</td>
+								<td>
+										<a  th:href="${traInfo.photo}"><i style="padding-left: 30px" class="fa fa-download" aria-hidden="true"></i></a>  
+											
+								</td>	
+						
+					         <!--      <td><a onclick="submitForm()" th:href="${'event/edit/' + traInfo.pincode}">Edit</a></td>  --> 
    
-					                <td><a th:href="${'/event/delete/' + event.id}">Disable</a></td>
+					             <!--    <td><a th:href="${'/event/delete/' + event.id}">Disable</a></td> -->
     
 					            </tr>
 					            

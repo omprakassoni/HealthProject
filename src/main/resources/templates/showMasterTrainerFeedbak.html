@@ -26,43 +26,32 @@
               <div class="col-8">
           
                      <div>
-					        <h2>EVENTS LIST</h2>
+					         <h2>Traning Information</h2>
 					        
 					        <table id="tableId" class="table table-striped">
 					        
-					        	<thead>
+					       <thead>
 					        
 					            <tr>
-					                <th>Id</th>
+					              
 					                <th>Name</th>
-					                <th>Start Date</th>
-					                <th>End Date</th>
-					                <th>Description</th>
-					                <th>Venue Name</th>
-					                <th>Contact Person</th>	
-					                <th>Contact Number</th>	
-    		                   
-					          	    <th>Email</th>
-					                <th>Edit</th>
-					                <th>Disable</th>
+					                <th>Email</th>
+					                <th>Descriptiony</th>
+					                <th>Date Time</th>
 					                
 					            </tr>
 					            </thead>
 					            <tbody>
-					            	<tr th:each="event : ${events}">
-						                <td th:text="${event.id}">description</td>  
-						                <td th:text="${event.eventname}">descirption</td>
-						                <td th:text="${event.date}">descirption</td>
-						                 <td th:text="${event.endDate}">descirption</td>
-						                <td th:text="${event.description}">description</td>  
-						                <td th:text="${event.venuename}">descirption</td>
-						                <td th:text="${event.contactperson}">descirption</td>
-						                <td th:text="${event.contactnumber}">descirption</td>
-									   <td th:text="${event.email}">descirption</td>
-
-					                <td><a onclick="submitForm()" th:href="${'event/edit/' + event.id}">Edit</a></td>  
+					            	<tr th:each="traInfo : ${traInfo}">
+						              
+						                <td th:text="${traInfo.name}">descirption</td>
+						                <td th:text="${traInfo.email}">descirption</td>
+						                 <td th:text="${traInfo.description}">descirption</td>
+						                <td th:text="${traInfo.datetime}">description</td>
+								
+					         <!--      <td><a onclick="submitForm()" th:href="${'event/edit/' + traInfo.pincode}">Edit</a></td>  --> 
    
-					                <td><a th:href="${'/event/delete/' + event.id}">Disable</a></td>
+					             <!--    <td><a th:href="${'/event/delete/' + event.id}">Disable</a></td> -->
     
 					            </tr>
 					            
