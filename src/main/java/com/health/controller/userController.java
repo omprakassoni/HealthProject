@@ -30,6 +30,7 @@ import com.health.model.District;
 import com.health.model.TraningInformation;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.model.feedbackMasterTrainer;
 import com.health.model.language;
 import com.health.model.language_assign;
 import com.health.model.partipantDeatil;
@@ -39,6 +40,7 @@ import com.health.repository.RoleRepository;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
+import com.health.repository.feedbackRespositary;
 import com.health.repository.languageAssignDao;
 import com.health.repository.languagedao;
 import com.health.repository.participantDao;
@@ -105,6 +107,10 @@ public class userController
 	private trainingInformationDao trainingInformationDao;
 	
 	
+	@Autowired
+	private feedbackRespositary feedbackRespositaryDao;
+
+	
 	
 	@RequestMapping(value = "/adminDeatail", method = RequestMethod.GET)
 	public String adminDeatail(Model model, Authentication authentication) {
@@ -114,12 +120,32 @@ public class userController
 
 		List<Category> cats = categoryservice.findAll();
 		
-		ArrayList<String> catInformation=new ArrayList<String>();
+		List<String> catInformation=new ArrayList<String>();
+		
+	
+		for (Category catInfo : cats) {
+			
+			catInformation.add(catInfo.getCategoryname());
+			
+		}
+		
+		ArrayList<String> feedbakMasTra=new ArrayList<String>();
+		
+		List<feedbackMasterTrainer> feedbackMasterTrainerList = (List<feedbackMasterTrainer>) feedbackRespositaryDao.findAll();
+		
+		for (feedbackMasterTrainer feedbackMasterTrainer : feedbackMasterTrainerList) {
+			
+			feedbakMasTra.add(feedbackMasterTrainer.getCategory().getCategoryname());
+			
+		}
+		
+		feedbakMasTra.removeAll(catInformation);
+
 		
 		
+		model.addAttribute("listOfcategory",feedbakMasTra);
 		
-		
-		model.addAttribute("categorys", category);
+		model.addAttribute("categorys",category);
 		
 	
 		List<Tutorial> tutorial=tutorialService.findAll();

@@ -17,5 +17,20 @@ public interface cityRepositary extends CrudRepository<City, Integer>
 	  List<City> findBydistrict(District district);
 	  
 	  
+	  @Query("from City where district=?1 and cityName=?2")
+	  City findBydistrictandCity(District district,String cityname);
+	  
+	  
+	  
+	  
+	  
+	  District findBycityName(String name);
+	  
+	  
+	  
+	  
+	 	
+	  
+	  
 
 }

@@ -9,5 +9,8 @@ import com.health.model.state;
 		
 		//state findBystate_id(int id);
 		
+		state findBystateName(String name);
+		
+		
 		
 	}

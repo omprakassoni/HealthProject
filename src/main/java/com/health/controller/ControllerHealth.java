@@ -524,7 +524,158 @@ public class ControllerHealth
 
 	}
 	
+	/* Here is code for add State,District,City */
+	
+	@Autowired
+	private stateRespositary stateRespositaryDao;
+	
+	@Autowired
+	private DistrictRepositary DistrictRepositaryDao;
+	
+	@Autowired
+	private cityRepositary cityRepositaryDao; 
+	
 
+	@RequestMapping("/addCity")
+	public String addCity(Model model,HttpServletRequest request)
+	{
+
+		List<state> state=(List<state>) stateRespositaryDao.findAll();
+		
+		
+		model.addAttribute("state",state);
+		
+		return "addDistrictCity";
+		
+	}
+	
+	@RequestMapping("/addDistrictCityName")
+	public String addDistrictCityName(Model model,HttpServletRequest req, @RequestParam(value="districtNameCity") String districtNameCity)
+			                                     
+	{
+		
+		
+		System.err.println(districtNameCity);
+		
+		District dist=districtRepositary.findBydistrictName(districtNameCity);	
+		
+		String cityName=req.getParameter("cityName");
+		
+		City cityResult=cityRepositaryDao.findBydistrictandCity(dist,cityName);
+		
+		
+		if( cityResult!=null)
+		{
+			
+			model.addAttribute("msgCity",true);
+			
+			return "addDistrictCity";
+			
+		 }
+		
+		City city=new City();
+		city.setCityName(cityName);
+		city.setDistrict(dist);
+		
+		
+		cityRepositary.save(city);
+		
+		model.addAttribute("msg","City Save Successfully");
+		
+		
+		return "addDistrictCity";
+	}
+	
+	
+	
+	
+	
+	@RequestMapping("/addDistrict")
+	public String addDistrict(Model model,HttpServletRequest request)
+	{
+
+		List<state> state=(List<state>) stateRespositaryDao.findAll();
+		
+		model.addAttribute("state",state);
+		
+
+		return "addDistrict";
+		
+	}
+	@RequestMapping("/addDistrictName")
+	public String addDistrictName(Model model,@RequestParam(value="stateNameDistrict") int stateId,HttpServletRequest req,@RequestParam(value="districtName") String distname)
+	{
+		
+		state state=stateRespositary.findOne(stateId);
+		
+		
+		String district=req.getParameter("districtName");
+		
+		
+		if(districtRepositary.findBydistrictName(district)!=null) 
+		{
+			model.addAttribute("msgDistrcit",true);
+			
+			return "addDistrict";
+			
+		}
+		District dist=new District();
+		
+		dist.setDistrictName(district);
+		dist.setState(state);
+		
+		
+		DistrictRepositaryDao.save(dist);
+		
+		
+		
+		model.addAttribute("msg","District Save Successfully");
+		
+		return "addDistrict";	
+	}
+	
+	
+	
+	@RequestMapping("/addState")
+	public String add_state(Model model,HttpServletRequest request)
+	{
+
+
+		return "AddState";
+		
+	}
+	
+	@RequestMapping("/addStateName")
+	public String addStateName(Model model,HttpServletRequest request)
+	{
+
+		String addState=request.getParameter("stateName");
+		
+		state state=stateRespositaryDao.findBystateName(addState);
+		
+		if(state!=null){
+			
+			model.addAttribute("msgstate",true);
+			
+			return "AddState";
+			
+		}
+		
+		state stateSave=new com.health.model.state();
+		
+		stateSave.setStateName(addState);
+		
+		stateRespositaryDao.save(stateSave);
+		
+		model.addAttribute("msg","State Save Successfully");
+
+		return "AddState";
+		
+	}
+	
+	
+	
+	
 	
 	
 	
@@ -1993,27 +2144,28 @@ public class ControllerHealth
 		
 		  			
 					      String filePath = mastertrainer;
+					      Path currentPath = Paths.get(System.getProperty("user.dir"));
+					      Path csvFilePath = Paths.get(currentPath.toString(), filePath);
+						  String file= csvFilePath.toString();
 					      String input = null;
+
 					      //Instantiating the Scanner class
-					      Scanner sc = new Scanner(new File(filePath));
-					      //Instantiating the FileWriter class
-					      FileWriter writer = new FileWriter(mastertrainer);
-					      //Instantiating the Set class
-					      Set set = new HashSet();
-					      while (sc.hasNextLine()) {
-					         input = sc.nextLine();
-					         if(set.add(input)) {
-					        	 
-					            writer.append(input+"\n");
-					         }
-					      }
-					      writer.flush();
+		/*
+		 * Scanner sc = new Scanner(new File(filePath)); //Instantiating the FileWriter
+		 * class FileWriter writer = new FileWriter(mastertrainer); //Instantiating the
+		 * Set class Set set = new HashSet(); while (sc.hasNextLine()) { input =
+		 * sc.nextLine(); if(set.add(input)) {
+		 * 
+		 * writer.append(input+"\n"); } } writer.flush();
+		 */
+
+
 					      System.out.println("Contents added............");  
 					      
 	
 				try {
 					String line="";
-						String file=filePath;
+//						String file=filePath;
 						
 						BufferedReader br=new BufferedReader(new FileReader(file));
 						
@@ -2250,6 +2402,8 @@ public class ControllerHealth
 		 
 	  }
 	
+	  
+	  
 	  
 	  @RequestMapping("/downloadQuestion")
 		public @ResponseBody  List<String> getAllQuestion(@RequestParam(name="id") String  topic)

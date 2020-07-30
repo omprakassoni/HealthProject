@@ -30,6 +30,12 @@ public class City {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public District getDistrict() {
+		return district;
+	}
+	public void setDistrict(District district) {
+		this.district = district;
+	}
 	public String getCityName() {
 		return cityName;
 	}
