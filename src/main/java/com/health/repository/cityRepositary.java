@@ -21,9 +21,6 @@ public interface cityRepositary extends CrudRepository<City, Integer>
 	  City findBydistrictandCity(District district,String cityname);
 	  
 	  
-	  
-	  
-	  
 	  District findBycityName(String name);
 	  
 	  

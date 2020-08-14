@@ -36,7 +36,16 @@ public class TraningInformation
 	private Date endDate;
 	private String districit;
 	private String city;
+	private String titleName;
 	
+	public String getTitleName() {
+		return titleName;
+	}
+
+	public void setTitleName(String titleName) {
+		this.titleName = titleName;
+	}
+
 	private String addressInformation;
 	private String traingDetail;
 	
