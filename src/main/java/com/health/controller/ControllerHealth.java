@@ -1671,6 +1671,33 @@ public class ControllerHealth {
 
 	}
 
+	@RequestMapping("/loadBycategoryInFeedb")
+	public @ResponseBody  List<String> loadDistrictByState(@RequestParam(value="id") int id)
+	{
+
+
+		List<String> loadtitleName=new ArrayList<String>();
+
+
+		TraningInformation category= trainingInformationDao.findOne(id);
+
+    	List<TraningInformation> TraningInformation=trainingInformationDao.findBycategory(category);
+
+
+
+		 for (TraningInformation traningInformation2 : TraningInformation) {
+
+
+			 loadtitleName.add(traningInformation2.getTitleName());
+		}
+
+
+
+		return loadtitleName;
+
+	}
+
+
 	@Autowired
 	private cityRepositary cityRepositary;
 
@@ -1862,6 +1889,9 @@ public class ControllerHealth {
 
 		model.addAttribute("userInfo", user);
 
+
+
+
 		return "masterTrainer";
 
 	}
@@ -1892,178 +1922,257 @@ public class ControllerHealth {
 			topicName.add(s.getTopic().getTopicname());
 
 		}
+
 		return topicName;
 
 	}
 
-	/* master Traning Informtion save */
+	/*      master Traning Informtion    save */
+
 
 	@RequestMapping("/traninigMasterInformation")
-	public String addeMaqsterTranierInformation(HttpServletRequest req, Model model,
+	  public String addeMaqsterTranierInformation(HttpServletRequest req, Model model,
 
-			@RequestParam("paricipantsDeatail") MultipartFile[] paricipantsDeatail,
-			@RequestParam("paricipantsPhoto") MultipartFile[] paricipantsPhoto,
-			// @RequestParam(name="stateName") String stateName,
-			@RequestParam(value = "categoryName") int categoryId, @RequestParam(value = "stateName") int state,
-			@RequestParam(value = "districtName") String district, @RequestParam(value = "cityName") String city,
-			@RequestParam(value = "traningInfo") String trainingInformation,
-			@RequestParam(value = "addressInformationName") String addressInformationName,
-			@RequestParam(value = "pinCode") int pinCode, Authentication authetication
+			  @RequestParam("paricipantsDeatail") MultipartFile[] paricipantsDeatail,
+			  @RequestParam("paricipantsPhoto") MultipartFile[] paricipantsPhoto,
+			  //@RequestParam(name="stateName") String stateName,
+			  @RequestParam(value="categoryName") int categoryId,
+			  @RequestParam(value="stateName") int state,
+			  @RequestParam(value="districtName") String district,
+			  @RequestParam(value="cityName") String city,
+			  @RequestParam(value="traningInfo") String trainingInformation,
+			  @RequestParam(value="addressInformationName") String addressInformationName,
+			  @RequestParam(value="pinCode") int pinCode,Authentication authetication
 
-	) throws ParseException, IOException {
+		) throws ParseException, IOException
+	  {
 
-		User user = userRepository.findByUsername(authetication.getName());
+		  	User user=userRepository.findByUsername(authetication.getName());
 
-		String date = req.getParameter("date");
-		SimpleDateFormat sd1 = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date dateUtil = sd1.parse(date);
-		Date dataofCamp = new Date(dateUtil.getTime());
+		  	String titlename=req.getParameter("titleName");
 
-		String endDate = req.getParameter("endDate");
-		SimpleDateFormat sd2 = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date dateUtil1 = sd1.parse(endDate);
-		Date endDateOfTrainingModal = new Date(dateUtil1.getTime());
 
-		state stateVar = stateRespositary.findOne(state);
 
-		Category category = categoryDao.findByid(categoryId);
 
-		// topic topic=topicdao.findBytopicname(inputTopic);
+			String date=req.getParameter("date");
+			SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date dateUtil=sd1.parse(date);
+			Date dataofCamp=new Date(dateUtil.getTime());
 
-		String categorName = category.getCategoryname();
-		// String trainingInformation=req.getParameter("traningInformation");
-		String participants = req.getParameter("participants");
-		// String traningInfo=req.getParameter("trainingInformation");
-		int pincode = Integer.parseInt(req.getParameter("pinCode"));
+			String endDate=req.getParameter("endDate");
+			SimpleDateFormat sd2=new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date dateUtil1=sd1.parse(endDate);
+			Date endDateOfTrainingModal=new Date(dateUtil1.getTime());
 
-		String path = null;
-		String abc = uploadMasterTrainer + "/" + dataofCamp + category.getCategoryname();
-		new File(abc).mkdir();
+			state stateVar=stateRespositary.findOne(state);
 
-		StringBuilder fileNames = new StringBuilder();
-		for (MultipartFile file : paricipantsDeatail) {
+		    Category category=categoryDao.findByid(categoryId);
 
-			Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
 
-			fileNames.append(file.getOriginalFilename() + " ");
 
-			try {
+		    if(TraninigInformationRespositary.findBytitleName(titlename,category)!=null){
 
-				Files.write(fileNameAndPath, file.getBytes());
-				System.out.println(fileNameAndPath.toString());
+		    	model.addAttribute("titleName",true);
 
-				mastertrainer = fileNameAndPath.toString();
+		    	return "roleAdminDetail";
 
-			} catch (IOException e) {
-				e.printStackTrace();
+		    }
+
+		    //  topic topic=topicdao.findBytopicname(inputTopic);
+
+		    String categorName=category.getCategoryname();
+		   // String  trainingInformation=req.getParameter("traningInformation");
+		    String participants=req.getParameter("participants");
+		//  String traningInfo=req.getParameter("trainingInformation");
+		    int pincode=Integer.parseInt(req.getParameter("pinCode"));
+
+			String path = null;
+			String abc = uploadMasterTrainer + "/" + dataofCamp + category.getCategoryname() ;
+
+			new File(abc).mkdir();
+
+			StringBuilder fileNames = new StringBuilder();
+			for (MultipartFile file : paricipantsDeatail) {
+
+				Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
+
+				fileNames.append(file.getOriginalFilename() + " ");
+
+				try {
+
+					Files.write(fileNameAndPath, file.getBytes());
+					System.out.println(fileNameAndPath.toString());
+
+					mastertrainer = fileNameAndPath.toString();
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
 			}
 
-		}
+			String paricipantsDeatailFile = mastertrainer.substring(26);
 
-		String paricipantsDeatailFile = mastertrainer.substring(26);
 
-		String masterTrainerPhotoPath = null;
-		String masterTrainerPhoto = uploadMasterTrainerPhoto + "/" + dataofCamp + category.getCategoryname();
-		new File(masterTrainerPhoto).mkdir();
+			String masterTrainerPhotoPath = null;
+			String masterTrainerPhoto = uploadMasterTrainerPhoto + "/" + dataofCamp + category.getCategoryname();
+			new File(masterTrainerPhoto).mkdir();
 
-		StringBuilder fileNamesPhoto = new StringBuilder();
-		for (MultipartFile file : paricipantsPhoto) {
+			StringBuilder fileNamesPhoto = new StringBuilder();
+			for (MultipartFile file : paricipantsPhoto) {
 
-			Path fileNameAndPath = Paths.get(masterTrainerPhoto, file.getOriginalFilename());
+				Path fileNameAndPath = Paths.get(masterTrainerPhoto, file.getOriginalFilename());
 
-			fileNamesPhoto.append(file.getOriginalFilename() + " ");
+				fileNamesPhoto.append(file.getOriginalFilename() + " ");
 
-			try {
-				Files.write(fileNameAndPath, file.getBytes());
-				System.out.println(fileNameAndPath.toString());
+				try {
+					Files.write(fileNameAndPath, file.getBytes());
+					System.out.println(fileNameAndPath.toString());
 
-				filepath = fileNameAndPath.toString();
+					filepath = fileNameAndPath.toString();
 
-			} catch (IOException e) {
-				e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
 			}
-		}
 
-		String participantdeatailPhoto = filepath.substring(26);
 
-		TraningInformation traningInformationObject = new TraningInformation(category);
+			String participantdeatailPhoto = filepath.substring(26);
 
-		traningInformationObject.setDate(dataofCamp);
-		traningInformationObject.setEndDate(endDateOfTrainingModal);
-		traningInformationObject.setCategoryname(categorName);
 
-		// traningInformationObject.setTopic(inputTopic);
 
-		traningInformationObject.setParticipant(participants);
+	  TraningInformation traningInformationObject=new TraningInformation(category);
 
-		traningInformationObject.setState(stateVar.getStateName());
-		traningInformationObject.setDistricit(district);
-		traningInformationObject.setCity(city);
+			  traningInformationObject.setDate(dataofCamp);
+			  traningInformationObject.setEndDate(endDateOfTrainingModal);
+			  traningInformationObject.setCategoryname(categorName);
 
-		traningInformationObject.setAddressInformation(addressInformationName);
 
-		// traningInformationObject.setState(stateName);
+			//  traningInformationObject.setTopic(inputTopic);
 
-		traningInformationObject.setPincode(pincode);
-		traningInformationObject.setCategory(category);
+			  traningInformationObject.setParticipant(participants);
 
-		traningInformationObject.setTraingDetail(trainingInformation);
+			  traningInformationObject.setState(stateVar.getStateName());
+			  traningInformationObject.setDistricit(district);
+			  traningInformationObject.setCity(city);
+			  traningInformationObject.setTitleName(titlename);
+			  traningInformationObject.setAddressInformation(addressInformationName);
 
-		traningInformationObject.setParticipant(paricipantsDeatailFile);
-		traningInformationObject.setPhoto(participantdeatailPhoto);
-		traningInformationObject.setUser(user);
+			//  traningInformationObject.setState(stateName);
 
-		traninigInformationRespositary.save(traningInformationObject);
+			  traningInformationObject.setPincode(pincode);
+			  traningInformationObject.setCategory(category);
 
-		String filePath = mastertrainer;
-		Path currentPath = Paths.get(System.getProperty("user.dir"));
-		Path csvFilePath = Paths.get(currentPath.toString(), filePath);
-		String file = csvFilePath.toString();
-		String input = null;
+			  traningInformationObject.setTraingDetail(trainingInformation);
 
-		try {
-			String line = "";
+			 traningInformationObject.setParticipant(paricipantsDeatailFile);
+			 traningInformationObject.setPhoto(participantdeatailPhoto);
+			 traningInformationObject.setUser(user);
+
+
+		  traninigInformationRespositary.save(traningInformationObject);
+
+
+
+					      String filePath = mastertrainer;
+					      Path currentPath = Paths.get(System.getProperty("user.dir"));
+					      Path csvFilePath = Paths.get(currentPath.toString(), filePath);
+						  String file= csvFilePath.toString();
+					      String input = null;
+
+					      //Instantiating the Scanner class
+		/*
+		 * Scanner sc = new Scanner(new File(filePath)); //Instantiating the FileWriter
+		 * class FileWriter writer = new FileWriter(mastertrainer); //Instantiating the
+		 * Set class Set set = new HashSet(); while (sc.hasNextLine()) { input =
+		 * sc.nextLine(); if(set.add(input)) {
+		 *
+		 * writer.append(input+"\n"); } } writer.flush();
+		 */
+
+
+					      System.out.println("Contents added............");
+
+
+				try {
+					String line="";
 //						String file=filePath;
 
-			BufferedReader br = new BufferedReader(new FileReader(file));
+						BufferedReader br=new BufferedReader(new FileReader(file));
 
-			// List<partipantDeatil> participDeatils=(List<partipantDeatil>)
-			// participantDao.findAll();
 
-			while ((line = br.readLine()) != null) {
+				//List<partipantDeatil> participDeatils=(List<partipantDeatil>) participantDao.findAll();
 
-				String[] data = line.split(",");
 
-				partipantDeatil participantDeatail = new partipantDeatil();
+						while((line=br.readLine())!=null) {
 
-				participantDeatail.setFirstname(data[0]);
-				participantDeatail.setLastname(data[1]);
-				participantDeatail.setEmail(data[2]);
 
-				participantDeatail.setAdharNumber(data[3]);
-				participantDeatail.setGender(data[4]);
-				participantDeatail.setLastname(data[5]);
+								String [] data=line.split(",");
 
-				participantDao.save(participantDeatail);
 
-				// participantService.deleteByQuery(participantDeatail.getParticipantId(),participantDeatail.getAdharNumber());
+								partipantDeatil participantDeatail=new partipantDeatil();
 
-				// participantDao.deleteByQuery();
 
-				// participantDao.deleteByQuery();
+								participantDeatail.setFirstname(data[0]);
+								participantDeatail.setLastname(data[1]);
+								participantDeatail.setEmail(data[2]);
+
+								participantDeatail.setAdharNumber(data[3]);
+								participantDeatail.setGender(data[4]);
+								participantDeatail.setLastname(data[5]);
+								participantDeatail.setCategory(category);
+								participantDeatail.setTitleName(titlename);
+
+								participantDao.save(participantDeatail);
+
+				//	participantService.deleteByQuery(participantDeatail.getParticipantId(),participantDeatail.getAdharNumber());
+
+				//	participantDao.deleteByQuery();
+
+					//participantDao.deleteByQuery();
 
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+
+
+		 model.addAttribute("msg","Your record Save Succefully");
+
+
+
+	  return "redirect:/adminDeatail";
+
+
+	  }
+
+
+
+
+
+		/* here is codde for display list of csv file recored */
+
+		@RequestMapping("/ViewaParticipantDetail")
+		public String ViewaPrticipantDeatail(@RequestParam(value="catSelectedId") int  catSelectedId,
+				@RequestParam(name="titleNameId") String  titleName,Model model)
+
+		{
+
+
+			Category category=categoryDao.findByid(catSelectedId);
+
+			List<partipantDeatil> parcipantDeatails=participantDao.findByCategoryAndName(category,titleName);
+
+			model.addAttribute("parcipantDeatails",parcipantDeatails);
+
+
+				return "viewParticipantDetail";
+
 		}
-
-		model.addAttribute("msg", "Your record Save Succefully");
-
-		return "redirect:/masterTrainer";
-
-	}
-
 	/* Here Edit information UserDeatail id */
 
 	@RequestMapping("editParticipantDeatail/edit/{id}")

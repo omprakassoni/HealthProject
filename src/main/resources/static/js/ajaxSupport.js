@@ -1,19 +1,545 @@
-$(document)
-		.ready(
-				function() {
+$( document ).ready(function() {
+	//	retrieve latest tab shown before refresh
+	var activeTab = localStorage.getItem('activeTab');
+	if(activeTab){
+		$('#nav-tab a[href="#' + activeTab + '"]').tab('show');
+		localStorage.setItem('activeTab', "");
+		$( '.approve-success-msg' ).text( localStorage.getItem('msg') );
+		localStorage.setItem('msg', "");
+	}
+	
+	
+	/*master trainer*/
+	
+	var activeTab = localStorage.getItem('activeTab');
+	if(activeTab){
+		$('#v-pills-tab a[href="#' + activeTab + '"]').tab('show');
+		localStorage.setItem('activeTab', "");
+		$( '.tab-pane' ).text( localStorage.getItem('msg') );
+		localStorage.setItem('msg', "");
+	}
+	
+	
+	
+	 	
+	$('#OutlineAcceptOrNeedTiImprovemenet').on('hidden.bs.modal', function () {
+		location.reload();
+		
 
-					//	retrieve latest tab shown before refresh
-					var activeTab = localStorage.getItem('activeTab');
-					if (activeTab) {
-						$('#nav-tab a[href="#' + activeTab + '"]').tab('show');
-						localStorage.setItem('activeTab', "");
-						$('.approve-success-msg').text(
-								localStorage.getItem('msg'));
-						localStorage.setItem('msg', "");
+	});
+	
+
+	$('#approveContributorId').on('show.bs.tab',function () {
+		location.reload();
+				
+	});
+	
+	$('#KeywordStatusAccept').on('hidden.bs.modal',function () {
+		location.reload();
+		
+		
+	});
+
+	$('#videoViewIdAdmin').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	$('#videoViewIdDomain').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	$('#VideoStatusAccept').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	$('#scriptStatusAcceptDomain').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+
+	$('#VideoStatusAccept').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	$('.nav-item').on('click', function () {
+		localStorage.setItem('msg', "");
+		$( '.approve-success-msg' ).text( localStorage.getItem('msg') );
+	});
+	
+	
+	
+	//Contributor
+	
+	// here is code for keyword review
+	$('#keywordModale').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	// here is  code for 
+	$('#exampleModal').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	// here is code for Script
+	$('#scriptModale').on('hidden.bs.modal', function () {
+		location.reload();
+		
+		
+	});
+	
+	
+	// Here  is code for 
+	$('#slideModale').on('hidden.bs.modal', function () {
+		location.reload();
+		
+		
+	});
+	
+	
+	$('#videoModel').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	
+	//Admin
+	
+	$('#VideoStatusAccept').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	//Quality
+	
+	$('#OutlineAccepOrNeedToImprovementQuality').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+
+	$('#scriptStatusAccept').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+
+	$('#slideAcceptOrNeedImp').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	$('#VideoAccepOrNeedToImprovementQuality').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	
+	$('#keywordAccepOrNeedToImprovementQuality').on('hidden.bs.modal', function () {
+		location.reload();
+		
+	});
+	
+	$('#categoryNameList').change( function (){
+		
+		
+	});
+	
+	// Here is code for category display into category and language 
+	
+	$('#categoryId').change( function () 
+	{			
+		var categoryid=$("#categoryNameList").val();
+		var languageid=$("#inputLanguageList").val();
+
+		$.ajax({
+				
+	   		  	 type: "GET",
+	       		 url: "/loadCategoryAndLanguage",
+	       		 data: { "id": categoryid,"lanid": language},
+	       		 contentType: "application/json",
+	       		 success: function (result){
+	       			 
+	       		
+	       		  var html = '';
+		            var len = result.length;
+		            html += '<option value="0">Select language</option>';
+		            for (var i = 0; i < len; i++) {
+		            	
+		             html += '<option value="' + result[i] + '">'
+		               + result[i]
+		               + '</option>';
+		            }
+		            html += '</option>';
+		            
+		            $("#inputLanguageList").prop('disabled',false);
+		            $('#inputLanguageList').html(html);
+		            
+					},
+					
+						error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+				
+			});
+		
+	});
+	
+	$('#categoryname').change(function()
+	{
+		
+  					var catgoryid=$(this).find(":selected").val();
+  					$.ajax({
+  						
+  					  	type: "GET",
+  			       		 url: "/loadByCategoryTuturial",
+  			       		 data: { "id": catgoryid},
+  			       		 contentType: "application/json",
+  			       		 success: function (result){
+  			       			 
+  			       		
+  			       		  var html = '';
+  	  			            var len = result.length;
+  	  			            html += '<option value="0">Select language</option>';
+  	  			            for (var i = 0; i < len; i++) {
+	  			            	
+  	  			             html += '<option value="' + result[i] + '">'
+  	  			               + result[i]
+  	  			               + '</option>';
+  	  			            }
+  	  			            html += '</option>';
+  	  			            
+  	  			            $("#inputLanguage").prop('disabled',false);
+  	  			            $('#inputLanguage').html(html);
+  	  			            
+  	  						},
+	 						error : function(err){
+	  						console.log("not working. ERROR: "+JSON.stringify(err));
+ 						}
+  						
+  						
+  					});
+  			
+  				  
+  				});
+
+			/*here we write code for calling Topic*/
+
+
+		$('#categoryId').change(function(){
+  					
+  					var catgoryid=$(this).find(":selected").val();
+  					$.ajax({
+  					  	type: "GET",
+  			       		 url: "/loadByCategoryTuturialTopic",
+  			       		 data: { "id": catgoryid},
+  			       		 contentType: "application/json",
+  			       		 success: function (result){
+  			       			 
+  			       		
+  			       		  var html = '';
+  	  			            var len = result.length;
+  	  			            html += '<option value="0">Select Topic</option>';
+  	  			            for (var i = 0; i < len; i++) {
+  	  			             html += '<option value="' + result[i] + '">'
+  	  			               + result[i]
+  	  			               + '</option>';
+  	  			            }
+  	  			            html += '</option>';
+  	  			            
+  	  			            $("#inputTopic").prop('disabled',false);
+  	  			            $('#inputTopic').html(html);
+  	  			            
+  	  						},
+	  						
+	 							error : function(err){
+	  						console.log("not working. ERROR: "+JSON.stringify(err));
+ 						}
+	
+  					});
+  					
+  				 
+  				  
+  				});
+	
+		
+		
+		/*here we write code for calling language*/
+
+		$('#categoryId').change(function(){
+				
+  					var catgoryid=$(this).find(":selected").val();		
+  					$.ajax({
+  						
+  					  	type: "GET",
+  			       		 url: "/loadByCategoryTuturial",
+  			       		 data: { "id": catgoryid},
+  			       		 contentType: "application/json",
+  			       		 success: function (result){
+  			       			 
+  			       		
+  			       		  var html = '';
+  	  			            var len = result.length;
+  	  			            html += '<option value="0">Select language</option>';
+  	  			            for (var i = 0; i < len; i++) {
+  	  			             html += '<option value="' + result[i] + '">'
+  	  			               + result[i]
+  	  			               + '</option>';
+  	  			            }
+  	  			            html += '</option>';
+  	  			            
+  	  			            $("#inputLanguage").prop('disabled',false);
+  	  			            $('#inputLanguage').html(html);
+  	  			            
+  	  						},
+	  						
+	 							error : function(err){
+	  						console.log("not working. ERROR: "+JSON.stringify(err));
+ 						}
+	
+  					});
+  					
+  				 
+  				  
+  				}); 	
+
+
+					
+					
+				
+//						});
+//		
+//			  
+//			});
+		
+		/*Here is code for select District*/
+		
+		
+		$('#stateNameId').change(function(){
+			
+			
+			var state=$(this).find(":selected").val();
+			
+			
+			$.ajax({
+			  	type: "GET",
+	       		 url: "/loadDistrictByState",
+	       		 data: { "id": state},
+	       		 contentType: "application/json",
+	       		 success: function (result){
+	    
+	       			 
+	       		  var html = '';
+		            var len = result.length;
+		            html += '<option value="0">Select District</option>';
+		            for (var i = 0; i < len; i++) {
+		             html += '<option value="' + result[i] + '">'
+		               + result[i]
+		               + '</option>';
+		            }
+		            html += '</option>';
+		            
+		            $("#districtId").prop('disabled',false);
+		            $('#districtId').html(html);
+
+					},
+					
+					error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+			});
+	
+		  
+		});
+		
+		/*Here is code for selection of title name according to category name*/
+		
+		$('#catMasId').change(function(){
+				
+				
+				var state=$(this).find(":selected").val();
+				
+				
+				$.ajax({
+				  	type: "GET",
+		       		 url: "/loadBycategoryInFeedb",
+		       		 data: { "id": state},
+		       		 contentType: "application/json",
+		       		 success: function (result){
+		    
+		       			 
+		       		  var html = '';
+			            var len = result.length;
+			            html += '<option value="0">Select District</option>';
+			            for (var i = 0; i < len; i++) {
+			             html += '<option value="' + result[i] + '">'
+			               + result[i]
+			               + '</option>';
+			            }
+			            html += '</option>';
+			            
+			            $("#feedbackmasterId").prop('disabled',false);
+			            $('#feedbackmasterId').html(html);
+	
+						},
+						
+						error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
 					}
 					
-					/*Here is code for select District*/
+				});
+		
+			  
+			});
+
+		
+		/*Here is code for selection of title name according to category name View  csv file recored*/
+		
+		$('#catSelectedId').change(function(){
+			
+			
+			var state=$(this).find(":selected").val();
+			
+			
+			$.ajax({
+			  	type: "GET",
+	       		 url: "/loadBycategoryInFeedb",
+	       		 data: { "id": state},
+	       		 contentType: "application/json",
+	       		 success: function (result){
+	    
+	       			 
+	       		  var html = '';
+		            var len = result.length;
+		            html += '<option value="0">Select Title</option>';
+		            for (var i = 0; i < len; i++) {
+		             html += '<option value="' + result[i] + '">'
+		               + result[i]
+		               + '</option>';
+		            }
+		            html += '</option>';
+		            
+		            $("#titleNameId").prop('disabled',false);
+		            $('#titleNameId').html(html);
+
+		            
+					},
 					
+					error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+			});
+	
+		  
+		});
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	/*	Here is code for distrcit Selection for adding city*/
+		$('#stateDistrictId').change(function(){
+			
+			var state=$(this).find(":selected").val();
+			
+			
+			$.ajax({
+			  	type: "GET",
+	       		 url: "/loadDistrictByState",
+	       		 data: { "id": state},
+	       		 contentType: "application/json",
+	       		 success: function (result){
+	    
+	       			 
+	       		  var html = '';
+		            var len = result.length;
+		            html += '<option value="0">Select District</option>';
+		            for (var i = 0; i < len; i++) {
+		             html += '<option value="' + result[i] + '">'
+		               + result[i]
+		               + '</option>';
+		            }
+		            html += '</option>';
+		            
+		            $("#districtCityId").prop('disabled',false);
+		            $('#districtCityId').html(html);
+
+					},
+					
+					error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+			});
+	
+		  
+		});
+		
+		
+		
+		
+		
+		
+		
+		$('#districtId').change(function(){
+			
+			
+			var dist=$(this).find(":selected").val();
+			
+			
+			
+			$.ajax({
+			  	type: "GET",
+	       		 url: "/loadCityByDistrict",
+	       		 data: { "id": dist},
+	       		 contentType: "application/json",
+	       		 success: function (result){
+	    
+	       			 
+	       		  var html = '';
+		            var len = result.length;
+		            html += '<option value="0">Select City</option>';
+		            for (var i = 0; i < len; i++) {
+		             html += '<option value="' + result[i] + '">'
+		               + result[i]
+		               + '</option>';
+		            }
+		            html += '</option>';
+		            
+		            $("#cityId").prop('disabled',false);
+		            $('#cityId').html(html);
+
+					},
+					
+					error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+			});
+	
+		  
+		});
+		
+		
+  /*Here is code for access topic according to category master trainer*/
+		
+		
+//		$("#catMasterId").change(function(){
+//2a7c4fbe32196d9c8817df70b2f7bd828dca62f6
 					
 					$('#stateNameId').change(function(){
 						

@@ -17,5 +17,11 @@ public interface TraninigInformationRespositary extends CrudRepository<TraningIn
 	 @Query("from TraningInformation u where u.category=?1") 
 	 List<TraningInformation> findByCategory(Category category);
  
+	 @Query("from TraningInformation u where titleName=?1 and category_id=?2") 
+	 TraningInformation findBytitleName(String titleName,Category category);
+	 
+	 	 
+	 
+	 
 
 }

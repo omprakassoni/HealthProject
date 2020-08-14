@@ -32,6 +32,7 @@ import javax.persistence.Table;
 			  private String gender;
 			  private String adharNumber;
 			  private String language;
+			  private String titleName;
 		    
 		    
 		  
@@ -39,8 +40,32 @@ import javax.persistence.Table;
 			 @JoinColumn(name="partipantDeatil_id")
 			 private TraningInformation traningInformation;
 		  
+		    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+			 @JoinColumn(name="category_id")
+			 private Category category;
 		  
-			  public int getId() { 
+		    
+		    
+		    
+			  public Category getCategory() {
+				return category;
+			}
+			public void setCategory(Category category) {
+				this.category = category;
+			}
+			public String getTitleName() {
+				return titleName;
+			}
+			public void setTitleName(String titleName) {
+				this.titleName = titleName;
+			}
+			public TraningInformation getTraningInformation() {
+				return traningInformation;
+			}
+			public void setTraningInformation(TraningInformation traningInformation) {
+				this.traningInformation = traningInformation;
+			}
+			public int getId() { 
 				  
 				  return participantId; 
 			  
