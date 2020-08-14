@@ -17,15 +17,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
+import com.health.model.TraningInformation;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.model.feedbackMasterTrainer;
 import com.health.model.language;
 import com.health.model.partipantDeatil;
 import com.health.model.state;
+import com.health.model.trainingInformationDao;
 import com.health.repository.RoleRepository;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
+import com.health.repository.feedbackRespositary;
 import com.health.repository.languageAssignDao;
 import com.health.repository.languagedao;
 import com.health.repository.participantDao;
@@ -40,10 +44,10 @@ public class userController
 {
 
 	@Autowired
-	roleService roleservice;
+	private roleService roleservice;
 
 	@Autowired
-	RoleRepository rolerespositary;
+	private RoleRepository rolerespositary;
 
 	@Autowired
 	private UserService userService;
@@ -85,6 +89,16 @@ public class userController
 	@Autowired
 	private stateRespositary statedao;
 
+	@Autowired
+	private languagedao languageDao;
+
+	@Autowired
+	private trainingInformationDao trainingInformationDao;
+
+
+	@Autowired
+	private feedbackRespositary feedbackRespositaryDao;
+
 	@RequestMapping(value = "/adminDeatail", method = RequestMethod.GET)
 	public String adminDeatail(Model model, Authentication authentication) {
 
@@ -95,6 +109,39 @@ public class userController
 
 		List<Tutorial> tutorial=tutorialService.findAll();
 
+		List<Category> cats = categoryservice.findAll();
+
+		List<String> catInformation=new ArrayList<String>();
+
+
+		for (Category catInfo : cats) {
+
+			catInformation.add(catInfo.getCategoryname());
+
+		}
+
+		ArrayList<String> feedbakMasTra=new ArrayList<String>();
+
+		List<feedbackMasterTrainer> feedbackMasterTrainerList = (List<feedbackMasterTrainer>) feedbackRespositaryDao.findAll();
+
+		for (feedbackMasterTrainer feedbackMasterTrainer : feedbackMasterTrainerList) {
+
+			feedbakMasTra.add(feedbackMasterTrainer.getCategory().getCategoryname());
+
+		}
+
+		feedbakMasTra.removeAll(catInformation);
+
+
+
+		model.addAttribute("listOfcategory",feedbakMasTra);
+
+		model.addAttribute("categorys",category);
+
+
+//		List<Tutorial> tutorial=tutorialService.findAll();
+
+		List<language> languageAll=languageDao.findAll();
 
 
 			List<partipantDeatil> participantdeatail=(List<partipantDeatil>) participantDao.findAll();
@@ -110,14 +157,23 @@ public class userController
 			model.addAttribute("stateInfo",state);
 
 			User user=userDao.findByUsername(authentication.getName());
+
 		/*
 		 *
 		 * UserRole userRole=userRoleRepositary.findByUserInfo(user);
 		 *
 		 */
 
-			model.addAttribute("userInfo",user);
 
+
+			List<TraningInformation> traningInformation=trainingInformationDao.findByCategoryOnUser(user);
+
+
+
+			model.addAttribute("traningInformation",traningInformation);
+			model.addAttribute("languagesDisplay",languageAll);
+
+			model.addAttribute("userInfo",user);
 		return "roleAdminDetail";
 
 	}

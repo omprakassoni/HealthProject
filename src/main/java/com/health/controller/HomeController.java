@@ -109,16 +109,42 @@ public class HomeController {
 			tutorialRes.add(tutorial.getCategory().getCategoryname());
 		}
 
-		Set<String> categoryList = new LinkedHashSet<String>(tutorialRes);
-		System.err.println("Prit list" + categoryList);
-		model.addAttribute("categorys", categoryList);
-		List<Event> event = eventDao.getAllEvent();
-		model.addAttribute("events", event.subList(0, 4));
 
-		List<Consaltantant> consalatant = consalatantDao.findByConsaltantantDate();
-		for (Consaltantant consaltantant : consalatant) {
+//		Set<String> categoryList = new LinkedHashSet<String>(tutorialRes);
+//		System.err.println("Prit list" + categoryList);
+//		model.addAttribute("categorys", categoryList);
+//		List<Event> event = eventDao.getAllEvent();
+//		model.addAttribute("events", event.subList(0, 4));
+
+//		List<Consaltantant> consalatant = consalatantDao.findByConsaltantantDate();
+//		for (Consaltantant consaltantant : consalatant) {
+//			System.err.println(consaltantant.getNameConsaltant());
+
+
+		Set<String> categoryList=new LinkedHashSet<String>(tutorialRes);
+
+
+
+		model.addAttribute("categorys",categoryList);
+
+		List<Event> event=eventDao.getAllEvent();
+
+		model.addAttribute("events",event);
+
+		List<Consaltantant> consalatant=consalatantDao.findByConsaltantantDate();
+
+		for (Consaltantant consaltantant : consalatant)
+		{
 			System.err.println(consaltantant.getNameConsaltant());
 		}
+//		List<Testimonial> testimonial=testimonialdao.findBydate();
+//
+//
+//		for (Testimonial videotestimonial : testimonial)
+//		{
+//			System.err.println(videotestimonial.getUploadTestiminial());
+//
+//		}
 
 		List<Testimonial> testimonial = testimonialdao.findBydate();
 		for (Testimonial videotestimonial : testimonial) {
