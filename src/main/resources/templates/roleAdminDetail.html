@@ -505,7 +505,6 @@
    	
 <!-- </div> -->
 
-
 <div sec:authorize="hasAnyAuthority('DomainReviweer')">
 
 
@@ -641,9 +640,9 @@
 		  <div class="col-3">
 		    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 		      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Training Information</a>
-		      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Questionaire	</a>
+		      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Questionnaire	</a>
 		      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Feedback Form</a>
-		     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">View Participant deatail</a>
+		     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">View Participant detail</a>
 
 		    </div>
 		  </div>
@@ -661,7 +660,7 @@
 		    		<span style="color: gray; font-family: cursive; text-shadow: 10px"><H2> </H2></span>
 		    		
 		    		
-		    		  <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 250px" >Add Traning Information</div>
+		    		  <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 250px" >Add Training Information</div>
 		    		  
 	
 		    		<div class=" col-md-12" style="padding-left: 100px">
@@ -679,7 +678,7 @@
 							}
 						
 			  </script>
-						    <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);">
+						    <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return myFunction(this);">
 						    
 									  <div class="form-group ">
 									    <label for="date">Start Date </label>
@@ -705,6 +704,18 @@
 								  						
 									  </select>								  
 								 </div>	 
+								 
+								 
+								 
+						<div class="form-group">
+									    <label for="titleName">Title Name</label>
+									    <input type="text" class="form-control w-75" name="titleName" id="titleName" required="required"/>
+						 </div> 
+								
+								
+						
+							<span style="color: red;" th:if="${titleName}">Title Name already exists. Choose a different one.</span>
+					
 								 
 								 
 		<!-- 						   <div class="form-group ">
@@ -740,7 +751,7 @@
 						 <div class="form-group">
 						 
 						 
-									    <label for="traningInformationMasterId">Traning Information</label>
+									    <label for="traningInformationMasterId">Training Information</label>
                                          <textarea class="form-control w-75"  name="traningInfo" rows="5" id="traningInformationMasterId" style="width: 300px" required="required"></textarea>
 	
 						 </div>	 
@@ -804,7 +815,7 @@
 
 						  <div class="form-group">
 						
-						  		 <label for="paricipantsDe">Pariticipants Deatail</label>
+						  		 <label for="paricipantsDe">Participants Detail</label>
 						      <input type="file" class="form-control w-75" id="paricipantsDeatailId" accept=".csv" name="paricipantsDeatail" required="required"/>
 				
 						    </div>
@@ -813,8 +824,8 @@
 						    		  
 						  <div class="form-group">
 						
-						  		 <label for="paricipantsPhoto">Paricipants Photo</label>
-						      <input type="file" class="form-control w-75" id="paricipantsPhotoId" accept=".zip" name="paricipantsPhoto" required="required"/>
+						  	  <label for="paricipantsPhoto">Participants Photo</label>
+						      <input type="file" class="form-control w-75" id="paricipantsPhotoId" accept=".zip" name="paricipantsPhoto" />
 				
 						    </div>
 						    
@@ -839,7 +850,7 @@
 		    		
 		    		<div class="row shadow p-3 mb-5 bg-white rounded">
 		    		
-		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Download Question</div>
+		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;">Download Question</div>
 		    		
 		    		<div class=" col-md-12" style="padding-left: 100px">
 		    		
@@ -885,6 +896,9 @@
 								  						</span>
 									  </select>
 						 	 </div>	
+						 	 
+						 	 
+						 	 
 					
 					
 					
@@ -929,17 +943,27 @@
 						    <form action="/feedback" >
 						
 						
-						
 							<div class="form-group">
 								 	  
-									   <label for="categoryId">Select Category </label>
+									   <label for="categoryId">Select Category</label>
 									    
                                        <select id="catMasId" class="form-control w-75" name="catMasId"   required="required" >
 			
-								                        <option selected="selected" >Select category</option>      
+								                        <option selected="selected" >Select Category</option>      
 								                        <span th:each="category : ${traningInformation}" >
 								  								<option th:value="${category.getCategory().getId()}"><span  th:text="${category.getCategory().getCategoryname()}"></span></option>		
 								  						</span>
+									  </select>
+						 	 </div>
+						 	 
+						 	 
+						 <div class="form-group">
+								 	  
+									   <label for="feedbackmasterId">Select Title Name</label>
+                                       <select id="feedbackmasterId" class="form-control w-75" name="feedbackmasterId"   required="required" >
+			
+								                        <option selected="selected" >Select Title Name</option>      
+								                        
 									  </select>
 						 	 </div>
 								 
@@ -983,12 +1007,68 @@
 		   <div class="">
 		    		
 		    		<div class="row ">
-		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px;padding-left: 400px">List Participant Deatail</div>
+		    		<!--  <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px;padding-left: 400px">List Participant Deatail</div> -->
 		    		<div class=" col-md-12" >
 		    		
-		    		   	<div class="#" style="padding-top: 20px">
+		 <div class="#" style="padding-top: 20px">
           	
-          		<div class="row">
+          	
+          	
+          			<div class="container">
+		    		
+		    		<div class="row shadow p-3 mb-5 bg-white rounded">
+		    		
+		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >View Participant Detail</div>
+		    		
+		    		<div class=" col-md-12" style="padding-left: 100px">
+		    		
+		    
+				<form action="/ViewaParticipantDetail" method="post">
+						    
+						 
+						 <div class="form-group">
+								 	  
+									   <label for="categoryName">Select category </label>
+									    
+                                        <select id="catSelectedId" class="form-control w-75" name="catSelectedId"  style="width: 400px" required="required" >
+								               
+								                        <option selected="selected">Select Category</option>      
+								                        <span th:each="category: ${categorys}">
+								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+								  						</span>
+									   </select>
+								 </div>	   
+			 
+			 
+					 <div class="form-group ">
+		
+					               <label for="titleNameId">Select Title Name</label>
+					               
+					                    <select id="titleNameId" class="form-control w-75"  name="titleNameId" style="width:400px" required="required">
+	
+	
+					                    </select> 
+					 </div>
+					 
+					 
+					 <button type="submit" class="btn  btn-success">Submit</button>
+					
+					
+			
+				 
+					</form>
+				
+					</div>
+				
+		    		</div>
+		 		
+		    		</div>
+          	
+          	
+          	
+          	
+          	
+     <!--      		<div class="row">
           	
          			 	<div class="col">
           	
@@ -1021,7 +1101,7 @@
 					            </tr>
 					        </table>
 					</div>
-				</div>
+				</div> -->
 			</div> 
 		    		
 					</div>

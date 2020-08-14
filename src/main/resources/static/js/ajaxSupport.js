@@ -8,6 +8,20 @@ $( document ).ready(function() {
 		$( '.approve-success-msg' ).text( localStorage.getItem('msg') );
 		localStorage.setItem('msg', "");
 	}
+	
+	
+	/*master trainer*/
+	
+	var activeTab = localStorage.getItem('activeTab');
+	if(activeTab){
+		$('#v-pills-tab a[href="#' + activeTab + '"]').tab('show');
+		localStorage.setItem('activeTab', "");
+		$( '.tab-pane' ).text( localStorage.getItem('msg') );
+		localStorage.setItem('msg', "");
+	}
+	
+	
+	
 	 	
 	$('#OutlineAcceptOrNeedTiImprovemenet').on('hidden.bs.modal', function () {
 		location.reload();
@@ -382,6 +396,97 @@ $( document ).ready(function() {
 	
 		  
 		});
+		
+		/*Here is code for selection of title name according to category name*/
+		
+		$('#catMasId').change(function(){
+				
+				
+				var state=$(this).find(":selected").val();
+				
+				
+				$.ajax({
+				  	type: "GET",
+		       		 url: "/loadBycategoryInFeedb",
+		       		 data: { "id": state},
+		       		 contentType: "application/json",
+		       		 success: function (result){
+		    
+		       			 
+		       		  var html = '';
+			            var len = result.length;
+			            html += '<option value="0">Select District</option>';
+			            for (var i = 0; i < len; i++) {
+			             html += '<option value="' + result[i] + '">'
+			               + result[i]
+			               + '</option>';
+			            }
+			            html += '</option>';
+			            
+			            $("#feedbackmasterId").prop('disabled',false);
+			            $('#feedbackmasterId').html(html);
+	
+						},
+						
+						error : function(err){
+						console.log("not working. ERROR: "+JSON.stringify(err));
+					}
+					
+				});
+		
+			  
+			});
+
+		
+		/*Here is code for selection of title name according to category name View  csv file recored*/
+		
+		$('#catSelectedId').change(function(){
+			
+			
+			var state=$(this).find(":selected").val();
+			
+			
+			$.ajax({
+			  	type: "GET",
+	       		 url: "/loadBycategoryInFeedb",
+	       		 data: { "id": state},
+	       		 contentType: "application/json",
+	       		 success: function (result){
+	    
+	       			 
+	       		  var html = '';
+		            var len = result.length;
+		            html += '<option value="0">Select Title</option>';
+		            for (var i = 0; i < len; i++) {
+		             html += '<option value="' + result[i] + '">'
+		               + result[i]
+		               + '</option>';
+		            }
+		            html += '</option>';
+		            
+		            $("#titleNameId").prop('disabled',false);
+		            $('#titleNameId').html(html);
+
+		            
+					},
+					
+					error : function(err){
+					console.log("not working. ERROR: "+JSON.stringify(err));
+				}
+				
+			});
+	
+		  
+		});
+
+		
+		
+		
+		
+		
+		
+		
+		
 		
 
 	/*	Here is code for distrcit Selection for adding city*/

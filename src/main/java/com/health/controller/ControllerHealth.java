@@ -1829,6 +1829,47 @@ public class ControllerHealth
 
 	}
 	
+	
+	
+	
+	@RequestMapping("/loadBycategoryInFeedb")
+	public @ResponseBody  List<String> loadDistrictByState(@RequestParam(value="id") int id)
+	{
+	
+		
+		List<String> loadtitleName=new ArrayList<String>();
+		
+		
+		TraningInformation category= trainingInformationDao.findOne(id);
+    	
+    	List<TraningInformation> TraningInformation=(List<TraningInformation>) trainingInformationDao.findBycategory(category);
+    	
+    	
+		
+		 for (TraningInformation traningInformation2 : TraningInformation) {
+			 
+			 
+			 loadtitleName.add(traningInformation2.getTitleName());
+		}
+		
+		
+		
+		return loadtitleName;  
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Autowired
 	private cityRepositary cityRepositary;
 	
@@ -2007,7 +2048,7 @@ public class ControllerHealth
 	}
 	
 	/*      master Traning Informtion    save */
-	 
+	
 	
 	  @RequestMapping("/traninigMasterInformation")
 	  public String addeMaqsterTranierInformation(HttpServletRequest req, Model model, 
@@ -2015,9 +2056,7 @@ public class ControllerHealth
 			  @RequestParam("paricipantsDeatail") MultipartFile[] paricipantsDeatail,
 			  @RequestParam("paricipantsPhoto") MultipartFile[] paricipantsPhoto,
 			  //@RequestParam(name="stateName") String stateName,
-			  @RequestParam(value="categoryName") int categoryId,
-			  		  
-			 
+			  @RequestParam(value="categoryName") int categoryId,		 
 			  @RequestParam(value="stateName") int state,
 			  @RequestParam(value="districtName") String district,
 			  @RequestParam(value="cityName") String city,
@@ -2028,9 +2067,12 @@ public class ControllerHealth
 		) throws ParseException, IOException
 	  {
 		
+  		  	User user=userRepository.findByUsername(authetication.getName());
 		  
-		  	User user=userRepository.findByUsername(authetication.getName());
-		  
+		  	String titlename=req.getParameter("titleName");
+		  	
+		  	
+		  	
 		  	
 			String date=req.getParameter("date"); 
 			SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
@@ -2045,14 +2087,24 @@ public class ControllerHealth
 			state stateVar=stateRespositary.findOne(state);
 		
 		    Category category=categoryDao.findByid(categoryId);
+		    
+		    
+	
+		    if(TraninigInformationRespositary.findBytitleName(titlename,category)!=null){
+		    	
+		    	model.addAttribute("titleName",true);
+		    	
+		    	return "roleAdminDetail";
+		    	
+		    }
 		  
 		    //  topic topic=topicdao.findBytopicname(inputTopic);
 		  
 		    String categorName=category.getCategoryname();
 		   // String  trainingInformation=req.getParameter("traningInformation");
-		  String participants=req.getParameter("participants");
+		    String participants=req.getParameter("participants");
 		//  String traningInfo=req.getParameter("trainingInformation");
-		  int pincode=Integer.parseInt(req.getParameter("pinCode")); 
+		    int pincode=Integer.parseInt(req.getParameter("pinCode")); 
 		  
 			String path = null;
 			String abc = uploadMasterTrainer + "/" + dataofCamp + category.getCategoryname() ;
@@ -2124,7 +2176,7 @@ public class ControllerHealth
 			  traningInformationObject.setState(stateVar.getStateName());
 			  traningInformationObject.setDistricit(district);
 			  traningInformationObject.setCity(city);
-			  
+			  traningInformationObject.setTitleName(titlename);
 			  traningInformationObject.setAddressInformation(addressInformationName);
 	
 			//  traningInformationObject.setState(stateName);
@@ -2189,6 +2241,8 @@ public class ControllerHealth
 								participantDeatail.setAdharNumber(data[3]);
 								participantDeatail.setGender(data[4]);
 								participantDeatail.setLastname(data[5]);
+								participantDeatail.setCategory(category);
+								participantDeatail.setTitleName(titlename);
 								
 								participantDao.save(participantDeatail);
 					
@@ -2278,7 +2332,10 @@ public class ControllerHealth
 		private  trainingInformationDao trainingInformationDao; 
 		
 		@RequestMapping("/feedback")
-		public String feedbackForm(Model model,HttpServletRequest request,@RequestParam(value="catMasId") int catMasterId,Authentication authentication)
+		public String feedbackForm(Model model,HttpServletRequest request,@RequestParam(value="catMasId") int catMasterId,
+				@RequestParam(value="feedbackmasterId") String feedbackName,
+				
+				Authentication authentication)
 		{
 			
 			Category cat=categoryDao.findByid(catMasterId);	
@@ -2290,7 +2347,7 @@ public class ControllerHealth
 			String name=request.getParameter("nameOfMasterTrainer");
 			String email=request.getParameter("email");
 			String messgae=request.getParameter("traningInformation");
-		
+			
 			
 			java.util.Date dt = new java.util.Date();
 
@@ -2306,8 +2363,10 @@ public class ControllerHealth
 			feedback.setEmail(email);
 			feedback.setDescription(messgae);
 			feedback.setDatetime(currentTime);
+			feedback.setFeedbackTitle(feedbackName);
 			feedback.setCategory(cat);
 			feedback.setTraningInformation(trainingInfo);
+			
 			
 			feedbackRespositary.save(feedback);
 			
@@ -2615,7 +2674,7 @@ public class ControllerHealth
 				Model model) 
 		{
 			
-			System.err.println(catMasterId +"Hello"+ topicId+"test "+dwnByLanguageId);
+		//	System.err.println(catMasterId +"Hello"+ topicId+"test "+dwnByLanguageId);
 			
 			    List<String> topicName=new ArrayList<String>();
 			
@@ -2627,6 +2686,7 @@ public class ControllerHealth
 
 				for(Question s:question)
 				{
+					
 					//String substring=s.getQuetionpath().substring(23);						
 					topicName.add(s.getQuetionpath());					
 				}			
@@ -2635,6 +2695,29 @@ public class ControllerHealth
 				return "questionInPdf";
 		
 		}
+		
+		/* here is codde for display list of csv file recored */
+		
+		@RequestMapping("/ViewaParticipantDetail")
+		public String ViewaPrticipantDeatail(@RequestParam(value="catSelectedId") int  catSelectedId,
+				@RequestParam(name="titleNameId") String  titleName,Model model) 
+				
+		{
+			
+			
+			Category category=categoryDao.findByid(catSelectedId);
+			
+			List<partipantDeatil> parcipantDeatails=participantDao.findByCategoryAndName(category,titleName);
+			
+			model.addAttribute("parcipantDeatails",parcipantDeatails);
+			
+
+				return "viewParticipantDetail";
+		
+		}
+		
+		
+		
 		
 		/* Here load language according to contributor selectopn language */
 		
@@ -2918,17 +3001,10 @@ public class ControllerHealth
 		public String show_feedbackForm(Model model,HttpServletRequest request) 
 		{
 			
-			
 			Iterable<feedbackMasterTrainer> feedbackMasterTrainer = feedbackRespositaryDao.findAll();
 			
-			
-			
-			
 			model.addAttribute("traInfo",feedbackMasterTrainer);
-			
-			
 	
-			
 			return "showMasterTrainerFeedbak";
 			
 		}

@@ -21,7 +21,16 @@ public class feedbackMasterTrainer {
 	private String email;
 	private String description;
 	private String datetime; 
+	private String feedbackTitle;
 	
+	public String getFeedbackTitle() {
+		return feedbackTitle;
+	}
+
+	public void setFeedbackTitle(String feedbackTitle) {
+		this.feedbackTitle = feedbackTitle;
+	}
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="cat_id")
 	private Category category;

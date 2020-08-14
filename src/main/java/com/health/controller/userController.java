@@ -105,8 +105,7 @@ public class userController
 	
 	@Autowired
 	private trainingInformationDao trainingInformationDao;
-	
-	
+		
 	@Autowired
 	private feedbackRespositary feedbackRespositaryDao;
 
@@ -123,7 +122,8 @@ public class userController
 		List<String> catInformation=new ArrayList<String>();
 		
 	
-		for (Category catInfo : cats) {
+		for (Category catInfo : cats) 
+		{
 			
 			catInformation.add(catInfo.getCategoryname());
 			

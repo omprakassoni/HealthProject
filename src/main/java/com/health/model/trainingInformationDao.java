@@ -15,6 +15,11 @@ public interface trainingInformationDao extends CrudRepository<TraningInformatio
 	 @Query("from TraningInformation u where u.user=?1 and category_id=?2") 
 	 TraningInformation findByuserOnfeedback(User user,Category cat);
 	 
-
-
+	 @Query("from TraningInformation u where category_id=?1") 
+	 List<TraningInformation> findBycategory(TraningInformation category);
+	 
+	 
+	 
+	 
+	 
 }
