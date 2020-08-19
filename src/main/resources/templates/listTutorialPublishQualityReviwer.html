@@ -15,15 +15,11 @@
 		
 </head>
   <body>
-  
-  		<div th:replace="common/trail :: navbar1"/>
   		
-		<!--  <div class="container-fluid" style="padding-top: 120px"> --> 
 		<div style="display:flex;">
   		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-          	
-          	
-          	 <span th:each="ApproveStatu : ${approve}">
+          	<div class="row" style="margin-top: 100px">
+          	<span th:each="ApproveStatu : ${approve}">
                                                      
 			<span th:if="${ApproveStatu.getStatus()==1}"  th:text="${statusVideo}"> 
 			
@@ -312,7 +308,10 @@
 					            </tbody>			            
 					        </table>
 					      
-					    </div>
+					    </div> <!-- domain -->
+          	</div>
+          	
+          	 
          
 			</div> 
  

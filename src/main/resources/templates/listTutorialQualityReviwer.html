@@ -15,14 +15,10 @@
 		
 </head>
   <body>
-  
-  		<div th:replace="common/trail :: navbar1"/>
-  		
-		<!-- <div class="container-fluid" style="padding-top: 120px"> -->
 		<div style="display:flex;">
   		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-          	
-          	     <div>
+          	<div class="container">
+          	     <div class="row" style="margin-top: 100px">
 					   <!--      <h2>Domain List</h2> -->
 					        
 					        <table id="tableId" class="table table-striped">
@@ -245,8 +241,8 @@
 					            </tbody>			            
 					        </table>
 					      
-					    </div>
-         
+					    </div> <!-- row -->
+         </div> <!-- container -->
 			</div> 
  
 

@@ -6,37 +6,35 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.health.domain.security.Role;
-import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.Tutorial;
 import com.health.model.User;
-import com.health.model.contributor_Role;
 import com.health.model.language;
 import com.health.model.topic;
+
 
 public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 
 	Tutorial findBylanguage(String name);
 
 	// Admin Video Approve
-	
+
 	@Query("from Tutorial u where u.category=?1 and u.lan=?2 and u.status=?3")
 	List<Tutorial> findByLanAndCat(Category category,language language,int status);
-	
+
 	@Query("from Tutorial u where u.category=?1 and u.lan=?2 and u.user=?3 ")
 	List<Tutorial> findByuserNameLancat(Category cat,language lan,User user);
-	
 
-	
+
+
 	@Query("from Tutorial u where u.category=?1 and u.lan=?2")
 	List<Tutorial> findByLanAndCategory(Category category,language language);
-	
-	
-	
+
+
+
 	@Query("from Tutorial u where u.category=?1 and u.status=?2")
 	List<Tutorial> findByCategoryLan(Category cat,int status);
-	
+
     @Query("from Tutorial u where u.lan=?1")
 	List<Tutorial> findByLan(language language);
 
@@ -59,26 +57,26 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	 * @Query("from Tutorial u where u.videoStatus IN ()") List<Tutorial>
 	 * findByContributorStatus();
 	 */
-	
+
 	@Query("from Tutorial u where u.status=1 ORDER BY status Desc")
 	List<Tutorial> finBystatus();
-	
-	
+
+
 //	@Query("from Tutorial u where u.videoStatus=1")
 //	List<Tutorial> finByVideoStatus();
-	
+
 	@Query("from Tutorial u where u.videoStatus=1")
 	List<Tutorial> findByVideoAdminRevPending();
-	
+
 	@Query("from Tutorial u where u.videoStatus=5")
 	List<Tutorial> findByVideoAdminRevImprovement();
-	
+
 	@Query("from Tutorial u where u.videoStatus=2")
 	List<Tutorial> findByVideoAdminRevApproved();
-	
+
 	@Query("from Tutorial u where u.videoStatus IN (1,2,5,4,3)")
 	List<Tutorial> findByVideoAll();
-	
+
 	@Query("from Tutorial u where u.videoStatus IN (2,5,4,3)")
 	List<Tutorial> findByVideoStatusByAdmin();
 
@@ -95,8 +93,11 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	@Query("from Tutorial u where  topic=?1 and category=?2 and langaueg_id=?3")
 	Tutorial finByKeywordContentDomain(topic topic, Category category, language language);
 
+//	@Query("from Tutorial u where u.category=?1 and langaueg_id=?2 and topic=?3")
+//	List<Tutorial> findByCategoryAndlanguage(Category category, language language, topic topic);
+
 	@Query("from Tutorial u where u.category=?1 and langaueg_id=?2 and topic=?3")
-	List<Tutorial> findByCategoryAndlanguage(Category category, language language, topic topic);
+	List<Tutorial> findByCategoryTutorialAndlanguage(Category category, language language, topic topic);
 
 	@Query("from Tutorial  u where u.user=?1 and u.category=?2")
 	List<Tutorial> findByContributorTopic(User user, Category category);
@@ -178,7 +179,7 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	@Query("update Tutorial set  status=?1 where id=?2")
 	int updateStatusByQualityApprove(int statusApproveByQuality, int idStatus);
 
-	
+
 
 
 }
