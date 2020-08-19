@@ -2167,6 +2167,8 @@ $( document ).ready(function() {
 														},
 														contentType : "application/json",
 														success : function(result) {
+															
+															alert("Save Outline Successfully");
 															$("#statusOutline").prop('disabled',
 																	false);
 															$('#statusOutline').html(html);

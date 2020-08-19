@@ -17,7 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.websocket.OnError;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.health.domain.security.UserRole;
@@ -55,6 +58,7 @@ public class Tutorial
 	private String script;
 	private int scriptStatus;
 	
+	@Column(length = 1000)
 	private String outlin;
 	private int outlineStatus;	
 	private int outline_status_id;
