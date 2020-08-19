@@ -161,6 +161,7 @@ public class userController {
 		model.addAttribute("languagesDisplay", languageAll);
 
 		model.addAttribute("userInfo", user);
+		
 		return "roleAdminDetail";
 
 	}
