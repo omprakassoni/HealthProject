@@ -2847,7 +2847,7 @@ public class ControllerHealth {
 			String currentTime = sdf.format(dt);
 
 			// User user=userRepository.findOne(contributorId);
-
+			System.err.println("**********CONTRUBUTOR SAVING ENTER**************");
 			User user = userRepository.findByUsername(contributorId);
 
 			com.health.model.language language = languageDao.findBylanguageName(inputLanguage);
@@ -2857,6 +2857,7 @@ public class ControllerHealth {
 			topic topic = topicdao.findBytopicname(ListOfTopic);
 
 			// List<topic> topic1=topicdao.findBytopicnameserach(inputTopic);
+
 
 			contributor_Role contributorRole = new contributor_Role();
 
@@ -2872,7 +2873,9 @@ public class ControllerHealth {
 			} else {
 				contributorRole.setStatus(0);
 			}
-
+			System.err.println("**********contributorRole SAVING**************");
+			System.err.println(contributorRole);
+			System.err.println("**********contributorRole SAVING**************");
 			contributorRoleDao.save(contributorRole);
 
 			Tutorial tutorialDaoSave = new Tutorial();
@@ -2887,6 +2890,9 @@ public class ControllerHealth {
 			tutorialDaoSave.setOutlineStatus(0);
 			tutorialDaoSave.setSlideStatus(0);
 
+			System.err.println("**********tutorialDaoSave SAVING**************");
+			System.err.println(tutorialDaoSave);
+			System.err.println("**********tutorialDaoSave SAVING**************");
 			tutorialDao.save(tutorialDaoSave);
 
 			model.addAttribute("msg", RECORD_SAVE_SUCCESS_MSG);

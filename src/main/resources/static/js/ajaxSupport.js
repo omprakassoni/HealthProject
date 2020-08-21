@@ -1010,51 +1010,33 @@ $(document)
 
 					/* load By Contributor user only contributor assign from */
 
-					$('#contributorId')
-							.click(
-									function() {
-
-										var userContributor = $(this).find(
-												':selected').val();
-
-										$
-												.ajax({
-													type : "GET",
-													url : "/loadLanguageByUser",
-													data : {
-														"id" : userContributor
-													},
-													contentType : "application/json",
-													success : function(result) {
-
-														var html = '';
-														var len = result.length;
-														html += '<option value="0">Select Language</option>';
-														for (var i = 0; i < len; i++) {
-															html += '<option value="'
-																	+ result[i]
-																	+ '">'
-																	+ result[i]
-																	+ '</option>';
-														}
-														html += '</option>';
-
-														$("#lanId").prop(
-																'disabled',
-																false);
-														$('#lanId').html(html);
-
-													},
-
-													error : function(err) {
-														console
-																.log("not working. ERROR: "
-																		+ JSON
-																				.stringify(err));
-													}
-												});
-
-									});
+//					$('#contributorId')
+//							.click(
+//									function() {
+//										var userContributor = $(this).find(':selected').val();
+//										$.ajax({
+//											type : "GET",
+//											url : "/loadLanguageByUser",
+//											data : {
+//												"id" : userContributor
+//											},
+//											contentType : "application/json",
+//											success : function(result) {
+//												var html = '';
+//												var len = result.length;
+//												html += '<option value="0">Select Language</option>';
+//												for (var i = 0; i < len; i++) {
+//													html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
+//												}
+//												html += '</option>';
+//												$("#lanId").prop('disabled',false);
+//												$('#lanId').html(html);
+//											},
+//											error : function(err) {
+//												console.log("not working. ERROR: "+ JSON.stringify(err));
+//													}
+//												});
+//									});
 					/* here is code for download question */
 
 					$('#inputLanguage1')
@@ -1219,65 +1201,40 @@ $(document)
 
 							});
 
-					$('#lanId')
-							.click(
+					$('#lanId').change(
 									function() {
-										var languageName = $(
-												"#option :selected").text();
-
-										$
-												.ajax({
-													type : "GET",
-													url : "/loadCategoryByLanguage",
-													data : {
-														"id" : languageName
-													},
-													contentType : "application/json",
-													success : function(result) {
-
-														var html = '';
-														var len = result.length;
-														html += '<option value="0">Select Category</option>';
-														for (var i = 0; i < len; i++) {
-															html += '<option value="'
-																	+ result[i]
-																	+ '">'
-																	+ result[i]
-																	+ '</option>';
-														}
-														html += '</option>';
-
-														$(
-																"#catgoryByContributor")
-																.prop(
-																		'disabled',
-																		false);
-														$(
-																'#catgoryByContributor')
-																.html(html);
-
-													},
-
-													error : function(err) {
-														console
-																.log("not working. ERROR: "
-																		+ JSON
-																				.stringify(err));
-													}
-												});
-
+										var languageName = $("#option :selected").text();
+										$.ajax({
+											type : "GET",
+											url : "/loadCategoryByLanguage",
+											data : {
+												"id" : languageName
+											},
+											contentType : "application/json",
+											success : function(result) {
+												var html = '';
+												var len = result.length;
+												html += '<option value="0">Select Category</option>';
+												for (var i = 0; i < len; i++) {
+													html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
+												}
+												html += '</option>';
+												$("#catgoryByContributor").prop('disabled',false);
+												$('#catgoryByContributor').html(html);
+											},
+											error : function(err) {
+												console.log("not working. ERROR: "+ JSON.stringify(err));
+											}
+										});
 									});
 
 					$('#catgoryByContributor').click(
 							function() {
 								// var languageName = $form.find( '#lanId'
 								// ).val(),
-
-								var category = $(this).find("option:selected")
-										.val();
+								var category = $(this).find("option:selected").val();
 								var languageName = $('#lanId').val();
 								var userName = $('#contributorId').val();
-
 								// var languageName=$("option :lanId").text();
 
 								$.ajax({
@@ -1290,21 +1247,14 @@ $(document)
 									},
 									contentType : "application/json",
 									success : function(result) {
-
 										var html = '';
 										var len = result.length;
-
 										for (var i = 0; i < len; i++) {
-											html += '<option value="'
-													+ result[i] + '">'
-													+ result[i] + '</option>';
+											html += '<option value="'+ result[i] + '">'+ result[i] + '</option>';
 										}
 										html += '</option>';
-
-										$("#inputTopic")
-												.prop('disabled', false);
+										$("#inputTopic").prop('disabled', false);
 										$('#inputTopic').html(html);
-
 									},
 									error : function(err) {
 										console.log("not working. ERROR: "
@@ -1394,37 +1344,37 @@ $(document)
 
 					/* Here code to view keywored into Domain reviwer */
 
-					$('#keywordModaleViewInDomain').click(
-							function() {
-
-								var categoryid = $("#categoryId").val();
-								var topicid = $("#topicId").val();
-								var lanId = $("#lanId").val();
-
-								$.ajax({
-									type : "GET",
-									url : "/viewKeywordInDomain",
-									data : {
-										"categorname" : categoryid,
-										"topicid" : topicid,
-										"lanId" : lanId
-									},
-									contentType : "application/json",
-									success : function(result) {
-
-										$('#keywordViewInDomainKeyword').html(
-												result);
-
-									},
-
-									error : function(err) {
-										console.log("not working. ERROR: "
-												+ JSON.stringify(err));
-									}
-
-								});
-
-							});
+//					$('#keywordModaleViewInDomain').click(
+//							function() {
+//
+//								var categoryid = $("#categoryId").val();
+//								var topicid = $("#topicId").val();
+//								var lanId = $("#lanId").val();
+//
+//								$.ajax({
+//									type : "GET",
+//									url : "/viewKeywordInDomain",
+//									data : {
+//										"categorname" : categoryid,
+//										"topicid" : topicid,
+//										"lanId" : lanId
+//									},
+//									contentType : "application/json",
+//									success : function(result) {
+//
+//										$('#keywordViewInDomainKeyword').html(
+//												result);
+//
+//									},
+//
+//									error : function(err) {
+//										console.log("not working. ERROR: "
+//												+ JSON.stringify(err));
+//									}
+//
+//								});
+//
+//							});
 
 					$('#videoViewId')
 							.click(
@@ -2452,6 +2402,8 @@ $(document)
 					});
 
 					$('#editKeyword').click(function() {
+						$(this).toggle();
+						$('keywordId').toggle();
 						$('#keyword').prop('readonly', false);
 						// outlineId
 						$('#keywordId').show();
@@ -2463,12 +2415,13 @@ $(document)
 
 					$('#keywordId').click(
 							function() {
-
+								$(this).toggle();
+								$('#editKeyword').toggle();
 								var keywordArea = $("#keyword").val();
 								var categoryid = $("#categoryId").val();
 								var topicid = $("#topicId").val();
 								var lanId = $("#lanId").val();
-
+								$('#keyword').prop('readonly', true);
 								$.ajax({
 									type : "GET",
 									url : "/keyword",
@@ -2480,16 +2433,20 @@ $(document)
 									},
 									contentType : "application/json",
 									success : function(result) {
-
-										$("#statuskeyword").prop('disabled',
-												false);
-										$('#statuskeyword').html(result);
+										showStatus(SUCCESS,
+												result);
+//										$("#statuskeyword").prop('disabled',
+//												false);
+//										$('#statuskeyword').html(result);
 
 									},
 
 									error : function(err) {
 										console.log("not working. ERROR: "
 												+ JSON.stringify(err));
+										var result = "Error"; 
+										showStatus(ERROR,
+												result);
 									}
 
 								});
@@ -2505,7 +2462,7 @@ $(document)
 									function() {
 
 										// here1
-
+										alert('here');
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();
@@ -2516,47 +2473,35 @@ $(document)
 										console.log(form);
 										console.log(form[0]);
 
-										formData.append('categoryid',
-												categoryid);
+										formData.append('categoryid',categoryid);
 										formData.append('topicid', topicid);
 										formData.append('lanId', lanId);
 
-										$
-												.ajax({
+										$.ajax({
+											type : "POST",
+											url : "/scriptUpload",
+											data : formData,
+											enctype : 'multipart/form-data',
+											processData : false,
+											contentType : false,
+											cache : false,
+											success : function(result) {
+//												$("#statusofScript").prop('disabled',true);
+//												$('#statusofScript').html(result[2]);
+												$('#viewScript').html(result[0]);
+//												source = document.getElementById('storedVideoId');
+//												source.setAttribute('src',result[1]);
+												var result = "Script updated successfully";
+												showStatus(SUCCESS,result);
+												$('.upload-status').hide();
+											},
 
-													type : "POST",
-													url : "/scriptUpload",
-													data : formData,
-													enctype : 'multipart/form-data',
-													processData : false,
-													contentType : false,
-													cache : false,
-													success : function(result) {
-														$("#statusofScript")
-																.prop(
-																		'disabled',
-																		true);
-														$('#statusofScript')
-																.html(result[2]);
-														$('#viewScript').html(
-																result[0]);
-
-														source = document
-																.getElementById('storedVideoId');
-														source.setAttribute(
-																'src',
-																result[1]);
-
-													},
-
-													error : function(err) {
-														console
-																.log("not working. ERROR: "
-																		+ JSON
-																				.stringify(err));
-													}
-
-												});
+											error : function(err) {
+												console.log("not working. ERROR: "+ JSON.stringify(err));
+												var result = "Error";
+												showStatus(ERROR,result);
+											}
+										});
 
 									});
 
@@ -2587,18 +2532,19 @@ $(document)
 									contentType : false,
 									cache : false,
 									success : function(result) {
-										$("#statusofSlide").prop('disabled',
-												true);
-										$('#statusofSlide').html(result[2]);
+//										$("#statusofSlide").prop('disabled',true);
+//										$('#statusofSlide').html(result[2]);
 
 										$('#sliedPdf').html(result[0]);
 										$("#sliedPdf").prop('href', result[1]);
+										var result = "Slide uploaded successfully";
+										showStatus(SUCCESS,result);
 
 									},
 
-									error : function(err) {
-										console.log("not working. ERROR: "
-												+ JSON.stringify(err));
+									error : function(err) {console.log("not working. ERROR: "+ JSON.stringify(err));
+									var result = "Slide uploaded successfully";
+									showStatus(SUCCESS,result);
 									}
 
 								});
@@ -2610,6 +2556,7 @@ $(document)
 					$('#videoId')
 							.click(
 									function() {
+										alert('videoId');
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();
@@ -3405,37 +3352,32 @@ $(document)
 							});
 
 					// here is code for keyword accept or need to improvement
-
-					$('#AcceptOrNeedToImprovemenetByDomain')
-							.click(
-									function() {
-
+//					$('#AcceptOrNeedToImprovemenetByDomain').change(
+					$('#AcceptOrNeedToImprovemenetByDomain').click(
+							function() {
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();
 
-										var vals = $("#KeywordAcceptDomain")
-												.val();
+										var vals = $("#KeywordAcceptDomain").val();
 
 										if (vals === '0') {
 
-											$('#keywordNeedImprovement').css({
-												'visibility' : 'hidden'
-											});
+//											$('#keywordNeedImprovement').css({
+//												'visibility' : 'hidden'
+//											});
 
 											alert("Select Accept Or Need To Improvement");
 
 										} else if (vals === '1') {
 
-											$('#keywordNeedImprovement').css({
-												'visibility' : 'hidden'
-											});
+//											$('#keywordNeedImprovement').css({
+//												'visibility' : 'hidden'
+//											});
+//
+//											alert("Hello");
 
-											alert("Hello");
-
-											$
-													.ajax({
-
+											$.ajax({
 														type : "GET",
 														url : "/acceptkeywordByDomain",
 														data : {
@@ -3446,24 +3388,16 @@ $(document)
 														contentType : "application/json",
 														success : function(
 																result) {
-
-															$(
-																	"#statusKeywordByDomain")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusKeywordByDomain')
-																	.html(
-																			result);
+															showStatus(SUCCESS,result);
+//															$("#statusKeywordByDomain").prop('disabled',false);
+//															$('#statusKeywordByDomain').html(result);
 
 														},
 
 														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.lo3g("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});
@@ -3477,9 +3411,7 @@ $(document)
 											var msg = $("#keywordCommentMsg")
 													.val();
 
-											$
-													.ajax({
-
+											$.ajax({
 														type : "GET",
 														url : "/needToImpKeywordByDomain",
 														data : {
@@ -3492,27 +3424,19 @@ $(document)
 														success : function(
 																result) {
 
-															$(
-																	"#statusKeywordByDomain")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusKeywordByDomain')
-																	.html(
-																			result);
+//															$("#statusKeywordByDomain").prop('disabled',false);
+//															$('#statusKeywordByDomain').html(result);
+															showStatus(SUCCESS,result);
 
 														},
 
 														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});
-
 										}
 
 									});
@@ -3641,27 +3565,34 @@ $(document)
 
 					// here is code for Script for domain
 
-					$('#scriptAccept').click(function() {
+//					$('#scriptAccept').click(function() {
+					$('#scriptAccept').change(function() {
 
 						var vals = $("#scriptAccept").val();
-
-						if (vals === '0') {
-							$('#scriptNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-						} else if (vals === '1') {
-
-							$('#scriptNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-
-						} else if (vals === '2') {
-
-							$('#scriptNeedImprovement').css({
-								'visibility' : 'visible'
-							});
-
+						
+						if (vals === '2') {
+							$('#scriptNeedImprovement').show();
+						}else{
+							$('#scriptNeedImprovement').hide();
 						}
+
+//						if (vals === '0') {
+//							$('#scriptNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//						} else if (vals === '1') {
+//
+//							$('#scriptNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//
+//						} else if (vals === '2') {
+//
+//							$('#scriptNeedImprovement').css({
+//								'visibility' : 'visible'
+//							});
+//
+//						}
 
 					});
 
@@ -3684,30 +3615,36 @@ $(document)
 
 					});
 
-					$('#VideoAcceptAdmin').click(function() {
+//					$('#VideoAcceptAdmin').click(function() {
+					$('#VideoAcceptAdmin').change(function() {
 
-						var vals = $(this).find(":selected").val();
+						var vals = $('#VideoAcceptAdmin').val();
 
-						if (vals === '0') {
-							$('#videoNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-
-						} else if (vals === '1') {
-
-							$('#videoNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-
-							l
-
-						} else if (vals === '2') {
-
-							$('#videoNeedImprovement').css({
-								'visibility' : 'visible'
-							});
-
+						if (vals === '2') {
+							$('#videoNeedImprovement').show();
+						}else{
+							$('#videoNeedImprovement').hide();
 						}
+//						if (vals === '0') {
+//							$('#videoNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//
+//						} else if (vals === '1') {
+//
+//							$('#videoNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//
+//							l
+//
+//						} else if (vals === '2') {
+//
+//							$('#videoNeedImprovement').css({
+//								'visibility' : 'visible'
+//							});
+//
+//						}
 
 					});
 
@@ -3792,7 +3729,6 @@ $(document)
 							.click(
 									function() {
 
-										alert('videoViewIdDomain');
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();
@@ -4059,14 +3995,17 @@ $(document)
 																	'#statusVideoByAdmin')
 																	.html(
 																			result);
+															showStatus(SUCCESS, result);
 
 														},
 
 														error : function(err) {
 															console
-																	.lo3g("not working. ERROR: "
+																	.log("not working. ERROR: "
 																			+ JSON
 																					.stringify(err));
+															result = "Error";
+															showStatus(ERROR, result);
 														}
 
 													});
@@ -4107,6 +4046,8 @@ $(document)
 																	'#statusVideoByAdmin')
 																	.html(
 																			result);
+															
+															showStatus(SUCCESS, result);
 
 														},
 
@@ -4115,6 +4056,8 @@ $(document)
 																	.lo3g("not working. ERROR: "
 																			+ JSON
 																					.stringify(err));
+															result = "Error";
+															showStatus(ERROR, result);
 														}
 
 													});
@@ -4128,51 +4071,61 @@ $(document)
 					 * improvemenet
 					 */
 
-					$('#VideoAcceptDomain').click(function() {
+//					$('#VideoAcceptDomain').click(function() {
+					$('#VideoAcceptDomain').change(function() {
 
 						var vals = $("#VideoAcceptDomain").val();
 
-						if (vals === '0') {
-							$('#videoNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-						} else if (vals === '1') {
-							$('#videoNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-
-						} else if (vals === '2') {
-
-							$('#videoNeedImprovement').css({
-								'visibility' : 'visible'
-							});
-
+						if (vals === '2') {
+							$('#videoNeedImprovement').show();
+						}else{
+							$('#videoNeedImprovement').hide();
 						}
+//						if (vals === '0') {
+//							$('#videoNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//						} else if (vals === '1') {
+//							$('#videoNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//
+//						} else if (vals === '2') {
+//
+//							$('#videoNeedImprovement').css({
+//								'visibility' : 'visible'
+//							});
+//
+//						}
 
 					});
 
 					/* Here is code keywod accept or need to improvement */
-
-					$('#KeywordAcceptDomain').click(function() {
-
+//					$('#KeywordAcceptDomain').click(function() {
+					$('#KeywordAcceptDomain').change(function() {
+//						alert('HERE');
 						var vals = $("#KeywordAcceptDomain").val();
-
-						if (vals === '0') {
-							$('#keywordNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-						} else if (vals === '1') {
-							$('#keywordNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-
-						} else if (vals === '2') {
-
-							$('#keywordNeedImprovement').css({
-								'visibility' : 'visible'
-							});
-
+						if (vals === '2'){
+							alert('here');
+							$('#keywordNeedImprovement').show();
 						}
+
+//						if (vals === '0') {
+//							$('#keywordNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//						} else if (vals === '1') {
+//							$('#keywordNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//
+//						} else if (vals === '2') {
+//
+//							$('#keywordNeedImprovement').css({
+//								'visibility' : 'visible'
+//							});
+//
+//						}
 
 					});
 
@@ -4209,26 +4162,17 @@ $(document)
 														contentType : "application/json",
 														success : function(
 																result) {
-
-															$(
-																	"#statusVideoByDomain")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusVideoByDomain')
-																	.html(
-																			result);
+															showStatus(SUCCESS, result);
+//															$("#statusVideoByDomain").prop('disabled',false);
+//															$('#statusVideoByDomain').html(result);
 
 														},
 
 														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR, result);
 														}
-
 													});
 
 										} else if (vals == '2') {
@@ -4246,24 +4190,16 @@ $(document)
 														contentType : "application/json",
 														success : function(
 																result) {
-
-															$(
-																	"#statusVideoByDomain")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusVideoByDomain')
-																	.html(
-																			result);
+//															$("#statusVideoByDomain").prop('disabled',false);
+//															$('#statusVideoByDomain').html(result);
+															showStatus(SUCCESS, result);
 
 														},
 
 														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR, result);
 														}
 
 													});
@@ -4304,70 +4240,46 @@ $(document)
 														contentType : "application/json",
 														success : function(
 																result) {
-
-															$(
-																	"#saveCommentScript")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#saveCommentScript')
-																	.html(
-																			result);
-
+//															$("#saveCommentScript").prop('disabled',false);
+//															$('#saveCommentScript').html(result);
+															showStatus(SUCCESS,result);
 														},
 
 														error : function(err) {
-															console
-																	.log("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
-
 													});
 
 										} else if (vals == "2") {
 
 											var msgScript = $(
 													"#msgScriptDomain").val();
+											$.ajax({
+												type : "GET",
+												url : "/needToImpScriptByDomain",
+												data : {
+													"categorname" : categoryid,
+													"topicid" : topicid,
+													"lanId" : lanId,
+													"msgScript" : msgScript
+												},
+												contentType : "application/json",
+												success : function(result) {
 
-											$
-													.ajax({
+													$("#saveCommentScript").prop('disabled',false);
+													$('#saveCommentScript').html(result);
+													showStatus(SUCCESS,result);
+												},
 
-														type : "GET",
-														url : "/needToImpScriptByDomain",
-														data : {
-															"categorname" : categoryid,
-															"topicid" : topicid,
-															"lanId" : lanId,
-															"msgScript" : msgScript
-														},
-														contentType : "application/json",
-														success : function(
-																result) {
+												error : function(err) {
+													console.log("not working. ERROR: "+JSON.stringify(err));
+													result = "Error";
+													showStatus(ERROR,result);
+												}
 
-															$(
-																	"#saveCommentScript")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#saveCommentScript')
-																	.html(
-																			result);
-
-														},
-
-														error : function(err) {
-															console
-																	.log("not working. ERROR: "
-																			+
-
-																			JSON
-																					.stringify(err));
-														}
-
-													});
+											});
 
 										}
 
@@ -4406,24 +4318,16 @@ $(document)
 														contentType : "application/json",
 														success : function(
 																result) {
-
-															$(
-																	"#saveCommentScript")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#saveCommentScript')
-																	.html(
-																			result);
+//															$("#saveCommentScript").prop('disabled',false);
+//															$('#saveCommentScript').html(result);
+															showStatus(SUCCESS,result);
 
 														},
 
 														error : function(err) {
-															console
-																	.log("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});
@@ -4447,26 +4351,16 @@ $(document)
 														contentType : "application/json",
 														success : function(
 																result) {
-
-															$(
-																	"#saveCommentScript")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#saveCommentScript')
-																	.html(
-																			result);
+//															$("#saveCommentScript").prop('disabled',false);
+//															$('#saveCommentScript').html(result);
+															showStatus(SUCCESS,result);
 
 														},
 
 														error : function(err) {
-															console
-																	.log("not working. ERROR: "
-																			+
-
-																			JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});
@@ -4649,27 +4543,34 @@ $(document)
 									});
 
 					// Slide Accept Or Need To Improvement
-					$('#slideAcceptOrNeedImp').click(function() {
+//					$('#slideAcceptOrNeedImp').click(function() {
+					$('#slideAcceptByQuality').change(function() {
 
 						var vals = $("#slideAcceptByQuality").val();
-
-						if (vals === '0') {
-							$('#slideNeedToImp').css({
-								'visibility' : 'hidden'
-							});
-						} else if (vals === '1') {
-
-							$('#slideNeedToImp').css({
-								'visibility' : 'hidden'
-							});
-
-						} else if (vals === '2') {
-
-							$('#slideNeedToImp').css({
-								'visibility' : 'visible'
-							});
-
+						
+						 if (vals === '2') {
+							$('#slideNeedToImp').show();
+						}else{
+							$('#slideNeedToImp').hide();
 						}
+
+//						if (vals === '0') {
+//							$('#slideNeedToImp').css({
+//								'visibility' : 'hidden'
+//							});
+//						} else if (vals === '1') {
+//
+//							$('#slideNeedToImp').css({
+//								'visibility' : 'hidden'
+//							});
+//
+//						} else if (vals === '2') {
+//
+//							$('#slideNeedToImp').css({
+//								'visibility' : 'visible'
+//							});
+//
+//						}
 
 					});
 
@@ -4709,26 +4610,17 @@ $(document)
 														success : function(
 																result) {
 
-															alert("result is"
-																	+ result);
-
-															$(
-																	"#statusSlideByQuality")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusSlideByQuality')
-																	.html(
-																			result);
+															alert("result is"+ result);
+//															$("#statusSlideByQuality").prop('disabled',false);
+//															$('#statusSlideByQuality').html(result);
+															showStatus(SUCCESS,result);
 
 														},
 
 														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});
@@ -4756,24 +4648,16 @@ $(document)
 														contentType : "application/json",
 														success : function(
 																result) {
-
-															$(
-																	"#statusSlideByQuality")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusSlideByQuality')
-																	.html(
-																			result);
+//															$("#statusSlideByQuality").prop('disabled',false);
+//															$('#statusSlideByQuality').html(result);
+															showStatus(SUCCESS,result);
 
 														},
 
 														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});
@@ -4808,27 +4692,34 @@ $(document)
 
 					// Here is code for Script for Domain review
 
-					$('#scriptStatusAcceptDomain').click(function() {
+//					$('#scriptStatusAcceptDomain').click(function() {
+					$('#scriptStatusAcceptDomain').change(function() {
 
 						var vals = $("#scriptAcceptDomain").val();
-
-						if (vals === '0') {
-							$('#msgScriptDomain').css({
-								'visibility' : 'hidden'
-							});
-						} else if (vals === '1') {
-
-							$('#msgScriptDomain').css({
-								'visibility' : 'hidden'
-							});
-
-						} else if (vals === '2') {
-
-							$('#msgScriptDomain').css({
-								'visibility' : 'visible'
-							});
-
+						
+						if (vals === '2'){
+							$('#scriptNeedImprovement').show();
+						}else{
+							$('#scriptNeedImprovement').hide();
 						}
+
+//						if (vals === '0') {
+//							$('#msgScriptDomain').css({
+//								'visibility' : 'hidden'
+//							});
+//						} else if (vals === '1') {
+//
+//							$('#msgScriptDomain').css({
+//								'visibility' : 'hidden'
+//							});
+//
+//						} else if (vals === '2') {
+//
+//							$('#msgScriptDomain').css({
+//								'visibility' : 'visible'
+//							});
+//
+//						}
 
 					});
 
@@ -4836,94 +4727,109 @@ $(document)
 
 					// Here is code for keyword Quality Review
 
-					$('#keywordAccepOrNeedToImprovementQuality').click(
+					
+//					$('#keywordAccepOrNeedToImprovementQuality').click(
+					$('#keywordQualitAceept').change(
 							function() {
-
+								console.log('changed');
 								var vals = $("#keywordQualitAceept").val();
-
-								if (vals === '0') {
-
-									$('#msgkeywordQuality').css({
-										'visibility' : 'hidden'
-									});
-
-								} else if (vals === '1') {
-
-									$('#msgkeywordQuality').css({
-										'visibility' : 'hidden'
-									});
-
-								} else if (vals === '2') {
-
-									$('#msgkeywordQuality').css({
-										'visibility' : 'visible'
-									});
-
+								if (vals === '2'){
+									$('#NeedImprovementKeyword').show();
 								}
+//								if (vals === '0') {
+//
+//									$('#msgkeywordQuality').css({
+//										'visibility' : 'hidden'
+//									});
+//
+//								} else if (vals === '1') {
+//
+//									$('#msgkeywordQuality').css({
+//										'visibility' : 'hidden'
+//									});
+//
+//								} else if (vals === '2') {
+//
+//									$('#msgkeywordQuality').css({
+//										'visibility' : 'visible'
+//									});
+//
+//								}
 
 							});
 
 					// here is code for Video review into Quality
 
-					$('#VideoAccepOrNeedToImprovementQuality').click(
+//					$('#VideoAccepOrNeedToImprovementQuality').click(
+					$('#videoQualitAceept').change(
 							function() {
 
 								var vals = $("#videoQualitAceept").val();
 
-								if (vals === '0') {
-
-									$('#msgVideoQuality').css({
-										'visibility' : 'hidden'
-									});
-
-								} else if (vals === '1') {
-
-									$('#msgVideoQuality').css({
-										'visibility' : 'hidden'
-									});
-
-								} else if (vals === '2') {
-
-									$('#msgVideoQuality').css({
-										'visibility' : 'visible'
-									});
-
+								if (vals === '2') {
+									$('#NeedImprovement').show();
+								}else{
+									$('#NeedImprovement').hide();
 								}
+//								if (vals === '0') {
+//
+//									$('#msgVideoQuality').css({
+//										'visibility' : 'hidden'
+//									});
+//
+//								} else if (vals === '1') {
+//
+//									$('#msgVideoQuality').css({
+//										'visibility' : 'hidden'
+//									});
+//
+//								} else if (vals === '2') {
+//
+//									$('#msgVideoQuality').css({
+//										'visibility' : 'visible'
+//									});
+//
+//								}
 
 							});
 
 					// Here is code for Domain review -Slide
 
-					$('#SlideStatusAccept').click(function() {
+//					$('#SlideStatusAccept').click(function() {
+					$('#SlideAcceptDomain').change(function() {
 
 						var vals = $("#SlideAcceptDomain").val();
 
-						if (vals === '0') {
-
-							$('#slideNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-
-						} else if (vals === '1') {
-
-							$('#slideNeedImprovement').css({
-								'visibility' : 'hidden'
-							});
-
-						} else if (vals === '2') {
-
-							$('#slideNeedImprovement').css({
-								'visibility' : 'visible'
-							});
-
+						if (vals === '2') {
+							$('#slideNeedImprovement').show();
+						}else{
+							$('#slideNeedImprovement').hide();
 						}
+//						if (vals === '0') {
+//
+//							$('#slideNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//
+//						} else if (vals === '1') {
+//
+//							$('#slideNeedImprovement').css({
+//								'visibility' : 'hidden'
+//							});
+//
+//						} else if (vals === '2') {
+//
+//							$('#slideNeedImprovement').css({
+//								'visibility' : 'visible'
+//							});
+//
+//						}
 
 					});
 
-					$('#slideAcceptOrNeedToImprovemenetByDomain')
-							.click(
+					$('#slideAcceptOrNeedToImprovemenetByDomain').click(
 									function() {
-
+										alert('hereee');
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();
@@ -4952,70 +4858,48 @@ $(document)
 															"lanId" : lanId
 														},
 														contentType : "application/json",
-														success : function(
-																result) {
-
-															$(
-																	"#statusSlideByDomain")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusSlideByDomain')
-																	.html(
-																			result);
+														success : function(result) {
+//															$("#statusSlideByDomain").prop('disabled',false);
+//															$('#statusSlideByDomain').html(result);
+															showStatus(SUCCESS, result);
 
 														},
 
 														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR, result);
 														}
 
 													});
 
 										} else if (vals == '2') {
 
-											var msg = $("#slideCommentMsg")
-													.val();
+											var msg = $("#slideCommentMsg").val();
+											$.ajax({
+												type : "GET",
+												url : "/needToImpSlideByDomain",
+												data : {
+													"categorname" : categoryid,
+													"topicid" : topicid,
+													"lanId" : lanId,
+													'msg' : msg
+												},
+												contentType : "application/json",
+												success : function(
+														result) {
 
-											$
-													.ajax({
+//													$("#statusSlideByDomain").prop('disabled',false);
+//													$('#statusKeywordByQuality').html(result);
+													showStatus(SUCCESS, result);
+												},
 
-														type : "GET",
-														url : "/needToImpSlideByDomain",
-														data : {
-															"categorname" : categoryid,
-															"topicid" : topicid,
-															"lanId" : lanId,
-															'msg' : msg
-														},
-														contentType : "application/json",
-														success : function(
-																result) {
+												error : function(err) {
+													console.log("not working. ERROR: "+ JSON.stringify(err));
+													showStatus(ERROR, result);
+												}
 
-															$(
-																	"#statusSlideByDomain")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusKeywordByQuality')
-																	.html(
-																			result);
-
-														},
-
-														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
-														}
-
-													});
+											});
 
 										}
 
@@ -5028,7 +4912,7 @@ $(document)
 					$('#KeyWordAcceptOrNeedToImprovemenetByQuality')
 							.click(
 									function() {
-
+										alert('clicked');
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();
@@ -5059,30 +4943,22 @@ $(document)
 														contentType : "application/json",
 														success : function(
 																result) {
-
-															$(
-																	"#statusKeywordByQuality")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusKeywordByQuality')
-																	.html(
-																			result);
+															showStatus(SUCCESS,result);
+//															$("#statusKeywordByQuality").prop('disabled',false);
+//															$('#statusKeywordByQuality').html(result);
 
 														},
 
 														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});
 
 										} else if (vals == '2') {
-
+											$('#NeedImprovementKeyword').prop('readonly', true);
 											var msg = $(
 													"#keywordViewInDomainKeyword")
 													.val();
@@ -5102,23 +4978,15 @@ $(document)
 														success : function(
 																result) {
 
-															$(
-																	"#statusKeywordByQuality")
-																	.prop(
-																			'disabled',
-																			false);
-															$(
-																	'#statusKeywordByQuality')
-																	.html(
-																			result);
-
+//															$("#statusKeywordByQuality").prop('disabled',false);
+//															$('#statusKeywordByQuality').html(result);
+															showStatus(SUCCESS,result);
 														},
 
 														error : function(err) {
-															console
-																	.lo3g("not working. ERROR: "
-																			+ JSON
-																					.stringify(err));
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});
@@ -5172,14 +5040,17 @@ $(document)
 																	'#statusQualityByQuality')
 																	.html(
 																			result);
+															showStatus(SUCCESS,result);
 
 														},
 
 														error : function(err) {
 															console
-																	.lo3g("not working. ERROR: "
+																	.log("not working. ERROR: "
 																			+ JSON
 																					.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});
@@ -5213,14 +5084,18 @@ $(document)
 																	'#statusQualityByQuality')
 																	.html(
 																			result);
+															
+															showStatus(SUCCESS,result);
 
 														},
 
 														error : function(err) {
 															console
-																	.lo3g("not working. ERROR: "
+																	.log("not working. ERROR: "
 																			+ JSON
 																					.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
 														}
 
 													});

@@ -64,6 +64,8 @@ public class controllerContributer {
 
 	public static String uploadDirectoryCreationVideo = "src/main/resources/static" + "/Media/content" + "/Creation/Video";
 
+	public static String uploadDirectoryCreationVideo1 = "/Media/content" + "/Creation/Video";
+
 	@Autowired
 	private languagedao languageDao;
 
@@ -391,14 +393,23 @@ public class controllerContributer {
 			  Category category=categoryDao.findBycategoryname(categorname);
 
 
-			  String abc = uploadDirectoryCreationVideo + "/" + categorname + "/"+ lanId + "/"+ topicid;
+//			  String abc = uploadDirectoryCreationVideo + "/" + categorname + "/"+ lanId + "/"+ topicid;
 
-			  new File(abc).mkdirs();
+
+			  Path currentPath = Paths.get(System.getProperty("user.dir"));
+//			  String filePath = String.join(File.pathSeparator, currentPath.toString(), categorname,lanId,topicid);
+
+			  Path filePath = Paths.get(currentPath.toString(), uploadDirectoryCreationVideo,categorname,lanId,topicid);
+			  String fp=  filePath.toString();
+//		      Path videoFilePath = Paths.get(currentPath.toString(), filePath);
+//			  String file= csvFilePath.toString();
+
+			  new File(fp).mkdirs();
 
 			  StringBuilder fileNames = new StringBuilder();
 			  for (MultipartFile file : videofile)
 
-			  { Path fileNameAndPath = Paths.get(abc,
+			  { Path fileNameAndPath = Paths.get(fp,
 			  file.getOriginalFilename()); fileNames.append(file.getOriginalFilename() + " ");
 			  topicName.add(file.getOriginalFilename());
 
@@ -411,9 +422,13 @@ public class controllerContributer {
 
 
 
+			  Path filePath1 = Paths.get(uploadDirectoryCreationVideo1,categorname,lanId,topicid);
 
-			  String substring = fileconversion.substring(26);
+//			  String substring = fileconversion.substring(26);
+			  int firstIndex = fileconversion.indexOf("/Media");
+			  String substring = fileconversion.substring(firstIndex);
 			  String videopath = substring.toString();
+//			  String videopath = filePath1.toString();
 
 
 			  System.err.println("path is"+videopath.toString());
@@ -591,8 +606,18 @@ public class controllerContributer {
 				List<Tutorial> tutorial=tutorialDao.findByCategoryTutorialAndlanguage(catgory,language,topic);
 				for (Tutorial t : tutorial)
 				{
-
+//					set status of outline, script, slide and keyword
 					String[] outlineStatus = {PENDING, DOMAIN_REV_STATUS_MSG,"" ,QUALITY_REV_STATUS_MSG,WAITING_PUBLISH_MSG ,NEED_IMPROVEMENT_MSG};
+					model.addAttribute("statusOutline",outlineStatus[t.getOutlineStatus()]);
+					model.addAttribute("statusScript", outlineStatus[t.getScriptStatus()]);
+					model.addAttribute("statusSlide",outlineStatus[t.getSlideStatus()]);
+					model.addAttribute("statusKeyword",outlineStatus[t.getKeywordStatusSet()]);
+
+//					set status of video
+					String[] videoStatus = {PENDING, ADMIN_REV_STATUS_MSG,DOMAIN_REV_STATUS_MSG,QUALITY_REV_STATUS_MSG,WAITING_PUBLISH_MSG ,NEED_IMPROVEMENT_MSG};
+					model.addAttribute("statusVideo",videoStatus[t.getVideoStatus()]);
+
+
 					boolean[] uploadIcon = new boolean[6]; //default value is false
 					uploadIcon[NO_CONTENT_ADDED] = true;
 					uploadIcon[WAITING_FOR_DOMAIN_REV] = true;
@@ -601,40 +626,42 @@ public class controllerContributer {
 					statusOutlineTrue[NO_CONTENT_ADDED] = false;
 					statusOutlineTrue[2] = false;
 
+
+
 					/* outline */
-					model.addAttribute("statusOutline",outlineStatus[t.getOutlineStatus()]);
+
 					model.addAttribute("uploadIcon",uploadIcon[t.getOutlineStatus()]);
 					model.addAttribute("statusOutlineTrue",statusOutlineTrue[t.getOutlineStatus()]);
 
 					/* script */
 					boolean[] scriptUploadIcon = new boolean[6]; //default value is false
 					scriptUploadIcon[NO_CONTENT_ADDED] = true;
-					model.addAttribute("statusScript", outlineStatus[t.getScriptStatus()]);
+
 					model.addAttribute("uploadIcon",scriptUploadIcon[t.getScriptStatus()]);
 					model.addAttribute("statusScriptTrue",statusOutlineTrue[t.getScriptStatus()]);
 
 					/* slide */
 					boolean[] slideUploadIcon = new boolean[6]; //default value is false
 					slideUploadIcon[NO_CONTENT_ADDED] = true;
-					model.addAttribute("statusSlide",outlineStatus[t.getSlideStatus()]);
+
 					model.addAttribute("uploadIcon",slideUploadIcon[t.getSlideStatus()]);
 					model.addAttribute("statusSlideTrue",statusOutlineTrue[t.getSlideStatus()]);
 
 					/* video */
-					String[] videoStatus = {PENDING, ADMIN_REV_STATUS_MSG,DOMAIN_REV_STATUS_MSG,QUALITY_REV_STATUS_MSG,WAITING_PUBLISH_MSG ,NEED_IMPROVEMENT_MSG};
+
 					boolean[] videoUploadIcon = new boolean[6]; //default value is false
 					videoUploadIcon[NO_CONTENT_ADDED] = true;
 					Boolean[] statusVideoTrue = new Boolean[6];
 					Arrays.fill(statusVideoTrue, Boolean.TRUE);
 					statusVideoTrue[NO_CONTENT_ADDED] = false;
-					model.addAttribute("statusVideo",videoStatus[t.getVideoStatus()]);
+
 					model.addAttribute("uploadIcon",videoUploadIcon[t.getVideoStatus()]);
 					model.addAttribute("statusVideoTrue",statusVideoTrue[t.getVideoStatus()]);
 
 					/* keyword */
 					boolean[] keywwordUploadIcon = new boolean[6]; //default value is false
 					keywwordUploadIcon[NO_CONTENT_ADDED] = true;
-					model.addAttribute("statusKeyword",outlineStatus[t.getKeywordStatusSet()]);
+
 					model.addAttribute("uploadIcon",keywwordUploadIcon[t.getKeywordStatusSet()]);
 					model.addAttribute("statusKeywordTrue",statusOutlineTrue[t.getKeywordStatusSet()]);
 

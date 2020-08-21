@@ -15,9 +15,8 @@
 		
 </head>
   <body>
-  
-  		<div th:replace="common/trail :: navbar1"/>
-  		
+  		<div style="display: flex;">
+		<div th:replace="common/sidebar :: contributor_sidebar"></div>
 		<div class="container-fluid" style="padding-top: 120px">
           	
           	     <div>
@@ -160,7 +159,9 @@
 						               	  </td>
 						               	
 						               			                
-						                <td><a th:href="@{${'/componenettutorial/review/'+ componenettutorial.tutorialid}}"><b><i  class="fas fa-link"></i><u style="color: green;"> Review </u></b></a></td>
+						                <td>
+						                
+						                <a th:href="@{${'/componenettutorial/review/'+ componenettutorial.tutorialid}}"><b><i  class="fas fa-link"></i><u style="color: green;"> Review </u></b></a></td>
 					
 					            </tr>
 					            </tbody>			            
@@ -169,7 +170,7 @@
 					    </div>
          
 			</div> 
-
+			</div>
  			<script src="/js/jquery.min.js"></script>
 		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
 		 
