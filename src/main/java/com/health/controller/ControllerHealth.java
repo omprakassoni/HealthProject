@@ -96,7 +96,7 @@ public class ControllerHealth {
 	public static String uploadDirectorKeyWord = "src/main/resources/static" + "/Media/content" + "/Tutorial/KeyWord";
 
 	public static String uploadMasterTrainer = "src/main/resources/static" + "/Media/content"
-			+ "/MasterTrainer/ParicipantsDeatail";
+			+ "/MasterTrainer/ParticipantsDeatail";
 	public static String uploadMasterTrainerPhoto = "src/main/resources/static" + "/Media/content"
 			+ "/MasterTrainer/Photo";
 
@@ -1933,8 +1933,8 @@ public class ControllerHealth {
 	@RequestMapping("/traninigMasterInformation")
 	  public String addeMaqsterTranierInformation(HttpServletRequest req, Model model,
 
-			  @RequestParam("paricipantsDeatail") MultipartFile[] paricipantsDeatail,
-			  @RequestParam("paricipantsPhoto") MultipartFile[] paricipantsPhoto,
+			  @RequestParam("ParticipantsDeatail") MultipartFile[] ParticipantsDeatail,
+			  @RequestParam("ParticipantsPhoto") MultipartFile[] ParticipantsPhoto,
 			  //@RequestParam(name="stateName") String stateName,
 			  @RequestParam(value="categoryName") int categoryId,
 			  @RequestParam(value="stateName") int state,
@@ -1992,7 +1992,7 @@ public class ControllerHealth {
 			new File(abc).mkdir();
 
 			StringBuilder fileNames = new StringBuilder();
-			for (MultipartFile file : paricipantsDeatail) {
+			for (MultipartFile file : ParticipantsDeatail) {
 
 				Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
 
@@ -2011,7 +2011,7 @@ public class ControllerHealth {
 
 			}
 
-			String paricipantsDeatailFile = mastertrainer.substring(26);
+			String ParticipantsDeatailFile = mastertrainer.substring(26);
 
 
 			String masterTrainerPhotoPath = null;
@@ -2019,7 +2019,7 @@ public class ControllerHealth {
 			new File(masterTrainerPhoto).mkdir();
 
 			StringBuilder fileNamesPhoto = new StringBuilder();
-			for (MultipartFile file : paricipantsPhoto) {
+			for (MultipartFile file : ParticipantsPhoto) {
 
 				Path fileNameAndPath = Paths.get(masterTrainerPhoto, file.getOriginalFilename());
 
@@ -2066,7 +2066,7 @@ public class ControllerHealth {
 
 			  traningInformationObject.setTraingDetail(trainingInformation);
 
-			 traningInformationObject.setParticipant(paricipantsDeatailFile);
+			 traningInformationObject.setParticipant(ParticipantsDeatailFile);
 			 traningInformationObject.setPhoto(participantdeatailPhoto);
 			 traningInformationObject.setUser(user);
 
@@ -2120,7 +2120,7 @@ public class ControllerHealth {
 
 								participantDeatail.setAdharNumber(data[3]);
 								participantDeatail.setGender(data[4]);
-								participantDeatail.setLastname(data[5]);
+//								participantDeatail.setLastname(data[5]);
 								participantDeatail.setCategory(category);
 								participantDeatail.setTitleName(titlename);
 
@@ -2145,7 +2145,8 @@ public class ControllerHealth {
 
 
 
-	  return "redirect:/adminDeatail";
+//	  return "redirect:/adminDeatail";
+		 return "redirect:/masterTrainer";
 
 
 	  }
@@ -2525,6 +2526,30 @@ public class ControllerHealth {
 		return "questionInPdf";
 
 	}
+
+
+//	@RequestMapping("/displayQuestion")
+//	public @ResponseBody List<String> displayQuestion(@RequestParam(name = "catMasterId") int catMasterId,
+//			@RequestParam(name = "lanMasterTrId") String topicId,
+//			@RequestParam(value = "dwnByLanguageId") int dwnByLanguageId, Model model) {
+//
+//		List<String> topicName = new ArrayList<String>();
+//
+//		Category category = categoryDao.findByid(catMasterId);
+//		topic topicDemo = topicRepositarydao.findBytopicname(topicId);
+//		com.health.model.language language = languageDao.findOne(dwnByLanguageId);
+//
+//		List<Question> question = questionreposiatryDao.findByQuestion(topicDemo, category, language);
+//
+//		for (Question s : question) {
+//			// String substring=s.getQuetionpath().substring(23);
+//			topicName.add(s.getQuetionpath());
+//		}
+//		model.addAttribute("questions", question);
+//
+//
+//		return topicName;
+//	}
 
 	/* Here load language according to contributor selectopn language */
 

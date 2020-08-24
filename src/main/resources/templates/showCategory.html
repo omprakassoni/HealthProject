@@ -22,48 +22,7 @@
 </head>
 <body>
 
-    <header role="banner">
-      <div class="top-bar">
-        <div class="container">              
-          <div class="row">
-            <div class="col-md-6 col-sm-6 col-5">
-              <ul class="social list-unstyled">      
-   
-              </ul>
-            </div>
-            <div class="col-md-6 col-sm-6 col-7 text-right">
-  
-  
-  
-						<div sec:authorize="isAuthenticated()"> 
-						  
-						   Logged user: Welcome Admin <span sec:authentication="name"></span> |
-							 Roles: <span sec:authentication="principal.authorities"></span>
-							 
-						</div>
-							
-				<div class="row">
-
-						<div class="col">
-						<a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New User</a>
-						<a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">MY ACCOUNT</a>
-						<a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a>
-				</div>
-		
-			</div>
-            </div>
-              <marquee direction="left">1800 180 0101</marquee>
-  
-          </div><!--
-            Herwe we write login button -->
-       
-          <!--  <a class="btn btn-success float-right" th:href="@{/login}">Login</a>  -->
-   
-        </div>
-      </div>
-     
-  
-</header>
+	<div th:replace="common/trail :: navbar1"/>
           	<div class="container" style="padding-top: 120px">
           	
           	
@@ -80,7 +39,7 @@
 					            </tr>
 					            <tr th:each="product : ${products}">
 					                <td th:text="${product.id}">description</td>  
-					                <td th:text="${product.categoryname}">descirption</td>		
+					                <td th:text="${product.categoryname}">description</td>		
 					                <td><a th:href="${'/category/edit/' + product.id}">Edit</a></td>
 					                <td><a th:href="${'category/delete/' + product.id}">Delete</a></td>
 					                

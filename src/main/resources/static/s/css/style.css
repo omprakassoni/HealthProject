@@ -28,16 +28,24 @@ h1, h2, h3, h4, h5 {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #4e9a06;
-    background-color: rgb(10,42,102);
+    /* background-color: rgb(10,42,102); */
+    background-color: #fff!important;
+    border-radius: 0!important;
 }
 
-.nav-link{
-   
+.nav-pills .nav-link{
+   color: #1C7871!important;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #73d216;
-    background-color: rgb(10,42,102);
+    color: #1C7871;
+    color: #BF360D;
+    font-weight: bold;
+   /*  background-color: rgb(10,42,102); */
+   border-bottom: 2px solid #BF360D;
+   background-color: none!important;
+   
 }
 
 .btn, .form-control {
@@ -223,7 +231,7 @@ header .navbar .dropdown-menu a {
 }
 
 .owl-carousel .owl-dots .owl-dot.active {
-  background: #007bff;
+  /* background: #007bff; */
 }
 
 .owl-carousel.home-slider {

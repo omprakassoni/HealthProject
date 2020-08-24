@@ -1,6 +1,13 @@
 $(document)
 		.ready(
 				function() {
+					 $('.pending-upload').tooltip({ title: 'Pending' });
+					 $('.admin-review').tooltip({ title: 'Waiting for Admin Review' });
+					 $('.domain-review').tooltip({ title: 'Waiting for Domain Review' });
+					 $('.quality-review').tooltip({ title: 'Waiting for Quality Review' });
+					 $('.review-accepted').tooltip({ title: 'Accepted' });
+					 $('.review-improvement').tooltip({ title: 'Need Improvement' });
+					 $('.not-required').tooltip({ title: 'Not Required' });
 
 					/*--------------- constants ---------------*/
 					const SUCCESS = 1;
@@ -40,7 +47,6 @@ $(document)
 
 					}
 					$('.modal-status').on('hidden.bs.modal', function() {
-						alert('here hide');
 						$('.alert-msg').hide();
 
 					});
@@ -446,7 +452,7 @@ $(document)
 
 														var html = '';
 														var len = result.length;
-														html += '<option value="0">Select District</option>';
+														html += '<option value="0">Select Training</option>';
 														for (var i = 0; i < len; i++) {
 															html += '<option value="'
 																	+ result[i]
@@ -456,8 +462,7 @@ $(document)
 														}
 														html += '</option>';
 
-														$("#feedbackmasterId")
-																.prop(
+														$("#feedbackmasterId").prop(
 																		'disabled',
 																		false);
 														$('#feedbackmasterId')
@@ -923,7 +928,6 @@ $(document)
 					$('#keywordModale').on(
 							'shown.bs.modal',
 							function() {
-								alert('keyword shown');
 								var categoryid = $("#categoryId").val();
 								var topicid = $("#topicId").val();
 								var lanId = $("#lanId").val();
@@ -954,14 +958,13 @@ $(document)
 
 					// here is code for
 					$('#outlineModalContri').on('hidden.bs.modal', function() {
-						alert("hidden.bs.modal 2");
 						location.reload();
 
 					});
 					$('#outlineModalContri').on(
 							'shown.bs.modal',
 							function() {
-								alert("shown.bs.modal");
+							
 								var categoryid = $("#categoryId").val();
 								var topicid = $("#topicId").val();
 								var lanId = $("#lanId").val();
@@ -1228,6 +1231,39 @@ $(document)
 										});
 									});
 
+					
+//					question start
+//					$('#fetch_questions').click(
+//							function() {
+//								alert('ques');
+//								var categoryid = $('#catMasterId').val();
+//								var topicid = $('#lanMasterTrId').val();
+//								var lanId = $('#dwnByLanguageId').val();
+//								$.ajax({
+//									type : "GET",
+//									url : "/displayQuestion",
+//									data : {
+//										"categorname" : categoryid,
+//										"topicid" : topicid,
+//										"lanId" : lanId
+//									},
+//									contentType : "application/json",
+//									success : function(result) {
+//										$('#questions').html(result);
+//										console.log(result);
+//										alert('success');
+//									},
+//									error : function(err) {
+//										console.log("not working. ERROR: "+ JSON.stringify(err));
+//										alert('error');
+//									}
+//								});
+//							});
+//					question end
+					
+					
+					
+					
 					$('#catgoryByContributor').click(
 							function() {
 								// var languageName = $form.find( '#lanId'
@@ -2329,7 +2365,7 @@ $(document)
 									function() {
 										$(this).toggle();
 										$('#editOutline').toggle();
-										alert('outlineId click');
+										
 										var saveInfo = editor.getData();
 										console.log("******************");
 										console.log(saveInfo);
@@ -2462,14 +2498,13 @@ $(document)
 									function() {
 
 										// here1
-										alert('here');
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();
 
 										var form = $('#upload-file-form-script')[0];
 										var formData = new FormData(form);
-										alert(form);
+//										alert(form);
 										console.log(form);
 										console.log(form[0]);
 
@@ -2556,7 +2591,7 @@ $(document)
 					$('#videoId')
 							.click(
 									function() {
-										alert('videoId');
+//										alert('videoId');
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();
@@ -2900,7 +2935,7 @@ $(document)
 							function() {
 
 								var contributionId = $("#contributorId").val();
-								alert(contributionId);
+//								alert(contributionId);
 
 								$.ajax({
 									type : "GET",
@@ -3301,12 +3336,12 @@ $(document)
 														} else {
 															// Browser has
 															// blocked it
-															alert('Please allow popups for this website');
+//															alert('Please allow popups for this website');
 														}
 													},
 
 													error : function(err) {
-														alert('failed');
+//														alert('failed');
 														console
 																.log("not working. ERROR: "
 																		+ JSON
@@ -3421,6 +3456,7 @@ $(document)
 															'msg' : msg
 														},
 														contentType : "application/json",
+
 														success : function(
 																result) {
 
@@ -3445,7 +3481,6 @@ $(document)
 
 					// $('#outlineAcceptOtrNeedImp').click(function() {
 					$(".select-review-feedback").change(function() {
-						alert('select !');
 						var val = $(this).val();
 						if (val == '2') {
 							$('.textarea-comment').show();
@@ -4020,7 +4055,7 @@ $(document)
 													"#msgVideoCommentByAdmin")
 													.val();
 
-											alert("mse admin player" + msg);
+//											alert("mse admin player" + msg);
 
 											$
 													.ajax({
@@ -4106,7 +4141,6 @@ $(document)
 //						alert('HERE');
 						var vals = $("#KeywordAcceptDomain").val();
 						if (vals === '2'){
-							alert('here');
 							$('#keywordNeedImprovement').show();
 						}
 
@@ -4610,7 +4644,7 @@ $(document)
 														success : function(
 																result) {
 
-															alert("result is"+ result);
+//															alert("result is"+ result);
 //															$("#statusSlideByQuality").prop('disabled',false);
 //															$('#statusSlideByQuality').html(result);
 															showStatus(SUCCESS,result);
@@ -4829,7 +4863,6 @@ $(document)
 
 					$('#slideAcceptOrNeedToImprovemenetByDomain').click(
 									function() {
-										alert('hereee');
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();
@@ -4912,7 +4945,7 @@ $(document)
 					$('#KeyWordAcceptOrNeedToImprovemenetByQuality')
 							.click(
 									function() {
-										alert('clicked');
+//										alert('clicked');
 										var categoryid = $("#categoryId").val();
 										var topicid = $("#topicId").val();
 										var lanId = $("#lanId").val();

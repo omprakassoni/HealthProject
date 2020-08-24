@@ -8,7 +8,8 @@
 		<meta charset="utf-8"/>
 		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 		 <link rel="stylesheet" href="css/style3.css"/>
- 	 	<link rel="stylesheet" href="css/bootstrap.min.css"/> 
+ 	 	<!-- <link rel="stylesheet" href="css/bootstrap.min.css"/> -->
+ 	 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/> 
  
 			<link rel="stylesheet" type="text/css" href="/datatables.css"/>
 			
@@ -80,28 +81,28 @@
 						        
 							 			 <span th:if="${componenettutorial.getOutlineStatus()==0}">
 									                 
-									               			 <i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									               			 
 									              </span>
 						           
 									                 <span th:if="${componenettutorial.getOutlineStatus()==1}">
 									                 
-									               			 <i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==2}">
 									             	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>
 						               		 
 						    
@@ -109,7 +110,7 @@
 						    
 						               		 		 <span th:if="${componenettutorial.getOutlineStatus()==5}">
 
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   </span>
 
@@ -122,32 +123,32 @@
 						            <span th:if="${componenettutorial.getScriptStatus()==0}">
 									         
 									       
-									                <i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									                <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									               			  
 									   	  </span>	
 						                
 						                  		 <span th:if="${componenettutorial.getScriptStatus()==1}">
 									                 
-									               			 <i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 									               	   <span th:if="${componenettutorial.getScriptStatus()==5}">
 
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>      
@@ -160,31 +161,31 @@
 						    								             	
 						                   <span th:if="${componenettutorial.getSlideStatus()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									        </span>
 						             	
 						                   <span th:if="${componenettutorial.getSlideStatus()==1}">	
 									                 
-									               		<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									        </span>	
 									               	
 									             <span th:if="${componenettutorial.getSlideStatus()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getSlideStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getSlideStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 												     <span th:if="${componenettutorial.getSlideStatus()==5}">
 	
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>
@@ -197,31 +198,31 @@
 						    					    								             	
 						                   <span th:if="${componenettutorial.getKeywordStatusSet()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									        </span>
 						             	
 						                   <span th:if="${componenettutorial.getKeywordStatusSet()==1}">	
 									                 
-									               		<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									        </span>	
 									               	
 									             <span th:if="${componenettutorial.getKeywordStatusSet()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getKeywordStatusSet()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getKeywordStatusSet()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 												     <span th:if="${componenettutorial.getKeywordStatusSet()==5}">
 	
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>
@@ -235,12 +236,12 @@
 													               	   
 						              <span th:if="${componenettutorial.getVideoStatus()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									  </span>
 									   
 									    <span th:if="${ componenettutorial.getVideoStatus()== 1}">
 						                   
-						            				<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+						            				<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 						                		
 						                 </span>
 									  
@@ -263,7 +264,7 @@
 						                   </span>
 						                   
 						              		 <span th:if="${componenettutorial.getVideoStatus()== 5}">
-						                   <i style="color: red;" class="fas fa-times-circle"></i>
+						                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 						                   </span>
 						    
 					   </td>						    
@@ -326,28 +327,28 @@
 						        
 							 			 <span th:if="${componenettutorial.getOutlineStatus()==0}">
 									                 
-									               			 <i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									               			 
 									              </span>
 						           
 									                 <span th:if="${componenettutorial.getOutlineStatus()==1}">
 									                 
-									               			 <i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==2}">
 									             	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>
 						               		 
 						    
@@ -355,7 +356,7 @@
 						    
 						               		 		 <span th:if="${componenettutorial.getOutlineStatus()==5}">
 
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   </span>
 
@@ -368,32 +369,32 @@
 						            <span th:if="${componenettutorial.getScriptStatus()==0}">
 									         
 									       
-									                <i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									                <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									               			  
 									   	  </span>	
 						                
 						                  		 <span th:if="${componenettutorial.getScriptStatus()==1}">
 									                 
-									               			 <i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 									               	   <span th:if="${componenettutorial.getScriptStatus()==5}">
 
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>      
@@ -406,31 +407,31 @@
 						    								             	
 						                   <span th:if="${componenettutorial.getSlideStatus()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									        </span>
 						             	
 						                   <span th:if="${componenettutorial.getSlideStatus()==1}">	
 									                 
-									               		<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									        </span>	
 									               	
 									             <span th:if="${componenettutorial.getSlideStatus()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getSlideStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getSlideStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 												     <span th:if="${componenettutorial.getSlideStatus()==5}">
 	
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>
@@ -443,31 +444,31 @@
 						    					    								             	
 						                   <span th:if="${componenettutorial.getKeywordStatusSet()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									        </span>
 						             	
 						                   <span th:if="${componenettutorial.getKeywordStatusSet()==1}">	
 									                 
-									               		<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									        </span>	
 									               	
 									             <span th:if="${componenettutorial.getKeywordStatusSet()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getKeywordStatusSet()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getKeywordStatusSet()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 												     <span th:if="${componenettutorial.getKeywordStatusSet()==5}">
 	
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>
@@ -481,12 +482,12 @@
 													               	   
 						              <span th:if="${componenettutorial.getVideoStatus()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									  </span>
 									   
 									    <span th:if="${ componenettutorial.getVideoStatus()== 1}">
 						                   
-						            				<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+						            				<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 						                		
 						                 </span>
 									  
@@ -509,7 +510,7 @@
 						                   </span>
 						                   
 						              		 <span th:if="${componenettutorial.getVideoStatus()== 5}">
-						                   <i style="color: red;" class="fas fa-times-circle"></i>
+						                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 						                   </span>
 						    
 					   </td>						    
@@ -572,28 +573,28 @@
 						        
 							 			 <span th:if="${componenettutorial.getOutlineStatus()==0}">
 									                 
-									               			 <i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									               			 
 									              </span>
 						           
 									                 <span th:if="${componenettutorial.getOutlineStatus()==1}">
 									                 
-									               			 <i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==2}">
 									             	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>
 						               		 
 						    
@@ -601,7 +602,7 @@
 						    
 						               		 		 <span th:if="${componenettutorial.getOutlineStatus()==5}">
 
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   </span>
 
@@ -614,32 +615,32 @@
 						            <span th:if="${componenettutorial.getScriptStatus()==0}">
 									         
 									       
-									                <i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									                <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									               			  
 									   	  </span>	
 						                
 						                  		 <span th:if="${componenettutorial.getScriptStatus()==1}">
 									                 
-									               			 <i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 									               	   <span th:if="${componenettutorial.getScriptStatus()==5}">
 
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>      
@@ -652,31 +653,31 @@
 						    								             	
 						                   <span th:if="${componenettutorial.getSlideStatus()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									        </span>
 						             	
 						                   <span th:if="${componenettutorial.getSlideStatus()==1}">	
 									                 
-									               		<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									        </span>	
 									               	
 									             <span th:if="${componenettutorial.getSlideStatus()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getSlideStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getSlideStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 												     <span th:if="${componenettutorial.getSlideStatus()==5}">
 	
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>
@@ -689,31 +690,31 @@
 						    					    								             	
 						                   <span th:if="${componenettutorial.getKeywordStatusSet()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									        </span>
 						             	
 						                   <span th:if="${componenettutorial.getKeywordStatusSet()==1}">	
 									                 
-									               		<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									        </span>	
 									               	
 									             <span th:if="${componenettutorial.getKeywordStatusSet()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getKeywordStatusSet()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getKeywordStatusSet()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 												     <span th:if="${componenettutorial.getKeywordStatusSet()==5}">
 	
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>
@@ -727,12 +728,12 @@
 													               	   
 						              <span th:if="${componenettutorial.getVideoStatus()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									  </span>
 									   
 									    <span th:if="${ componenettutorial.getVideoStatus()== 1}">
 						                   
-						            				<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+						            				<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 						                		
 						                 </span>
 									  
@@ -755,7 +756,7 @@
 						                   </span>
 						                   
 						              		 <span th:if="${componenettutorial.getVideoStatus()== 5}">
-						                   <i style="color: red;" class="fas fa-times-circle"></i>
+						                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 						                   </span>
 						    
 					   </td>						    
@@ -818,28 +819,28 @@
 						        
 							 			 <span th:if="${componenettutorial.getOutlineStatus()==0}">
 									                 
-									               			 <i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									               			 
 									              </span>
 						           
 									                 <span th:if="${componenettutorial.getOutlineStatus()==1}">
 									                 
-									               			 <i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==2}">
 									             	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getOutlineStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>
 						               		 
 						    
@@ -847,7 +848,7 @@
 						    
 						               		 		 <span th:if="${componenettutorial.getOutlineStatus()==5}">
 
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   </span>
 
@@ -860,32 +861,32 @@
 						            <span th:if="${componenettutorial.getScriptStatus()==0}">
 									         
 									       
-									                <i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									                <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									               			  
 									   	  </span>	
 						                
 						                  		 <span th:if="${componenettutorial.getScriptStatus()==1}">
 									                 
-									               			 <i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getScriptStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 									               	   <span th:if="${componenettutorial.getScriptStatus()==5}">
 
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>      
@@ -898,31 +899,31 @@
 						    								             	
 						                   <span th:if="${componenettutorial.getSlideStatus()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									        </span>
 						             	
 						                   <span th:if="${componenettutorial.getSlideStatus()==1}">	
 									                 
-									               		<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									        </span>	
 									               	
 									             <span th:if="${componenettutorial.getSlideStatus()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getSlideStatus()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getSlideStatus()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 												     <span th:if="${componenettutorial.getSlideStatus()==5}">
 	
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>
@@ -935,31 +936,31 @@
 						    					    								             	
 						                   <span th:if="${componenettutorial.getKeywordStatusSet()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									        </span>
 						             	
 						                   <span th:if="${componenettutorial.getKeywordStatusSet()==1}">	
 									                 
-									               		<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 									        </span>	
 									               	
 									             <span th:if="${componenettutorial.getKeywordStatusSet()==2}">
 									               	  
-									               			<i  style="color: orange;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	 
 									               	
 									               	  <span th:if="${componenettutorial.getKeywordStatusSet()==3}">
 									               	  
-									               			 <i  style="color: aqua;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
 									               	</span>	
 									               	
 									               	  <span th:if="${componenettutorial.getKeywordStatusSet()==4}">
 									               	  
-									               			 <i  style="color: green;" class="fas fa-check-circle"></i>
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
 									               	  </span>
 												     <span th:if="${componenettutorial.getKeywordStatusSet()==5}">
 	
-									                   <i style="color: red;" class="fas fa-times-circle"></i>
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 									                   
 									                   
 									                   </span>
@@ -973,12 +974,12 @@
 													               	   
 						              <span th:if="${componenettutorial.getVideoStatus()==0}">
 									                 
-									               			<i  style="color: #FFFF00;" class="fas fa-check-circle"></i>
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
 									  </span>
 									   
 									    <span th:if="${ componenettutorial.getVideoStatus()== 1}">
 						                   
-						            				<i  style="color: #ff97a0;" class="fas fa-check-circle"></i>
+						            				<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
 						                		
 						                 </span>
 									  
@@ -1001,7 +1002,7 @@
 						                   </span>
 						                   
 						              		 <span th:if="${componenettutorial.getVideoStatus()== 5}">
-						                   <i style="color: red;" class="fas fa-times-circle"></i>
+						                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
 						                   </span>
 						    
 					   </td>						    
@@ -1054,7 +1055,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 			 	
-			
+			 	
+			<script src="/js/ajaxSupport.js"></script>
 			
 			
 			</div>

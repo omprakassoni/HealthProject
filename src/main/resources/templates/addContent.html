@@ -493,7 +493,7 @@
 												<!-- <iframe src="about:blank" name="videoSet" id="videoSet"  height="240" width="320" scrolling="auto" autoplay="autoplay">
 		 </iframe>	 
 		 -->
-												<div id="videoDiv" class="container" height="240"
+												<div th:if="${tutorial.getVideoStatus()}" id="videoDiv" class="container" height="240"
 													width="320" scrolling="auto" autoplay="autoplay">
 
 													<video id='storedVideoId' height="240" width="320"
@@ -514,9 +514,9 @@
 
 
 											</div>
-											<button id="videoClick1" type="button"
+											<!-- <button id="videoClick1" type="button"
 												class="btn btn-success">View</button>
-
+ -->
 											<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->
 
 										</form>

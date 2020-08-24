@@ -7,34 +7,41 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/style3.css" />
-<link rel="stylesheet" href="css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
 
 </head>
 <body>
 	<div style="display: flex;">
 		<div th:replace="common/sidebar :: contributor_sidebar"></div>
 		<div class="row" style='width: 100%;'>
-			<div class="col-lg-10 col-xl-9 mx-auto" style="border:2px solid red;">
+			<div class="col-lg-10 col-xl-9 mx-auto">
 				 <div class="card card-signin flex-row a-card">
 					<div class="card-body">
 						<h5 class="card-title text-center a-card-title">
 							<div class="">
-								<div th:if="${msgSuccefull}">
+								<!-- <div th:if="${msgSuccefull}">
 									<span th:text="${msgSuccefull}"></span>
-								</div>
+								</div> -->
+								
 							</div>
 						</h5>
 						<div sec:authorize="hasAnyAuthority('MasterTrainer')">
 
 							  
-	<H4 style="padding-left: 50px ;color: gray;">Welcome to  Master Trainer</H4>
+	<!-- <h4 class="mb-3">Master Trainer</h4> -->
  								
 	<div class="#">
-	<div class="" style="padding-left: 50px; padding-top: 160px">
+	<div class="" >
 	
 	<div class="row">
-		  <div class="col-3">
-		    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+	<div class="col-sm-12">
+	<div>
+									<span th:text="${msg}"></span>
+								</div>
+	</div>
+		  <div class="col-12">
+		    <div class="nav d-flex nav-pills mb-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 		      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Training Information</a>
 		      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Questionnaire	</a>
 		      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Feedback Form</a>
@@ -42,21 +49,25 @@
 
 		    </div>
 		  </div>
-		  <div class="col-9">
+		  <div class="col-12">
 		    <div class="tab-content" id="v-pills-tabContent">
 		      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 		      
-		    		<div class="container">
+		    		<!-- <div class="container"> -->
+		    		<div>
 		    					
  					
-				
+				<h4 class="text-center">Add Training Information</h4>
 		    		
-		    		<div class="row shadow p-3 mb-5 bg-white rounded">
+		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
+		    		<div class="row  p-3 mb-5 bg-white ">
 		    		
 		    		<span style="color: gray; font-family: cursive; text-shadow: 10px"><H2> </H2></span>
 		    		
 		    		
-		    		  <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 250px" >Add Training Information</div>
+		    		  <!-- <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 250px" >Add Training Information</div> -->
+		    		  
+		    		  
 		    		  
 	
 		    		<div class=" col-md-12" style="padding-left: 100px">
@@ -74,7 +85,8 @@
 							}
 						
 			  </script>
-						    <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);">
+						    <!-- <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);"> -->
+						    <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data">
 						    
 									  <div class="form-group ">
 									    <label for="date">Start Date </label>
@@ -211,8 +223,8 @@
 
 						  <div class="form-group">
 						
-						  		 <label for="paricipantsDe">Participants Detail</label>
-						      <input type="file" class="form-control w-75" id="paricipantsDeatailId" accept=".csv" name="paricipantsDeatail" required="required"/>
+						  		 <label for="ParticipantsDe">Participants Detail</label>
+						      <input type="file" class="form-control w-75" id="ParticipantsDeatailId" accept=".csv" name="ParticipantsDeatail" required="required"/>
 				
 						    </div>
 						    
@@ -220,8 +232,8 @@
 						    		  
 						  <div class="form-group">
 						
-						  		 <label for="paricipantsPhoto">Paricipants Photo</label>
-						      <input type="file" class="form-control w-75" id="paricipantsPhotoId" accept=".zip" name="paricipantsPhoto" required="required"/>
+						  		 <label for="ParticipantsPhoto">Participants Photo</label>
+						      <input type="file" class="form-control w-75" id="ParticipantsPhotoId" accept=".zip" name="ParticipantsPhoto" required="required"/>
 				
 						    </div>
 						    
@@ -241,17 +253,19 @@
 		      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 		      
 		      
-		      
+		      <h4 class="text-center">Download Question</h4>
 		    		<div class="container">
 		    		
-		    		<div class="row shadow p-3 mb-5 bg-white rounded">
+		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
+		    		<div class="row  p-3 mb-5 bg-white ">
 		    		
-		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Download Question</div>
+		    		<!--  <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Download Question</div> -->
 		    		
 		    		<div class=" col-md-12" style="padding-left: 100px">
 		    		
 		    
-						    <form action="/displayQuestion" method="post">
+						    <form action="/displayQuestion" method="post"> 
+					<!-- 	     <form > -->
 						    
 			 
 			 				    
@@ -310,12 +324,16 @@
 							 </div>
 							 
 			 
-		  						<button type="submit" class="btn  btn-success">Submit</button>
+		  						<button type="submit" class="btn  btn-success" id="fetch_questions">Submit</button>
 			 
 				 
 					 </div>
 				 
 					</form>
+					
+					<div style="border:1px solid green;" id="questions">
+						
+					</div>
 				
 					</div>
 				
@@ -325,11 +343,12 @@
 		
 		      </div>
 		      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-
+<h4 class="text-center">Feedback form</h4>
 							<div class="container">
 		    		
-		    		<div class="row shadow p-3 mb-5 bg-white rounded">
-		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Feedback form</div>
+		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
+		    		<div class="row  p-3 mb-5 bg-white ">
+		    		 <!-- <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Feedback form</div> -->
 		    		<div class=" col-md-12" style="padding-left: 100px">
 		    		
 		    
@@ -352,10 +371,10 @@
 								 
 						<div class="form-group">
 								 	  
-									   <label for="feedbackmasterId">Select Title Name</label>
+									   <label for="feedbackmasterId">Select Training</label>
                                        <select id="feedbackmasterId" class="form-control w-75" name="feedbackmasterId"   required="required" >
 			
-								                        <option selected="selected" >Select Title Name</option>      
+								                        <option selected="selected" >Select Training </option>      
 								                        
 									  </select>
 						 	 </div>		 
@@ -406,12 +425,13 @@
 		 <div class="#" style="padding-top: 20px">
           	
           	
-          	
+          	<h4 class="text-center">View Participant Detail</h4>
           			<div class="container">
 		    		
-		    		<div class="row shadow p-3 mb-5 bg-white rounded">
+		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
+		    		<div class="row  p-3 mb-5 bg-white ">
 		    		
-		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >View Participant Detail</div>
+		    		 <!-- <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >View Participant Detail</div> -->
 		    		
 		    		<div class=" col-md-12" style="padding-left: 100px">
 		    		

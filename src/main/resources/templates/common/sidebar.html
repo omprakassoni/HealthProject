@@ -337,6 +337,7 @@
 				
 			</li>
 			<div sec:authorize="hasAnyAuthority('Admin')">
+			
 				<li class="item">
 				<a th:href="@{approveRole}" class="menu-btn">
 					<i class="fas fa-info-circle"></i>
@@ -358,6 +359,48 @@
 					<a th:href="@{Testimonial}"><i class="fas fa-address-card"></i>
 						<span>Testimonials</span>
 					</a>
+				</div>
+			</li>
+			
+			<li class="item" id="View">
+				<a href="#View" class="menu-btn">
+					<i class="fas fa-database"></i>
+					<span>View<i class="fas fa-chevron-down drop-down"></i></span>
+				</a>
+				<div class="sub-menu">
+					<a th:href="@{show_category}"><i class="fas fa-image"></i>
+						<span>List Category</span>
+					</a>
+					<a th:href="@{show_testimonial}"><i class="fas fa-address-card"></i>
+						<span>List Testimonial </span>
+					</a>
+					<a th:href="@{show_language}"><i class="fas fa-address-card"></i>
+						<span>List Language</span>
+					</a>
+					<a th:href="@{show_Event}"><i class="fas fa-address-card"></i>
+						<span>Event</span>
+					</a>
+						<a th:href="@{show_feedbackMasterTrainer}"><i class="fas fa-address-card"></i>
+						<span>feedback Master Trainer</span>
+					</a>
+					
+						<a th:href="@{adminShowMasterTrainer}"><i class="fas fa-address-card"></i>
+						<span>List Master Trainer</span>
+					</a>
+					
+					<a th:href="@{adminShowQualityreviweer}"><i class="fas fa-address-card"></i>
+						<span>List Quality Trainer</span>
+					</a>
+					
+					<a th:href="@{adminShowDomainReviweer}"><i class="fas fa-address-card"></i>
+						<span>List Domain Trainer</span>
+					</a>
+					<a th:href="@{listparicipant}"><i class="fas fa-address-card"></i>
+						<span>List of Participant  Trainer</span>
+					</a>
+					
+				
+					
 				</div>
 			</li>
 
