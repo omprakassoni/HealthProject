@@ -3463,7 +3463,6 @@ $(document)
 //															$("#statusKeywordByDomain").prop('disabled',false);
 //															$('#statusKeywordByDomain').html(result);
 															showStatus(SUCCESS,result);
-
 														},
 
 														error : function(err) {
