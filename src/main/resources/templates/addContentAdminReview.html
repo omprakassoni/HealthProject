@@ -24,7 +24,7 @@
   <body>
   
   
-  		
+  	
   		
 	<div style="display:flex;">
   		<div th:replace="common/sidebar :: contributor_sidebar"></div>
@@ -36,13 +36,14 @@
 
  		</script>
 
-	    <div class="row" style='width:100%;'>	  
+	    <div class="row a-card" style='width:100%;'>
+	    <div class="col-sm-12 alert alert-msg m-3" style="display: none;"></div>  
 	      <div class="col-lg-10 col-xl-9 mx-auto">
-	        <div class="card card-signin flex-row a-card">
+	        <div class="card card-signin flex-row ">
 	       
 	       
 	
-	       
+	       	
 	          <div class="card-body">
 	            <h5 class="card-title text-center a-card-title" style="color:maroon;"> Admin Review</h5>
 	            
@@ -113,15 +114,30 @@
 
 				<div class="form-group">
 		
-								<div id="videoDiv" class="row" height="240" width="320" scrolling="auto" autoplay="autoplay">
+								<!-- <div id="videoDiv" class="row" scrolling="auto" autoplay="autoplay">
 								   
-								   <div class="col-sm-12" style="border:2px solid red;">
+								   <div class="col-sm-12" >
 								   	<video id='storedVideoId' height="240" width="320" controls="controls">
 								    </video>
+								    <video id='storedVideoId' height="240" width="320"
+														controls="controls" style="width:100%!important;">
+													<source src="movie.mp4" type="video/mp4">
+													<source th:src="${tutorial.getVideo()}" type="video/mp4"></source>
+													<source th:src="${tutorialComponenet.getVideo()}" type="video/mp4"></source>
+													</video>
 								   </div>
-								</div>
+								</div> -->
+								
+								<div class="embed-responsive embed-responsive-16by9 mb-5">
+  <video id='storedVideoId' 
+														controls="controls" style="width:100%!important;">
+													<!-- <source src="movie.mp4" type="video/mp4"> -->
+													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
+													<source th:src="${tutorialComponenet.getVideo()}" type="video/mp4"></source>
+													</video>
+</div>
 								<div class="row">
-								<div class="col-md-12" style="border: 1px solid green;">
+								<div class="col-md-12">
 								<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
 
 						          <div class="form-group">
@@ -136,14 +152,15 @@
 				                    
 						          </div>
 						          
-				 <div id="videoNeedImprovement" style="visibility: hidden">
+				 <div id="videoNeedImprovement" style="display: none;">
 				 
-				 
-								 <textarea class="form-control"  name="msgVideoCommentByAdmin" id="msgVideoCommentByAdmin" rows="10" required="required" />
+				 	<label for="msgVideoCommentByAdmin">Comments : </label>
+								 <textarea class="form-control"  name="msgVideoCommentByAdmin" 
+								 id="msgVideoCommentByAdmin" rows="10" required="required" ></textarea>
 							
 				</div>
-				<br/>
-				              
+				
+				<hr/>              
 				 <button id="videoAcceptOrNeedToImprovemenetByAdmin"  type="button" class="btn btn-success">Submit</button>	   
 
 		</form>	
@@ -152,7 +169,7 @@
 		
 	            </div>
 						 <!-- <button id="videoClick" type="button" class="btn btn-success" >View</button> -->
-						 <button id="videoViewAdmin" type="button" class="btn btn-success" >Viewss</button>	 
+						<!--  <button id="videoViewAdmin" type="button" class="btn btn-success" >Viewss</button> -->	 
 						 
 						 
 						   

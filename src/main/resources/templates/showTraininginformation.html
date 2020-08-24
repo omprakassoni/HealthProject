@@ -43,7 +43,7 @@
 					                <th>City</th>	
 					          	    <th>Address Information</th>
 					                <th>Pin Code</th>
-					                <th>Paricipants Photo</th>
+					                <th>Participants Photo</th>
 					            <!--     <th>Edit</th> -->
 					                
 					            </tr>
@@ -51,15 +51,15 @@
 					            <tbody>
 					            	<tr th:each="traInfo : ${traInformation}">
 						              
-						                <td th:text="${traInfo.date}">descirption</td>
-						                <td th:text="${traInfo.endDate}">descirption</td>
-						                 <td th:text="${traInfo.categoryname}">descirption</td>
+						                <td th:text="${traInfo.date}">description</td>
+						                <td th:text="${traInfo.endDate}">description</td>
+						                 <td th:text="${traInfo.categoryname}">description</td>
 						                <td th:text="${traInfo.traingDetail}">description</td>  
-						                <td th:text="${traInfo.state}">descirption</td>
-						                <td th:text="${traInfo.districit}">descirption</td>
-						                <td th:text="${traInfo.city}">descirption</td>
-									   <td th:text="${traInfo.addressInformation}">descirption</td>
-									   <td th:text="${traInfo.pincode}">descirption</td>
+						                <td th:text="${traInfo.state}">description</td>
+						                <td th:text="${traInfo.districit}">description</td>
+						                <td th:text="${traInfo.city}">description</td>
+									   <td th:text="${traInfo.addressInformation}">description</td>
+									   <td th:text="${traInfo.pincode}">description</td>
 								<td>
 										<a  th:href="${traInfo.photo}"><i style="padding-left: 30px" class="fa fa-download" aria-hidden="true"></i></a>  
 											

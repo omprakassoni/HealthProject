@@ -39,7 +39,7 @@
 					            </tr>
 					            <tr th:each="product : ${products}">
 					                <td th:text="${product.id}">description</td>  
-					                <td th:text="${product.categoryname}">descirption</td>		
+					                <td th:text="${product.categoryname}">description</td>		
 					                <td><a th:href="${'/category/edit/' + product.id}">Edit</a></td>
 					                <td><a th:href="${'category/delete/' + product.id}">Delete</a></td>
 					                

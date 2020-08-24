@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -52,12 +53,18 @@ public class controllerContributer {
 	public static final String QUALITY_REV_STATUS_MSG = "Waiting for Quality Review" ;
 	public static final String WAITING_PUBLISH_MSG = "Waiting for publish" ;
 	public static final String NEED_IMPROVEMENT_MSG = "Need for improvement";
+	public static final String PENDING = "Pending";
+
+	public static final int NO_CONTENT_ADDED = 0;
+	public static final int WAITING_FOR_DOMAIN_REV = 1;
 
 	public static String uploadDirectoryCreation = "src/main/resources/static" + "/Media/content" + "/Creation/Slide";
 
 	public static String uploadDirectoryCreationScripts = "src/main/resources/static" + "/Media/content" + "/Creation/Script";
 
 	public static String uploadDirectoryCreationVideo = "src/main/resources/static" + "/Media/content" + "/Creation/Video";
+
+	public static String uploadDirectoryCreationVideo1 = "/Media/content" + "/Creation/Video";
 
 	@Autowired
 	private languagedao languageDao;
@@ -386,14 +393,23 @@ public class controllerContributer {
 			  Category category=categoryDao.findBycategoryname(categorname);
 
 
-			  String abc = uploadDirectoryCreationVideo + "/" + categorname + "/"+ lanId + "/"+ topicid;
+//			  String abc = uploadDirectoryCreationVideo + "/" + categorname + "/"+ lanId + "/"+ topicid;
 
-			  new File(abc).mkdirs();
+
+			  Path currentPath = Paths.get(System.getProperty("user.dir"));
+//			  String filePath = String.join(File.pathSeparator, currentPath.toString(), categorname,lanId,topicid);
+
+			  Path filePath = Paths.get(currentPath.toString(), uploadDirectoryCreationVideo,categorname,lanId,topicid);
+			  String fp=  filePath.toString();
+//		      Path videoFilePath = Paths.get(currentPath.toString(), filePath);
+//			  String file= csvFilePath.toString();
+
+			  new File(fp).mkdirs();
 
 			  StringBuilder fileNames = new StringBuilder();
 			  for (MultipartFile file : videofile)
 
-			  { Path fileNameAndPath = Paths.get(abc,
+			  { Path fileNameAndPath = Paths.get(fp,
 			  file.getOriginalFilename()); fileNames.append(file.getOriginalFilename() + " ");
 			  topicName.add(file.getOriginalFilename());
 
@@ -406,9 +422,13 @@ public class controllerContributer {
 
 
 
+			  Path filePath1 = Paths.get(uploadDirectoryCreationVideo1,categorname,lanId,topicid);
 
-			  String substring = fileconversion.substring(26);
+//			  String substring = fileconversion.substring(26);
+			  int firstIndex = fileconversion.indexOf("/Media");
+			  String substring = fileconversion.substring(firstIndex);
 			  String videopath = substring.toString();
+//			  String videopath = filePath1.toString();
 
 
 			  System.err.println("path is"+videopath.toString());
@@ -580,202 +600,256 @@ public class controllerContributer {
 		{
 
 				Category catgory=categoryDao.findBycategoryname(categoryId);
-
 				topic topic=topicRepositarydao.findBytopicname(inputTopic);
-
 				com.health.model.language language=languageDao.findBylanguageName(inputLanguage);
 
-
-				List<Tutorial> tutorial=tutorialDao.findByCategoryAndlanguage(catgory,language,topic);
-
+				List<Tutorial> tutorial=tutorialDao.findByCategoryTutorialAndlanguage(catgory,language,topic);
 				for (Tutorial t : tutorial)
 				{
+//					set status of outline, script, slide and keyword
+					String[] outlineStatus = {PENDING, DOMAIN_REV_STATUS_MSG,"" ,QUALITY_REV_STATUS_MSG,WAITING_PUBLISH_MSG ,NEED_IMPROVEMENT_MSG};
+					model.addAttribute("statusOutline",outlineStatus[t.getOutlineStatus()]);
+					model.addAttribute("statusScript", outlineStatus[t.getScriptStatus()]);
+					model.addAttribute("statusSlide",outlineStatus[t.getSlideStatus()]);
+					model.addAttribute("statusKeyword",outlineStatus[t.getKeywordStatusSet()]);
 
-								if(t.getOutlineStatus()==0)
-								{
-									model.addAttribute("statusOutline","Pending");
-									model.addAttribute("uploadIcon",true);
-
-								}else if (t.getOutlineStatus()==1)
-								{
-
-									model.addAttribute("statusOutline",DOMAIN_REV_STATUS_MSG);
-									model.addAttribute("statusOutlineTrue", true);
-									model.addAttribute("uploadIcon",true);
+//					set status of video
+					String[] videoStatus = {PENDING, ADMIN_REV_STATUS_MSG,DOMAIN_REV_STATUS_MSG,QUALITY_REV_STATUS_MSG,WAITING_PUBLISH_MSG ,NEED_IMPROVEMENT_MSG};
+					model.addAttribute("statusVideo",videoStatus[t.getVideoStatus()]);
 
 
-
-								}else if(t.getOutlineStatus()==3){
-
-
-									model.addAttribute("statusOutline",QUALITY_REV_STATUS_MSG);
-									model.addAttribute("statusOutlineTrue", true);
-
-
-
-								}else if(t.getOutlineStatus()==5)
-								{
-
-									model.addAttribute("statusOutline",NEED_IMPROVEMENT_MSG);
-									model.addAttribute("statusOutlineTrue", true);
-
-								}else if (t.getOutlineStatus()==4) {
-
-									model.addAttribute("statusOutline","Waiting For Publish");
-									model.addAttribute("statusOutlineTrue", true);
-
-								}
+					boolean[] uploadIcon = new boolean[6]; //default value is false
+					uploadIcon[NO_CONTENT_ADDED] = true;
+					uploadIcon[WAITING_FOR_DOMAIN_REV] = true;
+					Boolean[] statusOutlineTrue = new Boolean[6];
+					Arrays.fill(statusOutlineTrue, Boolean.TRUE);
+					statusOutlineTrue[NO_CONTENT_ADDED] = false;
+					statusOutlineTrue[2] = false;
 
 
-			/* outline */
 
-								if(t.getScriptStatus()==0)
-								{
+					/* outline */
 
-									model.addAttribute("statusScript", "Pending");
-									model.addAttribute("uploadIcon",true);
+					model.addAttribute("uploadIcon",uploadIcon[t.getOutlineStatus()]);
+					model.addAttribute("statusOutlineTrue",statusOutlineTrue[t.getOutlineStatus()]);
 
-								}else if (t.getScriptStatus()==1)
-								{
+					/* script */
+					boolean[] scriptUploadIcon = new boolean[6]; //default value is false
+					scriptUploadIcon[NO_CONTENT_ADDED] = true;
 
-									model.addAttribute("statusScript",DOMAIN_REV_STATUS_MSG);
-									model.addAttribute("statusScriptTrue", true);
+					model.addAttribute("uploadIcon",scriptUploadIcon[t.getScriptStatus()]);
+					model.addAttribute("statusScriptTrue",statusOutlineTrue[t.getScriptStatus()]);
 
-								}else if(t.getScriptStatus()==3){
+					/* slide */
+					boolean[] slideUploadIcon = new boolean[6]; //default value is false
+					slideUploadIcon[NO_CONTENT_ADDED] = true;
 
-									model.addAttribute("statusScript",QUALITY_REV_STATUS_MSG);
-									model.addAttribute("statusScriptTrue", true);
+					model.addAttribute("uploadIcon",slideUploadIcon[t.getSlideStatus()]);
+					model.addAttribute("statusSlideTrue",statusOutlineTrue[t.getSlideStatus()]);
+
+					/* video */
+
+					boolean[] videoUploadIcon = new boolean[6]; //default value is false
+					videoUploadIcon[NO_CONTENT_ADDED] = true;
+					Boolean[] statusVideoTrue = new Boolean[6];
+					Arrays.fill(statusVideoTrue, Boolean.TRUE);
+					statusVideoTrue[NO_CONTENT_ADDED] = false;
+
+					model.addAttribute("uploadIcon",videoUploadIcon[t.getVideoStatus()]);
+					model.addAttribute("statusVideoTrue",statusVideoTrue[t.getVideoStatus()]);
+
+					/* keyword */
+					boolean[] keywwordUploadIcon = new boolean[6]; //default value is false
+					keywwordUploadIcon[NO_CONTENT_ADDED] = true;
+
+					model.addAttribute("uploadIcon",keywwordUploadIcon[t.getKeywordStatusSet()]);
+					model.addAttribute("statusKeywordTrue",statusOutlineTrue[t.getKeywordStatusSet()]);
 
 
-								}else if(t.getScriptStatus()==4){
-
-									model.addAttribute("statusScript",WAITING_PUBLISH_MSG);
-									model.addAttribute("statusScriptTrue", true);
 
 
-								}
-								else if(t.getScriptStatus()==5)
-								{
-									model.addAttribute("statusScript","Need To Impprovement");
-									model.addAttribute("statusScriptTrue", true);
+//								if(t.getOutlineStatus()==0)
+//								{
+//									model.addAttribute("statusOutline","Pending");
+//									model.addAttribute("uploadIcon",true);
+//
+//								}else if (t.getOutlineStatus()==1)
+//								{
+//									model.addAttribute("statusOutline",DOMAIN_REV_STATUS_MSG);
+//									model.addAttribute("statusOutlineTrue", true);
+//									model.addAttribute("uploadIcon",true);
+//
+//
+//
+//								}else if(t.getOutlineStatus()==3){
+//									model.addAttribute("statusOutline",QUALITY_REV_STATUS_MSG);
+//									model.addAttribute("statusOutlineTrue", true);
+//
+//
+//
+//								}else if(t.getOutlineStatus()==5)
+//								{
+//
+//									model.addAttribute("statusOutline",NEED_IMPROVEMENT_MSG);
+//									model.addAttribute("statusOutlineTrue", true);
+//
+//								}else if (t.getOutlineStatus()==4) {
+//
+//									model.addAttribute("statusOutline","Waiting For Publish");
+//									model.addAttribute("statusOutlineTrue", true);
+//
+//								}
 
 
-								}
+
+
+//								if(t.getScriptStatus()==0)
+//								{
+//
+//									model.addAttribute("statusScript", "Pending");
+//									model.addAttribute("uploadIcon",true);
+//
+//								}else if (t.getScriptStatus()==1)
+//								{
+//
+//									model.addAttribute("statusScript",DOMAIN_REV_STATUS_MSG);
+//									model.addAttribute("statusScriptTrue", true);
+//
+//								}else if(t.getScriptStatus()==3){
+//
+//									model.addAttribute("statusScript",QUALITY_REV_STATUS_MSG);
+//									model.addAttribute("statusScriptTrue", true);
+//
+//
+//								}else if(t.getScriptStatus()==4){
+//
+//									model.addAttribute("statusScript",WAITING_PUBLISH_MSG);
+//									model.addAttribute("statusScriptTrue", true);
+//
+//
+//								}
+//								else if(t.getScriptStatus()==5)
+//								{
+//									model.addAttribute("statusScript","Need To Impprovement");
+//									model.addAttribute("statusScriptTrue", true);
+//
+//
+//								}
 
 			/* script */
 
-								if(t.getSlideStatus()==0)
-								{
-
-									model.addAttribute("statusSlide", "Pending");
-									model.addAttribute("uploadIcon",true);
-
-								}else if (t.getSlideStatus()==1)
-
-								{
-
-									model.addAttribute("statusSlide",DOMAIN_REV_STATUS_MSG);
-									model.addAttribute("statusSlideTrue", true);
-
-								}else if(t.getSlideStatus()==3){
-
-									model.addAttribute("statusSlide",QUALITY_REV_STATUS_MSG);
-									model.addAttribute("statusSlideTrue", true);
-
-								}
-
-								else if(t.getSlideStatus()==5){
-
-									model.addAttribute("statusSlide",NEED_IMPROVEMENT_MSG);
-									model.addAttribute("statusSlideTrue", true);
-
-								}else if (t.getOutlineStatus()==4) {
-
-
-									model.addAttribute("statusSlide",WAITING_PUBLISH_MSG);
-									model.addAttribute("statusSlideTrue", true);
-
-								}
+//								if(t.getSlideStatus()==0)
+//								{
+//
+//									model.addAttribute("statusSlide", "Pending");
+//									model.addAttribute("uploadIcon",true);
+//
+//								}else if (t.getSlideStatus()==1)
+//
+//								{
+//
+//									model.addAttribute("statusSlide",DOMAIN_REV_STATUS_MSG);
+//									model.addAttribute("statusSlideTrue", true);
+//
+//								}else if(t.getSlideStatus()==3){
+//
+//									model.addAttribute("statusSlide",QUALITY_REV_STATUS_MSG);
+//									model.addAttribute("statusSlideTrue", true);
+//
+//								}
+//
+//								else if(t.getSlideStatus()==5){
+//
+//									model.addAttribute("statusSlide",NEED_IMPROVEMENT_MSG);
+//									model.addAttribute("statusSlideTrue", true);
+//
+//								}else if (t.getOutlineStatus()==4) {
+//
+//
+//									model.addAttribute("statusSlide",WAITING_PUBLISH_MSG);
+//									model.addAttribute("statusSlideTrue", true);
+//
+//								}
 
 
 			/*	Video	*/
 
 
-								if(t.getVideoStatus()==0)
-								{
-
-									model.addAttribute("statusVideo", "Pending");
-									model.addAttribute("uploadIcon",true);
-
-								}
-								else if (t.getVideoStatus()==1)
-								{
-
-									model.addAttribute("statusVideo","Wating for Admin Review");
-									model.addAttribute("statusVideoTrue", true);
-
-								}else if (t.getVideoStatus()==2)
-								{
-
-										model.addAttribute("statusVideo",DOMAIN_REV_STATUS_MSG);
-										model.addAttribute("statusVideoTrue", true);
-
-								}
-								else if (t.getVideoStatus()==3)
-								{
-
-									model.addAttribute("statusVideo",QUALITY_REV_STATUS_MSG);
-									model.addAttribute("statusVideoTrue", true);
-
-								}
-								else if(t.getVideoStatus()==5)
-								{
-
-									model.addAttribute("statusVideo",NEED_IMPROVEMENT_MSG);
-									model.addAttribute("statusVideoTrue", true);
-
-								}else if (t.getOutlineStatus()==4)
-								 {
-
-									 model.addAttribute("statusVideo",WAITING_PUBLISH_MSG);
-									 model.addAttribute("statusVideoTrue", true);
-								}
+//								if(t.getVideoStatus()==0)
+//								{
+//
+//									model.addAttribute("statusVideo", "Pending");
+//									model.addAttribute("uploadIcon",true);
+//
+//								}
+//								else if (t.getVideoStatus()==1)
+//								{
+//
+//									model.addAttribute("statusVideo","Wating for Admin Review");
+//									model.addAttribute("statusVideoTrue", true);
+//
+//								}else if (t.getVideoStatus()==2)
+//								{
+//
+//										model.addAttribute("statusVideo",DOMAIN_REV_STATUS_MSG);
+//										model.addAttribute("statusVideoTrue", true);
+//
+//								}
+//								else if (t.getVideoStatus()==3)
+//								{
+//
+//									model.addAttribute("statusVideo",QUALITY_REV_STATUS_MSG);
+//									model.addAttribute("statusVideoTrue", true);
+//
+//								}
+//								else if(t.getVideoStatus()==5)
+//								{
+//
+//									model.addAttribute("statusVideo",NEED_IMPROVEMENT_MSG);
+//									model.addAttribute("statusVideoTrue", true);
+//
+//								}else if (t.getOutlineStatus()==4)
+//								 {
+//
+//									 model.addAttribute("statusVideo",WAITING_PUBLISH_MSG);
+//									 model.addAttribute("statusVideoTrue", true);
+//								}
 
 			/*	keyword*/
 
-								if(t.getKeywordStatusSet()==0)
-								{
-
-									model.addAttribute("statusKeyword", "Pending");
-									model.addAttribute("uploadIcon",true);
-
-								}else if (t.getKeywordStatusSet()==1)
-
-								{
-									model.addAttribute("statusKeyword",DOMAIN_REV_STATUS_MSG);
-									model.addAttribute("statusKeywordTrue", true);
-
-								}else if (t.getKeywordStatusSet()==3) {
-
-									model.addAttribute("statusKeyword",QUALITY_REV_STATUS_MSG);
-									model.addAttribute("statusKeywordTrue", true);
-
-
-								}else if (t.getOutlineStatus()==4)
-								{
-
-									model.addAttribute("statusKeyword",WAITING_PUBLISH_MSG);
-									model.addAttribute("statusKeywordTrue", true);
-
-								}
-
-								else if(t.getKeywordStatusSet()==5)
-								{
-
-									model.addAttribute("statusKeyword",NEED_IMPROVEMENT_MSG);
-									model.addAttribute("statusKeywordTrue", true);
-
-								}
+//								if(t.getKeywordStatusSet()==0)
+//								{
+//
+//									model.addAttribute("statusKeyword", "Pending");
+//									model.addAttribute("uploadIcon",true);
+//
+//								}else if (t.getKeywordStatusSet()==1)
+//
+//								{
+//									model.addAttribute("statusKeyword",DOMAIN_REV_STATUS_MSG);
+//									model.addAttribute("statusKeywordTrue", true);
+//
+//								}else if (t.getKeywordStatusSet()==3) {
+//
+//									model.addAttribute("statusKeyword",QUALITY_REV_STATUS_MSG);
+//									model.addAttribute("statusKeywordTrue", true);
+//
+//
+//								}else if (t.getOutlineStatus()==4)
+//								{
+//
+//									model.addAttribute("statusKeyword",WAITING_PUBLISH_MSG);
+//									model.addAttribute("statusKeywordTrue", true);
+//
+//								}
+//
+//								else if(t.getKeywordStatusSet()==5)
+//								{
+//
+//									model.addAttribute("statusKeyword",NEED_IMPROVEMENT_MSG);
+//									model.addAttribute("statusKeywordTrue", true);
+//
+//								}
 
 
 				}
@@ -816,7 +890,9 @@ public class controllerContributer {
 
 		}
 
+				model.addAttribute("tutorial",tutorial.get(0));
 				model.addAttribute("tutorials",tutorial);
+
 
 				model.addAttribute("categoryName",catgory);
 
