@@ -1,8 +1,6 @@
 package com.health.model;
 
-import java.security.Timestamp;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,31 +13,25 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.websocket.OnError;
-
-import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.health.domain.security.UserRole;
 
 
 @Entity
 @Table(name="tutorial_resoureses")
 public class Tutorial
 {
-	
+
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id", nullable = false, updatable = false)
 	private int tutorialid;
-	
+
 	private String topicname;
-	
-	public String getTopicname() 
+
+	public String getTopicname()
 	{
 		return topicname;
 	}
@@ -57,24 +49,25 @@ public class Tutorial
 
 	private String script;
 	private int scriptStatus;
-	
+
 	@Column(length = 1000)
 	private String outlin;
-	private int outlineStatus;	
+	private int outlineStatus;
 	private int outline_status_id;
-	
-	
+
+
+
 	/*
 	 * @ManyToOne(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
-	 * 
+	 *
 	 * @JoinColumn(name="outline_user_id")
 	 */
-	
-	
+
+
 	private String slide;
 	private int slideStatus;
 	private int slide_user_id;
-	
+
 	public String getSlide() {
 		return slide;
 	}
@@ -101,12 +94,12 @@ public class Tutorial
 
 	private String video;
 	private int videoStatus;
-	
-	
+
+
 	private String timeScript;
 	private String prerequisite;
-	
-	
+
+
 	public String getPrerequisite() {
 		return prerequisite;
 	}
@@ -118,10 +111,47 @@ public class Tutorial
 	public void setDate(String date) {
 		Date = date;
 	}
-	
+
 	private String keyword;
 	private int keywordStatusSet;
 	private long keyword_user_id;
+
+
+	private String graphics;
+	private int graphicsStatus;
+	private long graphicsUserid;
+
+	public int getOutline_status_id() {
+		return outline_status_id;
+	}
+
+	public void setOutline_status_id(int outline_status_id) {
+		this.outline_status_id = outline_status_id;
+	}
+
+	public String getGraphics() {
+		return graphics;
+	}
+
+	public void setGraphics(String graphics) {
+		this.graphics = graphics;
+	}
+
+	public int getGraphicsStatus() {
+		return graphicsStatus;
+	}
+
+	public void setGraphicsStatus(int graphicsStatus) {
+		this.graphicsStatus = graphicsStatus;
+	}
+
+	public long getGraphicsUserid() {
+		return graphicsUserid;
+	}
+
+	public void setGraphicsUserid(long graphicsUserid) {
+		this.graphicsUserid = graphicsUserid;
+	}
 
 	public Tutorial(){
 		super();
@@ -132,8 +162,8 @@ public class Tutorial
 		this.keyword = keyword;
 		this.keywordStatusSet = keywordStatusSet;
 		this.keyword_user_id = keyword_user_id;
-		
-		
+
+
 	}
 
 	public long getKeyword_user_id() {
@@ -159,7 +189,7 @@ public class Tutorial
 	public void setKeywordStatusSet(int keywordStatusSet) {
 		this.keywordStatusSet = keywordStatusSet;
 	}
-	public java.sql.Timestamp getDateInfo() 
+	public java.sql.Timestamp getDateInfo()
 	{
 		return dateInfo;
 	}
@@ -170,7 +200,7 @@ public class Tutorial
 
 	private String Date;
 	private java.sql.Timestamp dateInfo;
-	
+
 	public int getScriptStatus() {
 		return scriptStatus;
 	}
@@ -187,7 +217,7 @@ public class Tutorial
 		this.videoStatus = videoStatus;
 	}
 
- 
+
 
 	private int status;
 	public int getStatus() {
@@ -227,13 +257,13 @@ public class Tutorial
 	public void setScript(String script) {
 		this.script = script;
 	}	/* System.err.println("Hi Topic"+inputTopic); */
-	
+
 	public String getOutlin() {
 		return outlin;
 	}
 
 	public void setOutlin(String outlin) {
-		this.outlin = outlin;	
+		this.outlin = outlin;
 	}
 
 	public String getVideo() {
@@ -250,16 +280,16 @@ public class Tutorial
 	public String getTimeScript() {
 		return timeScript;
 	}
-	
+
 	public void setTimeScript(String timeScript) {
 		this.timeScript = timeScript;
-		
+
 	}
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	 @JoinColumn(name="category_id")
 	 private Category category;
-	
-	 
+
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="langaueg_id")
 	 private language lan;
@@ -267,19 +297,19 @@ public class Tutorial
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="topic_id")
 	private topic topic;
-	
-	
+
+
 	@ManyToOne(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private  User user;
-	
-	
+
+
 	@OneToMany(mappedBy = "tutorial", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<commentOnComponent> commentOnComponent = new HashSet<>();
-	
-	
-	
+
+
+
 
 		public User getUser() {
 		return user;
@@ -316,5 +346,5 @@ public class Tutorial
 		public String getDate() {
 			return Date;
 		}
-	
+
 }

@@ -1,6 +1,5 @@
 package com.health.model;
 
-import java.security.Timestamp;
 import java.sql.Date;
 import java.util.List;
 
@@ -13,12 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table
-public class TraningInformation 
+public class TraningInformation
 {
 
 	@Id
@@ -37,7 +35,16 @@ public class TraningInformation
 	private String districit;
 	private String city;
 	private String titleName;
-	
+	private int totalParticipant;
+
+	public int getTotalParticipant() {
+		return totalParticipant;
+	}
+
+	public void setTotalParticipant(int totalParticipant) {
+		this.totalParticipant = totalParticipant;
+	}
+
 	public String getTitleName() {
 		return titleName;
 	}
@@ -48,8 +55,8 @@ public class TraningInformation
 
 	private String addressInformation;
 	private String traingDetail;
-	
-	
+
+
 	 public String getTraingDetail() {
 		return traingDetail;
 	}
@@ -128,22 +135,22 @@ public class TraningInformation
 		this.topics = topics;
 	}
 
-	@OneToMany(mappedBy = "traningInformation",cascade =CascadeType.ALL) 
+	@OneToMany(mappedBy = "traningInformation",cascade =CascadeType.ALL)
 	 private List<partipantDeatil> partipantDeatil;
-	
-		
-		
+
+
+
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 			@JoinColumn(name="category_id")
 		 private Category category;
-	 
-		
+
+
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 			@JoinColumn(name="topic_id")
 		 private topic topics;
-	 
-	 
-	 
+
+
+
 
 	public String getLanguage() {
 		return language;
@@ -179,12 +186,12 @@ public class TraningInformation
 
 	/*
 	 * public String getTraningInformation() { return traningInformation; }
-	 * 
+	 *
 	 */	public void setTraningInformation(String traningInformation) {
 	}
 
 	public int getId() {
-		return id;	
+		return id;
 	}
 
 	public void setId(int id) {
@@ -254,8 +261,8 @@ public class TraningInformation
 
 
 
-	
-	
-	
-	
+
+
+
+
 }
