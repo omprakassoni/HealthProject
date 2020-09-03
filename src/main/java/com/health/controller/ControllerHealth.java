@@ -84,6 +84,9 @@ public class ControllerHealth {
 
 	public static String uploadDirectoryConsaltant = "src/main/resources/static" + "/Media/content" + "/Consaltant";
 
+	public static String uploadDirectoryFeedback = "src/main/resources/static" + "/Media/content" + "/feedback";
+
+
 	public static String uploadDirectory = "src/main/resources/static" + "/Media/content" + "/Testimonial";
 
 	public static String uploadDirectorOutLine = "src/main/resources/static" + "/Media/content" + "/Tutorial/Outline";
@@ -97,6 +100,7 @@ public class ControllerHealth {
 
 	public static String uploadMasterTrainer = "src/main/resources/static" + "/Media/content"
 			+ "/MasterTrainer/ParticipantsDeatail";
+
 	public static String uploadMasterTrainerPhoto = "src/main/resources/static" + "/Media/content"
 			+ "/MasterTrainer/Photo";
 
@@ -2254,22 +2258,51 @@ public class ControllerHealth {
 
 	@RequestMapping("/feedback")
 	public String feedbackForm(Model model, HttpServletRequest request,
-			@RequestParam(value = "catMasId") int catMasterId, Authentication authentication) {
+			@RequestParam(value = "catMasId") int catMasterId,
+			@RequestParam(value = "feedbackmasterId") String  titleName,
+			@RequestParam(value = "feedbackForm") MultipartFile [] feedbackFile,
+			Authentication authentication)
+	{
 
 		Category cat = categoryDao.findByid(catMasterId);
 
 		User user = userRepository.findByUsername(authentication.getName());
 
-		TraningInformation trainingInfo = trainingInformationDao.findByuserOnfeedback(user, cat);
+		//TraningInformation trainingInfo = trainingInformationDao.findByuserOnfeedback(user, cat);
 
 		String name = request.getParameter("nameOfMasterTrainer");
 		String email = request.getParameter("email");
 		String messgae = request.getParameter("traningInformation");
+
 		java.util.Date dt = new java.util.Date();
 
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		String currentTime = sdf.format(dt);
+
+
+		String abc = uploadDirectoryFeedback + "/" + cat.getCategoryname() + "/" + titleName;
+		new File(abc).mkdir();
+
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : feedbackFile) {
+			Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+			fileNames.append(file.getOriginalFilename() + " ");
+
+			try {
+
+				Files.write(fileNameAndPath, file.getBytes());
+				fileconversion = fileNameAndPath.toString();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		String substring = fileconversion.substring(26);
+
+		String var = substring.toString();
+
 
 		feedbackMasterTrainer feedback = new feedbackMasterTrainer();
 
@@ -2277,15 +2310,18 @@ public class ControllerHealth {
 		feedback.setEmail(email);
 		feedback.setDescription(messgae);
 		feedback.setDatetime(currentTime);
-
 		feedback.setCategory(cat);
-		feedback.setTraningInformation(trainingInfo);
+		feedback.setPath(var);
+		feedback.setFeedbackTitle(titleName);
+
+		//feedback.setTraningInformation(trainingInfo);
 
 		feedbackRespositary.save(feedback);
 
 		return "redirect:/masterTrainer";
 
 	}
+
 
 	/*
 	 * Here we Show deatail information of participant deatail

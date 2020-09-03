@@ -15,14 +15,23 @@ public class feedbackMasterTrainer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	
+
 	private  int id;
 	private String name;
 	private String email;
 	private String description;
-	private String datetime; 
+	private String datetime;
 	private String feedbackTitle;
-	
+	private String path;
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	public String getFeedbackTitle() {
 		return feedbackTitle;
 	}
@@ -34,12 +43,12 @@ public class feedbackMasterTrainer {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="cat_id")
 	private Category category;
-	
+
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	 @JoinColumn(name="traning_Id")
 	 private TraningInformation TraningInformation;
 
-	
+
 	public TraningInformation getTraningInformation() {
 		return TraningInformation;
 	}
@@ -96,8 +105,8 @@ public class feedbackMasterTrainer {
 		this.datetime = datetime;
 	}
 
-	
-	
-	
-	
+
+
+
+
 }
