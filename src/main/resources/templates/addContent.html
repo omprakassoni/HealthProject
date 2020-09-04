@@ -308,7 +308,7 @@
                                      	                                          
 		                             		     <td>6</td>
 		                                          <td>Prerequisite</td>
-		                                          <td>Pending</td>
+		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
 		                                          <th>-</th>
 		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#prerequisiteModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
 		                             
@@ -318,7 +318,7 @@
                                      	                                          
 		                             		     <td>7</td>
 		                                          <td>Graphics</td>
-		                                          <td>Pending</td>
+		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
 		                                          <th>-</th>
 		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#grahicsModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
 		                             
@@ -1252,17 +1252,17 @@
 										</button>
 									</div>
 									<div class="modal-body">
-									<div th:unless="${tutorial.getSlideStatus()}" class="alert alert-secondary upload-status" role="alert">
-									  No script has been added yet.
+									<div th:unless="${tutorial.getGraphicsStatus()}" class="alert alert-secondary upload-status" role="alert">
+									  No Graphics has been added yet.
 									</div>
 
 										<form class="form-horizontal mb-3" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
-											<div th:if="${tutorial.getSlideStatus()}" class="card">
+											<div th:if="${tutorial.getGraphicsStatus()}" class="card">
 											  <div class="card-body">
 											    <div class="form-group">
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
-												<a name="sliedPdf" target="_blank" id="sliedPdf"></a>
+												<a name="sliedPdf" target="_blank" id="sliedPdf" th:href="${tutorial.getGraphics()}">View Graphics</a>
 											</div>
 											  </div>
 											</div>
@@ -1276,7 +1276,7 @@
 
 										</form>
 
-										<form id="upload-file-form" submit="return submitForm(this);">
+										<form id="upload-file-form-graphics" submit="return submitForm(this);">
 											<div class="form-group">
 												 <div class="custom-file">
 												    <input type="file" class="custom-file-input" id="uploadGraphicUploadId" name="uploadGraphicUpload" 

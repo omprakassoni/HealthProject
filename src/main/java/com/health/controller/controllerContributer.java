@@ -67,6 +67,8 @@ public class controllerContributer {
 
 	public static String uploadDirectoryCreationVideo1 = "/Media/content" + "/Creation/Video";
 
+	public static String uploadDirectoryGraphics = "src/main/resources/static" + "/Media/content" + "/Creation/Graphics";
+
 	@Autowired
 	private languagedao languageDao;
 
@@ -382,14 +384,20 @@ public class controllerContributer {
 
 			  System.err.println("u"+ user+"t"+topic+"c"+category);
 
-			  String abc = uploadDirectoryCreation + "/" + categorname + "/"+ lanId + "/"+ topicid;
+			  String abc = uploadDirectoryGraphics + "/" + categorname + "/"+ lanId + "/"+ topicid;
 
+			  String cat_folder = uploadDirectoryGraphics + "/" + categorname;
+			  String lan_folder =  uploadDirectoryGraphics + "/" + categorname + "/"+ lanId;
+			  String topic_folder =  uploadDirectoryGraphics + "/" + categorname + "/"+ lanId+ "/"+ topicid;
 
-				new File(abc).mkdir();
+			 boolean a =  new File(uploadDirectoryGraphics).mkdir();
+			 boolean b =  new File(cat_folder).mkdir();
+			 boolean c =  new File(lan_folder).mkdir();
+			 boolean d =  new File(topic_folder).mkdir();
 
 				StringBuilder fileNames = new StringBuilder();
 				for (MultipartFile file : graphicsFile) {
-					Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+					Path fileNameAndPath = Paths.get(topic_folder, file.getOriginalFilename());
 					fileNames.append(file.getOriginalFilename() + " ");
 
 					try {
@@ -408,7 +416,7 @@ public class controllerContributer {
 
 				int status=1;
 
-			tutorialService.updateSlide(var,status,user,topic,category);
+			tutorialService.updateGraphics(var,status,user,topic,category);
 
 			topicName.add(var);
 
@@ -675,11 +683,13 @@ public class controllerContributer {
 				for (Tutorial t : tutorial)
 				{
 //					set status of outline, script, slide and keyword
-					String[] outlineStatus = {PENDING, DOMAIN_REV_STATUS_MSG,"" ,QUALITY_REV_STATUS_MSG,WAITING_PUBLISH_MSG ,NEED_IMPROVEMENT_MSG};
-					model.addAttribute("statusOutline",outlineStatus[t.getOutlineStatus()]);
-					model.addAttribute("statusScript", outlineStatus[t.getScriptStatus()]);
-					model.addAttribute("statusSlide",outlineStatus[t.getSlideStatus()]);
-					model.addAttribute("statusKeyword",outlineStatus[t.getKeywordStatusSet()]);
+					String[] compStatus = {PENDING, DOMAIN_REV_STATUS_MSG,"" ,QUALITY_REV_STATUS_MSG,WAITING_PUBLISH_MSG ,NEED_IMPROVEMENT_MSG};
+					model.addAttribute("statusOutline",compStatus[t.getOutlineStatus()]);
+					model.addAttribute("statusScript", compStatus[t.getScriptStatus()]);
+					model.addAttribute("statusSlide",compStatus[t.getSlideStatus()]);
+					model.addAttribute("statusKeyword",compStatus[t.getKeywordStatusSet()]);
+					model.addAttribute("statusPreReq",compStatus[t.getGraphicsStatus()]);
+					model.addAttribute("statusGraphics",compStatus[t.getGraphicsStatus()]);
 
 //					set status of video
 					String[] videoStatus = {PENDING, ADMIN_REV_STATUS_MSG,DOMAIN_REV_STATUS_MSG,QUALITY_REV_STATUS_MSG,WAITING_PUBLISH_MSG ,NEED_IMPROVEMENT_MSG};

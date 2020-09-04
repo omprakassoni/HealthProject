@@ -257,6 +257,24 @@
 
 									</tr>
 
+									<tr>                                          
+		                             		     <td>6</td>
+		                                          <td>Prerequisite</td>
+		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
+		                                          <th>-</th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#prerequisiteModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
+		                             
+                                     	 </tr>
+                                     	 
+                                     	   <tr>   
+                                     	                                          
+		                             		     <td>7</td>
+		                                          <td>Graphics</td>
+		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
+		                                          <th>-</th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#grahicsModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
+		                             
+                                     	 </tr>
 
 
 								</tbody>
@@ -1264,6 +1282,96 @@
 							</div>
 
 						</div>
+						
+						<div class="modal fade" id="grahicsModale" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabeSlideStatus"
+							aria-hidden="true" data-backdrop="static"
+							data-keyboard="false">
+
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+								<div class="modal-content">
+								<div class="alert alert-msg m-3" style="display: none;"></div>
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabeSlideStatus">Domain
+											Review-Graphics</h5>
+
+										<div style="color: green; padding-left: 20px"
+											id="saveCommentSlide"></div>
+
+										<div style="color: green; padding-left: 20px"
+											id="statusSlideByDomain"></div>
+
+										<div class="modal-title"></div>
+
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+									<div th:unless="${tutorialComponenet.getGraphicsStatus()}" class="alert alert-secondary upload-status" role="alert">
+									  No Graphics has been added yet.
+									</div>
+									<div class="border border-secondary p-3 mb-3">
+									<div th:if="${tutorialComponenet.getGraphicsStatus()}">
+											 <!--  <div class="card-body">
+											    <div class="form-group"> -->
+												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
+												<span id="scriptIdDomain"
+											th:each="comp : ${tutorialComponenet}"> <a
+												 target="_blank" 
+												name="categoryName" th:href="${'/'+comp.getGraphics()}">
+												<span>View Graphics</span></a>
+										</span>
+											<!-- </div>
+											  </div> -->
+											</div>
+									</div>
+										<form class="form-horizontal mb-3" th:action="@{/addkeyword}"
+											onsubmit="return submitForm(this);" method="post">
+											
+											
+											
+											<div class="form-group">
+
+												<select id="graphicsDomain" class="form-control">
+
+
+													<option value="0">Select</option>
+													<option value="1">Accept</option>
+													<option value="2">Need Improvement</option>
+
+												</select>
+
+											</div>
+
+											<div id="graphicsNeedImprovement" style="display: none;">
+											<label for="slideCommentMsg">Comments : </label>
+												<textarea class="form-control" name="graphicsCommentMsg"
+													id="graphicsCommentMsg" rows="10" required="required" placeholder="Enter comments here."></textarea>
+
+											</div>
+											<br />
+
+											
+
+										</form>
+
+										
+
+									</div>
+									<div class="modal-footer">
+									<button id="graphicsAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+												
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						
 
 						<script>
 							function submitForm() {
