@@ -49,6 +49,10 @@ public interface tutorialService {
 	// here is code for upadet Status when click as public
 
 	Boolean updateStatusByQualityApprove(int StatusApprove,int IdByrecord);
+	Boolean updateGraphicsStatusByDomain(int graphicsStatus, topic topic, Category category, language language);
+	Boolean upadateGraphicsStatusImpByDomain(int scriptStautusByQuality,topic topic,Category category,language language);
+	Boolean upadateGraphicsByQuality(int graphicsStautusByQuality,topic topic,Category category,language language);
+
 
 
 }

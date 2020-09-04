@@ -190,7 +190,18 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	@Query("update Tutorial set graphics=?1, graphicsStatus=?2 where user_id=?3 and topic_id=?4 and category_id=?5")
 	int updateGraphics(String graphicsUpload, int graphicsUploadStatus, User user, topic topic, Category category);
 
+	@Modifying
+	@Query("update Tutorial set graphicsStatus=?1 where  topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int updateGraphicsStatusByDomain(int graphicsStatus, topic topic, Category category, language language);
 
+	@Modifying
+	@Query("update Tutorial set graphicsStatus=?1 where  topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int upadateGraphicsStatusImpByDomain(int scriptStautusByQuality,topic topic,Category category,language language);
+
+
+	@Modifying
+	@Query("update Tutorial set graphicsStatus=?1 where topic_id=?2 and category_id=?3 and langaueg_id=?4")
+	int upadateGraphicsByQuality(int keywordStatus, topic topic, Category category, language language);
 
 
 }

@@ -2282,7 +2282,11 @@ public class ControllerHealth {
 
 
 		String abc = uploadDirectoryFeedback + "/" + cat.getCategoryname() + "/" + titleName;
-		new File(abc).mkdir();
+
+		  String cat_folder = uploadDirectoryFeedback + "/" + cat.getCategoryname();
+		  String title_folder = uploadDirectoryFeedback + "/" + cat.getCategoryname() + "/" + titleName;
+		  boolean f1 =  new File(cat_folder).mkdir();
+		 boolean f2 =  new File(title_folder).mkdir();
 
 		StringBuilder fileNames = new StringBuilder();
 		for (MultipartFile file : feedbackFile) {
@@ -2294,16 +2298,19 @@ public class ControllerHealth {
 				Files.write(fileNameAndPath, file.getBytes());
 				fileconversion = fileNameAndPath.toString();
 
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
+
 		String substring = fileconversion.substring(26);
 
 		String var = substring.toString();
-
-
+		System.err.println("----------------");
+		System.err.println(var);
+		System.err.println("----------------");
 		feedbackMasterTrainer feedback = new feedbackMasterTrainer();
 
 		feedback.setName(name);

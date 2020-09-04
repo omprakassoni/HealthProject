@@ -36,6 +36,7 @@ public class QualityReviwer
 	public static final String QUALITY_REV_STATUS_MSG = "Waiting for Quality Review" ;
 	public static final String WAITING_PUBLISH_MSG = "Waiting to be published" ;
 	public static final String NEED_IMPROVEMENT_MSG = "Need for improvement";
+	public static final String PENDING = "Pending";
 
 	@Autowired
 	private TutorialDao tutorialdao;
@@ -331,6 +332,14 @@ public class QualityReviwer
 
 			model.addAttribute("tutorialComponenet",tutorial);
 
+
+			String[] compStatus = {PENDING, DOMAIN_REV_STATUS_MSG,"" ,QUALITY_REV_STATUS_MSG,WAITING_PUBLISH_MSG ,NEED_IMPROVEMENT_MSG};
+			model.addAttribute("statusOutline",compStatus[tutorial.getOutlineStatus()]);
+			model.addAttribute("statusScript", compStatus[tutorial.getScriptStatus()]);
+			model.addAttribute("statusSlide",compStatus[tutorial.getSlideStatus()]);
+			model.addAttribute("statusKeyword",compStatus[tutorial.getKeywordStatusSet()]);
+			model.addAttribute("statusPreReq",compStatus[tutorial.getGraphicsStatus()]);
+			model.addAttribute("statusGraphics",compStatus[tutorial.getGraphicsStatus()]);
 
 
 			  return "addContentQualityReview";
@@ -668,8 +677,38 @@ public class QualityReviwer
 					  int QualittyStatus=4;
 
 					  tutorialService.upadateKeywordByQuality(QualittyStatus,topic, category,language);
+//					  tutorialService.upadateGraphicsByQuality(QualittyStatus,topic, category,language);
 
 					  ScriptStatusByQuality.add("KeyWord Status Update  successfully");
+
+					  return ScriptStatusByQuality;
+
+				}
+
+				  @RequestMapping("/acceptGraphicsByQuality")
+				  public @ResponseBody List<String> acceptGraphicsByQuality(@RequestParam(value = "categorname") String categorname,
+						  @RequestParam(value = "topicid") String topicid,
+						  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
+				{
+
+					 System.err.println("Prient recored");
+
+					 List<String> ScriptStatusByQuality = new ArrayList<String>();
+
+
+					  topic topic = topicRepositary.findBytopicname(topicid);
+
+					  Category category=categoryDao.findBycategoryname(categorname);
+
+					  language language=languageDao.findBylanguageName(lanId);
+
+					  //Admin set to need to improvement
+
+					  int QualittyStatus=4;
+
+					  tutorialService.upadateGraphicsByQuality(QualittyStatus,topic, category,language);
+
+					  ScriptStatusByQuality.add("Graphics Status Updated successfully");
 
 					  return ScriptStatusByQuality;
 
@@ -706,7 +745,7 @@ public class QualityReviwer
 
 					  int QualityStatus=5;
 
-					  tutorialService.upadateKeywordByQuality(QualityStatus,topic, category,language);
+					  tutorialService.upadateGraphicsByQuality(QualityStatus,topic, category,language);
 
 					  String Keyword="keyword";
 
@@ -735,6 +774,63 @@ public class QualityReviwer
 
 
 					  return keywordQuality;
+
+				}
+
+
+				  @RequestMapping("/needToImprovementGraphicsByQuality")
+				  public @ResponseBody List<String> needToImprovementGraphicsByQuality(@RequestParam(value = "categorname") String categorname,
+						  @RequestParam(value = "topicid") String topicid,
+						  @RequestParam(value = "msg") String msgComment,
+						  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
+			{
+
+
+
+					  List<String> graphicsQuality = new ArrayList<String>();
+
+					  User user=userRepository.findByUsername(authentication.getName());
+
+
+					  topic topic = topicRepositary.findBytopicname(topicid);
+
+					  Category category=categoryDao.findBycategoryname(categorname);
+
+					  language language=languageDao.findBylanguageName(lanId);
+
+					  Tutorial tutorial=tutorialdao.findByTutorialForComment(topic, category, language);
+
+					  int QualityStatus=5;
+
+					  tutorialService.upadateGraphicsByQuality(QualityStatus,topic, category,language);
+
+					  String Keyword="Graphics";
+
+						java.util.Date dt = new java.util.Date();
+						java.text.SimpleDateFormat sdf =
+						     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+						String currentTime = sdf.format(dt);
+
+
+						commentOnComponent commentonComponet= new commentOnComponent();
+
+								 commentonComponet.setUser(user);
+								 commentonComponet.setTopic(topic);
+								 commentonComponet.setLanguage(language);
+								 commentonComponet.setCategory(category);
+								 commentonComponet.setTutorial(tutorial);
+								 commentonComponet.setCommentdate(currentTime);
+								 commentonComponet.setCommentInfo(msgComment);
+								 commentonComponet.setComponenenetDeatail(Keyword);
+
+								 commentOnComponentDao.save(commentonComponet);
+
+								 graphicsQuality.add("Status saved");
+
+
+
+					  return graphicsQuality;
 
 				}
 

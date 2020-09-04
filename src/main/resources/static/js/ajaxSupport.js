@@ -2559,6 +2559,8 @@ $(document)
 								formData.append('topicid', topicid);
 								formData.append('lanId', lanId);
 
+								console.log(formData);
+								
 								$.ajax({
 									type : "POST",
 									url : "/slideUpload",
@@ -2601,12 +2603,16 @@ $(document)
 								var topicid = $("#topicId").val();
 								var lanId = $("#lanId").val();
 
-								var form = $('#upload-file-form')[0];
+								var form = $('#upload-file-form-graphics')[0];
 								var formData = new FormData(form);
-
+								console.log(formData);
+								
 								formData.append('categoryid', categoryid);
 								formData.append('topicid', topicid);
 								formData.append('lanId', lanId);
+								
+								
+								
 
 								$.ajax({
 									type : "POST",
@@ -4857,6 +4863,14 @@ $(document)
 //								}
 
 							});
+					$('#graphicsQuality').change(
+							function() {
+								console.log('changed');
+								var vals = $("#graphicsQuality").val();
+								if (vals === '2'){
+									$('#graphicsNeedImprovementByQuality').show();
+								}
+							});
 
 					// here is code for Video review into Quality
 
@@ -4924,6 +4938,17 @@ $(document)
 //							});
 //
 //						}
+
+					});
+					$('#graphicsDomain').change(function() {
+
+						var vals = $("#graphicsDomain").val();
+
+						if (vals === '2') {
+							$('#graphicsNeedImprovement').show();
+						}else{
+							$('#graphicsNeedImprovement').hide();
+						}
 
 					});
 
@@ -5003,6 +5028,86 @@ $(document)
 										}
 
 									});
+
+					
+					$('#graphicsAcceptOrNeedToImprovemenetByDomain').click(
+							function() {
+								console.log('here');
+								var categoryid = $("#categoryId").val();
+								var topicid = $("#topicId").val();
+								var lanId = $("#lanId").val();
+
+								var vals = $("#graphicsDomain")
+										.val();
+
+								if (vals == '0') {
+
+									alert("Select Accept Or Need To Improvement");
+
+									// here is code for Script // here
+									// is code for Script
+									// css({'visibility':'hidden'});
+
+								} else if (vals == '1') {
+
+									$
+											.ajax({
+
+												type : "GET",
+												url : "/acceptGraphicsByDomain",
+												data : {
+													"categorname" : categoryid,
+													"topicid" : topicid,
+													"lanId" : lanId
+												},
+												contentType : "application/json",
+												success : function(result) {
+//													$("#statusSlideByDomain").prop('disabled',false);
+//													$('#statusSlideByDomain').html(result);
+													showStatus(SUCCESS, result);
+
+												},
+
+												error : function(err) {
+													console.log("not working. ERROR: "+ JSON.stringify(err));
+													result = "Error";
+													showStatus(ERROR, result);
+												}
+
+											});
+
+								} else if (vals == '2') {
+
+									var msg = $("#graphicsCommentMsg").val();
+									$.ajax({
+										type : "GET",
+										url : "/needToImpGraphicsByDomain",
+										data : {
+											"categorname" : categoryid,
+											"topicid" : topicid,
+											"lanId" : lanId,
+											'msg' : msg
+										},
+										contentType : "application/json",
+										success : function(
+												result) {
+
+//											$("#statusSlideByDomain").prop('disabled',false);
+//											$('#statusKeywordByQuality').html(result);
+											showStatus(SUCCESS, result);
+										},
+
+										error : function(err) {
+											console.log("not working. ERROR: "+ JSON.stringify(err));
+											result = "Error";
+											showStatus(ERROR, result);
+										}
+
+									});
+
+								}
+
+							});
 
 					// End Slide for DOmain review
 
@@ -5095,6 +5200,94 @@ $(document)
 									});
 
 				//
+					
+
+					$('#graphicsAcceptOrNeedToImprovemenetByQuality')
+							.click(
+									function() {
+//										alert('clicked');
+										var categoryid = $("#categoryId").val();
+										var topicid = $("#topicId").val();
+										var lanId = $("#lanId").val();
+
+										var vals = $("#graphicsQuality")
+												.val();
+
+										if (vals == '0') {
+
+											alert("Select Accept Or Need To Improvement");
+
+											// here is code for Script // here
+											// is code for Script
+											// css({'visibility':'hidden'});
+
+										} else if (vals == '1') {
+
+											$
+													.ajax({
+
+														type : "GET",
+														url : "/acceptGraphicsByQuality",
+														data : {
+															"categorname" : categoryid,
+															"topicid" : topicid,
+															"lanId" : lanId
+														},
+														contentType : "application/json",
+														success : function(
+																result) {
+															showStatus(SUCCESS,result);
+//															$("#statusKeywordByQuality").prop('disabled',false);
+//															$('#statusKeywordByQuality').html(result);
+
+														},
+
+														error : function(err) {
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
+														}
+
+													});
+
+										} else if (vals == '2') {
+											$('#graphicsCommentMsg').prop('readonly', true);
+											var msg = $(
+													"#graphicsCommentMsg")
+													.val();
+
+											$
+													.ajax({
+
+														type : "GET",
+														url : "/needToImprovementGraphicsByQuality",
+														data : {
+															"categorname" : categoryid,
+															"topicid" : topicid,
+															"lanId" : lanId,
+															'msg' : msg
+														},
+														contentType : "application/json",
+														success : function(
+																result) {
+
+//															$("#statusKeywordByQuality").prop('disabled',false);
+//															$('#statusKeywordByQuality').html(result);
+															showStatus(SUCCESS,result);
+														},
+
+														error : function(err) {
+															console.log("not working. ERROR: "+ JSON.stringify(err));
+															result = "Error";
+															showStatus(ERROR,result);
+														}
+
+													});
+
+										}
+
+									});
+			
 					
 					
 					/*Here is code for Contributor PreRequistic component  display topic */

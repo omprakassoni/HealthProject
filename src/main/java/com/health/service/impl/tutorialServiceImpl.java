@@ -294,6 +294,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	}
 
+	@Override
 	@Transactional
 	public Boolean updateGraphics(String graphicsUpload, int graphicsUploadStatus, User user, topic topic,Category category) {
 
@@ -311,6 +312,59 @@ public class tutorialServiceImpl implements tutorialService {
 				return false;
 			}
 
+	}
+
+	@Override
+	@Transactional
+	public Boolean updateGraphicsStatusByDomain(int graphicsStatus, topic topic, Category category, language language) {
+
+		int statusByAdmin=tutorialDao.updateGraphicsStatusByDomain(graphicsStatus, topic, category, language);
+
+
+
+		if(statusByAdmin>0)
+		{
+
+			return true;
+		}else {
+
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public Boolean upadateGraphicsStatusImpByDomain(int scriptStautusByQuality, topic topic, Category category,
+			language language) {
+		int statusByAdmin=tutorialDao.upadateGraphicsStatusImpByDomain(scriptStautusByQuality, topic, category, language);
+
+
+
+		if(statusByAdmin>0)
+		{
+
+			return true;
+		}else {
+
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public Boolean upadateGraphicsByQuality(int graphicsStautusByQuality, topic topic, Category category,
+			language language) {
+		int statusByQuality=tutorialDao.upadateGraphicsByQuality(graphicsStautusByQuality,topic,category,language);
+
+		if(statusByQuality>0)
+		{
+
+
+			return true;
+		}else {
+
+			return false;
+		}
 	}
 
 
