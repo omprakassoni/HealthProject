@@ -964,6 +964,19 @@ public class controllerContributer {
 			model.addAttribute("CommentMsg",commentComponent);
 
 
+			List<commentOnComponent> outlineComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Outline");
+			model.addAttribute("outlineComment",outlineComment);
+			List<commentOnComponent> scriptComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Script");
+			model.addAttribute("outlineComment",outlineComment);
+			List<commentOnComponent> slideComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Slide");
+			model.addAttribute("outlineComment",outlineComment);
+			List<commentOnComponent> keywordComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Keyword");
+			model.addAttribute("outlineComment",outlineComment);
+			List<commentOnComponent> videoComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Video");
+			model.addAttribute("outlineComment",outlineComment);
+
+
+
 		}
 
 
@@ -1208,6 +1221,7 @@ public class controllerContributer {
 		}
 
 
+
 		// Here is code for pre-requistic
 
 		@RequestMapping("/savePathTutorial")
@@ -1228,6 +1242,60 @@ public class controllerContributer {
 
 
 
+
+
+		@RequestMapping("/commentByContributor")
+		  public @ResponseBody List<String> commentByContributor(@RequestParam(value = "categorname") String categorname,
+				  @RequestParam(value = "topicid") String topicid,@RequestParam(value = "component") String component,
+				  @RequestParam(value = "msg") String msgComment,
+				  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
+		{
+
+			  List<String> outlineDomain = new ArrayList<String>();
+
+			  User user=userRepository.findByUsername(authentication.getName());
+
+			  topic topic = topicRepositarydao.findBytopicname(topicid);
+
+			  Category category=categoryDao.findBycategoryname(categorname);
+
+			  language language=languageDao.findBylanguageName(lanId);
+
+			  Tutorial tutorial=tutorialDao.findByTutorialForComment(topic, category, language);
+
+//			  int DomainStatus=5;
+
+
+			  String outline="Outline";
+//			  tutorialService.updateOutlineStatusByDomain(DomainStatus, topic, category,language);
+
+				java.util.Date dt = new java.util.Date();
+				java.text.SimpleDateFormat sdf =
+				     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+				String currentTime = sdf.format(dt);
+
+				commentOnComponent commentonComponet= new commentOnComponent();
+
+						 commentonComponet.setUser(user);
+						 commentonComponet.setTopic(topic);
+						 commentonComponet.setLanguage(language);
+						 commentonComponet.setCategory(category);
+						 commentonComponet.setTutorial(tutorial);
+						 commentonComponet.setCommentdate(currentTime);
+						 commentonComponet.setCommentInfo(msgComment);
+
+						 commentonComponet.setComponenenetDeatail(component);
+
+						 commentOnComponentDao.save(commentonComponet);
+
+
+			 outlineDomain.add("Outline Status Update  successfully");
+
+
+			  return outlineDomain;
+
+		}
 
 
 

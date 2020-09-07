@@ -164,32 +164,84 @@ header .upper-bar{
 
 /*-----------------------------------/Events---------------------------*/
 
-/*-----------------------------------Marketing---------------------------*/
-.marketing{
-	padding: 0 25px;
+/*-----------------------------------Consultants---------------------------*/
+#consultants .card-image > .fa {
+  font-size: 8rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  color: #209cee;
 }
-.marketing .col-lg-4 {
-  margin-bottom: 1.5rem;
+#consultants .card-content .content {
+  font-size: 14px;
+  /* margin: 1rem 1rem; */
+}
+#consultants .card-content .content h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+#consultants .card {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+  margin-bottom: 2rem;
+  width: 80%;
+  margin:auto;
+}
+#consultants .intro {
+  padding: 5rem 0;
   text-align: center;
 }
-.marketing h3 {
-  font-size : 1.2rem;
-  color : var(--heading-color);
+#consultants .sandbox {
+  padding: 5rem 0;
 }
-.marketing .col-lg-4 p {
-  margin-right: .75rem;
-  margin-left: .75rem;
-  font-size: 0.9rem;
+#consultants .tile.notification {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
-.marketing img{
-	border: 1px solid green;
-	border-radius: 50%;
-	width: 150px;
-	height: 150px;
-	padding: 10px;
+#consultants .is-shady, #tiles .is-shady{
+animation: flyintoright .4s backwards;
+background: #fff;
+box-shadow: rgba(0, 0, 0, .1) 0 1px 0;
+border-radius: 4px;
+display: inline-block;
+margin: 10px;
+position: relative;
+transition: all .2s ease-in-out;
+}
+#consultants .is-shady:hover , #tiles .is-shady:hover{
+box-shadow: 0 10px 16px rgba(0, 0, 0, .13), 0 6px 6px rgba(0, 0, 0, .19);
+}
+#consultants .card{
+	height: 400px;
+}
+#consultants p{
+	margin-left:0;
+	margin-right:0;
+}
+#consultants .modal{
+	z-index: 10;
+}
+#consultants .modal.modal-close{
+	position: realtive!important;
+	
+}
+#consultants .modal-button{
+	position : absolute;
+	bottom : 10px;
 }
 
-/*-----------------------------------/Marketing---------------------------*/
+#consultants .c-card-img{
+	width: 100px!important;
+	height: 100px!important;
+	
+}
+/*-----------------------------------/Consultants---------------------------*/
+
+/*-----------------------------------Tiles---------------------------*/
+#tiles{
+	background: #EFF3F4;
+}
+
+/*-----------------------------------/Tiles---------------------------*/
 
 /*-----------------------------------Testimonials---------------------------*/
 .testimonials-wrapper{

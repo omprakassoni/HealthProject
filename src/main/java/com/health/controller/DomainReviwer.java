@@ -651,7 +651,7 @@ public class DomainReviwer {
 
 				  tutorialService.upadateSlideStatusByQuality(AdminStatus, topic, category,language);
 
-				  videoStatusUpdate.add("Slide Stauts Update  successfully");
+				  videoStatusUpdate.add("Slide Status Updated  successfully");
 
 				  return videoStatusUpdate;
 
@@ -682,7 +682,7 @@ public class DomainReviwer {
 //				  tutorialService.upadateSlideStatusByQuality(AdminStatus, topic, category,language);
 
 				  tutorialService.updateGraphicsStatusByDomain(status, topic, category,language);
-				  graphicsStatusUpdate.add("Slide Stauts Update  successfully");
+				  graphicsStatusUpdate.add("Graphics Status Updated  successfully");
 
 				  return graphicsStatusUpdate;
 
@@ -1134,7 +1134,7 @@ public class DomainReviwer {
 							 commentOnComponentDao.save(commentonComponet);
 
 
-				 outlineDomain.add("Graphics Status Update  successfully");
+				 outlineDomain.add("Graphics Status Updated successfully");
 
 
 				  return outlineDomain;

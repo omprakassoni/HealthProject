@@ -3038,6 +3038,30 @@ public class ControllerHealth {
 		return name;
 	}
 
+	@RequestMapping("/showListConsultants")
+	public String showListConsultants(Model model) {
+
+		List<Consaltantant> consultants = consalttantDao.findBydateConsalant();
+		model.addAttribute("listConsultant", consultants);
+
+		System.err.println("****************");
+
+		System.err.println(consultants);
+		System.err.println("****************");
+
+		return "Consultants";
+	}
+//	@RequestMapping("/showListConsultants")
+//	public String showListConsultants(Model model) {
+//
+//		List<Consaltantant> consultants = consalttantDao.findBydateConsalant();
+//		model.addAttribute("listConsultant", consultants);
+//
+//
+//
+//		return "Consultants";
+//	}
+
 	/*
 	 * @RequestMapping("/loadCategoryAndLanguage") public @ResponseBody List<String>
 	 * viewVideoContent(

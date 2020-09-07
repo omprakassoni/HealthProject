@@ -1,7 +1,6 @@
 package com.health.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 import com.health.service.impl.UserSecurityService;
 import com.health.utility.SecurityUtility;
@@ -52,14 +50,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/showListTutorial",
 			"/viewVideo/view/{id}",
 			"viewVideoList/view/{id}",
-			"/fonts/**"	
+			"/showListConsultants",
+			"/fonts/**"
 	};
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
+
 		http
-		
+
 		.headers()
 			.frameOptions().sameOrigin()
 			.httpStrictTransportSecurity().disable();
@@ -69,40 +68,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			// do not use any default headers unless explicitly listed
 			.defaultsDisabled()
 			.cacheControl();
-		
+
 		   http
 		      // ...
 		   .headers().disable();
-		   
 
-		   
-		
+
+
+
 		http
 			.authorizeRequests()
 			.antMatchers("/").hasAnyAuthority()
-				/* .antMatchers("/adminDeatail/**").hasRole("Admin") */	
+				/* .antMatchers("/adminDeatail/**").hasRole("Admin") */
 				/* .antMatchers("/userDetail/**").hasAnyAuthority("Admin") */
 			.antMatchers(PUBLIC_MATCHERS).
 				permitAll().anyRequest().authenticated().
 				and()
 				.exceptionHandling().accessDeniedPage("/access-denied");
-		
+
 			http.headers().frameOptions().disable();
-		
-		
+
+
 		/*
 		 * http
-		 * 
+		 *
 		 * .authorizeRequests() .antMatchers("/userDetail/**").hasRole("ROLE_USER")
 		 * .antMatchers("/adminDeatail/**").access("ROLE_ADMIN").anyRequest().
 		 * authenticated();
-		 */ 
-		
+		 */
+
 		  http.
 		  formLogin().
 		  defaultSuccessUrl("/", true);
-		 
-		
+
+
 		http
 			.csrf().disable().cors().disable()
 			.formLogin().failureUrl("/login?error")
@@ -115,14 +114,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.rememberMe();
 	}
-	
-	
-	
+
+
+
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
-		
+
 	}
 
 }
