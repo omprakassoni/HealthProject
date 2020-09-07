@@ -434,20 +434,46 @@
 									<div class="modal-body">
 										<div class="alert alert-success d-none w-100" role="alert"
 											id="statusOutlineC"></div>
-										<form th:action="@{/addOutline}" method="post">
-
-											<div class="form-group">
-
-												<label for="message-text" class="col-form-label"></label>
-												<textarea class="form-control editor" name="editor"
-													id="editor" rows="10">
-							        		<!--  <p><span th:text="${tutorial.getOutlin()}"></span></p> -->
-							            </textarea>
-
-											</div>
+											<div class="container">
+											  <div class="row" >
+											    <div class="col-md-6" style="display: flex; flex-wrap: wrap;">
+											    	<form th:action="@{/addOutline}" method="post" style="width:100%;">
+														<div class="form-group">
+															<label for="message-text" class="col-form-label"></label>
+															<textarea class="form-control editor" name="editor"
+																id="editor" rows="10" >
+										        		<!--  <p><span th:text="${tutorial.getOutlin()}"></span></p> -->
+										          			 </textarea>
+														</div>
 
 											<!-- <button id="editOutline" type="button" class="btn btn-success">Upload Outline</button> -->
-										</form>
+													</form>
+											    </div>
+											    <div class="col-md-6">
+											    <div th:if="${not #lists.isEmpty(outlineComment)}">
+											    <h6 class="border-bottom">Comments: </h6>
+											    
+											    <div th:each="outlineComment : ${outlineComment}" th:if="${not #lists.isEmpty(outlineComment)}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${outlineComment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${outlineComment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${outlineComment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+											    </div>
+											    <div class="textarea-comment">
+												<label for="msgCommentOutline">Comments</label>
+												<textarea class="form-control msgComment" name="msgCommentOutline"
+													rows="10" required="required" id="Outline_comment"
+													placeholder="Please enter your suggestions.">	</textarea>
+
+											</div>
+											<button id="Outline" type="button" class="btn btn-success comment-contri">submit</button>
+											    
+											    
+											    </div>
+											    
+											  </div>
+											</div>	
 									</div>
 									<div class="modal-footer">
 										<button id="outlineId" type="button" class="btn btn-success">Upload
@@ -492,7 +518,9 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<form class="form-horizontal" th:action="@{/addkeyword}"
+									<div class="row">
+									<div class="col-md-6">
+									<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 											<div class="form-group">
 												<div id="VideoView"></div>
@@ -508,18 +536,8 @@
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
 													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
 													<source th:src="${tutorial.getVideo()}" type="video/mp4"></source>
-													
-													
-													
 													</video>
-													
-
 												</div>
-
-
-
-
-
 											</div>
 											<!-- <button id="videoClick1" type="button"
 												class="btn btn-success">View</button>
@@ -594,6 +612,29 @@
 
 
 										</form>
+									</div>
+									<div class="col-md-6">
+									<div th:if="${not #lists.isEmpty(videoComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${videoComment}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+									<div class="textarea-comment">
+												<label >Comments</label>
+												<textarea class="form-control msgComment" name="msgCommentOutline"
+													rows="10" required="required" id="Video_comment"
+													placeholder="Please enter your suggestions.">	</textarea>
+
+											</div>
+											<button id="Video" type="button" class="btn btn-success comment-contri">submit</button>
+									</div>
+									</div>
+										
 
 
 
@@ -637,9 +678,9 @@
 									</div>
 									<div class="modal-body">
 
-
-
-										<form class="form-horizontal" th:action="@{/addkeyword}"
+									<div class="row">
+									<div class="col-md-6">
+									<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
 											<div class="form-group">
@@ -655,6 +696,32 @@
 											<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->
 
 										</form>
+									</div>
+									
+									<div class="col-md-6">
+									<div th:if="${not #lists.isEmpty(keywordComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${keywordComment}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									</div>
+									<div class="textarea-comment">
+												<label >Comments</label>
+												<textarea class="form-control msgComment" name="msgCommentOutline"
+													rows="10" required="required" id="Keyword_comment"
+													placeholder="Please enter your suggestions.">	</textarea>
+
+											</div>
+											<button id="Keyword" type="button" class="btn btn-success comment-contri">submit</button>
+									
+									</div>
+									
+									</div>
+
+										
 
 
 
@@ -732,8 +799,10 @@
 										</button>
 									</div>
 									<div class="modal-body">
-
-										<form class="form-horizontal" th:action="@{/addkeyword}"
+				
+									<div class="row">
+									<div class="col-md-6">
+									<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
 											<div class="form-group">
@@ -748,6 +817,13 @@
 											<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->
 
 										</form>
+									</div>
+									<div class="col-md-6">
+									
+									</div>
+									</div>
+										
+										
 
 										<div class="modal-footer">
 
@@ -1085,6 +1161,8 @@
 										</button>
 									</div>
 									<div class="modal-body">
+									 <div class="row">
+									<div class="col-md-6">
 									<div th:unless="${tutorial.scriptStatus}" class="alert alert-secondary upload-status" role="alert">
 									  No script has been added yet.
 									</div>
@@ -1123,7 +1201,34 @@
 
 
 										</form>
-									</div>`
+
+									</div>
+									<div class="col-md-6">
+									<div th:if="${not #lists.isEmpty(scriptComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${scriptComment}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+									<div class="textarea-comment">
+												<label >Comments</label>
+												<textarea class="form-control msgComment" name="msgCommentOutline"
+													rows="10" required="required" id="Script_comment"
+													placeholder="Please enter your suggestions.">	</textarea>
+
+											</div>
+											<button id="Script" type="button" class="btn btn-success comment-contri">submit</button>
+									
+									</div>
+									</div>
+									
+									
+									</div>
+
 									<div class="modal-footer">
 						      	<button id="scriptId" type="button" class="btn btn-success">Upload</button>
 						      	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1164,6 +1269,8 @@
 										</button>
 									</div>
 									<div class="modal-body">
+									<div class="row">
+									<div class="col-md-6">
 									<div th:unless="${tutorial.getSlideStatus()}" class="alert alert-secondary upload-status" role="alert">
 									  No script has been added yet.
 									</div>
@@ -1215,6 +1322,29 @@
 													placeholder="uploadFile" accept=".zip" required="required"></input>
 											</div> -->
 										</form>
+									</div>
+									<div class="col-md-6">
+									<div th:if="${not #lists.isEmpty(slideComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${slideComment}" th:if="${not #lists.isEmpty(slideComment)}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+									<div class="textarea-comment">
+												<label >Comments</label>
+												<textarea class="form-control msgComment" name="msgCommentOutline"
+													rows="10" required="required" id="Slide_comment"
+													placeholder="Please enter your suggestions.">	</textarea>
+
+											</div>
+											<button id="Slide" type="button" class="btn btn-success comment-contri">submit</button>
+									</div>
+									</div>
+									
 									</div>
 									<div class="modal-footer">
 						      	<button id="slideId" type="button" class="btn btn-success">Upload</button>

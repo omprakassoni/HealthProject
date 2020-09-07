@@ -832,14 +832,14 @@ box {
 }
 .modal-content {
     /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
-    width:700px;
-    height:500px;
+   /*  width:700px;
+    height:500px; */
     /* To center horizontally */
     margin: 0 auto;
 }
 .ck .ck-content{
 	
-	   width:666px;
+	   /* width:666px; */
    	   height:200px
     
 	

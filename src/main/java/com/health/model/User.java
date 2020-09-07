@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ import com.health.domain.security.UserRole;
 
 @Entity
 public class User implements UserDetails{
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id", nullable = false, updatable = false)
@@ -32,7 +33,7 @@ public class User implements UserDetails{
 	private String firstName;
 	private String lastName;
 	private String address;
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -44,44 +45,44 @@ public class User implements UserDetails{
 	private String email;
 	private String phone;
 	private boolean enabled=true;
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
-	
-	
+
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<commentOnComponent> commentOnComponent = new HashSet<>();
-	
-	
-	
+
+
+
 	@OneToMany(mappedBy ="user",cascade =
-	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
+	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
 	 List<topic> topics;
-	
+
 	 @OneToMany(mappedBy = "user",cascade =
-	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
+	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
 	 List<language_assign> languageassigns;
-			 
-			 
-			 
+
+
+
 	@OneToMany(mappedBy ="user",cascade =
-	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	 
+	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
 	 List<contributor_Role> contributor_Roles;
-	
-	 
+
+
 	@OneToMany(mappedBy ="user",cascade =
-	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })	
+	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
 	List<Tutorial> tutorial;
-	 
-	
+
+
 	/*
 	 * @OneToMany(mappedBy ="user",cascade =
 	 * {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH
 	 * }) List<language> language;
 	 */
-	  	
+
 	public List<language_assign> getLanguageassigns() {
 		return languageassigns;
 	}
@@ -107,12 +108,14 @@ public class User implements UserDetails{
 	public void setId(Long id) {
 		this.id = id;
 	}
+	@Override
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -149,7 +152,7 @@ public class User implements UserDetails{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
@@ -162,16 +165,16 @@ public class User implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorites = new HashSet<>();
-		
+
 		for(UserRole x:userRoles)
 		{
 			if(x.getStatus()==1) {
 				authorites.add(new Authority(x.getRole().getName()));
 			}
 		}
-		
-		
-		
+
+
+
 		return authorites;
 	}
 	@Override
@@ -189,13 +192,15 @@ public class User implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
-	
-	
-	
-	
+
+	public String getFullName() {
+		return  firstName + ' ' + lastName;
+	}
+
+
 }

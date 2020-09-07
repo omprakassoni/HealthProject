@@ -1,4 +1,9 @@
 (function($) {
+	
+	$(".c-modal-close").click(function() {
+		console.log('this');
+		   $(".modal").removeClass("is-active");
+		});
 
 	'use strict';
 

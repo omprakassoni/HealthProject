@@ -2200,9 +2200,9 @@ $(document)
 					$('#categoryContributor')
 							.change(
 									function() {
-
-										var catgoryid = $(this).find(
-												":selected").val();
+										var catgoryid = $('#categoryContributor').val();
+//										var catgoryid = $(this).find(
+//												":selected").val();
 
 										$
 												.ajax({
@@ -2626,11 +2626,11 @@ $(document)
 //										$("#statusofSlide").prop('disabled',true);
 //										$('#statusofSlide').html(result[2]);
 										
-										alert("12345hi");
+//										alert("12345hi");
 										
 										$('#sliedPdf').html(result[0]);
 										$("#sliedPdf").prop('href', result[1]);
-										var result = "Slide uploaded successfully";
+										var result = "Graphics uploaded successfully";
 										showStatus(SUCCESS,result);
 
 									},
@@ -5569,6 +5569,81 @@ $(document)
 										}
 
 									});
+					
+					$(".c-modal-close").click(function() {
+						console.log('this');
+						   $(".modal").removeClass("is-active");
+						});
+					
+					
+					
+					$(".comment-contri").click(function() {
+						console.log('this');
+						component = this.id;
+						var elem_id = '#'+component+'_comment'
+						var categoryid = $("#categoryId").val();
+						var topicid = $("#topicId").val();
+						var lanId = $("#lanId").val();
+						var msg = $(elem_id)
+						.val();
+				$.ajax({
+							type : "GET",
+							url : "/commentByContributor",
+							data : {
+								"categorname" : categoryid,
+								"topicid" : topicid,
+								"component":component,
+								"lanId" : lanId,
+								'msg' : msg
+							},
+							contentType : "application/json",
+							success : function(
+									result) {
+//								alert('msg saved!');
+								// $("#statusOutlineByDomain").prop('disabled',false);
+								// $('#statusOutlineByDomain').html(result);
+							},
+
+							error : function(err) {
+								console.log("not working. ERROR: "+ JSON.stringify(err));
+								alert('msg error!');
+							}
+						});
+						 
+						});
+					
+					$("#show_all_consultants").click(function() {
+						console.log('this');
+						$.ajax({
+				   		  	 type: "GET",
+				       		 url: "/displayConsultants",
+				       		 contentType: "application/json",
+				       		 success: function (result){
+				       		 console.log(result);
+				       		 $('.cons_record').show();
+				       		var id = result[0].id;
+				       		var name = result[0].nameConsaltant;
+				       		var desc = result[0].descriptionConsaltant;
+				       		var img = result[0].uploadConsaltantImage;
+				       		var editLink = 'productconsalantant/edit/' + id;
+				       		var elink = '<a href="'+editLink+'">Edit</a>';
+				       		var deleteLink = '/consalantant/delete/' + id;
+				       		var dlink = '<a onclick="submitForm()" href="'+deleteLink+'">Delete</a>';
+				       		
+				       		var markup = "<tr><td>" + id + "</td><td>" + name + "</td><td>"+desc+"</td><td>"+"image"+"</td><td>"+elink+"</td><td>"+dlink+"</td></tr>";
+				       		
+				       		console.log(elink);
+				       		console.log(dlink);
+				       		console.log(markup);
+				            $("table tbody").append(markup);
+				       		 
+								},
+								
+									error : function(err){
+								console.log("not working. ERROR: "+JSON.stringify(err));
+							}
+						});
+						});
 
 				});
 

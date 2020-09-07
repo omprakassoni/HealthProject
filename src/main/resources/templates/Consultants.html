@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Health And Nutrition</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="//use.fontawesome.com/releases/v5.0.7/css/all.css" />
+<link rel="stylesheet" type="text/css"
+	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
+	integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ=="
+	crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="/datatables.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/datatables.css"> </link>
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+<style>
+table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_asc:before,table.dataTable thead .sorting:before,table.dataTable thead .sorting:after{
+	content: "";
+}
+</style>
+
+</head>
+<body>
+	<header class="fixed-top">
+		<!-- <div class="row upper-bar" style="position:fixed;width:100%;"> -->
+		<div class="row upper-bar">
+			<div class="col-md-8 col-sm-12"></div>
+			<div class="col-md-2 col-sm-12">
+				<i class="fas fa-phone-alt"></i> <span class="contact-num">Helpline
+					: 1800-267-7782</span>
+			</div>
+			<div class="col-md-2 col-sm-12">
+				<i class="fas fa-user-alt"></i> <span class="h-login"> <a
+					sec:authorize="isAnonymous()" th:href="@{/login}">Login | New
+						User</a> <a sec:authorize="isAuthenticated()"
+					th:href="@{/adminDeatail}">MY ACCOUNT</a> <a
+					sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a>
+				</span>
+			</div>
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+			<!-- <a class="navbar-brand" href="#">Navbar</a> -->
+			<a th:href="@{/}"> <img src="/image/HandN-logo.jpg"
+				href="www.google." alt="Smiley face" height="80" width="120">
+				</img>
+			</a> <span style="color: #1C7871; font-size: 2.5rem;">Health And <span
+				style="color: #BF360D; font-size: 2.5rem;">Nutrition</span>
+			</span>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav ml-auto">
+					<a class="nav-item nav-link active" href="#">Home <span
+						class="sr-only">(current)</span></a> <a class="nav-item nav-link"
+						href="#about_us">About Us</a> <a class="nav-item nav-link"
+						href="#events">Events</a> <a class="nav-item nav-link "
+						href="#contact" tabindex="-1">Contact Us</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container py-6" >
+
+
+				
+
+				<table id="tableId" class="table is-fullwidth">
+
+					<thead class="">
+
+						<tr>
+							<th></th>
+							<th>Consultant</th>
+							<th></th>
+							
+						</tr>
+
+
+					</thead>
+					<tbody>
+
+
+						<tr th:each="consultant : ${listConsultant}" class="py-6">
+						<td><img th:src="${consultant.uploadConsaltantImage}"
+								width="120" height="180" /></td>
+							<td th:text="${consultant.nameConsaltant}">description</td>
+							<td th:text="${consultant.descriptionConsaltant}">description</td>
+
+							
+
+
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+
+
+
+	</main>
+
+
+
+	<footer>
+		<div class="row">
+			<div class="col-6 col-md">
+				<h5>Features</h5>
+				<ul class="list-unstyled text-small">
+					<li><a href="#">stuff</a></li>
+					<li><a href="#">Random feature</a></li>
+					<li><a href="#">Team feature</a></li>
+					<li><a href="#">Stuff for developers</a></li>
+					<li><a href="#">Another one</a></li>
+					<li><a href="#">Last time</a></li>
+				</ul>
+			</div>
+			<div class="col-6 col-md">
+				<h5>Resources</h5>
+				<ul class="list-unstyled text-small">
+					<li><a href="#">Resource</a></li>
+					<li><a href="#">Resource name</a></li>
+					<li><a href="#">Another resource</a></li>
+					<li><a href="#">Final resource</a></li>
+				</ul>
+			</div>
+			<div class="col-6 col-md">
+				<h5>About</h5>
+				<ul class="list-unstyled text-small">
+					<li><a href="#">Team</a></li>
+					<li><a href="#">Locations</a></li>
+					<li><a href="#">Privacy</a></li>
+					<li><a href="#">Terms</a></li>
+				</ul>
+			</div>
+			<div class="col-6 col-md">
+				<h5>About</h5>
+				<ul class="list-unstyled text-small">
+					<li><a href="#">Teams</a></li>
+					<li><a href="#">Locations</a></li>
+					<li><a href="#">Privacy</a></li>
+					<li><a href="#">Terms</a></li>
+				</ul>
+			</div>
+			<div class="col-6 col-md ">
+				<img class=" logo" src="image/iitb-logo.png" alt="" />
+				<hr />
+				<span class="dev"><small class="d-block  ">Developed
+						at IIT Bombay</small></span>
+
+			</div>
+		</div>
+	</footer>
+
+	<script src="/js/jquery.min.js"></script>
+		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#tableId').DataTable();
+		} );
+	</script>
+
+
+</body>
+</html>

@@ -540,16 +540,9 @@
 						        </button>
 						      </div>
 						      <div class="modal-body">
-						      
-				
-
-						        
-						            
-						
-						<!-- <video id="storedVideoIdDomain" height="240" width="320" controls="controls">
-					    
-					    </video>	 -->
-					    <div class="embed-responsive embed-responsive-16by9 mb-5">
+						       <div class="row">
+						      <div class="col-md-6">
+						      <div class="embed-responsive embed-responsive-16by9 mb-5">
   <video id='storedVideoIdDomain' 
 														controls="controls" style="width:100%!important;">
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
@@ -587,6 +580,31 @@
 					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
 						     
 					</form>
+						      </div>
+						      
+						      <div class="col-md-6">
+						      <div th:if="${not #lists.isEmpty(videoComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${videoComment}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+						      </div>
+						      </div>
+						      
+				
+
+						        
+						            
+						
+						<!-- <video id="storedVideoIdDomain" height="240" width="320" controls="controls">
+					    
+					    </video>	 -->
+					    
 
 	
 	         
@@ -690,6 +708,8 @@
 						        </button>
 						      </div>
 						      <div class="modal-body">
+						      <div class="row">
+						      <div class="col-md-6">
 						      <div class="border border-info p-2 mb-5">
 											<span th:utext="${tutorialComponenet.getOutlin()}"></span>
 										</div>
@@ -721,6 +741,23 @@
 					</form>
 										
 										</div>
+						      </div>
+						      
+						      <div class="col-md-6">
+						      <div th:if="${not #lists.isEmpty(outlineComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${outlineComment}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+						      
+						      </div>
+						      </div>
+						      
 				 
 						    
 						       
@@ -902,6 +939,8 @@
 						        </button>
 						      </div>
 						      <div class="modal-body">
+						      <div class="row">
+						      <div class="col-md-6">
 						      <div class="border border-secondary p-3 mb-3">
 										 <span id="scriptIdQuality" th:each="scriptpath : ${tutorialComponenet}">
 <a  target="_blank" id="cat"  name="categoryName"  th:href="${'/'+scriptpath.getScript()}" >
@@ -933,6 +972,23 @@
 
 						     
 					</form>
+						      </div>
+						      
+						      <div class="col-md-6">
+						      <div th:if="${not #lists.isEmpty(scriptComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${scriptComment}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+						      </div>
+						      
+						      </div>
+						      
 						        
 						      </div>
 						       <div class="modal-footer">
@@ -969,6 +1025,8 @@
 						        </button>
 						      </div>
 						      <div class="modal-body">
+						      <div class="row">
+						      <div class="col-md-6">
 						      <div class="border border-secondary p-3 mb-3">
 										<span id="slideIdQuality" th:each="slidepath : ${tutorialComponenet}">
 										<a target="_blank" id="cat"  name="categoryName"  th:href="${'/'+slidepath.getSlide()}" >
@@ -1001,6 +1059,24 @@
 				</div>
 			
 					</form>
+						      
+						      </div>
+						      
+						      <div class="col-md-6">
+						      <div th:if="${not #lists.isEmpty(slideComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${slideComment}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+						      
+						      </div>
+						      </div>
+						      
 						    
 						       
 						        
@@ -1034,6 +1110,8 @@
 						        </button>
 						      </div>
 						      <div class="modal-body">
+						      <div class="row">
+						      <div class="col-md-6">
 						      <div class="border border-info p-2 mb-5">
 											<span th:utext="${tutorialComponenet.getKeyword()}"></span>
 										</div>
@@ -1063,6 +1141,23 @@
 					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
 						     
 					</form>
+						      </div>
+						      
+						      <div class="col-md-6">
+						      <div th:if="${not #lists.isEmpty(keywordComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${keywordComment}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+						      
+						      </div>
+						      </div>
+						      
 							 
 							 
 							 
