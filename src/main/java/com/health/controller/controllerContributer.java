@@ -140,6 +140,16 @@ public class controllerContributer {
 
 		return "revokeLanguages";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping("/revokeSubmition")
 	public String revokeSubmition(Model model,Authentication authentications,@RequestParam(name="languageName") String languagename)

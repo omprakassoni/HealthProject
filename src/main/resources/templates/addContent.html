@@ -308,7 +308,7 @@
                                      	                                          
 		                             		     <td>6</td>
 		                                          <td>Prerequisite</td>
-		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
+		                                          <td>Pending</td>
 		                                          <th>-</th>
 		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#prerequisiteModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
 		                             
@@ -359,7 +359,29 @@
 
 									</div>
 
-							</span> <span style="color: green;"
+							</span> 
+							
+							<span style="color: green;"
+								th:if="${mesComment.getComponenenetDeatail()=='Prerequisite'}">
+
+									<div class="alert alert-info">
+										<i style="width: 30px; height: 25px" class="fas fa-comment"></i>
+
+										<strong style="color: green; text-transform: uppercase;">
+											<span style="color: green;"
+											th:text="${mesComment.getComponenenetDeatail()}"></span>
+										</strong>
+										<br></br> &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right">
+										</i> <span style="color: green;"
+											th:text="${mesComment.getCommentInfo()}">Pending</span>
+
+									</div>
+									
+
+							</span>
+							
+							
+							<span style="color: green;"
 								th:if="${mesComment.getComponenenetDeatail()=='Script'}">
 
 									<div class="alert alert-info">
@@ -1011,6 +1033,68 @@
 
 
 						<!-- End View keyword into textbox -->
+						
+						
+							<div class="modal fade" id="prerequisiteModale" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabelKeyword"
+							aria-hidden="true">
+
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabelKeyword">Upload
+											Prerequisite</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											         <span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+										<form th:action="@{/}" method="post">
+
+											<div class="form-group">
+												<label for="inputUserame">Add Prerequisite</label> 
+												<select id="preRequsiteId" class="form-control" name="preRequsite"
+													required="required">
+
+													<option selected="selected">Select Category</option>
+													<!-- <span th:each="category: ${categorys}">
+								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+								  						</span> -->
+
+													<span id="categorySelect" th:each="catgoryName : ${catAll}">
+
+														<option class="form-control" id="categoryId"
+															name="categoryName"
+															th:text="${catgoryName.getCategoryname()}"
+															readonly="readonly"></option>
+													</span>
+													
+												</select>
+											</div>
+
+											<div class="form-group ">
+
+												<label for="inputTopic">Topic Name</label> 
+												<select
+													id="inputLanguageAll" class="form-control" name="inputLanguageAll"
+													required="required">
+
+												</select>
+
+											</div>
+
+						<button id="uploadpreRequsiteId"  name="uploadpreRequsiteId" type="button" class="btn btn-success">Upload</button>
+				 						
+				 						</form>
+
+
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+						
 
 						<div class="modal fade" id="keywordModale" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalLabelprerequisite"

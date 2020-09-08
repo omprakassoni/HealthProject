@@ -459,6 +459,331 @@ $(document)
 
 									});
 
+					// here is code for pre requisite category
+					
+				$('#preRequsiteId').change(
+							function() {
+							
+								var catgoryid = $(this).find(
+										":selected").val();
+							
+								
+								
+								$.ajax({
+											type : "GET",
+											url : "/loadByCategoryTuturial",
+											data : {
+												
+												"id" : catgoryid
+											},
+											contentType : "application/json",
+											success : function(result) 
+											{
+												
+											
+												var html = '';
+												var len = result.length;
+												html += '<option value="0">Select Topic</option>';
+												for (var i = 0; i < len; i++) {
+													html += '<option value="'
+															+ result[i]
+															+ '">'
+															+ result[i]
+															+ '</option>';
+												}
+												html += '</option>';
+
+												
+												
+												$("#inputLanguageAll")
+														.prop(
+																'disabled',
+																false);
+												$('#inputLanguageAll')
+														.html(html);
+
+											},
+
+											error : function(err) {
+												console
+														.log("not working. ERROR: "
+																+ JSON
+																		.stringify(err));
+											}
+
+										});
+
+							});
+				
+				
+				
+				$('#preAcceptDomain').change(function() {
+					
+					var vals = $("#preAcceptDomain").val();
+
+					if (vals === '2') {
+						
+						$('#preNeedImprovement').show();
+						
+					}else{
+						
+						$('#preNeedImprovement').hide();
+					
+					}
+				
+				});
+				
+				
+				$('#preAcceptQuality').change(function() {
+					
+					var vals = $("#preAcceptQuality").val();
+
+					if (vals === '2') 
+					{
+						$('#preNeedImprovementQuality').show();
+						
+					}else{
+						
+						$('#preNeedImprovementQuality').hide();
+					
+					}
+				
+				});
+				
+				
+				
+				/*   Here is code for comment on prerequsite on Domain Reviwer side   */
+				
+				
+				$('#preAcceptOrNeedToImprovemenetByDomain').click(
+						function() {
+
+							var categoryid = $("#categoryId").val();
+							var topicid = $("#topicId").val();
+							var lanId = $("#lanId").val();
+							var preCommentMsg = $("#preCommentMsg").val();
+							
+
+							alert(preCommentMsg);
+							
+							var vals = $("#preAcceptDomain").val();
+
+							if (vals == '0') 
+							{
+								alert("Select Accept Or Need To Improvement");
+
+							} else if (vals == '1') {
+
+								$.ajax({
+									
+											type : "GET",
+											url : "/acceptPrerequistic",
+											data : {
+												"categorname" : categoryid,
+												"topicid" : topicid,
+												"lanId" : lanId
+											},
+											contentType : "application/json",
+											success : function(
+													result) {
+												showStatus(SUCCESS, result);
+//												$("#statusVideoByDomain").prop('disabled',false);
+//												$('#statusVideoByDomain').html(result);
+
+											},
+
+											error : function(err) {
+												console.log("not working. ERROR: "+ JSON.stringify(err));
+												result = "Error";
+												showStatus(ERROR, result);
+											}
+										});
+
+							} else if (vals == '2') {
+
+							
+								$
+										.ajax({
+
+											type : "GET",
+											url : "/needToImpKeywordByDomainPre",
+											data : {
+												"categorname" : categoryid,
+												"topicid" : topicid,
+												"lanId" : lanId,
+												"preCommentMsg":preCommentMsg
+											},
+											contentType : "application/json",
+											success : function(
+													result) {
+//												$("#statusVideoByDomain").prop('disabled',false);
+//												$('#statusVideoByDomain').html(result);
+												showStatus(SUCCESS, result);
+
+											},
+
+											error : function(err) {
+												console.log("not working. ERROR: "+ JSON.stringify(err));
+												result = "Error";
+												showStatus(ERROR, result);
+											}
+
+										});
+
+							}
+
+						});
+				
+
+				
+				
+				
+
+				/*		Here is code for Quality Reviwer prerequisite */
+						
+						$('#preAcceptOrNeedToImprovemenetByQuality').click(
+								function() {
+
+									var categoryid = $("#categoryId").val();
+									var topicid = $("#topicId").val();
+									var lanId = $("#lanId").val();
+									var preCommentMsg = $("#preCommentMsgTest").val();
+									
+
+									var vals = $("#preAcceptQuality").val();
+
+									if (vals == '0') 
+									{
+										alert("Select Accept Or Need To Improvement");
+
+									} else if (vals == '1') {
+
+										$.ajax({
+											
+													type : "GET",
+													url : "/acceptPrerequisticQuality",
+													data : {
+														"categorname" : categoryid,
+														"topicid" : topicid,
+														"lanId" : lanId,
+														"preCommentMsg":preCommentMsg
+														
+													},
+													contentType : "application/json",
+													success : function(
+															result) {
+														showStatus(SUCCESS, result);
+														
+
+													},
+
+													error : function(err) {
+														console.log("not working. ERROR: "+ JSON.stringify(err));
+														result = "Error";
+														showStatus(ERROR, result);
+													}
+												});
+
+									} else if (vals == '2') {
+
+									
+										$
+												.ajax({
+
+													type : "GET",
+													url : "/needToImpKeywordByQualityPre",
+													data : 
+													{
+														"categorname" : categoryid,
+														"topicid" : topicid,
+														"lanId" : lanId,
+														"preCommentMsg":preCommentMsg
+													},
+													contentType : "application/json",
+													success : function(
+															result) {
+//														$("#statusVideoByDomain").prop('disabled',false);
+//														$('#statusVideoByDomain').html(result);
+														showStatus(SUCCESS, result);
+
+													},
+
+													error : function(err) {
+														console.log("not working. ERROR: "+ JSON.stringify(err));
+														result = "Error";
+														showStatus(ERROR, result);
+													}
+
+												});
+
+									}
+
+								});
+
+
+				
+				
+				
+				
+				
+				// here is code for prerequisite  submit
+
+				$('#uploadpreRequsiteId').click(function() 
+				{
+					
+							
+					
+							var catgoryid = $("#preRequsiteId").val();
+							
+							
+							var topic = $("#inputLanguageAll").val();
+							
+							var lanId = $("#lanId").val();
+							
+							
+							
+							$.ajax({
+										type : "GET",
+										url : "/loadCatAndTopicInPre",
+										data : {
+											
+											"id" : catgoryid,
+											"topic": topic,
+											"lanId": lanId,
+										},
+										contentType : "application/json",
+										success : function(result) 
+										{
+
+											alert("Successfully Save");
+											$("#exampleModalLabelKeyword")
+													.prop(
+															'disabled',
+															false);
+											$("#exampleModalLabelKeyword")
+													.html(html);
+
+										},
+
+										error : function(err) {
+											console
+													.log("not working. ERROR: "
+															+ JSON
+																	.stringify(err));
+										}
+
+									});
+
+						});
+
+				
+				
+				
+				
+				
+				
+
+					
 					/*
 					 * Here is code for selection of title name according to
 					 * category name View csv file recored

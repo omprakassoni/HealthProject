@@ -234,15 +234,26 @@
 
 									</tr>
 
-									<tr>                                          
-		                             		     <td>6</td>
-		                                          <td>Prerequisite</td>
-		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
-		                                          <th>-</th>
-		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#prerequisiteModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
-		                             
-                                     	 </tr>
-                                     	 
+										<tr>
+										<td>6</td>
+										<td>Pre-Requisites</td>
+										<td><span th:each=" statusKeyword: ${statusKeyword}">
+												<span style="color: green;" th:text="${statusKeyword}">Pending</span>
+										</span></td>
+										<th>-</th>
+
+										<th>
+								
+											
+											<button type="button" class="btn btn-info"
+												data-toggle="modal" data-target="#PreViewIdDomain"
+												data-whatever="@mdo">
+												<i style="color: blue;" class="fas fa-eye"></i>
+											</button>
+										
+										</th>
+
+									</tr>
                                      	   <tr>   
                                      	                                          
 		                             		     <td>7</td>
@@ -771,8 +782,83 @@
 
 
 
+<!-- here is code for pre
+ -->
+<div class="modal fade" id="PreViewIdDomain" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabelKeyWordView"
+							aria-hidden="true" data-backdrop="static" data-keyboard="false">
+
+							<div
+								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+								role="document">
+								<div class="modal-content">
+								<div class="alert alert-msg m-3" style="display: none;"></div>
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
+											Pre-requisites</h5>
+										<div class="modal-title"></div>
+
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+
+										<!-- <form class="form-horizontal" th:action="@{/addkeyword}"
+											onsubmit="return submitForm(this);" method="post"> -->
+
+											<div class="form-group mb-3">
+
+												<div class="embed-responsive embed-responsive-16by9 mb-5">
+							  						<video id='storedDomainPreId' 
+														controls="controls" style="width:100%!important;">
+													
+													<source th:src="${tutorialComponenet.getPrerequisite()}" type="video/mp4"></source>
+													
+													</video>
+												</div>
+
+											</div>
+											
+											<form class="form-horizontal" th:action="@{/addkeyword}"
+											onsubmit="return submitForm(this);" method="post">
+
+											<div class="form-group">
+
+												<select id="preAcceptDomain" class="form-control">
 
 
+													<option value="0">Select</option>
+													<option value="1">Accept</option>
+													<option value="2">Need Improvement</option>
+
+												</select>
+
+											</div>
+
+								<div id="preNeedImprovement" style="display: none">
+													<label for="preCommentMsg">Comments: </label>
+														<textarea class="form-control" name="preCommentMsg"
+															id="preCommentMsg" rows="10" required="required" ></textarea>
+
+								</div>
+											<br />
+
+										</form>
+
+									</div>
+									<div class="modal-footer">
+									<button id="preAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+									
+									<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+									</div>
+
+								</div>
+							</div>
+						</div>
 
 						
 						

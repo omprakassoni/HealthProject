@@ -13,6 +13,8 @@ public interface tutorialService {
 
 	List<Tutorial> findAll();
 
+	Boolean upadatePreStatus(int scriptStautusByQuality, topic topic, Category category, language language);
+	
 
 	Boolean updateKeyword(String keywordMessage, int status,User user, topic topic ,Category category);
 

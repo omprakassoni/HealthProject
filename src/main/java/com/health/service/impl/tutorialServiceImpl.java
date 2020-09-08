@@ -46,6 +46,22 @@ public class tutorialServiceImpl implements tutorialService {
 		}
 	}
 
+	@Transactional
+	public Boolean upadatePreStatus(int preStatus, topic topic, Category category, language language)
+	{
+		
+		int stustusPre=tutorialDao.upadatePreStatus(preStatus,topic,category,language);
+
+		if(stustusPre>0)
+		{
+			return true;
+			
+		}else {
+
+			return false;
+		}
+		
+	}
 
 
 	@Override
