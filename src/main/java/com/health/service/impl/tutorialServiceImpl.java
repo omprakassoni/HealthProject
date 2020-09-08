@@ -383,5 +383,24 @@ public class tutorialServiceImpl implements tutorialService {
 		}
 	}
 
+	
+	@Transactional
+	public Boolean updatePre(String preUpload, int preUploadStatus, User user, topic topic, Category category) {
+
+		int stustusPre=tutorialDao.updatePre(preUpload,preUploadStatus,user,topic,category);
+
+			if(stustusPre>0)
+			{
+
+				return true;
+
+			}else {
+
+				return false;
+			}
+		
+		
+	}
+
 
 }

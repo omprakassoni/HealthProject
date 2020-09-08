@@ -722,19 +722,12 @@ $(document)
 
 
 				
-				
-				
-				
-				
 				// here is code for prerequisite  submit
 
 				$('#uploadpreRequsiteId').click(function() 
 				{
 					
-							
-					
 							var catgoryid = $("#preRequsiteId").val();
-							
 							
 							var topic = $("#inputLanguageAll").val();
 							

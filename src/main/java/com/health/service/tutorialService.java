@@ -15,6 +15,8 @@ public interface tutorialService {
 
 	Boolean upadatePreStatus(int scriptStautusByQuality, topic topic, Category category, language language);
 	
+	Boolean updatePre(String preUpload, int preUploadStatus, User user, topic topic, Category category);
+
 
 	Boolean updateKeyword(String keywordMessage, int status,User user, topic topic ,Category category);
 
