@@ -203,5 +203,10 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	@Query("update Tutorial set graphicsStatus=?1 where topic_id=?2 and category_id=?3 and langaueg_id=?4")
 	int upadateGraphicsByQuality(int keywordStatus, topic topic, Category category, language language);
 
+	@Query("from Tutorial u where category=?1 and topic=?2 and langaueg_id=?3")
+	Tutorial findTutorialByCategoryTopicLang(Category category,topic topic, language language);
+
+	@Query("from Tutorial u where u.category=?1 and topic=?2 and status=?3")
+	List<Tutorial> findTutorialByCategoryTopic(Category category, topic topic, int status);
 
 }

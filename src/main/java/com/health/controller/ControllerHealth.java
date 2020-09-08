@@ -188,6 +188,7 @@ public class ControllerHealth {
 
 	@RequestMapping("/showListTutorial")
 	public String showListTutorial(Model model, @RequestParam(value = "categoryName") String categoryname,
+			@RequestParam(value = "topic") String topicName,
 			@RequestParam(name = "inputLanguage") String inputLanguage) {
 
 		// List<Category> categoryDropDown=categoryservice.findAll();
@@ -201,6 +202,7 @@ public class ControllerHealth {
 		model.addAttribute("categorys", categoryDropDown);
 
 		Category category = categoryDao.findBycategoryname(categoryname);
+		topic topic = topicdao.findBytopicname(topicName);
 
 		int status = 1;
 
@@ -220,6 +222,34 @@ public class ControllerHealth {
 		}
 
 		model.addAttribute("list", tutorialRes);
+		List<Tutorial> list;
+		boolean categorySelect = categoryname!="0" ? true : false;
+		boolean topicSelect = topicName!="0" ? true : false;
+		boolean languageSelect = inputLanguage!="0" ? true : false;
+		if(categorySelect & topicSelect & languageSelect) {
+			Tutorial tutorial = tutorialDao.findTutorialByCategoryTopicLang(category, topic,language);
+			int id = tutorial.getTutorialid();
+			System.err.println(tutorial);
+			return "redirect:/viewVideo/view/"+id;
+
+		}else if(categorySelect & topicSelect){
+			list = tutorialDao.findTutorialByCategoryTopic(category,topic,1);
+		}else if(categorySelect) {
+			list = tutorialDao.findByCategoryLan(category,1);
+		}else {
+			list = tutorialDao.finBystatus();
+		}
+		model.addAttribute("list", list);
+
+//		if(topic!=null) {
+//			Tutorial tutorial = tutorialDao.findTutorialByCategoryTopicLang(category, topic,language);
+//			int id = tutorial.getTutorialid();
+//			System.err.println(tutorial);
+//			return "redirect:/viewVideo/view/"+id;
+//
+//		}
+
+
 
 		return "showListOfTutorial";
 	}
@@ -1628,24 +1658,41 @@ public class ControllerHealth {
 	 */
 
 	@RequestMapping("/loadByCategoryTuturial")
-	public @ResponseBody Set<String> getAllSubcategories(@RequestParam(value = "id") String id) {
-		List<String> languageName = new ArrayList<String>();
+	public @ResponseBody List<String> getAllSubcategories(@RequestParam(value = "id") String id) {
+		System.err.println("______________________");
+		System.err.println(id);
+		System.err.println("______________________");
+		List<String> topicName = new ArrayList<String>();
 
 		Category cat = categoryService.findBycategoryname(id);
 
-		int status = 1;
+		List<topic> topic = topicRepositarydao.findByCategory(cat);
 
-		List<Tutorial> Tutorial = tutorialDao.findByCategoryLan(cat, status);
+		for (topic s : topic) {
 
-		ArrayList<String> tutorialLanguageExits = new ArrayList<String>();
+			topicName.add(s.getTopicname());
 
-		for (Tutorial tutorialData : Tutorial) {
-			languageName.add(tutorialData.getLan().getLanguageName());
 		}
 
-		Set<String> lanSet = new LinkedHashSet<String>(languageName);
 
-		return lanSet;
+//		List<String> languageName = new ArrayList<String>();
+//
+//		Category cat = categoryService.findBycategoryname(id);
+//
+//		int status = 1;
+//
+//		List<Tutorial> Tutorial = tutorialDao.findByCategoryLan(cat, status);
+//
+//		ArrayList<String> tutorialLanguageExits = new ArrayList<String>();
+//
+//		for (Tutorial tutorialData : Tutorial) {
+//			languageName.add(tutorialData.getLan().getLanguageName());
+//		}
+//
+//		Set<String> lanSet = new LinkedHashSet<String>(languageName);
+
+//		return lanSet;
+		return topicName;
 
 	}
 
@@ -3080,5 +3127,57 @@ public class ControllerHealth {
 	 *
 	 * }
 	 */
+
+
+	@RequestMapping("/listTopicsByCategory")
+	public @ResponseBody List<String> listTopicsByCategory(@RequestParam(value = "id") String id) {
+
+//		ArrayList<String> alreadyTopicCheck = new ArrayList<>();
+		System.err.println("______________________");
+		System.err.println(id);
+		System.err.println("______________________");
+		List<String> topicName = new ArrayList<String>();
+
+		Category cat = categoryService.findBycategoryname(id);
+
+		List<topic> topic = topicRepositarydao.findByCategory(cat);
+
+		for (topic s : topic) {
+
+			topicName.add(s.getTopicname());
+
+		}
+
+		return topicName;
+
+	}
+
+	@RequestMapping("/listLangByCategoryTopic")
+	public @ResponseBody List<String> listLangByCategoryTopic(@RequestParam(value = "category") String categoryName,
+			@RequestParam(value = "topic") String topicName) {
+
+		List<String> languageName = new ArrayList<String>();
+
+		Category category = categoryService.findBycategoryname(categoryName);
+		topic topic = topicRepositarydao.findBytopicname(topicName);
+
+		int status = 1;
+
+		List<Tutorial> Tutorial = tutorialDao.findTutorialByCategoryTopic(category, topic,status);
+
+		ArrayList<String> tutorialLanguageExits = new ArrayList<String>();
+
+		for (Tutorial tutorialData : Tutorial) {
+			languageName.add(tutorialData.getLan().getLanguageName());
+		}
+
+		Set<String> lanSet = new LinkedHashSet<String>(languageName);
+		List<String> languageList = new ArrayList<>();
+		for (String l : lanSet) {
+			languageList.add(l);
+    	}
+		return languageList;
+
+	}
 
 }

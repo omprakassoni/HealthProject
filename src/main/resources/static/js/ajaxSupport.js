@@ -197,82 +197,59 @@ $(document)
 														html += '<option value="0">Select language</option>';
 														for (var i = 0; i < len; i++) {
 
-															html += '<option value="'
-																	+ result[i]
-																	+ '">'
-																	+ result[i]
-																	+ '</option>';
+															html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
 														}
 														html += '</option>';
 
-														$("#inputLanguageList")
-																.prop(
-																		'disabled',
-																		false);
-														$('#inputLanguageList')
-																.html(html);
-
+														$("#inputLanguageList").prop('disabled',false);
+														$('#inputLanguageList').html(html);
 													},
 
 													error : function(err) {
-														console
-																.log("not working. ERROR: "
-																		+ JSON
-																				.stringify(err));
+														console.log("not working. ERROR: "+ JSON.stringify(err));
 													}
-
 												});
-
 									});
 
-					$('#categoryname')
-							.change(
-									function() {
-
-										var catgoryid = $(this).find(
-												":selected").val();
-										$
-												.ajax({
-
-													type : "GET",
-													url : "/loadByCategoryTuturial",
-													data : {
-														"id" : catgoryid
-													},
-													contentType : "application/json",
-													success : function(result) {
-
-														var html = '';
-														var len = result.length;
-														html += '<option value="0">Select language</option>';
-														for (var i = 0; i < len; i++) {
-
-															html += '<option value="'
-																	+ result[i]
-																	+ '">'
-																	+ result[i]
-																	+ '</option>';
-														}
-														html += '</option>';
-
-														$("#inputLanguage")
-																.prop(
-																		'disabled',
-																		false);
-														$('#inputLanguage')
-																.html(html);
-
-													},
-													error : function(err) {
-														console
-																.log("not working. ERROR: "
-																		+ JSON
-																				.stringify(err));
-													}
-
-												});
-
-									});
+//					$('#categoryname').change(function() {
+//										alert('clicked');
+//										var categoryId = $(this).val();
+//										console.log(categoryId);
+//										$
+//												.ajax({
+//													type : "GET",
+//													url : "/listTopicsByCategory",
+//													data : {
+//														"category" : categoryId
+//													},
+//													contentType : "application/json",
+//													success : function(result) {
+//														console.log(result);
+//														var html = '';
+//														var len = result.length;
+//														html += '<option value="0">Select language</option>';
+//														for (var i = 0; i < len; i++) {
+//
+//															html += '<option value="'
+//																	+ result[i]
+//																	+ '">'
+//																	+ result[i]
+//																	+ '</option>';
+//														}
+//														html += '</option>';
+//
+//														$("#inputTopic").prop('disabled',false);
+//														$('#inputTopic').html(html);
+//
+//													},
+//													error : function(err) {
+//														console.log("not working. ERROR: "+ JSON.stringify(err));
+//													}
+//
+//												});
+//
+//									});
+					
 
 					/* here we write code for calling Topic */
 
@@ -1785,17 +1762,17 @@ $(document)
 												});
 
 									});
-					$('#categoryname')
-							.on(
-									'change',
-									function() {
-										var catgoryid = $(this).find(
-												":selected").val();
-										$
-												.ajax({
-
+					$( "#categoryname" ).change(function() {
+//					$('#categoryname')
+//							.on('change',function() {
+//											
+//										var catgoryid = $(this).find(
+//												":selected").val();
+										var catgoryid = $(this).val();
+										console.log(catgoryid);
+										$.ajax({
 													type : "GET",
-													url : "/loadByCategoryTuturial",
+													url : "/listTopicsByCategory",
 													data : {
 														"id" : catgoryid
 													},
@@ -1815,31 +1792,62 @@ $(document)
 														}
 														html += '</option>';
 
-														$("#inputLanguage")
-																.prop(
-																		'disabled',
-																		false);
-														$('#inputLanguage')
-																.html(html);
+//														$("#inputLanguage").prop('disabled',false);
+//														$('#inputLanguage').html(html);
+														$("#inputTopicName").prop('disabled',false);
+														$('#inputTopicName').html(html);
 
 													},
 													error : function(err) {
-														console
-																.log("not working. ERROR: "
-																		+ JSON
-																				.stringify(err));
+														console.log("not working. ERROR: "+ JSON.stringify(err));
 													}
-
 												});
-
 									});
+					
+					
+					$('#inputTopicName').change(function() {
+//								alert('here 3');
+								var topic = $(this).val();
+								var categoryName = $("#categoryname").val();
+								$.ajax({
+											type : "GET",
+											url : "/listLangByCategoryTopic",
+											data : {
+												"category" : categoryName,
+												"topic" : topic
+											},
+											contentType : "application/json",
+											success : function(result) {
+												console.log(result);
+
+												var html = '';
+												var len = result.length;
+												html += '<option value="0">Select language</option>';
+												for (var i = 0; i < len; i++) {
+
+													html += '<option value="'
+															+ result[i]
+															+ '">'
+															+ result[i]
+															+ '</option>';
+												}
+												html += '</option>';
+
+												$("#inputLanguage").prop('disabled',false);
+												$('#inputLanguage').html(html);
+											},
+											error : function(err) {
+												console.log("not working. ERROR: "+ JSON.stringify(err));
+											}
+										});
+
+							});
 
 					/* here we write code for calling Topic */
 
 					$('#categoryId')
-							.change(
-									function() {
-
+							.on('change',function() {
+										alert('here again');
 										var catgoryid = $(this).find(
 												":selected").val();
 										$
@@ -1886,9 +1894,8 @@ $(document)
 					/* here we write code for calling language */
 
 					$('#categoryId')
-							.change(
-									function() {
-
+							.on('change',function() {
+										alert('!!!!');
 										var catgoryid = $(this).find(
 												":selected").val();
 										$
@@ -2315,7 +2322,7 @@ $(document)
 					$('#inputTopic')
 							.change(
 									function() {
-
+										alert('here');
 										var catgoryid = $(this).find(
 												":selected").val();
 										$
@@ -5644,6 +5651,44 @@ $(document)
 							}
 						});
 						});
+					
+					
+					$('#categorySelect').on(
+							'change',
+							function() {
+								var category = $(this).val();
+
+								$.ajax({
+									type : "GET",
+									url : "/listTopicByCategory",
+									data : {
+										"category" : category
+									},
+									contentType : "application/json",
+									success : function(result) {
+
+										var html = '';
+										var len = result.length;
+
+										for (var i = 0; i < len; i++) {
+											html += '<option value="'
+													+ result[i] + '">'
+													+ result[i] + '</option>';
+										}
+										html += '</option>';
+
+										$("#topicSelect")
+												.prop('disabled', false);
+										$('#inputTopic').html(html);
+
+									},
+									error : function(err) {
+										console.log("not working. ERROR: "
+												+ JSON.stringify(err));
+									}
+								});
+
+							});
 
 				});
 
