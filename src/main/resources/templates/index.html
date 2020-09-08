@@ -97,17 +97,20 @@
             <!-- <label for="country">Topic</label> -->
             <label class="sr-only" for="inputState">Category</label>
             <select class="custom-select d-block w-100" id="categoryname" name="categoryName">
-              <option value="">Select Topic...</option>
+              <option value="">Select Category...</option>
               <option th:each="category : ${categorys}"><span th:text="${category}">Title ...</span></option>
             </select>
             <div class="invalid-feedback">
               Please select a valid foss.
             </div>
           </div>
+          <select class="custom-select d-block w-100" id="inputTopicName" name="topic">
+              <option value="">Select Topic</option>
+            </select>
           <div class="col-md-4 mb-3">
             <!-- <label for="state">Language</label> -->
             <select class="custom-select d-block w-100" id="inputLanguage" name="inputLanguage">
-              <option value="">Select Language</option>
+              <option value="0">Select Language</option>
               <!-- <option th:each="language : ${languages}"><span th:text="${language.languageName}">Title ...</span></option> -->
             </select>
             <div class="invalid-feedback">
@@ -469,7 +472,7 @@
 <!-- Events -->
 
 <!-- Video Display -->
-<section id="videos">
+<!-- <section id="videos">
   <div class='your-class'>
   <div class="v-item card shadow" th:each="tutorial : ${tutorials}">
     <div class="embed-responsive embed-responsive-4by3">
@@ -479,12 +482,12 @@
     <p th:text="${tutorial.getTopic().getTopicname()}" class="text-muted">Video Title</p>
     <div th:text="${tutorial.getLan().getLanguageName()}" class="lang"><span>Language</span></div>
   </div>
-</div>
+</div> -->
 <!-- <div>
 <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="">Previous</button>
   <button class="slick-next slick-arrow" aria-label="Next" type="button" style="">Next</button>
 </div> -->
-</section>
+<!-- </section> -->
 
 <!-- Video Display -->
 
