@@ -140,6 +140,16 @@ public class controllerContributer {
 
 		return "revokeLanguages";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping("/revokeSubmition")
 	public String revokeSubmition(Model model,Authentication authentications,@RequestParam(name="languageName") String languagename)
@@ -212,6 +222,46 @@ public class controllerContributer {
 		return topicName;
 
 	}
+	
+	
+	
+	/* Here is code for graphics upload */
+
+	@RequestMapping("/loadCatAndTopicInPre")
+	public @ResponseBody  List<String> getSubmitPrerequisite(@RequestParam(value = "id") String id,@RequestParam(value="topic") String topic,
+			@RequestParam(value="lanId") String lanId,Authentication authentication)	
+	{
+		
+		
+		
+		List<String> topicName = new ArrayList<String>();
+		
+		  User user=userRepository.findByUsername(authentication.getName());
+		
+		  Category category=categoryDao.findBycategoryname(id);
+		  
+		  topic topicAll=topicRepositarydao.findBytopicname(topic);
+		  
+		  //language lan=languagedao.findBylanguageName(lanId);
+		
+		  int status=1;
+		  
+		  List<Tutorial> tutorial=tutorialDao.findByCLT(category,topicAll);
+		  
+		  for (Tutorial tutorial2 : tutorial) 
+		  {
+			  tutorialService.updatePre(tutorial2.getVideo(),status,user,topicAll,category);  				
+		    
+		  }
+		  
+		  topicName.add("Successfully Save");
+	
+		  return  topicName;
+	
+	}	
+
+  
+	
 		  @RequestMapping("/keyword")
 		  public @ResponseBody List<String>
 		  getTopicByKeyword(@RequestParam(value = "id") String keywordMessgae,
