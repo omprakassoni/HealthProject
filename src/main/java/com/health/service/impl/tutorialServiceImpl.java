@@ -46,21 +46,22 @@ public class tutorialServiceImpl implements tutorialService {
 		}
 	}
 
+	@Override
 	@Transactional
 	public Boolean upadatePreStatus(int preStatus, topic topic, Category category, language language)
 	{
-		
+
 		int stustusPre=tutorialDao.upadatePreStatus(preStatus,topic,category,language);
 
 		if(stustusPre>0)
 		{
 			return true;
-			
+
 		}else {
 
 			return false;
 		}
-		
+
 	}
 
 
@@ -383,11 +384,12 @@ public class tutorialServiceImpl implements tutorialService {
 		}
 	}
 
-	
-	@Transactional
-	public Boolean updatePre(String preUpload, int preUploadStatus, User user, topic topic, Category category) {
 
-		int stustusPre=tutorialDao.updatePre(preUpload,preUploadStatus,user,topic,category);
+	@Override
+	@Transactional
+	public Boolean updatePre(String preUpload, int preUploadStatus, language lan, topic topic, Category category) {
+
+		int stustusPre=tutorialDao.updatePre(preUpload,preUploadStatus,lan,topic,category);
 
 			if(stustusPre>0)
 			{
@@ -398,8 +400,8 @@ public class tutorialServiceImpl implements tutorialService {
 
 				return false;
 			}
-		
-		
+
+
 	}
 
 

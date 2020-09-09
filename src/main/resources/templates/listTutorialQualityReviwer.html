@@ -36,6 +36,7 @@
 						                <th>Slide</th>
 						                <th>Video</th>
 						                <th>Keyword</th>
+						                <th>Prerequisite</th>
 						                <th>Graphics</th>
 						                <th><i style="color: purple; width:30px ; padding-left: 5px" class="fas fa-cogs"></i></th>
 					
@@ -234,6 +235,42 @@
 						               
 						               
 						               </td>	
+						               <td>
+						            
+						            						             	
+						                   <span th:if="${componenettutorial.getPrerequisiteStatus()==0}">
+									                 
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
+									        </span>
+						             	
+						                   <span th:if="${componenettutorial.getPrerequisiteStatus()==1}">	
+									                 
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
+									        </span>	
+									               	
+									             <span th:if="${componenettutorial.getPrerequisiteStatus()==2}">
+									               	  
+									               			<i class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	 
+									               	
+									               	  <span th:if="${componenettutorial.getPrerequisiteStatus()==3}">
+									               	  
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	
+									               	
+									               	  <span th:if="${componenettutorial.getPrerequisiteStatus()==4}">
+									               	  
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
+									               	  </span>
+												     <span th:if="${componenettutorial.getPrerequisiteStatus()==5}">
+	
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
+									                   
+									                   
+									                   </span>
+						             	
+						            
+						             </td>  
 						               <td>
 						            
 						            						             	

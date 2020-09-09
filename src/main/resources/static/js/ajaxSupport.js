@@ -463,7 +463,7 @@ $(document)
 					
 				$('#preRequsiteId').change(
 							function() {
-							
+								alert('here');
 								var catgoryid = $(this).find(
 										":selected").val();
 							
@@ -726,23 +726,29 @@ $(document)
 
 				$('#uploadpreRequsiteId').click(function() 
 				{
-					
-							var catgoryid = $("#preRequsiteId").val();
+							alert('here uploadpreRequsiteId');
+							var p_catgoryid = $("#preRequsiteId").val();
 							
-							var topic = $("#inputLanguageAll").val();
+							var p_topic = $("#inputLanguageAll").val();
 							
+							var p_lanId = $("#lanId").val();
+							
+							
+							var categoryid = $("#categoryId").val();
+							var topicid = $("#topicId").val();
 							var lanId = $("#lanId").val();
-							
-							
 							
 							$.ajax({
 										type : "GET",
 										url : "/loadCatAndTopicInPre",
 										data : {
 											
-											"id" : catgoryid,
-											"topic": topic,
-											"lanId": lanId,
+											"p_id" : p_catgoryid,
+											"p_topic": p_topic,
+											"p_lanId": p_lanId,
+											"categorname" : categoryid,
+											"topicid" : topicid,
+											"lanId" : lanId
 										},
 										contentType : "application/json",
 										success : function(result) 
@@ -2640,7 +2646,7 @@ $(document)
 					$('#inputTopic')
 							.change(
 									function() {
-										alert('here');
+//										alert('here');
 										var catgoryid = $(this).find(
 												":selected").val();
 										$
