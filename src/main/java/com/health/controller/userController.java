@@ -25,6 +25,7 @@ import com.health.model.language;
 import com.health.model.partipantDeatil;
 import com.health.model.state;
 import com.health.model.trainingInformationDao;
+import com.health.repository.CategoryDao;
 import com.health.repository.RoleRepository;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
@@ -210,34 +211,58 @@ public class userController {
 
 	}
 
+	// here is code for Domain Revieweer
+	
+
+	@Autowired
+	private CategoryDao CategoryDao;
+	
+	
+	@Autowired
+	private UserRoleRepositary userRoleDao;
+	
 	@RequestMapping(value = "/addMeAsDomainRevieweer", method = RequestMethod.POST)
 	public String addMeAsDomainRevieweer(Authentication authentication, Model model,
-			@RequestParam(value = "contributerLanguage") String languageName) {
+			@RequestParam(value = "lanName") String languageName,@RequestParam(value = "categoryDomainId") String catName) 
+	{
 
+
+		
+		//return "addDomainRoleRequest";
+		
 		language lan = languagedao.findBylanguageName(languageName);
 
 		User user = userService.findByClassname(authentication.getName());
 
-		// List<UserRole> findAlreadyPresent=(List<UserRole>)
-		// userRoleRepositary.findByuser_id(user.getId());
-
-		/*
-		 * for (UserRole exitRole : findAlreadyPresent) {
-		 *
-		 * if(exitRole.getRole().getRoleId()==3) {
-		 *
-		 * model.addAttribute("requestSend",true);
-		 *
-		 * return "roleAdminDetail";
-		 *
-		 * }
-		 *
-		 * }
-		 */
-
+		Category cat=CategoryDao.findBycategoryname(catName);
+		
 		String name = "DomainReviweer";
 
 		Role role = rolerespositary.findByname(name);
+		
+		if (userRoleDao.findBycategorynameAndLanguageNameandRoleandLan(user,role,lan,cat) != null) {
+			
+			model.addAttribute("msg", true);
+			
+			
+			ArrayList<com.health.model.language> lanDeatail = (ArrayList<com.health.model.language>) languageDao.findAll();
+
+			ArrayList<String> languageId = new ArrayList<String>();
+
+			for (com.health.model.language language : lanDeatail) {
+					
+				languageId.add(language.getLanguageName());
+
+			}
+			
+			
+
+			model.addAttribute("languagesDomain", languageId);
+
+			return "addDomainRoleRequest";
+
+		}
+		
 
 		java.util.Date dt = new java.util.Date();
 
@@ -251,12 +276,17 @@ public class userController {
 		userRoles.setStatus(status);
 		userRoles.setLanguage(lan);
 		userRoles.setCreated(currentTime);
+		userRoles.setCategory(cat);
+		
+		
 		userRoleRepositary.save(userRoles);
 
 		return "redirect:/domainLanguage";
-//		return "roleAdminDetail";
 
+		
 	}
+	
+	
 
 	@RequestMapping(value = "/addMeAsAdminReviwer", method = RequestMethod.GET)
 	public String addMeAsAdminReviwer(Authentication authentication, Model model) {
@@ -299,26 +329,65 @@ public class userController {
 
 	}
 
-	@RequestMapping(value = "/addMeAsQualityRevieweer", method = RequestMethod.GET)
-	public String addMeAsQualityRevieweer(Authentication authentication, Model model) {
+	@RequestMapping(value = "/addMeAsQualityRevieweer", method = RequestMethod.POST)
+	public String addMeAsQualityRevieweer(Authentication authentication, Model model,
+			@RequestParam(value = "lanName") String languageName,@RequestParam(value = "categoryDomainId") String catName) 
+	{
+		
+		language lan = languagedao.findBylanguageName(languageName);
 
 		User user = userService.findByClassname(authentication.getName());
 
-		List<UserRole> findAlreadyPresent = userRoleRepositary.findByuser_id(user.getId());
+		Category cat=CategoryDao.findBycategoryname(catName);
+		
+		String name = "QualityReviweer";
 
-		for (UserRole exitRole : findAlreadyPresent) {
+		Role role = rolerespositary.findByname(name);
+		
 
-			if (exitRole.getRole().getRoleId() == 1) {
+		if (userRoleDao.findBycategorynameAndLanguageNameandRoleandLan(user,role,lan,cat) != null) {
+			
+			model.addAttribute("msg", true);
+			
+			
+			ArrayList<com.health.model.language> lanDeatail = (ArrayList<com.health.model.language>) languageDao.findAll();
 
-				model.addAttribute("requestSend", true);
+			ArrayList<String> languageId = new ArrayList<String>();
 
-				return "roleAdminDetail";
+			for (com.health.model.language language : lanDeatail) {
+					
+				languageId.add(language.getLanguageName());
 
 			}
+			
+
+			model.addAttribute("languagesDomain", languageId);
+
+			return "addDomainRoleRequest";
 
 		}
 
-		String name = "QualityReviweer";
+	
+
+		/*
+		 * List<UserRole> findAlreadyPresent =
+		 * userRoleRepositary.findByuser_id(user.getId());
+		 * 
+		 * for (UserRole exitRole : findAlreadyPresent) {
+		 * 
+		 * if (exitRole.getRole().getRoleId() == 1) {
+		 * 
+		 * model.addAttribute("requestSend", true);
+		 * 
+		 * return "roleAdminDetail";
+		 * 
+		 * }
+		 * 
+		 * }
+		 * 
+		 * String name = "QualityReviweer"; Role role =
+		 * rolerespositary.findByname(name);
+		 */
 
 		java.util.Date dt = new java.util.Date();
 
@@ -326,15 +395,19 @@ public class userController {
 
 		String currentTime = sdf.format(dt);
 
-		Role role = rolerespositary.findByname(name);
+	
 
 		int status = 0;
 		UserRole userRoles = new UserRole(user, role);
 		userRoles.setStatus(status);
 		userRoles.setCreated(currentTime);
+		userRoles.setCategory(cat);
+		userRoles.setLanguage(lan);
+		
 		userRoleRepositary.save(userRoles);
+		
 
-		return "roleAdminDetail";
+		return "redirect:/domainLanguage";
 
 	}
 
@@ -467,6 +540,7 @@ public class userController {
 		System.err.println("print value" + userRoles.getUserRoleId());
 
 		String name = "Contributer";
+		
 		Role role = rolerespositary.findByname(name);
 
 		int status = 0;

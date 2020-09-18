@@ -326,12 +326,15 @@ public class controllerContributer {
 
 		  StringBuilder fileNames = new StringBuilder();
 		  for (MultipartFile file : scriptFiles)
-		  { Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
+		  { 
+			  Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
+		  
 		  fileNames.append(file.getOriginalFilename() + " ");
 		  topicName.add(file.getOriginalFilename());
 
-		  try { Files.write(fileNameAndPath, file.getBytes());
-		  fileconversion =fileNameAndPath.toString();
+		  try {
+			  Files.write(fileNameAndPath, file.getBytes());
+			  fileconversion =fileNameAndPath.toString();
 
 		  } catch (IOException e) {
 			  e.printStackTrace();

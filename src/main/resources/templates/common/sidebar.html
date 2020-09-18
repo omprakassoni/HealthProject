@@ -561,7 +561,7 @@
 					<div sec:authorize="!hasAnyAuthority('VideoReviwer','DomainReviweer','Admin','MasterTrainer','Contributer','QualityReviweer')">
 					<a th:href="@{/contributerSelectionLanguage}">Add me as Contributer</a>
 					<a th:href="@{/domainLanguage}">Add me as Domain Reviewer</a>
-					<a  onclick="return submitQ(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as a Quality Reviewer</a>
+					<a  onclick="return submitQ(this);" th:href="@{/qualityLanguage}">Add me as a Quality Reviewer</a>
 					<a  onclick="return submitM(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as a Master Trainer</a>
 					<a  onclick="return submitA(this);"  th:href="@{/addMeAsAdminReviwer}">Add me as a Admin Reviewer</a>
 					</div>
@@ -569,26 +569,26 @@
 					<div sec:authorize="hasAnyAuthority('Contributer')">
 					<a th:href="@{/rovekeRequest}"> Revoke Contribution Role</a>
 					<a  th:href="@{/domainLanguage}"> Add me as a Domain Reviewer</a>
-					<a  onclick="return submitQ(this);" th:href="@{/addMeAsQualityRevieweer}">Add me as a Quality Reviewer</a>
+					<a  onclick="return submitQ(this);" th:href="@{/qualityLanguage}">Add me as a Quality Reviewer</a>
 					<a  onclick="return submitM(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as a Master Trainer</a>
 					</div>
 
 					<div sec:authorize="hasAnyAuthority('DomainReviweer')">
-					<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a>
+					<a  onclick="return submitA(this);" th:href="@{/qualityLanguage}">Revoke Admin Reviewer Role</a>
 					<a  th:href="@{/addMeAsMasterTrainer}">Add me as as Domain reviewer Role</a>
 					<a  onclick="return submitQ(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as a Quality Reviewer</a>
 					</div>
 					<div sec:authorize="hasAnyAuthority('QualityReviweer')">
-					<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer Role</a>
+					<a  onclick="return submitA(this);" th:href="@{/qualityLanguage}">Revoke Admin Reviewer Role</a>
 					<a  th:href="@{/domainLanguage}">Add me as as Domain reviewer Role</a>
 					<a  onclick="return submitQ(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as a Quality Reviewer</a>
 					</div>
 
 					<div sec:authorize="hasAnyAuthority('VideoReviwer')">
 					<a th:href="@{/rovekeRequest}">Add me as a Contributor </a>
-					<a  onclick="return submitA(this);" th:href="@{/addMeAsQualityRevieweer}">Revoke Admin Reviewer</a>
+					<a  onclick="return submitA(this);" th:href="@{/qualityLanguage}">Revoke Admin Reviewer</a>
 					<a  th:href="@{/domainLanguage}">Add me as a Domain Reviewer Role</a>
-					<a  onclick="return submitQ(this);"  th:href="@{/addMeAsQualityRevieweer}">Add me as a Quality Reviewer</a>
+					<a  onclick="return submitQ(this);"  th:href="@{/qualityLanguage}">Add me as a Quality Reviewer</a>
 					</div>
 					<div sec:authorize="hasAnyAuthority('MasterTrainer')">
 					
@@ -605,7 +605,7 @@
 					<a th:href="@{/addMeAsDomainRevieweer}" onclick="return submitA(this);"><i class="fas fa-exclamation-circle"></i>
 						<span>Add me as a Domain Reviewer</span>
 					</a>
-					<a th:href="@{addMeAsQualityRevieweer}" onclick="return submitA(this);"><i class="fas fa-exclamation-circle"></i>
+					<a th:href="@{qualityLanguage}" onclick="return submitA(this);"><i class="fas fa-exclamation-circle"></i>
 						<span> Add me as a Quality Reviewer</span>
 					</a>
 					<a th:href="@{addMeAsMasterTrainer}" onclick="return submitA(this);"><i class="fas fa-exclamation-circle"></i>

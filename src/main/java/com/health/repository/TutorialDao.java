@@ -118,6 +118,10 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	@Query("from Tutorial u where u.user=?1 and topic=?2")
 	Tutorial findByContributorUserAndTopic(User user, topic topic);
 
+	@Query("from Tutorial u where u.category=?1 and u.lan=?2")
+	List<Tutorial> findByCategoryAndLan(Category cat,language lan);
+	
+	
 	@Modifying
 	@Query("update Tutorial set keyword=?1, keywordStatusSet=?2 where user_id=?3 and topic_id=?4 and category_id=?5")
 	int updateKeyword(String keywordmeassage, int keywordstatus, User user, topic topic, Category category);

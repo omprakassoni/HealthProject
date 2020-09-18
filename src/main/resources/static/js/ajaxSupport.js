@@ -211,6 +211,51 @@ $(document)
 												});
 									});
 
+					
+				// Here is code for display category according to language
+					
+					$('#languageContributerId')
+					.change(
+							
+							function() {
+								
+								var languageid = $("#languageContributerId").val();
+	
+								$.ajax({
+
+											type : "GET",
+											url : "/loadcategoryBylanguage",
+										
+											data : {
+												
+												"languageid" : languageid,
+												
+											},
+											contentType : "application/json",
+											success : function(result) {
+
+												var html = '';
+												var len = result.length;
+												html += '<option value="0">Select Category</option>';
+												for (var i = 0; i < len; i++) {
+
+													html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
+												}
+												html += '</option>';
+
+												$("#categoryDomainId").prop('disabled',false);
+												$('#categoryDomainId').html(html);
+											},
+
+											error : function(err) {
+												console.log("not working. ERROR: "+ JSON.stringify(err));
+											}
+										});
+							});
+					
+					
+					
+					
 //					$('#categoryname').change(function() {
 //										alert('clicked');
 //										var categoryId = $(this).val();

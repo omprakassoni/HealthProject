@@ -27,11 +27,11 @@
 								</div>
 							</div>
 						</h5>
-						<h5 class="card-title text-center a-card-title">Add Domain
+						<h5 class="card-title text-center a-card-title">Add Quality
 							Language</h5>
 
 						<form class="form-horizontal"
-							th:action="@{/addMeAsDomainRevieweer}" method="post"
+							th:action="@{/addMeAsQualityRevieweer}" method="post"
 							onsubmit="return submitForm()(this);">
 						
 						
@@ -42,16 +42,12 @@
 									<select id="languageContributerId"
 									class="form-control" name="lanName" required="required">
 
-									<option  selected="selected">Select Language</option>
-
 									<option selected="selected">Select Language</option>
 										<span th:each="lan : ${languagesDomain}">
 
 											<option th:value="${lan}"><span th:text="${lan}"></span></option>
 
 									</span>
-								
-								
 								
 								</select>
 									

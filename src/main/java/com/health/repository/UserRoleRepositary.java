@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
+import com.health.model.Category;
 import com.health.model.User;
 import com.health.model.language;
 
@@ -23,7 +24,12 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 		
 		@Query("from UserRole u where u.user=?1 and role=?2")
 		UserRole findByUserAndRole(User user,Role role);
-				
+		
+		@Query("from UserRole u where u.user=?1 and role=?2")
+		List<UserRole> findByUserAndRoles(User user,Role role);
+		
+		
+		
 		@Query("from UserRole u where u.status=?1 and role=?2")
 		UserRole findByAlreadyUser(int status,User userA);
 		
@@ -74,8 +80,8 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 		@Query(" from UserRole u where u.status=?1 and u.role=?2") 	
 		List<UserRole> finbyRoleUser(int status,Role role);
 		
-		
-		
+		@Query(" from UserRole u where u.user=?1 and u.role=?2 and u.language=?3 and u.category=?4") 	
+		UserRole findBycategorynameAndLanguageNameandRoleandLan(User user,Role role,language lan,Category cat);
 		
 		@Query(" from UserRole u where u.user=?1")
 		List<UserRole> findBylanguage(User user);
@@ -83,6 +89,10 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 	
 		@Query("from UserRole u where u.userRoleId=?1 and role=?2")
 		UserRole findByContributorId(Long user,Role role);
+		
+		
+		@Query("from UserRole u where  u.role=?1")
+		List<UserRole> findByRole(Role role);
 		
 		
 	}

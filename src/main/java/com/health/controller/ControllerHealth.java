@@ -362,6 +362,43 @@ public class ControllerHealth {
 	}
 
 	// Here is code for selection language of contributor
+	
+	@Autowired
+	private CategoryDao CategoryDao;
+
+	@RequestMapping(value = "/qualityLanguage", method = RequestMethod.GET)
+	public String selectLanguage(Model model, Authentication authetication) {
+		
+
+		User user = userRepository.findByUsername(authetication.getName());
+
+		Role role = rolerespositary.findOne(3);
+
+		ArrayList<String> languageExits = new ArrayList<String>();
+
+		
+		ArrayList<com.health.model.language> lanDeatail = (ArrayList<com.health.model.language>) languageDao.findAll();
+
+		ArrayList<String> languageId = new ArrayList<String>();
+
+		for (com.health.model.language language : lanDeatail) {
+				
+			languageId.add(language.getLanguageName());
+
+		}
+		
+		
+		languageId.removeAll(languageExits);
+
+		model.addAttribute("languagesDomain", languageId);
+		
+
+		return "addQualityRoleRequest";
+		
+		
+	}
+
+	
 
 	@RequestMapping(value = "/domainLanguage", method = RequestMethod.GET)
 	public String languagesByDomain(Model model, Authentication authetication) {
@@ -370,29 +407,80 @@ public class ControllerHealth {
 
 		Role role = rolerespositary.findOne(3);
 
-		ArrayList<String> languageExit = new ArrayList<String>();
+		ArrayList<String> languageExits = new ArrayList<String>();
+		
+//		List<UserRole> userRoles = (List<UserRole>) userRoleRepositary.findByUserAndRoles(user, role);
 
-		List<UserRole> userRoles = userRoleRepositary.findByuserAndRole(user, role);
-
-		for (UserRole ur : userRoles) {
-
-			languageExit.add(ur.getLanguage().getLanguageName());
-
-		}
+		/*
+		 * if(userRoles==null) {
+		 * 
+		 * ArrayList<com.health.model.language> lanDeatail =
+		 * (ArrayList<com.health.model.language>) languageDao.findAll();
+		 * 
+		 * ArrayList<String> languageId = new ArrayList<String>();
+		 * 
+		 * for (com.health.model.language language : lanDeatail) {
+		 * 
+		 * languageId.add(language.getLanguageName());
+		 * 
+		 * }
+		 * 
+		 * 
+		 * 
+		 * model.addAttribute("languagesDomain", languageId);
+		 * 
+		 * 
+		 * return "addDomainRoleRequest";
+		 * 
+		 * }
+		 * 
+		 * for (UserRole ur : userRoles) { if(ur.getLanguage()!=null) {
+		 * languageExits.add(ur.getLanguage().getLanguageName());
+		 * 
+		 * }
+		 * 
+		 * }
+		 */		
 		ArrayList<com.health.model.language> lanDeatail = (ArrayList<com.health.model.language>) languageDao.findAll();
 
 		ArrayList<String> languageId = new ArrayList<String>();
 
 		for (com.health.model.language language : lanDeatail) {
+				
 			languageId.add(language.getLanguageName());
 
 		}
+		
+		
+		languageId.removeAll(languageExits);
 
-		languageId.removeAll(languageExit);
+		model.addAttribute("languagesDomain", languageId);
+		
 
-		model.addAttribute("languages", languageId);
-
+		
 		return "addDomainRoleRequest";
+	}
+	
+	// Here is code for dispay category according to language
+	
+	@RequestMapping("/loadcategoryBylanguage")
+	public @ResponseBody List<String> loadcategoryBylanguage(@RequestParam(value = "languageid") String id) {
+
+		
+		System.err.println("hi001");
+		
+		List<String> catName = new ArrayList<String>();
+
+		List<Category> category=(List<Category>) categoryDao.findAll();
+		
+		for (Category category2 : category) {
+			
+			catName.add(category2.getCategoryname());
+			
+		}
+
+		return catName;
+
 	}
 
 	@RequestMapping(value = "/hdajkshdj", method = RequestMethod.POST)
