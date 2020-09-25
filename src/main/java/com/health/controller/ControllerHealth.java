@@ -17,6 +17,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Convert;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ import com.health.model.contributor_Role;
 import com.health.model.feedbackMasterTrainer;
 import com.health.model.language;
 import com.health.model.partipantDeatil;
+import com.health.model.profileInformation;
 import com.health.model.state;
 import com.health.model.topic;
 import com.health.model.trainingInformationDao;
@@ -67,6 +69,7 @@ import com.health.repository.cityRepositary;
 import com.health.repository.contributor_RoleDao;
 import com.health.repository.feedbackRespositary;
 import com.health.repository.languagedao;
+import com.health.repository.masterProfileDao;
 import com.health.repository.participantDao;
 import com.health.repository.stateRespositary;
 import com.health.repository.topicRepositary;
@@ -1959,6 +1962,52 @@ public class ControllerHealth {
 	@Autowired
 	private Questionreposiatry Questionreposiatry;
 
+	
+	@RequestMapping(value="/masterTrainerProfile",method=RequestMethod.GET)
+	public String profileForm(Model model)
+	{
+		
+		return "masterTrainerProfile";
+		
+		
+	}
+	
+	@Autowired
+	private masterProfileDao masterProfileDao;
+
+	@RequestMapping("/masterProfileInfo")
+	  public String addeMaqsterTranierInformation(HttpServletRequest req, Model model,Authentication authentication)
+	{
+		
+		
+		String name=req.getParameter("textMasterName");
+		String age=req.getParameter("textAge");
+		String mobilrNumber=req.getParameter("textMobile");
+		String postalAddress=req.getParameter("textAddress");
+		String organization=(req.getParameter("textOrganization"));
+		int exprienceInyear=Integer.parseInt(req.getParameter("textExpNumber"));
+		int textAadharNumber=Integer.parseInt(req.getParameter("textAadharNumber"));
+		
+		
+		//User user=userDao.findByUsername(authentication.getName());
+		
+		profileInformation profileInformation=new profileInformation();
+		profileInformation.setName(name);
+		profileInformation.setAge(age);
+		profileInformation.setMobileNumber(mobilrNumber);
+		profileInformation.setAddress(postalAddress);
+		profileInformation.setOrganization(organization);
+		profileInformation.setAadharNumber(textAadharNumber);
+		profileInformation.setExperience(exprienceInyear);
+		//profileInformation.setUser(user);
+		
+		masterProfileDao.save(profileInformation);
+		
+		
+				return "masterTrainerProfile";
+	  }
+	
+	
 	@RequestMapping(value = "/masterTrainer", method = RequestMethod.GET)
 	public String masterTrainer(Model model, Authentication authentication) {
 //		List<Tutorial> category = tutorialDao.finBystatus();
@@ -2048,8 +2097,6 @@ public class ControllerHealth {
 		model.addAttribute("languagesDisplay", languageAll);
 
 		model.addAttribute("userInfo", user);
-
-
 
 
 		return "masterTrainer";

@@ -537,11 +537,17 @@
 			</li>
 			</div>
 			<div sec:authorize="hasAnyAuthority('MasterTrainer')">
+			
 			<li class="item" id="master_trainer">
 				<a href="#master_trainer" class="menu-btn">
 					<i class="fas fa-envelope"></i>
-					<span> Master Trainer<i class="fas fa-chevron-down drop-down"></i></span>
+					<span>Master Trainer<i class="fas fa-chevron-down drop-down"></i></span>
 				</a>
+				<div class="sub-menu">
+					<a th:href="@{masterTrainerProfile}"><i class="fas fa-image"></i>
+						<span>Profile</span>
+					</a>
+				</div>
 				<div class="sub-menu">
 					<a th:href="@{masterTrainer}"><i class="fas fa-image"></i>
 						<span>Training Form</span>
