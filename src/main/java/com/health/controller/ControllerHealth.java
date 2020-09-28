@@ -52,6 +52,7 @@ import com.health.model.partipantDeatil;
 import com.health.model.profileInformation;
 import com.health.model.state;
 import com.health.model.topic;
+import com.health.model.traineeInformation;
 import com.health.model.trainingInformationDao;
 import com.health.repository.CategoryDao;
 import com.health.repository.CategoryTutorialDao;
@@ -73,6 +74,7 @@ import com.health.repository.masterProfileDao;
 import com.health.repository.participantDao;
 import com.health.repository.stateRespositary;
 import com.health.repository.topicRepositary;
+import com.health.repository.traineeProfileDao;
 import com.health.service.ConsaltantService;
 import com.health.service.categoryService;
 import com.health.service.eventService;
@@ -1149,7 +1151,9 @@ public class ControllerHealth {
 	String filepath;
 
 	String mastertrainer;
-
+	
+	String traineeInfo; 
+	
 	@RequestMapping("/addTestimonial")
 	public String upload(HttpServletRequest req, Model model,
 			@RequestParam("uploadTestiminial") MultipartFile[] files) {
@@ -1975,6 +1979,58 @@ public class ControllerHealth {
 	@Autowired
 	private masterProfileDao masterProfileDao;
 
+	@Autowired
+	private traineeProfileDao trainingInformationdao;
+	
+	
+	@RequestMapping("/TrainerProfile")
+	  public String addTraineeProfile(HttpServletRequest req, Model model,Authentication authentication)
+	{
+		
+		
+		return "TrainerProfile";
+	
+	}
+	
+	
+	@RequestMapping("/traineeProfileInfo")
+	  public String traineeProfileInfo(HttpServletRequest req, Model model,Authentication authentication)
+	{
+		
+		String name=req.getParameter("textMasterNamet");
+		String age=req.getParameter("textAget");
+		String mobilrNumber=req.getParameter("textMobilet");
+		String postalAddress=req.getParameter("textAddresst");
+		String organization=(req.getParameter("textOrganizationt"));
+		int exprienceInyear=Integer.parseInt(req.getParameter("textExpNumbert"));
+		int textAadharNumber=Integer.parseInt(req.getParameter("textAadharNumbert"));
+	
+		int textPreMark=Integer.parseInt(req.getParameter("textPreMark"));
+		int textPostMark=Integer.parseInt(req.getParameter("textPostMark"));
+		
+
+		traineeInformation profileInformation=new traineeInformation();
+		
+		profileInformation.setName(name);
+		profileInformation.setAge(age);
+		profileInformation.setMobileNumber(mobilrNumber);
+		profileInformation.setAddress(postalAddress);
+		profileInformation.setOrganization(organization);
+		/*
+		 * profileInformation.setAadharNumber(textAadharNumber);
+		 * profileInformation.setExperience(exprienceInyear);
+		 * profileInformation.setPremark(textPreMark);
+		 * profileInformation.setPostmark(textPostMark);
+		 *///profileInformation.setUser(user);
+		
+		trainingInformationdao.save(profileInformation);
+		
+		
+		
+		return "TrainerProfile";
+	}
+	
+	
 	@RequestMapping("/masterProfileInfo")
 	  public String addeMaqsterTranierInformation(HttpServletRequest req, Model model,Authentication authentication)
 	{
@@ -2142,6 +2198,8 @@ public class ControllerHealth {
 
 			  @RequestParam("ParticipantsDeatail") MultipartFile[] ParticipantsDeatail,
 			  @RequestParam("ParticipantsPhoto") MultipartFile[] ParticipantsPhoto,
+			  @RequestParam("traineeInformation") MultipartFile[] traineeInformation,
+			  
 			  //@RequestParam(name="stateName") String stateName,
 			  @RequestParam(value="categoryName") int categoryId,
 			  @RequestParam(value="stateName") int state,
@@ -2151,15 +2209,13 @@ public class ControllerHealth {
 			  @RequestParam(value="addressInformationName") String addressInformationName,
 			  @RequestParam(value="pinCode") int pinCode,Authentication authetication
 
+			  
 		) throws ParseException, IOException
 	  {
 
 		  	User user=userRepository.findByUsername(authetication.getName());
 
 		  	String titlename=req.getParameter("titleName");
-
-
-
 
 			String date=req.getParameter("date");
 			SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
@@ -2219,9 +2275,30 @@ public class ControllerHealth {
 				}
 
 			}
+			
+			for (MultipartFile file : traineeInformation) {
+
+				Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
+
+				fileNames.append(file.getOriginalFilename() + " ");
+
+				try {
+
+					Files.write(fileNameAndPath, file.getBytes());
+					System.out.println(fileNameAndPath.toString());
+
+					traineeInfo = fileNameAndPath.toString();
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
 
 			String ParticipantsDeatailFile = mastertrainer.substring(26);
-
+			
+			String fileTraineeInfo = traineeInfo.substring(26);
+			
 
 			String masterTrainerPhotoPath = null;
 			String masterTrainerPhoto = uploadMasterTrainerPhoto + "/" + dataofCamp + category.getCategoryname();
@@ -2290,15 +2367,6 @@ public class ControllerHealth {
 						  String file= csvFilePath.toString();
 					      String input = null;
 
-					      //Instantiating the Scanner class
-		/*
-		 * Scanner sc = new Scanner(new File(filePath)); //Instantiating the FileWriter
-		 * class FileWriter writer = new FileWriter(mastertrainer); //Instantiating the
-		 * Set class Set set = new HashSet(); while (sc.hasNextLine()) { input =
-		 * sc.nextLine(); if(set.add(input)) {
-		 *
-		 * writer.append(input+"\n"); } } writer.flush();
-		 */
 
 
 					      System.out.println("Contents added............");
@@ -2311,8 +2379,6 @@ public class ControllerHealth {
 						BufferedReader br=new BufferedReader(new FileReader(file));
 
 
-				//List<partipantDeatil> participDeatils=(List<partipantDeatil>) participantDao.findAll();
-
 
 						while((line=br.readLine())!=null) {
 
@@ -2322,6 +2388,12 @@ public class ControllerHealth {
 
 								partipantDeatil participantDeatail=new partipantDeatil();
 
+								   if(data.length>0)
+								   {
+									
+								     if( participantDao.countByadharNumber(data[3])==0)
+						 { 	
+								    
 
 								participantDeatail.setFirstname(data[0]);
 								participantDeatail.setLastname(data[1]);
@@ -2339,26 +2411,84 @@ public class ControllerHealth {
 
 								participantDao.save(participantDeatail);
 
-				//	participantService.deleteByQuery(participantDeatail.getParticipantId(),participantDeatail.getAdharNumber());
 
-				//	participantDao.deleteByQuery();
+						 }
 
-					//participantDao.deleteByQuery();
-
-			}
-
-					} catch (IOException e) {
+					}
+								   }
+						} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
+			      String filePathtrainee = traineeInfo;
+			      Path currentPathtrainee = Paths.get(System.getProperty("user.dir"));
+			      Path csvFilePathtrainee = Paths.get(currentPath.toString(), filePathtrainee);
+				  String filetrainee= csvFilePathtrainee.toString();
+			      String inputtrainee = null;
 
+
+
+			      System.out.println("Contents added............");
+
+
+		try {
+			String line="";
+
+				BufferedReader br=new BufferedReader(new FileReader(filetrainee));
+
+
+				while((line=br.readLine())!=null) {
+
+
+				 String [] data=line.split(",");
+
+			     traineeInformation traineeInfo=new traineeInformation();
+						
+			   if(data.length>0)
+			   {
+				
+			     if( trainingInformationdao.countByaadharNumber(data[5])==0)
+			     { 	
+			    
+						traineeInfo.setName(data[0]);
+						traineeInfo.setAge(data[1]);
+						traineeInfo.setMobileNumber(data[2]);
+						traineeInfo.setAddress(data[3]);
+						traineeInfo.setOrganization(data[4]);
+						 
+						traineeInfo.setAadharNumber(data[5]);
+					
+						traineeInfo.setExperience(data[6]);
+						traineeInfo.setPremark(data[7]);
+						traineeInfo.setPostmark(data[8]);
+						
+				
+						trainingInformationdao.save(traineeInfo);
+			     
+				 }  
+			     
+	}
+
+			} 
+				}
+				catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				
+				
+				
+				
+				
 
 		 model.addAttribute("msg","Your record Save Succefully");
 
 
 
 //	  return "redirect:/adminDeatail";
+		 
 		 return "redirect:/masterTrainer";
 
 
