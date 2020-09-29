@@ -40,15 +40,7 @@
 									<span th:text="${msg}"></span>
 								</div>
 	</div>
-		  <div class="col-12">
-		    <div class="nav d-flex nav-pills mb-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-		      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Add Training Information</a>
-		      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Questionnaire	</a>
-		      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Feedback Form</a>
-		     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">View Participant detail</a>
 
-		    </div>
-		  </div>
 		  <div class="col-12">
 		    <div class="tab-content" id="v-pills-tabContent">
 		      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -57,7 +49,7 @@
 		    		<div>
 		    					
  					
-					<h4 class="text-center">Add Training Information</h4>
+					<h4 class="text-center">Profile Master Trainer</h4>
 		    		
 		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
 		    		
@@ -87,177 +79,51 @@
 						
 			  </script>
 						    <!-- <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);"> -->
-						    <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data">
+						    <form action="/masterProfileInfo" method="post" enctype="multipart/form-data">
 						    
 									  <div class="form-group ">
-									    <label for="date">Start Date </label>
-									    <input type="date" class="form-control w-75" name="date" id="date" required="required"/>
+									    <label for="textMasterName">Name </label>
+									    <input type="text" class="form-control w-75" name="textMasterName" id="textMasterName" required="required"/>
 									  </div>
 									  
 									  
 									   <div class="form-group ">
-									    <label for="date">End Date </label>
-									    <input type="date" class="form-control w-75" name="endDate" id="startDate" required="required"/>
+									    <label for="textAge">Age</label>
+									    <input type="text" class="form-control w-75" name="textAge" id="textAge" required="required"/>
 									  </div>
   
-								 <div class="form-group">
-								 	  
-									   <label for="categoryName">Select category </label>
+								 		 <div class="form-group ">
+									    <label for="textMobile">Mobile Number</label>
 									    
-                                        <select id="MasterCategoryId" class="form-control w-75" name="categoryName"  style="width: 400px" required="required" >
-								               
-								                        <option selected="selected">Select Category</option>      
-								                        <span th:each="category: ${categorys}">
-								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-								  						</span>
-								  						
-									  </select>								  
-								 </div>	 
-								 
-								 
-		<!-- 						   <div class="form-group ">
-		
-										<label for="inputLanguage">Select Topic</label>
-													       	
-										  <select id="inputTopic" class="form-control w-75" name="inputTopic" style="width:400px" required="required">
-													              
-										  </select> 
-								           	
-								                	
-									</div> -->
-			
-								   
-							 <!--      <div class="form-group ">
-							      
-							               <label for="selectLanguageId">Select Language</label>
-							       				   
-							                    <select id="selectLanguageId" class="form-control w-75" name="selectlanguage" style="width:400px" required="required">
-							              
-							                    </select> 
-									</div> -->
-								   
-				
-
-<!-- 
-						<div class="form-group">
-									    <label for="participants">Participants</label>
-									    <input type="number" class="form-control w-75" pattern="[0-9]" id="participants" required="required"/>
-					
-						 </div>	  -->
-						 
-						 <div class="form-group">
-									    <label for="titleName">Title Name</label>
-									    <input type="text" class="form-control w-75" name="titleName" id="titleName" required="required"/>
-						 </div> 
-								
-								
-						
-							<span style="color: red;" th:if="${titleName}">Title Name already exists. Choose a different one.</span>
-					
-						 
-						 
-						 
-						 <div class="form-group">
-						 
-						 
-									    <label for="traningInformationMasterId">Training Information</label>
-                                         <textarea class="form-control w-75"  name="traningInfo" rows="5" id="traningInformationMasterId" style="width: 300px" required="required"></textarea>
-	
-						 </div>	 
-					 
-					<!-- 	 <div class="form-group">
-									    <label for="state">State</label>
-									    <input type="text" class="form-control w-75" name="stateName" id="state" required="required"/>
-						 </div> -->
-						 
-						 <div class="form-group">
-						 
-							   <label for="stateName">State</label>
-							   <select id="stateNameId" class="form-control w-75" name="stateName"  style="width: 400px" required="required" >
-									               
-									                        <option selected="selected">Select State</option>      
-									                        <span th:each="state: ${stateInfo}">
-									  								<option th:value="${state. getId()}"><span th:text="${state. getStateName()}"></span></option>		
-									  						</span>
-									  						
-								</select>
-								
-						 </div>
-						 
-						  <div class="form-group">
-						 
-							   <label for="district">District</label>
-							   <select id="districtId" class="form-control w-75" name="districtName"  style="width: 400px" required="required" >
-									               
-									                        <option selected="selected">Select District</option>      
-									                      
-									  						
-								</select>
-								
-						 </div>
-						 
-						  <div class="form-group">
-						 
-							   <label for="cityName">City</label>
-							   <select id="cityId" class="form-control w-75" name="cityName"  style="width: 400px" required="required" >
-									               
-									                        <option selected="selected">Select City</option>      
-									                       
-								</select>
-								
-						 </div>
-						 
-						<div class="form-group">
-						 
-									    <label for="addressInformationId">Address Information</label>
-		
-                                         <textarea class="form-control w-75"  name="addressInformationName" rows="5" id="addressInformationId" style="width: 300px" required="required"></textarea>
-	
-						 </div>	 
-					 
-					
-						 <div class="form-group">
-									    <label for="pinCodeId">PinCode</label>
-									    <input type="number" class="form-control w-75" name="pinCode" pattern="[0-9]" id="pinCodeId"   minlength="6"  maxlength="6"  required="required"/>
-						 </div>	
-							
-							
-						 <div class="form-group">
-									    <label for="totalParID">Total Participants</label>
-									    <input type="number" class="form-control w-75" name="totalPar" pattern="[0-9]" id="totalParID"   minlength="1"   required="required"/>
-						 </div>
-							
-
-						  <div class="form-group">
-						
-						  		 <label for="ParticipantsDe">Participants Detail</label>
-						      <input type="file" class="form-control w-75" id="ParticipantsDeatailId" accept=".csv" name="ParticipantsDeatail" required="required"/>
-				
-						    </div>
-						 
-						  <div class="form-group">
-						
-						  		 <label for="ParticipantsPhoto">Participants Photo</label>
-						      <input type="file" class="form-control w-75" id="ParticipantsPhotoId" accept=".zip" name="ParticipantsPhoto" required="required"/>
-				
-						    </div>
-				
-							  <div class="form-group">
-						
-						  		 <label for="traineeInformation">Trainee Information</label>
-						      <input type="file" class="form-control w-75" id="traineeInformation" accept=".csv" name="traineeInformation" required="required"/>
-				
-						    </div>
-				
-						    
-				<!-- 		   <div class="form-group">
-						
-						  		 <label for="ParticipantsPhoto">Participants Photo</label>
-						      <input type="file" class="form-control w-75" id="ParticipantsPhotoId" accept=".zip" name="ParticipantsPhoto" required="required"/>
-				
-						    </div> -->
-						    
-						        
+									    	<input type="Number" class="form-control w-75" name="textMobile" id="textMobile" required="required"/>
+									    
+									  </div>
+									  
+									   <div class="form-group ">
+									    <label for="textAddress">Postal Address</label>
+									    
+									    	<input type="text" class="form-control w-75" name="textAddress" id="textAddress" required="required"/>
+									    
+									  </div>
+								 		<div class="form-group">
+									    <label for="textOrganization">Organization associated</label>
+									    
+									    	<input type="text" class="form-control w-75" name="textOrganization" id="textOrganization" required="required"/>
+									    
+									  </div>	
+									  
+									  <div class="form-group ">
+									    <label for="textExpNumber">Experience in Year</label>
+									    	<input type="number" class="form-control w-75" name="textExpNumber" id="textExpNumber" required="required"/>
+									    
+									  </div> 
+									  <div class="form-group ">
+									    <label for="textAadharNumber">Aadhaar Number(Optioal)</label>
+									    	<input type="number" class="form-control w-75" name="textAadharNumber" id="textAadharNumber" />
+									    
+									  </div> 
+									  
+									  		        
 						   <button type="submit" class="btn  btn-success"  data-toggle="modal" onclick="myFunction()">Submit</button>
 						     <button type="reset" class="btn btn-success">Reset</button>       
 						      

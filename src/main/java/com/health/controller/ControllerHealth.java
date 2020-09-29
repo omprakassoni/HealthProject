@@ -17,6 +17,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Convert;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,10 @@ import com.health.model.contributor_Role;
 import com.health.model.feedbackMasterTrainer;
 import com.health.model.language;
 import com.health.model.partipantDeatil;
+import com.health.model.profileInformation;
 import com.health.model.state;
 import com.health.model.topic;
+import com.health.model.traineeInformation;
 import com.health.model.trainingInformationDao;
 import com.health.repository.CategoryDao;
 import com.health.repository.CategoryTutorialDao;
@@ -67,9 +70,11 @@ import com.health.repository.cityRepositary;
 import com.health.repository.contributor_RoleDao;
 import com.health.repository.feedbackRespositary;
 import com.health.repository.languagedao;
+import com.health.repository.masterProfileDao;
 import com.health.repository.participantDao;
 import com.health.repository.stateRespositary;
 import com.health.repository.topicRepositary;
+import com.health.repository.traineeProfileDao;
 import com.health.service.ConsaltantService;
 import com.health.service.categoryService;
 import com.health.service.eventService;
@@ -362,6 +367,43 @@ public class ControllerHealth {
 	}
 
 	// Here is code for selection language of contributor
+	
+	@Autowired
+	private CategoryDao CategoryDao;
+
+	@RequestMapping(value = "/qualityLanguage", method = RequestMethod.GET)
+	public String selectLanguage(Model model, Authentication authetication) {
+		
+
+		User user = userRepository.findByUsername(authetication.getName());
+
+		Role role = rolerespositary.findOne(3);
+
+		ArrayList<String> languageExits = new ArrayList<String>();
+
+		
+		ArrayList<com.health.model.language> lanDeatail = (ArrayList<com.health.model.language>) languageDao.findAll();
+
+		ArrayList<String> languageId = new ArrayList<String>();
+
+		for (com.health.model.language language : lanDeatail) {
+				
+			languageId.add(language.getLanguageName());
+
+		}
+		
+		
+		languageId.removeAll(languageExits);
+
+		model.addAttribute("languagesDomain", languageId);
+		
+
+		return "addQualityRoleRequest";
+		
+		
+	}
+
+	
 
 	@RequestMapping(value = "/domainLanguage", method = RequestMethod.GET)
 	public String languagesByDomain(Model model, Authentication authetication) {
@@ -370,29 +412,80 @@ public class ControllerHealth {
 
 		Role role = rolerespositary.findOne(3);
 
-		ArrayList<String> languageExit = new ArrayList<String>();
+		ArrayList<String> languageExits = new ArrayList<String>();
+		
+//		List<UserRole> userRoles = (List<UserRole>) userRoleRepositary.findByUserAndRoles(user, role);
 
-		List<UserRole> userRoles = userRoleRepositary.findByuserAndRole(user, role);
-
-		for (UserRole ur : userRoles) {
-
-			languageExit.add(ur.getLanguage().getLanguageName());
-
-		}
+		/*
+		 * if(userRoles==null) {
+		 * 
+		 * ArrayList<com.health.model.language> lanDeatail =
+		 * (ArrayList<com.health.model.language>) languageDao.findAll();
+		 * 
+		 * ArrayList<String> languageId = new ArrayList<String>();
+		 * 
+		 * for (com.health.model.language language : lanDeatail) {
+		 * 
+		 * languageId.add(language.getLanguageName());
+		 * 
+		 * }
+		 * 
+		 * 
+		 * 
+		 * model.addAttribute("languagesDomain", languageId);
+		 * 
+		 * 
+		 * return "addDomainRoleRequest";
+		 * 
+		 * }
+		 * 
+		 * for (UserRole ur : userRoles) { if(ur.getLanguage()!=null) {
+		 * languageExits.add(ur.getLanguage().getLanguageName());
+		 * 
+		 * }
+		 * 
+		 * }
+		 */		
 		ArrayList<com.health.model.language> lanDeatail = (ArrayList<com.health.model.language>) languageDao.findAll();
 
 		ArrayList<String> languageId = new ArrayList<String>();
 
 		for (com.health.model.language language : lanDeatail) {
+				
 			languageId.add(language.getLanguageName());
 
 		}
+		
+		
+		languageId.removeAll(languageExits);
 
-		languageId.removeAll(languageExit);
+		model.addAttribute("languagesDomain", languageId);
+		
 
-		model.addAttribute("languages", languageId);
-
+		
 		return "addDomainRoleRequest";
+	}
+	
+	// Here is code for dispay category according to language
+	
+	@RequestMapping("/loadcategoryBylanguage")
+	public @ResponseBody List<String> loadcategoryBylanguage(@RequestParam(value = "languageid") String id) {
+
+		
+		System.err.println("hi001");
+		
+		List<String> catName = new ArrayList<String>();
+
+		List<Category> category=(List<Category>) categoryDao.findAll();
+		
+		for (Category category2 : category) {
+			
+			catName.add(category2.getCategoryname());
+			
+		}
+
+		return catName;
+
 	}
 
 	@RequestMapping(value = "/hdajkshdj", method = RequestMethod.POST)
@@ -1058,7 +1151,9 @@ public class ControllerHealth {
 	String filepath;
 
 	String mastertrainer;
-
+	
+	String traineeInfo; 
+	
 	@RequestMapping("/addTestimonial")
 	public String upload(HttpServletRequest req, Model model,
 			@RequestParam("uploadTestiminial") MultipartFile[] files) {
@@ -1871,6 +1966,104 @@ public class ControllerHealth {
 	@Autowired
 	private Questionreposiatry Questionreposiatry;
 
+	
+	@RequestMapping(value="/masterTrainerProfile",method=RequestMethod.GET)
+	public String profileForm(Model model)
+	{
+		
+		return "masterTrainerProfile";
+		
+		
+	}
+	
+	@Autowired
+	private masterProfileDao masterProfileDao;
+
+	@Autowired
+	private traineeProfileDao trainingInformationdao;
+	
+	
+	@RequestMapping("/TrainerProfile")
+	  public String addTraineeProfile(HttpServletRequest req, Model model,Authentication authentication)
+	{
+		
+		
+		return "TrainerProfile";
+	
+	}
+	
+	
+	@RequestMapping("/traineeProfileInfo")
+	  public String traineeProfileInfo(HttpServletRequest req, Model model,Authentication authentication)
+	{
+		
+		String name=req.getParameter("textMasterNamet");
+		String age=req.getParameter("textAget");
+		String mobilrNumber=req.getParameter("textMobilet");
+		String postalAddress=req.getParameter("textAddresst");
+		String organization=(req.getParameter("textOrganizationt"));
+		int exprienceInyear=Integer.parseInt(req.getParameter("textExpNumbert"));
+		int textAadharNumber=Integer.parseInt(req.getParameter("textAadharNumbert"));
+	
+		int textPreMark=Integer.parseInt(req.getParameter("textPreMark"));
+		int textPostMark=Integer.parseInt(req.getParameter("textPostMark"));
+		
+
+		traineeInformation profileInformation=new traineeInformation();
+		
+		profileInformation.setName(name);
+		profileInformation.setAge(age);
+		profileInformation.setMobileNumber(mobilrNumber);
+		profileInformation.setAddress(postalAddress);
+		profileInformation.setOrganization(organization);
+		/*
+		 * profileInformation.setAadharNumber(textAadharNumber);
+		 * profileInformation.setExperience(exprienceInyear);
+		 * profileInformation.setPremark(textPreMark);
+		 * profileInformation.setPostmark(textPostMark);
+		 *///profileInformation.setUser(user);
+		
+		trainingInformationdao.save(profileInformation);
+		
+		
+		
+		return "TrainerProfile";
+	}
+	
+	
+	@RequestMapping("/masterProfileInfo")
+	  public String addeMaqsterTranierInformation(HttpServletRequest req, Model model,Authentication authentication)
+	{
+		
+		
+		String name=req.getParameter("textMasterName");
+		String age=req.getParameter("textAge");
+		String mobilrNumber=req.getParameter("textMobile");
+		String postalAddress=req.getParameter("textAddress");
+		String organization=(req.getParameter("textOrganization"));
+		int exprienceInyear=Integer.parseInt(req.getParameter("textExpNumber"));
+		int textAadharNumber=Integer.parseInt(req.getParameter("textAadharNumber"));
+		
+		
+		//User user=userDao.findByUsername(authentication.getName());
+		
+		profileInformation profileInformation=new profileInformation();
+		profileInformation.setName(name);
+		profileInformation.setAge(age);
+		profileInformation.setMobileNumber(mobilrNumber);
+		profileInformation.setAddress(postalAddress);
+		profileInformation.setOrganization(organization);
+		profileInformation.setAadharNumber(textAadharNumber);
+		profileInformation.setExperience(exprienceInyear);
+		//profileInformation.setUser(user);
+		
+		masterProfileDao.save(profileInformation);
+		
+		
+				return "masterTrainerProfile";
+	  }
+	
+	
 	@RequestMapping(value = "/masterTrainer", method = RequestMethod.GET)
 	public String masterTrainer(Model model, Authentication authentication) {
 //		List<Tutorial> category = tutorialDao.finBystatus();
@@ -1962,8 +2155,6 @@ public class ControllerHealth {
 		model.addAttribute("userInfo", user);
 
 
-
-
 		return "masterTrainer";
 
 	}
@@ -2007,6 +2198,8 @@ public class ControllerHealth {
 
 			  @RequestParam("ParticipantsDeatail") MultipartFile[] ParticipantsDeatail,
 			  @RequestParam("ParticipantsPhoto") MultipartFile[] ParticipantsPhoto,
+			  @RequestParam("traineeInformation") MultipartFile[] traineeInformation,
+			  
 			  //@RequestParam(name="stateName") String stateName,
 			  @RequestParam(value="categoryName") int categoryId,
 			  @RequestParam(value="stateName") int state,
@@ -2016,15 +2209,13 @@ public class ControllerHealth {
 			  @RequestParam(value="addressInformationName") String addressInformationName,
 			  @RequestParam(value="pinCode") int pinCode,Authentication authetication
 
+			  
 		) throws ParseException, IOException
 	  {
 
 		  	User user=userRepository.findByUsername(authetication.getName());
 
 		  	String titlename=req.getParameter("titleName");
-
-
-
 
 			String date=req.getParameter("date");
 			SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");
@@ -2084,9 +2275,30 @@ public class ControllerHealth {
 				}
 
 			}
+			
+			for (MultipartFile file : traineeInformation) {
+
+				Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
+
+				fileNames.append(file.getOriginalFilename() + " ");
+
+				try {
+
+					Files.write(fileNameAndPath, file.getBytes());
+					System.out.println(fileNameAndPath.toString());
+
+					traineeInfo = fileNameAndPath.toString();
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
 
 			String ParticipantsDeatailFile = mastertrainer.substring(26);
-
+			
+			String fileTraineeInfo = traineeInfo.substring(26);
+			
 
 			String masterTrainerPhotoPath = null;
 			String masterTrainerPhoto = uploadMasterTrainerPhoto + "/" + dataofCamp + category.getCategoryname();
@@ -2155,15 +2367,6 @@ public class ControllerHealth {
 						  String file= csvFilePath.toString();
 					      String input = null;
 
-					      //Instantiating the Scanner class
-		/*
-		 * Scanner sc = new Scanner(new File(filePath)); //Instantiating the FileWriter
-		 * class FileWriter writer = new FileWriter(mastertrainer); //Instantiating the
-		 * Set class Set set = new HashSet(); while (sc.hasNextLine()) { input =
-		 * sc.nextLine(); if(set.add(input)) {
-		 *
-		 * writer.append(input+"\n"); } } writer.flush();
-		 */
 
 
 					      System.out.println("Contents added............");
@@ -2176,8 +2379,6 @@ public class ControllerHealth {
 						BufferedReader br=new BufferedReader(new FileReader(file));
 
 
-				//List<partipantDeatil> participDeatils=(List<partipantDeatil>) participantDao.findAll();
-
 
 						while((line=br.readLine())!=null) {
 
@@ -2187,6 +2388,12 @@ public class ControllerHealth {
 
 								partipantDeatil participantDeatail=new partipantDeatil();
 
+								   if(data.length>0)
+								   {
+									
+								     if( participantDao.countByadharNumber(data[3])==0)
+						 { 	
+								    
 
 								participantDeatail.setFirstname(data[0]);
 								participantDeatail.setLastname(data[1]);
@@ -2204,26 +2411,84 @@ public class ControllerHealth {
 
 								participantDao.save(participantDeatail);
 
-				//	participantService.deleteByQuery(participantDeatail.getParticipantId(),participantDeatail.getAdharNumber());
 
-				//	participantDao.deleteByQuery();
+						 }
 
-					//participantDao.deleteByQuery();
-
-			}
-
-					} catch (IOException e) {
+					}
+								   }
+						} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
+			      String filePathtrainee = traineeInfo;
+			      Path currentPathtrainee = Paths.get(System.getProperty("user.dir"));
+			      Path csvFilePathtrainee = Paths.get(currentPath.toString(), filePathtrainee);
+				  String filetrainee= csvFilePathtrainee.toString();
+			      String inputtrainee = null;
 
+
+
+			      System.out.println("Contents added............");
+
+
+		try {
+			String line="";
+
+				BufferedReader br=new BufferedReader(new FileReader(filetrainee));
+
+
+				while((line=br.readLine())!=null) {
+
+
+				 String [] data=line.split(",");
+
+			     traineeInformation traineeInfo=new traineeInformation();
+						
+			   if(data.length>0)
+			   {
+				
+			     if( trainingInformationdao.countByaadharNumber(data[5])==0)
+			     { 	
+			    
+						traineeInfo.setName(data[0]);
+						traineeInfo.setAge(data[1]);
+						traineeInfo.setMobileNumber(data[2]);
+						traineeInfo.setAddress(data[3]);
+						traineeInfo.setOrganization(data[4]);
+						 
+						traineeInfo.setAadharNumber(data[5]);
+					
+						traineeInfo.setExperience(data[6]);
+						traineeInfo.setPremark(data[7]);
+						traineeInfo.setPostmark(data[8]);
+						
+				
+						trainingInformationdao.save(traineeInfo);
+			     
+				 }  
+			     
+	}
+
+			} 
+				}
+				catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				
+				
+				
+				
+				
 
 		 model.addAttribute("msg","Your record Save Succefully");
 
 
 
 //	  return "redirect:/adminDeatail";
+		 
 		 return "redirect:/masterTrainer";
 
 

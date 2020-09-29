@@ -30,5 +30,6 @@ public interface participantDao extends CrudRepository<partipantDeatil, Integer>
 	 *
 	 */
 
+	 long countByadharNumber(String aadharNumber); 	
 
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.health.domain.security.Role;
+import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.Tutorial;
 import com.health.model.User;
@@ -19,8 +21,10 @@ import com.health.model.commentOnComponent;
 import com.health.model.language;
 import com.health.model.topic;
 import com.health.repository.CategoryDao;
+import com.health.repository.RoleRepository;
 import com.health.repository.TutorialDao;
 import com.health.repository.UserRepository;
+import com.health.repository.UserRoleRepositary;
 import com.health.repository.commentOnComponentDao;
 import com.health.repository.languagedao;
 import com.health.repository.topicRepositary;
@@ -60,17 +64,58 @@ public class QualityReviwer
 
 	@Autowired
 	private commentOnComponentDao commentOnComponentDao;
+	
+	
+	@Autowired
+	private RoleRepository RoleRepository;
+	
+	@Autowired
+	private UserRoleRepositary UserRoleRepositary;
 
 	// Here is code for review Componenet
 
 		@RequestMapping("/listQualityReviewrTutorial")
 		public String listTutorialss(Model model)
 		{
+		
 
-			List<Tutorial> tutorilal=(List<Tutorial>) tutorialdao.findAll();
+			 List<Tutorial> tutorial=null;
+			 
+			 List<Tutorial> merge=new ArrayList<>();
+			 
+			 Role role=RoleRepository.findOne(1);
+			 
+			 
+			 List<UserRole> userRole=UserRoleRepositary.findByRole(role);
+			 
+			 System.err.println(userRole.toString());
+			 if(userRole!=null) 
+			 {
+			 
+						 for (UserRole userRole2 : userRole) 
+						 {
+							 
+							 //Category category=categoryDao.findByid(userRole2.getCategory().getId());
+							 
+							 //language language=languageDao.findBylanguageName(userRole2.getLanguage().getLanguageName());
+							 	
+							 
+							 tutorial=tutorialdao.findByCategoryAndLan(userRole2.getCategory(),userRole2.getLanguage());
+						
+							 merge.addAll(tutorial);
+						
+						 }
+						 model.addAttribute("QualityReviwerList",merge);
+						 
+			 
+			 }
 
-		 	model.addAttribute("QualityReviwerList",tutorilal);
 
+		/*
+		 * List<Tutorial> tutorilal=(List<Tutorial>) tutorialdao.findAll();
+		 * 
+		 * model.addAttribute("QualityReviwerList",tutorilal);
+		 */
 		 	return "listTutorialQualityReviwer";
 
 		}

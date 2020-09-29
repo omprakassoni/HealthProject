@@ -25,11 +25,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.health.domain.security.PasswordResetToken;
+import com.health.model.Category;
 import com.health.model.Consaltantant;
 import com.health.model.Event;
 import com.health.model.Testimonial;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.repository.CategoryDao;
 import com.health.repository.ConsaltantDao;
 import com.health.repository.EventDao;
 import com.health.repository.TestimonialDao;
@@ -100,6 +102,9 @@ public class HomeController {
 
 		return "showVideo";
 	}
+	
+	@Autowired
+	private CategoryDao CategoryDao;
 
 	@RequestMapping("/")
 	public String index(Model model) {
@@ -108,7 +113,10 @@ public class HomeController {
 		for (Tutorial tutorial : category) {
 			tutorialRes.add(tutorial.getCategory().getCategoryname());
 		}
-
+		
+		
+		
+		
 
 //		Set<String> categoryList = new LinkedHashSet<String>(tutorialRes);
 //		System.err.println("Prit list" + categoryList);
@@ -123,8 +131,7 @@ public class HomeController {
 
 		Set<String> categoryList=new LinkedHashSet<String>(tutorialRes);
 
-
-
+		
 		model.addAttribute("categorys",categoryList);
 
 		List<Event> event=eventDao.getAllEvent();

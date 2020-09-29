@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.health.model.Category;
 import com.health.model.User;
 import com.health.model.language;
 
@@ -42,6 +43,20 @@ public class UserRole
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="lan_id")
 	private language language;
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="cat_id")
+	private Category category;
+	
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	private int status;
 
