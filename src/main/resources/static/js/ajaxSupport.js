@@ -2150,7 +2150,7 @@ $(document)
 
 														var html = '';
 														var len = result.length;
-														html += '<option value="0">Select language</option>';
+														html += '<option value="0">Select Topic</option>';
 														for (var i = 0; i < len; i++) {
 
 															html += '<option value="'
