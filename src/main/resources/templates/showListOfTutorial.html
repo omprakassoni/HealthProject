@@ -115,55 +115,43 @@
 
 	</header> -->
 
-		<div class="container" style="padding-top: 50px">
-				
-		<div class="bg-secondary text-white">
-		
-		
-		
-				<div class="row" style="background-color: bg-secondary text-white ;">
-			<div class="col-md-12">	
-				
-	<form th:action="@{/showListTutorial}" class="form-inline">
+		<section id="search-bar" class="container my-3">
+<div class="row">
+<form th:action="@{/showListTutorial}" class="form-inline" style="width:100%;">
+<div class="row px-6 mx-6" style="width:100%;">
+<div class="col-md-3">
+<label class="sr-only" for="inputState">Category</label>
+            <select class="custom-select d-block w-100" id="categoryname" name="categoryName">
+              <option value="0">Select Category...</option>
+              <option th:each="category : ${categorys}"><span th:text="${category}">Title ...</span></option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid foss.
+            </div>
+</div>
+<div class="col-md-3">
+<select class="custom-select d-block w-100" id="inputTopicName" name="topic">
+              <option value="0">Select Topic</option>
+            </select>
+</div>
+<div class="col-md-3">
+<select class="custom-select d-block w-100" id="inputLanguage" name="inputLanguage">
+              <option value="0">Select Language</option>
+              <!-- <option th:each="language : ${languages}"><span th:text="${language.languageName}">Title ...</span></option> -->
+            </select>
+            <div class="invalid-feedback">
+              Please provide a valid language.
+            </div>
+</div>
 
-		<div class="pad-extra" style="padding-left: 100px">
-							<label class="sr-only" for="inputState">Category</label> 
-			<select id="categoryNameList" class="form-control" name="categoryNameList" style="width: 400px">
-
-						<option selected="selected">Select Category</option>
-						
-						<span th:each="category: ${categorys}">
-								
-								<option th:value="${category.getCategory().getId()}">
-								<span th:text="${category.getCategory().getCategoryname()}"></span></option>
-						
-						</span>	
-			</select>
-			  
-		</div>
-						<div class="pad-extra">
-							<label class="sr-only" for="inputState">language</label> 
-							<select	id="inputLanguageList" class="form-control" name="inputLanguageList"
-									style="width: 400px">
-
-							</select>
-							<div id="idselection"></div>
-						</div>
-
-						<div class="pad-extra">
-
-						 <button type="submit" class="btn btn-primary btn-rounded"
-			
-							   id="headerSubmitList">Search</button>
-
-						</div>
-
-	</form>
-				</div>
-				</div>		
-		</div>		
-	</div>
-		<hr style="padding-top: 50px"></hr>
+          <div class="col-md-3 mb-3" style="width: 100%;">
+            <button type="submit" class="btn btn-outline-info" style="height: 38px;width: 100%;margin:0;background:#1C7871;color:#fff;"> Submit </button>
+          </div>
+</div>
+</form>
+          
+        </div>
+</section>
 		
 	<div class="container" style="padding-top: 50px">
 		
