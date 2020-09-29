@@ -291,7 +291,7 @@ public class DomainReviwer {
 			model.addAttribute("statusScript", compStatus[tutorial.getScriptStatus()]);
 			model.addAttribute("statusSlide",compStatus[tutorial.getSlideStatus()]);
 			model.addAttribute("statusKeyword",compStatus[tutorial.getKeywordStatusSet()]);
-			model.addAttribute("statusPreReq",compStatus[tutorial.getGraphicsStatus()]);
+			model.addAttribute("statusPreReq",compStatus[tutorial.getPrerequisiteStatus()]);
 			model.addAttribute("statusGraphics",compStatus[tutorial.getGraphicsStatus()]);
 
 			// here is code domain reviwer write comments
@@ -626,78 +626,78 @@ public class DomainReviwer {
 				  return videoStatusUpdate;
 
 			}
-			  
-			  
+
+
 			  // Here is code for domain pre-requisite
-			  
+
 			  @RequestMapping("/acceptPrerequistic")
 			  public @ResponseBody List<String> needToImprovemenetByPreDomain(@RequestParam(value = "categorname") String categorname,
 					  @RequestParam(value = "topicid") String topicid,
-					  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)	  
+					  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
 			{
-				
+
 				  List<String> videoStatusUpdate = new ArrayList<String>();
-				  
+
 				  User user=userRepository.findByUsername(authentication.getName());
-				  
-				  topic topic = topicRepositary.findBytopicname(topicid);		  
-				  
+
+				  topic topic = topicRepositary.findBytopicname(topicid);
+
 				  Category category=categoryDao.findBycategoryname(categorname);
-			
+
 				  language language=languageDao.findBylanguageName(lanId);
-			  
+
 				 //Admin set to need to improvement
-				  
+
 				  int preDomain=3;
-				  
+
 				  tutorialService.upadatePreStatus(preDomain, topic, category,language);
-				  
+
 				  videoStatusUpdate.add("Prerequisite Stauts Update  successfully");
-				  
+
 				  return videoStatusUpdate;
 
 			}
-			  
-			  
-			  
+
+
+
 				/* Here is code for pre-requisti
 				 * c */
-				
+
 				@RequestMapping("/needToImpKeywordByDomainPre")
 				  public @ResponseBody List<String> needToImpKeywordByDomainPre(@RequestParam(value = "categorname") String categorname,
 						  @RequestParam(value = "topicid") String topicid,
 						  @RequestParam(value = "preCommentMsg") String msgComment,
-						  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)	  
+						  @RequestParam(value = "lanId") String lanId,Model model,Authentication authentication)
 				{
-					
+
 					  List<String> outlineDomain = new ArrayList<String>();
-					  
+
 					  User user=userRepository.findByUsername(authentication.getName());
-					  
-					  topic topic = topicRepositary.findBytopicname(topicid);		  
-					 
+
+					  topic topic = topicRepositary.findBytopicname(topicid);
+
 					  Category category=categoryDao.findBycategoryname(categorname);
-				 
+
 					  language language=languageDao.findBylanguageName(lanId);
-					  
+
 					  Tutorial tutorial=tutorialdao.findByTutorialForComment(topic, category, language);
-					  
+
 					  int DomainStatus=5;
-					  
+
 					  String Prerequisite="Prerequisite";
-					  
-				
+
+
 					  tutorialService.upadatePreStatus(DomainStatus, topic, category,language);
-					  
+
 						java.util.Date dt = new java.util.Date();
-						java.text.SimpleDateFormat sdf = 
+						java.text.SimpleDateFormat sdf =
 						     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 						String currentTime = sdf.format(dt);
-			
+
 						commentOnComponent commentonComponet= new commentOnComponent();
-					 
-						
+
+
 								 commentonComponet.setUser(user);
 								 commentonComponet.setTopic(topic);
 								 commentonComponet.setLanguage(language);
@@ -706,21 +706,21 @@ public class DomainReviwer {
 								 commentonComponet.setCommentdate(currentTime);
 								 commentonComponet.setCommentInfo(msgComment);
 								 commentonComponet.setComponenenetDeatail(Prerequisite);
-								 					 
+
 								 commentOnComponentDao.save(commentonComponet);
-					  
+
 					  System.err.println("test 4");
 					 outlineDomain.add("Prerequisite Status Update  successfully");
-					 
-					  
+
+
 					  return outlineDomain;
 
 				}
 
 
-			  
-			  
-			  
+
+
+
 
 			// Here is code for accept slide
 

@@ -237,9 +237,7 @@
 										<tr>
 										<td>6</td>
 										<td>Pre-Requisites</td>
-										<td><span th:each=" statusKeyword: ${statusKeyword}">
-												<span style="color: green;" th:text="${statusKeyword}">Pending</span>
-										</span></td>
+										<td><span class="status-contri" th:text="${statusPreReq}"></span></td>
 										<th>-</th>
 
 										<th>
@@ -804,6 +802,7 @@
 										</button>
 									</div>
 									<div class="modal-body">
+									<p th:text="${tutorialComponenet.getScript()}"></p>
 
 										<!-- <form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post"> -->
@@ -811,6 +810,7 @@
 											<div class="form-group mb-3">
 
 												<div class="embed-responsive embed-responsive-16by9 mb-5">
+												
 							  						<video id='storedDomainPreId' 
 														controls="controls" style="width:100%!important;">
 													
