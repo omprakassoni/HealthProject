@@ -88,6 +88,8 @@ public class ControllerHealth {
 
 	public static String uploadDirectoryConsaltant = "src/main/resources/static" + "/Media/content" + "/Consaltant";
 
+	public static String uploadDirectoryCategory = "src/main/resources/static" + "/Media/content" + "/Category";
+
 	public static String uploadDirectoryFeedback = "src/main/resources/static" + "/Media/content" + "/feedback";
 
 
@@ -971,7 +973,6 @@ public class ControllerHealth {
 			@RequestParam("uploadConsaltantImage") MultipartFile[] files)
 
 	{
-
 		String path = null;
 		String nameConsaltant = req.getParameter("nameConsaltant");
 		String descriptionConsaltant = req.getParameter("descriptionConsaltant");
@@ -999,21 +1000,14 @@ public class ControllerHealth {
 				e.printStackTrace();
 			}
 		}
-
 		java.util.Date dt = new java.util.Date();
-
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 		String currentTime = sdf.format(dt);
-
 		String substring = fileconsalantant.substring(26);
-
 		Consaltantant consaltantant = new Consaltantant();
-
 		consaltantant.setNameConsaltant(nameConsaltant);
 		consaltantant.setDescriptionConsaltant(descriptionConsaltant);
 		consaltantant.setUploadConsaltantImage(substring);
-
 		consaltantant.setTimaedate(getCurrentTime());
 		consaltantant.setShowOnHomepage(show);
 
@@ -1481,12 +1475,18 @@ public class ControllerHealth {
 	/*****************************************************
 	 * Here we write code save category
 	 *************************************************************************/
-
+	String fileCategory;
 	@RequestMapping(value = "/savecategory", method = RequestMethod.POST)
 	public String add(HttpServletRequest req, Model model, Authentication authentication,
-			@RequestParam(value = "checkboxName", required = false) String checkboxValue) {
+			@RequestParam(value = "checkboxName", required = false) String checkboxValue,
+			@RequestParam("categoryImage") MultipartFile[] files
+			) {
 
 		String categoryName = req.getParameter("categoryname");
+		String categoryDesc = req.getParameter("categoryDesc");
+
+		String abc = uploadDirectoryCategory + "/" + categoryName;
+		new File(abc).mkdir();
 
 		if (categoryDao.findBycategoryname(categoryName) != null) {
 			model.addAttribute("msg", true);
@@ -1494,6 +1494,26 @@ public class ControllerHealth {
 			return "addCategory";
 
 		}
+		StringBuilder fileNames = new StringBuilder();
+
+		for (MultipartFile file : files) {
+
+		Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+
+		fileNames.append(file.getOriginalFilename() + " ");
+		try {
+
+		Files.write(fileNameAndPath, file.getBytes());
+
+		fileCategory = fileNameAndPath.toString();
+
+		} catch (IOException e) {
+
+		e.printStackTrace();
+		}
+		}
+
+		String substring = fileCategory.substring(26);
 		User user = userRepository.findByUsername(authentication.getName());
 
 		java.util.Date dt = new java.util.Date();
@@ -1506,6 +1526,8 @@ public class ControllerHealth {
 		category.setCategoryname(categoryName);
 		category.setCreated(getCurrentTime());
 		category.setUserid(user.getId());
+		category.setUploadCategoryImage(substring);
+		category.setCategoryDesc(categoryDesc);
 
 		if (checkboxValue != null) {
 			category.setStatus(1);

@@ -48,6 +48,27 @@ body{
 	text-align: center;
 	margin-top: 25px;
 }
+/*-----------------------------------Common---------------------------*/
+.highlighter{
+	border-bottom: 2px solid orange;
+}
+.highlighter-green{
+	border-bottom: 2px solid #1C7871;
+}
+.spk-btn{
+	border: 1px solid #1C7871!important;
+	text-decoration: none;
+	
+}
+.spk-title{
+	color: #1C7871!important;
+	color: #004F7A!important;
+	margin: 2rem 0!important;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+/*-----------------------------------Common---------------------------*/
 /*-----------------------------------header upper-bar---------------------------*/
 header .upper-bar{
 	z-index : 1;
@@ -66,8 +87,31 @@ header .upper-bar{
 .h-login a{
 	color: var(--dark-orange);
 }
-
-
+.top-banner{
+	border: 1px solid #1C7871;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 5px;
+}
+.top-banner a{
+	color: rgb(0,0,0);
+	text-decoration: none;
+}
+.top-banner:hover{
+	color: #1C7871;
+	font-weight: bold;
+	/* border: 1px solid red; */
+}
+#mainNavBar .nav-item{
+	color: #1C7871;
+	font-weight: bold;
+}
+#mainNavBar .nav-item:hover{
+	color: #1C7871;
+	font-weight: bold;
+	border-bottom: 1px solid #1C7871;
+	transition:  2s;
+}
 /*-----------------------------------/header upper-bar---------------------------*/
 
 /*-----------------------------------Intro text with carousel---------------------------*/
@@ -104,36 +148,18 @@ header .upper-bar{
 .featurette a{
 	margin : 25px 0 25px 0;
 }
+#intro .hero-body{
+	background: #fff;
+}
+
 /*-----------------------------------/Intro text with carousel---------------------------*/
 
 /*-----------------------------------Highlights---------------------------*/
-#info{
-	padding:2% 10%;
-}
-#info .card h1{
-	color: var(--teal-dark);
-}
-#info .card{
-	border: none;
-}
-#info .card1{
-	background: #f9fbe7;
-}
-#info .card2{
-	background-color: #e8f5e9;
-}
-#info .card3{
-	background-color: #e0f2f1;
-}
-.car-content {
-	display : flex;
-	justify-content: center;
-	align-items: flex-start;
-	flex-direction: column;
+#stats{
 	
 }
-.car-content p{
-	width : 100%;
+#stats .title, #stats .subtitle{
+	color: #1C7871;
 }
 /*-----------------------------------/Highlights---------------------------*/
 /*-----------------------------------Events---------------------------*/
@@ -165,74 +191,20 @@ header .upper-bar{
 /*-----------------------------------/Events---------------------------*/
 
 /*-----------------------------------Consultants---------------------------*/
-#consultants .card-image > .fa {
-  font-size: 8rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  color: #209cee;
+#parallax-2 .card-content img{
+	max-width: 200px;
 }
-#consultants .card-content .content {
-  font-size: 14px;
-  /* margin: 1rem 1rem; */
+#parallax-2 .card{
+	width: 90%;
 }
-#consultants .card-content .content h4 {
-  font-size: 1.2rem;
-  font-weight: 700;
+#parallax-2 .consBtn{
+	border: 1px solid #fff;
+    color: #fff;
+    font-weight: bold;
 }
-#consultants .card {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-  margin-bottom: 2rem;
-  width: 80%;
-  margin:auto;
-}
-#consultants .intro {
-  padding: 5rem 0;
-  text-align: center;
-}
-#consultants .sandbox {
-  padding: 5rem 0;
-}
-#consultants .tile.notification {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-#consultants .is-shady, #tiles .is-shady{
-animation: flyintoright .4s backwards;
-background: #fff;
-box-shadow: rgba(0, 0, 0, .1) 0 1px 0;
-border-radius: 4px;
-display: inline-block;
-margin: 10px;
-position: relative;
-transition: all .2s ease-in-out;
-}
-#consultants .is-shady:hover , #tiles .is-shady:hover{
-box-shadow: 0 10px 16px rgba(0, 0, 0, .13), 0 6px 6px rgba(0, 0, 0, .19);
-}
-#consultants .card{
-	height: 400px;
-}
-#consultants p{
-	margin-left:0;
-	margin-right:0;
-}
-#consultants .modal{
-	z-index: 10;
-}
-#consultants .modal.modal-close{
-	position: realtive!important;
-	
-}
-#consultants .modal-button{
-	position : absolute;
-	bottom : 10px;
-}
-
-#consultants .c-card-img{
-	width: 100px!important;
-	height: 100px!important;
-	
+#parallax-2 .consBtn:hover{
+	background: none;
+	opacity: 0.8;
 }
 /*-----------------------------------/Consultants---------------------------*/
 
@@ -381,34 +353,21 @@ box-shadow: 0 10px 16px rgba(0, 0, 0, .13), 0 6px 6px rgba(0, 0, 0, .19);
 /*-----------------------------------Video Display---------------------------*/
 
 /*-----------------------------------Contact---------------------------*/
-.contact-info{
-	/*border: 1px solid red;*/
-	display: flex;
-	flex-direction: column;
+#contact input,textarea {
+  /* background: transparent !important; */
+  border: 1px solid turquoise !important;
+ /*  color: white !important; */
 }
-.contact-info i{
-	color: var(--btn-color);
-	font-size: 1.2rem;
-	padding: 0.8rem;
+
+#contact input::placeholder {
+  color: white !important;
 }
-.contact-info i.disable{
-	color:white;
-	padding: 0 0.8rem;
+#contact .icon{
+	font-size: 1.5rem;
+	color: #1C7871;
 }
-.contact-info p{
-	margin-bottom: 0;
-}
-.social{
-	border-top: 1px solid grey;
-	padding-top: 20px;
-}
-#contact{
-	padding:0 0%;
-	margin-top:50px;
-}
-.contact-row{
-	background-color: rgba(232,245,233,0.4);
-	padding : 4% 0;
+.social-media .s-icon{
+	color: #004F7A;
 }
 /*-----------------------------------/Contact---------------------------*/
 
