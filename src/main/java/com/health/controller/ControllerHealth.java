@@ -1431,7 +1431,6 @@ public class ControllerHealth {
 
 		model.addAttribute("events", event);
 
-		System.err.println(event.getDate() + "" + event.getEmail() + "" + event.getDescription());
 
 		return "Update_Event";
 
@@ -1443,24 +1442,31 @@ public class ControllerHealth {
 
 	/*****************************************************
 	 * Here Write code to update Event
+	 * @throws ParseException 
 	 *************************************************************************/
 
 	@RequestMapping(value = "/eventUpdate", method = RequestMethod.POST)
-	public String eventUpdate(HttpServletRequest req) {
+	public String eventUpdate(HttpServletRequest req) throws ParseException {
 
 		String eventname = req.getParameter("eventname");
-		String date = req.getParameter("date");
+	
 		String description = req.getParameter("description");
 		String venuename = req.getParameter("venuename");
 		String contactperson = req.getParameter("contactperson");
 		String contactnumber = req.getParameter("contactnumber");
 		String email = req.getParameter("email");
 
+		
+		String date = req.getParameter("date");
+		/*
+		 * SimpleDateFormat sd1 = new SimpleDateFormat("yyyy-MM-dd"); java.util.Date
+		 * dateUtil = sd1.parse(date); Date dateStart = new Date(dateUtil.getTime());
+		 */	
 		String id_event = req.getParameter("eventId");
 
 		int id = Integer.parseInt(id_event);
 
-		System.err.println("hi" + id);
+
 
 		eventService.UpdateEvent(eventname, date, description, venuename, contactperson, contactnumber, email, id);
 
@@ -1706,6 +1712,7 @@ public class ControllerHealth {
 
 		Category category = categoryService.getProductById(id);
 		model.addAttribute("category", category);
+		
 		return "updateCategory";
 	}
 

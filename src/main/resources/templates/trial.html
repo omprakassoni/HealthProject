@@ -1,65 +1,114 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1"></meta>
-<title>Insert title here</title>
-
-
-<!-- Just an image -->
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
-  </a>
-</nav>
-	<h1 style="padding-left: 500px">Welcome To Health and Nutrition</h1>
-
-
-<div class="row" style="padding-top: 150px">
-
-  <div class="col-md-12">	
-
-    <div id="gallary-lightbox-ui"></div>
-
- <div class="container">
- 	 
-			
-    <div class="mdb-lightbox">
-
-   <span th:each="tutorialView : ${tutorialList}">
-        	
-         <span th:value="tutorialView"> </span>  
-        	
-        	 <iframe width="560" height="- 315" th:src="tutorialView"
-					     frameborder="0" allow="accelerometer; autoplay; encrypted-media; 
-					     gyroscope;picture-in-picture" allowfullscreen="true">      					      	      
-		     </iframe>	
-		   
-     </span> 
+ <body>
+  
+  		<div th:replace="common/trail :: navbar1"/>
+  		
+	<div class="container" style="padding-top: 150px">
+	
+	
+	    <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card card-signin flex-row my-5">
+	       
+	          <div class="card-body">
+	           <h5 class="card-title text-center" style="color:maroon; font-size: 20px">
+    	<div class="">    
+                                <div th:if="${msg}">
+   								 <span th:text="${msg}"></span>
+ 											 </div> </div></h5>
+	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Update Event</h5>
+	            
+	            
+	               <form class="form-horizontal"  th:action="@{/eventUpdate}" method="post">
+                        
+                        <div th:each="event : ${events}">
+    
+      				 <input type="hidden"  name="eventId"  th:value="${event.id}"/>
+      				 
+      				 
+      				 	 <div class="form-group"> 
    
-      
-		
-      <div class="col-md-8" style="display: inline-block;">
-      
-		      <div class="col-12">
-		      
-				  <a style="display: inline-block;" href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg" data-size="1600x1067">	         
-				   
-				           <img style="padding-left:80px; inline-block;" alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(145).jpg" class="img-fluid"></img>
-				        
-				  </a>
-				      
-			   </div>
-      
-      </div>
-      
-      </div>
-      
+                                          <label for="event">Event Name</label> 
+                                                   <input type="text" class="form-control" id="event" name="eventname" th:value="${event.eventname}"/>
+   							</div>
+   
+					   <div class="form-group">
+					   
+					      <label for="eventdate">Event Date</label> 
+                                                   <input type="date" class="form-control" id="eventdate" name="date"  th:value="${event.date}"/>
+					   
+					   
+					   </div>
+					   
+					    <div class="form-group">
+					           <label for="eventDescription" >Enter Description</label> 
+                                                
+                               <textarea class="form-control" rows="5" id="eventDescription" name="description"  th:text="${event.description}"></textarea>
+                                              
+  						 </div>
+  						 
+  						   <div class="form-group">
+  						   
+  						   <label for="venue">Venue Name</label> 
+                          <input type="text" class="form-control" id="venue" name="venuename"  th:value="${event.venuename}"/>
+                                     
+  						   
+  						   </div>
+  						    <div class="form-group">
+  						   
+  						         <label for="contactperson">Contact Person</label> 
+  						     <input type="text" class="form-control" id="contactperson" name="contactperson"  th:value="${event.contactperson}"/>
+  						   
+  						   </div>
+  						       <div class="form-group">
+  						       
+  						          <label for="contactnumber">Contact Number</label> 
+  						         <input type="text" class="form-control" id="conatctNumber" name="contactnumber"  th:value="${event.contactnumber}"/>
+  						       
+  						       </div>
+  						   
+  						    <div class="form-group">
+  						     <label for="email">Email Id</label> 
+                                        
+                                    	  <input type="text" class="form-control" id="email" name="email"  th:value="${event.email}"/>
+                                    
+  						   </div>
+  						   
+  						   
+                       
+                                                  <div class=""  style="padding-left: 20px; padding-top: 20px">
+                                                            <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
+                                                            
+                                                             
 
-
+                                                  </div>
+          
+                  
+                  </div>
+               </form>
+        
+	            
+	            
+	
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
+          </div>
+        </div>
+      </div>
     </div>
-
   </div>
-</div>
+ 
+			<div th:fragment="body-bottom-scripts">
 
-</head>
-</html>
+        	 <script src="static/js/bootstrap.bundle.min.js"></script>
+       		 <script src="static/js/jquery.slim.min" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+			
+			
+			
+			</div>
+ </body>
