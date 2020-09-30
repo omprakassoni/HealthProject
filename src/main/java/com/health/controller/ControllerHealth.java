@@ -80,6 +80,7 @@ import com.health.service.categoryService;
 import com.health.service.eventService;
 import com.health.service.participantService;
 import com.health.service.testimonialService;
+import com.health.service.traineeInformationServic;
 import com.health.service.tutorialService;
 
 @Controller
@@ -1986,12 +1987,57 @@ public class ControllerHealth {
 	@RequestMapping("/TrainerProfile")
 	  public String addTraineeProfile(HttpServletRequest req, Model model,Authentication authentication)
 	{
+			
+	    List<traineeInformation> traineeInformation=(List<com.health.model.traineeInformation>) trainingInformationdao.findAll();
+			
+	    model.addAttribute("traineeInformation",traineeInformation);
 		
-		
-		return "TrainerProfile";
+		return "traineeView";
 	
 	}
 	
+	@RequestMapping("masterTrainee/edit/{id}")
+	public String editTraineeInfo(@PathVariable Integer id, Model model, HttpServletRequest req) 
+	{
+		
+		 traineeInformation traineeInformation=trainingInformationdao.findOne(id);
+		
+		 
+		 System.err.println(traineeInformation.getName());
+		 
+		model.addAttribute("traineeInformations",traineeInformation);
+		 
+		 
+		return "TrainerProfile";
+	}
+	
+	@Autowired
+	private  traineeInformationServic traineeInformationServic;
+	
+	@RequestMapping(value = "/updateTrainee", method = RequestMethod.POST)
+	public String updateTrainee(HttpServletRequest req) 
+	{
+		
+		int id=Integer.parseInt(req.getParameter("traineeInformationID"));      //req.getParameter("");
+		
+		 String name=req.getParameter("textMasterName");
+		 String age=req.getParameter("textAget");
+		 String mobileNumber=req.getParameter("textMobilet");
+		 String address=req.getParameter("textAddresst");
+		 String organization=req.getParameter("textOrganizationt");
+		 String experience=req.getParameter("textExpNumbert");
+		 String premark=req.getParameter("textPreMark");
+		 String postmark=req.getParameter("textPostMark");
+		 String textAadharNumbert=req.getParameter("textAadharNumbert");
+		 
+		
+		 traineeInformationServic.updateTrainingInfo(name,age,mobileNumber,address,organization,experience,premark,postmark,textAadharNumbert,id);
+		 
+		
+		
+		return "redirect:/TrainerProfile";
+	}
+
 	
 	@RequestMapping("/traineeProfileInfo")
 	  public String traineeProfileInfo(HttpServletRequest req, Model model,Authentication authentication)
@@ -2391,7 +2437,7 @@ public class ControllerHealth {
 								   if(data.length>0)
 								   {
 									
-								     if( participantDao.countByadharNumber(data[3])==0)
+						 if( participantDao.countByadharNumber(data[3])==0)
 						 { 	
 								    
 
@@ -2410,7 +2456,6 @@ public class ControllerHealth {
 								participantDeatail.setTitleName(titlename);
 
 								participantDao.save(participantDeatail);
-
 
 						 }
 

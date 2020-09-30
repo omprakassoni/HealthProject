@@ -49,7 +49,7 @@
 		    		<div>
 		    					
  					
-					<h4 class="text-center">Profile  Trainee</h4>
+					<h4 class="text-center">Edit Trainee Information</h4>
 		    		
 		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
 		    		
@@ -65,86 +65,79 @@
 	
 		    		<div class=" col-md-12" style="padding-left: 100px">
 		    		
- 
- 					<p id="demo"></p>
- 		
-			   <script>
-						function submitForm() {
-							
-							
-							  return confirm('Do you really want to submit the form?');
-							  
-							  alert("Submit form succefully");
-							}
-						
-			  </script>
+
 						    <!-- <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);"> -->
-						    <form action="/traineeProfileInfo" method="post" enctype="multipart/form-data">
+						    <form action="/updateTrainee" method="post" >
 						    
-									  <div class="form-group ">
+						    <div th:each="traineeInformationl : ${traineeInformations}">  
+						     
+						    	<input type="hidden"  name="traineeInformationID"  th:value="${traineeInformationl.id}"/>
+						    
+									  <div class="form-group">
 									    <label for="textMasterName">Name </label>
-									    <input type="text" class="form-control w-75" name="textMasterName" id="textMasterName" required="required"/>
+									    <input type="text" class="form-control w-75" name="textMasterName" id="textMasterName"  th:value="${traineeInformationl.name}"></input>
 									  </div>
 									  
 									  
-									   <div class="form-group ">
+									   <div class="form-group">
 									    <label for="textAget">Age</label>
-									    <input type="text" class="form-control w-75" name="textAget" id="textAget" required="required"/>
+									    <input type="text" class="form-control w-75" name="textAget" id="textAget" required="required"  th:value="${traineeInformationl.age}"/>
 									  </div>
   
-								 		 <div class="form-group ">
+								 		<div class="form-group ">
 									    <label for="textMobilet">Mobile Number</label>
 									    
-									    	<input type="Number" class="form-control w-75" name="textMobilet" id="textMobilet" required="required"/>
+									    	<input type="Number" class="form-control w-75" name="textMobilet" id="textMobilet" required="required"  th:value="${traineeInformationl.mobileNumber}"/>
 									    
 									  </div>
 									  
-									  <div class="form-group ">
+									 <!--  <div class="form-group ">
 									    <label for="textAddresst">Category </label>
 									    
-									    	<input type="text" class="form-control w-75" name="textAddresst" id="textAddresst" required="required"/>
+									    	<input type="text" class="form-control w-75" name="textAddresst" id="textAddresst" required="required" th:value="${traineeInformationl.mobileNumber}"/>
 									    
-									  </div>
+									  </div> -->
 									  
 									   <div class="form-group ">
 									    <label for="textAddresst">Postal Address</label>
 									    
-									    	<input type="text" class="form-control w-75" name="textAddresst" id="textAddresst" required="required"/>
+									    	<input type="text" class="form-control w-75" name="textAddresst" id="textAddresst" required="required" th:value="${traineeInformationl.address}"/>
 									    
 									  </div>
 								 		<div class="form-group">
 									    <label for="textOrganizationt">Organization associated</label>
 									    
-									    	<input type="text" class="form-control w-75" name="textOrganizationt" id="textOrganizationt" required="required"/>
+									    	<input type="text" class="form-control w-75" name="textOrganizationt" id="textOrganizationt" required="required" th:value="${traineeInformationl.organization}"/>
 									    
 									  </div>	
 									  
 									  <div class="form-group ">
 									    <label for="textExpNumbert">Experience in Year</label>
-									    	<input type="number" class="form-control w-75" name="textExpNumbert" id="textExpNumbert" required="required"/>
+									    	<input type="number" class="form-control w-75" name="textExpNumbert" id="textExpNumbert" required="required" th:value="${traineeInformationl.experience}"/>
 									    
 									  </div> 
 									  <div class="form-group ">
-									    <label for="textAadharNumbert">Aadhaar Number(Optioal)</label>
-									    	<input type="number" class="form-control w-75" name="textAadharNumbert" id="textAadharNumbert" />
+									    <label for="textAadharNumbert">Aadhaar Number</label>
+									    	<input type="number" class="form-control w-75" name="textAadharNumbert" id="textAadharNumbert" th:value="${traineeInformationl.aadharNumber}"/>
 									    
 									  </div> 
 									  
 									  <div class="form-group ">
 									    <label for="textPreMark">Pre-test Mark</label>
-									    	<input type="number" class="form-control w-75" name="textPreMark" id="textPreMark" />
+									    	<input type="number" class="form-control w-75" name="textPreMark" id="textPreMark" th:value="${traineeInformationl.premark}" />
 									    
 									  </div> 
 									  
 									  <div class="form-group ">
 									    <label for="textPostMark">Post-test Mark</label>
-									    	<input type="number" class="form-control w-75" name="textPostMark" id="textPostMark" />
+									    	<input type="number" class="form-control w-75" name="textPostMark" id="textPostMark" th:value="${traineeInformationl.postmark}"/>
 									    
 									  </div> 
-									  
-									  		        
+									        
 						   <button type="submit" class="btn  btn-success"  data-toggle="modal" onclick="myFunction()">Submit</button>
 						     <button type="reset" class="btn btn-success">Reset</button>       
+						      
+						      </div>
 						      
 		   </form>
 				
@@ -155,294 +148,8 @@
 		    		</div>
   
 		      </div>
-		      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-		      
-		      
-		      <h4 class="text-center">Download Question</h4>
-		    		<div class="container">
-		    		
-		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
-		    		<div class="row  p-3 mb-5 bg-white ">
-		    	
-		    		
-
-		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 250px;" >Download Question</div>
-		    		
-		    		<div class=" col-md-12" style="padding-left: 100px">
-		    		
-		    
-						    <form action="/displayQuestion" method="post"> 
-					<!-- 	     <form > -->
-						    
-			 
-			 				    
-						 <div class="form-group">
-								 	  
-									   <label for="categoryName">Select category </label>
-									    
-                                        <select id="catMasterId" class="form-control w-75" name="catMasterId"  style="width: 400px" required="required" >
-								               
-								                        <option selected="selected">Select Category</option>      
-								                        <span th:each="category: ${addcategory}">
-								  								<option th:value="${category}"><span th:text="${category}"></span></option>		
-								  						</span>
-									   </select>
-						</div>	   
-			 
-					 <div class="form-group ">
-		
-					               <label for="lanMasterTrId">Select Topic</label>
-					               
-					                    <select id="lanMasterTrId" class="form-control w-75"  name="lanMasterTrId" style="width:400px" required="required">
-	
-	
-					                    </select> 
-					</div>
-					
-					
-							 <div class="form-group">
-								 	  
-									   <label for="languageNameId">Select Language </label>
-									    
-                                       <select id="dwnByLanguageId" class="form-control w-75" name="dwnByLanguageId"   required="required" >
-			
-								                        <option selected="selected" >Select Language</option>      
-								                        <span th:each="lan: ${languagesDisplay}" >
-								  								<option th:value="${lan.getId()}"><span  th:text="${lan.getLanguageName()}"></span></option>		
-								  						</span>
-									  </select>
-						 	 </div>	
-					
-					
-					
-					
-					 <div class="form-group ">
-					 
-						<label for="inputLanguage" style="color: green;">
-						
-						</label>
-			
-			
-							<div class="">		               
-				
-				<!-- 		<span  id="inputdiv" class="pdfclass" target="_blank">Click To Open</span> -->
-							 
-							 </div>
-							 
-			 
-		  						<button type="submit" class="btn  btn-success" id="fetch_questions">Submit</button>
-			 
-				 
-					 </div>
-				 
-					</form>
-					
-					<div style="border:1px solid green;" id="questions">
-						
-					</div>
-				
-					</div>
-				
-		    		</div>
-		 		
-		    		</div>
-		
-		      </div>
-		      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-				<h4 class="text-center">Feedback form</h4>
-							<div class="container">
-		    		
-		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
-		    		<div class="row  p-3 mb-5 bg-white ">
-		    		 <!-- <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Feedback form</div> -->
-		    		<div class=" col-md-12" style="padding-left: 100px">
-		    		
-		    
-						    
-						    	<form class="form-horizontal" th:action="@{/feedback}"
-							method="post" enctype="multipart/form-data">
-						
-						
-						
-							<div class="form-group">
-								 	  
-									   <label for="categoryId">Select Category </label>
-									    
-                                       <select id="catMasId" class="form-control w-75" name="catMasId"   required="required" >
-			
-								                        <option selected="selected" >Select category</option>      
-								                        <span th:each="category : ${traningInformation}" >
-								  								<option th:value="${category.getCategory().getId()}"><span  th:text="${category.getCategory().getCategoryname()}"></span></option>		
-								  						</span>
-									  </select>
-						 	 </div>
-								 
-						<div class="form-group">
-								 	  
-									   <label for="feedbackmasterId">Select Training</label>
-                                       <select id="feedbackmasterId" class="form-control w-75" name="feedbackmasterId"   required="required" >			
-								                        <option selected="selected" >Select Training </option>      
-								                        
-									  </select>
-						</div>		 
-								 
-						<div class="form-group">
-									  
-								 <label for="nameOfMasterTrainerId">Name</label> 
-								 <input type="text" class="form-control w-75" id="nameOfMasterTrainerId" name="nameOfMasterTrainer" required="required"/>
-													  	
-						</div>
-									   
-					      		<div class="form-group ">
-					      
-					               <label for="emailId">Email</label>
-							<input type="email" class="form-control w-75" id="emailId" name="email" required="required"/>
-
-							</div>
-								 
-						<div class="form-group">
-					      
-					               <label for="messageId">Enter  Message</label>
-					       	
-						 <textarea class="form-control w-75"  name="traningInformation" rows="5" id="messageId" style="width: 300px" required="required"></textarea>
- 
-							</div>
-							
-				
-							<div class="form-group">
-					      
-					        	<label for="fileId">Upload Feedbacks</label>
-					        	
-					       		<input type="file" class="form-control w-75"  name="feedbackForm"  id="fileId" style="width: 300px"  accept=".zip" required="required"></input>
- 
-							</div>
-						
-						        
-						   <button type="submit" class="btn  btn-success">Submit</button>
-						     <button type="reset" class="btn btn-success">Reset</button>       
-						</form>
-				
-					</div>
-				
-		    		</div>
-		    		
-		    		
-		    		</div>
-
-				</div>
-		      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-		      
-		      
-		   <div class="">
-		    		
-		    		<div class="row ">
-		    		<!--  <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px;padding-left: 400px">List Participant Deatail</div> -->
-		    		<div class=" col-md-12" >
-		    		
-		 <div class="#" style="padding-top: 20px">
-          	
-          	
-          	<h4 class="text-center">View Participant Detail</h4>
-          			<div class="container">
-		    		
-		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
-		    		<div class="row  p-3 mb-5 bg-white ">
-		    		
-		    		 <!-- <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >View Participant Detail</div> -->
-		    		
-		    		<div class=" col-md-12" style="padding-left: 100px">
-		    		
-		    
-				<form action="/ViewaParticipantDetail" method="post">
-						    
-						 
-						 <div class="form-group">
-								 	  
-									   <label for="categoryName">Select category </label>
-									    
-                                        <select id="catSelectedId" class="form-control w-75" name="catSelectedId"  style="width: 400px" required="required" >
-								               
-								                        <option selected="selected">Select Category</option>      
-								                        <span th:each="category: ${categorys}">
-								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-								  						</span>
-									   </select>
-								 </div>	   
-			 
-			 
-					 <div class="form-group ">
-		
-					               <label for="titleNameId">Select Title Name</label>
-					               
-					                    <select id="titleNameId" class="form-control w-75"  name="titleNameId" style="width:400px" required="required">
-	
-	
-					                    </select> 
-					 </div>
-					 
-					 
-					 <button type="submit" class="btn  btn-success">Submit</button>
-					
-					
-			
-				 
-					</form>
-				
-					</div>
-				
-		    		</div>
-		 		
-		    		</div>
-          	
-          	
-          	
-          	
-          	
-     <!--      		<div class="row">
-          	
-         			 	<div class="col">
-          	
-          	
-   			 	 <table class="table table-striped">
-					           <tr>
-					                <th>Id</th>				               
-					                <th>First Name</th>
-					                <th>Last Name</th>
-					                 <th>Email</th> 
-					                <th>Aadhar Number</th>  
-					                <th>Gender</th> 
-					                <th>Language</th>   
-					                <th>Edit</th>   
-					 
-					             
-					            </tr>
-					            	<tr th:each="approve : ${parcipantDeatails}">
-					                <td th:text="${approve.participantId}">ID</td>  
-					                <td th:text="${approve.firstname}">First Name</td>
-					                <td th:text="${approve.lastname}">Last Name</td>
-					                <td th:text="${approve.email}">Email</td>
-					                <td th:text="${approve.adharNumber}">Aadhar Number</td>
-									 <td th:text="${approve.gender}">Gender</td>
- 									 <td th:text="${approve.language}">Gender</td>
- 
-									<td><a th:href="${'editParticipantDeatail/edit/' + approve.id}">Edit</a></td>
-					                
-					        
-					            </tr>
-					        </table>
-					</div>
-				</div> -->
-			</div> 
-		    		
-					</div>
-				
-		    		</div>
-		    		
-		    		
-		    		</div>
 		   
-		      
-		      .</div> <!--   here -->
+	
 		    </div>
 		  </div>
 		</div>
@@ -451,25 +158,7 @@
 	</div>
 	</div>
 
-<div class="container">
-   	
-   		
-   		<div class="row" style="padding-top: 160px" >
-   			
- 
-   			
-   			<div class="col-4 ">
-   			
 
-   			</div>
-			   			<div class="col-4">
-			   			
-			   			</div>
-   			
-   
-   			</div>
-   		
-   		</div>
 
 </div>
 						
