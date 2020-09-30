@@ -1984,6 +1984,22 @@ public class ControllerHealth {
 	private traineeProfileDao trainingInformationdao;
 	
 	
+	@RequestMapping("/findtrainee")
+	  public String findtraniee(Model model,@RequestParam(name = "traineeOrg") String orgName,@RequestParam(name = "traineeID") String address)
+	{
+	
+		 List<traineeInformation> traineeInformation1=(List<com.health.model.traineeInformation>) trainingInformationdao.findAll();
+		
+		List<traineeInformation> traineeInformation=(List<com.health.model.traineeInformation>) trainingInformationdao.findByTrainee(address,orgName);
+		
+		
+			model.addAttribute("traineeInformation1",traineeInformation1);
+			model.addAttribute("traineeInformation",traineeInformation);
+				 
+		return "traineeFindByCategory";
+	}
+	
+	
 	@RequestMapping("/TrainerProfile")
 	  public String addTraineeProfile(HttpServletRequest req, Model model,Authentication authentication)
 	{

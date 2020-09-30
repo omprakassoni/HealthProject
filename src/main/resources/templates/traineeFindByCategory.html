@@ -90,7 +90,7 @@
 								     
 								            
 								                        <option selected="selected">Select Organization</option>      
-								                        <span th:each="traineeInformation :${traineeInformation}">
+								                        <span th:each="traineeInformation :${traineeInformation1}">
 								  								<option th:value="${traineeInformation.organization}"><span th:text="${traineeInformation.organization}"></span></option>		
 								  						</span>
 									   </select>
@@ -103,7 +103,7 @@
 								      <select id="traineeID" class="form-control w-30" name="traineeID"  style="width: " required="required" >
 								               
 								                        <option selected="selected">Select Address</option>      
-								                        <span th:each="traineeInformation : ${traineeInformation}">
+								                        <span th:each="traineeInformation : ${traineeInformation1}">
 								  								<option th:value="${traineeInformation.address}"><span th:text="${traineeInformation.address}"></span></option>		
 								  						</span>
 									   </select>
