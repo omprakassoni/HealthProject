@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.health.domain.security.PasswordResetToken;
+import com.health.model.Category;
 import com.health.model.Consaltantant;
 import com.health.model.Event;
 import com.health.model.Testimonial;
@@ -35,6 +36,7 @@ import com.health.repository.ConsaltantDao;
 import com.health.repository.EventDao;
 import com.health.repository.TestimonialDao;
 import com.health.repository.TutorialDao;
+import com.health.repository.languagedao;
 import com.health.repository.stateRespositary;
 import com.health.service.UserService;
 import com.health.service.categoryService;
@@ -76,6 +78,17 @@ public class HomeController {
 
 	@Autowired
 	private TutorialDao tutorialDao;
+
+	@Autowired
+	private languagedao languageDao;
+
+	@Autowired
+	private ConsaltantDao consultantDao;
+
+	@Autowired
+	private CategoryDao categoryDao;
+
+
 
 	@RequestMapping("/viewVideo/view/{id}")
 	public String viewVideo(Model model, @PathVariable Integer id) {
@@ -144,6 +157,7 @@ public class HomeController {
 		model.addAttribute("events",event);
 
 
+
 		List<Consaltantant> consalatant=consalatantDao.findByConsultantShowonHomepage(true);
 //		List<Consaltantant> consalatant=consalatantDao.findByConsaltantantDate();
 
@@ -166,9 +180,21 @@ public class HomeController {
 		}
 
 		List<Tutorial> tutorials = tutorialDao.finBystatus();
+
+		long languageCount = languageDao.count();
+		java.util.List<Tutorial> videos = tutorialDao.finBystatus();
+
+		List<Category> categories = categoryDao.findBystatus(1);
+		int videoCount = videos.size();
+		long consultantCount = consultantDao.count();
+
 		model.addAttribute("tutorials", tutorials);
 		model.addAttribute("listofConsalatatnt", consalatant);
 		model.addAttribute("listofTestimonial", testimonial);
+		model.addAttribute("languageCount", languageCount);
+		model.addAttribute("videoCount", videoCount);
+		model.addAttribute("consultantCount", consultantCount);
+		model.addAttribute("categories", categories);
 		return "index";
 	}
 
