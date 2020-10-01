@@ -51,12 +51,7 @@
 	<form class="form-horizontal"  th:action="@{/updateTetimonial}" method="post"  enctype="multipart/form-data">
  
  						<div th:each="testimonial : ${testimonials}">    
- 						
- 				
-
 						<input type="hidden"  name="testimonialId"  th:value="${testimonial.id}"/>
- 
- 
   
 				     <div class="form-group">  
  

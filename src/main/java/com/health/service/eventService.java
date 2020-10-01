@@ -1,5 +1,6 @@
 package com.health.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.health.model.Event;
@@ -16,9 +17,9 @@ public interface eventService {
 	  Event getProductById(int id);
 	  
 
-	  Boolean UpdateEvent(String eventname,String date, String description,String venuename, String contactperson,String contactnumber,String email,int id);
-	  
-	  
+	  Boolean UpdateEvent(String eventname,Date date,Date end, String description,String venuename, String contactperson,String contactnumber,String email,int id);
+
+
  
 
 }

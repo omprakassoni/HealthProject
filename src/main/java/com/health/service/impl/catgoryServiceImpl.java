@@ -2,6 +2,8 @@ package com.health.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,22 @@ public class catgoryServiceImpl implements categoryService {
 																																																																												
 	}
 	
+	   
+	   @Override
+		@Transactional																																																							
+		public Boolean updateCategory(String testimonialName,int id) {
+			
+			int status=	categoryDao.updateCategory(testimonialName,id);
+
+			
+			if(status>0) {
+				return true;
+			}else {
+				return false;
+			}
+		
+		}
+	
 	  @Override 
 	  public Category getProductById(int id){
 	  
@@ -71,5 +89,7 @@ public class catgoryServiceImpl implements categoryService {
 		return null;
 	}
 	  
+	
+	
 
 }

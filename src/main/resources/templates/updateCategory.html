@@ -37,32 +37,34 @@
                   </div>
                   <div >
 
-                      
- 				<form class="form-horizontal"  th:action="@{/savecategory}" method="post">
+ 				<form class="form-horizontal"  th:action="@{/updateCategory}" method="post">
                           
-                          <div class="row" style="padding-top: ">
                               
                           
+                         <div th:each="category : ${category}"> 
+                            
+						<input type="hidden"  name="id"  th:value="${category.id}"/>
                                   
                               
                                      <div class="row" style="padding-top: 20px">
                                   
-                                    <div class="col-5" style="padding-left: 100px">
-                                                   <label for="category">Enter Category</label> 
+                                    <div class="col-6" style="padding-left: 100px">
+                                                   <label for="category">Update Category</label> 
                                         
                                      </div>
                                     <div class="col-7" style="padding-left: 61px">
                                         
-                                                   <input type="text" class="form-control" id="category" name="categoryname" style="width: 250px;" required="required"/>
+                  <input type="text" class="form-control" id="category" name="categoryname" style="width: 250px;" th:value="${category.categoryname}" />
+                                     
+                                     
                                      </div>
 
                               </div>
                             
                               <div class="row">   
-                                  <div class=""  style="padding-left: 100px; padding-top: 20px">
+                                  <div class=""  style="padding-left: 126px; padding-top: 20px">
   
                                             <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
-                                             <button type="reset" class="btn btn-success">Reset</button>
                                       
                                       
                                   </div>
