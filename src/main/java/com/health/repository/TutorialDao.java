@@ -70,7 +70,10 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 
 	@Query("from Tutorial u where u.status=1 ORDER BY status Desc")
 	List<Tutorial> finBystatus();
-
+	
+	
+	@Query("from Tutorial u where  category_id=?1 and topic_id=?2 and langaueg_id=?3")
+	Tutorial findByCatAndTopicAndLan(Category category,topic topic,language lan);
 
 //	@Query("from Tutorial u where u.videoStatus=1")
 //	List<Tutorial> finByVideoStatus();
