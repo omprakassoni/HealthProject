@@ -142,7 +142,16 @@ public class QualityReviwer
 
 
 			Tutorial tutorial=tutorialdao.findOne(id);
-
+			
+			String name="English"; 
+			
+			language language=languageDao.findBylanguageName(name);
+     
+			Tutorial t=tutorialdao.findByCatAndTopicAndLan(tutorial.getCategory(),tutorial.getTopic(),language);
+			
+			
+		if(t!=null) {
+			
 			int statusApprove=1;
 
 			tutorialService.updateStatusByQualityApprove(statusApprove,id);
@@ -162,7 +171,22 @@ public class QualityReviwer
 
 
 		 	return "listTutorialPublishQualityReviwer";
+		}
+		else {
+		
+			List<Tutorial> tutorialInfo=tutorialdao.findByIdStausForApprove();
 
+			/*
+			 * List<Tutorial> tutorial=(List<Tutorial>) tutorialdao.findAll();
+			 */
+				model.addAttribute("QualityReviwerList",tutorialInfo);
+			
+			model.addAttribute("msgSuccess", "Publishing  Tutorial in English Not Available");
+			
+			
+			return "listTutorialPublishQualityReviwer";
+			
+		}
 
 		}
 

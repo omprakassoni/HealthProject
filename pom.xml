@@ -6,10 +6,10 @@
 	<groupId>com.bookstore</groupId>
 	<artifactId>bookstore</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
-	<name>Bookstore</name>
-	<description>frontend part for our bookstore project</description>
+	<name>HealthNutrition</name>
+	<description>frontend part for our HealthNutrition project</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -117,10 +117,17 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-devtools</artifactId>
 	</dependency>
+	
+	 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
 	</dependencies>
 
 	<build>
+	<finalName>HealthNutrition</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

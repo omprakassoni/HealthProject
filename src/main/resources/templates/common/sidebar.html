@@ -367,6 +367,7 @@
 					<i class="fas fa-clipboard-list"></i>
 					<span>View List<i class="fas fa-chevron-down drop-down"></i></span>
 				</a>
+				
 				<div class="sub-menu">
 					<a th:href="@{show_category}"><i class="far fa-circle"></i>
 						<span>Category</span>
@@ -384,6 +385,7 @@
 						<span>Feedback Master Trainer</span>
 					</a>
 					
+					
 						<a th:href="@{adminShowMasterTrainer}"><i class="fas fa-address-card"></i>
 						<span>Master Trainer</span>
 					</a>
@@ -391,14 +393,17 @@
 					<a th:href="@{adminShowQualityreviweer}"><i class="fas fa-address-card"></i>
 						<span>Quality Reviewer</span>
 					</a>
-					
-					<a th:href="@{adminShowDomainReviweer}"><i class="fas fa-address-card"></i>
-						<span>Domain Reviewer</span>
-					</a>
+
 					<a th:href="@{listparicipant}"><i class="fas fa-address-card"></i>
 						<span>Participant Trainer</span>
 					</a>
+					<a th:href="@{adminShowDomainReviweer}"><i class="fas fa-address-card"></i>
+						<span>List Domain Trainer</span>
+					</a>
 					
+					<a th:href="@{TrainerProfile}"><i class="fas fa-address-card"></i>
+						<span>View Trainee </span>
+					</a>	
 				
 					
 				</div>
@@ -430,6 +435,8 @@
 					<a th:href="@{addUploadQuestion}"><i class="fas fa-exclamation-circle"></i>
 						<span>Upload Question</span>
 					</a>
+					
+					
 				</div>
 			</li>
 			<!-- <li class="item" id="view">

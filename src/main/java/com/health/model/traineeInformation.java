@@ -16,7 +16,8 @@ public class traineeInformation {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO) 
 	@Column(name = "trainee_id", nullable = false)
-	public int getId() {
+	public int getId() 
+	{
 		return id;
 	}
 

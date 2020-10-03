@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,9 +47,9 @@ public class eventServiceImpl implements eventService {
  
 	  @Override
 	  @Transactional
-	  public Boolean UpdateEvent(String eventname,String date, String description,String venuename, String contactperson,String contactnumber,String email,int id) {
+	  public Boolean UpdateEvent(String eventname,Date date,Date end, String description,String venuename, String contactperson,String contactnumber,String email,int id) {
 	  
-       int status= eventdao.UpdateEvent(eventname, date, description, venuename, contactperson,contactnumber,email, id);
+       int status= eventdao.UpdateEvent(eventname, date,end, description, venuename, contactperson,contactnumber,email, id);
 
 	  System.err.println(status);
 	  

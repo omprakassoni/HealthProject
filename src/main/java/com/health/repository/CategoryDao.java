@@ -2,6 +2,8 @@ package com.health.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.health.model.Category;
@@ -14,10 +16,10 @@ public interface CategoryDao extends CrudRepository<Category,Integer>
 	List<Category> findBystatus(int status);
 
 
-
-
-	/* ORDER BY categoryname Asc */
-
+	@Modifying
+	@Query("update Category set  categoryname=?1 where id=?2")
+	 int updateCategory(String name,int id);
+	
 
 
 }
