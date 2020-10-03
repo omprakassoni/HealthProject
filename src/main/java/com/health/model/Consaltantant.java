@@ -8,23 +8,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Consaltantant 
+public class Consaltantant
 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	
-	
+
+
 	private int id                    ;
 	private String nameConsaltant;
 	private String descriptionConsaltant;
 	private String uploadConsaltantImage;
 	private String currentdate;
 	private java.sql.Timestamp timedate;
-	
-	
-	
-	
+	private Boolean showOnHomepage;
+
+
+
+
 	public Timestamp getTimaedate() {
 		return timedate;
 	}
@@ -61,5 +62,12 @@ public class Consaltantant
 	public void setUploadConsaltantImage(String uploadConsaltantImage) {
 		this.uploadConsaltantImage = uploadConsaltantImage;
 	}
-	
+	public Boolean getShowOnHomepage() {
+		return showOnHomepage;
+	}
+	public void setShowOnHomepage(Boolean showOnHomepage) {
+		this.showOnHomepage = showOnHomepage;
+	}
+
+
 }

@@ -508,7 +508,7 @@ $(document)
 					
 				$('#preRequsiteId').change(
 							function() {
-							
+								alert('here');
 								var catgoryid = $(this).find(
 										":selected").val();
 							
@@ -771,23 +771,29 @@ $(document)
 
 				$('#uploadpreRequsiteId').click(function() 
 				{
-					
-							var catgoryid = $("#preRequsiteId").val();
+							alert('here uploadpreRequsiteId');
+							var p_catgoryid = $("#preRequsiteId").val();
 							
-							var topic = $("#inputLanguageAll").val();
+							var p_topic = $("#inputLanguageAll").val();
 							
+							var p_lanId = $("#lanId").val();
+							
+							
+							var categoryid = $("#categoryId").val();
+							var topicid = $("#topicId").val();
 							var lanId = $("#lanId").val();
-							
-							
 							
 							$.ajax({
 										type : "GET",
 										url : "/loadCatAndTopicInPre",
 										data : {
 											
-											"id" : catgoryid,
-											"topic": topic,
-											"lanId": lanId,
+											"p_id" : p_catgoryid,
+											"p_topic": p_topic,
+											"p_lanId": p_lanId,
+											"categorname" : categoryid,
+											"topicid" : topicid,
+											"lanId" : lanId
 										},
 										contentType : "application/json",
 										success : function(result) 
@@ -2144,7 +2150,7 @@ $(document)
 
 														var html = '';
 														var len = result.length;
-														html += '<option value="0">Select language</option>';
+														html += '<option value="0">Select Topic</option>';
 														for (var i = 0; i < len; i++) {
 
 															html += '<option value="'
@@ -2685,7 +2691,7 @@ $(document)
 					$('#inputTopic')
 							.change(
 									function() {
-										alert('here');
+//										alert('here');
 										var catgoryid = $(this).find(
 												":selected").val();
 										$
@@ -6052,6 +6058,16 @@ $(document)
 								});
 
 							});
+					
+					$(".logoToUpload").on('change', function() {
+				        
+				        var fileSize = this.files[0].size;
+				        if(fileSize > 50000){
+				        	alert("File size should be less than 5kB");
+				        	this.value="";
+				        	return false;
+				        }
+				});
 
 				});
 

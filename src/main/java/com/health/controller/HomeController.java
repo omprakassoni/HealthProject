@@ -36,6 +36,7 @@ import com.health.repository.ConsaltantDao;
 import com.health.repository.EventDao;
 import com.health.repository.TestimonialDao;
 import com.health.repository.TutorialDao;
+import com.health.repository.languagedao;
 import com.health.repository.stateRespositary;
 import com.health.service.UserService;
 import com.health.service.categoryService;
@@ -78,6 +79,17 @@ public class HomeController {
 	@Autowired
 	private TutorialDao tutorialDao;
 
+	@Autowired
+	private languagedao languageDao;
+
+	@Autowired
+	private ConsaltantDao consultantDao;
+
+	@Autowired
+	private CategoryDao categoryDao;
+
+
+
 	@RequestMapping("/viewVideo/view/{id}")
 	public String viewVideo(Model model, @PathVariable Integer id) {
 		Tutorial tutorials = tutorialDao.findOne(id);
@@ -86,6 +98,14 @@ public class HomeController {
 
 		model.addAttribute("list", tutorials);
 		model.addAttribute("listOfTutorial", tutorialRes);
+
+		List<Tutorial> category = tutorialDao.finBystatus();
+		ArrayList<String> tutorialRes1 = new ArrayList<String>();
+		for (Tutorial tutorial : category) {
+			tutorialRes1.add(tutorial.getCategory().getCategoryname());
+		}
+		Set<String> categoryList=new LinkedHashSet<String>(tutorialRes1);
+		model.addAttribute("categorys",categoryList);
 
 		return "showVideo";
 	}
@@ -102,7 +122,7 @@ public class HomeController {
 
 		return "showVideo";
 	}
-	
+
 	@Autowired
 	private CategoryDao CategoryDao;
 
@@ -113,45 +133,19 @@ public class HomeController {
 		for (Tutorial tutorial : category) {
 			tutorialRes.add(tutorial.getCategory().getCategoryname());
 		}
-		
-		
-		
-		
-
-//		Set<String> categoryList = new LinkedHashSet<String>(tutorialRes);
-//		System.err.println("Prit list" + categoryList);
-//		model.addAttribute("categorys", categoryList);
-//		List<Event> event = eventDao.getAllEvent();
-//		model.addAttribute("events", event.subList(0, 4));
-
-//		List<Consaltantant> consalatant = consalatantDao.findByConsaltantantDate();
-//		for (Consaltantant consaltantant : consalatant) {
-//			System.err.println(consaltantant.getNameConsaltant());
-
-
 		Set<String> categoryList=new LinkedHashSet<String>(tutorialRes);
-
-		
 		model.addAttribute("categorys",categoryList);
 
 		List<Event> event=eventDao.getAllEvent();
 
 		model.addAttribute("events",event);
 
-		List<Consaltantant> consalatant=consalatantDao.findByConsaltantantDate();
+		List<Consaltantant> consalatant=consalatantDao.findByConsultantShowonHomepage(true);
 
 		for (Consaltantant consaltantant : consalatant)
 		{
 			System.err.println(consaltantant.getNameConsaltant());
 		}
-//		List<Testimonial> testimonial=testimonialdao.findBydate();
-//
-//
-//		for (Testimonial videotestimonial : testimonial)
-//		{
-//			System.err.println(videotestimonial.getUploadTestiminial());
-//
-//		}
 
 		List<Testimonial> testimonial = testimonialdao.findBydate();
 		for (Testimonial videotestimonial : testimonial) {
@@ -159,9 +153,44 @@ public class HomeController {
 		}
 
 		List<Tutorial> tutorials = tutorialDao.finBystatus();
+
+		long languageCount = languageDao.count();
+		java.util.List<Tutorial> videos = tutorialDao.finBystatus();
+
+		List<Category> categories = categoryDao.findBystatus(1);
+		List<Category> categoriesDisplay = new ArrayList<>();
+		int size = 4;
+		if(categories.size()>=size) {
+			for(int i = 0; i< size; i++) {
+				categoriesDisplay.add(categories.get(i));
+			}
+			categories = categoriesDisplay;
+		}
+		List<Consaltantant> consultantDisplay = new ArrayList<>();
+		size = 3;
+		if(consalatant.size()>=size) {
+			for(int i = 0; i< size; i++) {
+				consultantDisplay.add(consalatant.get(i));
+			}
+			consalatant = consultantDisplay;
+		}
+		List<Testimonial> testimonialDisplay = new ArrayList<>();
+		if(testimonial.size()>=size) {
+			for(int i = 0; i< size; i++) {
+				testimonialDisplay.add(testimonial.get(i));
+			}
+			testimonial = testimonialDisplay;
+		}
+		int videoCount = videos.size();
+		long consultantCount = consultantDao.count();
+
 		model.addAttribute("tutorials", tutorials);
 		model.addAttribute("listofConsalatatnt", consalatant);
 		model.addAttribute("listofTestimonial", testimonial);
+		model.addAttribute("languageCount", languageCount);
+		model.addAttribute("videoCount", videoCount);
+		model.addAttribute("consultantCount", consultantCount);
+		model.addAttribute("categories", categories);
 		return "index";
 	}
 
