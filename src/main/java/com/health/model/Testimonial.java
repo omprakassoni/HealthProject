@@ -1,14 +1,10 @@
 package com.health.model;
 
-import java.security.Timestamp;
-import java.sql.Date;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 
 @Entity
@@ -18,19 +14,20 @@ public class Testimonial {
 		@GeneratedValue(strategy = GenerationType.AUTO)
 		private  int id;
 		private String testimonialName;
+		@Column(length = 3000)
 		private String testimoniaqlDescription;
 		private String uploadTestiminial;
 		private java.sql.Timestamp timedate;
-		
-		
-	
+
+
+
 		public java.sql.Timestamp getTimedate() {
 			return timedate;
 		}
 		public void setTimedate(java.sql.Timestamp timedate) {
 			this.timedate = timedate;
 		}
-	
+
 		public int getId() {
 			return id;
 		}
@@ -55,9 +52,9 @@ public class Testimonial {
 		public void setTestimoniaqlDescription(String testimoniaqlDescription) {
 			this.testimoniaqlDescription = testimoniaqlDescription;
 		}
-		
-		
-		
+
+
+
 }
 
 

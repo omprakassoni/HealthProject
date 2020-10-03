@@ -256,6 +256,8 @@ public class ControllerHealth {
 		}else {
 			list = tutorialDao.finBystatus();
 		}
+
+		model.addAttribute("categoryname", categoryname);
 		model.addAttribute("list", list);
 		return "showListOfTutorial";
 	}
@@ -1495,25 +1497,36 @@ public class ControllerHealth {
 
 		}
 		StringBuilder fileNames = new StringBuilder();
+		String substring="";
 
 		for (MultipartFile file : files) {
+			if(file.getOriginalFilename()!="") {
+				Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
 
-		Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+				fileNames.append(file.getOriginalFilename() + " ");
+				try {
 
-		fileNames.append(file.getOriginalFilename() + " ");
-		try {
+				Files.write(fileNameAndPath, file.getBytes());
 
-		Files.write(fileNameAndPath, file.getBytes());
+				fileCategory = fileNameAndPath.toString();
+				substring = fileCategory.substring(26);
 
-		fileCategory = fileNameAndPath.toString();
 
-		} catch (IOException e) {
+				} catch (IOException e) {
 
-		e.printStackTrace();
-		}
-		}
+					 substring = "image/logo.png";
+				e.printStackTrace();
+				}
 
-		String substring = fileCategory.substring(26);
+
+			}else {
+				 substring = "image/logo.png";
+			}
+
+				}
+
+
+
 		User user = userRepository.findByUsername(authentication.getName());
 
 		java.util.Date dt = new java.util.Date();
@@ -3391,6 +3404,14 @@ public class ControllerHealth {
 		System.err.println("****************");
 
 		return "Consultants";
+	}
+	@RequestMapping("/categories")
+	public String showCategories(Model model) {
+
+		List<Category> categories = categoryDao.findBystatus(1);
+		model.addAttribute("listCategories", categories);
+
+		return "categories";
 	}
 //	@RequestMapping("/showListConsultants")
 //	public String showListConsultants(Model model) {

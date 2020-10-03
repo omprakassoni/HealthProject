@@ -154,8 +154,9 @@
 </section>
 		
 	<div class="container" style="padding-top: 50px">
-		
-	<span th:each="tutorial : ${list}">
+	
+	<div th:if="${not #lists.isEmpty(tblUserList)}">
+		<span th:each="tutorial : ${list}">
 	
 		<div class="row" style="padding-top: 65px">
 					
@@ -193,6 +194,15 @@
 				
 		 </div>
 		 </span> 
+
+	</div>
+	<div th:if="${#lists.isEmpty(tblUserList)}">
+		<p>Tutorials for <span th:text="${categoryname}"></span> will be published soon!</p>
+		<hr/>
+	</div>
+	
+		
+	
 		 
 		 
 		</div>

@@ -136,43 +136,16 @@ public class HomeController {
 		Set<String> categoryList=new LinkedHashSet<String>(tutorialRes);
 		model.addAttribute("categorys",categoryList);
 
-
-
-
-//		Set<String> categoryList = new LinkedHashSet<String>(tutorialRes);
-//		System.err.println("Prit list" + categoryList);
-//		model.addAttribute("categorys", categoryList);
-//		List<Event> event = eventDao.getAllEvent();
-//		model.addAttribute("events", event.subList(0, 4));
-
-//		List<Consaltantant> consalatant = consalatantDao.findByConsaltantantDate();
-//		for (Consaltantant consaltantant : consalatant) {
-//			System.err.println(consaltantant.getNameConsaltant());
-
-
-
-
 		List<Event> event=eventDao.getAllEvent();
 
 		model.addAttribute("events",event);
 
-
-
 		List<Consaltantant> consalatant=consalatantDao.findByConsultantShowonHomepage(true);
-//		List<Consaltantant> consalatant=consalatantDao.findByConsaltantantDate();
 
 		for (Consaltantant consaltantant : consalatant)
 		{
 			System.err.println(consaltantant.getNameConsaltant());
 		}
-//		List<Testimonial> testimonial=testimonialdao.findBydate();
-//
-//
-//		for (Testimonial videotestimonial : testimonial)
-//		{
-//			System.err.println(videotestimonial.getUploadTestiminial());
-//
-//		}
 
 		List<Testimonial> testimonial = testimonialdao.findBydate();
 		for (Testimonial videotestimonial : testimonial) {
@@ -185,6 +158,29 @@ public class HomeController {
 		java.util.List<Tutorial> videos = tutorialDao.finBystatus();
 
 		List<Category> categories = categoryDao.findBystatus(1);
+		List<Category> categoriesDisplay = new ArrayList<>();
+		int size = 4;
+		if(categories.size()>=size) {
+			for(int i = 0; i< size; i++) {
+				categoriesDisplay.add(categories.get(i));
+			}
+			categories = categoriesDisplay;
+		}
+		List<Consaltantant> consultantDisplay = new ArrayList<>();
+		size = 3;
+		if(consalatant.size()>=size) {
+			for(int i = 0; i< size; i++) {
+				consultantDisplay.add(consalatant.get(i));
+			}
+			consalatant = consultantDisplay;
+		}
+		List<Testimonial> testimonialDisplay = new ArrayList<>();
+		if(testimonial.size()>=size) {
+			for(int i = 0; i< size; i++) {
+				testimonialDisplay.add(testimonial.get(i));
+			}
+			testimonial = testimonialDisplay;
+		}
 		int videoCount = videos.size();
 		long consultantCount = consultantDao.count();
 
