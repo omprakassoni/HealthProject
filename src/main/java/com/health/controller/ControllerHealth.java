@@ -1445,33 +1445,33 @@ public class ControllerHealth {
 
 	/*****************************************************
 	 * Here Write code to update Event
-	 * @throws ParseException 
+	 * @throws ParseException
 	 *************************************************************************/
 
 	@RequestMapping(value = "/eventUpdate", method = RequestMethod.POST)
 	public String eventUpdate(HttpServletRequest req) throws ParseException {
 
 		String eventname = req.getParameter("eventname");
-	
+
 		String description = req.getParameter("description");
 		String venuename = req.getParameter("venuename");
 		String contactperson = req.getParameter("contactperson");
 		String contactnumber = req.getParameter("contactnumber");
 		String email = req.getParameter("email");
 
-		
+
 		String date = req.getParameter("date");
-		
-		  SimpleDateFormat sd1 = new SimpleDateFormat("yyyy-MM-dd"); 
+
+		  SimpleDateFormat sd1 = new SimpleDateFormat("yyyy-MM-dd");
 		  java.util.Date dateUtil = sd1.parse(date);
 		  Date dateStart = new Date(dateUtil.getTime());
-		  
+
 		  String endDate=req.getParameter("endDate");
-		  SimpleDateFormat sd2 = new SimpleDateFormat("yyyy-MM-dd"); 
+		  SimpleDateFormat sd2 = new SimpleDateFormat("yyyy-MM-dd");
 		  java.util.Date dateUtil1 = sd2.parse(endDate);
 		  Date dateEnd = new Date(dateUtil.getTime());
-		  
-		  
+
+
 		String id_event = req.getParameter("eventId");
 
 		int id = Integer.parseInt(id_event);
@@ -1484,22 +1484,22 @@ public class ControllerHealth {
 
 	}
 
-	
-	
+
+
 	  @RequestMapping(value = "/updateCategory", method = RequestMethod.POST)
 	  public String updateCategory(HttpServletRequest req) throws ParseException {
-	  
+
 	  String name=req.getParameter("categoryname"); int
 	  id=Integer.parseInt(req.getParameter("id"));
-	  
+
 	  categoryService.updateCategory(name,id);
-	  
-	  
+
+
 	  return "redirect:/show_category";
-	  
+
 	  }
-	 
-	
+
+
 	/*****************************************************
 	 * Here End code update of Event
 	 *************************************************************************/
@@ -1776,10 +1776,10 @@ public class ControllerHealth {
 	public String editCategory(@PathVariable Integer id, Model model, HttpServletRequest req) {
 
 		Category category = categoryService.getProductById(id);
-		
+
 		model.addAttribute("category",category);
-		
-		
+
+
 		return "updateCategory";
 	}
 
@@ -2057,60 +2057,60 @@ public class ControllerHealth {
 	@Autowired
 	private traineeProfileDao trainingInformationdao;
 
-	
-	
+
+
 	@RequestMapping("/findtrainee")
 	  public String findtraniee(Model model,@RequestParam(name = "traineeOrg") String orgName,@RequestParam(name = "traineeID") String address)
 	{
-	
+
 		 List<traineeInformation> traineeInformation1=(List<com.health.model.traineeInformation>) trainingInformationdao.findAll();
-		
-		List<traineeInformation> traineeInformation=(List<com.health.model.traineeInformation>) trainingInformationdao.findByTrainee(address,orgName);
-		
-		
+
+		List<traineeInformation> traineeInformation=trainingInformationdao.findByTrainee(address,orgName);
+
+
 			model.addAttribute("traineeInformation1",traineeInformation1);
 			model.addAttribute("traineeInformation",traineeInformation);
-				 
+
 		return "traineeFindByCategory";
 	}
-	
-	
+
+
 	@RequestMapping("/TrainerProfile")
 	  public String addTraineeProfile(HttpServletRequest req, Model model,Authentication authentication)
 	{
-			
+
 	    List<traineeInformation> traineeInformation=(List<com.health.model.traineeInformation>) trainingInformationdao.findAll();
-			
+
 	    model.addAttribute("traineeInformation",traineeInformation);
-		
+
 		return "traineeView";
-	
+
 	}
-	
+
 	@RequestMapping("masterTrainee/edit/{id}")
-	public String editTraineeInfo(@PathVariable Integer id, Model model, HttpServletRequest req) 
+	public String editTraineeInfo(@PathVariable Integer id, Model model, HttpServletRequest req)
 	{
-		
+
 		 traineeInformation traineeInformation=trainingInformationdao.findOne(id);
-		
-		 
+
+
 		 System.err.println(traineeInformation.getName());
-		 
+
 		model.addAttribute("traineeInformations",traineeInformation);
-		 
-		 
+
+
 		return "TrainerProfile";
 	}
-	
+
 	@Autowired
 	private  traineeInformationServic traineeInformationServic;
-	
+
 	@RequestMapping(value = "/updateTrainee", method = RequestMethod.POST)
-	public String updateTrainee(HttpServletRequest req) 
+	public String updateTrainee(HttpServletRequest req)
 	{
-		
+
 		int id=Integer.parseInt(req.getParameter("traineeInformationID"));      //req.getParameter("");
-		
+
 		 String name=req.getParameter("textMasterName");
 		 String age=req.getParameter("textAget");
 		 String mobileNumber=req.getParameter("textMobilet");
@@ -2120,27 +2120,27 @@ public class ControllerHealth {
 		 String premark=req.getParameter("textPreMark");
 		 String postmark=req.getParameter("textPostMark");
 		 String textAadharNumbert=req.getParameter("textAadharNumbert");
-		 
-		
+
+
 		 traineeInformationServic.updateTrainingInfo(name,age,mobileNumber,address,organization,experience,premark,postmark,textAadharNumbert,id);
-		 
-		
-		
+
+
+
 		return "redirect:/TrainerProfile";
 	}
 
-	
 
 
 
-	@RequestMapping("/TrainerProfile")
-	  public String addTraineeProfile(HttpServletRequest req, Model model,Authentication authentication)
-	{
 
-
-		return "TrainerProfile";
-
-	}
+//	@RequestMapping("/TrainerProfile")
+//	  public String addTraineeProfile(HttpServletRequest req, Model model,Authentication authentication)
+//	{
+//
+//
+//		return "TrainerProfile";
+//
+//	}
 
 
 
@@ -2542,10 +2542,10 @@ public class ControllerHealth {
 								   if(data.length>0)
 								   {
 
-									
+
 						 if( participantDao.countByadharNumber(data[3])==0)
-						 { 	
-								    
+						 {
+
 
 
 								participantDeatail.setFirstname(data[0]);
