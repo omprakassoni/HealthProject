@@ -25,6 +25,9 @@
 		body{
 			background: #fff;
 		}
+		.sidebar{
+			border-right: 1px solid #0E3A37;
+		}
 		.wrapper .header{
 			z-index: 1;
 			/*background: rgba(78,182,172);*/
@@ -140,7 +143,7 @@
 			margin-top: 3px;
 		}
 		.wrapper .sidebar .sidebar-menu .item .sub-menu{
-			background: #3498DB;
+			background: #fff;
 			/*background: rgba(14,58,55,0.5);;*/
 			/*background: red;*/
 			background: #20B8B8;
@@ -159,18 +162,20 @@
 			border-bottom: 1px solid #8FC5E9; 
 			transition: 0.3s;
 			transition-property: background;
+			background: #fff;
+			color: #0E3A37;
 		}
 
 		.wrapper .sidebar .sidebar-menu .item .sub-menu a:hover{
 			background: #55B1F0;
-			background: #1ebba3;
+			background: #e0f2f1;
 		}
 		.wrapper .sidebar .sidebar-menu .item .sub-menu i{
 			padding-right: 20px;
-			font-size: 16px;
+			font-size: 12px;
 		}
 		.wrapper .sidebar .sidebar-menu .item:target .sub-menu{
-			max-height: 500px;
+			max-height: 1200px;
 		}
 		.wrapper .main-container{
 			width: (100% - 250px);
@@ -256,6 +261,9 @@
 	}
 	.h-nav a{
 		color: #1C7871;
+	}
+	.fa-circle{
+		font-size: 10px;
 	}
 		</style>
 	
@@ -361,6 +369,37 @@
 					</a>
 				</div>
 			</li>
+			<li class="item" id="creation">
+				<a href="#creation" class="menu-btn">
+					<i class="fas fa-edit"></i>
+					<span>
+						Creation<i class="fas fa-chevron-down drop-down"></i>
+					</span>
+				</a>
+				<div class="sub-menu">
+				<a th:href="@{listContributor}"><i class="far fa-circle"></i>
+						<span>Assign Contributor</span>
+					</a>
+					<a th:href="@{Category}"><i class="far fa-circle"></i>
+						<span>Category</span>
+					</a>
+					<a th:href="@{language}"><i class="far fa-circle"></i>
+						<span>Language</span>
+					</a>
+					<a th:href="@{roleNew}"><i class="far fa-circle"></i>
+						<span>Role</span>
+					</a>
+					<a th:href="@{displaytopiform}"><i class="far fa-circle"></i>
+						<span>Topic</span>
+					</a>
+					
+					<a th:href="@{addUploadQuestion}"><i class="far fa-circle"></i>
+						<span>Upload Question</span>
+					</a>
+					
+					
+				</div>
+			</li>
 			
 			<li class="item" id="View">
 				<a href="#View" class="menu-btn">
@@ -372,36 +411,34 @@
 					<a th:href="@{show_category}"><i class="far fa-circle"></i>
 						<span>Category</span>
 					</a>
-					<a th:href="@{show_testimonial}"><i class="far fa-circle"></i>
-						<span>Testimonial </span>
+					<a th:href="@{adminShowDomainReviweer}"><i class="far fa-circle"></i>
+						<span> Domain Reviewer</span>
 					</a>
-					<a th:href="@{show_language}"><i class="far fa-circle"></i>
-						<span>Language</span>
-					</a>
+					
 					<a th:href="@{show_Event}"><i class="far fa-circle"></i>
 						<span>Event</span>
 					</a>
-						<a th:href="@{show_feedbackMasterTrainer}"><i class="far fa-circle"></i>
+					<a th:href="@{show_feedbackMasterTrainer}"><i class="far fa-circle"></i>
 						<span>Feedback Master Trainer</span>
 					</a>
 					
-					
-						<a th:href="@{adminShowMasterTrainer}"><i class="fas fa-address-card"></i>
+					<a th:href="@{show_language}"><i class="far fa-circle"></i>
+						<span>Language</span>
+					</a>
+						<a th:href="@{adminShowMasterTrainer}"><i class="far fa-circle"></i>
 						<span>Master Trainer</span>
 					</a>
-					
-					<a th:href="@{adminShowQualityreviweer}"><i class="fas fa-address-card"></i>
-						<span>Quality Reviewer</span>
-					</a>
-
-					<a th:href="@{listparicipant}"><i class="fas fa-address-card"></i>
+					<a th:href="@{listparicipant}"><i class="far fa-circle"></i>
 						<span>Participant Trainer</span>
 					</a>
-					<a th:href="@{adminShowDomainReviweer}"><i class="fas fa-address-card"></i>
-						<span>List Domain Trainer</span>
-					</a>
 					
-					<a th:href="@{TrainerProfile}"><i class="fas fa-address-card"></i>
+					<a th:href="@{adminShowQualityreviweer}"><i class="far fa-circle"></i>
+						<span>Quality Reviewer</span>
+					</a>
+					<a th:href="@{show_testimonial}"><i class="far fa-circle"></i>
+						<span>Testimonial </span>
+					</a>
+					<a th:href="@{TrainerProfile}"><i class="far fa-circle"></i>
 						<span>View Trainee </span>
 					</a>	
 				
@@ -409,36 +446,7 @@
 				</div>
 			</li>
 
-			<li class="item" id="creation">
-				<a href="#creation" class="menu-btn">
-					<i class="fas fa-edit"></i>
-					<span>
-						Creation<i class="fas fa-chevron-down drop-down"></i>
-					</span>
-				</a>
-				<div class="sub-menu">
-					<a th:href="@{Category}"><i class="fas fa-envelope-square"></i>
-						<span>Category</span>
-					</a>
-					<a th:href="@{language}"><i class="fas fa-exclamation-circle"></i>
-						<span>Language</span>
-					</a>
-					<a th:href="@{roleNew}"><i class="fas fa-exclamation-circle"></i>
-						<span>Role</span>
-					</a>
-					<a th:href="@{displaytopiform}"><i class="fas fa-exclamation-circle"></i>
-						<span>Topic</span>
-					</a>
-					<a th:href="@{listContributor}"><i class="fas fa-exclamation-circle"></i>
-						<span>Assign Contributor</span>
-					</a>
-					<a th:href="@{addUploadQuestion}"><i class="fas fa-exclamation-circle"></i>
-						<span>Upload Question</span>
-					</a>
-					
-					
-				</div>
-			</li>
+			
 			<!-- <li class="item" id="view">
 				<a href="#view" class="menu-btn">
 					<i class="fas fa-envelope"></i>

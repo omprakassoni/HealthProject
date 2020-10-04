@@ -26,8 +26,7 @@
 								</div>
 							</div>
 						</h5>
-						<h5 class="card-title text-center"
-							style="color: maroon; font-size: 30px">Add Language</h5>
+						<h5 class="card-title text-center a-card-title">Add Language</h5>
 
 						<form class="form-horizontal" th:action="@{/addLanguage}"
 							method="post" enctype="multipart/form-data">
@@ -51,14 +50,12 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-xl-9 mx-auto">
-						<div class="card card-signin flex-row my-5">
+						<div class="card card-signin flex-row">
 							<div class="card-body">
-								<h5 class="card-title text-center"
-									style="color: maroon; font-size: 15px">Alredy Added
-									language</h5>
+							<h5 class="card-title text-center a-card-title">Languages Added</h5>
 								<ul>
 									<span th:each="lan : ${languageAll}">
-										<li><span style="color: green;"
+										<li><i class="fas fa-circle"></i>  <span 
 											th:text="${lan.languageName}">description</span></li>
 
 									</span>
