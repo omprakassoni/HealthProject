@@ -508,7 +508,6 @@ $(document)
 					
 				$('#preRequsiteId').change(
 							function() {
-								alert('here');
 								var catgoryid = $(this).find(
 										":selected").val();
 							
@@ -1325,18 +1324,16 @@ $(document)
 									},
 									contentType : "application/json",
 									success : function(result) {
-										console.log(result);
-										// outdated
-										// $("#outlineViewResponse").prop(
-										// 'disabled', false);
-										// $('#outlineViewResponse').html(result);
+										if(result[0]==null){
+											$('#editOutline').hide();
+										}
 										editor.setData(result[0]); // add
 																	// retrieved
 																	// outline
 																	// content
 																	// to editor
 										editor.isReadOnly = true;
-										$('#outlineId').hide();
+										
 									},
 									error : function(err) {
 										console.log("not working. ERROR: "
@@ -5982,7 +5979,7 @@ $(document)
 
 							error : function(err) {
 								console.log("not working. ERROR: "+ JSON.stringify(err));
-								alert('msg error!');
+								
 							}
 						});
 						 

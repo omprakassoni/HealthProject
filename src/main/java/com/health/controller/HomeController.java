@@ -181,6 +181,14 @@ public class HomeController {
 			}
 			testimonial = testimonialDisplay;
 		}
+		List<Event> eventDisplay = new ArrayList<>();
+		size = 3;
+		if(event.size()>=size) {
+			for(int i = 0; i< size; i++) {
+				eventDisplay.add(event.get(i));
+			}
+			event = eventDisplay;
+		}
 		int videoCount = videos.size();
 		long consultantCount = consultantDao.count();
 
@@ -191,6 +199,8 @@ public class HomeController {
 		model.addAttribute("videoCount", videoCount);
 		model.addAttribute("consultantCount", consultantCount);
 		model.addAttribute("categories", categories);
+		model.addAttribute("event", event);
+
 		return "index";
 	}
 
