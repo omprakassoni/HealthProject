@@ -6062,7 +6062,7 @@ $(document)
 					$(".logoToUpload").on('change', function() {
 				        
 				        var fileSize = this.files[0].size;
-				        if(fileSize > 50000){
+				        if(fileSize > 200000){
 				        	alert("File size should be less than 5kB");
 				        	this.value="";
 				        	return false;

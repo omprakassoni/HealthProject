@@ -45,16 +45,24 @@
 									src="/image/logo.png" href="www.google."
 									alt="Smiley face" height="50" width="50"> </img>
 								</a>
-								<!-- <span style="color: #1C7871;font-size: 2.5rem;">Health And <span style="color: #BF360D;font-size: 2.5rem;">Nutrition</span> </span> -->
 								<span style="color: black;font-size: 2rem;" class="ml-3">Spoken <span style="color: orange;font-size: 2rem;">Tutorials</span> </span>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="mainNavBar">
     <div class="navbar-nav ml-auto">
-      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#about_us">About Us</a>
-      <a class="nav-item nav-link" href="#events">Events</a>
+      <a class="nav-item nav-link active" href="#search-bar">Home <span class="sr-only">(current)</span></a>
+      <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    About Us
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#parallax-1">About</a>
+    <a class="dropdown-item" href="#parallax-2">Consultants</a>
+    <a class="dropdown-item" href="#events">Events</a>
+    <a class="dropdown-item" href="#testimonial">Testimonials</a>
+  </div>
+</div>
       <a class="nav-item nav-link " href="#contact" tabindex="-1">Contact Us</a>
     </div>
   </div>
@@ -202,6 +210,38 @@
      <a th:href="@{/showListConsultants}" target="_blank" class="button is-link is-outlined is-fullwidth consBtn mb-5">View all consultants</a>
     </div>
      
+    </section>
+    <h1 class="has-text-centered spk-title">Events</h1>
+    <section id="events" class="container">
+    <div th:each="event : ${events}" >
+    <div class="container px-6">
+    	<div class="row px-6 event" >
+    		<div class="col-md-2 spk-date has-text-centered" >
+    		<i class="far fa-calendar-alt"></i>
+    		<div>
+    		<p th:text="${event.getDate()}"></p> - 
+    		<p th:text="${event.getEndDate()}"></p>
+    		
+    		</div>
+    		</div>
+    		<div class="col-md-8">
+    		<h3 class="size-is-3 name" th:text="${event.getEventname()}">Event Name</h3>
+    		<p class="content" th:text="${event.getDescription()}">Event Desc</p>
+    		<div><i class="fas fa-map-marker-alt"></i> <span th:text="${event.getVenuename()}"></span></div>
+    		<hr/>
+    		<p>Contact Details : </p>
+    		<div style="display: flex;justify-content: space-between;">
+    		
+    		<p><i class="fas fa-user"></i> <span th:text="${event.getContactperson()}"></span></p>
+    		<p ><i class="fas fa-phone-square-alt"></i> <span th:text="${event.getContactnumber()}"></span></p>
+    		<p ><i class="fas fa-envelope"></i> <span th:text="${event.getEmail()}"></span></p>
+    		</div>
+    		</div>
+    	</div>
+    </div>
+    	
+    </div>
+     <a th:href="@{/showEvents}" target="_blank" class="button is-link is-outlined is-fullwidth catBtn mb-5">View all Events</a>
     </section>
     <div id="modal-consultant" th:each="consantant : ${listofConsalatatnt}" class="modal" th:attrappend="id=${'_'+consantant.getId()}">
 			<div class="modal-background"></div>
@@ -364,6 +404,21 @@ Mumbai - 400076</p>
 
 <script type="text/javascript">
 $(document).ready(function(){
+	/* alert("1"); */
+	/* $("nav a").click(function() {
+		
+	    $('html,body').animate({
+	        scrollTop: $(".second").offset().top - 300 },
+	        'slow');
+	}); */
+	$(document).on('click', 'a[href^="#"]', function (event) {
+	    event.preventDefault();
+	  /*   alert("1"); */
+	    $('html, body').animate({
+	        scrollTop: $($.attr(this, 'href')).offset().top - 200
+	    }, 500);
+	});
+	
 	  $('.your-class').slick({
 		  slidesToShow: 4,
 		  slidesToScroll:2

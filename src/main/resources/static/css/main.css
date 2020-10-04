@@ -121,6 +121,12 @@ header .upper-bar{
 	border-bottom: 1px solid #1C7871;
 	transition:  2s;
 }
+nav #dropdownMenuButton{
+	background: none;
+    color: #1C7871;
+    border: none;
+    font-weight: bold;
+}
 /*-----------------------------------/header upper-bar---------------------------*/
 
 /*-----------------------------------Intro text with carousel---------------------------*/
@@ -172,29 +178,29 @@ header .upper-bar{
 }
 /*-----------------------------------/Highlights---------------------------*/
 /*-----------------------------------Events---------------------------*/
-.events-bg{
-	background : var(--heading-color);
+#events{
+	
 }
-.e-cal{
-	font-size : 2rem!important;
-	padding : 10px;
-	display : flex;
-	justify-content : center;
-	align-items : center;
-	color: var(--teal-bright);
-	flex-direction: column;
+#events .fa-calendar-alt{
+	font-size: 2rem;
+	color: #1C7871;
 }
-.e-cal p{
-	font-size: 0.8rem;
+#events .spk-date{
+	justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
-.events-bg p{
-	margin-top: 0!important;
+#events .fa-user,#events .fa-phone-square-alt,#events .fa-envelope{
+	color: #004A74;
 }
-.e-content{
-	margin-top: 0!important;
+#events .event{
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	padding: 10px;
 }
-.e-col{
-	color: var(--teal-bright);
+#events .name{
+	color: #1C7871;
+	font-weight: bold;
 }
 
 /*-----------------------------------/Events---------------------------*/
@@ -208,7 +214,7 @@ header .upper-bar{
 #parallax-2 .card{
 	width: 90%;
 }
-#parallax-2 .consBtn{
+#parallax-2 .consBtn, #events .consBtn{
 	border: 1px solid #fff;
     color: #fff;
     font-weight: bold;
