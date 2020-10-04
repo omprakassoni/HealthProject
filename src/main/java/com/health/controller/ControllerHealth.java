@@ -3514,6 +3514,7 @@ public class ControllerHealth {
 
 		return "Consultants";
 	}
+
 	@RequestMapping("/categories")
 	public String showCategories(Model model) {
 
@@ -3522,7 +3523,19 @@ public class ControllerHealth {
 
 		return "categories";
 	}
-//	@RequestMapping("/showListConsultants")
+	@RequestMapping("/showEvents")
+	public String showEvents(Model model) {
+
+		List<Event> events = eventDao.findBylatestdate();
+
+		model.addAttribute("events", events);
+
+
+		return "events";
+	}
+
+
+	//	@RequestMapping("/showListConsultants")
 //	public String showListConsultants(Model model) {
 //
 //		List<Consaltantant> consultants = consalttantDao.findBydateConsalant();
