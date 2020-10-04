@@ -150,7 +150,8 @@ public class QualityReviwer
 			Tutorial t=tutorialdao.findByCatAndTopicAndLan(tutorial.getCategory(),tutorial.getTopic(),language);
 			
 			
-		if(t!=null) {
+		if(t!=null) 
+		{
 			
 			int statusApprove=1;
 

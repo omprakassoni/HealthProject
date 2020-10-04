@@ -19,8 +19,16 @@ public class feedback {
 	private String name;
 	private String email;
 	private String description;
+	private String subject;
 
-	private String datetime; 
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	private Date datetime; 
 	
 	//private Date vardates;
 	
@@ -28,12 +36,14 @@ public class feedback {
 		return id;
 	}
 
-	public String getDatetime() {
+
+
+	public Date getDatetime() {
 		return datetime;
 	}
 
-	public void setDatetime(String currentTime) {
-		this.datetime = currentTime;
+	public void setDatetime(Date datetime) {
+		this.datetime = datetime;
 	}
 
 	public void setId(int id) {

@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/Media/**",
 			"/forgetPassword",
 			"/feedcustomerdat",
+			"/feedbackForUser",
 			"/login",
 			"/s/**",
 			"/adminDeatail/**",

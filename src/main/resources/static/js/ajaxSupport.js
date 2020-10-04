@@ -814,8 +814,56 @@ $(document)
 
 						});
 
+
 				
-				
+				/*Here is code for feedbak for user on Home page*/
+				$('#submitForUser').click(function() 
+						{
+							
+									var firstName = $("#firstName").val();
+									
+									var email = $("#email").val();
+									
+									var subjectName = $("#subjectName").val();
+									
+									var msgForm = $("#msgForm").val();
+									
+									
+									
+									$.ajax({
+												type : "GET",
+												url : "/feedbackForUser",
+												data : {
+													
+													"firstName" : firstName,
+													"email": email,
+													"subjectName": subjectName,
+													"msgForm":msgForm,
+												},
+												contentType : "application/json",
+												success : function(result) 
+												{
+
+													$("#exampleModalLabelKeyword")
+															.prop(
+																	'disabled',
+																	false);
+													$("#exampleModalLabelKeyword")
+															.html(html);
+
+												},
+
+												error : function(err) {
+													console
+															.log("not working. ERROR: "
+																	+ JSON
+																			.stringify(err));
+												}
+
+											});
+
+								});
+
 				
 				
 				

@@ -46,6 +46,7 @@ import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.model.category_Tutorial;
 import com.health.model.contributor_Role;
+import com.health.model.feedback;
 import com.health.model.feedbackMasterTrainer;
 import com.health.model.language;
 import com.health.model.partipantDeatil;
@@ -68,6 +69,7 @@ import com.health.repository.UserRepository;
 import com.health.repository.UserRoleRepositary;
 import com.health.repository.cityRepositary;
 import com.health.repository.contributor_RoleDao;
+import com.health.repository.feedbackFOrUser;
 import com.health.repository.feedbackRespositary;
 import com.health.repository.languagedao;
 import com.health.repository.masterProfileDao;
@@ -2654,6 +2656,41 @@ public class ControllerHealth {
 
 	}
 
+	
+	/*
+	 * Here is code for Feedack on Home page
+	 */
+
+	@Autowired
+	private feedbackFOrUser feedbackUserDao;
+	
+	@RequestMapping("/feedbackForUser")
+	public @ResponseBody String feedbackForUser(@RequestParam(name = "firstName") String firstName,
+			@RequestParam(name = "email") String email,
+			@RequestParam(name = "subjectName") String subjectName,
+			@RequestParam(name = "msgForm") String msgForm,Model model) {
+
+			
+		feedback feedback=new feedback();
+		
+		feedback.setName(firstName);
+		feedback.setEmail(email);
+		feedback.setDescription(msgForm);
+		feedback.setSubject(subjectName);
+		
+		feedbackUserDao.save(feedback);
+		
+		
+		return "<H1>Save Fed</H1>";
+			
+			
+}
+	
+
+	
+	
+	
+	
 	/*
 	 * here code for feedback for master trainer
 	 */
