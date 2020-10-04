@@ -329,9 +329,9 @@ public class controllerContributer {
 
 		  StringBuilder fileNames = new StringBuilder();
 		  for (MultipartFile file : scriptFiles)
-		  { 
+		  {
 			  Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
-		  
+
 		  fileNames.append(file.getOriginalFilename() + " ");
 		  topicName.add(file.getOriginalFilename());
 
@@ -1023,13 +1023,17 @@ public class controllerContributer {
 			List<commentOnComponent> outlineComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Outline");
 			model.addAttribute("outlineComment",outlineComment);
 			List<commentOnComponent> scriptComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Script");
-			model.addAttribute("outlineComment",outlineComment);
+			model.addAttribute("scriptComment",scriptComment);
 			List<commentOnComponent> slideComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Slide");
-			model.addAttribute("outlineComment",outlineComment);
+			model.addAttribute("slideComment",slideComment);
 			List<commentOnComponent> keywordComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Keyword");
-			model.addAttribute("outlineComment",outlineComment);
+			model.addAttribute("keywordComment",keywordComment);
 			List<commentOnComponent> videoComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Video");
-			model.addAttribute("outlineComment",outlineComment);
+			model.addAttribute("videoComment",videoComment);
+			List<commentOnComponent> preReqComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Prerequisite");
+			model.addAttribute("preReqComment",preReqComment);
+			List<commentOnComponent> graphicsComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Graphics");
+			model.addAttribute("graphicsComment",graphicsComment);
 
 
 

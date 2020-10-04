@@ -327,110 +327,6 @@
 								</tbody>
 							</table>
 
-
-							<span th:each="mesComment : ${CommentMsg}"> <span
-								style="color: green;"
-								th:if="${mesComment.getComponenenetDeatail()=='Video'}">
-
-									<div class="alert alert-info">
-
-										<i style="width: 30px; height: 25px" class="fas fa-comment"></i>
-
-										<strong style="color: green; text-transform: uppercase;">
-											<span style="color: green;"
-											th:text="${mesComment.getComponenenetDeatail()}"></span>
-										</strong><br></br> &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right">
-										</i> <span style="color: green;"
-											th:text="${mesComment.getCommentInfo()}"> </span>
-
-									</div>
-							</span> <span style="color: green;"
-								th:if="${mesComment.getComponenenetDeatail()=='Outline'}">
-
-									<div class="alert alert-info">
-										<i style="width: 30px; height: 25px" class="fas fa-comment"></i>
-
-										<strong style="color: green; text-transform: uppercase;">
-											<span style="color: green;"
-											th:text="${mesComment.getComponenenetDeatail()}"></span>
-										</strong><br></br> &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right">
-										</i> <span style="color: green;"
-											th:text="${mesComment.getCommentInfo()}">Pending</span>
-
-									</div>
-
-							</span> 
-							
-							<span style="color: green;"
-								th:if="${mesComment.getComponenenetDeatail()=='Prerequisite'}">
-
-									<div class="alert alert-info">
-										<i style="width: 30px; height: 25px" class="fas fa-comment"></i>
-
-										<strong style="color: green; text-transform: uppercase;">
-											<span style="color: green;"
-											th:text="${mesComment.getComponenenetDeatail()}"></span>
-										</strong>
-										<br></br> &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right">
-										</i> <span style="color: green;"
-											th:text="${mesComment.getCommentInfo()}">Pending</span>
-
-									</div>
-									
-
-							</span>
-							
-							
-							<span style="color: green;"
-								th:if="${mesComment.getComponenenetDeatail()=='Script'}">
-
-									<div class="alert alert-info">
-										<i style="width: 30px; height: 25px" class="fas fa-comment"></i>
-
-										<strong style="color: green; text-transform: uppercase;"><span
-											style="color: green;"
-											th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
-
-										&nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i> <span
-											style="color: green;"
-											th:text="${mesComment.getCommentInfo()}">Pending</span>
-
-									</div>
-
-							</span> <!--   </div> --> <span style="color: green;"
-								th:if="${mesComment.getComponenenetDeatail()=='Slide'}">
-
-									<div class="alert alert-info">
-
-										<i style="width: 30px; height: 25px" class="fas fa-comment"></i>
-										<strong style="color: green; text-transform: uppercase;"><span
-											style="color: green;"
-											th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
-
-										&nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i><span
-											style="color: green;"
-											th:text="${mesComment.getCommentInfo()}">Pending</span>
-
-									</div>
-
-							</span> <span style="color: green;"
-								th:if="${mesComment.getComponenenetDeatail()==keyword}">
-
-									<div class="alert alert-info">
-
-										<i style="width: 30px; height: 25px" class="fas fa-comment"></i>
-										<strong style="color: green; text-transform: uppercase;"><span
-											style="color: green;"
-											th:text="${mesComment.getComponenenetDeatail()}"></span></strong> <span
-											style="color: green;"
-											th:text="${mesComment.getCommentInfo()}">Pending</span>
-
-									</div>
-
-							</span> <!-- 	
-									</div> --> <!-- 	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span> -->
-
-							</span>
 						</form>
 
 						<!--  Outline   Start-->
@@ -471,12 +367,12 @@
 											<!-- <button id="editOutline" type="button" class="btn btn-success">Upload Outline</button> -->
 													</form>
 											    </div>
-											    <div class="col-md-6">
+											    <div class="col-md-6" >
 											    <div th:if="${not #lists.isEmpty(outlineComment)}">
 											    <h6 class="border-bottom">Comments: </h6>
 											    
 											    <div th:each="outlineComment : ${outlineComment}" th:if="${not #lists.isEmpty(outlineComment)}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${outlineComment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><strong><i class="far fa-comment-alt"></i> <span th:text="${outlineComment.getUser().getFullName()}"></span></strong></p>
 											    <p class="my-0"><small><span th:text="${outlineComment.getCommentdate()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${outlineComment.getCommentInfo()}"></span></p>
 											    
@@ -485,11 +381,11 @@
 											    <div class="textarea-comment">
 												<label for="msgCommentOutline">Comments</label>
 												<textarea class="form-control msgComment" name="msgCommentOutline"
-													rows="10" required="required" id="Outline_comment"
+													rows="3" required="required" id="Outline_comment"
 													placeholder="Please enter your suggestions.">	</textarea>
 
 											</div>
-											<button id="Outline" type="button" class="btn btn-success comment-contri">submit</button>
+											<button id="Outline" type="button" class="btn comment-contri">comment</button>
 											    
 											    
 											    </div>
@@ -579,67 +475,14 @@
 										    <label class="custom-file-label" for="videoFileIdA">Choose File</label>
 										    <div class="invalid-feedback">Example invalid custom file feedback</div>
 										  </div>
-											<!-- <div class="form-group">
-												<label for="videoFileId" >Add
-													Video</label> <input type="file" style="" class="form-control-file"
-													id="videoFileIdA" name="videoFileName"
-													placeholder="uploadVideo" accept=".mp4" required="required"></input>
-											</div> -->
-
-											<!--                  		<div class="form-group"> 
-	              		
-								 <label for="consaltantImage" style="padding-top: 8px">Select Minute</label> 
-									 <select id="categoryname" class="form-control" name="categoryName"  >
-				                    
-											  <option selected="selected" >Select Minute</option>  
-												   
-												    <option value="val1"> 1</option>
-												    <option value="val2"> 2</option>
-												    <option value="val3"> 3</option>
-												    <option value="val3"> 4</option>
-												    <option value="val3"> 5</option>
-												    <option value="val3"> 6</option>
-												    <option value="val3"> 7</option>
-												    <option value="val3"> 8</option>
-												    <option value="val3"> 9</option>
-												    <option value="val3"> 10</option>
-												    <option value="val3"> 11</option>
-												    <option value="val3"> 12</option>
-												       
-							                     <span th:each="category: ${categorys}">
-							  					<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-				  									</span>
-				  				 
-				  						
-				                    </select>             
-				                                 </div>   -->
-
-											<!-- 		                                 
-				             <div class="form-group"> 
-				                         		
-									    <label for="consaltantImage" style="padding-top: 8px">Select Seconds</label>
-										 <select id="categoryname" class="form-control" name="categoryName" >
-				               
-							                   <option selected="selected">Select Seconds</option>      
-							          
-		
-							                        <span th:each="category: ${categorys}">
-							  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-				  					
-				  					
-				  						</span>
-				                   		 </select> 
-									                                 
-				             </div>   -->
-
-
+											
 										</form>
 									</div>
 									<div class="col-md-6">
 									<div th:if="${not #lists.isEmpty(videoComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${videoComment}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><strong><i class="far fa-comment-alt"></i> <span th:text="${comment.getUser().getFullName()}"></span></strong></p>
 											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
 											    
@@ -647,13 +490,12 @@
 									
 									</div>
 									<div class="textarea-comment">
-												<label >Comments</label>
 												<textarea class="form-control msgComment" name="msgCommentOutline"
-													rows="10" required="required" id="Video_comment"
+													rows="3" required="required" id="Video_comment"
 													placeholder="Please enter your suggestions.">	</textarea>
 
 											</div>
-											<button id="Video" type="button" class="btn btn-success comment-contri">submit</button>
+											<button id="Video" type="button" class="btn comment-contri">comment</button>
 									</div>
 									</div>
 										
@@ -704,19 +546,13 @@
 									<div class="col-md-6">
 									<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
-
 											<div class="form-group">
-
 												<label for="message-text" class="col-form-label">Add
 													Keyword</label>
 												<textarea class="form-control" name="keywordArea"
 													id="keyword" rows="10" required="required">
-							        
 							            </textarea>
 											</div>
-
-											<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->
-
 										</form>
 									</div>
 									
@@ -731,13 +567,12 @@
 											    </div>
 									</div>
 									<div class="textarea-comment">
-												<label >Comments</label>
 												<textarea class="form-control msgComment" name="msgCommentOutline"
-													rows="10" required="required" id="Keyword_comment"
+													rows="3" required="required" id="Keyword_comment"
 													placeholder="Please enter your suggestions.">	</textarea>
 
 											</div>
-											<button id="Keyword" type="button" class="btn btn-success comment-contri">submit</button>
+											<button id="Keyword" type="button" class="btn comment-contri">comment</button>
 									
 									</div>
 									
@@ -834,11 +669,7 @@
 
 											</div>
 
-											<!--   <button id="outlineView" type="button" class="btn btn-success">View</button>	  -->
-
-											<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->
-
-										</form>
+											</form>
 									</div>
 									<div class="col-md-6">
 									
@@ -881,19 +712,6 @@
 									</div>
 									<div class="modal-body">
 
-										<!-- <form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
-						          <div class="form-group">
-						            
-							      			<a name="sliedPdf" target="_blank" id="sliedPdf">Click To View</a>
-					      
-						          </div>
-						          
-						      <button id="outlineView" type="button" class="btn btn-success">View</button>	   
-						             
-						   <button id="keyword" type="submit" class="btn btn-success">Upload</button>    
-						     
-					</form> -->
-
 										<div class="modal-footer">
 
 											<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
@@ -920,7 +738,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
-											KeyWord</h5>
+											Keyword</h5>
 										<div class="modal-title"></div>
 
 										<button type="button" class="close" data-dismiss="modal"
@@ -972,7 +790,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
-											KeyWordss</h5>
+											Keywords</h5>
 										<div class="modal-title"></div>
 
 										<button type="button" class="close" data-dismiss="modal"
@@ -1031,7 +849,6 @@
 							</div>
 						</div>
 
-
 						<!-- End View keyword into textbox -->
 						
 						
@@ -1039,7 +856,7 @@
 							role="dialog" aria-labelledby="exampleModalLabelKeyword"
 							aria-hidden="true">
 
-							<div class="modal-dialog" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyword">Upload
@@ -1049,13 +866,14 @@
 											         <span aria-hidden="true">&times;</span></button>
 									</div>
 									<div class="modal-body">
+										<div class="row">
+										<div class="col-md-6">
 										<form method="post">
 
 											<div class="form-group">
 												<label for="inputUserame">Add Prerequisite</label> 
 												<select id="preRequsiteId" class="form-control" name="preRequsite"
 													required="required">
-
 													<option selected="selected">Select Category</option>
 													<!-- <span th:each="category: ${categorys}">
 								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
@@ -1068,24 +886,24 @@
 															th:text="${catgoryName.getCategoryname()}"
 															readonly="readonly"></option>
 													</span>
-													
 												</select>
 											</div>
-
 											<div class="form-group ">
-
 												<label for="inputTopic">Topic Name</label> 
 												<select
 													id="inputLanguageAll" class="form-control" name="inputLanguageAll"
 													required="required">
-
 												</select>
-
 											</div>
-
 						<button id="uploadpreRequsiteId"  name="uploadpreRequsiteId" type="button" class="btn btn-success">Upload</button>
 				 						
 				 						</form>
+										</div>
+										<div class="col-md-6">
+										
+										</div>
+										</div>
+										
 
 
 									</div>
@@ -1100,7 +918,7 @@
 							role="dialog" aria-labelledby="exampleModalLabelprerequisite"
 							aria-hidden="true">
 
-							<div class="modal-dialog" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelprerequisite">Upload
@@ -1166,7 +984,7 @@
 							role="dialog" aria-labelledby="exampleModalLabelKeyword"
 							aria-hidden="true">
 
-							<div class="modal-dialog" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyword">Upload
@@ -1176,6 +994,8 @@
 											         <span aria-hidden="true">&times;</span></button>
 									</div>
 									<div class="modal-body">
+										<div class="row">
+										<div class="col-md-6">
 										<form th:action="@{/}" method="post">
 
 											<div class="form-group">
@@ -1211,10 +1031,31 @@
 
 											</div>
 
-											<button id="outlineId" type="button" class="btn btn-success">Upload
+											<button id="preRequisite" type="button" class="btn btn-success">Upload
 											</button>
 
 										</form>
+										</div>
+										<div class="col-md-6">
+										<div th:if="${not #lists.isEmpty(preReqComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${preReqComment}" class="border-bottom"> 
+											    <p class="my-0"> <i class="far fa-user"></i> <strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><i class="far fa-clock"></i> <small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+									<div class="textarea-comment">
+												<textarea class="form-control msgComment" name="msgCommentOutline"
+													rows="3" required="required" id="Prerequisite_comment"
+													placeholder="Please enter your suggestions.">	</textarea>
+
+											</div>
+											<button id="Prerequisite" type="button" class="btn comment-contri">comment</button>
+										</div>
+										</div>
 
 
 									</div>
@@ -1291,21 +1132,20 @@
 									<div th:if="${not #lists.isEmpty(scriptComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${scriptComment}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0"> <i class="far fa-user"></i> <strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><i class="far fa-clock"></i> <small><span th:text="${comment.getCommentdate()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
 											    
 											    </div>
 									
 									</div>
 									<div class="textarea-comment">
-												<label >Comments</label>
 												<textarea class="form-control msgComment" name="msgCommentOutline"
-													rows="10" required="required" id="Script_comment"
+													rows="3" required="required" id="Script_comment"
 													placeholder="Please enter your suggestions.">	</textarea>
 
 											</div>
-											<button id="Script" type="button" class="btn btn-success comment-contri">submit</button>
+											<button id="Script" type="button" class="btn comment-contri">comment</button>
 									
 									</div>
 									</div>
@@ -1389,22 +1229,7 @@
 												  </div>
 												<!-- here -->
 
-												<!-- <label for="uploadsScriptId">Add Script</label> <input
-													style="padding-left: 300px height: 300px, width:200px; border: red;"
-													type="file" class="form-control-file w-50"
-													id="uploadScriptFile" name="uploadsScriptFile"
-													placeholder="uploadFile" accept=".pdf" required="required"></input> -->
-
 											</div>
-
-
-											<!-- <div class="form-group" style="padding-top: 80px">
-												<label for="uploadsSlideFileId">Add Slide</label> <input
-													style="padding-left: 300px height: 300px, width:200px; border: red;"
-													type="file" class="form-control-file w-50"
-													id="uploadsSlideFileId" name="uploadsSlideFile"
-													placeholder="uploadFile" accept=".zip" required="required"></input>
-											</div> -->
 										</form>
 									</div>
 									<div class="col-md-6">
@@ -1419,13 +1244,12 @@
 									
 									</div>
 									<div class="textarea-comment">
-												<label >Comments</label>
 												<textarea class="form-control msgComment" name="msgCommentOutline"
-													rows="10" required="required" id="Slide_comment"
+													rows="3" required="required" id="Slide_comment"
 													placeholder="Please enter your suggestions.">	</textarea>
 
 											</div>
-											<button id="Slide" type="button" class="btn btn-success comment-contri">submit</button>
+											<button id="Slide" type="button" class="btn comment-contri">comment</button>
 									</div>
 									</div>
 									
@@ -1466,6 +1290,8 @@
 										</button>
 									</div>
 									<div class="modal-body">
+									<div class="row">
+									<div class="col-md-6">
 									<div th:unless="${tutorial.getGraphicsStatus()}" class="alert alert-secondary upload-status" role="alert">
 									  No Graphics has been added yet.
 									</div>
@@ -1480,14 +1306,6 @@
 											</div>
 											  </div>
 											</div>
-											<!-- <div class="form-group">
-												<a name="sliedPdf" target="_blank" id="sliedPdf">Click To View</a>
-											</div> -->
-
-											<!--   <button id="outlineView" type="button" class="btn btn-success">View</button>	  -->
-
-											<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->
-
 										</form>
 
 										<form id="upload-file-form-graphics" submit="return submitForm(this);">
@@ -1498,25 +1316,29 @@
 												    <label class="custom-file-label" for="uploadGraphicUpload">Choose file...</label>
 												    <div class="invalid-feedback">Example invalid custom file feedback</div>
 												  </div>
-												<!-- here -->
-
-												<!-- <label for="uploadsScriptId">Add Script</label> <input
-													style="padding-left: 300px height: 300px, width:200px; border: red;"
-													type="file" class="form-control-file w-50"
-													id="uploadScriptFile" name="uploadsScriptFile"
-													placeholder="uploadFile" accept=".pdf" required="required"></input> -->
+											</div>
+										</form>
+									</div>
+									<div class="col-md-6">
+									<div th:if="${not #lists.isEmpty(graphicsComment)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${graphicsComment}" th:if="${not #lists.isEmpty(graphicsComment)}" class="border-bottom"> 
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+									<div class="textarea-comment">
+												<textarea class="form-control msgComment" name="msgCommentOutline"
+													rows="3" required="required" id="Graphics_comment"
+													placeholder="Please enter your suggestions.">	</textarea>
 
 											</div>
-
-
-											<!-- <div class="form-group" style="padding-top: 80px">
-												<label for="uploadsSlideFileId">Add Slide</label> <input
-													style="padding-left: 300px height: 300px, width:200px; border: red;"
-													type="file" class="form-control-file w-50"
-													id="uploadsSlideFileId" name="uploadsSlideFile"
-													placeholder="uploadFile" accept=".zip" required="required"></input>
-											</div> -->
-										</form>
+											<button id="Graphics" type="button" class="btn comment-contri">comment</button>
+									</div>
+									</div>
 									</div>
 									<div class="modal-footer">
 						      	<button id="graphicsId" type="button" class="btn btn-success">Upload</button>
