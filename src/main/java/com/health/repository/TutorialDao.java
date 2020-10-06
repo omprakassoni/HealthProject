@@ -121,7 +121,7 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	@Query("from Tutorial u where u.user=?1 and topic=?2")
 	Tutorial findByContributorUserAndTopic(User user, topic topic);
 
-	@Query("from Tutorial u where u.category=?1 and u.lan=?2")
+	@Query("from Tutorial u where u.category=?1 and u.langaueg_id=?2")
 	List<Tutorial> findByCategoryAndLan(Category cat,language lan);
 	
 	
