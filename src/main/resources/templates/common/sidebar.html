@@ -25,6 +25,9 @@
 		body{
 			background: #fff;
 		}
+		.sidebar{
+			border-right: 1px solid #0E3A37;
+		}
 		.wrapper .header{
 			z-index: 1;
 			/*background: rgba(78,182,172);*/
@@ -140,7 +143,7 @@
 			margin-top: 3px;
 		}
 		.wrapper .sidebar .sidebar-menu .item .sub-menu{
-			background: #3498DB;
+			background: #fff;
 			/*background: rgba(14,58,55,0.5);;*/
 			/*background: red;*/
 			background: #20B8B8;
@@ -159,18 +162,20 @@
 			border-bottom: 1px solid #8FC5E9; 
 			transition: 0.3s;
 			transition-property: background;
+			background: #fff;
+			color: #0E3A37;
 		}
 
 		.wrapper .sidebar .sidebar-menu .item .sub-menu a:hover{
 			background: #55B1F0;
-			background: #1ebba3;
+			background: #e0f2f1;
 		}
 		.wrapper .sidebar .sidebar-menu .item .sub-menu i{
 			padding-right: 20px;
-			font-size: 10px;
+			font-size: 12px;
 		}
 		.wrapper .sidebar .sidebar-menu .item:target .sub-menu{
-			max-height: 500px;
+			max-height: 1200px;
 		}
 		.wrapper .main-container{
 			width: (100% - 250px);
@@ -257,63 +262,34 @@
 	.h-nav a{
 		color: #1C7871;
 	}
+	.fa-circle{
+		font-size: 10px;
+	}
 		</style>
-	
-	
-	
-	
-	
-
-
 
 <div class="wrapper">
 <div class="header">
 <div class="row" style="z-index: 1;width: 100%;">
 <div class="col-md-6 col-sm-6 col-5">
 <div class="navbar-header" style='display:flex;'>
-	<div><a th:href="@{/}"> <img
-									src="/image/HandN-logo.jpg" href="www.google."
-									alt="Smiley face" height="60" width="100"> </img>
+	<div style="padding: 10px;"><a th:href="@{/}"> <img
+									src="/image/logo.png" href="www.google."
+									alt="Smiley face" height="50" width="50"> </img>
 								</a></div>
-	<div><span style="color: #1C7871;font-size: 2rem;">Health And <span style="color: #BF360D;font-size: 2rem;">Nutrition</span> </span></div>
-	
-					
-								
+	<div><span style="color: black;font-size: 2rem;" class="ml-3">Spoken <span style="color: orange;font-size: 2rem;">Tutorials</span> </span></div>						
 </div>
 </div>
 <div class="col-md-6 col-sm-6 col-7 text-right" style="display:flex;justify-content: flex-end;">
-<!-- <div sec:authorize="isAuthenticated()" class='user-info1' style="margin-right: 20px;margin-top: 5px;"> 
-  <i class="fas fa-user" style="color: #1C7871;margin-right: 10px!important;"></i> Logged User : <span sec:authentication="name"></span> 
-</div> -->
-<!-- <div class="row" > -->
-		<div >
+
+
+		<div>
 		<a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New User</a>
 		<!-- <a sec:authorize="isAuthenticated()" th:href="@{/adminDeatail}" class="h-nav">MY ACCOUNT</a> -->
 		<a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="h-nav">LOGOUT</a>
 </div>
-<!-- </div> -->
+
             </div>
           </div>
-	<!-- <div class="row" style="z-index: 1;width: 100%;">
-    <div class="col-sm sidebar-btn" style="border: 1px solid red;">
-      <i class="fas fa-bars"></i>
-    </div>
-    <div class="col-md-3"></div>
-    <div class="col-md-5" style="float: left;">
-      <a th:href="@{/}"> <img
-									src="/image/HandN-logo.jpg" href="www.google."
-									alt="Smiley face" height="60" width="90" style="margin-top: 0;"> </img>
-								</a>
-								<span style="color: #1C7871;font-size: 2rem;" >Health And <span style="color: #BF360D;font-size: 2rem;">Nutrition</span> </span>
-    </div>
-    <div class="col-sm" >
-      <div class="h-nav">
-		<a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New User</a>
-		<a sec:authorize="isAuthenticated()" th:href="@{/adminDeatail}" class="h-nav">MY ACCOUNT</a>|
-		<a sec:authorize="isAuthenticated()" th:href="@{/logout}" >LOGOUT</a>
-</div>
-    </div>
-  </div> -->
 </div>
 	<!-- header menu ends -->
 	<!-- sidebar starts -->
@@ -340,7 +316,7 @@
 			
 				<li class="item">
 				<a th:href="@{approveRole}" class="menu-btn">
-					<i class="fas fa-info-circle"></i>
+					<i class="fas fa-users-cog"></i>
 					<span>Approve Role</span>
 				</a>
 				</li>
@@ -350,10 +326,10 @@
 					<span>Content<i class="fas fa-chevron-down drop-down"></i></span>
 				</a>
 				<div class="sub-menu">
-					<a th:href="@{Consaltant}"><i class="fas fa-image"></i>
+					<a th:href="@{Consaltant}"><i class="fas fa-user-md"></i>
 						<span>Consultants</span>
 					</a>
-					<a th:href="@{addEvent}"><i class="fas fa-address-card"></i>
+					<a th:href="@{addEvent}"><i class="fas fa-calendar-week"></i>
 						<span>Events</span>
 					</a>
 					<a th:href="@{Testimonial}"><i class="fas fa-address-card"></i>
@@ -361,53 +337,6 @@
 					</a>
 				</div>
 			</li>
-			
-			<li class="item" id="View">
-				<a href="#View" class="menu-btn">
-					<i class="fas fa-database"></i>
-					<span>View<i class="fas fa-chevron-down drop-down"></i></span>
-				</a>
-				
-				<div class="sub-menu">
-					<a th:href="@{show_category}"><i class="fas fa-image"></i>
-						<span>List Category</span>
-					</a>
-					<a th:href="@{show_testimonial}"><i class="fas fa-address-card"></i>
-						<span>List Testimonial </span>
-					</a>
-					<a th:href="@{show_language}"><i class="fas fa-address-card"></i>
-						<span>List Language</span>
-					</a>
-					<a th:href="@{show_Event}"><i class="fas fa-address-card"></i>
-						<span>Event</span>
-					</a>
-						<a th:href="@{show_feedbackMasterTrainer}"><i class="fas fa-address-card"></i>
-						<span>feedback Master Trainer</span>
-					</a>
-					
-					
-						<a th:href="@{adminShowMasterTrainer}"><i class="fas fa-address-card"></i>
-						<span>List Master Trainer</span>
-					</a>
-					
-					<a th:href="@{adminShowQualityreviweer}"><i class="fas fa-address-card"></i>
-						<span>List Quality Trainer</span>
-					</a>
-					<a th:href="@{listparicipant}"><i class="fas fa-address-card"></i>
-						<span>List of Participant  Trainer</span>
-					</a>
-					<a th:href="@{adminShowDomainReviweer}"><i class="fas fa-address-card"></i>
-						<span>List Domain Trainer</span>
-					</a>
-					
-					<a th:href="@{TrainerProfile}"><i class="fas fa-address-card"></i>
-						<span>View Trainee </span>
-					</a>	
-				
-					
-				</div>
-			</li>
-
 			<li class="item" id="creation">
 				<a href="#creation" class="menu-btn">
 					<i class="fas fa-edit"></i>
@@ -416,63 +345,76 @@
 					</span>
 				</a>
 				<div class="sub-menu">
-					<a th:href="@{Category}"><i class="fas fa-envelope-square"></i>
-						<span>Category</span>
-					</a>
-					<a th:href="@{language}"><i class="fas fa-exclamation-circle"></i>
-						<span>Language</span>
-					</a>
-					<a th:href="@{roleNew}"><i class="fas fa-exclamation-circle"></i>
-						<span>Role</span>
-					</a>
-					<a th:href="@{displaytopiform}"><i class="fas fa-exclamation-circle"></i>
-						<span>Topic</span>
-					</a>
-					<a th:href="@{listContributor}"><i class="fas fa-exclamation-circle"></i>
+				<a th:href="@{listContributor}"><i class="far fa-circle"></i>
 						<span>Assign Contributor</span>
 					</a>
-					<a th:href="@{addUploadQuestion}"><i class="fas fa-exclamation-circle"></i>
+					<a th:href="@{Category}"><i class="far fa-circle"></i>
+						<span>Category</span>
+					</a>
+					<a th:href="@{language}"><i class="far fa-circle"></i>
+						<span>Language</span>
+					</a>
+					<a th:href="@{roleNew}"><i class="far fa-circle"></i>
+						<span>Role</span>
+					</a>
+					<a th:href="@{displaytopiform}"><i class="far fa-circle"></i>
+						<span>Topic</span>
+					</a>
+					
+					<a th:href="@{addUploadQuestion}"><i class="far fa-circle"></i>
 						<span>Upload Question</span>
 					</a>
 					
 					
 				</div>
 			</li>
-			<!-- <li class="item" id="view">
-				<a href="#view" class="menu-btn">
-					<i class="fas fa-envelope"></i>
-					<span>View Records<i class="fas fa-chevron-down drop-down"></i></span>
+			
+			<li class="item" id="View">
+				<a href="#View" class="menu-btn">
+					<i class="fas fa-clipboard-list"></i>
+					<span>View List<i class="fas fa-chevron-down drop-down"></i></span>
 				</a>
+				
 				<div class="sub-menu">
-					<a th:href="@{Consaltant}"><i class="fas fa-image"></i>
-						<span>Consultants</span>
+					<a th:href="@{show_category}"><i class="far fa-circle"></i>
+						<span>Category</span>
 					</a>
-					<a th:href="@{language}"><i class="fas fa-exclamation-circle"></i>
-						<span>Domain Reviewer</span>
+					<a th:href="@{adminShowDomainReviweer}"><i class="far fa-circle"></i>
+						<span> Domain Reviewer</span>
 					</a>
-					<hr/>
-					<a th:href="@{roleNew}"><i class="fas fa-exclamation-circle"></i>
-						<span>Role</span>
+					
+					<a th:href="@{show_Event}"><i class="far fa-circle"></i>
+						<span>Event</span>
 					</a>
-					<a th:href="@{displaytopiform}"><i class="fas fa-exclamation-circle"></i>
-						<span>Topic</span>
+					<a th:href="@{show_feedbackMasterTrainer}"><i class="far fa-circle"></i>
+						<span>Feedback Master Trainer</span>
 					</a>
-					<a th:href="@{listContributor}"><i class="fas fa-exclamation-circle"></i>
-						<span>Assign Contributor</span>
+					
+					<a th:href="@{show_language}"><i class="far fa-circle"></i>
+						<span>Language</span>
 					</a>
+						<a th:href="@{adminShowMasterTrainer}"><i class="far fa-circle"></i>
+						<span>Master Trainer</span>
+					</a>
+					<a th:href="@{listparicipant}"><i class="far fa-circle"></i>
+						<span>Participant Trainer</span>
+					</a>
+					
+					<a th:href="@{adminShowQualityreviweer}"><i class="far fa-circle"></i>
+						<span>Quality Reviewer</span>
+					</a>
+					<a th:href="@{show_testimonial}"><i class="far fa-circle"></i>
+						<span>Testimonial </span>
+					</a>
+					<a th:href="@{TrainerProfile}"><i class="far fa-circle"></i>
+						<span>View Trainee </span>
+					</a>	
+				
+					
 				</div>
-			</li> -->
-
-
-
+			</li>
 
 			</div>
-
-			
-			<!-- <li class="item">
-				<a href="#" class="menu-btn"><i class="fas fa-bell"></i><span>Dashboard</span>
-				</a>
-			</li> -->
 			<div sec:authorize="hasAnyAuthority('Contributer')">
 			<li class="item" id="content">
 				<a href="#content" class="menu-btn">
@@ -569,9 +511,11 @@
 				</div>
 			</li>
 			</div>
-
+			
 			<li class="item" id="creation">
-				<a href="#creation" class="menu-btn">
+			<!-- <div sec:authorize="!hasAnyAuthority('Admin')"> -->
+			<div>
+			<a href="#creation" class="menu-btn">
 					<i class="fas fa-user-tag"></i>
 					<span>
 						Role Management<i class="fas fa-chevron-down drop-down"></i>
@@ -584,6 +528,13 @@
 					<a  onclick="return submitQ(this);" th:href="@{/qualityLanguage}">Add me as a Quality Reviewer</a>
 					<a  onclick="return submitM(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as a Master Trainer</a>
 					<a  onclick="return submitA(this);"  th:href="@{/addMeAsAdminReviwer}">Add me as a Admin Reviewer</a>
+					</div>
+					<div sec:authorize="hasAnyAuthority('Admin')">
+					<a th:href="@{/contributerSelectionLanguage}">Add me as Contributer</a>
+					<a  th:href="@{/domainLanguage}">Add me as a Domain Reviewer Role</a>
+					<a  onclick="return submitQ(this);"  th:href="@{/qualityLanguage}">Add me as a Quality Reviewer</a>
+					<a  onclick="return submitA(this);"  th:href="@{/addMeAsAdminReviwer}">Add me as a Admin Reviewer</a>
+					<a  onclick="return submitM(this);"  th:href="@{/addMeAsMasterTrainer}">Add me as a Master Trainer</a>
 					</div>
 
 					<div sec:authorize="hasAnyAuthority('Contributer')">
@@ -611,39 +562,12 @@
 					<a  onclick="return submitQ(this);"  th:href="@{/qualityLanguage}">Add me as a Quality Reviewer</a>
 					</div>
 					<div sec:authorize="hasAnyAuthority('MasterTrainer')">
-					
 					</div>
-				
-				
-				
-					<!-- <a  onclick="return submitA(this);"  th:href="@{/addMeAsAdminReviwer}"><i class="fas fa-exclamation-circle"></i>
-						<span>Add me as an Admin Reviewer</span>
-					</a>
-					<a th:href="@{/contributerSelectionLanguage}" onclick="return submitA(this);"><i class="fas fa-exclamation-circle"></i>
-						<span>Add me as a Contributor</span>
-					</a>
-					<a th:href="@{/addMeAsDomainRevieweer}" onclick="return submitA(this);"><i class="fas fa-exclamation-circle"></i>
-						<span>Add me as a Domain Reviewer</span>
-					</a>
-					<a th:href="@{qualityLanguage}" onclick="return submitA(this);"><i class="fas fa-exclamation-circle"></i>
-						<span> Add me as a Quality Reviewer</span>
-					</a>
-					<a th:href="@{addMeAsMasterTrainer}" onclick="return submitA(this);"><i class="fas fa-exclamation-circle"></i>
-						<span>Add me as a Master Trainer</span>
-					</a> -->
+					
 				</div>
-			</li>
-			<!-- <li class="item">
-				<a href="#messages" class="menu-btn">
-					<i class="fas fa-info-circle"></i>
-					<span>
-						About 
-					</span>
-				</a>
+			</div>
 				
-			</li> -->
-
-
+			</li>
 		</div>
 	</div>
 	<!-- sidebar end -->

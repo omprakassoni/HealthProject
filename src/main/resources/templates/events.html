@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Health And Nutrition</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="//use.fontawesome.com/releases/v5.0.7/css/all.css" />
+<link rel="stylesheet" type="text/css"
+	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
+	integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ=="
+	crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="/datatables.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/datatables.css"> </link>
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+<style>
+table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_asc:before,table.dataTable thead .sorting:before,table.dataTable thead .sorting:after{
+	content: "";
+}
+</style>
+
+</head>
+<body>
+	<header class="fixed-top" >
+<!-- Main container -->
+<nav class="level px-6 upper-bar my-0">
+  <!-- Left side -->
+  <div class="level-left"></div>
+
+  <!-- Right side -->
+  <div class="level-right">
+    <p class="level-item"><span class="contact-num top-banner"><i class="fas fa-phone-alt"></i> Helpline : 1800-267-7782</span></p>
+    <p class="level-item"><span class="top-banner">
+      							<a sec:authorize="isAnonymous()" th:href="@{/login}">Login | New
+									User</a> <a sec:authorize="isAuthenticated()"
+									th:href="@{/adminDeatail}">My Account</a> 
+      							</span></p>
+    <p class="level-item"><span class="top-banner"><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></span></p>
+    
+  </div>
+</nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+  <a th:href="@{/}"> <img
+									src="/image/logo.png" href="www.google."
+									alt="Smiley face" height="50" width="50"> </img>
+								</a>
+								<span style="color: black;font-size: 2rem;" class="ml-3">Spoken <span style="color: orange;font-size: 2rem;">Tutorials</span> </span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="mainNavBar">
+    <div class="navbar-nav ml-auto">
+      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="#about_us">About Us</a>
+      <a class="nav-item nav-link" href="#events">Events</a>
+      <a class="nav-item nav-link " href="#contact" tabindex="-1">Contact Us</a>
+    </div>
+  </div>
+</nav>
+  </header>
+
+	<main>
+		<div class="container py-6" >
+
+
+				
+
+				<table id="tableId" class="table is-fullwidth">
+
+					<thead class="">
+
+						<tr>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th>Event</th>
+							<th>Location</th>
+							<th>Description</th>
+							<th>Contact Details</th>
+							
+						</tr>
+
+
+					</thead>
+					<tbody>
+
+
+						<tr th:each="event : ${events}" class="py-6">
+						<td th:text="${event.getDate()}">Start Date</td>
+							<td th:text="${event.getEndDate()}">End Date</td>
+							<td th:text="${event.getEventname()}">Event</td>
+							
+							<td th:text="${event.getVenuename()}"></td>
+							<td th:text="${event.getDescription()}">Description</td>
+							<td >
+							<p th:text="${event.getContactperson()}"></p>
+							<p th:text="${event.getContactnumber()}"></p>
+							<p th:text="${event.getEmail()}"></p>
+							</td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+
+
+
+	</main>
+
+
+
+	<footer>
+		
+	</footer>
+
+	<script src="/js/jquery.min.js"></script>
+		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#tableId').DataTable();
+		} );
+	</script>
+
+
+</body>
+</html>

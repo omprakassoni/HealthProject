@@ -140,16 +140,16 @@ public class controllerContributer {
 
 		return "revokeLanguages";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 
 	@RequestMapping("/revokeSubmition")
 	public String revokeSubmition(Model model,Authentication authentications,@RequestParam(name="languageName") String languagename)
@@ -222,46 +222,49 @@ public class controllerContributer {
 		return topicName;
 
 	}
-	
-	
-	
+
+
 	/* Here is code for graphics upload */
 
 	@RequestMapping("/loadCatAndTopicInPre")
-	public @ResponseBody  List<String> getSubmitPrerequisite(@RequestParam(value = "id") String id,@RequestParam(value="topic") String topic,
-			@RequestParam(value="lanId") String lanId,Authentication authentication)	
+	public @ResponseBody  List<String> getSubmitPrerequisite(@RequestParam(value = "categorname") String id,@RequestParam(value="topicid") String topic,
+			@RequestParam(value="lanId") String lanId,
+			@RequestParam(value="p_id") String p_id,
+			@RequestParam(value="p_topic") String p_topic,
+			@RequestParam(value="p_lanId") String p_lanId,
+			Authentication authentication)
 	{
-		
-		
-		
-		List<String> topicName = new ArrayList<String>();
-		
-		  User user=userRepository.findByUsername(authentication.getName());
-		
-		  Category category=categoryDao.findBycategoryname(id);
-		  
-		  topic topicAll=topicRepositarydao.findBytopicname(topic);
-		  
-		  //language lan=languagedao.findBylanguageName(lanId);
-		
-		  int status=1;
-		  
-		  List<Tutorial> tutorial=tutorialDao.findByCLT(category,topicAll);
-		  
-		  for (Tutorial tutorial2 : tutorial) 
-		  {
-			  tutorialService.updatePre(tutorial2.getVideo(),status,user,topicAll,category);  				
-		    
-		  }
-		  
-		  topicName.add("Successfully Save");
-	
-		  return  topicName;
-	
-	}	
 
-  
-	
+
+
+		List<String> topicName = new ArrayList<String>();
+
+		  User user=userRepository.findByUsername(authentication.getName());
+
+		  Category p_category=categoryDao.findBycategoryname(id);
+		  topic p_topicAll=topicRepositarydao.findBytopicname(topic);
+		  language p_lan=languagedao.findBylanguageName(lanId);
+
+		  Category category=categoryDao.findBycategoryname(id);
+		  topic topicAll=topicRepositarydao.findBytopicname(topic);
+		  language lan=languagedao.findBylanguageName(lanId);
+
+		  int status=1;
+
+
+		  Tutorial p_tutorial=tutorialDao.findTutorialByCategoryTopicLang(p_category,p_topicAll,p_lan);
+//		  List<Tutorial> tutorial=tutorialDao.findByCLT(category,topicAll);
+
+			  tutorialService.updatePre(p_tutorial.getVideo(),status,lan,topicAll,category);
+
+		  topicName.add("Successfully Save");
+
+		  return  topicName;
+
+	}
+
+
+
 		  @RequestMapping("/keyword")
 		  public @ResponseBody List<String>
 		  getTopicByKeyword(@RequestParam(value = "id") String keywordMessgae,
@@ -326,9 +329,9 @@ public class controllerContributer {
 
 		  StringBuilder fileNames = new StringBuilder();
 		  for (MultipartFile file : scriptFiles)
-		  { 
+		  {
 			  Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
-		  
+
 		  fileNames.append(file.getOriginalFilename() + " ");
 		  topicName.add(file.getOriginalFilename());
 
@@ -552,8 +555,8 @@ public class controllerContributer {
 			  Path filePath1 = Paths.get(uploadDirectoryCreationVideo1,categorname,lanId,topicid);
 
 //			  String substring = fileconversion.substring(26);
-			  int firstIndex = fileconversion.indexOf("/Media");
-			  String substring = fileconversion.substring(firstIndex);
+			  //int firstIndex = fileconversion.indexOf("/Media");
+			  String substring = fileconversion.substring(28);
 			  String videopath = substring.toString();
 //			  String videopath = filePath1.toString();
 
@@ -741,7 +744,7 @@ public class controllerContributer {
 					model.addAttribute("statusScript", compStatus[t.getScriptStatus()]);
 					model.addAttribute("statusSlide",compStatus[t.getSlideStatus()]);
 					model.addAttribute("statusKeyword",compStatus[t.getKeywordStatusSet()]);
-					model.addAttribute("statusPreReq",compStatus[t.getGraphicsStatus()]);
+					model.addAttribute("statusPreReq",compStatus[t.getPrerequisiteStatus()]);
 					model.addAttribute("statusGraphics",compStatus[t.getGraphicsStatus()]);
 
 //					set status of video
@@ -1020,13 +1023,17 @@ public class controllerContributer {
 			List<commentOnComponent> outlineComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Outline");
 			model.addAttribute("outlineComment",outlineComment);
 			List<commentOnComponent> scriptComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Script");
-			model.addAttribute("outlineComment",outlineComment);
+			model.addAttribute("scriptComment",scriptComment);
 			List<commentOnComponent> slideComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Slide");
-			model.addAttribute("outlineComment",outlineComment);
+			model.addAttribute("slideComment",slideComment);
 			List<commentOnComponent> keywordComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Keyword");
-			model.addAttribute("outlineComment",outlineComment);
+			model.addAttribute("keywordComment",keywordComment);
 			List<commentOnComponent> videoComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Video");
-			model.addAttribute("outlineComment",outlineComment);
+			model.addAttribute("videoComment",videoComment);
+			List<commentOnComponent> preReqComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Prerequisite");
+			model.addAttribute("preReqComment",preReqComment);
+			List<commentOnComponent> graphicsComment=commentOnComponentDao.findBytutorialAndComponent(tutorialobject,"Graphics");
+			model.addAttribute("graphicsComment",graphicsComment);
 
 
 

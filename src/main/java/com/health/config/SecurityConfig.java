@@ -52,6 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/viewVideo/view/{id}",
 			"viewVideoList/view/{id}",
 			"/showListConsultants",
+			"/categories",
+			"/showEvents",
 			"/listTopicsByCategory",
 			"/listLangByCategoryTopic",
 			"/fonts/**"

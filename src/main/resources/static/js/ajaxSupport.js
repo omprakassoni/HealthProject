@@ -508,7 +508,6 @@ $(document)
 					
 				$('#preRequsiteId').change(
 							function() {
-							
 								var catgoryid = $(this).find(
 										":selected").val();
 							
@@ -771,34 +770,40 @@ $(document)
 
 				$('#uploadpreRequsiteId').click(function() 
 				{
-					
-							var catgoryid = $("#preRequsiteId").val();
+				
+							var p_catgoryid = $("#preRequsiteId").val();
 							
-							var topic = $("#inputLanguageAll").val();
+							var p_topic = $("#inputLanguageAll").val();
 							
+							var p_lanId = $("#lanId").val();
+							
+							
+							var categoryid = $("#categoryId").val();
+							var topicid = $("#topicId").val();
 							var lanId = $("#lanId").val();
-							
-							
 							
 							$.ajax({
 										type : "GET",
 										url : "/loadCatAndTopicInPre",
 										data : {
 											
-											"id" : catgoryid,
-											"topic": topic,
-											"lanId": lanId,
+											"p_id" : p_catgoryid,
+											"p_topic": p_topic,
+											"p_lanId": p_lanId,
+											"categorname" : categoryid,
+											"topicid" : topicid,
+											"lanId" : lanId
 										},
 										contentType : "application/json",
 										success : function(result) 
 										{
 
-											alert("Successfully Save");
-											$("#exampleModalLabelKeyword")
+
+											$("#exampleModalLabelPre")
 													.prop(
 															'disabled',
 															false);
-											$("#exampleModalLabelKeyword")
+											$("#exampleModalLabelPre")
 													.html(html);
 
 										},
@@ -1367,18 +1372,16 @@ $(document)
 									},
 									contentType : "application/json",
 									success : function(result) {
-										console.log(result);
-										// outdated
-										// $("#outlineViewResponse").prop(
-										// 'disabled', false);
-										// $('#outlineViewResponse').html(result);
+										if(result[0]==null){
+											$('#editOutline').hide();
+										}
 										editor.setData(result[0]); // add
 																	// retrieved
 																	// outline
 																	// content
 																	// to editor
 										editor.isReadOnly = true;
-										$('#outlineId').hide();
+										
 									},
 									error : function(err) {
 										console.log("not working. ERROR: "
@@ -2192,7 +2195,7 @@ $(document)
 
 														var html = '';
 														var len = result.length;
-														html += '<option value="0">Select language</option>';
+														html += '<option value="0">Select Topic</option>';
 														for (var i = 0; i < len; i++) {
 
 															html += '<option value="'
@@ -2733,7 +2736,7 @@ $(document)
 					$('#inputTopic')
 							.change(
 									function() {
-										alert('here');
+//										alert('here');
 										var catgoryid = $(this).find(
 												":selected").val();
 										$
@@ -6024,7 +6027,7 @@ $(document)
 
 							error : function(err) {
 								console.log("not working. ERROR: "+ JSON.stringify(err));
-								alert('msg error!');
+								
 							}
 						});
 						 
@@ -6100,6 +6103,16 @@ $(document)
 								});
 
 							});
+					
+					$(".logoToUpload").on('change', function() {
+				        
+				        var fileSize = this.files[0].size;
+				        if(fileSize > 200000){
+				        	alert("File size should be less than 5kB");
+				        	this.value="";
+				        	return false;
+				        }
+				});
 
 				});
 

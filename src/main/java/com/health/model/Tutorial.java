@@ -98,6 +98,8 @@ public class Tutorial
 
 	private String timeScript;
 	private String prerequisite;
+	@Column(name="prerequisiteStatus")
+	private int prerequisiteStatus;
 
 
 	public String getPrerequisite() {
@@ -106,6 +108,14 @@ public class Tutorial
 
 	public void setPrerequisite(String prerequisite) {
 		this.prerequisite = prerequisite;
+	}
+
+	public int getPrerequisiteStatus() {
+		return prerequisiteStatus;
+	}
+
+	public void setPrerequisiteStatus(int prerequisiteStatus) {
+		this.prerequisiteStatus = prerequisiteStatus;
 	}
 
 	public void setDate(String date) {

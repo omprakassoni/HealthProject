@@ -17,7 +17,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Convert;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +90,8 @@ public class ControllerHealth {
 	static final String RECORD_SAVE_SUCCESS_MSG = "Record Saved Successfully !";
 
 	public static String uploadDirectoryConsaltant = "src/main/resources/static" + "/Media/content" + "/Consaltant";
+
+	public static String uploadDirectoryCategory = "src/main/resources/static" + "/Media/content" + "/Category";
 
 	public static String uploadDirectoryFeedback = "src/main/resources/static" + "/Media/content" + "/feedback";
 
@@ -197,7 +198,7 @@ public class ControllerHealth {
 	@RequestMapping("/showListTutorial")
 	public String showListTutorial(Model model, @RequestParam(value = "categoryName") String categoryname,
 			@RequestParam(value = "topic") String topicName,
-			@RequestParam(name = "inputLanguage") String inputLanguage) {
+			@RequestParam(value = "inputLanguage") String inputLanguage) {
 
 		// List<Category> categoryDropDown=categoryservice.findAll();
 
@@ -205,9 +206,19 @@ public class ControllerHealth {
 		 * List<Category> category=CategoryDao.findByHomeAllCategory();
 		 */
 
+
 		List<Tutorial> categoryDropDown = tutorialDao.finBystatus();
 
 		model.addAttribute("categorys", categoryDropDown);
+
+		List<Tutorial> category1 = tutorialDao.finBystatus();
+		ArrayList<String> tutorialRes1 = new ArrayList<String>();
+		for (Tutorial tutorial : category1) {
+			tutorialRes1.add(tutorial.getCategory().getCategoryname());
+		}
+		Set<String> categoryList=new LinkedHashSet<String>(tutorialRes1);
+		model.addAttribute("categorys",categoryList);
+
 
 		Category category = categoryDao.findBycategoryname(categoryname);
 		topic topic = topicdao.findBytopicname(topicName);
@@ -231,9 +242,10 @@ public class ControllerHealth {
 
 		model.addAttribute("list", tutorialRes);
 		List<Tutorial> list;
-		boolean categorySelect = categoryname!="0" ? true : false;
-		boolean topicSelect = topicName!="0" ? true : false;
-		boolean languageSelect = inputLanguage!="0" ? true : false;
+		String comp = "0";
+		boolean categorySelect = !categoryname.equals(comp);
+		boolean topicSelect = !topicName.equals(comp);
+		boolean languageSelect = !inputLanguage.equals(comp);
 		if(categorySelect & topicSelect & languageSelect) {
 			Tutorial tutorial = tutorialDao.findTutorialByCategoryTopicLang(category, topic,language);
 			int id = tutorial.getTutorialid();
@@ -247,18 +259,9 @@ public class ControllerHealth {
 		}else {
 			list = tutorialDao.finBystatus();
 		}
+
+		model.addAttribute("categoryname", categoryname);
 		model.addAttribute("list", list);
-
-//		if(topic!=null) {
-//			Tutorial tutorial = tutorialDao.findTutorialByCategoryTopicLang(category, topic,language);
-//			int id = tutorial.getTutorialid();
-//			System.err.println(tutorial);
-//			return "redirect:/viewVideo/view/"+id;
-//
-//		}
-
-
-
 		return "showListOfTutorial";
 	}
 	// Assign topic to User
@@ -370,13 +373,13 @@ public class ControllerHealth {
 	}
 
 	// Here is code for selection language of contributor
-	
+
 	@Autowired
 	private CategoryDao CategoryDao;
 
 	@RequestMapping(value = "/qualityLanguage", method = RequestMethod.GET)
 	public String selectLanguage(Model model, Authentication authetication) {
-		
+
 
 		User user = userRepository.findByUsername(authetication.getName());
 
@@ -384,29 +387,29 @@ public class ControllerHealth {
 
 		ArrayList<String> languageExits = new ArrayList<String>();
 
-		
+
 		ArrayList<com.health.model.language> lanDeatail = (ArrayList<com.health.model.language>) languageDao.findAll();
 
 		ArrayList<String> languageId = new ArrayList<String>();
 
 		for (com.health.model.language language : lanDeatail) {
-				
+
 			languageId.add(language.getLanguageName());
 
 		}
-		
-		
+
+
 		languageId.removeAll(languageExits);
 
 		model.addAttribute("languagesDomain", languageId);
-		
+
 
 		return "addQualityRoleRequest";
-		
-		
+
+
 	}
 
-	
+
 
 	@RequestMapping(value = "/domainLanguage", method = RequestMethod.GET)
 	public String languagesByDomain(Model model, Authentication authetication) {
@@ -416,75 +419,75 @@ public class ControllerHealth {
 		Role role = rolerespositary.findOne(3);
 
 		ArrayList<String> languageExits = new ArrayList<String>();
-		
+
 //		List<UserRole> userRoles = (List<UserRole>) userRoleRepositary.findByUserAndRoles(user, role);
 
 		/*
 		 * if(userRoles==null) {
-		 * 
+		 *
 		 * ArrayList<com.health.model.language> lanDeatail =
 		 * (ArrayList<com.health.model.language>) languageDao.findAll();
-		 * 
+		 *
 		 * ArrayList<String> languageId = new ArrayList<String>();
-		 * 
+		 *
 		 * for (com.health.model.language language : lanDeatail) {
-		 * 
+		 *
 		 * languageId.add(language.getLanguageName());
-		 * 
+		 *
 		 * }
-		 * 
-		 * 
-		 * 
+		 *
+		 *
+		 *
 		 * model.addAttribute("languagesDomain", languageId);
-		 * 
-		 * 
+		 *
+		 *
 		 * return "addDomainRoleRequest";
-		 * 
+		 *
 		 * }
-		 * 
+		 *
 		 * for (UserRole ur : userRoles) { if(ur.getLanguage()!=null) {
 		 * languageExits.add(ur.getLanguage().getLanguageName());
-		 * 
+		 *
 		 * }
-		 * 
+		 *
 		 * }
-		 */		
+		 */
 		ArrayList<com.health.model.language> lanDeatail = (ArrayList<com.health.model.language>) languageDao.findAll();
 
 		ArrayList<String> languageId = new ArrayList<String>();
 
 		for (com.health.model.language language : lanDeatail) {
-				
+
 			languageId.add(language.getLanguageName());
 
 		}
-		
-		
+
+
 		languageId.removeAll(languageExits);
 
 		model.addAttribute("languagesDomain", languageId);
-		
 
-		
+
+
 		return "addDomainRoleRequest";
 	}
-	
+
 	// Here is code for dispay category according to language
-	
+
 	@RequestMapping("/loadcategoryBylanguage")
 	public @ResponseBody List<String> loadcategoryBylanguage(@RequestParam(value = "languageid") String id) {
 
-		
+
 		System.err.println("hi001");
-		
+
 		List<String> catName = new ArrayList<String>();
 
 		List<Category> category=(List<Category>) categoryDao.findAll();
-		
+
 		for (Category category2 : category) {
-			
+
 			catName.add(category2.getCategoryname());
-			
+
 		}
 
 		return catName;
@@ -975,12 +978,18 @@ public class ControllerHealth {
 			@RequestParam("uploadConsaltantImage") MultipartFile[] files)
 
 	{
-
 		String path = null;
 		String nameConsaltant = req.getParameter("nameConsaltant");
 		String descriptionConsaltant = req.getParameter("descriptionConsaltant");
 		String abc = uploadDirectoryConsaltant + "/" + nameConsaltant;
+		String showOnHomePage = req.getParameter("showOnHomePage");
+		Boolean show = false;
+
+		if(showOnHomePage!=null) {
+			show = showOnHomePage.equals("showOnHomePage");
+		}
 		new File(abc).mkdir();
+
 
 		StringBuilder fileNames = new StringBuilder();
 		for (MultipartFile file : files) {
@@ -996,22 +1005,16 @@ public class ControllerHealth {
 				e.printStackTrace();
 			}
 		}
-
 		java.util.Date dt = new java.util.Date();
-
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 		String currentTime = sdf.format(dt);
-
 		String substring = fileconsalantant.substring(26);
-
 		Consaltantant consaltantant = new Consaltantant();
-
 		consaltantant.setNameConsaltant(nameConsaltant);
 		consaltantant.setDescriptionConsaltant(descriptionConsaltant);
 		consaltantant.setUploadConsaltantImage(substring);
-
 		consaltantant.setTimaedate(getCurrentTime());
+		consaltantant.setShowOnHomepage(show);
 
 		consalttantDao.save(consaltantant);
 
@@ -1154,9 +1157,9 @@ public class ControllerHealth {
 	String filepath;
 
 	String mastertrainer;
-	
-	String traineeInfo; 
-	
+
+	String traineeInfo;
+
 	@RequestMapping("/addTestimonial")
 	public String upload(HttpServletRequest req, Model model,
 			@RequestParam("uploadTestiminial") MultipartFile[] files) {
@@ -1444,33 +1447,33 @@ public class ControllerHealth {
 
 	/*****************************************************
 	 * Here Write code to update Event
-	 * @throws ParseException 
+	 * @throws ParseException
 	 *************************************************************************/
 
 	@RequestMapping(value = "/eventUpdate", method = RequestMethod.POST)
 	public String eventUpdate(HttpServletRequest req) throws ParseException {
 
 		String eventname = req.getParameter("eventname");
-	
+
 		String description = req.getParameter("description");
 		String venuename = req.getParameter("venuename");
 		String contactperson = req.getParameter("contactperson");
 		String contactnumber = req.getParameter("contactnumber");
 		String email = req.getParameter("email");
 
-		
+
 		String date = req.getParameter("date");
-		
-		  SimpleDateFormat sd1 = new SimpleDateFormat("yyyy-MM-dd"); 
+
+		  SimpleDateFormat sd1 = new SimpleDateFormat("yyyy-MM-dd");
 		  java.util.Date dateUtil = sd1.parse(date);
 		  Date dateStart = new Date(dateUtil.getTime());
-		  
+
 		  String endDate=req.getParameter("endDate");
-		  SimpleDateFormat sd2 = new SimpleDateFormat("yyyy-MM-dd"); 
+		  SimpleDateFormat sd2 = new SimpleDateFormat("yyyy-MM-dd");
 		  java.util.Date dateUtil1 = sd2.parse(endDate);
 		  Date dateEnd = new Date(dateUtil.getTime());
-		  
-		  
+
+
 		String id_event = req.getParameter("eventId");
 
 		int id = Integer.parseInt(id_event);
@@ -1483,22 +1486,22 @@ public class ControllerHealth {
 
 	}
 
-	
-	
+
+
 	  @RequestMapping(value = "/updateCategory", method = RequestMethod.POST)
 	  public String updateCategory(HttpServletRequest req) throws ParseException {
-	  
+
 	  String name=req.getParameter("categoryname"); int
 	  id=Integer.parseInt(req.getParameter("id"));
-	  
+
 	  categoryService.updateCategory(name,id);
-	  
-	  
+
+
 	  return "redirect:/show_category";
-	  
+
 	  }
-	 
-	
+
+
 	/*****************************************************
 	 * Here End code update of Event
 	 *************************************************************************/
@@ -1506,12 +1509,18 @@ public class ControllerHealth {
 	/*****************************************************
 	 * Here we write code save category
 	 *************************************************************************/
-
+	String fileCategory;
 	@RequestMapping(value = "/savecategory", method = RequestMethod.POST)
 	public String add(HttpServletRequest req, Model model, Authentication authentication,
-			@RequestParam(value = "checkboxName", required = false) String checkboxValue) {
+			@RequestParam(value = "checkboxName", required = false) String checkboxValue,
+			@RequestParam("categoryImage") MultipartFile[] files
+			) {
 
 		String categoryName = req.getParameter("categoryname");
+		String categoryDesc = req.getParameter("categoryDesc");
+
+		String abc = uploadDirectoryCategory + "/" + categoryName;
+		new File(abc).mkdir();
 
 		if (categoryDao.findBycategoryname(categoryName) != null) {
 			model.addAttribute("msg", true);
@@ -1519,6 +1528,37 @@ public class ControllerHealth {
 			return "addCategory";
 
 		}
+		StringBuilder fileNames = new StringBuilder();
+		String substring="";
+
+		for (MultipartFile file : files) {
+			if(file.getOriginalFilename()!="") {
+				Path fileNameAndPath = Paths.get(abc, file.getOriginalFilename());
+
+				fileNames.append(file.getOriginalFilename() + " ");
+				try {
+
+				Files.write(fileNameAndPath, file.getBytes());
+
+				fileCategory = fileNameAndPath.toString();
+				substring = fileCategory.substring(26);
+
+
+				} catch (IOException e) {
+
+					 substring = "image/logo.png";
+				e.printStackTrace();
+				}
+
+
+			}else {
+				 substring = "image/logo.png";
+			}
+
+				}
+
+
+
 		User user = userRepository.findByUsername(authentication.getName());
 
 		java.util.Date dt = new java.util.Date();
@@ -1531,6 +1571,8 @@ public class ControllerHealth {
 		category.setCategoryname(categoryName);
 		category.setCreated(getCurrentTime());
 		category.setUserid(user.getId());
+		category.setUploadCategoryImage(substring);
+		category.setCategoryDesc(categoryDesc);
 
 		if (checkboxValue != null) {
 			category.setStatus(1);
@@ -1736,10 +1778,10 @@ public class ControllerHealth {
 	public String editCategory(@PathVariable Integer id, Model model, HttpServletRequest req) {
 
 		Category category = categoryService.getProductById(id);
-		
+
 		model.addAttribute("category",category);
-		
-		
+
+
 		return "updateCategory";
 	}
 
@@ -2001,75 +2043,76 @@ public class ControllerHealth {
 	@Autowired
 	private Questionreposiatry Questionreposiatry;
 
-	
+
 	@RequestMapping(value="/masterTrainerProfile",method=RequestMethod.GET)
 	public String profileForm(Model model)
 	{
-		
+
 		return "masterTrainerProfile";
-		
-		
+
+
 	}
-	
+
 	@Autowired
 	private masterProfileDao masterProfileDao;
 
 	@Autowired
 	private traineeProfileDao trainingInformationdao;
-	
-	
+
+
+
 	@RequestMapping("/findtrainee")
 	  public String findtraniee(Model model,@RequestParam(name = "traineeOrg") String orgName,@RequestParam(name = "traineeID") String address)
 	{
-	
+
 		 List<traineeInformation> traineeInformation1=(List<com.health.model.traineeInformation>) trainingInformationdao.findAll();
-		
-		List<traineeInformation> traineeInformation=(List<com.health.model.traineeInformation>) trainingInformationdao.findByTrainee(address,orgName);
-		
-		
+
+		List<traineeInformation> traineeInformation=trainingInformationdao.findByTrainee(address,orgName);
+
+
 			model.addAttribute("traineeInformation1",traineeInformation1);
 			model.addAttribute("traineeInformation",traineeInformation);
-				 
+
 		return "traineeFindByCategory";
 	}
-	
-	
+
+
 	@RequestMapping("/TrainerProfile")
 	  public String addTraineeProfile(HttpServletRequest req, Model model,Authentication authentication)
 	{
-			
+
 	    List<traineeInformation> traineeInformation=(List<com.health.model.traineeInformation>) trainingInformationdao.findAll();
-			
+
 	    model.addAttribute("traineeInformation",traineeInformation);
-		
+
 		return "traineeView";
-	
+
 	}
-	
+
 	@RequestMapping("masterTrainee/edit/{id}")
-	public String editTraineeInfo(@PathVariable Integer id, Model model, HttpServletRequest req) 
+	public String editTraineeInfo(@PathVariable Integer id, Model model, HttpServletRequest req)
 	{
-		
+
 		 traineeInformation traineeInformation=trainingInformationdao.findOne(id);
-		
-		 
+
+
 		 System.err.println(traineeInformation.getName());
-		 
+
 		model.addAttribute("traineeInformations",traineeInformation);
-		 
-		 
+
+
 		return "TrainerProfile";
 	}
-	
+
 	@Autowired
 	private  traineeInformationServic traineeInformationServic;
-	
+
 	@RequestMapping(value = "/updateTrainee", method = RequestMethod.POST)
-	public String updateTrainee(HttpServletRequest req) 
+	public String updateTrainee(HttpServletRequest req)
 	{
-		
+
 		int id=Integer.parseInt(req.getParameter("traineeInformationID"));      //req.getParameter("");
-		
+
 		 String name=req.getParameter("textMasterName");
 		 String age=req.getParameter("textAget");
 		 String mobileNumber=req.getParameter("textMobilet");
@@ -2079,20 +2122,34 @@ public class ControllerHealth {
 		 String premark=req.getParameter("textPreMark");
 		 String postmark=req.getParameter("textPostMark");
 		 String textAadharNumbert=req.getParameter("textAadharNumbert");
-		 
-		
+
+
 		 traineeInformationServic.updateTrainingInfo(name,age,mobileNumber,address,organization,experience,premark,postmark,textAadharNumbert,id);
-		 
-		
-		
+
+
+
 		return "redirect:/TrainerProfile";
 	}
 
-	
+
+
+
+
+//	@RequestMapping("/TrainerProfile")
+//	  public String addTraineeProfile(HttpServletRequest req, Model model,Authentication authentication)
+//	{
+//
+//
+//		return "TrainerProfile";
+//
+//	}
+
+
+
 	@RequestMapping("/traineeProfileInfo")
 	  public String traineeProfileInfo(HttpServletRequest req, Model model,Authentication authentication)
 	{
-		
+
 		String name=req.getParameter("textMasterNamet");
 		String age=req.getParameter("textAget");
 		String mobilrNumber=req.getParameter("textMobilet");
@@ -2100,13 +2157,13 @@ public class ControllerHealth {
 		String organization=(req.getParameter("textOrganizationt"));
 		int exprienceInyear=Integer.parseInt(req.getParameter("textExpNumbert"));
 		int textAadharNumber=Integer.parseInt(req.getParameter("textAadharNumbert"));
-	
+
 		int textPreMark=Integer.parseInt(req.getParameter("textPreMark"));
 		int textPostMark=Integer.parseInt(req.getParameter("textPostMark"));
-		
+
 
 		traineeInformation profileInformation=new traineeInformation();
-		
+
 		profileInformation.setName(name);
 		profileInformation.setAge(age);
 		profileInformation.setMobileNumber(mobilrNumber);
@@ -2118,20 +2175,20 @@ public class ControllerHealth {
 		 * profileInformation.setPremark(textPreMark);
 		 * profileInformation.setPostmark(textPostMark);
 		 *///profileInformation.setUser(user);
-		
+
 		trainingInformationdao.save(profileInformation);
-		
-		
-		
+
+
+
 		return "TrainerProfile";
 	}
-	
-	
+
+
 	@RequestMapping("/masterProfileInfo")
 	  public String addeMaqsterTranierInformation(HttpServletRequest req, Model model,Authentication authentication)
 	{
-		
-		
+
+
 		String name=req.getParameter("textMasterName");
 		String age=req.getParameter("textAge");
 		String mobilrNumber=req.getParameter("textMobile");
@@ -2139,10 +2196,10 @@ public class ControllerHealth {
 		String organization=(req.getParameter("textOrganization"));
 		int exprienceInyear=Integer.parseInt(req.getParameter("textExpNumber"));
 		int textAadharNumber=Integer.parseInt(req.getParameter("textAadharNumber"));
-		
-		
+
+
 		//User user=userDao.findByUsername(authentication.getName());
-		
+
 		profileInformation profileInformation=new profileInformation();
 		profileInformation.setName(name);
 		profileInformation.setAge(age);
@@ -2152,14 +2209,14 @@ public class ControllerHealth {
 		profileInformation.setAadharNumber(textAadharNumber);
 		profileInformation.setExperience(exprienceInyear);
 		//profileInformation.setUser(user);
-		
+
 		masterProfileDao.save(profileInformation);
-		
-		
+
+
 				return "masterTrainerProfile";
 	  }
-	
-	
+
+
 	@RequestMapping(value = "/masterTrainer", method = RequestMethod.GET)
 	public String masterTrainer(Model model, Authentication authentication) {
 //		List<Tutorial> category = tutorialDao.finBystatus();
@@ -2295,7 +2352,7 @@ public class ControllerHealth {
 			  @RequestParam("ParticipantsDeatail") MultipartFile[] ParticipantsDeatail,
 			  @RequestParam("ParticipantsPhoto") MultipartFile[] ParticipantsPhoto,
 			  @RequestParam("traineeInformation") MultipartFile[] traineeInformation,
-			  
+
 			  //@RequestParam(name="stateName") String stateName,
 			  @RequestParam(value="categoryName") int categoryId,
 			  @RequestParam(value="stateName") int state,
@@ -2305,7 +2362,7 @@ public class ControllerHealth {
 			  @RequestParam(value="addressInformationName") String addressInformationName,
 			  @RequestParam(value="pinCode") int pinCode,Authentication authetication
 
-			  
+
 		) throws ParseException, IOException
 	  {
 
@@ -2371,7 +2428,7 @@ public class ControllerHealth {
 				}
 
 			}
-			
+
 			for (MultipartFile file : traineeInformation) {
 
 				Path fileNameAndPath = Paths.get(abc,file.getOriginalFilename());
@@ -2392,9 +2449,9 @@ public class ControllerHealth {
 			}
 
 			String ParticipantsDeatailFile = mastertrainer.substring(26);
-			
+
 			String fileTraineeInfo = traineeInfo.substring(26);
-			
+
 
 			String masterTrainerPhotoPath = null;
 			String masterTrainerPhoto = uploadMasterTrainerPhoto + "/" + dataofCamp + category.getCategoryname();
@@ -2486,10 +2543,12 @@ public class ControllerHealth {
 
 								   if(data.length>0)
 								   {
-									
+
+
 						 if( participantDao.countByadharNumber(data[3])==0)
-						 { 	
-								    
+						 {
+
+
 
 								participantDeatail.setFirstname(data[0]);
 								participantDeatail.setLastname(data[1]);
@@ -2539,51 +2598,51 @@ public class ControllerHealth {
 				 String [] data=line.split(",");
 
 			     traineeInformation traineeInfo=new traineeInformation();
-						
+
 			   if(data.length>0)
 			   {
-				
+
 			     if( trainingInformationdao.countByaadharNumber(data[5])==0)
-			     { 	
-			    
+			     {
+
 						traineeInfo.setName(data[0]);
 						traineeInfo.setAge(data[1]);
 						traineeInfo.setMobileNumber(data[2]);
 						traineeInfo.setAddress(data[3]);
 						traineeInfo.setOrganization(data[4]);
-						 
+
 						traineeInfo.setAadharNumber(data[5]);
-					
+
 						traineeInfo.setExperience(data[6]);
 						traineeInfo.setPremark(data[7]);
 						traineeInfo.setPostmark(data[8]);
-						
-				
+
+
 						trainingInformationdao.save(traineeInfo);
-			     
-				 }  
-			     
+
+				 }
+
 	}
 
-			} 
+			}
 				}
 				catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-				
-				
-				
-				
-				
+
+
+
+
+
 
 		 model.addAttribute("msg","Your record Save Succefully");
 
 
 
 //	  return "redirect:/adminDeatail";
-		 
+
 		 return "redirect:/masterTrainer";
 
 
@@ -3489,7 +3548,28 @@ public class ControllerHealth {
 
 		return "Consultants";
 	}
-//	@RequestMapping("/showListConsultants")
+
+	@RequestMapping("/categories")
+	public String showCategories(Model model) {
+
+		List<Category> categories = categoryDao.findBystatus(1);
+		model.addAttribute("listCategories", categories);
+
+		return "categories";
+	}
+	@RequestMapping("/showEvents")
+	public String showEvents(Model model) {
+
+		List<Event> events = eventDao.findBylatestdate();
+
+		model.addAttribute("events", events);
+
+
+		return "events";
+	}
+
+
+	//	@RequestMapping("/showListConsultants")
 //	public String showListConsultants(Model model) {
 //
 //		List<Consaltantant> consultants = consalttantDao.findBydateConsalant();

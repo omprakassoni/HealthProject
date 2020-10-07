@@ -121,7 +121,7 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	@Query("from Tutorial u where u.user=?1 and topic=?2")
 	Tutorial findByContributorUserAndTopic(User user, topic topic);
 
-	@Query("from Tutorial u where u.category=?1 and u.langaueg_id=?2")
+	@Query("from Tutorial u where u.category=?1 and u.lan=?2")
 	List<Tutorial> findByCategoryAndLan(Category cat,language lan);
 	
 	
@@ -222,8 +222,8 @@ public interface TutorialDao extends CrudRepository<Tutorial, Integer> {
 	List<Tutorial> findTutorialByCategoryTopic(Category category, topic topic, int status);
 	
 	@Modifying
-	@Query("update Tutorial set prerequisite=?1, prerequisiteStatus=?2 where user_id=?3 and topic_id=?4 and category_id=?5")
-	int updatePre(String preUpload, int preUploadStatus, User user, topic topic, Category category);
-	
+	@Query("update Tutorial set prerequisite=?1, prerequisiteStatus=?2 where langaueg_id=?3 and topic_id=?4 and category_id=?5")
+	int updatePre(String preUpload, int preUploadStatus, language langaueg_id, topic topic, Category category);
+
 
 }
