@@ -505,7 +505,7 @@ public class controllerContributer {
 				return st;
 			}
 
-
+		  String  filesubstring=null;
 
 		  @RequestMapping(value = "/videoUpload",method =RequestMethod.POST)
 		  public @ResponseBody List<String>
@@ -524,7 +524,7 @@ public class controllerContributer {
 
 
 //			  String abc = uploadDirectoryCreationVideo + "/" + categorname + "/"+ lanId + "/"+ topicid;
-
+			  String substring=null;
 
 			  Path currentPath = Paths.get(System.getProperty("user.dir"));
 //			  String filePath = String.join(File.pathSeparator, currentPath.toString(), categorname,lanId,topicid);
@@ -545,19 +545,26 @@ public class controllerContributer {
 
 			  try {
 				  Files.write(fileNameAndPath, file.getBytes());
-			  fileconversion =fileNameAndPath.toString();
-
+				  
+				  filesubstring =fileNameAndPath.toString();
+				  
+				   substring = filesubstring.substring(50,filesubstring.length());
+				   System.err.println("1"+substring);
 
 			  } catch (IOException e) { e.printStackTrace(); } }
 
 
 
-			  Path filePath1 = Paths.get(uploadDirectoryCreationVideo1,categorname,lanId,topicid);
+//			  Path filePath1 = Paths.get(uploadDirectoryCreationVideo1,categorname,lanId,topicid);
 
 //			  String substring = fileconversion.substring(26);
 			  //int firstIndex = fileconversion.indexOf("/Media");
-			  String substring = fileconversion.substring(28);
+			  
+			 
+			  
 			  String videopath = substring.toString();
+			  
+			  
 //			  String videopath = filePath1.toString();
 
 

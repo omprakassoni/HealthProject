@@ -188,7 +188,7 @@
 									
 											<!-- <span  th:if="${statusScriptTrue}"><button type="button" class="btn btn-info" data-toggle="modal"  data-target="#scriptStatusAccept" data-whatever="@mdo"><i class="fas fa-check-circle"></i>
 		                                     </button></span> -->
-		                                     <span ><button type="button" class="btn btn-info" data-toggle="modal"  data-target="#scriptStatusAccept" data-whatever="@mdo"><i class="fas fa-check-circle"></i>
+		                                     <span ><button type="button" class="btn btn-info" data-toggle="modal"  data-target="#scriptStatusAccept" data-whatever="@mdo"><i class="fas fa-eye"></i>
 		                                     </button></span>
 						
 		                                          </th>
@@ -217,7 +217,7 @@
 		                                        <!--    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModaleView" data-whatever="@mdo"><i class="fas fa-eye"></i></button>
 		                                         -->
 		                                          <!-- <span th:if="${statusSlideTrue}"> -->
-		                                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideAcceptOrNeedImp" data-whatever="@mdo"><i class="fas fa-check-circle"></i>
+		                                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideAcceptOrNeedImp" data-whatever="@mdo"><i class="fas fa-eye"></i>
 		                                         
 		                                          </button>
 		                                        <!--   </span> -->
@@ -237,7 +237,7 @@
 		                                
 		                                          <th>-</th>
 		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoViewIdDomain" data-whatever="@mdo"><i class="fas fa-eye"></i> </button> 
-		                                    			<!--  <span  th:if="${statusVideoTrue}"> <button type="button" class="btn btn-info" data-toggle="modal"  data-target="#VideoAccepOrNeedToImprovementQuality" data-whatever="@mdo"><i class="fas fa-check-circle"></i>
+		                                    			<!--  <span  th:if="${statusVideoTrue}"> <button type="button" class="btn btn-info" data-toggle="modal"  data-target="#VideoAccepOrNeedToImprovementQuality" data-whatever="@mdo"><i class="fas fa-eye"></i>
 		                                          </button>
 		                                          </span> -->
 		                                          </th>
@@ -282,7 +282,7 @@
 		                                          <td> Graphics </td>
 		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
 		                                          <th>-</th>
-		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#grahicsModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#grahicsModale" data-whatever="@mdo"><i class="fas fa-eye"></i> </button> </th>
 
                                      	 </tr>
 
@@ -546,9 +546,9 @@
 														controls="controls" style="width:100%!important;">
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
 													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
-													<source th:src="${tutorialComponenet.getVideo()}" type="video/mp4"></source>
+													<source th:src="'/'+${tutorialComponenet.getVideo()}" type="video/mp4"></source>
 													</video>
-</div>		
+ </div>		
 	 
 <form  class="form-horizontal"  th:action="@{/addOutlineStataus}" onsubmit="return submitForm(this);" method="post" >
 
@@ -663,7 +663,7 @@
 							  						<video id='storedPreId' 
 														controls="controls" style="width:100%!important;">
 													
-													<source th:src="${tutorialComponenet.getPrerequisite()}" type="video/mp4"></source>
+													<source th:src="'/'+${tutorialComponenet.getPrerequisite()}" type="video/mp4"></source>
 													
 													</video>
 												</div>

@@ -151,7 +151,7 @@
 													class="btn btn-info" data-toggle="modal"
 													data-target="#scriptStatusAcceptDomain"
 													data-whatever="@mdo">
-													<i class="fas fa-check-circle"></i>
+												<i class="fas fa-eye"></i>
 												</button></span>
 												</th>
 
@@ -202,8 +202,7 @@
 												<button type="button" class="btn btn-info"
 													data-toggle="modal" data-target="#SlideStatusAccept"
 													data-whatever="@mdo">
-													<i class="fas fa-check-circle"></i>
-												</button>
+											<i class="fas fa-eye"></i>	</button>
 										<!-- </span> -->
 										</th>
 
@@ -242,11 +241,10 @@
 
 										<th>
 								
-											
 											<button type="button" class="btn btn-info"
 												data-toggle="modal" data-target="#PreViewIdDomain"
 												data-whatever="@mdo">
-												<i style="color: blue;" class="fas fa-eye"></i>
+												<i class="fas fa-eye"></i>
 											</button>
 										
 										</th>
@@ -258,7 +256,7 @@
 		                                          <td>Graphics</td>
 		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
 		                                          <th>-</th>
-		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#grahicsModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#grahicsModale" data-whatever="@mdo"><i class="fas fa-eye"></i> </button> </th>
 		                             
                                      	 </tr>
 
@@ -579,7 +577,7 @@
 														controls="controls" style="width:100%!important;">
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
 													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
-													<source th:src="${tutorialComponenet.getVideo()}" type="video/mp4"></source>
+													<source th:src="'/'+${tutorialComponenet.getVideo()}" type="video/mp4"></source>
 													</video>
 </div>
 
@@ -811,12 +809,12 @@
 
 												<div class="embed-responsive embed-responsive-16by9 mb-5">
 												
-							  						<video id='storedDomainPreId' 
+							  					<video id='storedDomainPreId' 
 														controls="controls" style="width:100%!important;">
 													
-													<source th:src="${tutorialComponenet.getPrerequisite()}" type="video/mp4"></source>
+													<source th:src="'/'+${tutorialComponenet.getPrerequisite()}" type="video/mp4"></source>
 													
-													</video>
+												</video>
 												</div>
 
 											</div>
