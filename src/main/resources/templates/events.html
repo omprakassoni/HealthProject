@@ -14,8 +14,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
 	integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ=="
 	crossorigin="anonymous" />
-	<link rel="stylesheet" type="text/css" href="/datatables.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/datatables.css"> </link>
+	<link rel="stylesheet" type="text/css" th:href="@{/datatables.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/datatables.css}"> </link>
 <link rel="stylesheet" th:href="@{/css/main.css}" />
 <style>
 table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_asc:before,table.dataTable thead .sorting:before,table.dataTable thead .sorting:after{
@@ -46,7 +46,7 @@ table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_asc:befo
   <nav class="navbar navbar-expand-lg navbar-light bg-light ">
   <!-- <a class="navbar-brand" href="#">Navbar</a> -->
   <a th:href="@{/}"> <img
-									src="/image/logo.png" href="www.google."
+									th:src="@{/image/logo.png}" href="www.google."
 									alt="Smiley face" height="50" width="50"> </img>
 								</a>
 								<span style="color: black;font-size: 2rem;" class="ml-3">Spoken <span style="color: orange;font-size: 2rem;">Tutorials</span> </span>
@@ -117,8 +117,8 @@ table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_asc:befo
 		
 	</footer>
 
-	<script src="/js/jquery.min.js"></script>
-		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
+	<script th:src="@{/js/jquery.min.js}"></script>
+		 	<script type="text/javascript" charset="utf8" th:src="@{/datatables.js}"></script>
 	
 	<script type="text/javascript">
 		$(document).ready( function () {

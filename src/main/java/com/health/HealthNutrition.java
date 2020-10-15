@@ -6,18 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import com.health.controller.ControllerHealth;
 import com.health.controller.controllerContributer;
 import com.health.service.UserService;
 
+
 @SpringBootApplication
-public class HealthNutrition implements CommandLineRunner {
+public class HealthNutrition extends org.springframework.boot.web.support.SpringBootServletInitializer implements CommandLineRunner {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		// TODO Auto-generated method stub
+		return builder.sources(HealthNutrition.class);
+		
+		
+		
+	}
+
+
 
 	@Autowired
 	private UserService userService;
 
-	public static void main(String[] args) {
+	public static void main(String[] args)  {
 
 
 
@@ -40,11 +53,10 @@ public class HealthNutrition implements CommandLineRunner {
 		new File(ControllerHealth.uploadDirectoryFeedback).mkdirs();
 
 
-
-
-
-
 	}
+	
+	
+	
 	@Override
 	public void run(String... args) throws Exception {
 

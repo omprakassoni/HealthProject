@@ -6,8 +6,8 @@
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="css/style3.css" />
-<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{css/style3.css}" />
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
 
 </head>
 <body>
@@ -48,20 +48,20 @@
 	</div>
 	<div th:fragment="body-bottom-scripts">
 
-		<script src="static/js/bootstrap.bundle.min.js"></script>
-		<script src="static/js/jquery.slim.min"
+		<script th:src="@{static/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{static/js/jquery.slim.min}"
 			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 			crossorigin="anonymous"></script>
-		<script src="/js/jquery.min.js"></script>
-		<script src="/s/js/jquery-3.2.1.min.js"></script>
-		<script src="/s/js/popper.min.js"></script>
-		<script src="/s/js/bootstrap.min.js"></script>
-		<script src="/s/js/owl.carousel.min.js"></script>
-		<script src="/s/js/bootstrap-datepicker.js"></script>
-		<script src="/s/js/jquery.timepicker.min.js"></script>
-		<script src="/s/js/jquery.waypoints.min.js"></script>
-		<script src="/s/js/main.js"></script>
-		<script src="/js/ajaxSupport.js"></script>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/s/js/popper.min.js}"></script>
+		<script th:src="@{/s/js/bootstrap.min.js}"></script>
+		<script th:src="@{/s/js/owl.carousel.min.js}"></script>
+		<script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
+		<script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
+		<script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
+		<script th:src="@{/s/js/main.js}"></script>
+		<script th:src="@{/js/ajaxSupport.js}"></script>
 
 	</div>
 </body>
