@@ -5,7 +5,7 @@
 <head th:replace="common/trail :: common-trail" >
 
 
- <link rel="stylesheet" type="text/css" href="/datatables.css"/>
+ <link rel="stylesheet" type="text/css" th:href="@{/datatables.css}"/>
  
 </head>
 
@@ -57,8 +57,8 @@
 			</div>
 			
 			     
-			<script src="/js/jquery.min.js"></script>
-		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
+			<script th:src="@{/js/jquery.min.js}"></script>
+		 	<script type="text/javascript" charset="utf8" th:src="@{/datatables.js}"></script>
 		 
 			<script>
 			

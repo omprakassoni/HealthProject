@@ -1,231 +1,116 @@
 
-<body>
-	<div style="display: flex;">
-		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-		<div class="row" style='width: 100%;'>
-			<div class="col-lg-10 col-xl-9 mx-auto">
-				 <div class="card card-signin flex-row a-card">
-					<div class="card-body">
-						<h5 class="card-title text-center a-card-title">
-							<div class="">
-								<!-- <div th:if="${msgSuccefull}">
-									<span th:text="${msgSuccefull}"></span>
-								</div> -->
-								
-							</div>
-						</h5>
-						<div sec:authorize="hasAnyAuthority('MasterTrainer')">
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
 
-							  
-	<!-- <h4 class="mb-3">Master Trainer</h4> -->
- 								
-	<div class="#">
-	<div class="" >
-	
-	<div class="row">
-	<div class="col-sm-12">
-	<div>
-									<span th:text="${msg}"></span>
-								</div>
-	</div>
+<head th:replace="common/trail :: common-trail">
 
-		  <div class="col-12" >
-		  
-		    <div >
-		      <div>
-		      
-		    		<!-- <div class="container"> -->
-		    		<div>
-		    					
- 					
-					<h4 class="text-center">Trainee Detail</h4>
-		    		
-		    		
-		    		<div class="row  p-3 mb-5 bg-white ">
-		    		
-		    		<span style="color: gray; font-family: cursive; text-shadow: 10px"><H2> </H2></span>
-		    		
-		    		  
-	
-		    		<div class="col-md-12" style="">
-		    		
- 
- 					<p id="demo"></p>
- 		
-			   <script>
-						function submitForm() {
-							
-							
-							  return confirm('Do you really want to submit the form?');
-							  
-							  alert("Submit form successfully");
-							}
-						
-			  </script>
-						    <!-- <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);"> -->
-						    <form action="/findtrainee" method="post" enctype="multipart/form-data">
-						    <div class=""> 
-						    
+	<meta charset="utf-8"/>
+		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+		 <link rel="stylesheet" th:href="@{/css/style3.css}"/>
+ 	 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/> 
+
+</head>
+  <body>
+  		<div th:replace="common/trail :: navbar1"/>
+  		
+  		<div class="container" style="padding-top: 90px">
+
 	    <div class="row">
-						   
-						    
-						    <div class="col-5">
-								 <div class="form-group">
-								 	 
-                                        <select id="traineeOrg" class="form-control w-30" name="traineeOrg"  style="width: " required="required" >
-								     
-								            
-								                        <option selected="selected">Select Organization</option>      
-								                        <span th:each="traineeInformation :${traineeInformation}">
-								  								<option th:value="${traineeInformation.organization}"><span th:text="${traineeInformation.organization}"></span></option>		
-								  						</span>
-									   </select>
-									   
-								 </div>	
-								 </div>
-								 <div class="col-5">
-								  <div class="form-group">
-								  
-								      <select id="traineeID" class="form-control w-30" name="traineeID"  style="width: " required="required" >
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card card-signin flex-row my-5">
+	       
+	          <div class="card-body">
+	           <h5 class="card-title text-center" style="color:maroon; font-size: 20px">
+    			<div class="">    
+                                <div th:if="${msgSuccefull}">
+   								 <span th:text="${msgSuccefull}"></span>
+ 									 </div> </div></h5>
+	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">  Revoke Language </h5>
+	         
+	       <form class="form-horizontal"  th:action="@{/revokeSubmition}" method="post"  enctype="multipart/form-data" onsubmit="return submitForm()(this);">
+
+				<div class="form-group">  
+	 
+	                        <label for="languageId">Language Name</label> 
+	                        
+                     <select id="languageId" class="form-control" name="languageName"  required="required" >
 								               
-								                        <option selected="selected">Select Address</option>      
-								                        <span th:each="traineeInformation : ${traineeInformation}">
-								  								<option th:value="${traineeInformation.address}"><span th:text="${traineeInformation.address}"></span></option>		
+								                    <option selected="selected" >Select Language</option>  
+								                    
+								                        <span th:each="language: ${languages}" >
+								  								<option th:value="${language.getLanguage().languageName}"><span  th:text="${language.getLanguage().languageName}"></span></option>		
 								  						</span>
-									   </select>
-								  </div>
-								  
-								   </div>
-								  
-								   
-								   <div class="col-2">
-								   <button type="submit" class="btn  btn-success"  data-toggle="modal" onclick="myFunction()">Submit</button>
-						     
-								   </div>
-								   
-								   </div> 
+					</select>	 						 
+					<span style="color: red;" th:if="${msg}"> Please enter language.</span>
+											
+												 
+					<span style="color: red;" th:if="${msg1}">
+										Choose another language.</span>
+	 						 	
 						</div>
-							
-						
-						   </form>
-						
-				<div class="" style="padding-top: ">   	
-          	    <div>
-					       
-					        <table id="tableIdTrainee" class="table table-striped">
-					         <thead>
-					         
-					            <tr>
-					             
-					                <th>Name</th>
-					                <th>Age</th>
-					                 <th>Aadhar no</th>
-					                <th>Mobile Number</th>
-					                <th>Address</th>
-					               <th>Organization</th>
-					               <th>Experience</th>
-					               <th>Premark</th>
-					          	    <th>Postmark</th>
-					                <th>Edit</th>
-					               
-					                          
-					            </tr>
-					            
-					            </thead>
-					            <tbody>
-					            	<tr th:each="traineeInformation : ${traineeInformation}" style="">
-					                <td th:text="${traineeInformation.name}">ID</td>  
-					                <td th:text="${traineeInformation.age}">Name</td>
-					                <td th:text="${traineeInformation.aadharNumber}">description</td> 
-					                <td th:text="${traineeInformation.mobileNumber}">description</td>
-					                <td th:text="${traineeInformation.address}">description</td>
-					                <td th:text="${traineeInformation.organization}">description</td>
-					                <td th:text="${traineeInformation.experience}">description</td>
-					                <td th:text="${traineeInformation.premark}">description</td>  
-					                <td th:text="${traineeInformation.postmark}">description</td>  
-					                 <td><a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a></td>     
-					                
-					                <td>
-					            		
-					             </td> 
-					
-					         
-		 
-					            </tr>
-					            
-					            </tbody>
-					        </table>
-					    </div>
-			</div> 
-								  
-									  		        
-						   
-		
-		    
-			<script>
-			
-			
-			$(document).ready( function () {
-			    $('#tableIdTrainee').DataTable();
-			} );
-			
-			</script>
-				
-					</div>
-
-		    		</div>
 	
-		    		</div>
+                        <button id="revokeId" type="submit" value="showAlert"  class="btn btn-success">Revoke</button>&nbsp;&nbsp;&nbsp;
+ 
+ 
+ 
+             </form>
+               	
+					<script>
+					function submitForm() {
+						  return confirm('Do you really want to submit the form?');
+						  
+						  alert("Submit form succefully");
+						}
+					</script>
+  				 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   
-		      </div>
-		
-	
-		 
-		    </div>
-		  </div>
-		</div>
-	
-	
-	</div>
-	</div>
-
-
-
-</div>
+  <!-- 
+    <div class="container">
+	    <div class="row">
+	      <div class="col-lg-10 col-xl-9 mx-auto">
+	        <div class="card card-signin flex-row my-5">
+	          <div class="card-body">
+	           <h5 class="card-title text-center" style="color:maroon; font-size: 15px"> Alredy Added language </h5>
+					<ul>
+	    		    	 	<span th:each="lan : ${languageAll}">  
+						<li >     <span style="color: green;" th:text="${lan.languageName}">description</span ></li>
 						
+								</span>
+					</ul>
+			
+  			 </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+  
+ 
+			<div th:fragment="body-bottom-scripts">
 
-						
-					</div>
-				</div>
+        	 <script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
+       		 <script th:src="@{/static/js/jquery.slim.min}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+			
+			
+					
+				<script th:src="@{/js/jquery.min.js}"></script>
+			    <script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
+			    <script th:src="@{/s/js/popper.min.js}"></script>
+			    <script th:src="@{/s/js/bootstrap.min.js}"></script>
+			    <script th:src="@{/s/js/owl.carousel.min.js}"></script>
+			    <script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
+			    <script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
+			    <script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
+			    <script th:src="@{/s/js/main.js}"></script>
+			     <script th:src="@{/js/ajaxSupport.js}"></script>
+			
 			</div>
-		</div>
-	</div>
-	<div th:fragment="body-bottom-scripts">
-
-		<script>
-			
-			
-			$(document).ready( function () {
-			    $('#tableId').DataTable();
-			} );
-			
-			</script>
-		<script src="static/js/bootstrap.bundle.min.js"></script>
-		<script src="static/js/jquery.slim.min"
-			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"></script>
-		<script src="/js/jquery.min.js"></script>
-		<script src="/s/js/jquery-3.2.1.min.js"></script>
-		<script src="/s/js/popper.min.js"></script>
-		<script src="/s/js/bootstrap.min.js"></script>
-		<script src="/s/js/owl.carousel.min.js"></script>
-		<script src="/s/js/bootstrap-datepicker.js"></script>
-		<script src="/s/js/jquery.timepicker.min.js"></script>
-		<script src="/s/js/jquery.waypoints.min.js"></script>
-		<script src="/s/js/main.js"></script>
-		<script src="/js/ajaxSupport.js"></script>
-		<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
-		<script src="/js/jquery.min.js"></script>		
-
-	</div>
-</body>
+ </body>
+</html>
+ 
+ 

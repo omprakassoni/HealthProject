@@ -4280,7 +4280,7 @@ $(document)
 																.getElementById('storedVideoIdDomain');
 														source.setAttribute(
 																'src',
-																"http://localhost:8081/"
+																"HealthNutrition/"
 																		+ res);
 														source.setAttribute(
 																'type',
@@ -4410,7 +4410,7 @@ $(document)
 																.getElementById('storedVideoId');
 														source.setAttribute(
 																'src',
-																"http://localhost:8081/"
+																"HealthNutrition/"
 																		+ res);
 														source.setAttribute(
 																'type',
@@ -4456,7 +4456,7 @@ $(document)
 																.getElementById('storedVideoId');
 														source.setAttribute(
 																'src',
-																"http://localhost:8081/"
+																"HealthNutrition/"
 																		+ res);
 														source.setAttribute(
 																'type',

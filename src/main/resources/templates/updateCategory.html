@@ -8,12 +8,10 @@
 
 		<meta charset="utf-8"/>
 		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-		 <link rel="stylesheet" href="css/style3.css"/>
- 	 	<link rel="stylesheet" href="css/bootstrap.min.css"/> 
- 
-		<link rel="stylesheet" type="text/css" href="/datatables.css"/>
- 
-	
+		 <link rel="stylesheet" th:href="@{/css/style3.css}"/>
+ 	 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/> 
+		<link rel="stylesheet" type="text/css" th:href="@{/datatables.css}"/>
+ 	
 </head>
 
  
@@ -122,10 +120,10 @@
           
       </div>
       
-        <script src="static/css/all.css"></script>
-         <script src="static/js/all.js"></script>
-        <script src="static/css/bootstrap.min.css" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="static/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script th:src="@{/static/css/all.css}"></script>
+         <script th:src="@{/static/js/all.js}"></script>
+        <script th:src="@{/static/css/bootstrap.min.css}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script th:src="@{static/js/bootstrap.min.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 
 					
@@ -133,7 +131,7 @@
 				</div>
 							<div th:fragment="body-bottom-scripts">
 
-		<script src="static/js/bootstrap.bundle.min.js"></script>
+		<script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
 		<script src="https://code.jquery.com/jquery-3.5.1.js"
 			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 			crossorigin="anonymous"></script>
