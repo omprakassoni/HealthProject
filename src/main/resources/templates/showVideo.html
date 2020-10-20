@@ -179,14 +179,14 @@
 						
 		<div class="row rounded bg-light" style="padding-left: 80px; padding-top:8px;">
 								
-							<!-- <video th:src="${'http://localhost:8081/' +tutorials.getVideo()}" id="tutorialView" height="100"
+							<video th:src="${'HealthNutrition/'+tutorials.getVideo()}" id="tutorialView" height="100"
 											  controls="controls">
 											  
-							</video> -->
+							</video> 
 							
 							<a th:href="${tutorials.getTutorialid()}">
 							
-								<img style="borde"  width="200" height="100" src="/image/Classes-And-Objects-Small.png"></img>
+								<img style="borde"  width="200" height="100" th:src="@{/image/Classes-And-Objects-Small.png}"></img>
 								
 							</a>
 					<br></br>&nbsp;
