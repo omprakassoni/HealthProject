@@ -184,7 +184,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/loadCategoryAndLanguage",
+													url : "/loadCategoryAndLanguage",
 													data : {
 														"id" : categoryid,
 														"lanid" : language
@@ -224,7 +224,7 @@ $(document)
 								$.ajax({
 
 											type : "GET",
-											url  : HealthNutrition +"/loadcategoryBylanguage",
+											url  : "/loadcategoryBylanguage",
 										
 											data : {
 												
@@ -307,7 +307,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+ "/loadByCategoryTuturialTopic",
+													url :  "/loadByCategoryTuturialTopic",
 													data : {
 														"id" : catgoryid
 													},
@@ -357,7 +357,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition + "/loadByCategoryTuturial",
+													url :  "/loadByCategoryTuturial",
 													data : {
 														"id" : catgoryid
 													},
@@ -413,7 +413,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadDistrictByState",
+													url : "/loadDistrictByState",
 													data : {
 														"id" : state
 													},
@@ -466,7 +466,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadBycategoryInFeedb",
+													url : "/loadBycategoryInFeedb",
 													data : {
 														"id" : state
 													},
@@ -621,7 +621,7 @@ $(document)
 								$.ajax({
 									
 											type : "GET",
-											url : HealthNutrition+"/acceptPrerequistic",
+											url : "/acceptPrerequistic",
 											data : {
 												"categorname" : categoryid,
 												"topicid" : topicid,
@@ -650,7 +650,7 @@ $(document)
 										.ajax({
 
 											type : "GET",
-											url : HealthNutrition+"/needToImpKeywordByDomainPre",
+											url : "/needToImpKeywordByDomainPre",
 											data : {
 												"categorname" : categoryid,
 												"topicid" : topicid,
@@ -705,7 +705,7 @@ $(document)
 										$.ajax({
 											
 													type : "GET",
-													url : HealthNutrition+"/acceptPrerequisticQuality",
+													url : "/acceptPrerequisticQuality",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -735,7 +735,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/needToImpKeywordByQualityPre",
+													url : "/needToImpKeywordByQualityPre",
 													data : 
 													{
 														"categorname" : categoryid,
@@ -784,7 +784,7 @@ $(document)
 							
 							$.ajax({
 										type : "GET",
-										url : HealthNutrition+"/loadCatAndTopicInPre",
+										url : "/loadCatAndTopicInPre",
 										data : {
 											
 											"p_id" : p_catgoryid,
@@ -837,7 +837,7 @@ $(document)
 									
 									$.ajax({
 												type : "GET",
-												url : HealthNutrition+"/feedbackForUser",
+												url : "/feedbackForUser",
 												data : {
 													
 													"firstName" : firstName,
@@ -890,7 +890,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadBycategoryInFeedb",
+													url : "/loadBycategoryInFeedb",
 													data : {
 														"id" : state
 													},
@@ -939,7 +939,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadDistrictByState",
+													url : "/loadDistrictByState",
 													data : {
 														"id" : state
 													},
@@ -988,7 +988,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadCityByDistrict",
+													url : "/loadCityByDistrict",
 													data : {
 														"id" : dist
 													},
@@ -1041,7 +1041,7 @@ $(document)
 
 										$.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadDistrictByState",
+													url : "/loadDistrictByState",
 													data : {
 														"id" : state
 													},
@@ -1090,7 +1090,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadDistrictByState",
+													url : "/loadDistrictByState",
 													data : {
 														"id" : state
 													},
@@ -1139,7 +1139,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadCityByDistrict",
+													url : "/loadCityByDistrict",
 													data : {
 														"id" : dist
 													},
@@ -1249,7 +1249,7 @@ $(document)
 								$.ajax({
 
 									type : "GET",
-									url : HealthNutrition+"/scriptPdf",
+									url : "/scriptPdf",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -1327,7 +1327,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/viewKeyword",
+									url : "/viewKeyword",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -1364,7 +1364,7 @@ $(document)
 								$.ajax({
 
 									type : "GET",
-									url : HealthNutrition+"/outlineView",
+									url : "/outlineView",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -1443,7 +1443,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/downloadQuestion",
+													url : "/downloadQuestion",
 													data : {
 														"id" : catgoryid
 													},
@@ -1503,7 +1503,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadByLangugaeTopic",
+													url : "/loadByLangugaeTopic",
 													data : {
 														"id" : catgoryid
 													},
@@ -1557,7 +1557,7 @@ $(document)
 
 									type : "GET",
 
-									url : HealthNutrition+"/sliedPdf",
+									url : "/sliedPdf",
 
 									data : {
 										"categorname" : categoryid,
@@ -1600,7 +1600,7 @@ $(document)
 										var languageName = $("#option :selected").text();
 										$.ajax({
 											type : "GET",
-											url : HealthNutrition+"/loadCategoryByLanguage",
+											url : "/loadCategoryByLanguage",
 											data : {
 												"id" : languageName
 											},
@@ -1666,7 +1666,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/loadTopicByCategory",
+									url : "/loadTopicByCategory",
 									data : {
 										"id" : category,
 										"lanId" : languageName,
@@ -1701,7 +1701,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/viewKeyword",
+									url : "/viewKeyword",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -1738,7 +1738,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/viewKeywordInQuality",
+													url : "/viewKeywordInQuality",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -1815,7 +1815,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/viewVideo",
+													url : "/viewVideo",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -1872,7 +1872,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/viewVideo",
+													url : "/viewVideo",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -1926,7 +1926,7 @@ $(document)
 								$.ajax({
 
 									type : "GET",
-									url : HealthNutrition+"/outlineView",
+									url : "/outlineView",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -1961,7 +1961,7 @@ $(document)
 								$.ajax({
 
 									type : "GET",
-									url : HealthNutrition+"/scriptPdf",
+									url : "/scriptPdf",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -2003,7 +2003,7 @@ $(document)
 								$.ajax({
 
 									type : "GET",
-									url :HealthNutrition+ "/sliedPdf",
+									url : "/sliedPdf",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -2050,7 +2050,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/viewVideo",
+													url : "/viewVideo",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -2136,7 +2136,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url  : HealthNutrition+"/loadCategoryAndLanguage",
+													url  : "/loadCategoryAndLanguage",
 													data : {
 														"id" : categoryid,
 														"lanid" : language
@@ -2186,7 +2186,7 @@ $(document)
 										console.log(catgoryid);
 										$.ajax({
 													type : "GET",
-													url : HealthNutrition+"/listTopicsByCategory",
+													url : "/listTopicsByCategory",
 													data : {
 														"id" : catgoryid
 													},
@@ -2225,7 +2225,7 @@ $(document)
 								var categoryName = $("#categoryname").val();
 								$.ajax({
 											type : "GET",
-											url : HealthNutrition+"/listLangByCategoryTopic",
+											url : "/listLangByCategoryTopic",
 											data : {
 												"category" : categoryName,
 												"topic" : topic
@@ -2267,7 +2267,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadByCategoryTuturialTopic",
+													url : "/loadByCategoryTuturialTopic",
 													data : {
 														"id" : catgoryid
 													},
@@ -2316,7 +2316,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/loadByCategoryTuturial",
+													url : "/loadByCategoryTuturial",
 													data : {
 														"id" : catgoryid
 													},
@@ -2366,7 +2366,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadByCategoryTuturial",
+													url : "/loadByCategoryTuturial",
 													data : {
 														"id" : catgoryid
 													},
@@ -2415,7 +2415,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/downloadQuestion",
+													url : "/downloadQuestion",
 													data : {
 														"id" : catgoryid
 													},
@@ -2475,7 +2475,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadByLangugaeTopic",
+													url : "/loadByLangugaeTopic",
 													data : {
 														"id" : catgoryid
 													},
@@ -2527,7 +2527,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadBycategorylanguage",
+													url : "/loadBycategorylanguage",
 													data : {
 														"id" : catgoryid
 													},
@@ -2578,7 +2578,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/loadByCategoryByTopic",
+													url : "/loadByCategoryByTopic",
 													data : {
 														"id" : catgoryid
 													},
@@ -2629,7 +2629,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/loadTopicByCategoryContributor",
+													url : "/loadTopicByCategoryContributor",
 													data : {
 														"id" : catgoryid
 													},
@@ -2688,7 +2688,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/loadLanguageByTopicId",
+													url : "/loadLanguageByTopicId",
 													data : {
 														"id" : catgoryid
 													},
@@ -2742,7 +2742,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadlanguage",
+													url : "/loadlanguage",
 													data : {
 														"id" : catgoryid
 													},
@@ -2804,7 +2804,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/outline",
+													url : "/outline",
 													data : {
 														"saveOutline" : saveInfo,
 														"id" : keywordArea,
@@ -2882,7 +2882,7 @@ $(document)
 								$('#keyword').prop('readonly', true);
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/keyword",
+									url : "/keyword",
 									data : {
 										"id" : keywordArea,
 										"categorname" : categoryid,
@@ -2936,7 +2936,7 @@ $(document)
 
 										$.ajax({
 											type : "POST",
-											url : HealthNutrition+"/scriptUpload",
+											url : "/scriptUpload",
 											data : formData,
 											enctype : 'multipart/form-data',
 											processData : false,
@@ -2984,7 +2984,7 @@ $(document)
 								
 								$.ajax({
 									type : "POST",
-									url : HealthNutrition+"/slideUpload",
+									url : "/slideUpload",
 									data : formData,
 									enctype : 'multipart/form-data',
 									processData : false,
@@ -3037,7 +3037,7 @@ $(document)
 
 								$.ajax({
 									type : "POST",
-									url : HealthNutrition+"/graphicsUpload",
+									url : "/graphicsUpload",
 									data : formData,
 									enctype : 'multipart/form-data',
 									processData : false,
@@ -3101,7 +3101,7 @@ $(document)
 										$
 												.ajax({
 													type : "POST",
-													url : HealthNutrition+"/videoUpload",
+													url : "/videoUpload",
 													data : formData,
 													enctype : 'multipart/form-data',
 													processData : false,
@@ -3157,7 +3157,7 @@ $(document)
 										$
 												.ajax({
 													type : "POST",
-													url : HealthNutrition+"/prerequisite",
+													url : "/prerequisite",
 													data : formData,
 													enctype : 'multipart/form-data',
 													processData : false,
@@ -3195,7 +3195,7 @@ $(document)
 								$.ajax({
 
 									type : "GET",
-									url : HealthNutrition+"/keyword",
+									url : "/keyword",
 									data : {
 										"id" : keywordArea
 									},
@@ -3229,7 +3229,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/addContributerRoleById",
+									url : "/addContributerRoleById",
 									data : {
 										"id" : contributionId
 									},
@@ -3264,7 +3264,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/addAdminRoleById",
+									url : "/addAdminRoleById",
 									data : {
 										"id" : contributionId
 									},
@@ -3304,7 +3304,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/addQualityRoleById",
+									url : "/addQualityRoleById",
 									data : {
 										"id" : contributionId
 									},
@@ -3349,7 +3349,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/addMasterRoleById",
+									url : "/addMasterRoleById",
 									data : {
 										"id" : contributionId
 									},
@@ -3393,7 +3393,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/addDomainRoleById",
+									url : "/addDomainRoleById",
 									data : {
 										"id" : contributionId
 									},
@@ -3433,7 +3433,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/rejectContributorById",
+									url : "/rejectContributorById",
 									data : {
 										"id" : contributionId
 									},
@@ -3468,7 +3468,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadLanguageByUser",
+													url : "/loadLanguageByUser",
 													data : {
 														"id" : userContributor
 													},
@@ -3514,7 +3514,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/loadCategoryByLanguage",
+													url : "/loadCategoryByLanguage",
 													data : {
 														"id" : languageName
 													},
@@ -3564,7 +3564,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/loadTopicByCategory",
+									url : "/loadTopicByCategory",
 									data : {
 										"id" : category,
 										"lanId" : languageName,
@@ -3607,7 +3607,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/viewKeyword",
+									url : "/viewKeyword",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -3644,7 +3644,7 @@ $(document)
 										$
 												.ajax({
 													type : "GET",
-													url : HealthNutrition+"/viewKeywordInQuality",
+													url : "/viewKeywordInQuality",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -3686,7 +3686,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/viewKeywordInDomain",
+									url : "/viewKeywordInDomain",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -3720,7 +3720,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/viewVideo",
+													url : "/viewVideo",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -3763,7 +3763,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/viewVideo",
+													url : "/viewVideo",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -3806,7 +3806,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/scriptPdf",
+													url : "/scriptPdf",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -3857,7 +3857,7 @@ $(document)
 								$.ajax({
 
 									type : "GET",
-									url : HealthNutrition+"/sliedPdf",
+									url : "/sliedPdf",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -3908,7 +3908,7 @@ $(document)
 
 											$.ajax({
 														type : "GET",
-														url : HealthNutrition+"/acceptkeywordByDomain",
+														url : "/acceptkeywordByDomain",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -3942,7 +3942,7 @@ $(document)
 
 											$.ajax({
 														type : "GET",
-														url : HealthNutrition+"/needToImpKeywordByDomain",
+														url : "/needToImpKeywordByDomain",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4032,7 +4032,7 @@ $(document)
 											$
 													.ajax({
 														type : "GET",
-														url : HealthNutrition+"/acceptOutlineByDomain",
+														url : "/acceptOutlineByDomain",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4066,7 +4066,7 @@ $(document)
 											$
 													.ajax({
 														type : "GET",
-														url : HealthNutrition+"/needToImpOutlineByDomain",
+														url : "/needToImpOutlineByDomain",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4187,7 +4187,7 @@ $(document)
 								$.ajax({
 
 									type : "GET",
-									url : HealthNutrition+"/outlineViewDomain",
+									url : "/outlineViewDomain",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -4223,7 +4223,7 @@ $(document)
 										$
 												.ajax({
 													type : "get",
-													url : HealthNutrition+"/scriptPdfDomain",
+													url : "/scriptPdfDomain",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -4265,7 +4265,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/viewVideoDomain",
+													url : "/viewVideoDomain",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -4315,7 +4315,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/commentOnOutline",
+													url : "/commentOnOutline",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -4357,7 +4357,7 @@ $(document)
 								$.ajax({
 
 									type : "GET",
-									url : HealthNutrition+"/commentOnVideo",
+									url : "/commentOnVideo",
 									data : {
 										"categorname" : categoryid,
 										"topicid" : topicid,
@@ -4395,7 +4395,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/viewVideoAdmin",
+													url : "/viewVideoAdmin",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -4441,7 +4441,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/viewVideoAdmin",
+													url : "/viewVideoAdmin",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -4504,7 +4504,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/acceptAdminVideo",
+														url : "/acceptAdminVideo",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4554,7 +4554,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/needToImprovemenetByAdmin",
+														url : "/needToImprovemenetByAdmin",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4680,7 +4680,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/acceptVideoByDomain",
+														url : "/acceptVideoByDomain",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4708,7 +4708,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/needToImprovemenetByDomain",
+														url : "/needToImprovemenetByDomain",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4758,7 +4758,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/commentOnScript",
+														url : "/commentOnScript",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4785,7 +4785,7 @@ $(document)
 													"#msgScriptDomain").val();
 											$.ajax({
 												type : "GET",
-												url : HealthNutrition+"/needToImpScriptByDomain",
+												url : "/needToImpScriptByDomain",
 												data : {
 													"categorname" : categoryid,
 													"topicid" : topicid,
@@ -4836,7 +4836,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/commentOnScriptByQuality",
+														url : "/commentOnScriptByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4868,7 +4868,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/needToImpScriptByQuality",
+														url : "/needToImpScriptByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4947,7 +4947,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/acceptOutlineByQuality",
+														url : "/acceptOutlineByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -4989,7 +4989,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/needToImprovementOutLineByQuality",
+														url : "/needToImprovementOutLineByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -5041,7 +5041,7 @@ $(document)
 												.ajax({
 
 													type : "GET",
-													url : HealthNutrition+"/slidePdfQuality",
+													url : "/slidePdfQuality",
 													data : {
 														"categorname" : categoryid,
 														"topicid" : topicid,
@@ -5127,7 +5127,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/acceptSlideByQuality",
+														url : "/acceptSlideByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -5165,7 +5165,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/needToImprovementSlideByQuality",
+														url : "/needToImprovementSlideByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -5396,7 +5396,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/acceptSlideByDomain",
+														url : "/acceptSlideByDomain",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -5423,7 +5423,7 @@ $(document)
 											var msg = $("#slideCommentMsg").val();
 											$.ajax({
 												type : "GET",
-												url : HealthNutrition+"/needToImpSlideByDomain",
+												url : "/needToImpSlideByDomain",
 												data : {
 													"categorname" : categoryid,
 													"topicid" : topicid,
@@ -5475,7 +5475,7 @@ $(document)
 											.ajax({
 
 												type : "GET",
-												url : HealthNutrition+"/acceptGraphicsByDomain",
+												url : "/acceptGraphicsByDomain",
 												data : {
 													"categorname" : categoryid,
 													"topicid" : topicid,
@@ -5502,7 +5502,7 @@ $(document)
 									var msg = $("#graphicsCommentMsg").val();
 									$.ajax({
 										type : "GET",
-										url : HealthNutrition+"/needToImpGraphicsByDomain",
+										url : "/needToImpGraphicsByDomain",
 										data : {
 											"categorname" : categoryid,
 											"topicid" : topicid,
@@ -5559,7 +5559,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/acceptKeywordByQuality",
+														url : "/acceptKeywordByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -5592,7 +5592,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/needToImprovementKeywordByQuality",
+														url : "/needToImprovementKeywordByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -5648,7 +5648,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/acceptGraphicsByQuality",
+														url : "/acceptGraphicsByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -5681,7 +5681,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/needToImprovementGraphicsByQuality",
+														url : "/needToImprovementGraphicsByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -5719,7 +5719,7 @@ $(document)
 									    var lanId =$("#lanId").val();
 										$.ajax({
 											  	type: "GET",
-									       		 url: HealthNutrition+"/loadTopicByPreRequistic",
+									       		 url: "/loadTopicByPreRequistic",
 									       		 data: { "id": selectedCategoryId, "lanId":lanId},
 									       		 contentType: "application/json",
 									       		 success: function (result)
@@ -5763,7 +5763,7 @@ $(document)
 									
 										$.ajax({
 										  	type: "GET",
-								       		 url: HealthNutrition+"/loadTopicByPreRequistic",
+								       		 url: "/loadTopicByPreRequistic",
 								       		 data: { "id": selectedCategoryId, "lanId":lanId},
 								       		 contentType: "application/json",
 								       		 success: function (result)
@@ -5804,7 +5804,7 @@ $(document)
 									    var lanId =$("#lanId").val();
 										$.ajax({
 											  	type: "GET",
-									       		 url: HealthNutrition+"/loadTopicByPreRequistic",
+									       		 url: "/loadTopicByPreRequistic",
 									       		 data: { "id": selectedCategoryId, "lanId":lanId},
 									       		 contentType: "application/json",
 									       		 success: function (result)
@@ -5850,7 +5850,7 @@ $(document)
 									
 										$.ajax({
 										  	type: "GET",
-								       		 url: HealthNutrition+"/loadTopicByPreRequistic",
+								       		 url: "/loadTopicByPreRequistic",
 								       		 data: { "id": selectedCategoryId, "lanId":lanId},
 								       		 contentType: "application/json",
 								       		 success: function (result)
@@ -5908,7 +5908,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/acceptVideoByQuality",
+														url : "/acceptVideoByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -5951,7 +5951,7 @@ $(document)
 													.ajax({
 
 														type : "GET",
-														url : HealthNutrition+"/needToImprovementQualityByQuality",
+														url : "/needToImprovementQualityByQuality",
 														data : {
 															"categorname" : categoryid,
 															"topicid" : topicid,
@@ -6009,7 +6009,7 @@ $(document)
 						.val();
 				$.ajax({
 							type : "GET",
-							url : HealthNutrition+"/commentByContributor",
+							url : "/commentByContributor",
 							data : {
 								"categorname" : categoryid,
 								"topicid" : topicid,
@@ -6037,7 +6037,7 @@ $(document)
 						console.log('this');
 						$.ajax({
 				   		  	 type: "GET",
-				       		 url: HealthNutrition+"/displayConsultants",
+				       		 url: "/displayConsultants",
 				       		 contentType: "application/json",
 				       		 success: function (result){
 				       		 console.log(result);
@@ -6074,7 +6074,7 @@ $(document)
 
 								$.ajax({
 									type : "GET",
-									url : HealthNutrition+"/listTopicByCategory",
+									url : "/listTopicByCategory",
 									data : {
 										"category" : category
 									},

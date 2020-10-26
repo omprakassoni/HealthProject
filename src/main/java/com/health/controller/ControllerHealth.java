@@ -973,11 +973,13 @@ public class ControllerHealth {
 
 	String fileconsalantant;
 
-	@RequestMapping("/addConsaltant")
+	@RequestMapping(path="/addConsaltant",method = RequestMethod.POST)
 	public String uploadConsaltant(HttpServletRequest req, Model model,
 			@RequestParam("uploadConsaltantImage") MultipartFile[] files)
 
 	{
+		System.out.println("Add Consaltant");
+		
 		String path = null;
 		String nameConsaltant = req.getParameter("nameConsaltant");
 		String descriptionConsaltant = req.getParameter("descriptionConsaltant");

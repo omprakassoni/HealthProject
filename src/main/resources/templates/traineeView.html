@@ -13,48 +13,37 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/datatables.css}"/>
 </head>
 <body>
+
 	<div style="display: flex;">
 		<div th:replace="common/sidebar :: contributor_sidebar"></div>
 		<div class="row" style='width: 100%;'>
 			<div class="col-lg-10 col-xl-9 mx-auto">
-				 <div class="card card-signin flex-row a-card">
-					<div class="card-body">
-						<h5 class="card-title text-center a-card-title">
-							<div class="">
-								<!-- <div th:if="${msgSuccefull}">
-									<span th:text="${msgSuccefull}"></span>
-								</div> -->
-								
-							</div>
-						</h5>
+				 <div class=" card-signin ">
+					<div class="">
+						
 						<div sec:authorize="hasAnyAuthority('MasterTrainer')">
 
 							  
-	<!-- <h4 class="mb-3">Master Trainer</h4> -->
- 								
-	<div class="#">
-	<div class="" >
+								
 	
-	<div class="row">
-	<div class="col-sm-12">
-	<div>
+	<div class="">
+								<div>
 									<span th:text="${msg}"></span>
 								</div>
 	</div>
 
-		  <div class="col-12" >
+		  <div class="" >
 		  
 		    <div >
 		      <div>
 		      
-		    		<!-- <div class="container"> -->
 		    		<div>
 		    					
  					
 					<h4 class="text-center">Trainee Detail</h4>
 		    		
 		    		
-		    		<div class="row  p-3 mb-5 bg-white ">
+		    		<div class="row  p-3 mb-5 ">
 		    		
 		    		<span style="color: gray; font-family: cursive; text-shadow: 10px"><H2> </H2></span>
 		    		
@@ -76,10 +65,12 @@
 						
 			  </script>
 						    <!-- <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);"> -->
-						    <form action="/findtrainee" method="post" enctype="multipart/form-data">
-						    <div class=""> 
+					
+		 <form action="/findtrainee" method="post" enctype="multipart/form-data">
+		 
+				 <div class=""> 
 						    
-	    <div class="row">
+	  				  <div class="row">
 						   
 						    
 						    <div class="col-5">
@@ -122,10 +113,12 @@
 						
 						   </form>
 						
-				<div class="" style="padding-top: ">   	
+					
+						
+				<div class="row" >   	
           	    <div>
 					       
-					        <table id="tableIdTrainee" class="table table-striped">
+					        <table id="tableId" class="table table-striped">
 					         <thead>
 					         
 					            <tr>
@@ -146,7 +139,7 @@
 					            
 					            </thead>
 					            <tbody>
-					            	<tr th:each="traineeInformation : ${traineeInformation}" style="">
+					            	<tr th:each="traineeInformation : ${traineeInformation}" >
 					                <td th:text="${traineeInformation.name}">ID</td>  
 					                <td th:text="${traineeInformation.age}">Name</td>
 					                <td th:text="${traineeInformation.aadharNumber}">description</td> 
@@ -158,31 +151,15 @@
 					                <td th:text="${traineeInformation.postmark}">description</td>  
 					                 <td><a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a></td>     
 					                
-					                <td>
-					            		
-					             </td> 
-					
-					         
-		 
+		
 					            </tr>
 					            
 					            </tbody>
 					        </table>
-					    </div>
+					</div>
 			</div> 
 								  
-									  		        
-						   
 		
-		    
-			<script>
-			
-			
-			$(document).ready( function () {
-			    $('#tableIdTrainee').DataTable();
-			} );
-			
-			</script>
 				
 					</div>
 
@@ -192,8 +169,7 @@
   
 		      </div>
 		
-	
-		 
+	 
 		    </div>
 		  </div>
 		</div>
@@ -210,10 +186,10 @@
 						
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+			
 	<div th:fragment="body-bottom-scripts">
+
+
 
 		<script>
 			
@@ -223,23 +199,29 @@
 			} );
 			
 			</script>
-
-		<script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
-		<script th:src="@{/static/js/jquery.slim.min}"
+					<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 			crossorigin="anonymous"></script>
-		<script th:src="@{/js/jquery.min.js}"></script>
-		<script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
-		<script th:src="@{/s/js/popper.min.js}"></script>
-		<script th:src="@{/s/js/bootstrap.min.js}"></script>
-		<script th:src="@{/s/js/owl.carousel.min.js}"></script>
-		<script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
-		<script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
-		<script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
-		<script th:src="@{/s/js/main.js}"></script>
-		<script th:src="@{/js/ajaxSupport.js}"></script>
-		<script th:type="@{/text/javascript}" charset="utf8" src="@{/datatables.js}"></script>
-		<script th:src="@{/js/jquery.min.js}"></script>	
+		<script
+			src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+			
+
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/jquery.slim.min.js}"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"></script>
+	
 	</div>
 </body>
 </html>
