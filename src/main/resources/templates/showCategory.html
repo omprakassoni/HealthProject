@@ -36,7 +36,9 @@
           	  
                   <div th:if="${not #lists.isEmpty(products)}">
 					        <h2>CATEGORY LIST</h2>
-					        <table class="table table-striped">
+					        <table id="tableId" class="table table-striped">
+					        
+					        <thead>
 					            <tr>
 					                <th>Id</th>
 					                <th>Name</th>
@@ -44,6 +46,9 @@
 					                <th>Edit</th>
 					                <th>Delete</th>
 					            </tr>
+					           </thead>
+					            
+					            <tbody>
 					            <tr th:each="product : ${products}">
 					                <td th:text="${product.id}">description</td>  
 					                <td th:text="${product.categoryname}">description</td>		
@@ -51,6 +56,7 @@
 					                <td><a th:href="${'category/delete/' + product.id}">Delete</a></td>
 					                
 					            </tr>
+					            </tbody>
 					        </table>
 					
 					    </div>
@@ -68,6 +74,16 @@
     <script src="/s/js/main.js"></script>
  
 </body>
+
+			<script>
+			
+			
+			$(document).ready( function () {
+			    $('#tableId').DataTable();
+			} );
+			
+			</script>
+ 
 
 					
 					</div>

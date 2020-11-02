@@ -20,6 +20,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,34 +90,40 @@ public class ControllerHealth {
 	static final String ROLE_APPROVE_SUCCESS_MSG = "Role Approved Successfully !";
 	static final String RECORD_SAVE_SUCCESS_MSG = "Record Saved Successfully !";
 
-	public static String uploadDirectoryConsaltant = "src/main/resources/static" + "/Media/content" + "/Consaltant";
+	public static String uploadDirectoryConsaltant = "/Media/content" + "/Consaltant";
 
-	public static String uploadDirectoryCategory = "src/main/resources/static" + "/Media/content" + "/Category";
+	
+	public static String uploadDirectoryCategory = "/src/main/resources/static" + "/Media/content" + "/Category";
 
-	public static String uploadDirectoryFeedback = "src/main/resources/static" + "/Media/content" + "/feedback";
+	public static String uploadDirectoryFeedback = "/src/main/resources/static" + "/Media/content" + "/feedback";
 
 
-	public static String uploadDirectory = "src/main/resources/static" + "/Media/content" + "/Testimonial";
+	public static String uploadDirectory = "/src/main/resources/static" + "/Media/content" + "/Testimonial";
 
-	public static String uploadDirectorOutLine = "src/main/resources/static" + "/Media/content" + "/Tutorial/Outline";
+	public static String uploadDirectorOutLine = "/src/main/resources/static" + "/Media/content" + "/Tutorial/Outline";
 
 	public static String uploadDirectorScript = "src/main/resources/static" + "/Media/content" + "/Tutorial/Script";
+	
 	public static String uploadDirectorTimeScript = "src/main/resources/static" + "/Media/content"
 			+ "/Tutorial/TimeScript";
 
-	public static String uploadDirectorVideo = "src/main/resources/static" + "/Media/content" + "/Tutorial/Video";
-	public static String uploadDirectorKeyWord = "src/main/resources/static" + "/Media/content" + "/Tutorial/KeyWord";
+	public static String uploadDirectorVideo = "/src/main/resources/static" + "/Media/content" + "/Tutorial/Video";
+	public static String uploadDirectorKeyWord = "/src/main/resources/static" + "/Media/content" + "/Tutorial/KeyWord";
 
-	public static String uploadMasterTrainer = "src/main/resources/static" + "/Media/content"
+	public static String uploadMasterTrainer = "/src/main/resources/static" + "/Media/content"
 			+ "/MasterTrainer/ParticipantsDeatail";
 
-	public static String uploadMasterTrainerPhoto = "src/main/resources/static" + "/Media/content"
+	public static String uploadMasterTrainerPhoto = "/src/main/resources/static" + "/Media/content"
 			+ "/MasterTrainer/Photo";
 
-	public static String uploadQusetion = "src/main/resources/static" + "/Media/content" + "/Question";
+	public static String uploadQusetion = "/src/main/resources/static" + "/Media/content" + "/Question";
 
 	public String pathfile = uploadDirectory;
 
+	@Autowired
+	private Environment ev;
+	
+	
 	@Autowired
 	private ConsaltantService consaltantservice;
 
@@ -983,14 +990,15 @@ public class ControllerHealth {
 		String path = null;
 		String nameConsaltant = req.getParameter("nameConsaltant");
 		String descriptionConsaltant = req.getParameter("descriptionConsaltant");
-		String abc = uploadDirectoryConsaltant + "/" + nameConsaltant;
+		String abc = ev.getProperty("spring.applicationexternalPath.name")+uploadDirectoryConsaltant + "/" + nameConsaltant;
+		
 		String showOnHomePage = req.getParameter("showOnHomePage");
 		Boolean show = false;
 
 		if(showOnHomePage!=null) {
 			show = showOnHomePage.equals("showOnHomePage");
 		}
-		new File(abc).mkdir();
+		new File(abc).mkdirs();
 
 
 		StringBuilder fileNames = new StringBuilder();

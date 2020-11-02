@@ -59,15 +59,15 @@ public class controllerContributer {
 	public static final int NO_CONTENT_ADDED = 0;
 	public static final int WAITING_FOR_DOMAIN_REV = 1;
 
-	public static String uploadDirectoryCreation = "src/main/resources/static" + "/Media/content" + "/Creation/Slide";
+	public static String uploadDirectoryCreation = "/src/main/resources/static" + "/Media/content" + "/Creation/Slide";
 
-	public static String uploadDirectoryCreationScripts = "src/main/resources/static" + "/Media/content" + "/Creation/Script";
+	public static String uploadDirectoryCreationScripts = "/src/main/resources/static" + "/Media/content" + "/Creation/Script";
 
-	public static String uploadDirectoryCreationVideo = "src/main/resources/static" + "/Media/content" + "/Creation/Video";
+	public static String uploadDirectoryCreationVideo = "/src/main/resources/static" + "/Media/content" + "/Creation/Video";
 
 	public static String uploadDirectoryCreationVideo1 = "/Media/content" + "/Creation/Video";
 
-	public static String uploadDirectoryGraphics = "src/main/resources/static" + "/Media/content" + "/Creation/Graphics";
+	public static String uploadDirectoryGraphics = "/src/main/resources/static" + "/Media/content" + "/Creation/Graphics";
 
 	@Autowired
 	private languagedao languageDao;
@@ -322,7 +322,8 @@ public class controllerContributer {
 		  Category category=categoryDao.findBycategoryname(categorname);
 
 
-		  String abc = uploadDirectoryCreationScripts + "/" + categorname + "/"+ lanId + "/"+ topicid;
+		  System.out.println("language"+lanId+"Test lan");
+		  String abc = uploadDirectoryCreationScripts + "/" + categorname + "/"+ lanId + "/"+ topicid ;
 
 		  new File(abc).mkdirs();
 
