@@ -1,6 +1,8 @@
 package com.health.domain.security;
 
-import java.security.Timestamp;
+
+
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,29 +14,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.health.model.Category;
+import com.health.model.Language;
 import com.health.model.User;
-import com.health.model.language;
 
 @Entity
 @Table(name="user_role")
 public class UserRole 
 {	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private  Long userRoleId;
+	
+	private Timestamp created;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	public language getLanguage() {
-		return language;
-	}
 
-	public void setLanguage(language language) {
-		this.language = language;
-	}
-	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="role_id")
 	private Role role;
@@ -42,44 +38,44 @@ public class UserRole
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="lan_id")
-	private language language;
+	private Language lan;
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cat_id")
-	private Category category;
+	private Category cat;
+	
+	private boolean status=false;
 	
 
 	public Category getCategory() {
-		return category;
+		return cat;
 	}
 
 	public void setCategory(Category category) {
-		this.category = category;
+		this.cat = category;
 	}
 
-	private int status;
 
-
-	public String getCreated() {
+	public Timestamp getCreated() {
 		return created;
 	}
 
-	public void setCreated(String created) {
+	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
 
-	private String created;
 
 	public UserRole(){		
-}
+
+	}
 	
 	public UserRole(User user, Role role) {
 		this.user = user;
 		this.role = role;
 	}
 	
-	public UserRole(User user,int status) {
+	public UserRole(User user,boolean status) {
 		this.user = user;
 		this.status = status;
 	}
@@ -103,11 +99,11 @@ public class UserRole
 		return role;
 	}
 
-	public int getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
@@ -115,5 +111,12 @@ public class UserRole
 		this.role = role;
 	}
 	
+	public Language getLanguage() {
+		return lan;
+	}
+
+	public void setLanguage(Language language) {
+		this.lan = language;
+	}
 	
 }

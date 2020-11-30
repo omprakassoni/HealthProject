@@ -513,7 +513,7 @@
   		
   		
 		    
-		     <script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+		     
 		</div>
 			
 			
@@ -546,7 +546,7 @@
 														controls="controls" style="width:100%!important;">
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
 													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
-													<source th:src="'/'+${tutorialComponenet.getVideo()}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorialComponenet.getVideo()}}" type="video/mp4"></source>
 													</video>
  </div>		
 	 
@@ -663,7 +663,7 @@
 							  						<video id='storedPreId' 
 														controls="controls" style="width:100%!important;">
 													
-													<source th:src="'/'+${tutorialComponenet.getPrerequisite()}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorialComponenet.getPrerequisite()}}" type="video/mp4"></source>
 													
 													</video>
 												</div>
@@ -1008,11 +1008,7 @@
 		
 	<!-- script  review -->
 	
-	<div class="modal fade" id="scriptStatusAccept" data-target="#scriptStatusAcceptDomain"
-													data-whatever="@mdo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelscriptStatus" aria-hidden="true"
-													data-backdrop="static"
-							data-keyboard="false"
-													>
+	<!-- <div class="modal fade" id="scriptStatusAccept" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelSlideView" aria-hidden="true">
 						
 						
 						
@@ -1041,10 +1037,10 @@
 						      <div class="col-md-6">
 						      <div class="border border-secondary p-3 mb-3">
 										 <span id="scriptIdQuality" th:each="scriptpath : ${tutorialComponenet}">
-<a  target="_blank" id="cat"  name="categoryName"  th:href="${'/'+scriptpath.getScript()}" >
-<span th:text="${scriptpath.getTopic().getTopicname()}"></span>
-</a>		
-								
+												<a  target="_blank" id="cat"  name="categoryName"  th:href="@{/files/}+@{${scriptpath.getScript()}}" >
+												<span th:text="${scriptpath.getTopic().getTopicname()}"></span>
+												</a>		
+																				
 										 		</span> 
 										</div>
 						      
@@ -1096,8 +1092,130 @@
 						    
 						    </div>
 						  </div>					  
-	</div>	
+	</div>	 -->
 		
+		
+	<div class="modal fade" id="scriptStatusAccept" data-target="#scriptStatusAcceptDomain"
+data-whatever="@mdo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelscriptStatus" aria-hidden="true"
+data-backdrop="static"
+data-keyboard="false"
+>
+
+
+
+ <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+ 
+   <div class="modal-content">
+   <div class="alert alert-msg m-3" style="display: none;"></div>
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain Review-Script</h5>
+   
+       <div style="color: green; padding-left: 20px" id="saveCommentScript">
+       
+        </div>
+   
+   
+       <div class="modal-title">
+       
+        </div>
+       
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+     <div class="row">
+     <div class="col-md-6">
+     <div class="border border-secondary p-3 mb-3">
+<span id="scriptIdQuality" th:each="scriptpath : ${tutorialComponenet}">
+<a  target="_blank" id="cat"  name="categoryName"  th:href="@{/files/}+@{${scriptpath.getScript()}}" >
+<span th:text="${scriptpath.getTopic().getTopicname()}"></span>
+</a>
+
+</span>
+</div>
+     
+<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+         <div class="form-group">
+
+                     <select id="scriptAccept"  class="form-control" >
+ 
+<option value="0">Select</option>
+    <option value="1">Accept</option>
+    <option value="2">Need Improvement</option>
+   
+ </select>  
+                   
+         </div>
+         
+<div id="scriptNeedImprovement" style="display: none;">
+<label for="msgScriptQuality">Comments</label>
+<textarea class="form-control"  name="msgScriptQuality" id="msgScriptQuality" rows="10" required="required" placeholder="Add your comments here."></textarea>
+
+</div>
+
+   
+</form>
+     </div>
+     
+     <div class="col-md-6">
+     <div th:if="${not #lists.isEmpty(scriptComment)}">
+<h6 class="border-bottom">Comments: </h6>
+   <div th:each="comment : ${scriptComment}" class="border-bottom">
+   <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+  </span>
+</div>
+     
+<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+         <div class="form-group">
+
+                     <select id="scriptAccept"  class="form-control" >
+ 
+<option value="0">Select</option>
+    <option value="1">Accept</option>
+    <option value="2">Need Improvement</option>
+   
+ </select>  
+                   
+         </div>
+         
+<div id="scriptNeedImprovement" style="display: none;">
+<label for="msgScriptQuality">Comments</label>
+<textarea class="form-control"  name="msgScriptQuality" id="msgScriptQuality" rows="10" required="required" placeholder="Add your comments here."></textarea>
+
+</div>
+
+   
+</form>
+     </div>
+     
+     <div class="col-md-6">
+     <div th:if="${not #lists.isEmpty(scriptComment)}">
+<h6 class="border-bottom">Comments: </h6>
+   <div th:each="comment : ${scriptComment}" class="border-bottom">
+   <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+   <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+   <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+   
+   </div>
+
+</div>
+     </div>
+     
+     </div>
+     
+       
+     </div>
+      <div class="modal-footer">
+         <button id="scriptAcceptOrNeedToImprovemenet"  type="button" class="btn btn-success">Submit</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+     </div>
+   
+   </div>
+ </div>  
+</div> 
 	<!--Here is code for Slide Accept or Need To improvement-->
 		
 				<div class="modal fade" id="slideAcceptOrNeedImp" data-backdrop="static"
@@ -1127,7 +1245,7 @@
 						      <div class="col-md-6">
 						      <div class="border border-secondary p-3 mb-3">
 										<span id="slideIdQuality" th:each="slidepath : ${tutorialComponenet}">
-										<a target="_blank" id="cat"  name="categoryName"  th:href="${'/'+slidepath.getSlide()}" >
+										<a target="_blank" id="cat"  name="categoryName"  th:href="@{/files/}+@{${slidepath.getSlide()}}" >
 										<span th:text="${slidepath.getTopic().getTopicname()}"></span>
 										</a>		
 										</span>
@@ -1380,7 +1498,7 @@
 												<span id="scriptIdDomain"
 											th:each="comp : ${tutorialComponenet}"> <a
 												 target="_blank" 
-												name="categoryName" th:href="${'/'+comp.getGraphics()}">
+												name="categoryName" th:href="@{/files/}+@{${comp.getGraphics()}}">
 												<span>View Graphics</span></a>
 										</span>
 											<!-- </div>
@@ -1633,6 +1751,14 @@
 				
 			</div>
 			<script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+			
+			
+			<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		var filep='[(@{/files/})]';
+		
+	</script>
  </body>
 </html>
  

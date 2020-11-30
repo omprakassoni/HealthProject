@@ -12,11 +12,11 @@ public interface commentOnComponentDao extends CrudRepository<commentOnComponent
 {
 
 
-	@Query("from commentOnComponent u where u.tutorial=?1")
-	List<commentOnComponent> findBytutorial_id(Tutorial tutorial);
-
-	@Query("from commentOnComponent u where u.tutorial=?1 and u.componenenetDeatail=?2")
-	List<commentOnComponent> findBytutorialAndComponent(Tutorial tutorial, String commentOnComponent);
+//	@Query("from commentOnComponent u where u.tutorial=?1")
+//	List<commentOnComponent> findBytutorial_id(Tutorial tutorial);
+//
+//	@Query("from commentOnComponent u where u.tutorial=?1 and u.componenenetDeatail=?2")
+//	List<commentOnComponent> findBytutorialAndComponent(Tutorial tutorial, String commentOnComponent);
 
 
 

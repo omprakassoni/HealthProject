@@ -65,7 +65,7 @@ public class commentOnComponent {
 	 
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	 @JoinColumn(name="topic_id")
-	 private topic topic;
+	 private Topic topic;
 	 
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	 @JoinColumn(name="category_id")
@@ -73,7 +73,7 @@ public class commentOnComponent {
 	 
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	 @JoinColumn(name="language_id")
-	 private language language;
+	 private Language language;
 	 
 	 
 	public Tutorial getTutorial() {
@@ -82,10 +82,10 @@ public class commentOnComponent {
 	public void setTutorial(Tutorial tutorial) {
 		this.tutorial = tutorial;
 	}
-	public topic getTopic() {
+	public Topic getTopic() {
 		return topic;
 	}
-	public void setTopic(topic topic) {
+	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
 	public Category getCategory() {
@@ -94,10 +94,10 @@ public class commentOnComponent {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	public language getLanguage() {
+	public Language getLanguage() {
 		return language;
 	}
-	public void setLanguage(language language) {
+	public void setLanguage(Language language) {
 		this.language = language;
 	}
 	public User getUser() {

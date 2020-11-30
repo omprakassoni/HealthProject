@@ -12,12 +12,8 @@ public interface RoleRepository extends CrudRepository<Role, Integer> {
 			
 	Role findByname(String name);
 
-	/*
-	 * @Query("from Role u where u.roleId=?1") List<Role> findByIdList(int id);
-	 */
-	
-	  @Query("from Role u where u.roleId=?1")
-	   Role findByIdRoles(int id);
+	@Query("from Role u where u.roleId=?1")
+	Role findByIdRoles(int id);
 	 
 
 }

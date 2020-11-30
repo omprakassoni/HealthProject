@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://thymeleaf.org">
 <head>
 <title>Health And Nutrition</title>
 <link rel="stylesheet"
@@ -90,7 +90,7 @@ table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_asc:befo
 
 
 						<tr th:each="consultant : ${listConsultant}" class="py-6">
-						<td><img th:src="${consultant.uploadConsaltantImage}"
+						<td><img th:src="@{/files/}+@{${consultant.uploadConsaltantImage}}"
 								width="120" height="180" /></td>
 							<td th:text="${consultant.nameConsaltant}">description</td>
 							<td th:text="${consultant.descriptionConsaltant}">description</td>
@@ -167,6 +167,12 @@ table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_asc:befo
 		$(document).ready( function () {
 		    $('#tableId').DataTable();
 		} );
+	</script>
+	
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
 	</script>
 
 

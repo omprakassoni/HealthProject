@@ -1,5 +1,6 @@
 package com.health.model;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,115 +16,198 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Question
-{
+public class Question{
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO) 
+	@Column(name = "question_id",updatable = false,nullable = false)
+	private int questionId;
 	
-	private int id;
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Tutorial getTutorial() {
-		return tutorial;
-	}
-
-	public void setTutorial(Tutorial tutorial) {
-		this.tutorial = tutorial;
-	}
-
-	private String Quetionpath;
-
+	@Column(name = "question_path",nullable = false)
+	private String questionPath;
 	
-	@ManyToOne		
-	private Tutorial tutorial;
+	@Column(name = "date_added", nullable = false)
+	private Timestamp dateAdded;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="topic_id")
-	private topic topic;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User user;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "category_id")
+	private Category cat;
 	
-	public Question() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="cat_id")
-	private Category category;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "lan_id")
+	private Language lan;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="lan_id")
-	private language lan;
-	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "topic_id")
+	private Topic topic;
 
-	public String getQuetionpath() {
-		return Quetionpath;
+	public int getQuestionId() {
+		return questionId;
 	}
 
-	public void setQuetionpath(String quetionpath){
-		
-		Quetionpath = quetionpath;
-	
-	}
-	
-	public Question(com.health.model.topic topic) {
-		super();
-		this.topic = topic;
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
 	}
 
-	public Question(String quetionpath, Tutorial tutorial) {
-		super();
-		Quetionpath = quetionpath;
-		this.tutorial = tutorial;
+	public String getQuestionPath() {
+		return questionPath;
 	}
 
-	public topic getTopic() {
-		return topic;
+	public void setQuestionPath(String questionPath) {
+		this.questionPath = questionPath;
 	}
 
-	public void setTopic(topic topic) {
-		this.topic = topic;
+	public Timestamp getDateAdded() {
+		return dateAdded;
 	}
 
-	public Category getCategory() {
-		return category;
+	public void setDateAdded(Timestamp dateAdded) {
+		this.dateAdded = dateAdded;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public User getUser() {
+		return user;
 	}
 
-	public language getLan() {
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Category getCat() {
+		return cat;
+	}
+
+	public void setCat(Category cat) {
+		this.cat = cat;
+	}
+
+	public Language getLan() {
 		return lan;
 	}
 
-	public void setLan(language lan) {
+	public void setLan(Language lan) {
 		this.lan = lan;
 	}
 
-	
+	public Topic getTopic() {
+		return topic;
+	}
 
-	/*
-	 * @OneToMany(mappedBy = "question",
-	 * cascade=CascadeType.ALL,fetch=FetchType.LAZY) private Set<category_Tutorial>
-	 * category_Tutorials=new HashSet<>();
-	 */
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
 	
 	
-	/*
-	 * 
-	 * public Set<category_Tutorial> getCategory_Tutorials() { return
-	 * category_Tutorials; }
-	 * 
-	 * public void setCategory_Tutorials(Set<category_Tutorial> category_Tutorials)
-	 * { this.category_Tutorials = category_Tutorials; }
-	 * 
-	 */
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.AUTO) 
+//	
+//	private int id;
+//	public int getId() {
+//		return id;
+//	}
+//
+//	public void setId(int id) {
+//		this.id = id;
+//	}
+//
+//	public Tutorial getTutorial() {
+//		return tutorial;
+//	}
+//
+//	public void setTutorial(Tutorial tutorial) {
+//		this.tutorial = tutorial;
+//	}
+//
+//	private String Quetionpath;
+//
+//	
+//	@ManyToOne		
+//	private Tutorial tutorial;
+//	
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name="topic_id")
+//	private topic topic;
+//	
+//	
+//	public Question() {
+//		super();
+//		// TODO Auto-generated constructor stub
+//	}
+//
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name="cat_id")
+//	private Category category;
+//	
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name="lan_id")
+//	private language lan;
+//	
+//
+//	public String getQuetionpath() {
+//		return Quetionpath;
+//	}
+//
+//	public void setQuetionpath(String quetionpath){
+//		
+//		Quetionpath = quetionpath;
+//	
+//	}
+//	
+//	public Question(com.health.model.topic topic) {
+//		super();
+//		this.topic = topic;
+//	}
+//
+//	public Question(String quetionpath, Tutorial tutorial) {
+//		super();
+//		Quetionpath = quetionpath;
+//		this.tutorial = tutorial;
+//	}
+//
+//	public topic getTopic() {
+//		return topic;
+//	}
+//
+//	public void setTopic(topic topic) {
+//		this.topic = topic;
+//	}
+//
+//	public Category getCategory() {
+//		return category;
+//	}
+//
+//	public void setCategory(Category category) {
+//		this.category = category;
+//	}
+//
+//	public language getLan() {
+//		return lan;
+//	}
+//
+//	public void setLan(language lan) {
+//		this.lan = lan;
+//	}
+//
+//	
+//
+//	/*
+//	 * @OneToMany(mappedBy = "question",
+//	 * cascade=CascadeType.ALL,fetch=FetchType.LAZY) private Set<category_Tutorial>
+//	 * category_Tutorials=new HashSet<>();
+//	 */
+//	
+//	
+//	/*
+//	 * 
+//	 * public Set<category_Tutorial> getCategory_Tutorials() { return
+//	 * category_Tutorials; }
+//	 * 
+//	 * public void setCategory_Tutorials(Set<category_Tutorial> category_Tutorials)
+//	 * { this.category_Tutorials = category_Tutorials; }
+//	 * 
+//	 */
 	
 }

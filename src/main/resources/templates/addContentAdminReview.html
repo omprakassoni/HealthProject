@@ -133,7 +133,7 @@
 														controls="controls" style="width:100%!important;">
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
 													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
-													<source th:src="'/'+${tutorialComponenet.getVideo()}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorialComponenet.getVideo()}}" type="video/mp4"></source>
 													</video>
 </div>
 								<div class="row">
@@ -1116,17 +1116,23 @@
        			 <script th:src="@{static/js/jquery.slim.min}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>			
 				<script th:src="@{/fontawesome-free-5.10.1-web/js/all.js}"></script>
 			    <script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
-			    <script src="@{/s/js/popper.min.js}"></script> 
-			    <script src="@{/s/js/bootstrap.min.js}"></script>
+			    <script th:src="@{/s/js/popper.min.js}"></script> 
+			    <script th:src="@{/s/js/bootstrap.min.js}"></script>
 			
-			 <script src="@{/s/js/main.js}"></script>
-			  <script src="@{/js/ajaxSupport.js}"></script>
-			 <script src="@{js/jquery-3.3.1.js}"></script>    
+			 <script th:src="@{/s/js/main.js}"></script>
+			  <script th:src="@{/js/ajaxSupport.js}"></script>
+			 <script th:src="@{js/jquery-3.3.1.js}"></script>    
 			     
 				
 			</div>
-			<script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+			
  </body>
+ 
+ <script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 </html>
  
  

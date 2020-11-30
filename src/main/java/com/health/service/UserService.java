@@ -9,7 +9,6 @@ import com.health.model.User;
 
 public interface UserService {
 	
-	
 	PasswordResetToken getPasswordResetToken(final String token);
 	
 	void createPasswordResetTokenForUser(final User user, final String token);
@@ -25,12 +24,5 @@ public interface UserService {
 	User findByClassname(String username);
 	
 
-	
-	
-	
-	
-	
-	
-	
 	
 }

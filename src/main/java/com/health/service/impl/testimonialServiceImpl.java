@@ -9,19 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.model.Testimonial;
-import com.health.repository.TestimonialDao;
-import com.health.service.testimonialService;
+
+import com.health.repository.TestimonialRepository;
+import com.health.service.TestimonialService;
+
 
 
 
 
 
 @Service
-public class testimonialServiceImpl implements  testimonialService {
+public class testimonialServiceImpl implements  TestimonialService {
 	
 	
 		@Autowired
-		public  TestimonialDao testimonialdao;
+		public  TestimonialRepository testimonialdao;
 		
 	
 		
@@ -42,7 +44,7 @@ public class testimonialServiceImpl implements  testimonialService {
 		   @Override
 		    public void deleteProduct(Integer id) {
 
-			   testimonialdao.delete(id);
+			   testimonialdao.deleteById(id);
 			   //deleteById(id);     
 		        
 		    }
@@ -51,9 +53,12 @@ public class testimonialServiceImpl implements  testimonialService {
 	  @Override 
 	  public Testimonial getProductById(int id){
 	  
-	  Testimonial var=testimonialdao.findOne(id) ;//findById(id);
+	 //  Testimonial var=testimonialdao.findOne(id) ;//findById(id);
 	  
-	  return var;
+		  // version 2.1.7
+	  Optional<Testimonial> var=testimonialdao.findById(id) ;//findById(id);
+	  
+	  return var.get();
 	  
 	  }
 	 

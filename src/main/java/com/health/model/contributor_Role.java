@@ -42,11 +42,11 @@ public class contributor_Role
 		this.category = category;
 	}
 
-	public language getLan() {
+	public Language getLan() {
 		return lan;
 	}
 
-	public void setLan(language lan) {
+	public void setLan(Language lan) {
 		this.lan = lan;
 	}
 
@@ -56,12 +56,12 @@ public class contributor_Role
 	public void setStatus(long status) {
 		this.status = status;
 	}
-	public topic getTopic()
+	public Topic getTopic()
 	{
 		return topic;
 	}
 
-	public void setTopic(topic topic) {
+	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
 
@@ -90,11 +90,11 @@ public class contributor_Role
 	 
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	 @JoinColumn(name="langaueg_id")
-	 private language lan;
+	 private Language lan;
 
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	 @JoinColumn(name="topic_id")
-	 private topic topic;
+	 private Topic topic;
 	 
  
 		

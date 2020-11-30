@@ -11,17 +11,19 @@ import org.springframework.stereotype.Service;
 
 import com.health.model.Event;
 import com.health.model.Testimonial;
-import com.health.repository.EventDao;
-import com.health.service.eventService;
+
+import com.health.repository.EventRepository;
+import com.health.service.EventService;
+
 
 
 
 @Service
-public class eventServiceImpl implements eventService {
+public class eventServiceImpl implements EventService {
 	
 
 	@Autowired
-	private EventDao eventdao;
+	private EventRepository eventdao;
 
 	
 	@Override
@@ -32,16 +34,20 @@ public class eventServiceImpl implements eventService {
 	}
 	
 	  @Override public void deleteProduct(Integer id) {  
-	  eventdao.delete(id);
+	  //eventdao.delete(id);
+	  // version 2.1.7
+	  eventdao.deleteById(id);
 	  
 	  }
 		
 	  @Override 
 	  public Event getProductById(int id){
 	  
-	  Event var=eventdao.findOne(id);
+	 //  Event var=eventdao.findOne(id);
 	  
-	  return var;
+	  // version 2.1.7
+	  Optional<Event> var=eventdao.findById(id);
+	  return var.get();
 	  
 	  }
  

@@ -8,18 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.model.Category;
+import com.health.model.Language;
+import com.health.model.Topic;
 import com.health.model.Tutorial;
 import com.health.model.User;
-import com.health.model.language;
-import com.health.model.topic;
-import com.health.repository.TutorialDao;
-import com.health.service.tutorialService;
+
+import com.health.repository.TutorialRepository;
+import com.health.service.TutorialService;
+
 
 @Service
-public class tutorialServiceImpl implements tutorialService {
+public class tutorialServiceImpl implements TutorialService {
 
 	@Autowired
-	private TutorialDao tutorialDao;
+	private TutorialRepository tutorialDao;
 
 	@Override
 	public List<Tutorial> findAll() {
@@ -32,7 +34,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateKeyword(String keywordMessage,int status,User user,topic topic ,Category category)
+	public Boolean updateKeyword(String keywordMessage,int status,User user,Topic topic ,Category category)
 	{
 
 		int keywordfStatus=	tutorialDao.updateKeyword(keywordMessage,status,user,topic,category);
@@ -48,7 +50,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean upadatePreStatus(int preStatus, topic topic, Category category, language language)
+	public Boolean upadatePreStatus(int preStatus, Topic topic, Category category, Language language)
 	{
 
 		int stustusPre=tutorialDao.upadatePreStatus(preStatus,topic,category,language);
@@ -67,7 +69,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateOutline(String outlineMessage, int status, User user, topic topic, Category category) {
+	public Boolean updateOutline(String outlineMessage, int status, User user, Topic topic, Category category) {
 
 		int outlineStatus=tutorialDao.updateOutline(outlineMessage,status,user,topic,category);
 
@@ -82,7 +84,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateSlide(String slideUpload, int statusSlide, User user, topic topic, Category category)
+	public Boolean updateSlide(String slideUpload, int statusSlide, User user, Topic topic, Category category)
 	{
 
 		int slideStatus=tutorialDao.updateSlide(slideUpload,statusSlide,user,topic,category);
@@ -99,7 +101,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateScript(String scriptUpload, int scriptStatus, User user, topic topic, Category category)
+	public Boolean updateScript(String scriptUpload, int scriptStatus, User user, Topic topic, Category category)
 	{
 
 		int scriptSta=tutorialDao.updateScript(scriptUpload,scriptStatus,user,topic,category);
@@ -120,7 +122,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateVideo(String videoUpload, int statusVideo, User user, topic topic, Category category)
+	public Boolean updateVideo(String videoUpload, int statusVideo, User user, Topic topic, Category category)
 	{
 		int v=tutorialDao.updateVideo(videoUpload, statusVideo, user, topic, category);
 
@@ -138,7 +140,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateVideoStatusByAdmin(int StatusByAdmin,topic topic,Category category,language language)
+	public Boolean updateVideoStatusByAdmin(int StatusByAdmin,Topic topic,Category category,Language language)
 	{
 
 		int statusByAdmin=tutorialDao.updateVideoStatusByAdmin( StatusByAdmin, topic, category, language);
@@ -160,7 +162,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateOutlineStatusByDomain(int StatusByDomain,topic topic,Category category,language language)
+	public Boolean updateOutlineStatusByDomain(int StatusByDomain,Topic topic,Category category,Language language)
 	{
 
 		int statusByAdmin=tutorialDao.updateOutlineStatusByDomain(StatusByDomain, topic, category, language);
@@ -182,7 +184,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateScriptStatusByDomain(int scriptStautusByDomain, topic topic, Category category,language language)
+	public Boolean updateScriptStatusByDomain(int scriptStautusByDomain, Topic topic, Category category,Language language)
 	{
 		int statusByDomain=tutorialDao.updateScriptStatusByDomain(scriptStautusByDomain, topic, category, language);
 
@@ -200,7 +202,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateOutLineStatusByQuality(int scriptStautusByQuality, topic topic, Category category,language language)
+	public Boolean updateOutLineStatusByQuality(int scriptStautusByQuality, Topic topic, Category category,Language language)
 	{
 
 		int statusByQuality=tutorialDao.updateOutLineStatusByQuality(scriptStautusByQuality, topic, category, language);
@@ -222,7 +224,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean upadateSlideStatusByQuality(int scriptStautusByQuality, topic topic, Category category,language language)
+	public Boolean upadateSlideStatusByQuality(int scriptStautusByQuality, Topic topic, Category category,Language language)
 	{
 
 		int statusByQualitSlide=tutorialDao.upadateSlideStatusByQuality(scriptStautusByQuality,topic,category,language);
@@ -240,7 +242,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean upadateScriptStatusByQuality(int scriptStautusByQuality, topic topic, Category category,language language)
+	public Boolean upadateScriptStatusByQuality(int scriptStautusByQuality, Topic topic, Category category,Language language)
 	{
 
 		int statusByQualitScript=tutorialDao.upadateScriptStatusByQuality(scriptStautusByQuality,topic,category,language);
@@ -259,7 +261,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean upadateKeywordByQuality(int scriptStautusByQuality, topic topic, Category category,language language)
+	public Boolean upadateKeywordByQuality(int scriptStautusByQuality,Topic topic, Category category,Language language)
 	{
 
 	  int statusByQuality=tutorialDao.upadateKeywordByQuality(scriptStautusByQuality,topic,category,language);
@@ -277,7 +279,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean upadateVideoByQuality(int videoStautusByQuality, topic topic, Category category, language language) {
+	public Boolean upadateVideoByQuality(int videoStautusByQuality, Topic topic, Category category, Language language) {
 
 
 		  int statusByQuality=tutorialDao.upadateVideoByQuality(videoStautusByQuality,topic,category,language);
@@ -313,7 +315,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateGraphics(String graphicsUpload, int graphicsUploadStatus, User user, topic topic,Category category) {
+	public Boolean updateGraphics(String graphicsUpload, int graphicsUploadStatus, User user, Topic topic,Category category) {
 
 
 
@@ -333,7 +335,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updateGraphicsStatusByDomain(int graphicsStatus, topic topic, Category category, language language) {
+	public Boolean updateGraphicsStatusByDomain(int graphicsStatus, Topic topic, Category category, Language language) {
 
 		int statusByAdmin=tutorialDao.updateGraphicsStatusByDomain(graphicsStatus, topic, category, language);
 
@@ -351,8 +353,8 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean upadateGraphicsStatusImpByDomain(int scriptStautusByQuality, topic topic, Category category,
-			language language) {
+	public Boolean upadateGraphicsStatusImpByDomain(int scriptStautusByQuality, Topic topic, Category category,
+			Language language) {
 		int statusByAdmin=tutorialDao.upadateGraphicsStatusImpByDomain(scriptStautusByQuality, topic, category, language);
 
 
@@ -369,8 +371,8 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean upadateGraphicsByQuality(int graphicsStautusByQuality, topic topic, Category category,
-			language language) {
+	public Boolean upadateGraphicsByQuality(int graphicsStautusByQuality, Topic topic, Category category,
+			Language language) {
 		int statusByQuality=tutorialDao.upadateGraphicsByQuality(graphicsStautusByQuality,topic,category,language);
 
 		if(statusByQuality>0)
@@ -387,7 +389,7 @@ public class tutorialServiceImpl implements tutorialService {
 
 	@Override
 	@Transactional
-	public Boolean updatePre(String preUpload, int preUploadStatus, language lan, topic topic, Category category) {
+	public Boolean updatePre(String preUpload, int preUploadStatus, Language lan, Topic topic, Category category) {
 
 		int stustusPre=tutorialDao.updatePre(preUpload,preUploadStatus,lan,topic,category);
 

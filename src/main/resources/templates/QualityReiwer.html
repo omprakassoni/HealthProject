@@ -775,5 +775,11 @@
     <script th:src="@{/s/js/main.js}"></script>
  
 	<!-- <div th:replace="common/header :: body-bottom-scripts" /> -->
+	
+		<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 </body>
 </html>

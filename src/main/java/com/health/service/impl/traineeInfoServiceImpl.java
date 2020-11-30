@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.model.Testimonial;
-import com.health.repository.TestimonialDao;
+
 import com.health.repository.traineeProfileDao;
-import com.health.service.testimonialService;
+
 import com.health.service.traineeInformationServic;
 
 

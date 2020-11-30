@@ -453,7 +453,7 @@
 														controls="controls">
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
 													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
-													<source th:src="${tutorial.getVideo()}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorial.getVideo()}}" type="video/mp4"></source>
 													</video>
 												</div>
 											</div>
@@ -1300,7 +1300,7 @@
 											  <div class="card-body">
 											    <div class="form-group">
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
-												<a name="sliedPdf" target="_blank" id="sliedPdf" th:href="${tutorial.getGraphics()}">View Graphics</a>
+												<a name="sliedPdf" target="_blank" id="sliedPdf" th:href="@{/files/}+@{${tutorial.getGraphics()}}">View Graphics</a>
 											</div>
 											  </div>
 											</div>
@@ -1436,5 +1436,14 @@
 
 
 	</div>
+	
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+		var filep='[(@{/files/})]';
+		
+		
+	</script>
 </body>
 </html>

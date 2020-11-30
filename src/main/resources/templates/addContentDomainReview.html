@@ -577,7 +577,7 @@
 														controls="controls" style="width:100%!important;">
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
 													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
-													<source th:src="'/'+${tutorialComponenet.getVideo()}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorialComponenet.getVideo()}}" type="video/mp4"></source>
 													</video>
 </div>
 
@@ -722,7 +722,7 @@
 									<div class="col-md-6">
 									<div class="border border-secondary p-3 mb-3">
 										<span id="scriptIdDomain" th:each="scriptpath : ${tutorialComponenet}"> 
-										<a target="_blank" id="cat" th:href="${'/'+scriptpath.getScript()}">
+										<a target="_blank" id="cat" th:href="@{/files/}+@{${scriptpath.getScript()}}">
 												<span th:text="${scriptpath.getTopic().getTopicname()}"></span>
 										</a>
 										</span>
@@ -812,7 +812,7 @@
 							  					<video id='storedDomainPreId' 
 														controls="controls" style="width:100%!important;">
 													
-													<source th:src="'/'+${tutorialComponenet.getPrerequisite()}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorialComponenet.getPrerequisite()}}" type="video/mp4"></source>
 													
 												</video>
 												</div>
@@ -900,7 +900,7 @@
 												<span id="scriptIdDomain"
 											th:each="scriptpath : ${tutorialComponenet}"> <a
 												 target="_blank" id="slidName"
-												name="categoryName" th:href="${'/'+scriptpath.getSlide()}">
+												name="categoryName" th:href="@{/files/}+@{${scriptpath.getSlide()}}">
 												<span th:text="${scriptpath.getTopic().getTopicname()}"></span></a>
 										</span>
 											<!-- </div>
@@ -1060,7 +1060,7 @@
 												<span id="scriptIdDomain"
 											th:each="comp : ${tutorialComponenet}"> <a
 												 target="_blank" 
-												name="categoryName" th:href="${'/'+comp.getGraphics()}">
+												name="categoryName" th:href="@{/files/}+@{${comp.getGraphics()}}">
 												<span>View Graphics</span></a>
 										</span>
 											<!-- </div>
@@ -1320,6 +1320,15 @@
 
 	</div>
 	<script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+	
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+		var filep='[(@{/files/})]';
+		
+	</script>
+	
 </body>
 </html>
 

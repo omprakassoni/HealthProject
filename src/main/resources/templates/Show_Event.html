@@ -78,9 +78,9 @@
 						                <td th:text="${event.contactnumber}">description</td>
 									   <td th:text="${event.email}">description</td>
 
-					                <td><a onclick="submitForm()" th:href="${'event/edit/' + event.id}">Edit</a></td>  
+					                <td><a onclick="submitForm()" th:href="@{${'event/edit/' + event.id}}">Edit</a></td>  
    
-					                <td><a th:href="${'/event/delete/' + event.id}">Disable</a></td>
+					                <td><a th:href="@{${'/event/delete/' + event.id}}">Disable</a></td>
     
 					            </tr>
 					            
@@ -151,7 +151,11 @@
 			</div>
 		</div>
 	</div>
-
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 
 </body>
  

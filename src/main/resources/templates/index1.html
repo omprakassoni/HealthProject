@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="overflow-y: scroll!important;overflow: scroll!important;">
+<html xmlns:th="https://thymeleaf.org" >
 <head>
   <title>Health And Nutrition</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
@@ -396,7 +396,7 @@
         <div class="column is-4" th:each="consantant : ${listofConsalatatnt}">
           <div class="card is-shady">
             <div class="card-content">
-            <img th:src="${consantant.getUploadConsaltantImage()}" alt="image" class="c-card-img has-text-centered" data-target="modal-image2" />
+            <img th:src="@{/files/}+@{${consantant.getUploadConsaltantImage()}}" alt="image" class="c-card-img has-text-centered" data-target="modal-image2" />
               <div class="content">
                 <p class="title is-size-5 has-text-weight-light" th:text="${consantant.getNameConsaltant()}">Name</p>
                		<hr/>
@@ -637,6 +637,12 @@ $(document).ready(function(){
      
 	});
 </script>
+
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 				
 </body>
 </html>

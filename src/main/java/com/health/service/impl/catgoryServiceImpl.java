@@ -1,6 +1,7 @@
 package com.health.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -8,17 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.model.Category;
-import com.health.model.Consaltantant;
+
 import com.health.model.Event;
-import com.health.repository.CategoryDao;
-import com.health.service.ConsaltantService;
-import com.health.service.categoryService;
+
+import com.health.repository.CategoryRepository;
+import com.health.service.CategoryService;
+
 
 @Service
-public class catgoryServiceImpl implements categoryService {
+public class catgoryServiceImpl implements CategoryService {
 
 	@Autowired 
-	private CategoryDao  categoryDao;
+	private CategoryRepository  categoryDao;
 	
 	@Override
 	public List<Category> findAll() {
@@ -42,9 +44,9 @@ public class catgoryServiceImpl implements categoryService {
 	public void deleteProduct(Integer id){
 
 		
-		categoryDao.delete(id);
-		
-																																																																												
+		// categoryDao.delete(id);
+		 // version 2.1.7
+		categoryDao.deleteById(id);																																																																									
 	}
 	
 	   
@@ -66,9 +68,12 @@ public class catgoryServiceImpl implements categoryService {
 	  @Override 
 	  public Category getProductById(int id){
 	  
-		  Category var=categoryDao.findOne(id);
+		 // Category var=categoryDao.findOne(id);
 	  
-	  return var;
+		  // version 2.1.7
+		  Optional<Category> var=categoryDao.findById(id);
+		  
+	  return var.get();
 	  
 	  }
 	  

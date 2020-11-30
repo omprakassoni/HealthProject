@@ -74,35 +74,35 @@ public class category_Tutorial {
 
 	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
 	@JoinColumn(name="lan_id")
-	private language language;
+	private Language language;
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
 	@JoinColumn(name="topic_id")
-	private topic topic;
+	private Topic topic;
 
 
-	public language getLanguage() {
+	public Language getLanguage() {
 		return language;
 	}
 
 
-	public void setLanguage(language language) {
+	public void setLanguage(Language language) {
 		this.language = language;
 	}
 
 
-	public topic getTopic() {
+	public Topic getTopic() {
 		return topic;
 	}
 
 
-	public void setTopic(topic topic) {
+	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
 
 
-	public category_Tutorial(Category cat,  com.health.model.topic topic) {
+	public category_Tutorial(Category cat,  com.health.model.Topic topic) {
 		super();
 		this.cat = cat;
 		this.topic = topic;

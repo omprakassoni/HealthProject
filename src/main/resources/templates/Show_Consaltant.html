@@ -45,7 +45,7 @@
 						                <td th:text="${product.descriptionConsaltant}">description</td>
 						
 						                <td> 
-						                  	<img th:src="${product.uploadConsaltantImage}"  width="120" height="180"/>
+						                  	<img th:src="@{/files/}+@{${product.uploadConsaltantImage}}"  width="120" height="180"/>
 						                
 						                </td>  
 					   
@@ -91,6 +91,12 @@
 			
 			
 			</div>
+			
+				<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
  </body>
 </html>
  

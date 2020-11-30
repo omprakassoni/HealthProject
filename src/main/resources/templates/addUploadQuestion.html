@@ -21,7 +21,7 @@
 	<div style="display: flex;">
 		<div th:replace="common/sidebar :: contributor_sidebar"></div>
 
-		<div class="row" style='width: 100%;'>
+		 <div class="row" style='width: 100%;'>
 			<div class="col-lg-10 col-xl-9 mx-auto">
 				<div class="card card-signin flex-row a-card">
 
@@ -29,9 +29,9 @@
 					
 					
 
-						<form class="form-horizontal" th:action="@{/addConsaltant}"
+						<!--  <form class="form-horizontal" th:action="@{/}"
 							method="post" enctype="multipart/form-data"
-							onsubmit="return submitForm(this);">
+							onsubmit="return submitForm(this);"> -->
 
  <body>
   
@@ -169,6 +169,11 @@
 	</div>
 
 
+<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 </body>
  
 </html>

@@ -20,7 +20,7 @@
 	<div style="display: flex;">
 		<div th:replace="common/sidebar :: contributor_sidebar"></div>
 
-		<div class="row" style='width: 100%;'>
+		 <div class="row" style='width: 100%;'>
 			<div class="col-lg-10 col-xl-9 mx-auto">
 				<div class="card card-signin flex-row a-card">
 
@@ -28,10 +28,9 @@
 					
 					
 
-						<form class="form-horizontal" th:action="@{/addConsaltant}"
+						<!-- <form class="form-horizontal" th:action="@{/addConsaltant}"
 							method="post" enctype="multipart/form-data"
-							onsubmit="return submitForm(this);">
-  <body>
+							onsubmit="return submitForm(this);">  -->
   
   		
   		
@@ -60,15 +59,15 @@
 					                <td th:text="${testimonial.testimoniaqlDescription}">description</td>
 					                <td>
 					              			
-									  <iframe width="330" height="215" th:src="${testimonial.uploadTestiminial}" frameborder="0"
+									  <iframe width="330" height="215" th:src="@{/files/}+@{${testimonial.uploadTestiminial}}" frameborder="0"
 						   					 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true">
 						         		 
 						   		 </iframe>		
 				     			 		
 					                </td> 
 					
-					                <td><a th:href="${'/productTesdtimonial/edit/' + testimonial.id}">Edit</a></td>
-					                <td><a onclick="submitForm()" th:href="${'/testimonial/delete/' + testimonial.id}">Disable</a></td>  
+					                <td><a th:href="@{${'/productTesdtimonial/edit/' + testimonial.id}}">Edit</a></td>
+					                <td><a onclick="submitForm()" th:href="@{${'/testimonial/delete/' + testimonial.id}}">Disable</a></td>  
 		
 					            </tr>
 					            
@@ -135,7 +134,11 @@
 		</div>
 	</div>
 
-
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
 </body>
  
 </html>

@@ -16,8 +16,7 @@ import org.hibernate.annotations.GeneratorType;
 @Entity
 public class Role {
 
-	@Id		
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	@Id	
 	private int roleId;		
 	private String name;
 	

@@ -1,5 +1,6 @@
 package com.health.model;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -25,26 +26,44 @@ import com.health.domain.security.UserRole;
 public class User implements UserDetails{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id", nullable = false, updatable = false)
 	private Long id;
+	
 	private String username;
+	
 	private String password;
+	
 	private String firstName;
+	
 	private String lastName;
+	
 	private String address;
+	
+	@Column(name = "token")
+	private String token;
+	
+	@Column(name = "age")
+	private int age;
+	
+	@Column(name = "master_trainer_organization")
+	private String organization ;
+	
+	@Column(name = "master_trainer_experience")
+	private int experience;
+	
+	@Column(name = "master_trainer_aadhar")
+	private long aadharNumber;
 
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 	@Column(name="email", nullable = false, updatable = false)
 	private String email;
-	private String phone;
-	private boolean enabled=true;
+	
+	private long phone;
+	
+	private boolean registered=true;
+	
+	@Column(name = "dateAdded",nullable = false,updatable = false)
+	private Timestamp dateAdded;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
@@ -59,7 +78,7 @@ public class User implements UserDetails{
 
 	@OneToMany(mappedBy ="user",cascade =
 	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
-	 List<topic> topics;
+	 List<Topic> topics;
 
 	 @OneToMany(mappedBy = "user",cascade =
 	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
@@ -101,13 +120,7 @@ public class User implements UserDetails{
 	public void setTutorial(List<Tutorial> tutorial) {
 		this.tutorial = tutorial;
 	}
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 	@Override
 	public String getUsername() {
 		return username;
@@ -115,6 +128,7 @@ public class User implements UserDetails{
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
 	@Override
 	public String getPassword() {
 		return password;
@@ -128,10 +142,10 @@ public class User implements UserDetails{
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public List<topic> getTopics() {
+	public List<Topic> getTopics() {
 		return topics;
 	}
-	public void setTopics(List<topic> topics) {
+	public void setTopics(List<Topic> topics) {
 		this.topics = topics;
 	}
 	public String getLastName() {
@@ -146,16 +160,13 @@ public class User implements UserDetails{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPhone() {
+	public long getPhone() {
 		return phone;
 	}
-	public void setPhone(String phone) {
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
 	public Set<UserRole> getUserRoles() {
 		return userRoles;
 	}
@@ -168,12 +179,10 @@ public class User implements UserDetails{
 
 		for(UserRole x:userRoles)
 		{
-			if(x.getStatus()==1) {
+			if(x.getStatus()) {
 				authorites.add(new Authority(x.getRole().getName()));
 			}
 		}
-
-
 
 		return authorites;
 	}
@@ -195,11 +204,69 @@ public class User implements UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		return enabled;
+		return registered;
 	}
 
 	public String getFullName() {
 		return  firstName + ' ' + lastName;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public boolean isRegistered() {
+		return registered;
+	}
+	public void setRegistered(boolean registered) {
+		this.registered = registered;
+	}
+	public Set<commentOnComponent> getCommentOnComponent() {
+		return commentOnComponent;
+	}
+	public void setCommentOnComponent(Set<commentOnComponent> commentOnComponent) {
+		this.commentOnComponent = commentOnComponent;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getOrganization() {
+		return organization;
+	}
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+	public int getExperience() {
+		return experience;
+	}
+	public void setExperience(int experience) {
+		this.experience = experience;
+	}
+	public long getAadharNumber() {
+		return aadharNumber;
+	}
+	public void setAadharNumber(long aadharNumber) {
+		this.aadharNumber = aadharNumber;
+	}
+	public Timestamp getDateAdded() {
+		return dateAdded;
+	}
+	public void setDateAdded(Timestamp dateAdded) {
+		this.dateAdded = dateAdded;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 

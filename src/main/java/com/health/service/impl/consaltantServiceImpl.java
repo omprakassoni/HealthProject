@@ -8,21 +8,24 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.health.model.Consaltantant;
-import com.health.repository.ConsaltantDao;
-import com.health.service.ConsaltantService;
+
+import com.health.model.Consultant;
+
+import com.health.repository.ConsultantRepository;
+
+import com.health.service.ConsultantService;
 
 
 @Service
-public class consaltantServiceImpl implements ConsaltantService {
+public class consaltantServiceImpl implements ConsultantService {
 
 	@Autowired
-	private ConsaltantDao consaltantdao;
+	private ConsultantRepository consaltantdao;
 
 	@Override
-	public List<Consaltantant> findAll() {
+	public List<Consultant> findAll() {
 
-		List<Consaltantant> local = (List<Consaltantant>) consaltantdao.findAll();
+		List<Consultant> local = (List<Consultant>) consaltantdao.findAll();
 
 		return local;
 
@@ -32,18 +35,23 @@ public class consaltantServiceImpl implements ConsaltantService {
 	public void deleteProduct(Integer id){
 
 		
-		consaltantdao.delete(id);
+		// consaltantdao.delete(id);
 		
+		  // version 2.1.7
+		consaltantdao.deleteById(id);
 																																																																												
 	}
 //chage the method
 	@Override
 	
-	  public Consaltantant getProductById(Integer id) {
+	  public Consultant getProductById(Integer id) {
 	  
-	  Consaltantant var = consaltantdao.findOne(id);
+	 // Consaltantant var = consaltantdao.findOne(id);
 	  
-	  return var;
+	  // version 2.1.7
+	  Optional<Consultant> var = consaltantdao.findById(id);
+	  
+	  return var.get();
 	  
 	  }
 	 
@@ -65,7 +73,7 @@ public class consaltantServiceImpl implements ConsaltantService {
 	
 	
     @Override
-    public Consaltantant saveProduct(Consaltantant product) {
+    public Consultant saveProduct(Consultant product) {
     	
         return consaltantdao.save(product);
     }

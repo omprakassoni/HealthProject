@@ -127,11 +127,11 @@ public class TraningInformation
 		this.category = category;
 	}
 
-	public topic getTopics() {
+	public Topic getTopics() {
 		return topics;
 	}
 
-	public void setTopics(topic topics) {
+	public void setTopics(Topic topics) {
 		this.topics = topics;
 	}
 
@@ -147,7 +147,7 @@ public class TraningInformation
 
 	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 			@JoinColumn(name="topic_id")
-		 private topic topics;
+		 private Topic topics;
 
 
 
@@ -170,7 +170,7 @@ public class TraningInformation
 
 
 
-	public TraningInformation(Category category, com.health.model.topic topics) {
+	public TraningInformation(Category category, com.health.model.Topic topics) {
 		super();
 		this.category = category;
 		this.topics = topics;

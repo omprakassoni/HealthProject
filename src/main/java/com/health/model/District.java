@@ -1,13 +1,13 @@
 package com.health.model;
 
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,44 +16,63 @@ import javax.persistence.OneToMany;
 @Entity
 public class District {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO) 
+	@Id 
 	@Column(name = "district_id", nullable = false)
 	int id;
+	
 	private String districtName;
+	
+	private Timestamp dateAdded;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="state_id")
-	private state state;
-	
+	private State state;
 	
 	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private List<City> city;
-	
+	Set<City> cities=new HashSet<City>();
+
 	public int getId() {
 		return id;
 	}
-	public state getState() {
-		return state;
-	}
-	public void setState(state state) {
-		this.state = state;
-	}
-	public List<City> getCity() {
-		return city;
-	}
-	public void setCity(List<City> city) {
-		this.city = city;
-	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getDistrictName() {
 		return districtName;
 	}
+
 	public void setDistrictName(String districtName) {
 		this.districtName = districtName;
 	}
+
+	public Timestamp getDateAdded() {
+		return dateAdded;
+	}
+
+	public void setDateAdded(Timestamp dateAdded) {
+		this.dateAdded = dateAdded;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public Set<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(Set<City> cities) {
+		this.cities = cities;
+	}
+	
+	
+
 
 
 }

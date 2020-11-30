@@ -166,7 +166,7 @@
 					
 				<div class="col-md-8 col-sm-8 col-lg-8">
 						
-							<video style="padding-top: 8px;padding-bottom: 4px; padding-left: 4px; padding-right: 4px"  th:src="'HealthNutrition/'+${tutorial.getVideo()}" id="tutorialView" height="400"
+							<video style="padding-top: 8px;padding-bottom: 4px; padding-left: 4px; padding-right: 4px"  th:src="@{/files/}+@{${tutorial.getVideo()}}" id="tutorialView" height="400"
 								  width="750" controls="controls">
 								  
 							</video>
@@ -179,10 +179,10 @@
 						
 		<div class="row rounded bg-light" style="padding-left: 80px; padding-top:8px;">
 								
-							<video th:src="${'HealthNutrition/'+tutorials.getVideo()}" id="tutorialView" height="100"
+							<video th:src="@{/files/}+@{${tutorials.getVideo()}}" id="tutorialView" height="100"
 											  controls="controls">
 											  
-							</video> 
+						</video> 
 							
 							<a th:href="${tutorials.getTutorialid()}">
 							
@@ -216,7 +216,7 @@
 					
 					
 					
-		 <a th:href="'/'+${tutorial.getScript()}" target="_blank">	
+		 <a th:href="@{/files/}+@{${tutorial.getScript()}}" target="_blank">	
 				 
 			 <h4> <i style="color:blue; padding-top: 10px; padding-left: 20px" class="fa fa-file-archive-o" aria-hidden="true"></i>&nbsp;&nbsp; Script</h4>
 				
@@ -256,6 +256,12 @@
 			<script th:src="@{/js/ajaxSupport.js}"></script>
 	   
 	    </div>
+	    
+	    	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
  </body>
 </html>
  
