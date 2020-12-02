@@ -32,7 +32,7 @@ public class Event {
 	private String contactPerson;
 	
 	@Column(name = "contactNumber", nullable = false)
-	private String contactNumber;
+	private long contactNumber;
 	
 	@Column(name = "email", nullable = false)
 	private String email;
@@ -90,11 +90,11 @@ public class Event {
 		this.contactPerson = contactPerson;
 	}
 
-	public String getContactNumber() {
+	public long getContactNumber() {
 		return contactNumber;
 	}
 
-	public void setContactNumber(String contactNumber) {
+	public void setContactNumber(long contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 

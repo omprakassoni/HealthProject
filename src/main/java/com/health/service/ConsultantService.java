@@ -8,19 +8,17 @@ import com.health.model.Consultant;
 
 public interface ConsultantService {
 	
-	List<Consultant> findAll();
+	List<Consultant> findAll();     // in use
 	
-    void deleteProduct(Integer id);
+    void deleteProduct(Integer id);     
     
-    
-    Consultant getProductById(Integer id);
+    Consultant findById(int id);    // in use
 
 	Boolean UpdateConsalantant(String description,String name, String uploadVideo,int consalantant_id);
-	
-	
-	
-	Consultant saveProduct(Consultant product);
-	
 
+	void save(Consultant consult);   // in use
+	
+	int getNewConsultantId();       // in use
+	
 
 }

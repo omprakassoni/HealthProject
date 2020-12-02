@@ -33,7 +33,7 @@ public class Category {
 	private Timestamp dateAdded;
 	
 	@Column(name = "status", nullable = false)
-	private boolean status;
+	private boolean status=true;
 	
 	@Column(name = "Image_path", nullable = false)
 	private String posterPath;
@@ -51,8 +51,6 @@ public class Category {
 	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserRole> userRoles=new HashSet<UserRole>();
 	
-	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Question> questions=new HashSet<Question>();
 
 	public int getCategoryId() {
 		return categoryId;
@@ -126,13 +124,6 @@ public class Category {
 		this.userRoles = userRoles;
 	}
 
-	public Set<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
-	}
 
 
 //	@Id

@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.health.domain.security.UserRole;
-import com.health.service.impl.catgoryServiceImpl;
+
 
 @Entity 
 public class Language {
@@ -34,7 +34,7 @@ public class Language {
 	private Timestamp dateAdded;
 	
 	@Column(name = "status", nullable = false)
-	private boolean status;
+	private boolean status=true;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")

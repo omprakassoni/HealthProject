@@ -14,6 +14,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	
 	User findByEmail(String email);
 	
+	@Query("select max(id) from User")
+	long getNewId();
 	
 //	@Query("from User u where u.username=?1")
 //	User findByClassname(String username);

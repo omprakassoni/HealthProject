@@ -13,6 +13,9 @@ import com.health.model.Testimonial;
 
 public interface EventRepository extends  CrudRepository<Event, Integer> {
 	
+	@Query("select max(eventId) from Event")
+	int getNewId();
+	
 //	@Modifying
 //	@Query("update Event set  eventname=?1 ,date=?2,endDate=?3, description=?4,venuename=?5,contactperson=?6,contactnumber=?7,email=?8 where id=?9")
 //	int UpdateEvent(String eventname,Date date,Date end,String description,String venuename,String contactperson,String contactnumber,String email,int id);

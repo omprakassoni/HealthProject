@@ -2,12 +2,13 @@ package com.health;
 
 import java.io.File;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-
+import org.springframework.core.env.Environment;
 
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
@@ -15,7 +16,7 @@ import com.health.model.User;
 import com.health.service.RoleService;
 import com.health.service.UserRoleService;
 import com.health.service.UserService;
-
+import com.health.utility.CommonData;
 import com.health.utility.SecurityUtility;
 import com.health.utility.ServiceUtility;
 
@@ -32,7 +33,8 @@ public class HealthNutrition extends org.springframework.boot.web.servlet.suppor
 	@Autowired
 	private UserRoleService usrRoleService;
 	
-	
+	@Autowired
+	private Environment env;	
 	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
@@ -42,10 +44,8 @@ public class HealthNutrition extends org.springframework.boot.web.servlet.suppor
 	}
 
 	public static void main(String[] args)  {
-
-
+		
 		SpringApplication.run(HealthNutrition.class, args);
-
 
 
 	}
@@ -54,6 +54,12 @@ public class HealthNutrition extends org.springframework.boot.web.servlet.suppor
 	
 	@Override
 	public void run(String... args) throws Exception {
+		
+		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryCategory).mkdirs();
+		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryQuestion).mkdirs();
+		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial).mkdirs();
+		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryConsultant).mkdirs();
+		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial).mkdirs();
 
 		Role role=new Role();
 		role.setRoleId(1);

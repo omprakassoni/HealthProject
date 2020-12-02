@@ -15,6 +15,9 @@ public interface TopicRepository extends CrudRepository<Topic , Integer>{
 //	@Query("from topic u where u.category=?1") 
 //	List<Topic> findByCategory(Category category);
 	 
+	@Query("select max(topicId) from Topic")
+	int getNewId();
 	
+	Topic findBytopicName(String topicName);
 			
 }

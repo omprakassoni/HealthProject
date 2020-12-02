@@ -33,17 +33,13 @@ public class Question{
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "category_id")
-	private Category cat;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "lan_id")
 	private Language lan;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "topic_id")
-	private Topic topic;
-
+	@JoinColumn(name = "topic_cat_id")
+	private TopicCategoryMapping topicCatId;
+	
 	public int getQuestionId() {
 		return questionId;
 	}
@@ -76,14 +72,6 @@ public class Question{
 		this.user = user;
 	}
 
-	public Category getCat() {
-		return cat;
-	}
-
-	public void setCat(Category cat) {
-		this.cat = cat;
-	}
-
 	public Language getLan() {
 		return lan;
 	}
@@ -92,13 +80,15 @@ public class Question{
 		this.lan = lan;
 	}
 
-	public Topic getTopic() {
-		return topic;
+	public TopicCategoryMapping getTopicCatId() {
+		return topicCatId;
 	}
 
-	public void setTopic(Topic topic) {
-		this.topic = topic;
+	public void setTopicCatId(TopicCategoryMapping topicCatId) {
+		this.topicCatId = topicCatId;
 	}
+
+	
 	
 	
 //	@Id

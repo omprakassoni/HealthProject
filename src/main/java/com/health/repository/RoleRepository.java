@@ -14,6 +14,9 @@ public interface RoleRepository extends CrudRepository<Role, Integer> {
 
 	@Query("from Role u where u.roleId=?1")
 	Role findByIdRoles(int id);
+	
+	@Query("select max(roleId) from Role")
+	long getNewId();
 	 
 
 }

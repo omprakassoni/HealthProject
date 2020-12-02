@@ -13,15 +13,14 @@ public interface CategoryService {
 	Category findBycategoryname(String name);
 	
     void deleteProduct(Integer id);
-
-    Category getProductById(int id);
-    
-    
+   
     Category findByid(int id);
-
-	Category findByid(String id);
 	
 	Boolean updateCategory(String description,int id);
+	
+	int getNewCatId();
+	
+	Category save(Category cat);
 	
     
     

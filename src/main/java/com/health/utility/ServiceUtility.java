@@ -14,9 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ServiceUtility {
 	
+	
 	private static String uploadDirectory="src/main/resources/static"+"/Media/content/";
 	
-public static Timestamp getCurrentTime() {								// Current Date
+	public static Timestamp getCurrentTime() {								// Current Date
 		
 		Date date=new Date();
 		long t=date.getTime();

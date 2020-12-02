@@ -33,7 +33,7 @@ public class Topic {
 	private Timestamp dateAdded;
 	
 	@Column(name = "status", nullable = false)
-	private boolean status;
+	private boolean status=true;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
@@ -42,8 +42,6 @@ public class Topic {
 	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TopicCategoryMapping> topicCategoryMap=new HashSet<TopicCategoryMapping>();
 	
-	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Question> questions=new HashSet<Question>();
 
 	public int getTopicId() {
 		return topicId;
@@ -93,13 +91,6 @@ public class Topic {
 		this.topicCategoryMap = topicCategoryMap;
 	}
 
-	public Set<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
-	}
 	  
 	  
   

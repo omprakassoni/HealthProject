@@ -36,7 +36,6 @@ public class externalConfig implements WebMvcConfigurer {
 		
 		registry.addResourceHandler("/files/**").addResourceLocations("file:"+ev.getProperty("spring.applicationexternalPath.name"));
 		
-	     System.err.println("10 Test info");
 		
 	
 	}

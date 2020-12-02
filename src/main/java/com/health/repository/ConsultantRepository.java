@@ -12,6 +12,8 @@ import com.health.model.Consultant;
 
 public interface ConsultantRepository extends CrudRepository<Consultant,Integer>{
 
+	@Query("select max(consultantId) from Consultant")
+	int getNewId();
 
 //	@Modifying
 //	@Query("update Consaltantant set  descriptionConsaltant=?1 ,nameConsaltant=?2, uploadConsaltantImage=?3 where id=?4")

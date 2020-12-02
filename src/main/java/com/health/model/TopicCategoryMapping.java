@@ -24,7 +24,7 @@ public class TopicCategoryMapping {
 	private int topicCategoryId;
 	
 	@Column(name = "status", nullable = false)
-	private boolean status;
+	private boolean status=true;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
@@ -36,6 +36,9 @@ public class TopicCategoryMapping {
 	
 	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Tutorial> tutorial=new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Question> questions=new HashSet<Question>();
 
 	public int getTopicCategoryId() {
 		return topicCategoryId;
@@ -87,6 +90,14 @@ public class TopicCategoryMapping {
 
 	public void setTutorial(Set<Tutorial> tutorial) {
 		this.tutorial = tutorial;
+	}
+
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
 	}
 
 

@@ -67,33 +67,61 @@ public class User implements UserDetails{
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
-	private Set<UserRole> userRoles = new HashSet<>();
-
-
+	private Set<UserRole> userRoles = new HashSet<UserRole>();
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
-	private Set<commentOnComponent> commentOnComponent = new HashSet<>();
+	private Set<Category> categories = new HashSet<Category>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Topic> topics = new HashSet<Topic>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Language> languages = new HashSet<Language>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Question> questions = new HashSet<Question>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Event> events = new HashSet<Event>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Testimonial> testi = new HashSet<Testimonial>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Consultant> consults = new HashSet<Consultant>();
+
+
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JsonIgnore
+//	private Set<commentOnComponent> commentOnComponent = new HashSet<>();
 
 
 
-	@OneToMany(mappedBy ="user",cascade =
-	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
-	 List<Topic> topics;
+//	@OneToMany(mappedBy ="user",cascade =
+//	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
+//	 List<Topic> topics;
 
-	 @OneToMany(mappedBy = "user",cascade =
-	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
-	 List<language_assign> languageassigns;
-
-
-
-	@OneToMany(mappedBy ="user",cascade =
-	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
-	 List<contributor_Role> contributor_Roles;
-
-
-	@OneToMany(mappedBy ="user",cascade =
-	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
-	List<Tutorial> tutorial;
+//	 @OneToMany(mappedBy = "user",cascade =
+//	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
+//	 List<language_assign> languageassigns;
+//
+//
+//
+//	@OneToMany(mappedBy ="user",cascade =
+//	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
+//	 List<contributor_Role> contributor_Roles;
+//
+//
+//	@OneToMany(mappedBy ="user",cascade =
+//	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
+//	List<Tutorial> tutorial;
 
 
 	/*
@@ -102,25 +130,13 @@ public class User implements UserDetails{
 	 * }) List<language> language;
 	 */
 
-	public List<language_assign> getLanguageassigns() {
-		return languageassigns;
-	}
-	public void setLanguageassigns(List<language_assign> languageassigns) {
-		this.languageassigns = languageassigns;
-	}
-	public List<contributor_Role> getContributor_Roles() {
-		return contributor_Roles;
-	}
-	public void setContributor_Roles(List<contributor_Role> contributor_Roles) {
-		this.contributor_Roles = contributor_Roles;
-	}
-	public List<Tutorial> getTutorial() {
-		return tutorial;
-	}
-	public void setTutorial(List<Tutorial> tutorial) {
-		this.tutorial = tutorial;
-	}
 
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
+	}
 	@Override
 	public String getUsername() {
 		return username;
@@ -142,12 +158,7 @@ public class User implements UserDetails{
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public List<Topic> getTopics() {
-		return topics;
-	}
-	public void setTopics(List<Topic> topics) {
-		this.topics = topics;
-	}
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -223,12 +234,7 @@ public class User implements UserDetails{
 	public void setRegistered(boolean registered) {
 		this.registered = registered;
 	}
-	public Set<commentOnComponent> getCommentOnComponent() {
-		return commentOnComponent;
-	}
-	public void setCommentOnComponent(Set<commentOnComponent> commentOnComponent) {
-		this.commentOnComponent = commentOnComponent;
-	}
+
 	public String getToken() {
 		return token;
 	}
@@ -265,9 +271,49 @@ public class User implements UserDetails{
 	public void setDateAdded(Timestamp dateAdded) {
 		this.dateAdded = dateAdded;
 	}
+	public Long getId() {
+		return id;
+	}
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public Set<Category> getCategories() {
+		return categories;
+	}
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
+	}
+	public Set<Topic> getTopics() {
+		return topics;
+	}
+	public void setTopics(Set<Topic> topics) {
+		this.topics = topics;
+	}
+	public Set<Language> getLanguages() {
+		return languages;
+	}
+	public void setLanguages(Set<Language> languages) {
+		this.languages = languages;
+	}
+	public Set<Event> getEvents() {
+		return events;
+	}
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
+	public Set<Testimonial> getTesti() {
+		return testi;
+	}
+	public void setTesti(Set<Testimonial> testi) {
+		this.testi = testi;
+	}
+	public Set<Consultant> getConsults() {
+		return consults;
+	}
+	public void setConsults(Set<Consultant> consults) {
+		this.consults = consults;
+	}
 
+	
 
 }

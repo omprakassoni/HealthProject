@@ -22,6 +22,7 @@ public interface QuestionRepository extends CrudRepository<Question, Integer> {
 //	  @Query("from Question u where u.topic=?1 and u.category=?2 and u.lan=?3")
 //	  List<Question> findByQuestion(Topic topic,Category category,Language language);
 	  
-	  
+	@Query("select max(questionId) from Question")
+	int getNewId();
 
 }

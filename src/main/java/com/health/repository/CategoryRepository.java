@@ -19,6 +19,9 @@ public interface CategoryRepository extends CrudRepository<Category,Integer>{
 //	@Query("update Category set  catName=?1 where id=?2")
 //	int updateCategory(String name,int id);
 	
-
+	@Query("select max(categoryId) from Category")
+	int getNewId();
+	
+	Category findBycatName(String catname);
 
 }

@@ -15,6 +15,9 @@ public interface LangaugeRepository extends JpaRepository<Language,Integer> {
 //	@Query("from language u where u.languageName=?1")
 //	ArrayList<Language> findByExcludeLanguages(String language);
 
-
+	@Query("select max(lanId) from Language")
+	int getNewId();
+	
+	Language findBylangName(String langName);
 
 }

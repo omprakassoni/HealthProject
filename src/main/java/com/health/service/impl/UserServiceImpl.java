@@ -9,6 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.health.domain.security.PasswordResetToken;
 import com.health.domain.security.UserRole;
+import com.health.model.Category;
+import com.health.model.Consultant;
+import com.health.model.Event;
+import com.health.model.Language;
+import com.health.model.Question;
+import com.health.model.Testimonial;
+import com.health.model.Topic;
 import com.health.model.User;
 import com.health.repository.PasswordResetTokenRepository;
 import com.health.repository.RoleRepository;
@@ -76,9 +83,70 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(user);
 	}
 
+	
 	@Override
-	public User findByClassname (String username) {
-		return userRepository.findByClassname(username);
+	public long getNewId() {
+		// TODO Auto-generated method stub
+		return userRepository.getNewId()+1;
+		
+	}
+
+	@Override
+	public User addUserToCategory(User usr, Set<Category> categories) {
+		// TODO Auto-generated method stub
+		
+		usr.getCategories().addAll(categories);
+		userRepository.save(usr);
+		return null;
+	}
+
+	@Override
+	public User addUserToTopic(User usr, Set<Topic> topics) {
+		// TODO Auto-generated method stub
+		usr.getTopics().addAll(topics);
+		userRepository.save(usr);
+		return null;
+	}
+
+	@Override
+	public User addUserToLanguage(User usr, Set<Language> languages) {
+		// TODO Auto-generated method stub
+		
+		usr.getLanguages().addAll(languages);
+		userRepository.save(usr);
+		return null;
+	}
+
+	@Override
+	public User addUserToQuestion(User usr, Set<Question> questions) {
+		// TODO Auto-generated method stub
+		usr.getQuestions().addAll(questions);
+		userRepository.save(usr);
+		return null;
+	}
+
+	@Override
+	public User addUserToEvent(User usr, Set<Event> events) {
+		// TODO Auto-generated method stub
+		usr.getEvents().addAll(events);
+		userRepository.save(usr);
+		return null;
+	}
+
+	@Override
+	public User addUserToConsultant(User usr, Set<Consultant> consultant) {
+		// TODO Auto-generated method stub
+		usr.getConsults().addAll(consultant);
+		userRepository.save(usr);
+		return null;
+	}
+
+	@Override
+	public User addUserToTestimonial(User usr, Set<Testimonial> testi) {
+		// TODO Auto-generated method stub
+		usr.getTesti().addAll(testi);
+		userRepository.save(usr);
+		return null;
 	}
 
 	

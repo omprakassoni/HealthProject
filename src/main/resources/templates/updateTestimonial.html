@@ -46,29 +46,29 @@
  											 </div> </div></h5>
 	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Update Testimonial</h5>
 	            
-	<form class="form-horizontal"  th:action="@{/updateTetimonial}" method="post"  enctype="multipart/form-data">
+	<form class="form-horizontal"  th:action="@{/updateTestimonial}" method="post"  enctype="multipart/form-data">
  
  						<div th:each="testimonial : ${testimonials}">    
-						<input type="hidden"  name="testimonialId"  th:value="${testimonial.id}"/>
+						<input type="hidden"  name="testimonialId"  th:value="${testimonial.getTestimonialId()}"/>
   
 				     <div class="form-group">  
  
  			    		 <label for="testimonialName">Enter Name:</label> 
-                   		 <input type="text" class="form-control" id="testimonialName" name="testimonialName"  th:value="${testimonial.testimonialName}"/>
+                   		 <input type="text" class="form-control" id="testimonialName" name="testimonialName"  th:value="${testimonial.getName()}"/>
                                   
  					</div>
  
  						 <div class="form-group">  
  						 
  						   <label for="testimonialDescription">Enter Description:</label> 
- 						 <textarea class="form-control" rows="5" id="testimoniaqlDescription" name="testimoniaqlDescription"  th:text="${testimonial.testimoniaqlDescription}"></textarea>
+ 						 <textarea class="form-control" rows="5" id="testimoniaqlDescription" name="desc"  th:text="${testimonial.getDescription()}"></textarea>
  						 
  						 
  						 </div>
  						 	 <div class="form-group">  
  						 
  						          <label for="testimonialVideo" >Add  Video:</label> 
- 						 		<input type="file" style="padding-right: 50px" class="form-control-file" id="testimonialVideo"  name="uploadTestiminial" placeholder="uploadFile"/>
+ 						 		<input type="file" style="padding-right: 50px" class="form-control-file" id="testimonialVideo"  name="TestiVideo" placeholder="uploadFile"/>
  						 
  							</div>
  

@@ -33,10 +33,10 @@
 								<label for="categoryId"></label> <select id="categoryId"
 									class="form-control" name="categoryName" required="required">
 
-									<option selected="selected">Select Category</option>
-									<span th:each="category: ${categorys}">
-										<option th:value="${category.getId()}"><span
-												th:text="${category.categoryname}"></span></option>
+									<option>Select Category</option>
+									<span th:each="category: ${categories}">
+										<option th:value="${category.getCategoryId()}"><span
+												th:text="${category.getCatName()}"></span></option>
 								</span>
 								</select>
 
@@ -50,14 +50,14 @@
 
 							</div>
 
-							<div class="form-group">
+							<!-- <div class="form-group">
 
 								<label for="topic">Status</label> <input
 									style="width: 30px; height: 30px; padding-left: 20px"
 									type="checkbox" class="form-control" id="topic"
 									name="checkboxName"></input>
 
-							</div>
+							</div> -->
 							<button type="submit" value="showAlert" class="btn a-btn">Submit</button>
 							&nbsp;&nbsp;&nbsp;
 							<button type="reset" class="btn a-btn">Reset</button>
