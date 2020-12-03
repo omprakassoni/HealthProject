@@ -13,6 +13,21 @@ import com.health.model.User;
 
 public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 	
+	@Query("select max(userRoleId) from UserRole")
+	long getNewId();
+	
+	List<UserRole> findAllByuser(User usr);
+	
+	@Query("from UserRole where lan=?1 and cat=?2 and user=?3 and role=?4")
+	UserRole findByLanCatUser(Language lan,Category cat,User usr,Role role);
+	
+	@Query("from UserRole where lan=?1 and user=?2 and role=?3")
+	UserRole findByLanUser(Language lan,User usr,Role role);
+	
+	@Query("from UserRole where user=?1 and role=?2")
+	UserRole findByRoleUser(User usr,Role role);
+	
+	List<UserRole> findAllByrole(Role role);
 	
 //		@Query("from UserRole u where u.status=?1 and role=?2")
 //		List<UserRole> findByStatus(int status,Role rolId);
