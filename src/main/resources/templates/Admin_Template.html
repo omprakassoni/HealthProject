@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en"  xmlns:th="https://thymeleaf.org">
+
+  <head>
+    <title>Colorlib Medi+</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{s/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{s/css/animate.css}">
+    <link rel="stylesheet" th:href="@{s/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{s/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{s/css/jquery.timepicker.css}">
+
+    <link rel="stylesheet" th:href="@{s/fonts/ionicons/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{s/fonts/fontawesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{s/fonts/flaticon/font/flaticon.css}">
+    
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" th:href="@{s/css/style.css}">
+      
+    <style>
+          #e2{
+      border: 1px solid;
+      padding: 10px;
+      box-shadow: 5px 10px #888888;
+     }
+    </style>     
+  </head>
+        <body style="background-color: white">
+             <header role="banner">
+              <div class="top-bar">
+                <a th:href="@{Admin_Template}">  <img src="s/img/logo.png "></a>
+                <div class="container">
+                  <div class="row">
+              
+                  </div>
+                </div>
+              </div>     
+         <!--blue line end-->            
+      </header>  
+              <div class="#">
+                    <div class="row" style="padding-top:  100px; padding-left: 30px">
+                       
+                            <div class="col-md-8 shadow-none p-3 mb-5 bg-light rounded border">
+                                           
+                                <div class="">#     
+                                <div th:if="${msg}">
+   								 <span th:text="${msg}"></span>
+ 											 </div> </div>
+ 											 
+                                                <div class="row" style="padding-left: 50px;"> 
+                                                    <div class="col-md-5  shadow-lg p-3 mb-5 bg-white rounded border" style="padding-right: 15px ; width: 180px">
+                                                        
+                                                        <!-- <div style="font-size: 30px; color: deepskyblue; display: flex;"> <i class="fas fa-chevron-circle-right"></i><div style="color :bisque; padding-bottom: 10px">Home</div><br></div>-->
+                                                       
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Event}">Home</a><br>
+                                                        </div>   
+                                                        
+                                                            
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a  th:href="@{Category}">Add Category</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Testimonial}">Add Testimonial</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Consaltant}">Add Consalantant</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Event}">Add Event</a><br></div>
+                                                          
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Language}">Add Language</a><br></div>
+                                                        
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{tutorialShow}">Upload Tutorial</a><br></div>
+                                                
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="Upload_Question.html">Upload Question</a><br></div>
+                                                         <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{languageShow}">Add Category and language</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Master Trainer</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Quality Reviweer</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Domain Reviweer</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Add Admin<br></a></div>
+                                                       <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{Language}">Add Language</a><br></div>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-1">          
+                                                    </div>  
+                                                    <div class="col-md-5  shadow-lg p-3 mb-5 bg-white rounded border"  style="padding-left: 30px" >
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Home</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_category}">Show Category</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_testimonial}">Show Testimonial</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_consalantant}">Show Consalantant</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a th:href="@{show_Event}">Show Event</a><br></div>   
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Show Language</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevroon-circle-right"></i><a href="">Show Upload Question</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Show Master Trainer</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Show Quality Reviweer</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Show Domain Reviweer</a><br></div>
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Show Admin<br></a></div>
+                                                    </div>
+                                                </div>
+    
+                                        <div class="row"  style="padding-left: 50px; padding-right: 50px">
+                                  
+                                            <div class="col-12 shadow-lg p-3 mb-5 bg-white rounded border">
+                                                        
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i> <a href="">Approve Master Trainer</a><br></div>
+                                                         <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Quality Reviweer</a><br></div>
+                                                          <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Domain Reviweer</a><br></div>
+                                                            <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Tutorial</a><br></div>
+                                                            
+                                                            
+                                                            <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Consalantant</a><br></div>
+                                                         
+                                                            <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><a href="">Approve Testimonial</a><br></div>
+                                                            
+                                                            <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>
+                                                          <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>
+                                            </div>                                          
+                                 </div>
+                            </div> 
+                        <div class="col-md-4" style="padding-right: 38px" >
+                                    
+                            <div  class="row shadow-none p-3 mb-5 bg-white rounded border" style="padding-left: 50px; padding-right: 50px; padding-top: 20px">
+                            <div class="col-md-12 border">
+                                                        <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>
+                                                         <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>
+                                                          <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>
+                                                            <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>
+                                                         <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>
+                                                          <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>
+                                                            <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>
+                                                          <div style="font-size: 30px; color: deepskyblue"> <i class="fas fa-chevron-circle-right"></i><br></div>     
+                                    </div>
+                            </div>        
+                        </div>
+              </div>
+      </div>   
+      <!--End the nav menu-->
+   <script th:src="@{s/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{s/js/popper.min.js}"></script>
+    <script th:src="@{s/js/bootstrap.min.js}"></script>
+    <script th:src="@{s/js/owl.carousel.min.js}"></script>
+    <script th:src="@{s/js/bootstrap-datepicker.js}"></script>
+    <script th:src="@{s/js/jquery.timepicker.min.js}"></script>
+    <script th:src="@{s/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{s/js/main.js}"></script>
+    <script th:src="@{s/js/all.js}"></script>
+
+
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
+  </body>   
+</html>

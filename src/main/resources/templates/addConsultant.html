@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+<head th:replace="common/trail :: common-trail">
+<style>
+.cons_record {
+	display: none;
+}
+</style>
+</head>
+
+<body>
+	<div style="display: flex;">
+		<div th:replace="common/sidebar :: contributor_sidebar"></div>
+
+		<div class="row" style='width: 100%;'>
+			<div class="col-lg-10 col-xl-9 mx-auto">
+				<div class="card card-signin flex-row a-card">
+
+					<div class="card-body">
+						<h5 class="card-title text-center">
+							<div id="#test" class="">
+								<div th:if="${msg}">
+									<span th:text="${msg}"></span>
+								</div>
+							</div>
+						</h5>
+						<h5 class="card-title text-center a-card-title">Add
+							Consultant</h5>
+
+						<form class="form-horizontal" th:action="@{/addConsultant}"
+							method="post" enctype="multipart/form-data">
+
+							<div class="form-group">
+
+								<label for="nameConsaltant">Name</label> <input type="text"
+									class="form-control input-lg" id="nameConsaltant"
+									name="nameConsaltant" required="required"
+									placeholder="Name of the consultant" />
+
+							</div>
+							<div class="form-group">
+								<label for="descriptionConsaltant">Description</label>
+								<textarea class="form-control" rows="5"
+									id="descriptionConsaltant" name="descriptionConsaltant"
+									required="required"
+									placeholder="Description about the consultant"></textarea>
+
+							</div>
+
+							<div class="form-group">
+								<label for="consaltantImage" style="padding-top: 8px">Add
+									Image</label> <input type="file" style="padding-right: 50px"
+									class="form-control-file" id="consaltantImage"
+									name="uploadConsaltantImage" placeholder="uploadFile"
+									accept=".jpg, .jpeg,.png" required="required" />
+
+							</div>
+							<div class="form-check">
+							    <input type="checkbox" class="form-check-input" id="showOnHomePage" name="showOnHomePage" value="showOnHomePage"/>
+							    <label class="form-check-label" for="exampleCheck1">Show on Homepage</label>
+							</div>
+
+							<button type="submit" class="btn  a-btn">Submit</button>
+							&nbsp;&nbsp;&nbsp;
+							<button type="reset" class="btn  a-btn">Reset</button>
+						</form>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="body-bottom-scripts">
+
+		<script th:src="@{static/js/bootstrap.bundle.min.js}"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				  
+				function submitForm() {
+					  return confirm('Do you really want to Delete the record');
+					  alert("Delete  Recored succefully");
+					}
+				
+				
+				$("#show_cons").click(function(){
+					 $('#tableId').DataTable();
+					$.ajax({
+			   		  	 type: "GET",
+			       		 url: "/displayConsultants",
+			       		 contentType: "application/json",
+			       		 success: function (result){
+			       		 console.log(result);
+			       		 $('.cons_record').show();
+			       		var id = result[0].id;
+			       		var name = result[0].nameConsaltant;
+			       		var desc = result[0].descriptionConsaltant;
+			       		var img = result[0].uploadConsaltantImage;
+			       		var editLink = 'productconsalantant/edit/' + id;
+			       		var elink = '<a href="'+editLink+'">Edit</a>';
+			       		var deleteLink = '/consalantant/delete/' + id;
+			       		var dlink = '<a onclick="submitForm()" href="'+deleteLink+'">Delete</a>';
+			       		
+			       		var markup = "<tr><td>" + id + "</td><td>" + name + "</td><td>"+desc+"</td><td>"+"image"+"</td><td>"+elink+"</td><td>"+dlink+"</td></tr>";
+			       		
+			       		console.log(elink);
+			       		console.log(dlink);
+			       		console.log(markup);
+			            $("table tbody").append(markup);
+			       		 
+							},
+							
+								error : function(err){
+							console.log("not working. ERROR: "+JSON.stringify(err));
+						}
+					});
+				    
+				  });
+				});
+			</script>
+	</div>
+	
+	<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+<head th:replace="common/trail :: common-trail">
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" th:href="@{/css/style3.css}" />
+<!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+
+</head>
+<body>
+	<div style="display: flex;">
+		<div th:replace="common/sidebar :: contributor_sidebar"></div>
+		<div class="row" style='width: 100%;'>
+			<div class="col-lg-10 col-xl-9 mx-auto">
+				 <div class="card card-signin flex-row a-card">
+					<div class="card-body">
+						<h5 class="card-title text-center a-card-title">
+							<div class="">
+								<!-- <div th:if="${msgSuccefull}">
+									<span th:text="${msgSuccefull}"></span>
+								</div> -->
+								
+							</div>
+						</h5>
+						<div sec:authorize="hasAnyAuthority('MasterTrainer')">
+
+							  
+	<!-- <h4 class="mb-3">Master Trainer</h4> -->
+ 								
+	<div class="#">
+	<div class="" >
+	
+	<div class="row">
+	<div class="col-sm-12">
+	<div>
+									<span th:text="${msg}"></span>
+								</div>
+	</div>
+
+		  <div class="col-12">
+		    <div class="tab-content" id="v-pills-tabContent">
+		      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+		      
+		    		<!-- <div class="container"> -->
+		    		<div>
+		    					
+ 					
+					<h4 class="text-center">Profile Master Trainer</h4>
+		    		
+		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
+		    		
+		    		<div class="row  p-3 mb-5 bg-white ">
+		    		
+		    		<span style="color: gray; font-family: cursive; text-shadow: 10px"><H2> </H2></span>
+		    		
+		    		
+		    		  <!-- <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 250px" >Add Training Information</div> -->
+		    		  
+		    		  
+		    		  
+	
+		    		<div class=" col-md-12" style="padding-left: 100px">
+		    		
+ 
+ 					<p id="demo"></p>
+ 		
+			   <script>
+						function submitForm() {
+							
+							
+							  return confirm('Do you really want to submit the form?');
+							  
+							  alert("Submit form succefully");
+							}
+						
+			  </script>
+						    <!-- <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);"> -->
+						    <form action="/masterProfileInfo" method="post" enctype="multipart/form-data">
+						    
+									  <div class="form-group ">
+									    <label for="textMasterName">Name </label>
+									    <input type="text" class="form-control w-75" name="textMasterName" id="textMasterName" required="required"/>
+									  </div>
+									  
+									  
+									   <div class="form-group ">
+									    <label for="textAge">Age</label>
+									    <input type="text" class="form-control w-75" name="textAge" id="textAge" required="required"/>
+									  </div>
+  
+								 		 <div class="form-group ">
+									    <label for="textMobile">Mobile Number</label>
+									    
+									    	<input type="Number" class="form-control w-75" name="textMobile" id="textMobile" required="required"/>
+									    
+									  </div>
+									  
+									   <div class="form-group ">
+									    <label for="textAddress">Postal Address</label>
+									    
+									    	<input type="text" class="form-control w-75" name="textAddress" id="textAddress" required="required"/>
+									    
+									  </div>
+								 		<div class="form-group">
+									    <label for="textOrganization">Organization associated</label>
+									    
+									    	<input type="text" class="form-control w-75" name="textOrganization" id="textOrganization" required="required"/>
+									    
+									  </div>	
+									  
+									  <div class="form-group ">
+									    <label for="textExpNumber">Experience in Year</label>
+									    	<input type="number" class="form-control w-75" name="textExpNumber" id="textExpNumber" required="required"/>
+									    
+									  </div> 
+									  <div class="form-group ">
+									    <label for="textAadharNumber">Aadhaar Number(Optioal)</label>
+									    	<input type="number" class="form-control w-75" name="textAadharNumber" id="textAadharNumber" />
+									    
+									  </div> 
+									  
+									  		        
+						   <button type="submit" class="btn  btn-success"  data-toggle="modal" onclick="myFunction()">Submit</button>
+						     <button type="reset" class="btn btn-success">Reset</button>       
+						      
+		   </form>
+				
+					</div>
+
+		    		</div>
+	
+		    		</div>
+  
+		      </div>
+		      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+		      
+		      
+		      <h4 class="text-center">Download Question</h4>
+		    		<div class="container">
+		    		
+		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
+		    		<div class="row  p-3 mb-5 bg-white ">
+		    	
+		    		
+
+		    		 <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 250px;" >Download Question</div>
+		    		
+		    		<div class=" col-md-12" style="padding-left: 100px">
+		    		
+		    
+						    <form action="/displayQuestion" method="post"> 
+					<!-- 	     <form > -->
+						    
+			 
+			 				    
+						 <div class="form-group">
+								 	  
+									   <label for="categoryName">Select category </label>
+									    
+                                        <select id="catMasterId" class="form-control w-75" name="catMasterId"  style="width: 400px" required="required" >
+								               
+								                        <option selected="selected">Select Category</option>      
+								                        <span th:each="category: ${addcategory}">
+								  								<option th:value="${category}"><span th:text="${category}"></span></option>		
+								  						</span>
+									   </select>
+						</div>	   
+			 
+					 <div class="form-group ">
+		
+					               <label for="lanMasterTrId">Select Topic</label>
+					               
+					                    <select id="lanMasterTrId" class="form-control w-75"  name="lanMasterTrId" style="width:400px" required="required">
+	
+	
+					                    </select> 
+					</div>
+					
+					
+							 <div class="form-group">
+								 	  
+									   <label for="languageNameId">Select Language </label>
+									    
+                                       <select id="dwnByLanguageId" class="form-control w-75" name="dwnByLanguageId"   required="required" >
+			
+								                        <option selected="selected" >Select Language</option>      
+								                        <span th:each="lan: ${languagesDisplay}" >
+								  								<option th:value="${lan.getId()}"><span  th:text="${lan.getLanguageName()}"></span></option>		
+								  						</span>
+									  </select>
+						 	 </div>	
+					
+					
+					
+					
+					 <div class="form-group ">
+					 
+						<label for="inputLanguage" style="color: green;">
+						
+						</label>
+			
+			
+							<div class="">		               
+				
+				<!-- 		<span  id="inputdiv" class="pdfclass" target="_blank">Click To Open</span> -->
+							 
+							 </div>
+							 
+			 
+		  						<button type="submit" class="btn  btn-success" id="fetch_questions">Submit</button>
+			 
+				 
+					 </div>
+				 
+					</form>
+					
+					<div style="border:1px solid green;" id="questions">
+						
+					</div>
+				
+					</div>
+				
+		    		</div>
+		 		
+		    		</div>
+		
+		      </div>
+		      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+				<h4 class="text-center">Feedback form</h4>
+							<div class="container">
+		    		
+		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
+		    		<div class="row  p-3 mb-5 bg-white ">
+		    		 <!-- <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >Feedback form</div> -->
+		    		<div class=" col-md-12" style="padding-left: 100px">
+		    		
+		    
+						    
+						    	<form class="form-horizontal" th:action="@{/feedback}"
+							method="post" enctype="multipart/form-data">
+						
+						
+						
+							<div class="form-group">
+								 	  
+									   <label for="categoryId">Select Category </label>
+									    
+                                       <select id="catMasId" class="form-control w-75" name="catMasId"   required="required" >
+			
+								                        <option selected="selected" >Select category</option>      
+								                        <span th:each="category : ${traningInformation}" >
+								  								<option th:value="${category.getCategory().getId()}"><span  th:text="${category.getCategory().getCategoryname()}"></span></option>		
+								  						</span>
+									  </select>
+						 	 </div>
+								 
+						<div class="form-group">
+								 	  
+									   <label for="feedbackmasterId">Select Training</label>
+                                       <select id="feedbackmasterId" class="form-control w-75" name="feedbackmasterId"   required="required" >			
+								                        <option selected="selected" >Select Training </option>      
+								                        
+									  </select>
+						</div>		 
+								 
+						<div class="form-group">
+									  
+								 <label for="nameOfMasterTrainerId">Name</label> 
+								 <input type="text" class="form-control w-75" id="nameOfMasterTrainerId" name="nameOfMasterTrainer" required="required"/>
+													  	
+						</div>
+									   
+					      		<div class="form-group ">
+					      
+					               <label for="emailId">Email</label>
+							<input type="email" class="form-control w-75" id="emailId" name="email" required="required"/>
+
+							</div>
+								 
+						<div class="form-group">
+					      
+					               <label for="messageId">Enter  Message</label>
+					       	
+						 <textarea class="form-control w-75"  name="traningInformation" rows="5" id="messageId" style="width: 300px" required="required"></textarea>
+ 
+							</div>
+							
+				
+							<div class="form-group">
+					      
+					        	<label for="fileId">Upload Feedbacks</label>
+					        	
+					       		<input type="file" class="form-control w-75"  name="feedbackForm"  id="fileId" style="width: 300px"  accept=".zip" required="required"></input>
+ 
+							</div>
+						
+						        
+						   <button type="submit" class="btn  btn-success">Submit</button>
+						     <button type="reset" class="btn btn-success">Reset</button>       
+						</form>
+				
+					</div>
+				
+		    		</div>
+		    		
+		    		
+		    		</div>
+
+				</div>
+		      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+		      
+		      
+		   <div class="">
+		    		
+		    		<div class="row ">
+		    		<!--  <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px;padding-left: 400px">List Participant Deatail</div> -->
+		    		<div class=" col-md-12" >
+		    		
+		 <div class="#" style="padding-top: 20px">
+          	
+          	
+          	<h4 class="text-center">View Participant Detail</h4>
+          			<div class="container">
+		    		
+		    		<!-- <div class="row shadow p-3 mb-5 bg-white rounded"> -->
+		    		<div class="row  p-3 mb-5 bg-white ">
+		    		
+		    		 <!-- <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 300px;" >View Participant Detail</div> -->
+		    		
+		    		<div class=" col-md-12" style="padding-left: 100px">
+		    		
+		    
+				<form action="/ViewaParticipantDetail" method="post">
+						    
+						 
+						 <div class="form-group">
+								 	  
+									   <label for="categoryName">Select category </label>
+									    
+                                        <select id="catSelectedId" class="form-control w-75" name="catSelectedId"  style="width: 400px" required="required" >
+								               
+								                        <option selected="selected">Select Category</option>      
+								                        <span th:each="category: ${categorys}">
+								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+								  						</span>
+									   </select>
+								 </div>	   
+			 
+			 
+					 <div class="form-group ">
+		
+					               <label for="titleNameId">Select Title Name</label>
+					               
+					                    <select id="titleNameId" class="form-control w-75"  name="titleNameId" style="width:400px" required="required">
+	
+	
+					                    </select> 
+					 </div>
+					 
+					 
+					 <button type="submit" class="btn  btn-success">Submit</button>
+					
+					
+			
+				 
+					</form>
+				
+					</div>
+				
+		    		</div>
+		 		
+		    		</div>
+          	
+          	
+          	
+          	
+          	
+     <!--      		<div class="row">
+          	
+         			 	<div class="col">
+          	
+          	
+   			 	 <table class="table table-striped">
+					           <tr>
+					                <th>Id</th>				               
+					                <th>First Name</th>
+					                <th>Last Name</th>
+					                 <th>Email</th> 
+					                <th>Aadhar Number</th>  
+					                <th>Gender</th> 
+					                <th>Language</th>   
+					                <th>Edit</th>   
+					 
+					             
+					            </tr>
+					            	<tr th:each="approve : ${parcipantDeatails}">
+					                <td th:text="${approve.participantId}">ID</td>  
+					                <td th:text="${approve.firstname}">First Name</td>
+					                <td th:text="${approve.lastname}">Last Name</td>
+					                <td th:text="${approve.email}">Email</td>
+					                <td th:text="${approve.adharNumber}">Aadhar Number</td>
+									 <td th:text="${approve.gender}">Gender</td>
+ 									 <td th:text="${approve.language}">Gender</td>
+ 
+									<td><a th:href="${'editParticipantDeatail/edit/' + approve.id}">Edit</a></td>
+					                
+					        
+					            </tr>
+					        </table>
+					</div>
+				</div> -->
+			</div> 
+		    		
+					</div>
+				
+		    		</div>
+		    		
+		    		
+		    		</div>
+		   
+		      
+		      .</div> <!--   here -->
+		    </div>
+		  </div>
+		</div>
+	
+	
+	</div>
+	</div>
+
+<div class="container">
+   	
+   		
+   		<div class="row" style="padding-top: 160px" >
+   			
+ 
+   			
+   			<div class="col-4 ">
+   			
+
+   			</div>
+			   			<div class="col-4">
+			   			
+			   			</div>
+   			
+   
+   			</div>
+   		
+   		</div>
+
+</div>
+						
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:fragment="body-bottom-scripts">
+
+		<script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{static/js/jquery.slim.min}"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"></script>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/s/js/popper.min.js}"></script>
+		<script th:src="@{/s/js/bootstrap.min.js}"></script>
+		<script th:src="@{/s/js/owl.carousel.min.js}"></script>
+		<script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
+		<script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
+		<script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
+		<script th:src="@{/s/js/main.js}"></script>
+		<script th:src="@{/js/ajaxSupport.js}"></script>
+
+	</div>
+	
+		<script th:inline="javascript">
+    
+		var projectPath='[(@{/})]';
+		
+	</script>
+</body>
+</html>

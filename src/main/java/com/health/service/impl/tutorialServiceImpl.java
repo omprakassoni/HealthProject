@@ -1,0 +1,410 @@
+package com.health.service.impl;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.health.model.Category;
+import com.health.model.Language;
+import com.health.model.Topic;
+import com.health.model.Tutorial;
+import com.health.model.User;
+
+import com.health.repository.TutorialRepository;
+import com.health.service.TutorialService;
+
+
+@Service
+public class tutorialServiceImpl implements TutorialService {
+
+	@Autowired
+	private TutorialRepository tutorialDao;
+
+	@Override
+	public List<Tutorial> findAll() {
+
+		List<Tutorial> local = (List<Tutorial>) tutorialDao.findAll();
+
+		return local;
+
+	}
+
+	@Override
+	@Transactional
+	public Boolean updateKeyword(String keywordMessage,int status,User user,Topic topic ,Category category)
+	{
+
+		int keywordfStatus=	tutorialDao.updateKeyword(keywordMessage,status,user,topic,category);
+
+		if(keywordfStatus>0)
+		{
+			return true;
+
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public Boolean upadatePreStatus(int preStatus, Topic topic, Category category, Language language)
+	{
+
+		int stustusPre=tutorialDao.upadatePreStatus(preStatus,topic,category,language);
+
+		if(stustusPre>0)
+		{
+			return true;
+
+		}else {
+
+			return false;
+		}
+
+	}
+
+
+	@Override
+	@Transactional
+	public Boolean updateOutline(String outlineMessage, int status, User user, Topic topic, Category category) {
+
+		int outlineStatus=tutorialDao.updateOutline(outlineMessage,status,user,topic,category);
+
+		if(outlineStatus>0)
+		{
+			return true;
+
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public Boolean updateSlide(String slideUpload, int statusSlide, User user, Topic topic, Category category)
+	{
+
+		int slideStatus=tutorialDao.updateSlide(slideUpload,statusSlide,user,topic,category);
+
+		if(slideStatus>0)
+		{
+			return true;
+
+		}else {
+			return false;
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public Boolean updateScript(String scriptUpload, int scriptStatus, User user, Topic topic, Category category)
+	{
+
+		int scriptSta=tutorialDao.updateScript(scriptUpload,scriptStatus,user,topic,category);
+
+		if(scriptSta>0)
+		{
+			return true;
+
+		}else
+		{
+			return false;
+		}
+
+
+
+
+	}
+
+	@Override
+	@Transactional
+	public Boolean updateVideo(String videoUpload, int statusVideo, User user, Topic topic, Category category)
+	{
+		int v=tutorialDao.updateVideo(videoUpload, statusVideo, user, topic, category);
+
+		if(v>0)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	//admin update status =2
+
+	@Override
+	@Transactional
+	public Boolean updateVideoStatusByAdmin(int StatusByAdmin,Topic topic,Category category,Language language)
+	{
+
+		int statusByAdmin=tutorialDao.updateVideoStatusByAdmin( StatusByAdmin, topic, category, language);
+
+		if(statusByAdmin>0)
+		{
+
+			return true;
+		}else {
+
+			return false;
+		}
+
+
+
+	}
+
+
+
+	@Override
+	@Transactional
+	public Boolean updateOutlineStatusByDomain(int StatusByDomain,Topic topic,Category category,Language language)
+	{
+
+		int statusByAdmin=tutorialDao.updateOutlineStatusByDomain(StatusByDomain, topic, category, language);
+
+
+
+		if(statusByAdmin>0)
+		{
+
+			return true;
+		}else {
+
+			return false;
+		}
+
+
+	}
+
+
+	@Override
+	@Transactional
+	public Boolean updateScriptStatusByDomain(int scriptStautusByDomain, Topic topic, Category category,Language language)
+	{
+		int statusByDomain=tutorialDao.updateScriptStatusByDomain(scriptStautusByDomain, topic, category, language);
+
+
+		if(statusByDomain>0)
+		{
+
+			return true;
+		}else {
+
+			return false;
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public Boolean updateOutLineStatusByQuality(int scriptStautusByQuality, Topic topic, Category category,Language language)
+	{
+
+		int statusByQuality=tutorialDao.updateOutLineStatusByQuality(scriptStautusByQuality, topic, category, language);
+
+
+		if(statusByQuality>0)
+		{
+
+			return true;
+		}else {
+
+			return false;
+		}
+
+
+
+
+	}
+
+	@Override
+	@Transactional
+	public Boolean upadateSlideStatusByQuality(int scriptStautusByQuality, Topic topic, Category category,Language language)
+	{
+
+		int statusByQualitSlide=tutorialDao.upadateSlideStatusByQuality(scriptStautusByQuality,topic,category,language);
+
+		if(statusByQualitSlide>0)
+		{
+
+			return true;
+		}else {
+
+			return false;
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public Boolean upadateScriptStatusByQuality(int scriptStautusByQuality, Topic topic, Category category,Language language)
+	{
+
+		int statusByQualitScript=tutorialDao.upadateScriptStatusByQuality(scriptStautusByQuality,topic,category,language);
+
+		if(statusByQualitScript>0)
+		{
+
+
+			return true;
+		}else {
+
+			return false;
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public Boolean upadateKeywordByQuality(int scriptStautusByQuality,Topic topic, Category category,Language language)
+	{
+
+	  int statusByQuality=tutorialDao.upadateKeywordByQuality(scriptStautusByQuality,topic,category,language);
+
+		if(statusByQuality>0)
+		{
+
+
+			return true;
+		}else {
+
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public Boolean upadateVideoByQuality(int videoStautusByQuality, Topic topic, Category category, Language language) {
+
+
+		  int statusByQuality=tutorialDao.upadateVideoByQuality(videoStautusByQuality,topic,category,language);
+
+			if(statusByQuality>0)
+			{
+
+
+				return true;
+			}else {
+
+				return false;
+			}
+	}
+
+	@Override
+	@Transactional
+	public Boolean updateStatusByQualityApprove(int StatusApprove, int IdByrecord) {
+
+		 int statusByQualityApprove=tutorialDao.updateStatusByQualityApprove(StatusApprove,IdByrecord);
+
+				if(statusByQualityApprove>0)
+				{
+
+					return true;
+				}else {
+
+					return false;
+				}
+
+
+	}
+
+	@Override
+	@Transactional
+	public Boolean updateGraphics(String graphicsUpload, int graphicsUploadStatus, User user, Topic topic,Category category) {
+
+
+
+		  int statusByQgraphics=tutorialDao.updateGraphics(graphicsUpload,graphicsUploadStatus,user,topic,category);
+
+			if(statusByQgraphics>0)
+			{
+
+
+				return true;
+			}else {
+
+				return false;
+			}
+
+	}
+
+	@Override
+	@Transactional
+	public Boolean updateGraphicsStatusByDomain(int graphicsStatus, Topic topic, Category category, Language language) {
+
+		int statusByAdmin=tutorialDao.updateGraphicsStatusByDomain(graphicsStatus, topic, category, language);
+
+
+
+		if(statusByAdmin>0)
+		{
+
+			return true;
+		}else {
+
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public Boolean upadateGraphicsStatusImpByDomain(int scriptStautusByQuality, Topic topic, Category category,
+			Language language) {
+		int statusByAdmin=tutorialDao.upadateGraphicsStatusImpByDomain(scriptStautusByQuality, topic, category, language);
+
+
+
+		if(statusByAdmin>0)
+		{
+
+			return true;
+		}else {
+
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public Boolean upadateGraphicsByQuality(int graphicsStautusByQuality, Topic topic, Category category,
+			Language language) {
+		int statusByQuality=tutorialDao.upadateGraphicsByQuality(graphicsStautusByQuality,topic,category,language);
+
+		if(statusByQuality>0)
+		{
+
+
+			return true;
+		}else {
+
+			return false;
+		}
+	}
+
+
+	@Override
+	@Transactional
+	public Boolean updatePre(String preUpload, int preUploadStatus, Language lan, Topic topic, Category category) {
+
+		int stustusPre=tutorialDao.updatePre(preUpload,preUploadStatus,lan,topic,category);
+
+			if(stustusPre>0)
+			{
+
+				return true;
+
+			}else {
+
+				return false;
+			}
+
+
+	}
+
+
+}

@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+
+
+<head th:fragment="common-trail">
+
+	<meta charset="utf-8"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700" rel="stylesheet"/>
+    <!-- <link rel="stylesheet" href="/s/css/bootstrap.min.css"/> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+    <link rel="stylesheet" th:href="@{/s/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/s/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" th:href="@{/s/css/bootstrap-datepicker.css}"/>
+    <link rel="stylesheet" th:href="@{/s/css/jquery.timepicker.css}"/>
+    <link rel="stylesheet" th:href="@{/s/fonts/ionicons/css/ionicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/s/fonts/fontawesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/s/fonts/flaticon/font/flaticon.css}"/>
+    <!-- Theme Style-->
+    <link rel="stylesheet" th:href="@{/s/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/datatables.css}"> </link>
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome-free-5.10.1-web/css/all.css}"/>
+			
+	<link rel="stylesheet" th:href="@{/s/css/admin.css}"/>
+	<!-- <link rel="stylesheet" href="/css/main.css"/> -->
+	
+	<link rel="stylesheet" th:href="@{/css/main.css}" /> 
+	
+<!-- 		<script type="text/javascript">
+		
+				
+			    $(document).ready( function () {
+			        $('#domain').DataTable();
+			    } );
+
+		
+		</script> -->
+
+</head>
+
+  <body>
+    <div th:fragment="navbar1">
+    
+			      <header role="banner">
+			      <div class="top-bar">
+			        <div class="#">              
+			          <div class="row">
+			            <div class="col-md-6 col-sm-6 col-5">
+			            
+			            
+			              <ul class="social list-unstyled">      
+			   
+			   	<div class="container">
+			   				<a th:href="@{/}">
+								 
+								<img th:src="@{/image/spokenLogo.png}" href="www.google."
+									alt="Smiley face" height="60" width="200"> </img>
+
+							</a>
+			   </div>
+			   
+			              </ul>
+			            </div>
+			            <div class="col-md-6 col-sm-6 col-7 text-right">
+			  
+			  				<div sec:authorize="isAuthenticated()"> 
+									  
+									  	Welcome <span style="color: lime;" sec:authentication="name"></span> |
+									
+									</div>
+										
+							<div class="row">
+			
+									<div class="col">
+									<a sec:authorize="isAnonymous()" th:href="@{/login}">Login|New User</a>
+									<a sec:authorize="isAuthenticated()" th:href="@{/adminDeatail}">MY ACCOUNT</a>|
+									<a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a>
+							</div>
+					
+						</div>
+			            </div>
+			              <marquee direction="left">1800 180 0101</marquee>
+			  
+			          </div>
+			   
+			        </div>
+			      </div>
+			  
+			</header>
+    			   	  
+	</div>
+  
+	<div th:fragment="body-bottom-scripts">
+ 		 <!-- <script src="/js/jquery.min.js"></script>
+		    <script src="/s/js/jquery-3.2.1.min.js"></script>
+		    <script src="/s/js/popper.min.js"></script>
+		    <script src="/s/js/bootstrap.min.js"></script> -->
+		    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		    <script th:src="@{/s/js/owl.carousel.min.js}"></script>
+		    <script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
+		    <script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
+		    <script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
+		    <script th:src="@{/s/js/main.js}"></script>
+		 	<script type="text/javascript" charset="utf8" th:src="@{/js/datatables.js}"></script>
+		
+		<script th:src="@{/fontawesome-free-5.10.1-web/js/all.js}"></script>
+		
+		    
+  </div>
+  
+  </body>
+</html>
