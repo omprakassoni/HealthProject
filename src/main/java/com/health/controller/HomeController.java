@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.criteria.CommonAbstractCriteria;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.html.FormSubmitEvent.MethodType;
 
@@ -34,9 +35,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.health.domain.security.PasswordResetToken;
 import com.health.domain.security.Role;
+import com.health.domain.security.UserRole;
 import com.health.model.Category;
 
 import com.health.model.Consultant;
+import com.health.model.ContributorAssignedTutorial;
 import com.health.model.Event;
 import com.health.model.Language;
 import com.health.model.Question;
@@ -47,6 +50,7 @@ import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.service.CategoryService;
 import com.health.service.ConsultantService;
+import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.EventService;
 import com.health.service.LanguageService;
 import com.health.service.QuestionService;
@@ -54,8 +58,9 @@ import com.health.service.RoleService;
 import com.health.service.TestimonialService;
 import com.health.service.TopicCategoryMappingService;
 import com.health.service.TopicService;
+import com.health.service.UserRoleService;
 import com.health.service.UserService;
-
+import com.health.service.impl.CatgoryServiceImpl;
 import com.health.service.impl.UserSecurityService;
 import com.health.utility.CommonData;
 import com.health.utility.MailConstructor;
@@ -104,33 +109,12 @@ public class HomeController {
 	@Autowired
 	private Environment env;
 	
-//	@Autowired
-//	private categoryService categoryservice;
-//
-//	@Autowired
-//	private stateRespositary statedao;
-//
-//	@Autowired
-//	private EventDao eventDao;
-//
-//	@Autowired
-//	private TestimonialDao testimonialdao;
-//
-//	@Autowired
-//	private ConsaltantDao consalatantDao;
-//
-//	@Autowired
-//	private TutorialDao tutorialDao;
-//
-//	@Autowired
-//	private languagedao languageDao;
-//
-//	@Autowired
-//	private ConsaltantDao consultantDao;
-//
-//	@Autowired
-//	private CategoryDao categoryDao;
-
+	@Autowired
+	private UserRoleService usrRoleService;
+	
+	@Autowired
+	private ContributorAssignedTutorialService conRepo;
+	
 
 
 //	@RequestMapping("/viewVideo/view/{id}")
@@ -279,6 +263,8 @@ public class HomeController {
 		return "signup";
 	}
 
+	/**************************** USER REGISTRATION *************************************************/
+	
 	@RequestMapping(value = "/newUser", method = RequestMethod.POST)    // in use
 	public String newUserPost(
 			HttpServletRequest request,
@@ -345,6 +331,10 @@ public class HomeController {
 		
 	}
 	
+	/************************** END ****************************************************/
+	
+	/**************************** DASHBAORD PAGE FOR ALL USER *****************************************/
+	
 	@RequestMapping(value = "/dashBoard",method = RequestMethod.GET)
 	public String dashBoardGet (Model model,Principal principal) {
 		
@@ -361,6 +351,7 @@ public class HomeController {
 		
 	}
 	
+	/****************************************** ADD CATEGORY *************************************************/
 	@RequestMapping(value = "/addCategory",method = RequestMethod.GET)
 	public String addCategoryGet(Model model,Principal principal) {
 		
@@ -455,6 +446,10 @@ public class HomeController {
 	
 	}
 	
+	/************************************END**********************************************/
+	
+	/************************************ADD LANGUAGE**********************************************/
+	
 	@RequestMapping(value = "/addLanguage",method = RequestMethod.GET)
 	public String addLanguageGet(Model model,Principal principal) {
 		
@@ -534,6 +529,10 @@ public class HomeController {
 	
 	}
 	
+	/************************************END**********************************************/
+	
+	/************************************ADD TOPIC**********************************************/
+	
 	@RequestMapping(value = "/addTopic",method = RequestMethod.GET)
 	public String addTopicGet(Model model,Principal principal) {
 		
@@ -601,6 +600,10 @@ public class HomeController {
 	
 	}
 	
+	/************************************END**********************************************/
+	
+	/************************************ADD ROLE**********************************************/
+	
 	@RequestMapping(value = "/addRole",method = RequestMethod.GET)
 	public String addRoleGet(Model model,Principal principal) {
 		
@@ -654,6 +657,10 @@ public class HomeController {
 	
 	}
 	
+	
+	/************************************END**********************************************/
+	
+	/************************************ADD QUESTION**********************************************/
 	
 	@RequestMapping(value = "/uploadQuestion",method = RequestMethod.GET)
 	public String addQuestionGet(Model model,Principal principal) {
@@ -770,6 +777,10 @@ public class HomeController {
 	}
 	
 	
+	/************************************END**********************************************/
+	
+	/************************************ADD CONSULTANT**********************************************/
+	
 	@RequestMapping(value = "/addConsultant",method = RequestMethod.GET)
 	public String addConsultantGet(Model model,Principal principal) {
 		
@@ -864,6 +875,9 @@ public class HomeController {
 		
 	}
 	
+	/************************************END**********************************************/
+	
+	/************************************ADD EVENT**********************************************/
 	@RequestMapping(value = "/addEvent",method = RequestMethod.GET)
 	public String addEventGet(Model model,Principal principal) {
 		
@@ -959,6 +973,11 @@ public class HomeController {
 		
 	}
 	
+	
+	/************************************END**********************************************/
+	
+	/************************************ADD TESTIMONIAL**********************************************/
+	
 	@RequestMapping(value = "/addTestimonial",method = RequestMethod.GET)
 	public String addTestimonialGet(Model model,Principal principal) {
 		
@@ -1048,6 +1067,9 @@ public class HomeController {
 	
 	}
 	
+	/************************************END**********************************************/
+	
+	/************************************UPDATE SECTION AND VIEW OF CATEGORY**********************************************/
 	
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String viewCategoryGet(Model model,Principal principal) {
@@ -1127,6 +1149,9 @@ public class HomeController {
 	}
 	
 	
+	/************************************END**********************************************/
+	
+	/************************************UPDATE AND VIEW SECTION OF EVENT**********************************************/
 	
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String viewEventGet(Model model,Principal principal) {
@@ -1244,6 +1269,11 @@ public class HomeController {
 		return "updateEvent";
 	}
 	
+	
+	/************************************END**********************************************/
+	
+	/************************************VIEW SECTION OF LANGAUAGE**********************************************/
+	
 	@RequestMapping(value = "/language", method = RequestMethod.GET)
 	public String viewLanguageGet(Model model,Principal principal) {
 		
@@ -1260,6 +1290,82 @@ public class HomeController {
 		
 		return "language";
 	}
+	
+	/************************************END**********************************************/
+	
+	/*********************************** VIEW SECTION OF DOMAIN REVIEWER ************************************/
+	
+	@RequestMapping(value = "/domainReviewer", method = RequestMethod.GET)
+	public String viewDomaineGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+			
+		Role domain=roleService.findByname(CommonData.domainReviewerRole);
+	
+		List<UserRole> domains = usrRoleService.findAllByRole(domain);
+
+		model.addAttribute("domains", domains);
+		
+		return "viewDomainReviewer";
+	}
+	
+	/************************************END**********************************************/
+	
+	/*********************************** VIEW SECTION OF QUALITY REVIEWER ************************************/
+	
+	@RequestMapping(value = "/qualityReviewer", method = RequestMethod.GET)
+	public String viewQualityeGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		Role quality=roleService.findByname(CommonData.qualityReviewerRole);
+		
+		List<UserRole> qualities = usrRoleService.findAllByRole(quality);
+		
+		model.addAttribute("qualities", qualities);
+		
+		return "viewQualityReviewer";
+	}
+	
+	/************************************END**********************************************/
+	
+	/*********************************** VIEW SECTION OF MASTER TRAINER ************************************/
+	
+	@RequestMapping(value = "/masterTrainer", method = RequestMethod.GET)
+	public String viewMasterTrainerGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		Role master=roleService.findByname(CommonData.masterTrainerRole);
+		
+		List<UserRole> masters = usrRoleService.findAllByRole(master);
+		model.addAttribute("masters", masters);
+		
+		return "viewMasterTrainer";
+	}
+	
+	/************************************END**********************************************/
+	
+	/************************************UPDATE AND VIEW SECTION OF TESTIMONIAL**********************************************/
 	
 	@RequestMapping(value = "/testimonial", method = RequestMethod.GET)
 	public String viewtestimonialGet(Model model,Principal principal) {
@@ -1347,5 +1453,468 @@ public class HomeController {
 	}
 	
 	
+	/************************************END**********************************************/
+	
+	/************************************ROLE MANGAEMENT OPERATION**********************************************/
+	
+	@RequestMapping(value = "/addContributorRole", method = RequestMethod.GET)
+	public String addContributorGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		List<Language> languages=lanService.getAllLanguages();
+			
+		model.addAttribute("languages", languages);
+		return "addContributorRole";
+	}
+	
+	@RequestMapping(value = "/addContributorRole", method = RequestMethod.POST)
+	public String addContributorPost(Model model,Principal principal,HttpServletRequest req) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		String lanName=req.getParameter("selectedLan");
+		
+		Language lan=lanService.getByLanName(lanName);
+		
+		Role role=roleService.findByname(CommonData.contributorRole);
+		
+		if(usrRoleService.findByLanUser(lan, usr, role)!=null) {
+			 
+			// throw error 
+			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+			
+			model.addAttribute("categories", categories);
+			
+			model.addAttribute("languages", languages);
+			
+			return "addContributorRole";
+		}
+		
+		UserRole usrRole=new UserRole();
+		usrRole.setCreated(ServiceUtility.getCurrentTime());
+		usrRole.setUser(usr);
+		usrRole.setRole(role);
+		usrRole.setLanguage(lan);
+		usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
+		
+		try {
+			usrRoleService.save(usrRole);
+			model.addAttribute("msgSuccefull", CommonData.CONTRIBUTOR_ADDED_SUCCESS_MSG);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+												// accommodate error message
+		}
+		
+		List<Language> languages=lanService.getAllLanguages();
+		
+		model.addAttribute("languages", languages);
+		
+		return "addContributorRole";
+	}
+	
+	@RequestMapping(value = "/addAdminRole", method = RequestMethod.GET)
+	public String addAdminPost(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		List<Language> languages=lanService.getAllLanguages();
+		List<Category> categories=catService.findAll();
+		
+		model.addAttribute("categories", categories);
+		model.addAttribute("languages", languages);
+		
+		
+		return "addAdminRole";
+	}
+	
+	@RequestMapping(value = "/addAdminRole", method = RequestMethod.POST)
+	public String addAdminPost(Model model,Principal principal,HttpServletRequest req) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		String lanName=req.getParameter("selectedLan");
+		String catName=req.getParameter("catSelected");
+		
+		Category cat=catService.findBycategoryname(catName);
+		
+		Language lan=lanService.getByLanName(lanName);
+		
+		Role role=roleService.findByname(CommonData.adminReviewerRole);
+		
+		if(usrRoleService.findByLanCatUser(lan, cat, usr, role)!=null) {
+			 
+			// throw error 
+			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+			
+			model.addAttribute("categories", categories);
+			
+			model.addAttribute("languages", languages);
+			
+			return "addAdminRole";
+		}
+		
+		UserRole usrRole=new UserRole();
+		usrRole.setCreated(ServiceUtility.getCurrentTime());
+		usrRole.setUser(usr);
+		usrRole.setRole(role);
+		usrRole.setLanguage(lan);
+		usrRole.setCategory(cat);
+		usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
+		
+		try {
+			usrRoleService.save(usrRole);
+			model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+												// accommodate error message
+		}
+		
+		List<Language> languages=lanService.getAllLanguages();
+		List<Category> categories=catService.findAll();
+		
+		model.addAttribute("categories", categories);
+		
+		model.addAttribute("languages", languages);
+		
+		
+		return "addAdminRole";
+	}
+	
+	@RequestMapping(value = "/addQualityRole", method = RequestMethod.GET)
+	public String addQualityGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+	
+		List<Language> languages=lanService.getAllLanguages();
+		List<Category> categories=catService.findAll();
+		
+		model.addAttribute("categories", categories);
+		
+		model.addAttribute("languages", languages);
+		
+		return "addQualityRole";
+	}
+	
+	@RequestMapping(value = "/addQualityRole", method = RequestMethod.POST)
+	public String addQualityPost(Model model,Principal principal,HttpServletRequest req) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		String lanName=req.getParameter("selectedLan");
+		String catName=req.getParameter("catSelected");
+		
+		Category cat=catService.findBycategoryname(catName);
+		
+		Language lan=lanService.getByLanName(lanName);
+		Role role=roleService.findByname(CommonData.qualityReviewerRole);
+		
+		if(usrRoleService.findByLanCatUser(lan, cat, usr, role)!=null) {
+			 
+			// throw error 
+			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+			
+			model.addAttribute("categories", categories);
+			
+			model.addAttribute("languages", languages);
+			
+			return "addQualityRole";
+		}
+		
+		UserRole usrRole=new UserRole();
+		usrRole.setCreated(ServiceUtility.getCurrentTime());
+		usrRole.setUser(usr);
+		usrRole.setRole(role);
+		usrRole.setCategory(cat);
+		usrRole.setLanguage(lan);
+		usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
+		
+		try {
+			usrRoleService.save(usrRole);
+			model.addAttribute("msgSuccefull", CommonData.QUALITY_ADDED_SUCCESS_MSG);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+												// accommodate error message
+		}
+		
+		List<Language> languages=lanService.getAllLanguages();
+		List<Category> categories=catService.findAll();
+		
+		model.addAttribute("categories", categories);
+		
+		model.addAttribute("languages", languages);
+		
+		return "addQualityRole";
+	}
+	
+	@RequestMapping(value = "/addMasterTrainerRole", method = RequestMethod.GET)
+	public String addMasterTrainerGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		return "addMasterTrainerRole";
+	}
+	
+	@RequestMapping(value = "/addMasterTrainerRole", method = RequestMethod.POST)
+	public String addMasterTrainerPost(Model model,Principal principal,HttpServletRequest req) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		String name=req.getParameter("name");
+		String age=req.getParameter("age");
+		String mobileNumber=req.getParameter("phone");
+		String address=req.getParameter("address");
+		String organization=(req.getParameter("org"));
+		String exp=req.getParameter("experience");
+		String aadhar=req.getParameter("aadharNumber");
+		
+		if(aadhar.length()!=12) {
+			 // throw error
+			return "addMasterTrainerRole";
+		}
+		
+		if(mobileNumber.length()!=10) {
+			
+			// throw error
+			return "addMasterTrainerRole";
+		}
+		
+		Role role=roleService.findByname(CommonData.masterTrainerRole);
+		
+		if(usrRoleService.findByRoleUser(usr, role)!=null) {
+			// throw error
+			return "addMasterTrainerRole";
+		}
+		
+		usr.setAadharNumber(Long.parseLong(aadhar));
+		usr.setExperience(Integer.parseInt(exp));
+		usr.setAddress(address);
+		usr.setFirstName(name);
+		usr.setOrganization(organization);
+		usr.setAge(Integer.parseInt(age));
+		usr.setPhone(Long.parseLong(mobileNumber));
+		
+		try {
+			
+			userService.save(usr);
+			
+			UserRole usrRole=new UserRole();
+			usrRole.setCreated(ServiceUtility.getCurrentTime());
+			usrRole.setUser(usr);
+			usrRole.setRole(role);
+			usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
+			
+			usrRoleService.save(usrRole);
+			model.addAttribute("msgSuccefull", CommonData.MASTER_TRAINER_ADDED_SUCCESS_MSG);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			
+			// throw error
+		}
+		
+		model.addAttribute("userInfo", usr);
+		return "addMasterTrainerRole";
+	}
+	
+	
+	/************************************END****************************************************************/
 
+	/*********************************** Approve Role ************************************************/
+	
+	@RequestMapping(value = "/approveRole", method = RequestMethod.GET)
+	public String approveRoleGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		Role contributor=roleService.findByname(CommonData.contributorRole);
+		Role admin=roleService.findByname(CommonData.adminReviewerRole);
+		Role master=roleService.findByname(CommonData.masterTrainerRole);
+		Role quality=roleService.findByname(CommonData.qualityReviewerRole);
+		
+		List<UserRole> adminReviewer = usrRoleService.findAllByRoleAndStatus(admin,false);
+		List<UserRole> masterTrainer = usrRoleService.findAllByRoleAndStatus(master,false);
+		List<UserRole> qualityReviewer = usrRoleService.findAllByRoleAndStatus(quality,false);
+		List<UserRole> contributorReviewer = usrRoleService.findAllByRoleAndStatus(contributor,false);
+		
+		model.addAttribute("userInfoAdmin", adminReviewer);
+		model.addAttribute("userInfoQuality", qualityReviewer);
+		model.addAttribute("userInfoContributor", contributorReviewer);
+		model.addAttribute("userInfoMaster", masterTrainer);
+		
+		
+		return "approveRole";
+	}
+	
+	
+	
+	
+	/******************************************END **************************************************/
+	
+	
+	/*************************************** ASSIGN CONTRINUTOR ****************************************/
+	
+	@RequestMapping(value = "/assignTutorialToContributor", method = RequestMethod.GET)
+	public String assignTutorialToContributoreGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		Role role=roleService.findByname(CommonData.contributorRole);
+		
+		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatus(role, true);
+		
+		model.addAttribute("userByContributors", userRoles);
+	
+		return "assignContributorList";
+	}
+	
+	@RequestMapping(value = "/assignTutorialToContributor", method = RequestMethod.POST)
+	public String assignTutorialToContributorePost(Model model,Principal principal,
+												@RequestParam(name = "contributorName") String contributorName,
+												@RequestParam(name = "languageName") String lanName,
+												@RequestParam(name = "contributorCategory") String catName,
+												@RequestParam(name = "inputTopic") String[] topics) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		Role role=roleService.findByname(CommonData.contributorRole);
+		
+		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatus(role, true);
+		
+		model.addAttribute("userByContributors", userRoles);
+		
+		System.out.println(catName);
+		
+		Language lan=lanService.getByLanName(lanName);
+		Category cat=catService.findByid(Integer.parseInt(catName));
+		User userAssigned=userService.findByUsername(contributorName);
+		Set<ContributorAssignedTutorial> conTutorials=new HashSet<ContributorAssignedTutorial>();
+		int conNewId=conRepo.getNewId();
+		
+		for(String topic:topics) {
+	
+			Topic localtopic=topicService.findById(Integer.parseInt(topic));
+			if(localtopic != null) {
+				
+				TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, localtopic);
+				
+				System.out.println(topicCat.getTopicCategoryId());
+				ContributorAssignedTutorial x=conRepo.findByUserTopicCatLan(userAssigned, topicCat, lan);
+				
+				if(x == null) {
+					
+					ContributorAssignedTutorial temp=new ContributorAssignedTutorial(conNewId++, ServiceUtility.getCurrentTime(), userAssigned, topicCat, lan);
+					conTutorials.add(temp);
+					
+				}else {
+					// throw error for repeated task 
+					return "assignContributorList";
+				}
+				
+				
+				
+			}else {
+				// throw error as topic doesn't exist
+				return "assignContributorList";
+			}
+		}
+		
+		
+		userService.addUserToContributorTutorial(userAssigned, conTutorials);
+		
+		model.addAttribute("msg", CommonData.CONTRIBUTOR_ASSIGNED_TUTORIAL);
+	
+		return "assignContributorList";
+	}
+	
+	
+	
+	
+	/********************************************END*************************************************/
 }

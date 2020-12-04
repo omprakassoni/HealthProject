@@ -345,7 +345,7 @@
 					</span>
 				</a>
 				<div class="sub-menu">
-				<a th:href="@{/listContributor}"><i class="far fa-circle"></i>
+				<a th:href="@{/assignTutorialToContributor}"><i class="far fa-circle"></i>
 						<span>Assign Contributor</span>
 					</a>
 					<a th:href="@{/addCategory}"><i class="far fa-circle"></i>
@@ -379,7 +379,7 @@
 					<a th:href="@{/category}"><i class="far fa-circle"></i>
 						<span>Category</span>
 					</a>
-					<a th:href="@{/adminShowDomainReviweer}"><i class="far fa-circle"></i>
+					<a th:href="@{/domainReviewer}"><i class="far fa-circle"></i>
 						<span> Domain Reviewer</span>
 					</a>
 					
@@ -393,14 +393,14 @@
 					<a th:href="@{/language}"><i class="far fa-circle"></i>
 						<span>Language</span>
 					</a>
-						<a th:href="@{/adminShowMasterTrainer}"><i class="far fa-circle"></i>
+						<a th:href="@{/masterTrainer}"><i class="far fa-circle"></i>
 						<span>Master Trainer</span>
 					</a>
 					<a th:href="@{/listparicipant}"><i class="far fa-circle"></i>
 						<span>Participant Trainer</span>
 					</a>
 					
-					<a th:href="@{/adminShowQualityreviweer}"><i class="far fa-circle"></i>
+					<a th:href="@{/qualityReviewer}"><i class="far fa-circle"></i>
 						<span>Quality Reviewer</span>
 					</a>
 					<a th:href="@{/testimonial}"><i class="far fa-circle"></i>
@@ -522,7 +522,7 @@
 					</span>
 				</a>
 				<div class="sub-menu">
-					<div sec:authorize="!hasAnyAuthority('VideoReviwer','DomainReviweer','Admin','MasterTrainer','Contributer','QualityReviweer')">
+					<!-- <div sec:authorize="!hasAnyAuthority('VideoReviwer','DomainReviweer','Admin','MasterTrainer','Contributer','QualityReviweer')">
 					<a th:href="@{/contributerSelectionLanguage}">Add me as Contributer</a>
 					<a th:href="@{/domainLanguage}">Add me as Domain Reviewer</a>
 					<a  onclick="return submitQ(this);" th:href="@{/qualityLanguage}">Add me as a Quality Reviewer</a>
@@ -563,38 +563,38 @@
 					<a  onclick="return submitQ(this);"  th:href="@{/qualityLanguage}">Add me as a Quality Reviewer</a>
 					</div>
 					<div sec:authorize="hasAnyAuthority('MasterTrainer')">
-					</div>
-					
-					<!-- <div th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
-					</div>
-					<div th:unless="${#authorization.expression('hasAuthority(''Admin'')')}">
-					</div>
-					
-					<div th:if="${#authorization.expression('hasAuthority(''QualityReviweer'')')}">
-					</div>
-					<div th:unless="${#authorization.expression('hasAuthority(''QualityReviweer'')')}">
-					</div>
-					
-					<div th:if="${#authorization.expression('hasAuthority(''Contributer'')')}">
-					</div>
-					<div th:unless="${#authorization.expression('hasAuthority(''Contributer'')')}">
-					</div>
-					
-					<div th:if="${#authorization.expression('hasAuthority(''MasterTrainer'')')}">
-					</div>
-					<div th:unless="${#authorization.expression('hasAuthority(''MasterTrainer'')')}">
-					</div>
-					
-					<div th:if="${#authorization.expression('hasAuthority(''DomainReviweer'')')}">
-						<a  th:href="@{/domainLanguage}">Add me as a Domain Reviewer Role</a>
-					</div>
-					<div th:unless="${#authorization.expression('hasAuthority(''DomainReviweer'')')}">
-					</div>
-					
-					<div th:if="${#authorization.expression('hasAuthority(''VideoReviwer'')')}">
-					</div>
-					<div th:unless="${#authorization.expression('hasAuthority(''VideoReviwer'')')}">
 					</div> -->
+					
+					<div th:if="!${#authorization.expression('hasAuthority(''SUPER_USER'')')}">
+					
+						<div th:if="${#authorization.expression('hasAuthority(''MASTER_TRAINER'')')}">
+							<a  th:href="@{/domainLanguage}"> Revoke Master Trainer Role</a>
+						</div>
+						<div th:unless="${#authorization.expression('hasAuthority(''MASTER_TRAINER'')')}">
+							<a  th:href="@{/addMasterTrainerRole}"> Add me as a Master Trainer</a>
+						</div>
+						
+						<div th:if="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
+							<a  th:href="@{/domainLanguage}"> Revoke Admin Reviewer</a>
+						</div>
+						<div th:unless="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
+							<a  th:href="@{/addAdminRole}"> Add me as a Admin Reviewer</a>
+						</div>
+						
+						<div th:if="${#authorization.expression('hasAuthority(''QUALITY_REVIEWER'')')}">
+							<a  th:href="@{/domainLanguage}"> Revoke Quality Reviewer</a>
+						</div>
+						<div th:unless="${#authorization.expression('hasAuthority(''QUALITY_REVIEWER'')')}">
+							<a  th:href="@{/addQualityRole}"> Add me as a Quality Reviewer</a>
+						</div>
+						
+						<div th:if="${#authorization.expression('hasAuthority(''CONTRIBUTOR'')')}">
+							<a  th:href="@{/domainLanguage}"> Revoke Contributor</a>
+						</div>
+						<div th:unless="${#authorization.expression('hasAuthority(''CONTRIBUTOR'')')}">
+							<a  th:href="@{/addContributorRole}">Add me as a Contributor</a>
+						</div>
+					 </div>
 					
 				</div>
 			</div>

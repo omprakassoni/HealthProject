@@ -21,21 +21,25 @@ body {
 					<nav>
 						<div class="nav nav-tabs a-links" id="nav-tab" role="tablist">
 
-							<a class="nav-item nav-link active" id="nav-home-tab"
+						<!-- 	<a class="nav-item nav-link active" id="nav-home-tab"
 								data-toggle="tab" href="" role="tab" aria-controls="nav-home"
-								aria-selected="true">Home</a> <a class="nav-item nav-link"
+								aria-selected="true">Home</a> -->
+							 <a class="nav-item nav-link"
 								id="nav-admin-tab" data-toggle="tab" href="#Admin" role="tab"
 								aria-controls="nav-contact" aria-selected="false">Admin
-								Reviewer</a> <a class="nav-item nav-link" id="nav-domain-tab"
+								Reviewer</a> 
+							<a class="nav-item nav-link" id="nav-domain-tab"
 								data-toggle="tab" href="#Contributer" role="tab"
 								aria-controls="nav-contact" aria-selected="false">Contributor</a>
-							<a class="nav-item nav-link" id="nav-profile-tab"
+							<!-- <a class="nav-item nav-link" id="nav-profile-tab"
 								data-toggle="tab" href="#Domain" role="tab"
 								aria-controls="nav-profile" aria-selected="false">Domain
-								Reviewer</a> <a class="nav-item nav-link" id="nav-quality-tab"
+								Reviewer</a>  -->
+							<a class="nav-item nav-link" id="nav-quality-tab"
 								data-toggle="tab" href="#Quality" role="tab"
 								aria-controls="nav-contact" aria-selected="false">Quality
-								Reviewer</a> <a class="nav-item nav-link" id="nav-contact-tab"
+								Reviewer</a>
+							 <a class="nav-item nav-link" id="nav-contact-tab"
 								data-toggle="tab" href="#MasterTrainer" role="tab"
 								aria-controls="nav-contact" aria-selected="false">Master
 								Trainer</a>
@@ -66,17 +70,21 @@ body {
 													<th>User Name</th>
 													<th>First Name</th>
 													<th>Last Name</th>
+													<th>Category</th>
+													<th>Langauge</th>
 													<th>Approve</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="admin : ${statusByApprovAdmin}">
-													<td th:text="${admin.getUser().username}">User Name</td>
-													<td th:text="${admin.getUser().firstName}">First Name</td>
-													<td th:text="${admin.getUser().lastName}">Last name</td>
+												<tr th:each="admin : ${userInfoAdmin}">
+													<td th:text="${admin.getUser().getUsername()}">User Name</td>
+													<td th:text="${admin.getUser().getFirstName()}">First Name</td>
+													<td th:text="${admin.getUser().getLastName()}">Last name</td>
+													<td th:text="${admin.getCategory().getCatName()}">Category</td>
+													<td th:text="${admin.getLanguage().getLangName()}">Langauge</td>
 													<td>
 														<button id="approveAdminId" type="button"
-															th:value="${admin.userRoleId}"
+															th:value="${admin.getUserRoleId()}"
 															class="btn a-btn approveAdmin">Approve</button>
 													</td>
 												</tr>
@@ -86,7 +94,7 @@ body {
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane fade a-tab-pane" id="Domain" role="tabpanel"
+						<!-- <div class="tab-pane fade a-tab-pane" id="Domain" role="tabpanel"
 							aria-labelledby="nav-profile-tab"
 							onloadeddata="return submitA(this);">
 							<div class="Domain">
@@ -123,7 +131,7 @@ body {
 								</div>
 							</div>
 
-						</div>
+						</div> -->
 						<div class="tab-pane fade a-tab-pane" id="MasterTrainer"
 							role="tabpanel" aria-labelledby="nav-contact-tab">
 							<div class="Master_class">
@@ -133,18 +141,26 @@ body {
 											class="table table-striped a-table-font">
 											<thead>
 												<tr>
-													<th>First Name</th>
-													<th>Last Name</th>
+													<th>Name</th>
+													<th>Age</th>
+													<th>Organization</th>
+													<th>Aadhaar Number</th>
+													<th>Experience</th>
+													<th>Contact Info </th>
 													<th>Approve</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="master : ${statusByApprovMaster}">
-													<td th:text="${master.getUser().firstName}">First Name</td>
-													<td th:text="${master.getUser().lastName}">Last name</td>
+												<tr th:each="master : ${userInfoMaster}">
+													<td th:text="${master.getUser().getFirstName()}">First Name</td>
+													<td th:text="${master.getUser().getAge()}"></td>
+													<td th:text="${master.getUser().getOrganization()}"></td>
+													<td th:text="${master.getUser().getAadharNumber()}"></td>
+													<td th:text="${master.getUser().getExperience()}"></td>
+													4<td th:text="${master.getUser().getPhone()}"></td>
 													<td>
 														<button id="approvemasterId" type="button"
-															th:value="${master.userRoleId}"
+															th:value="${master.getUserRoleId()}"
 															class="btn a-btn approvemaster">Approve</button>
 													</td>
 												</tr>
@@ -171,12 +187,12 @@ body {
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="approve : ${statusByApprovContributer}">
-													<td th:text="${approve.getUser().username}">User Name</td>
-													<td th:text="${approve.getUser().firstName}">First
+												<tr th:each="approve : ${userInfoContributor}">
+													<td th:text="${approve.getUser().getUsername()}">User Name</td>
+													<td th:text="${approve.getUser().getFirstName()}">First
 														Name</td>
-													<td th:text="${approve.getUser().lastName}">Last name</td>
-													<td th:text="${approve.getLanguage().getLanguageName()}">Language
+													<td th:text="${approve.getUser().getLastName()}">Last name</td>
+													<td th:text="${approve.getLanguage().getLangName()}">Language
 														Name</td>
 													<td>
 														<button id="approveContributorId" type="button"
@@ -202,16 +218,20 @@ body {
 													<th>User Name</th>
 													<th>First Name</th>
 													<th>Last Name</th>
+													<th>Category</th>
+													<th>Langauge</th>
 													<th>Approve</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="quality : ${statusByApprovQuality}">
+												<tr th:each="quality : ${userInfoQuality}">
 
-													<td th:text="${quality.getUser().username}">User Name</td>
-													<td th:text="${quality.getUser().firstName}">First
+													<td th:text="${quality.getUser().getUsername()}">User Name</td>
+													<td th:text="${quality.getUser().getFirstName()}">First
 														Name</td>
-													<td th:text="${quality.getUser().lastName}">Last name</td>
+													<td th:text="${quality.getUser().getLastName()}">Last name</td>
+													<td th:text="${quality.getCategory().getCatName()}">Category</td>
+													<td th:text="${quality.getLanguage().getLangName()}">Langauge</td>
 													<td>
 														<button id="approveQualityId" type="button"
 															th:value="${quality.getUserRoleId()}"

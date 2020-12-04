@@ -45,7 +45,7 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 	@Override
 	public TopicCategoryMapping findAllByCategoryAndTopic(Category cat, Topic topic) {
 		// TODO Auto-generated method stub
-		return topicCatRepo.findAllBycatAndtopic(cat, topic);
+		return topicCatRepo.findBycatAndtopic(cat, topic);
 	}
 
 	

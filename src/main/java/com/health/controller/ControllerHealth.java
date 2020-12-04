@@ -372,16 +372,7 @@
 //		}
 //		languageId.removeAll(languageExit);
 //
-//		for (String integer : languageId) {
-//
-//			System.err.println("language All" + integer);
-//
-//		}
-//
-//		for (String integer : languageExit) {
-//
-//			System.err.println("language Exits" + integer);
-//		}
+/
 //
 //		model.addAttribute("languages", languageId);
 //

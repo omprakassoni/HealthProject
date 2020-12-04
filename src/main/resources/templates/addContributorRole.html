@@ -34,7 +34,7 @@
 							style="color: maroon; font-size: 30px">Add Contributor
 							Language</h5>
 
-						<form class="form-horizontal" th:action="@{/addMeAsContributer}"
+						<form class="form-horizontal" th:action="@{/addContributorRole}"
 							method="post" onsubmit="return submitForm()(this);">
 
 
@@ -45,12 +45,12 @@
 									<!-- <label for="languageContributerId">Select language </label> -->
 									<label for="languageContributerId"></label> <select
 										id="languageContributerId" class="form-control"
-										name="contributerLanguage" required="required">
+										name="selectedLan" required="required">
 
-										<option selected="selected">Select Language</option>
+										<option>Select Language</option>
 										<span th:each="lan : ${languages}">
 
-											<option th:value="${lan}"><span th:text="${lan}"></span></option>
+											<option th:value="${lan.getLangName()}"><span th:text="${lan.getLangName()}"></span></option>
 
 									</span>
 									</select>

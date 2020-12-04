@@ -1658,7 +1658,7 @@ $(document)
 
 
 
-			$('#catgoryByContributor').click(
+			/*$('#catgoryByContributor').click(
 					function() {
 						// var languageName = $form.find( '#lanId'
 						// ).val(),
@@ -1692,7 +1692,7 @@ $(document)
 							}
 						});
 
-					});
+					});*/
 
 			// here write code for keyword view //add content form
 			$('#keywordModaleView').click(
@@ -3209,27 +3209,26 @@ $(document)
 					});
 
 			/* here calling approve button for contributorvideoUpload */
-
+/***************************** changes made by om prakash **************************************************/
+			
 			$('.approveContributor').click(
 					function() {
 						// use localStorage to retrieve information on
 						// page refresh
-						localStorage
-						.setItem('activeTab', "Contributer");
+						localStorage.setItem('activeTab', "Contributer");
 
 						var contributionId = $(this).val();
 
 						$.ajax({
 							type : "GET",
-							url : projectPath+"addContributerRoleById",
+							url : projectPath+"enableRoleById",
 							data : {
 								"id" : contributionId
 							},
 							contentType : "application/json",
 							success : function(result) {
 
-								$("#statusContributor").prop(
-										'disabled', false);
+								$("#statusContributor").prop('disabled', false);
 
 								localStorage.setItem('msg', result);
 								location.reload();
@@ -3237,8 +3236,7 @@ $(document)
 							},
 
 							error : function(err) {
-								console.lo3g("not working. ERROR: "
-										+ JSON.stringify(err));
+								console.lo3g("not working. ERROR: "+ JSON.stringify(err));
 							}
 
 						});
@@ -3246,9 +3244,9 @@ $(document)
 					});
 
 			// Here is code for Admin Reviwer Approve
-
-			$('.approveAdmin').click(
-					function() {
+/***************************** changes made by om prakash **************************************************/
+			
+			$('.approveAdmin').click(function() {
 						// use localStorage to retrieve information on
 						// page refresh
 						localStorage.setItem('activeTab', "Admin");
@@ -3256,29 +3254,26 @@ $(document)
 
 						$.ajax({
 							type : "GET",
-							url : projectPath+"addAdminRoleById",
+							url : projectPath+"enableRoleById",
 							data : {
 								"id" : contributionId
 							},
 							contentType : "application/json",
 							success : function(result) {
 
-								$("#statusAdmin").prop('disabled',
-										false);
+								$("#statusAdmin").prop('disabled',false);
 								localStorage.setItem('msg', result);
 
-								$('#ContributerPage').on(
-										'hidden.bs.modal', function() {
+								$('#ContributerPage').on('hidden.bs.modal', function() {
 
 											location.reload();
-										});
+								});
 
 								location.reload();
 							},
 
 							error : function(err) {
-								console.lo3g("not working. ERROR: "
-										+ JSON.stringify(err));
+								console.lo3g("not working. ERROR: "+ JSON.stringify(err));
 							}
 
 						});
@@ -3286,9 +3281,9 @@ $(document)
 					});
 
 			// Here is code for Quality Reviweer
-
-			$('.approveQuality').click(
-					function() {
+/***************************** changes made by om prakash **************************************************/
+			
+			$('.approveQuality').click(function() {
 						// use localStorage to retrieve information on
 						// page refresh
 						localStorage.setItem('activeTab', "Quality");
@@ -3296,24 +3291,22 @@ $(document)
 
 						$.ajax({
 							type : "GET",
-							url : projectPath+"addQualityRoleById",
+							url : projectPath+"enableRoleById",
 							data : {
 								"id" : contributionId
 							},
 							contentType : "application/json",
 							success : function(result) {
 
-								$("#statusQuality").prop('disabled',
-										false);
+								$("#statusQuality").prop('disabled',false);
 								$('#statusQuality').html(result);
 								localStorage.setItem('msg', result);
 
-								$('#ContributerPage').on(
-										'hidden.bs.modal', function() {
+								$('#ContributerPage').on('hidden.bs.modal', function() {
 
 											location.reload();
 
-										});
+								});
 
 								location.reload();
 
@@ -3330,48 +3323,45 @@ $(document)
 
 			// Here is code for Master Trainer
 
-			$('.approvemaster').click(
-					function() {
+			$('.approvemaster').click(function() {
 						// use localStorage to retrieve information on
 						// page refresh
-						localStorage.setItem('activeTab',
-						"MasterTrainer");
+						localStorage.setItem('activeTab',"MasterTrainer");
 
 						var contributionId = $(this).val();
 
 						$.ajax({
 							type : "GET",
-							url : projectPath+"addMasterRoleById",
+							url : projectPath+"enableRoleById",
 							data : {
 								"id" : contributionId
 							},
 							contentType : "application/json",
 							success : function(result) {
 
-								$("#statusMaster").prop('disabled',
-										false);
+								$("#statusMaster").prop('disabled',false);
 								$('#statusMaster').html(result);
 								localStorage.setItem('msg', result);
 
-								$('#ContributerPage').on(
-										'hidden.bs.modal', function() {
+								$('#ContributerPage').on('hidden.bs.modal', function() {
 
 											location.reload();
 
-										});
+								});
 
 								location.reload();
 
 							},
 
 							error : function(err) {
-								console.lo3g("not working. ERROR: "
-										+ JSON.stringify(err));
+								console.lo3g("not working. ERROR: "+ JSON.stringify(err));
 							}
 
 						});
 
 					});
+			
+/**************************************** End ************************************************************/
 
 			// here is code for approve DomainReviwer By admin
 
@@ -3449,16 +3439,13 @@ $(document)
 
 			/* load By Contributor user only contributor assign from */
 
-			$('#contributorId')
-			.on(
-					'change',
-					function() {
+/************************* changes made by om prakash **********************************************/
+			
+			$('#contributorId').on('change',function() {
 
-						var userContributor = $(this).find(
-						':selected').val();
+						var userContributor = $(this).find(':selected').val();
 						console.log(userContributor);
-						$
-						.ajax({
+						$.ajax({
 							type : "GET",
 							url : projectPath+"loadLanguageByUser",
 							data : {
@@ -3472,95 +3459,69 @@ $(document)
 								var len = result.length;
 								html += '<option value="0">Select Language</option>';
 								for (var i = 0; i < len; i++) {
-									html += '<option value="'
-										+ result[i]
-									+ '">'
-									+ result[i]
-									+ '</option>';
+									html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
 								}
 								html += '</option>';
 
-								$("#lanId").prop(
-										'disabled',
-										false);
+								$("#lanId").prop('disabled',false);
 								$('#lanId').html(html);
 
 							},
 
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							}
 						});
 
 					});
+			
+/************************* changes made by om prakash **********************************************/			
 
-			$('#lanId')
-			.click(
-					function() {
-						var languageName = $(
-								"#option :selected").text();
+			$('#lanId').click(function() {
+					var languageName = $("#option :selected").text();
 
-						$
-						.ajax({
+						$.ajax({
 							type : "GET",
-							url : projectPath+"loadCategoryByLanguage",
-							data : {
-								"id" : languageName
-							},
+							url : projectPath+"loadCategory",
 							contentType : "application/json",
 							success : function(result) {
 
 								var html = '';
 								var len = result.length;
 								html += '<option value="0">Select Category</option>';
-								for (var i = 0; i < len; i++) {
-									html += '<option value="'
-										+ result[i]
-									+ '">'
-									+ result[i]
-									+ '</option>';
+								$.each(result , function( key, value ) {
+				  	  			        html += '<option value=' + key + '>'
+				  			               + value
+				  			               + '</option>';
+				  	  			 })
+			  	  			    html += '</option>';
+								
+							/*	for (var i = 0; i < len; i++) {
+									html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
 								}
-								html += '</option>';
+								html += '</option>';*/
 
-								$(
-								"#catgoryByContributor")
-								.prop(
-										'disabled',
-										false);
-								$(
-								'#catgoryByContributor')
-								.html(html);
+								$("#catgoryByContributor").prop('disabled',false);
+								$('#catgoryByContributor').html(html);
 
 							},
 
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							}
 						});
 
 					});
-
-			$('#catgoryByContributor').on(
-					'change',
-					function() {
-						var category = $(this).find("option:selected")
-						.val();
-						var languageName = $('#lanId').val();
-						var userName = $('#contributorId').val();
-
+			
+/************************* changes made by om prakash **********************************************/	
+			$('#catgoryByContributor').on('change',function() {
+						var category = $(this).find("option:selected").val();
+				
 						$.ajax({
 							type : "GET",
 							url : projectPath+"loadTopicByCategory",
 							data : {
-								"id" : category,
-								"lanId" : languageName,
-								"userName" : userName
+								"id" : category
 							},
 							contentType : "application/json",
 							success : function(result) {
@@ -3568,25 +3529,32 @@ $(document)
 								var html = '';
 								var len = result.length;
 
-								for (var i = 0; i < len; i++) {
+								$.each(result , function( key, value ) {
+			  	  			        html += '<option value=' + key + '>'
+			  			               + value
+			  			               + '</option>';
+			  	  			 		})
+			  	  			 	html += '</option>';
+								
+								/*for (var i = 0; i < len; i++) {
 									html += '<option value="'
 										+ result[i] + '">'
 										+ result[i] + '</option>';
 								}
-								html += '</option>';
+								html += '</option>';*/
 
-								$("#inputTopic")
-								.prop('disabled', false);
-								$('#inputTopic').html(html);
+								$("#assignTopic").prop('disabled', false);
+								$('#assignTopic').html(html);
 
 							},
 							error : function(err) {
-								console.log("not working. ERROR: "
-										+ JSON.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							}
 						});
 
 					});
+			
+/*********************************** end*******************************************************/
 
 			// here write code for keyword view //add content form
 

@@ -96,6 +96,9 @@ public class User implements UserDetails{
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Consultant> consults = new HashSet<Consultant>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
 
 
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -312,6 +315,12 @@ public class User implements UserDetails{
 	}
 	public void setConsults(Set<Consultant> consults) {
 		this.consults = consults;
+	}
+	public Set<ContributorAssignedTutorial> getConAssignedTutorial() {
+		return conAssignedTutorial;
+	}
+	public void setConAssignedTutorial(Set<ContributorAssignedTutorial> conAssignedTutorial) {
+		this.conAssignedTutorial = conAssignedTutorial;
 	}
 
 	

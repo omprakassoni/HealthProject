@@ -22,6 +22,18 @@ public class CommonData {
 	
 	public static String RECORD_UPDATE_SUCCESS_MSG = "Record Updated Successfully!";
 	
+	public static String ROLE_APPROVED_SUCCESS_MSG= "Role approved";
+	
+	public static String CONTRIBUTOR_ADDED_SUCCESS_MSG = "Contributor added Successfully!";
+	
+	public static String CONTRIBUTOR_ASSIGNED_TUTORIAL = "Contributor assigned Successfully!";
+	
+	public static String MASTER_TRAINER_ADDED_SUCCESS_MSG = "Master Trainer added Successfully!";
+	
+	public static String ADMIN_ADDED_SUCCESS_MSG = "Admin added Successfully!";
+	
+	public static String QUALITY_ADDED_SUCCESS_MSG = "Quality added Successfully!";
+	
 	public static String uploadDirectoryQuestion = "Media/Content/Question/";
 			
 	public static String uploadDirectoryCategory = "Media/Content/Category/";

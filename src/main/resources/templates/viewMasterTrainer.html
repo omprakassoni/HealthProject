@@ -28,10 +28,6 @@
 					<div class="card-body">
 					
 					
-
-						<form class="form-horizontal" th:action="@{/addConsaltant}"
-							method="post" enctype="multipart/form-data"
-							onsubmit="return submitForm(this);">
    <body>
   
   		
@@ -56,12 +52,12 @@
 					            </tr>
 								</thead>
 								<tbody>
-					            	<tr th:each="approve : ${masterTrainerDetail}">
-					                <td th:text="${approve.id}">ID</td>  
-					                <td th:text="${approve.username}">User Name</td>
-					                <td th:text="${approve.firstName}">First Name</td>
-					                <td th:text="${approve.lastName}">Last name</td>
-					                <td th:text="${approve.address}">Address</td>
+					            	<tr th:each="approve : ${masters}">
+					                 <td th:text="${approve.getUser().getId()}">ID</td>  
+					                <td th:text="${approve.getUser().getUsername()}">User Name</td>
+					                <td th:text="${approve.getUser().getFirstName()}">First Name</td>
+					                <td th:text="${approve.getUser().getLastName()}">Last name</td>
+					                <td th:text="${approve.getUser().getAddress()}">Address</td>
 
 					            	</tr>
 					            
@@ -92,7 +88,7 @@
 			
 			
 			</div>
- </body>						</form>
+ </body>						
 					</div>
 				</div>
 			<div th:fragment="body-bottom-scripts">
