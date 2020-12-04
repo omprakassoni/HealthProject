@@ -48,6 +48,9 @@ public class Language {
 	
 	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Tutorial> tutorial=new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
 
 	public int getLanId() {
 		return lanId;
@@ -112,7 +115,16 @@ public class Language {
 	public void setTutorial(Set<Tutorial> tutorial) {
 		this.tutorial = tutorial;
 	}
+
+	public Set<ContributorAssignedTutorial> getConAssignedTutorial() {
+		return conAssignedTutorial;
+	}
+
+	public void setConAssignedTutorial(Set<ContributorAssignedTutorial> conAssignedTutorial) {
+		this.conAssignedTutorial = conAssignedTutorial;
+	}
   
+	
 //  @Id  
 //  @GeneratedValue(strategy=GenerationType.AUTO)
 //  @Column(name="id", nullable = false, updatable = false)

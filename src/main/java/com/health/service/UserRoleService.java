@@ -22,5 +22,14 @@ public interface UserRoleService {
 	
 	UserRole findByRoleUser(User usr,Role role);
 	
+	List<UserRole> findAllByRoleAndStatus(Role role,boolean status);
+	
+	int enableRole(UserRole usrRole);
+	
+	UserRole findById(long id);
+	
 	List<UserRole> findAllByRole(Role role);
+	
+	List<UserRole> findAllByRoleUserStatus(Role role,User usr, boolean status);
+	
 }

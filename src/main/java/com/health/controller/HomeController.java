@@ -39,6 +39,7 @@ import com.health.domain.security.UserRole;
 import com.health.model.Category;
 
 import com.health.model.Consultant;
+import com.health.model.ContributorAssignedTutorial;
 import com.health.model.Event;
 import com.health.model.Language;
 import com.health.model.Question;
@@ -49,6 +50,7 @@ import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.service.CategoryService;
 import com.health.service.ConsultantService;
+import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.EventService;
 import com.health.service.LanguageService;
 import com.health.service.QuestionService;
@@ -109,6 +111,9 @@ public class HomeController {
 	
 	@Autowired
 	private UserRoleService usrRoleService;
+	
+	@Autowired
+	private ContributorAssignedTutorialService conRepo;
 	
 
 
@@ -1288,6 +1293,78 @@ public class HomeController {
 	
 	/************************************END**********************************************/
 	
+	/*********************************** VIEW SECTION OF DOMAIN REVIEWER ************************************/
+	
+	@RequestMapping(value = "/domainReviewer", method = RequestMethod.GET)
+	public String viewDomaineGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+			
+		Role domain=roleService.findByname(CommonData.domainReviewerRole);
+	
+		List<UserRole> domains = usrRoleService.findAllByRole(domain);
+
+		model.addAttribute("domains", domains);
+		
+		return "viewDomainReviewer";
+	}
+	
+	/************************************END**********************************************/
+	
+	/*********************************** VIEW SECTION OF QUALITY REVIEWER ************************************/
+	
+	@RequestMapping(value = "/qualityReviewer", method = RequestMethod.GET)
+	public String viewQualityeGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		Role quality=roleService.findByname(CommonData.qualityReviewerRole);
+		
+		List<UserRole> qualities = usrRoleService.findAllByRole(quality);
+		
+		model.addAttribute("qualities", qualities);
+		
+		return "viewQualityReviewer";
+	}
+	
+	/************************************END**********************************************/
+	
+	/*********************************** VIEW SECTION OF MASTER TRAINER ************************************/
+	
+	@RequestMapping(value = "/masterTrainer", method = RequestMethod.GET)
+	public String viewMasterTrainerGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		Role master=roleService.findByname(CommonData.masterTrainerRole);
+		
+		List<UserRole> masters = usrRoleService.findAllByRole(master);
+		model.addAttribute("masters", masters);
+		
+		return "viewMasterTrainer";
+	}
+	
+	/************************************END**********************************************/
+	
 	/************************************UPDATE AND VIEW SECTION OF TESTIMONIAL**********************************************/
 	
 	@RequestMapping(value = "/testimonial", method = RequestMethod.GET)
@@ -1727,10 +1804,10 @@ public class HomeController {
 		Role master=roleService.findByname(CommonData.masterTrainerRole);
 		Role quality=roleService.findByname(CommonData.qualityReviewerRole);
 		
-		List<UserRole> adminReviewer = usrRoleService.findAllByRole(admin);
-		List<UserRole> masterTrainer = usrRoleService.findAllByRole(master);
-		List<UserRole> qualityReviewer = usrRoleService.findAllByRole(quality);
-		List<UserRole> contributorReviewer = usrRoleService.findAllByRole(contributor);
+		List<UserRole> adminReviewer = usrRoleService.findAllByRoleAndStatus(admin,false);
+		List<UserRole> masterTrainer = usrRoleService.findAllByRoleAndStatus(master,false);
+		List<UserRole> qualityReviewer = usrRoleService.findAllByRoleAndStatus(quality,false);
+		List<UserRole> contributorReviewer = usrRoleService.findAllByRoleAndStatus(contributor,false);
 		
 		model.addAttribute("userInfoAdmin", adminReviewer);
 		model.addAttribute("userInfoQuality", qualityReviewer);
@@ -1745,4 +1822,99 @@ public class HomeController {
 	
 	
 	/******************************************END **************************************************/
+	
+	
+	/*************************************** ASSIGN CONTRINUTOR ****************************************/
+	
+	@RequestMapping(value = "/assignTutorialToContributor", method = RequestMethod.GET)
+	public String assignTutorialToContributoreGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		Role role=roleService.findByname(CommonData.contributorRole);
+		
+		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatus(role, true);
+		
+		model.addAttribute("userByContributors", userRoles);
+	
+		return "assignContributorList";
+	}
+	
+	@RequestMapping(value = "/assignTutorialToContributor", method = RequestMethod.POST)
+	public String assignTutorialToContributorePost(Model model,Principal principal,
+												@RequestParam(name = "contributorName") String contributorName,
+												@RequestParam(name = "languageName") String lanName,
+												@RequestParam(name = "contributorCategory") String catName,
+												@RequestParam(name = "inputTopic") String[] topics) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		Role role=roleService.findByname(CommonData.contributorRole);
+		
+		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatus(role, true);
+		
+		model.addAttribute("userByContributors", userRoles);
+		
+		System.out.println(catName);
+		
+		Language lan=lanService.getByLanName(lanName);
+		Category cat=catService.findByid(Integer.parseInt(catName));
+		User userAssigned=userService.findByUsername(contributorName);
+		Set<ContributorAssignedTutorial> conTutorials=new HashSet<ContributorAssignedTutorial>();
+		int conNewId=conRepo.getNewId();
+		
+		for(String topic:topics) {
+	
+			Topic localtopic=topicService.findById(Integer.parseInt(topic));
+			if(localtopic != null) {
+				
+				TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, localtopic);
+				
+				System.out.println(topicCat.getTopicCategoryId());
+				ContributorAssignedTutorial x=conRepo.findByUserTopicCatLan(userAssigned, topicCat, lan);
+				
+				if(x == null) {
+					
+					ContributorAssignedTutorial temp=new ContributorAssignedTutorial(conNewId++, ServiceUtility.getCurrentTime(), userAssigned, topicCat, lan);
+					conTutorials.add(temp);
+					
+				}else {
+					// throw error for repeated task 
+					return "assignContributorList";
+				}
+				
+				
+				
+			}else {
+				// throw error as topic doesn't exist
+				return "assignContributorList";
+			}
+		}
+		
+		
+		userService.addUserToContributorTutorial(userAssigned, conTutorials);
+		
+		model.addAttribute("msg", CommonData.CONTRIBUTOR_ASSIGNED_TUTORIAL);
+	
+		return "assignContributorList";
+	}
+	
+	
+	
+	
+	/********************************************END*************************************************/
 }

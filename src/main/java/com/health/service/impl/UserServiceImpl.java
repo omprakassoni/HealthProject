@@ -11,6 +11,7 @@ import com.health.domain.security.PasswordResetToken;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.Consultant;
+import com.health.model.ContributorAssignedTutorial;
 import com.health.model.Event;
 import com.health.model.Language;
 import com.health.model.Question;
@@ -147,6 +148,15 @@ public class UserServiceImpl implements UserService{
 		usr.getTesti().addAll(testi);
 		userRepository.save(usr);
 		return null;
+	}
+
+	@Override
+	public User addUserToContributorTutorial(User usr, Set<ContributorAssignedTutorial> testi) {
+		// TODO Auto-generated method stub
+		usr.getConAssignedTutorial().addAll(testi);
+		userRepository.save(usr);
+		return null;
+		
 	}
 
 	

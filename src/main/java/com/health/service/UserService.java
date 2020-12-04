@@ -6,6 +6,7 @@ import com.health.domain.security.PasswordResetToken;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.Consultant;
+import com.health.model.ContributorAssignedTutorial;
 import com.health.model.Event;
 import com.health.model.Language;
 import com.health.model.Question;
@@ -43,6 +44,8 @@ public interface UserService {
 	User addUserToConsultant(User usr,Set<Consultant> consultant);     // in use
 	
 	User addUserToTestimonial(User usr,Set<Testimonial> testi);     // in use
+	
+	User addUserToContributorTutorial(User usr,Set<ContributorAssignedTutorial> testi);     // in use
 
 	
 }

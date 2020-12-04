@@ -2,6 +2,9 @@ package com.health.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,18 +66,44 @@ public class UserRoleServiceImpl implements UserRoleService{
 	}
 
 	@Override
-	public List<UserRole> findAllByRole(Role role) {
+	public List<UserRole> findAllByRoleAndStatus(Role role,boolean status) {
 		// TODO Auto-generated method stub
 		List<UserRole> data=new ArrayList<UserRole>();
 		
 		List<UserRole> temp=usrRoleRepo.findAllByrole(role);
 		for(UserRole local:temp) {
-			if(!local.getStatus()) {
+			if(local.getStatus()== status) {
 				data.add(local);
 			}
 		}
 		
 		return data;
+	}
+
+	@Transactional
+	@Override
+	public int enableRole(UserRole usrRole) {
+		// TODO Auto-generated method stub
+		return usrRoleRepo.enableRole(true, usrRole.getUserRoleId());
+	}
+
+	@Override
+	public UserRole findById(long id) {
+		// TODO Auto-generated method stub
+		Optional<UserRole> local=usrRoleRepo.findById(id);
+		return local.get();
+	}
+
+	@Override
+	public List<UserRole> findAllByRole(Role role) {
+		// TODO Auto-generated method stub
+		return usrRoleRepo.findAllByrole(role);
+	}
+
+	@Override
+	public List<UserRole> findAllByRoleUserStatus(Role role, User usr, boolean status) {
+		// TODO Auto-generated method stub
+		return usrRoleRepo.findByRoleUserStatus(usr, role, status);
 	}
 
 }
