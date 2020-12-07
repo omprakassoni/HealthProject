@@ -1321,34 +1321,36 @@ $(document)
 
 					});
 
-			$('#keywordModale').on(
-					'shown.bs.modal',
-					function() {
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+/********************** changes made by om prakash **************************************/
+			
+			$('#keywordModale').on('shown.bs.modal',function() {
+						
+						var tutorialID= $("#tutorialId").val();
 
-						$.ajax({
-							type : "GET",
-							url : projectPath+"viewKeyword",
-							data : {
-								"categorname" : categoryid,
-								"topicid" : topicid,
-								"lanId" : lanId
-							},
-							contentType : "application/json",
-							success : function(result) {
-								$("#keyword").val(result);
-								$('#keyword').prop('readonly', true);
-								$("#keywordId").hide();
-
-							},
-							error : function(err) {
-								console.log("not working. ERROR: "
-										+ JSON.stringify(err));
-							}
-
-						});
+						if(tutorialID !=0 ){
+								$.ajax({
+									type : "GET",
+									url : projectPath+"viewKeyword",
+									data : {
+										"id" : tutorialID
+									},
+									contentType : "application/json",
+									success : function(result) {
+										if(result!=null){
+											$("#keyword").val(result);
+											$('#keyword').prop('readonly', true);
+											$("#keywordId").hide();
+										}
+										
+		
+									},
+									error : function(err) {
+										console.log("not working. ERROR: "+ JSON.stringify(err));
+									}
+		
+								});
+						
+						}
 
 					});
 
@@ -1357,41 +1359,46 @@ $(document)
 				location.reload();
 
 			});
-			$('#outlineModalContri').on(
-					'shown.bs.modal',
-					function() {
+			
+	/********************* changes made by om prakash *******************************/
+			
+			$('#outlineModalContri').on('shown.bs.modal',function() {
 
-						var categoryid = $("#categoryId").val();
+						/*var categoryid = $("#categoryId").val();
 						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
-						$.ajax({
-
-							type : "GET",
-							url : projectPath+"outlineView",
-							data : {
-								"categorname" : categoryid,
-								"topicid" : topicid,
-								"lanId" : lanId
-							},
-							contentType : "application/json",
-							success : function(result) {
-								if(result[0]==null){
-									$('#editOutline').hide();
-								}
-								editor.setData(result[0]); // add
-								// retrieved
-								// outline
-								// content
-								// to editor
-								editor.isReadOnly = true;
-
-							},
-							error : function(err) {
-								console.log("not working. ERROR: "
-										+ JSON.stringify(err));
-							}
-
-						});
+						var lanId = $("#lanId").val();*/
+				
+						var tutorialID= $("#tutorialId").val();
+						
+						if(tutorialID !=0 ){
+							
+								$.ajax({
+		
+									type : "GET",
+									url : projectPath+"viewOutline",
+									data : {
+										"id" : tutorialID
+									},
+									contentType : "application/json",
+									success : function(result) {
+										if(result==null){
+											$('#editOutline').hide();
+										}
+										editor.setData(result); // add
+										// retrieved
+										// outline
+										// content
+										// to editor
+										editor.isReadOnly = true;
+		
+									},
+									error : function(err) {
+										console.log("not working. ERROR: "+ JSON.stringify(err));
+									}
+		
+								});
+						
+						}
 
 					});
 
@@ -2610,58 +2617,38 @@ $(document)
 
 			/* load Topic by catgory contributor */
 
-			$('#categoryContributor')
-			.change(
-					function() {
+	/******************************* changes made by om prakash *************************************************/
+			$('#categoryContributor').change(function() {
+				
 						var catgoryid = $('#categoryContributor').val();
-//						var catgoryid = $(this).find(
-//						":selected").val();
 
-						$
-						.ajax({
+						$.ajax({
 
 							type : "GET",
-							url : projectPath+"loadTopicByCategoryContributor",
+							url : projectPath+"loadTopicByCategoryOnContributorRole",
 							data : {
 								"id" : catgoryid
 							},
 							contentType : "application/json",
 							success : function(result) {
 
-								html += '<option value="'
-									+ result[i]
-								+ '">'
-								+ result[i]
-								+ '</option>';
+							//	html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
 
 								var html = '';
 								var len = result.length;
 								html += '<option value="0">Select Topic</option>';
-								for (var i = 0; i < len; i++) {
-									html += '<option value="'
-										+ result[i]
-									+ '">'
-									+ result[i]
-									+ '</option>';
-								}
+								$.each(result , function( key, value ) {
+			  	  			        html += '<option value=' + key + '>'+ value  + '</option>';
+			  	  			     })
 								html += '</option>';
 
-								$(
-								"#inputTopicContributor")
-								.prop(
-										'disabled',
-										false);
-								$(
-								'#inputTopicContributor')
-								.html(html);
+								$("#inputTopicContributor").prop('disabled',false);
+								$('#inputTopicContributor').html(html);
 
 							},
 
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "	+ JSON.stringify(err));
 							}
 
 						});
@@ -2670,20 +2657,19 @@ $(document)
 
 			/* contributor languages */
 
-			$('#inputTopicContributor')
-			.change(
-					function() {
-
-						var catgoryid = $(this).find(
-								":selected").val();
-						$
-						.ajax({
+			$('#inputTopicContributor')	.change(function() {
+				
+				var catgoryid = $('#categoryContributor').val();
+				var topicId=$(this).find(":selected").val();
+				
+						$.ajax({
 
 							type : "GET",
-							url : projectPath+"loadLanguageByTopicId",
 							data : {
-								"id" : catgoryid
+								"id" : catgoryid,
+								"topicId":topicId
 							},
+							url : projectPath+"loadLanguageForContributorRoleTutorial",
 							contentType : "application/json",
 							success : function(result) {
 
@@ -2691,35 +2677,24 @@ $(document)
 								var len = result.length;
 								html += '<option value="0">Select Language</option>';
 								for (var i = 0; i < len; i++) {
-									html += '<option value="'
-										+ result[i]
-									+ '">'
-									+ result[i]
-									+ '</option>';
+									html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
 								}
 								html += '</option>';
 
-								$(
-								"#inputLanguageContributor")
-								.prop(
-										'disabled',
-										false);
-								$(
-								'#inputLanguageContributor')
-								.html(html);
+								$("#inputLanguageContributor").prop('disabled',false);
+								$('#inputLanguageContributor').html(html);
 
 							},
 
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							}
 
 						});
 
 					});
+			
+			/********************************* end****************************************************/
 
 			/*
 			 * Access language depending on topic contributer
@@ -2773,36 +2748,36 @@ $(document)
 						});
 
 					});
-
-			$('#outlineId')
-			.click(
-					function() {
+/******************************** changes made by om prakash ************************************/
+			
+			$('#outlineId').click(function() {
+				
 						$(this).toggle();
 						$('#editOutline').toggle();
 
 						var saveInfo = editor.getData();
+						var tutorialId=$("#tutorialId").val();
+						
 						console.log("******************");
 						console.log(saveInfo);
 						console.log("******************");
-						var keywordArea = $("#keyword").val();
+						/*var keywordArea = $("#keyword").val();*/
 						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
+						var topicid = $("#topicID").val();
 						var lanId = $("#lanId").val();
-						localStorage.setItem(
-								"upload_outline_msg",
-						"Outline updated.");
+						localStorage.setItem("upload_outline_msg","Outline updated.");
 						editor.isReadOnly = true;
 
-						$
-						.ajax({
+						$.ajax({
 							type : "GET",
-							url : projectPath+"outline",
+							url : projectPath+"addOutline",
 							data : {
 								"saveOutline" : saveInfo,
-								"id" : keywordArea,
-								"categorname" : categoryid,
+								"id" : tutorialId,
+								"categoryname" : categoryid,
 								"topicid" : topicid,
 								"lanId" : lanId
+								
 							},
 							contentType : "application/json",
 							success : function(result) {
@@ -2813,26 +2788,17 @@ $(document)
 									$('#statusOutlineC')
 									.addClass(
 									'd-block');
-								$('#statusOutlineC')
-								.html(msg);
+								$('#statusOutlineC').html(msg);
 
 							},
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 								var msg = 'Error in updating outline.'
 									// $('#statusOutline').html(html);
-									$('#statusOutlineC')
-									.addClass(
-									'd-block');
-								$('#statusOutlineC')
-								.addClass(
-								'alert-danger');
+									$('#statusOutlineC').addClass('d-block');
+								 $('#statusOutlineC').addClass('alert-danger');
 
-								$('#statusOutlineC')
-								.html(msg);
+								$('#statusOutlineC').html(msg);
 
 							}
 
@@ -2862,29 +2828,32 @@ $(document)
 			});
 
 			/* Save keyWord information into table */
+	/*********************** changes made by om prakash *************************************/
 
-			$('#keywordId').click(
-					function() {
+			$('#keywordId').click(function() {
+				
 						$(this).toggle();
 						$('#editKeyword').toggle();
-						var keywordArea = $("#keyword").val();
+						
+						var keywordArea = $("#keywordArea").val();
 						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
+						var topicid = $("#topicID").val();
 						var lanId = $("#lanId").val();
+						
 						$('#keyword').prop('readonly', true);
 						$.ajax({
 							type : "GET",
-							url : projectPath+"keyword",
+							url : projectPath+"addKeyword",
 							data : {
-								"id" : keywordArea,
-								"categorname" : categoryid,
+								"savekeyword" : keywordArea,
+								"id" : tutorialId,
+								"categoryname" : categoryid,
 								"topicid" : topicid,
 								"lanId" : lanId
 							},
 							contentType : "application/json",
 							success : function(result) {
-								showStatus(SUCCESS,
-										result);
+								showStatus(SUCCESS,result);
 //								$("#statuskeyword").prop('disabled',
 //								false);
 //								$('#statuskeyword').html(result);
@@ -2892,11 +2861,8 @@ $(document)
 							},
 
 							error : function(err) {
-								console.log("not working. ERROR: "
-										+ JSON.stringify(err));
-								var result = "Error"; 
-								showStatus(ERROR,
-										result);
+								console.log("not working. ERROR: "	+ JSON.stringify(err));
+								var result = "Error"; showStatus(ERROR,result);
 							}
 
 						});
@@ -2907,14 +2873,13 @@ $(document)
 			 * Here is code for save script
 			 */
 
-			$('#scriptId')
-			.click(
-					function() {
+			$('#scriptId').click(function() {
 
 						// here1
 						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
+						var topicid = $("#topicID").val();
 						var lanId = $("#lanId").val();
+						var TutorialID=$("#tutorialId").val();
 
 						var form = $('#upload-file-form-script')[0];
 						var formData = new FormData(form);
@@ -2922,13 +2887,14 @@ $(document)
 						console.log(form);
 						console.log(form[0]);
 
-						formData.append('categoryid',categoryid);
+						formData.append('categoryname', categoryid);
 						formData.append('topicid', topicid);
 						formData.append('lanId', lanId);
+						formData.append('id',TutorialID);
 
 						$.ajax({
 							type : "POST",
-							url : projectPath+"scriptUpload",
+							url : projectPath+"addScript",
 							data : formData,
 							enctype : 'multipart/form-data',
 							processData : false,
@@ -2937,7 +2903,7 @@ $(document)
 							success : function(result) {
 //								$("#statusofScript").prop('disabled',true);
 //								$('#statusofScript').html(result[2]);
-								$('#viewScript').html(result[0]);
+								$('#viewScript').html(result);
 //								source = document.getElementById('storedVideoId');
 //								source.setAttribute('src',result[1]);
 								var result = "Script updated successfully";
@@ -2958,25 +2924,27 @@ $(document)
 			 * here we write code for slide
 			 */
 
-			$('#slideId').click(
-					function() {
+			$('#slideId').click(function() {
 
 						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
+						var topicid = $("#topicID").val();
 						var lanId = $("#lanId").val();
+						var TutorialID=$("#tutorialId").val();
 
 						var form = $('#upload-file-form')[0];
 						var formData = new FormData(form);
 
-						formData.append('categoryid', categoryid);
+						formData.append('categoryname', categoryid);
 						formData.append('topicid', topicid);
 						formData.append('lanId', lanId);
+						formData.append('id',TutorialID);
+						
 
 						console.log(formData);
 
 						$.ajax({
 							type : "POST",
-							url : projectPath+"slideUpload",
+							url : projectPath+"addSlide",
 							data : formData,
 							enctype : 'multipart/form-data',
 							processData : false,
@@ -2986,8 +2954,8 @@ $(document)
 //								$("#statusofSlide").prop('disabled',true);
 //								$('#statusofSlide').html(result[2]);
 
-								$('#sliedPdf').html(result[0]);
-								$("#sliedPdf").prop('href', result[1]);
+								$('#sliedPdf').html(result);
+								/*$("#sliedPdf").prop('href', result[1]);*/
 								var result = "Slide uploaded successfully";
 								showStatus(SUCCESS,result);
 
@@ -3009,27 +2977,25 @@ $(document)
 			/*		Here is code for graphics*/
 
 
-			$('#graphicsId').click(
-					function() {
+			$('#graphicsId').click(function() {
 
 						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
+						var topicid = $("#topicID").val();
 						var lanId = $("#lanId").val();
+						var TutorialID=$("#tutorialId").val();
 
 						var form = $('#upload-file-form-graphics')[0];
 						var formData = new FormData(form);
 						console.log(formData);
 
-						formData.append('categoryid', categoryid);
+						formData.append('categoryname', categoryid);
 						formData.append('topicid', topicid);
 						formData.append('lanId', lanId);
-
-
-
+						formData.append('id',TutorialID);
 
 						$.ajax({
 							type : "POST",
-							url : projectPath+"graphicsUpload",
+							url : projectPath+"addGraphics",
 							data : formData,
 							enctype : 'multipart/form-data',
 							processData : false,
@@ -3041,8 +3007,8 @@ $(document)
 
 //								alert("12345hi");
 
-								$('#sliedPdf').html(result[0]);
-								$("#sliedPdf").prop('href', result[1]);
+								$('#sliedPdf').html(result);
+							/*	$("#sliedPdf").prop('href', result[1]);*/
 								var result = "Graphics uploaded successfully";
 								showStatus(SUCCESS,result);
 
@@ -3073,27 +3039,27 @@ $(document)
 
 
 			/* video for thumnail and video */
-
-			$('#videoId')
-			.click(
-					function() {
+/******************** changes made by om prakash *****************************************/
+			
+			$('#videoId').click(function() {
 //						alert('videoId');
 						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
+						var topicid = $("#topicID").val();
 						var lanId = $("#lanId").val();
+						var tutorialID=$('#tutorialId').val();
 
 						var form = $('#upload-file-form-video')[0];
 						var formData = new FormData(form);
-
-						formData.append('categoryid',
-								categoryid);
+						
+						formData.append('id',tutorialID);
+						formData.append('categoryname',categoryid);
 						formData.append('topicid', topicid);
 						formData.append('lanId', lanId);
 
 						$
 						.ajax({
 							type : "POST",
-							url : projectPath+"videoUpload",
+							url : projectPath+"addVideo",
 							data : formData,
 							enctype : 'multipart/form-data',
 							processData : false,
@@ -3101,29 +3067,18 @@ $(document)
 							cache : false,
 							success : function(result) {
 
-								$("#statusofVideo")
-								.prop(
-										'disabled',
-										true);
-								$('#statusofVideo')
-								.html(result[2]);
+								$("#statusofVideo").prop('disabled',true);
+								$('#statusofVideo').html(result);
 
-								source = document
-								.getElementById('storedVideoId');
-								source.setAttribute(
-										'src',
-										result[1]);
-								source.setAttribute(
-										'type',
-								'video/mp4')
+							/*	source = document.getElementById('storedVideoId');
+								source.setAttribute('src',result[1]);
+								source.setAttribute('type','video/mp4')*/
 
 							},
 
 							error : function(err) {
 								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								.log("not working. ERROR: "+ JSON.stringify(err));
 							}
 
 						});
@@ -3576,8 +3531,7 @@ $(document)
 							contentType : "application/json",
 							success : function(result) {
 
-								$("#keywordView").prop('disabled',
-										false);
+								$("#keywordView").prop('disabled',false);
 								$('#keywordView').html(result);
 
 							},

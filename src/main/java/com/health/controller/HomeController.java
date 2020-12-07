@@ -48,6 +48,7 @@ import com.health.model.Topic;
 import com.health.model.TopicCategoryMapping;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.repository.LangaugeRepository;
 import com.health.service.CategoryService;
 import com.health.service.ConsultantService;
 import com.health.service.ContributorAssignedTutorialService;
@@ -58,6 +59,7 @@ import com.health.service.RoleService;
 import com.health.service.TestimonialService;
 import com.health.service.TopicCategoryMappingService;
 import com.health.service.TopicService;
+import com.health.service.TutorialService;
 import com.health.service.UserRoleService;
 import com.health.service.UserService;
 import com.health.service.impl.CatgoryServiceImpl;
@@ -114,6 +116,9 @@ public class HomeController {
 	
 	@Autowired
 	private ContributorAssignedTutorialService conRepo;
+	
+	@Autowired
+	private TutorialService tutService;
 	
 
 
@@ -1917,4 +1922,90 @@ public class HomeController {
 	
 	
 	/********************************************END*************************************************/
+	
+	
+	/*********************************** CONTRIBUTOR ROLE OPERATION *************************************/
+	@RequestMapping(value = "/uploadTutorial", method = RequestMethod.GET)
+	public String uploadTutorialGet(Model model,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		List<String> catName = new ArrayList<String>();
+		List<ContributorAssignedTutorial> con=conRepo.findAllByUser(usr);
+		
+		for(ContributorAssignedTutorial temp:con) {
+			catName.add(temp.getTopicCatId().getCat().getCatName());
+			
+		}
+		HashSet<String> uniqueCatName=new HashSet<String>(catName);    // to return unique value
+		
+		
+		model.addAttribute("contributorTutorial", uniqueCatName);
+		return "uploadTutorialPre";
+	}
+	
+	
+	@RequestMapping(value = "/uploadTutorial", method = RequestMethod.POST)
+	public String uploadTutorialPost(Model model,Principal principal,
+										@RequestParam(value="categoryName") String categoryName,
+										@RequestParam(name="inputTopic") int topicId,
+										@RequestParam(name="inputLanguage") String langName) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		Category cat=catService.findBycategoryname(categoryName);
+		Topic topic=topicService.findById(topicId);
+		Language lan=lanService.getByLanName(langName);
+		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
+		ContributorAssignedTutorial conTutorial=conRepo.findByUserTopicCatLan(usr, topicCat, lan);
+		List<Tutorial> tutorials=tutService.findAllByContributorAssignedTutorial(conTutorial);
+		
+		if(tutorials.isEmpty()) {
+			
+			model.addAttribute("statusOutline", CommonData.ADD_CONTENT);
+			model.addAttribute("statusScript", CommonData.ADD_CONTENT);
+			model.addAttribute("statusSlide", CommonData.ADD_CONTENT);
+			model.addAttribute("statusVideo", CommonData.ADD_CONTENT);
+			model.addAttribute("statusKeyword", CommonData.ADD_CONTENT);
+			model.addAttribute("statusPreReq", CommonData.ADD_CONTENT);
+			model.addAttribute("statusGraphics", CommonData.ADD_CONTENT);
+			model.addAttribute("tutorial", null);
+		}else {
+			
+			for(Tutorial local:tutorials) {
+				
+				model.addAttribute("statusOutline", CommonData.tutorialStatus[local.getOutlineStatus()]);
+				model.addAttribute("statusScript", CommonData.tutorialStatus[local.getScriptStatus()]);
+				model.addAttribute("statusSlide", CommonData.tutorialStatus[local.getSlideStatus()]);
+				model.addAttribute("statusVideo", CommonData.tutorialStatus[local.getVideoStatus()]);
+				model.addAttribute("statusKeyword", CommonData.tutorialStatus[local.getKeywordStatus()]);
+				model.addAttribute("statusPreReq", CommonData.tutorialStatus[local.getPreRequisticStatus()]);
+				model.addAttribute("statusGraphics", CommonData.tutorialStatus[local.getGraphicsStatus()]);
+				model.addAttribute("tutorial", local);
+			}
+		}
+		
+		model.addAttribute("category", cat);
+		model.addAttribute("topic", topic);
+		model.addAttribute("language", lan);
+		return "uploadTutorialPost";
+	}
+	
+	
+	
+	/****************************************END********************************************************/
 }

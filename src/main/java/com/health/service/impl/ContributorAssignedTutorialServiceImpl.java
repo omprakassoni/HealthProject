@@ -1,5 +1,7 @@
 package com.health.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,12 @@ public class ContributorAssignedTutorialServiceImpl implements ContributorAssign
 	public ContributorAssignedTutorial findByUserTopicCatLan(User usr, TopicCategoryMapping topicCat, Language lan) {
 		// TODO Auto-generated method stub
 		return conRepo.findByUserTopicCatLan(usr, topicCat, lan);
+	}
+
+	@Override
+	public List<ContributorAssignedTutorial> findAllByUser(User user) {
+		// TODO Auto-generated method stub
+		return conRepo.findAllByuser(user);
 	}
 
 }

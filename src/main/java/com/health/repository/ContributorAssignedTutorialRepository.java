@@ -22,4 +22,7 @@ public interface ContributorAssignedTutorialRepository extends CrudRepository<Co
 	@Query("from ContributorAssignedTutorial where user=?1 and topicCatId=?2 and lan=?3")
 	ContributorAssignedTutorial findByUserTopicCatLan(User usr,TopicCategoryMapping topicCat,Language lan);
 	
+	List<ContributorAssignedTutorial> findAllByuser(User user);
+	
+	
 }

@@ -30,20 +30,20 @@
  									 </div> </div></h5>
 	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px"> Tutorial Upload Form </h5>
 	            
-	       	   <form class="form-horizontal"  th:action="@{/submitTutorial}" method="post"  onsubmit="return submitForm(this);">
+	       	   <form class="form-horizontal"  th:action="@{/uploadTutorial}" method="post"  onsubmit="return submitForm(this);">
  			
  				
  					 <div class="form-group">  
 			                     <label for="inputUserame"></label>     
 			              <select id="categoryContributor" class="form-control " name="categoryName"   required="required" >
 								               
-							 <option id="categoryContributor"  selected="selected">Select Category</option>  
+							 <option id="categoryContributor" >Select Category</option>  
 							     
-								    <span th:each="category: ${categorys}">
+								    <span th:each="catName: ${contributorTutorial}">
 								  		
-											<option th:value="${category}">
+											<option th:value="${catName}">
 									
-									<span th:text="${category}"></span>
+									<span th:text="${catName}"></span>
 								
 									</option>	
 								</span>
