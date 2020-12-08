@@ -4385,14 +4385,12 @@ $(document)
 					});
 
 			/* here is code for video accepet or need to improvement */
+/************************ changes made by om prakash ***************************************/
+			
+			$('#videoAcceptOrNeedToImprovemenetByAdmin').click(function() {
 
-			$('#videoAcceptOrNeedToImprovemenetByAdmin')
-			.click(
-					function() {
-
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#VideoAcceptAdmin").val();
 
@@ -4415,32 +4413,19 @@ $(document)
 								type : "GET",
 								url : projectPath+"acceptAdminVideo",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
-								success : function(
-										result) {
+								success : function(result) {
 
-									$(
-											"#statusVideoByAdmin")
-											.prop(
-													'disabled',
-													false);
-									$(
-									'#statusVideoByAdmin')
-									.html(
-											result);
+									$("#statusVideoByAdmin").prop('disabled',false);
+									$('#statusVideoByAdmin').html(result);
 									showStatus(SUCCESS, result);
 
 								},
 
 								error : function(err) {
-									console
-									.log("not working. ERROR: "
-											+ JSON
-											.stringify(err));
+									console.log("not working. ERROR: "+ JSON.stringify(err));
 									result = "Error";
 									showStatus(ERROR, result);
 								}
@@ -4453,9 +4438,7 @@ $(document)
 								'visibility' : 'visible'
 							});
 
-							var msg = $(
-							"#msgVideoCommentByAdmin")
-							.val();
+							var msg = $("#msgVideoCommentByAdmin").val();
 
 //							alert("mse admin player" + msg);
 
@@ -4465,34 +4448,21 @@ $(document)
 								type : "GET",
 								url : projectPath+"needToImprovemenetByAdmin",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
+									"id" :tutorialId,
 									"msg" : msg
 								},
 								contentType : "application/json",
-								success : function(
-										result) {
+								success : function(result) {
 
-									$(
-											"#statusVideoByAdmin")
-											.prop(
-													'disabled',
-													false);
-									$(
-									'#statusVideoByAdmin')
-									.html(
-											result);
+									$("#statusVideoByAdmin").prop('disabled',false);
+									$('#statusVideoByAdmin').html(result);
 
 									showStatus(SUCCESS, result);
 
 								},
 
 								error : function(err) {
-									console
-									.lo3g("not working. ERROR: "
-											+ JSON
-											.stringify(err));
+									console.log("not working. ERROR: "+ JSON.stringify(err));
 									result = "Error";
 									showStatus(ERROR, result);
 								}
@@ -4502,6 +4472,8 @@ $(document)
 						}
 
 					});
+			
+		/*************************** end ***********************************/
 
 			/*
 			 * here is code for domain review Video Acdept or Need To

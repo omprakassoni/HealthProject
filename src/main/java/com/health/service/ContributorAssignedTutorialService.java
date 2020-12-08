@@ -14,4 +14,6 @@ public interface ContributorAssignedTutorialService {
 	ContributorAssignedTutorial findByUserTopicCatLan(User usr,TopicCategoryMapping topicCat,Language lan);
 	
 	List<ContributorAssignedTutorial> findAllByUser(User user);
+	
+	List<ContributorAssignedTutorial> findByTopicCatLan(List<TopicCategoryMapping> topCat, Language lan);
 }

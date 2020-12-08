@@ -24,6 +24,8 @@ public class CommonData {
 	
 	public static String Video_SAVE_SUCCESS_MSG = "Video Saved Successfully !";
 	
+	public static String Video_STATUS_SUCCESS_MSG = "Video Status Updated Successfully !";
+	
 	public static String Script_SAVE_SUCCESS_MSG = "Script Saved Successfully !";
 	
 	public static String Slide_SAVE_SUCCESS_MSG = "Slide Saved Successfully !";
@@ -66,7 +68,7 @@ public class CommonData {
 	
 	public static int PUBLISH_STATUS=5;
 	
-	public static String WAITING_PUBLISH = "Waiting for Publish";
+	//public static String WAITING_PUBLISH = "Waiting for Publish";
 	
 	public static String PUBLISHED="Published";
 	
@@ -81,6 +83,6 @@ public class CommonData {
 	public static String uploadDirectoryConsultant = "Media/Content/Consultant/";
 	
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
-			NEED_IMPROVEMENT_MSG, WAITING_PUBLISH, PUBLISHED
+			NEED_IMPROVEMENT_MSG, PUBLISHED
 	};
 }

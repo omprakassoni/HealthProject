@@ -71,9 +71,9 @@
                                         <th>Category</th>
                                     <td>
                       
-										  <span id="catId" th:each="catgoryName : ${tutorialComponenet}">
-										  		<input class="form-control"  id="categoryId"  name="categoryName"  th:value="${catgoryName.getCategory().getCategoryname()}" readonly="readonly"></input>		
-										 </span>
+										 
+										  		<input class="form-control"  id="categoryId"  name="categoryName"  th:value="${category}" readonly="readonly"></input>		
+										 
 
                                      </td> 
             
@@ -85,9 +85,9 @@
                                       
                                         <th>Topic</th>
                                         <td>
-			                                          <span id="topicName" th:each="topic : ${tutorialComponenet}">  
-			   										<input class="form-control"  id="topicId" name="categoryName"  th:value="${topic.getTopic().getTopicname()}" readonly="readonly"></input>		
-			                                        </span>
+			                                          
+			   										<input class="form-control"  id="topicId" name="categoryName"  th:value="${topic}" readonly="readonly"></input>		
+			                                        
                                         </td>
                                       </tr>	 		
  
@@ -98,11 +98,12 @@
                                       <tr>
                                         <th>Language</th>
                                         <td>
-			                                  <span id="lan" th:each="language : ${tutorialComponenet}">  
-			                         					 <input class="form-control" id="lanId" name="languageName"  th:value="${language.getLan().getLanguageName()}" readonly="readonly"></input>		
+			                                    
+			                         					 <input class="form-control" id="lanId" name="languageName"  th:value="${language}" readonly="readonly"></input>		
 			                                   
-												</span>		
+													
 										</td>
+										<input type="hidden" id="tutorialId" th:value="${tutorial.getTutorialId()}" />
                                       </tr>
                                    </thead>
 

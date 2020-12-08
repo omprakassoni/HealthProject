@@ -675,4 +675,25 @@ public class AjaxController{
 	
 	/*************************************** END ******************************************************/
 	
+	
+	/********************************** operation at Admin End *****************************************/
+	@RequestMapping("/acceptAdminVideo")
+	public @ResponseBody String addKeyword(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setVideoStatus(CommonData.DOMAIN_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Video_STATUS_SUCCESS_MSG;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/***********************************END ***************************************************************/
 }
