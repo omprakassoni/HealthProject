@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.health.model.Category;
 import com.health.model.ContributorAssignedTutorial;
@@ -21,6 +22,7 @@ public interface TutorialRepository extends CrudRepository<Tutorial, Integer> {
 	int getNewId();
 	
 	List<Tutorial> findAllByconAssignedTutorial(ContributorAssignedTutorial con);
+	
 	
 //	Tutorial findByLanguage(String name);
 //

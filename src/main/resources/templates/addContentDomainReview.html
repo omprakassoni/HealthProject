@@ -44,12 +44,12 @@
 								<thead>
 									<tr>
 										<th>Category</th>
-										<td><span id="catId"
-											th:each="catgoryName : ${tutorialComponenet}"> <input
+										<td>
+											 <input
 												class="form-control" id="categoryId" name="categoryName"
-												th:value="${catgoryName.getCategory().getCategoryname()}"
+												th:value="${category}"
 												readonly="readonly"></input>
-										</span></td>
+										</td>
 
 
 
@@ -60,12 +60,11 @@
 									<tr>
 
 										<th>Topic Name</th>
-										<td><span id="topicName"
-											th:each="topic : ${tutorialComponenet}"> <input
+										<td> <input
 												class="form-control" id="topicId" name="categoryName"
-												th:value="${topic.getTopic().getTopicname()}"
+												th:value="${topic}"
 												readonly="readonly"></input>
-										</span></td>
+										</td>
 									</tr>
 
 
@@ -74,14 +73,14 @@
 								<thead>
 									<tr>
 										<th>Language Name</th>
-										<td><span id="lan"
-											th:each="language : ${tutorialComponenet}"> <input
+										<td> <input
 												class="form-control" id="lanId" name="languageName"
-												th:value="${language.getLan().getLanguageName()}"
+												th:value="${language}"
 												readonly="readonly"></input>
 
-										</span></td>
+										</td>
 									</tr>
+									<input type="hidden" id="tutorialId" th:value="${tutorial.getTutorialId()}" />
 								</thead>
 							</table>
 
@@ -105,7 +104,7 @@
 										<td>1</td>
 										<td>Outline</td>
 										<td><span th:each="statusOutline : ${statusOutline}">
-												<span style="color: green;" th:text="${statusOutline}">Pending</span>
+												<span style="color: green;" th:text="${statusOutline}"></span>
 										</span></td>
 										<th>-</th>
 										<th>
@@ -387,7 +386,7 @@
 										<div class="row">
 										<div class="col-md-6">
 										<div class="border border-info p-2 mb-5">
-											<span th:utext="${tutorialComponenet.getOutlin()}"></span>
+											<span th:utext="${tutorial.getOutline()}"></span>
 										</div>
 										<div th:if="${statusOutlineTrue}">
 										<form class="form-horizontal" th:action="@{/}"
@@ -479,7 +478,7 @@
 									<div class="row">
 									<div class="col-md-6">
 									<div class="border border-info p-2 mb-5">
-											<span th:utext="${tutorialComponenet.getKeyword()}"></span>
+											<span th:utext="${tutorial.getKeyword()}"></span>
 										</div>
 										<div th:if="${statusKeywordTrue}">
 										<form class="form-horizontal" th:action="@{/addkeyword}"
@@ -577,7 +576,7 @@
 														controls="controls" style="width:100%!important;">
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
 													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
-													<source th:src="@{/files/}+@{${tutorialComponenet.getVideo()}}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorial.getVideo()}}" type="video/mp4"></source>
 													</video>
 </div>
 
@@ -721,9 +720,10 @@
 									<div class="row">
 									<div class="col-md-6">
 									<div class="border border-secondary p-3 mb-3">
-										<span id="scriptIdDomain" th:each="scriptpath : ${tutorialComponenet}"> 
+										<span id="scriptIdDomain" th:each="scriptpath : ${tutorial}"> 
 										<a target="_blank" id="cat" th:href="@{/files/}+@{${scriptpath.getScript()}}">
-												<span th:text="${scriptpath.getTopic().getTopicname()}"></span>
+												<!-- <span th:text="${scriptpath.getTopic().getTopicname()}"></span> -->
+												click to View
 										</a>
 										</span>
 										</div>
@@ -800,7 +800,7 @@
 										</button>
 									</div>
 									<div class="modal-body">
-									<p th:text="${tutorialComponenet.getScript()}"></p>
+									<p th:text="${tutorial.getScript()}"></p>
 
 										<!-- <form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post"> -->
@@ -812,7 +812,7 @@
 							  					<video id='storedDomainPreId' 
 														controls="controls" style="width:100%!important;">
 													
-													<source th:src="@{/files/}+@{${tutorialComponenet.getPrerequisite()}}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorial.getPreRequistic()}}" type="video/mp4"></source>
 													
 												</video>
 												</div>
@@ -893,15 +893,16 @@
 									<div class="row">
 									<div class="col-md-6">
 									<div class="border border-secondary p-3 mb-3">
-									<div th:if="${tutorialComponenet.getSlideStatus()}">
+									<div th:if="${tutorial.getSlideStatus()}">
 											 <!--  <div class="card-body">
 											    <div class="form-group"> -->
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
 												<span id="scriptIdDomain"
-											th:each="scriptpath : ${tutorialComponenet}"> <a
+											th:each="scriptpath : ${tutorial}"> <a
 												 target="_blank" id="slidName"
 												name="categoryName" th:href="@{/files/}+@{${scriptpath.getSlide()}}">
-												<span th:text="${scriptpath.getTopic().getTopicname()}"></span></a>
+												<!-- <span th:text="${scriptpath.getTopic().getTopicname()}"></span> -->
+												click to open</a>
 										</span>
 											<!-- </div>
 											  </div> -->
@@ -952,7 +953,7 @@
 									
 									
 									</div>
-									<div th:unless="${tutorialComponenet.getSlideStatus()}" class="alert alert-secondary upload-status" role="alert">
+									<div th:unless="${tutorial.getSlideStatus()}" class="alert alert-secondary upload-status" role="alert">
 									  No Slide has been added yet.
 									</div>
 									
@@ -1049,16 +1050,16 @@
 										</button>
 									</div>
 									<div class="modal-body">
-									<div th:unless="${tutorialComponenet.getGraphicsStatus()}" class="alert alert-secondary upload-status" role="alert">
+									<div th:unless="${tutorial.getGraphicsStatus()}" class="alert alert-secondary upload-status" role="alert">
 									  No Graphics has been added yet.
 									</div>
 									<div class="border border-secondary p-3 mb-3">
-									<div th:if="${tutorialComponenet.getGraphicsStatus()}">
+									<div th:if="${tutorial.getGraphicsStatus()}">
 											 <!--  <div class="card-body">
 											    <div class="form-group"> -->
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
 												<span id="scriptIdDomain"
-											th:each="comp : ${tutorialComponenet}"> <a
+											th:each="comp : ${tutorial}"> <a
 												 target="_blank" 
 												name="categoryName" th:href="@{/files/}+@{${comp.getGraphics()}}">
 												<span>View Graphics</span></a>

@@ -17,6 +17,8 @@ public interface TutorialService {
 	int getNewId();
 	
 	List<Tutorial> findAllByContributorAssignedTutorial(ContributorAssignedTutorial con);
+	
+	List<Tutorial> findAllByContributorAssignedTutorialList(List<ContributorAssignedTutorial> con);
 
 	void save(Tutorial tut);
 	

@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,6 +63,17 @@ public class TutorialServiceImpl implements TutorialService {
 		return local.get();
 	}
 
+	@Override
+	public List<Tutorial> findAllByContributorAssignedTutorialList(List<ContributorAssignedTutorial> con) {
+		// TODO Auto-generated method stub
+		List<Tutorial> localList=new ArrayList<Tutorial>();
+		for(ContributorAssignedTutorial conTemp:con) {
+			localList.addAll(tutorialRepo.findAllByconAssignedTutorial(conTemp));
+		}
+		return localList;
+
+	}
+	
 	
 
 

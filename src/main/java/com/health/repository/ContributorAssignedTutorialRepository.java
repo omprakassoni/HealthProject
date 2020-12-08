@@ -24,5 +24,6 @@ public interface ContributorAssignedTutorialRepository extends CrudRepository<Co
 	
 	List<ContributorAssignedTutorial> findAllByuser(User user);
 	
-	
+	@Query("from ContributorAssignedTutorial where topicCatId=?1 and lan=?2")
+	ContributorAssignedTutorial findByTopicCatLan(TopicCategoryMapping topicCat,Language lan);
 }

@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,18 @@ public class ContributorAssignedTutorialServiceImpl implements ContributorAssign
 	public List<ContributorAssignedTutorial> findAllByUser(User user) {
 		// TODO Auto-generated method stub
 		return conRepo.findAllByuser(user);
+	}
+
+	@Override
+	public List<ContributorAssignedTutorial> findByTopicCatLan(List<TopicCategoryMapping> topCat, Language lan) {
+		// TODO Auto-generated method stub
+		List<ContributorAssignedTutorial> localData=new ArrayList<ContributorAssignedTutorial>();
+		
+		for(TopicCategoryMapping temp:topCat) {
+			localData.add(conRepo.findByTopicCatLan(temp, lan));
+		}
+		
+		return localData;
 	}
 
 }

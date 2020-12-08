@@ -2008,4 +2008,260 @@ public class HomeController {
 	
 	
 	/****************************************END********************************************************/
+	
+/********************************** operation at Admin End *****************************************/
+	@RequestMapping(value = "listTutorialForAdminReview", method = RequestMethod.GET)
+	public String listAdminReviewTutorialGet(Model model,Principal principal) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		List<Tutorial> toReview = new ArrayList<>();
+		List<Tutorial> reviewed = new ArrayList<>();
+		Role role=roleService.findByname(CommonData.adminReviewerRole);
+		
+		UserRole userRoles=usrRoleService.findByRoleUser(usr, role);
+		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategory(userRoles.getCategory());
+		
+		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles.getLanguage());
+		
+		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
+		for(Tutorial temp:tutorials) {
+			
+			if(temp.getVideoStatus() == CommonData.ADMIN_STATUS) {
+				toReview.add(temp);
+			}else if(temp.getVideoStatus() > CommonData.ADMIN_STATUS) {
+				reviewed.add(temp);
+			}
+		}
+		
+		model.addAttribute("tutorialToReview", toReview);
+		model.addAttribute("tutorialReviewed", reviewed);
+		return "listTutorialAdminReviwer";
+	
+	
+	
+	}
+	
+	@RequestMapping(value = "adminreview/review/{id}", method = RequestMethod.GET)
+	public String listAdminReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		Tutorial tutorial=tutService.getById(id);
+		
+		if(tutorial.getVideoStatus() != CommonData.ADMIN_STATUS) {
+			 // return some error
+			
+		}
+		
+		if(tutorial == null) {
+			// throw a error
+			model.addAttribute("tutorialNotExist", "Bad request");   //  throw proper error
+			return "listTutorialAdminReviwer";
+			
+		}
+		
+		model.addAttribute("tutorial", tutorial);
+		
+		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
+		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
+		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
+		
+		return "addContentAdminReview";
+	
+	
+	
+	}
+	
+	
+	
+	/***********************************END ***************************************************************/
+
+	/*************************** OPERATION AT DOMAIN REVIEWER END ***********************************/
+	@RequestMapping(value = "listTutorialForDomainReview", method = RequestMethod.GET)
+	public String listDomainReviewTutorialGet(Model model,Principal principal) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		List<Tutorial> toReview = new ArrayList<>();
+		List<Tutorial> published = new ArrayList<>();
+		Role role=roleService.findByname(CommonData.domainReviewerRole);
+		
+		UserRole userRoles=usrRoleService.findByRoleUser(usr, role);
+		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategory(userRoles.getCategory());
+		
+		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles.getLanguage());
+		
+		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
+		for(Tutorial temp:tutorials) {
+			
+			if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getVideoStatus() == CommonData.PUBLISH_STATUS && temp.getGraphicsStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
+				
+				published.add(temp);
+			}else {
+				toReview.add(temp);
+			}
+				
+		}
+		
+		model.addAttribute("tutorialToReview", toReview);
+		model.addAttribute("tutorialReviewed", published);
+		return "listTutorialDomainReviewer";
+	
+	
+	
+	}
+	
+	@RequestMapping(value = "domainreview/review/{id}", method = RequestMethod.GET)
+	public String listDomainReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		Tutorial tutorial=tutService.getById(id);
+		
+		if(tutorial.getVideoStatus() != CommonData.DOMAIN_STATUS) {
+			 // return some error
+			
+		}
+		
+		if(tutorial == null) {
+			// throw a error
+			model.addAttribute("tutorialNotExist", "Bad request");   //  throw proper error
+			return "listTutorialAdminReviwer";
+			
+		}
+		
+		model.addAttribute("statusOutline", CommonData.tutorialStatus[tutorial.getOutlineStatus()]);
+		model.addAttribute("statusScript", CommonData.tutorialStatus[tutorial.getScriptStatus()]);
+		model.addAttribute("statusSlide", CommonData.tutorialStatus[tutorial.getSlideStatus()]);
+		model.addAttribute("statusVideo", CommonData.tutorialStatus[tutorial.getVideoStatus()]);
+		model.addAttribute("statusKeyword", CommonData.tutorialStatus[tutorial.getKeywordStatus()]);
+		model.addAttribute("statusPreReq", CommonData.tutorialStatus[tutorial.getPreRequisticStatus()]);
+		model.addAttribute("statusGraphics", CommonData.tutorialStatus[tutorial.getGraphicsStatus()]);
+		model.addAttribute("tutorial", tutorial);
+		
+		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
+		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
+		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
+		
+		return "addContentDomainReview";
+	
+	
+	
+	}
+	
+	/*********************************** END *******************************************************/
+	
+	/*************************** OPERATION AT QUALITY REVIEWER END ***********************************/
+	
+	@RequestMapping(value = "listTutorialForQualityReview", method = RequestMethod.GET)
+	public String listQualityReviewTutorialGet(Model model,Principal principal) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		List<Tutorial> toReview = new ArrayList<>();
+		List<Tutorial> published = new ArrayList<>();
+		Role role=roleService.findByname(CommonData.qualityReviewerRole);
+		
+		UserRole userRoles=usrRoleService.findByRoleUser(usr, role);
+		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategory(userRoles.getCategory());
+		
+		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles.getLanguage());
+		
+		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
+		for(Tutorial temp:tutorials) {
+			
+			if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getVideoStatus() == CommonData.PUBLISH_STATUS && temp.getGraphicsStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
+				
+				published.add(temp);
+			}else {
+				toReview.add(temp);
+			}
+				
+		}
+		
+		model.addAttribute("tutorialToReview", toReview);
+		model.addAttribute("tutorialReviewed", published);
+		
+		return "listTutorialQualityReviewer";
+	
+	
+	
+	}
+	
+	@RequestMapping(value = "qualityreview/review/{id}", method = RequestMethod.GET)
+	public String listQualityReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		Tutorial tutorial=tutService.getById(id);
+		
+		if(tutorial.getVideoStatus() != CommonData.QUALITY_STATUS) {
+			 // return some error
+			
+		}
+		
+		if(tutorial == null) {
+			// throw a error
+			model.addAttribute("tutorialNotExist", "Bad request");   //  throw proper error
+			return "listTutorialAdminReviwer";
+			
+		}
+		
+		model.addAttribute("statusOutline", CommonData.tutorialStatus[tutorial.getOutlineStatus()]);
+		model.addAttribute("statusScript", CommonData.tutorialStatus[tutorial.getScriptStatus()]);
+		model.addAttribute("statusSlide", CommonData.tutorialStatus[tutorial.getSlideStatus()]);
+		model.addAttribute("statusVideo", CommonData.tutorialStatus[tutorial.getVideoStatus()]);
+		model.addAttribute("statusKeyword", CommonData.tutorialStatus[tutorial.getKeywordStatus()]);
+		model.addAttribute("statusPreReq", CommonData.tutorialStatus[tutorial.getPreRequisticStatus()]);
+		model.addAttribute("statusGraphics", CommonData.tutorialStatus[tutorial.getGraphicsStatus()]);
+		model.addAttribute("tutorial", tutorial);
+		
+		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
+		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
+		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
+		
+		return "addContentQualityReview";
+	
+	
+	
+	}
+	
+	/*********************************** END *******************************************************/
 }
