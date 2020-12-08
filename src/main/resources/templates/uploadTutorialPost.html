@@ -100,12 +100,11 @@
 								<thead>
 									<tr>
 										<th>Category</th>
-										<td><span id="catId"
-											th:each="catgoryName : ${categoryName}"> <input
+										<td> <input
 												class="form-control" id="categoryId" name="categoryName"
-												th:value="${catgoryName.getCategoryname()}"
+												th:value="${category.getCatName()}"
 												readonly="readonly"></input>
-										</span></td>
+										</td>
 
 										<!--        <span  th:each="catgoryName : ${categoryName}"> 
                                            <td   style="color:maroon;"  th:text="${catgoryName.getCategorylname()}"> </td>
@@ -117,13 +116,20 @@
 
 								<thead>
 									<tr>
-
+										<div th:if="${tutorial}">
+											<input type="hidden" id="tutorialId" th:value="${tutorial.getTutorialId()}" />
+										</div>
+										
+										<div th:unless="${tutorial}">
+											<input type="hidden" id="tutorialId" value="0" />
+										</div>
 
 										<th>Topic Name</th>
-										<td><span id="topicName" th:each="topic : ${inputTopic}">
+										<td>
 												<input class="form-control" id="topicId" name="categoryName"
-												th:value="${topic.getTopicname()}" readonly="readonly"></input>
-										</span></td>
+												th:value="${topic.getTopicName()}" readonly="readonly"></input>
+												<input type="hidden" id="topicID" th:value="${topic.getTopicId()}"/>
+										</td>
 									</tr>
 
 								</thead>
@@ -131,11 +137,11 @@
 								<thead>
 									<tr>
 										<th>Language Name</th>
-										<td><span id="lan" th:each="language : ${inputLanguage}">
+										<td>
 												<input class="form-control" id="lanId" name="languageName"
-												th:value="${language.languageName}" readonly="readonly"></input>
+												th:value="${language.getLangName()}" readonly="readonly"></input>
 
-										</span></td>
+										</td>
 									</tr>
 								</thead>
 
@@ -360,7 +366,7 @@
 															<label for="message-text" class="col-form-label"></label>
 															<textarea class="form-control editor" name="editor"
 																id="editor" rows="10" >
-										        		<!--  <p><span th:text="${tutorial.getOutlin()}"></span></p> -->
+										        		  <p><span th:if ="${tutorial}" th:text="${tutorial.getOutline()}"></span></p> 
 										          			 </textarea>
 														</div>
 
@@ -445,17 +451,17 @@
 												<span id="VideoView1"> </span>
 												<!-- <iframe src="about:blank" name="videoSet" id="videoSet"  height="240" width="320" scrolling="auto" autoplay="autoplay">
 		 </iframe>	 
-		 -->
-												<div th:if="${tutorial.getVideoStatus()}" id="videoDiv" class="container" height="240"
+		 --> 
+												<div th:if="${tutorial}" id="videoDiv" class="container" height="240"
 													width="320" scrolling="auto" autoplay="autoplay">
 
 													<video id='storedVideoId' height="240" width="320"
 														controls="controls">
-													<!-- <source src="movie.mp4" type="video/mp4"> -->
-													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
-													<source th:src="@{/files/}+@{${tutorial.getVideo()}}" type="video/mp4"></source>
+													<source src="movie.mp4" type="video/mp4">
+<!-- 													<source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
+													<source th:if = "${tutorial.getVideoStatus() != 0}" th:src="@{/files/}+@{${tutorial.getVideo()}}" type="video/mp4"></source>
 													</video>
-												</div>
+												</div> 
 											</div>
 											<!-- <button id="videoClick1" type="button"
 												class="btn btn-success">View</button>
@@ -547,7 +553,7 @@
 												<label for="message-text" class="col-form-label">Add
 													Keyword</label>
 												<textarea class="form-control" name="keywordArea"
-													id="keyword" rows="10" required="required">
+													id="keywordArea" rows="10" required="required">
 							            </textarea>
 											</div>
 										</form>
@@ -660,10 +666,10 @@
 											onsubmit="return submitForm(this);" method="post">
 
 											<div class="form-group">
-
-												<a name="ScriptPdf" target="_blank" id="ScriptPdf">Click
+												<div th:if="${tutorial}">
+												<a th:if="${tutorial != null}" th:href="@{/files/}+@{${tutorial.getScript()}}" name="ScriptPdf" target="_blank" id="ScriptPdf">Click
 													To View</a>
-
+												</div>
 											</div>
 
 											</form>
@@ -1065,7 +1071,7 @@
 
 						<!-- End prerequisiteModale-->
 
-						<!-- star script -->
+						<!-- star script  needed by om prakash-->
 
 						<div class="modal fade" id="scriptModale" data-backdrop="static"
 							data-keyboard="false" tabindex="-1" role="dialog"
@@ -1086,19 +1092,19 @@
 									<div class="modal-body">
 									 <div class="row">
 									<div class="col-md-6">
-									<div th:unless="${tutorial.scriptStatus}" class="alert alert-secondary upload-status" role="alert">
+									<!-- <div th:unless="${tutorial.scriptStatus}" class="alert alert-secondary upload-status" role="alert">
 									  No script has been added yet.
-									</div>
+									</div> -->
 										<form class="form-horizontal mb-3" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
-											<div th:if="${tutorial.scriptStatus}" class="card">
+										 	<div th:if="${tutorial}" class="card">
 											  <div class="card-body">
 											    <div class="form-group">
-												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
+												<a th:if="${tutorial.getScriptStatus() != 0}" th:href="@{/files/}+@{${tutorial.getScript()}}" name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a>
 												<a name="ScriptPdf" target="_blank" id="viewScript" href="#"></a>
 											</div>
 											  </div>
-											</div>
+											</div> 
 											
 											<!--   <button id="outlineView" type="button" class="btn btn-success">View</button>	  -->
 											<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->
@@ -1193,20 +1199,20 @@
 									<div class="modal-body">
 									<div class="row">
 									<div class="col-md-6">
-									<div th:unless="${tutorial.getSlideStatus()}" class="alert alert-secondary upload-status" role="alert">
+									 <div th:unless="${tutorial}" class="alert alert-secondary upload-status" role="alert">
 									  No script has been added yet.
-									</div>
+									</div> 
 
 										<form class="form-horizontal mb-3" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
-											<div th:if="${tutorial.getSlideStatus()}" class="card">
+										 	<div th:if="${tutorial}" class="card">
 											  <div class="card-body">
 											    <div class="form-group">
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
-												<a name="sliedPdf" target="_blank" id="sliedPdf"></a>
+												<a name="sliedPdf" th:if = "${tutorial.getSlideStatus() != 0}" target="_blank" th:href= "@{/files/}+@{${tutorial.getSlide()}}"id="sliedPdf">Click to view</a>
 											</div>
 											  </div>
-											</div>
+											</div> 
 											<!-- <div class="form-group">
 												<a name="sliedPdf" target="_blank" id="sliedPdf">Click To View</a>
 											</div> -->
@@ -1290,17 +1296,17 @@
 									<div class="modal-body">
 									<div class="row">
 									<div class="col-md-6">
-									<div th:unless="${tutorial.getGraphicsStatus()}" class="alert alert-secondary upload-status" role="alert">
+									 <div th:unless="${tutorial}" class="alert alert-secondary upload-status" role="alert">
 									  No Graphics has been added yet.
-									</div>
+									</div> 
 
 										<form class="form-horizontal mb-3" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
-											<div th:if="${tutorial.getGraphicsStatus()}" class="card">
+										 	<div th:if="${tutorial}" class="card">
 											  <div class="card-body">
 											    <div class="form-group">
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
-												<a name="sliedPdf" target="_blank" id="sliedPdf" th:href="@{/files/}+@{${tutorial.getGraphics()}}">View Graphics</a>
+												<a name="sliedPdf" th:if ="${tutorial.getGraphicsStatus() != 0}" target="_blank" id="sliedPdf" th:href="@{/files/}+@{${tutorial.getGraphics()}}">View Graphics</a>
 											</div>
 											  </div>
 											</div>

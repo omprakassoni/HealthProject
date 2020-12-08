@@ -31,37 +31,37 @@ public class Tutorial {
 	private String script;
 	
 	@Column(name = "script_status")
-	private int scriptStatus;
+	private int scriptStatus = 0;
 	
 	@Column(name = "slide",length = 1000)
 	private String slide;
 	
 	@Column(name = "slide_status")
-	private int slideStatus;
+	private int slideStatus = 0;
 	
 	@Column(name = "graphics",length = 1000)
 	private String graphics;
 	
 	@Column(name = "graphics_status")
-	private int graphicsStatus;
+	private int graphicsStatus = 0;
 	
 	@Column(name = "keyword",length = 1000)
 	private String keyword;
 	
 	@Column(name = "keyword_status")
-	private int keywordStatus;
+	private int keywordStatus = 0;
 	
 	@Column(name = "outline",length = 1000)
 	private String outline;
 	
 	@Column(name = "outline_status")
-	private int outlineStatus;
+	private int outlineStatus = 0;
 	
 	@Column(name = "preRequistic")
 	private String preRequistic;
 	
 	@Column(name = "preRequistic_status")
-	private int preRequisticStatus;
+	private int preRequisticStatus = 0;
 	
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
@@ -79,21 +79,12 @@ public class Tutorial {
 	private String video;
 	
 	@Column(name = "video_status")
-	private int videoStatus;
-	
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id")
-	private User user;
+	private int videoStatus = 0;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "topic_category_id")
-	private TopicCategoryMapping topicCatId;
+	@JoinColumn(name = "conAssignedTutorial")
+	private ContributorAssignedTutorial conAssignedTutorial;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lan_id")
-	private Language lan;
-
 	public int getTutorialId() {
 		return tutorialId;
 	}
@@ -246,29 +237,14 @@ public class Tutorial {
 		this.videoStatus = videoStatus;
 	}
 
-	public User getUser() {
-		return user;
+	public ContributorAssignedTutorial getConAssignedTutorial() {
+		return conAssignedTutorial;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setConAssignedTutorial(ContributorAssignedTutorial conAssignedTutorial) {
+		this.conAssignedTutorial = conAssignedTutorial;
 	}
 
-	public TopicCategoryMapping getTopicCatId() {
-		return topicCatId;
-	}
-
-	public void setTopicCatId(TopicCategoryMapping topicCatId) {
-		this.topicCatId = topicCatId;
-	}
-
-	public Language getLan() {
-		return lan;
-	}
-
-	public void setLan(Language lan) {
-		this.lan = lan;
-	}
 }
 
 //@Entity

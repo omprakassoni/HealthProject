@@ -35,9 +35,6 @@ public class TopicCategoryMapping {
 	private Topic topic;
 	
 	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Tutorial> tutorial=new HashSet<Tutorial>();
-	
-	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Question> questions=new HashSet<Question>();
 	
 	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -87,13 +84,6 @@ public class TopicCategoryMapping {
 		this.topic = topic;
 	}
 
-	public Set<Tutorial> getTutorial() {
-		return tutorial;
-	}
-
-	public void setTutorial(Set<Tutorial> tutorial) {
-		this.tutorial = tutorial;
-	}
 
 	public Set<Question> getQuestions() {
 		return questions;

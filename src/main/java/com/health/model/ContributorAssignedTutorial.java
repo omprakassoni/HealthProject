@@ -1,18 +1,18 @@
 package com.health.model;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GeneratorType;
 
 @Entity
 @Table(name="contributor_Role")
@@ -33,6 +33,9 @@ public class ContributorAssignedTutorial {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="language_id")
 	private Language lan;
+	
+	@OneToMany(mappedBy = "conAssignedTutorial", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Tutorial> tutorials=new HashSet<Tutorial>();
 
 	public int getId() {
 		return id;
@@ -87,6 +90,14 @@ public class ContributorAssignedTutorial {
 	
 	public ContributorAssignedTutorial() {
 		
+	}
+
+	public Set<Tutorial> getTutorials() {
+		return tutorials;
+	}
+
+	public void setTutorials(Set<Tutorial> tutorials) {
+		this.tutorials = tutorials;
 	}
 	 
  
