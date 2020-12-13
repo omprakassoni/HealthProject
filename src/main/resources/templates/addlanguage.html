@@ -14,10 +14,24 @@
 	<div style="display: flex;">
 		<div th:replace="common/sidebar :: contributor_sidebar"></div>
 		<div class="row" style='width: 100%;'>
-			<div class="col-lg-10 col-xl-9 mx-auto">
-				<!-- <div class="col-md-10 offset-md-1"> -->
+			<div class="col-lg-6 mx-auto">
+			<div>
+				<div class="alert alert-success" role="alert" th:if="${success_msg}">
+	 				<div id="#test" class="">
+						<div >
+							<span th:text="${success_msg}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+	 				<div id="#test" class="">
+						<div >
+							<span th:text="${error_msg}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
 				<div class="card card-signin flex-row a-card">
-
 					<div class="card-body">
 						<h5 class="card-title text-center a-card-title">
 							<div class="">
@@ -47,24 +61,17 @@
 					</div>
 				</div>
 			</div>
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-10 col-xl-9 mx-auto">
-						<div class="card card-signin flex-row">
+			<div class="col-lg-6 mx-auto">
+				<div class="card card-signin flex-row a-card">
 							<div class="card-body">
-							<h5 class="card-title text-center a-card-title">Languages Added</h5>
-								<ul>
-									<span th:each="lan : ${languageAll}">
-										<li><i class="fas fa-circle"></i>  <span 
-											th:text="${lan.getLangName()}"></span></li>
-
-									</span>
+							<h5 class="card-title text-center a-card-title">Available Languages</h5>
+								<ul class="list-group">
+									<li class="list-group-item" th:each="lan : ${languageAll}">
+									<span th:text="${lan.getLangName()}"></span>
+									</li>
 								</ul>
-
 							</div>
 						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
