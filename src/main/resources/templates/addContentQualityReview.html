@@ -547,7 +547,7 @@
 														controls="controls" style="width:100%!important;">
 													<!-- <source src="movie.mp4" type="video/mp4"> -->
 													<!-- <source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
-													<source th:src="@{/files/}+@{${tutorialComponenet.getVideo()}}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorial.getVideo()}}" type="video/mp4"></source>
 													</video>
  </div>		
 	 
@@ -664,7 +664,7 @@
 							  						<video id='storedPreId' 
 														controls="controls" style="width:100%!important;">
 													
-													<source th:src="@{/files/}+@{${tutorialComponenet.getPrerequisite()}}" type="video/mp4"></source>
+													<source th:src="@{/files/}+@{${tutorial.getPreRequistic()}}" type="video/mp4"></source>
 													
 													</video>
 												</div>
@@ -788,7 +788,7 @@
 								role="document">
 						    <div class="modal-content">
 						    <div class="alert alert-msg m-3" style="display: none;"></div>
-						    <div  th:unless="${statusOutlineTrue}"><div class="alert alert-info m-3">Not valid for review</div></div>
+						    <div th:if="${tutorial.getOutlineStatus() != 3}"><div class="alert alert-info m-3">Not valid for review</div></div>
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelOutlineView">Quality Review - Outline</h5>
 						        
@@ -810,9 +810,9 @@
 						      <div class="row">
 						      <div class="col-md-6">
 						      <div class="border border-info p-2 mb-5">
-											<span th:utext="${tutorialComponenet.getOutlin()}"></span>
+											<span th:utext="${tutorial.getOutline()}"></span>
 										</div>
-										<div  th:if="${statusOutlineTrue}">
+										<div  th:if="${statusOutline}">
 											<form  class="form-horizontal"  th:action="@{/}" onsubmit="return submitForm(this);" method="post" >
 
 						          <div class="form-group">
@@ -863,7 +863,7 @@
 						      					        
 						      </div>
 						      <div class="modal-footer">
-						      <span  th:if="${statusOutlineTrue}"> <button id="submitQualityOutlineStatus"  type="button" class="btn btn-success">Submit</button></span>
+						      <span  th:if="${statusOutline}"> <button id="submitQualityOutlineStatus"  type="button" class="btn btn-success">Submit</button></span>
 						        
 						         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
@@ -1330,7 +1330,7 @@ data-keyboard="false"
 						      <div class="row">
 						      <div class="col-md-6">
 						      <div class="border border-info p-2 mb-5">
-											<span th:utext="${tutorialComponenet.getKeyword()}"></span>
+											<span th:utext="${tutorial.getKeyword()}"></span>
 										</div>
 							 <div  th:if="${statusKeywordTrue}">
 							 	<form  class="form-horizontal"  th:action="@{/addOutlineStataus}" onsubmit="return submitForm(this);" method="post" >
@@ -1488,16 +1488,16 @@ data-keyboard="false"
 										</button>
 									</div>
 									<div class="modal-body">
-									<div th:unless="${tutorialComponenet.getGraphicsStatus()}" class="alert alert-secondary upload-status" role="alert">
+									<div th:unless="${tutorial.getGraphicsStatus()}" class="alert alert-secondary upload-status" role="alert">
 									  No Graphics has been added yet.
 									</div>
 									<div class="border border-secondary p-3 mb-3">
-									<div th:if="${tutorialComponenet.getGraphicsStatus()}">
+									<div th:if="${tutorial.getGraphicsStatus()}">
 											 <!--  <div class="card-body">
 											    <div class="form-group"> -->
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
 												<span id="scriptIdDomain"
-											th:each="comp : ${tutorialComponenet}"> <a
+											th:each="comp : ${tutorial}"> <a
 												 target="_blank" 
 												name="categoryName" th:href="@{/files/}+@{${comp.getGraphics()}}">
 												<span>View Graphics</span></a>
