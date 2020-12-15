@@ -137,7 +137,7 @@ public class HomeController {
 	
 	@Autowired
 	private TraineeInformationService traineeService;
-
+	
 //	@RequestMapping("/viewVideo/view/{id}")
 //	public String viewVideo(Model model, @PathVariable Integer id) {
 //		// Tutorial tutorials = tutorialDao.findOne(id);
@@ -180,9 +180,57 @@ public class HomeController {
 //
 //		return "showVideo";
 //	}
+	
 
 	@RequestMapping("/")
 	public String index(Model model) {
+		
+		List<Event> events=eventservice.findAll();
+		List<Testimonial> testi=testService.findAll();
+		List<Consultant> consults= consultService.findAll();
+		List<Language> languages= lanService.getAllLanguages();
+		
+		List<Event> evnHome = new ArrayList<>();
+		List<Testimonial> testHome = new ArrayList<>();
+		List<Consultant> consulHome = new ArrayList<>();
+		int upperlimit = 0;
+		
+		for(Event local : events) {
+			evnHome.add(local);
+			if(++upperlimit > 3) {
+				break;
+			}
+		}
+		
+		upperlimit = 0;
+		
+		for(Testimonial local : testi) {
+			testHome.add(local);
+			if(++upperlimit > 3) {
+				break;
+			}
+		}
+		
+		upperlimit = 0;
+		
+		for(Consultant local : consults) {
+			consulHome.add(local);
+			if(++upperlimit > 4) {
+				break;
+			}
+		}
+		
+		
+		model.addAttribute("listofConsalatatnt", consulHome);
+		model.addAttribute("listofTestimonial", testHome);
+		model.addAttribute("languageCount", languages.size());
+		model.addAttribute("videoCount", tutService.findAll().size());
+		model.addAttribute("consultantCount", consults.size());
+		
+		model.addAttribute("event", evnHome);
+		
+		
+		
 //		List<Tutorial> category = tutorialDao.finBystatus();
 //		ArrayList<String> tutorialRes = new ArrayList<String>();
 //		for (Tutorial tutorial : category) {
@@ -262,6 +310,30 @@ public class HomeController {
 	@RequestMapping("/login")									// in use
 	public String loginGet(Model model) {
 		model.addAttribute("classActiveLogin", true);
+		return "signup";
+	}
+	
+	@RequestMapping(value = "/showEvent",method = RequestMethod.GET)
+	public String showEventGet(Model model) {
+
+		List<Event> events=eventservice.findAll();
+		model.addAttribute("Events", events);
+		return "events";
+	}
+	
+	@RequestMapping(value = "/showConsultant",method = RequestMethod.GET)
+	public String showConsultantGet(Model model) {
+
+		List<Consultant> consults = consultService.findAll();
+		model.addAttribute("consultants", consults);
+		return "Consultants";
+	}
+	
+	@RequestMapping(value = "/showTestimonial",method = RequestMethod.GET)
+	public String showTestimonialGet(Model model) {
+
+		List<Testimonial> testi = testService.findAll();
+		model.addAttribute("Testimonials", testi);
 		return "signup";
 	}
 
