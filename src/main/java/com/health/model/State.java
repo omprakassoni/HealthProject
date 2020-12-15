@@ -29,6 +29,9 @@ public class State {
 	
 	@OneToMany(mappedBy = "state", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<District>  Districts=new HashSet<District>();
+	
+	@OneToMany(mappedBy = "state", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private Set<TrainingInformation>  trainigInfos=new HashSet<TrainingInformation>();
 
 	public int getId() {
 		return id;
@@ -60,6 +63,14 @@ public class State {
 
 	public void setDistricts(Set<District> districts) {
 		Districts = districts;
+	}
+
+	public Set<TrainingInformation> getTrainigInfos() {
+		return trainigInfos;
+	}
+
+	public void setTrainigInfos(Set<TrainingInformation> trainigInfos) {
+		this.trainigInfos = trainigInfos;
 	}
 	
 	

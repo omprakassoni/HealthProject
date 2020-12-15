@@ -268,7 +268,7 @@
           </div>
         </div>  
       </div>
-     <a th:href="@{/showListConsultants}" target="_blank" class="button is-link is-outlined is-fullwidth consBtn mb-5">View all consultants</a>
+     <a th:href="@{/showConsultant}" target="_blank" class="button is-link is-outlined is-fullwidth consBtn mb-5">View all consultants</a>
     </div>
      
     </section>
@@ -302,7 +302,7 @@
     </div>
     	
     </div>
-     <a th:href="@{/showEvents}" target="_blank" class="button is-link is-outlined is-fullwidth catBtn mb-5">View all Events</a>
+     <a th:href="@{/showEvent}" target="_blank" class="button is-link is-outlined is-fullwidth catBtn mb-5">View all Events</a>
     </section>
    
     <div id="modal-consultant" th:each="consantant : ${listofConsalatatnt}" class="modal" th:attrappend="id=${'_'+consantant.getId()}">
@@ -320,7 +320,7 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<button class="button is-info"><a th:href="@{/showListConsultants}" target="_blank" >View all consultants</a></button>
+					<button class="button is-info"><a th:href="@{/showConsultant}" target="_blank" >View all consultants</a></button>
 					 <button class="button c-modal-close">Cancel</button>
 					 <button class="modal-close is-large c-modal-close" aria-label="close">Close</button>
 					 

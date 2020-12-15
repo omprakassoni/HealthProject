@@ -21,7 +21,7 @@
 				 <div class=" card-signin ">
 					<div class="">
 						
-						<div sec:authorize="hasAnyAuthority('MasterTrainer')">
+						<div sec:authorize="hasAnyAuthority('MASTER_TRAINER','SUPER_USER')">
 
 							  
 								
@@ -66,7 +66,7 @@
 			  </script>
 						    <!-- <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);"> -->
 					
-		 <form action="/findtrainee" method="post" enctype="multipart/form-data">
+	<!-- 	 <form action="/findtrainee" method="post" enctype="multipart/form-data">
 		 
 				 <div class=""> 
 						    
@@ -111,7 +111,7 @@
 						</div>
 							
 						
-						   </form>
+						   </form> -->
 						
 					
 						
@@ -127,11 +127,11 @@
 					                <th>Age</th>
 					                 <th>Aadhar no</th>
 					                <th>Mobile Number</th>
-					                <th>Address</th>
 					               <th>Organization</th>
-					               <th>Experience</th>
-					               <th>Premark</th>
-					          	    <th>Postmark</th>
+					               <th>email</th>
+					               <th>Gender</th>
+					             <!--   <th>Premark</th>
+					          	    <th>Postmark</th> -->
 					                <th>Edit</th>
 					               
 					                          
@@ -139,17 +139,17 @@
 					            
 					            </thead>
 					            <tbody>
-					            	<tr th:each="traineeInformation : ${traineeInformation}" >
-					                <td th:text="${traineeInformation.name}">ID</td>  
-					                <td th:text="${traineeInformation.age}">Name</td>
-					                <td th:text="${traineeInformation.aadharNumber}">description</td> 
-					                <td th:text="${traineeInformation.mobileNumber}">description</td>
-					                <td th:text="${traineeInformation.address}">description</td>
-					                <td th:text="${traineeInformation.organization}">description</td>
-					                <td th:text="${traineeInformation.experience}">description</td>
-					                <td th:text="${traineeInformation.premark}">description</td>  
-					                <td th:text="${traineeInformation.postmark}">description</td>  
-					                 <td><a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a></td>     
+					            	<tr th:each="traineeInformation : ${TraineesData}" >
+					                <td th:text="${traineeInformation.getName()}">ID</td>  
+					                <td th:text="${traineeInformation.getAge()}">Name</td>
+					                <td th:text="${traineeInformation.getAadhar()}">description</td> 
+					                <td th:text="${traineeInformation.getPhone()}">description</td>
+					                <td th:text="${traineeInformation.getOrganization()}">description</td>
+					                <td th:text="${traineeInformation. getEmail()}">description</td>
+					                <td th:text="${traineeInformation. getGender()}">description</td>
+					               <!--  <td th:text="${traineeInformation.premark}">description</td>  
+					                <td th:text="${traineeInformation.postmark}">description</td>  --> 
+					                 <td><!-- <a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a> --></td>     
 					                
 		
 					            </tr>

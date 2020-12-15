@@ -9,6 +9,7 @@ import com.health.model.Category;
 import com.health.model.Language;
 import com.health.model.Question;
 import com.health.model.Topic;
+import com.health.model.TopicCategoryMapping;
 import com.health.model.Tutorial;
 import com.health.model.category_Tutorial;
 
@@ -24,5 +25,9 @@ public interface QuestionRepository extends CrudRepository<Question, Integer> {
 	  
 	@Query("select max(questionId) from Question")
 	int getNewId();
+	
+	 @Query("from Question where topicCatId = ?1 and lan = ?2")
+	 List<Question> findByTopicLan(TopicCategoryMapping topicCat, Language lan);
+	
 
 }

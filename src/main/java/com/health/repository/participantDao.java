@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.health.model.Category;
-import com.health.model.partipantDeatil;
 
-public interface participantDao extends CrudRepository<partipantDeatil, Integer> {
+
+/*public interface participantDao extends CrudRepository<partipantDeatil, Integer> {
 
 
 //	@Modifying
@@ -32,4 +32,4 @@ public interface participantDao extends CrudRepository<partipantDeatil, Integer>
 //
 //	 long countByadharNumber(String aadharNumber); 	
 
-}
+

@@ -1,0 +1,15 @@
+package com.health.service;
+
+import java.util.Set;
+
+import com.health.model.TraineeInformation;
+import com.health.model.TrainingInformation;
+
+public interface TrainingInformationService {
+
+	int getNewId();
+	
+	void save(TrainingInformation temp);
+	
+	void addTrainee(TrainingInformation training,Set<TraineeInformation> trainee); 
+}

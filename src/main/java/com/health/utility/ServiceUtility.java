@@ -118,6 +118,18 @@ public class ServiceUtility {
 		return true;
 	}
 	
+	public static boolean checkFileExtensiononeFileCSV(MultipartFile pdfFile) {				// validate file against PDF extension
+		
+		
+		if(!pdfFile.getOriginalFilename().endsWith(".csv") && !pdfFile.getOriginalFilename().endsWith(".CSV")) {
+			return false;
+		}
+	
+	return true;
+	}
+	
+	
+	
 	
 	public static boolean checkFileExtensionImage(MultipartFile[] imageFile) {			// validate file against Image Extension
 		
