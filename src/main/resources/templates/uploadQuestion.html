@@ -42,14 +42,25 @@
 	
 	    <div class="row">
 	      <div class="col-lg-10 col-xl-9 mx-auto">
+	      <div>
+				<div class="alert alert-success" role="alert" th:if="${success_msg}">
+	 				<div id="#test" class="">
+						<div >
+							<span th:text="${success_msg}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+	 				<div id="#test" class="">
+						<div >
+							<span th:text="${error_msg}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
 	        <div class="card card-signin flex-row my-5">
 	       
 	          <div class="card-body">
-	           <h5 class="card-title text-center" style="color:maroon; font-size: 20px">
-    						<div class="">    
-                                <div th:if="${msg}">
-   								 <span th:text="${msg}"></span>
- 											 </div> </div></h5>
 	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Upload Question</h5>
 	            
 	
@@ -84,7 +95,7 @@
 									    
                                        <select id="languageNameId" class="form-control" name="languageyName"   required="required" >
 			
-								                        <option >Select Language</option>      
+								                        <!-- <option >Select Language</option> -->      
 								                        <span th:each="lan: ${languages}" >
 								  								<option th:value="${lan.getLanId()}"><span  th:text="${lan.getLangName()}"></span></option>		
 								  						</span>

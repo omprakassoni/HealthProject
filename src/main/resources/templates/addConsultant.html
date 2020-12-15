@@ -16,16 +16,18 @@
 
 		<div class="row" style='width: 100%;'>
 			<div class="col-lg-10 col-xl-9 mx-auto">
+			
+				<div class="alert alert-success" role="alert" th:if="${msg}">
+	 				<div id="#test" class="">
+						<div >
+							<span th:text="${msg}"></span>
+						</div>
+					</div>
+				</div>
+			
 				<div class="card card-signin flex-row a-card">
 
 					<div class="card-body">
-						<h5 class="card-title text-center">
-							<div id="#test" class="">
-								<div th:if="${msg}">
-									<span th:text="${msg}"></span>
-								</div>
-							</div>
-						</h5>
 						<h5 class="card-title text-center a-card-title">Add
 							Consultant</h5>
 
