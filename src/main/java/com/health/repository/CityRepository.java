@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.health.model.City;
 import com.health.model.District;
+import com.health.model.State;
 
 public interface CityRepository extends CrudRepository<City, Integer>{
 	
@@ -19,5 +20,4 @@ public interface CityRepository extends CrudRepository<City, Integer>{
 	  
 	  District findBycityName(String name);
 	    
-
 }

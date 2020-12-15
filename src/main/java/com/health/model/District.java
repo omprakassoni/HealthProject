@@ -30,6 +30,9 @@ public class District {
 	
 	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	Set<City> cities=new HashSet<City>();
+	
+	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	Set<TrainingInformation> trainingInfos=new HashSet<TrainingInformation>();
 
 	public int getId() {
 		return id;
@@ -69,6 +72,14 @@ public class District {
 
 	public void setCities(Set<City> cities) {
 		this.cities = cities;
+	}
+
+	public Set<TrainingInformation> getTrainingInfos() {
+		return trainingInfos;
+	}
+
+	public void setTrainingInfos(Set<TrainingInformation> trainingInfos) {
+		this.trainingInfos = trainingInfos;
 	}
 	
 	

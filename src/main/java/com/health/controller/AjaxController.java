@@ -17,17 +17,23 @@ import org.springframework.web.multipart.MultipartFile;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
+import com.health.model.City;
 import com.health.model.ContributorAssignedTutorial;
+import com.health.model.District;
 import com.health.model.Language;
 import com.health.model.Question;
+import com.health.model.State;
 import com.health.model.Topic;
 import com.health.model.TopicCategoryMapping;
 import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.service.CategoryService;
+import com.health.service.CityService;
 import com.health.service.ContributorAssignedTutorialService;
+import com.health.service.DistrictService;
 import com.health.service.LanguageService;
 import com.health.service.RoleService;
+import com.health.service.StateService;
 import com.health.service.TopicCategoryMappingService;
 import com.health.service.TopicService;
 import com.health.service.TutorialService;
@@ -69,6 +75,49 @@ public class AjaxController{
 	@Autowired
 	private Environment env;
 	
+	@Autowired
+	private StateService stateService;
+	
+	@Autowired
+	private DistrictService disService;
+	
+	@Autowired
+	private CityService cityServie;
+	
+	
+	@RequestMapping("/loadDistrictByState")
+	public @ResponseBody HashMap<Integer, String> getDistrictByState(@RequestParam(value = "id") int id) {
+
+		HashMap<Integer,String> disName=new HashMap<>();
+
+		State state=stateService.findById(id);
+
+		List<District> districts= disService.findAllByState(state);
+
+		for(District temp : districts) {
+
+			disName.put(temp.getId(), temp.getDistrictName());
+		}
+		return disName;
+
+	}
+	
+	@RequestMapping("/loadCityByDistrict")
+	public @ResponseBody HashMap<Integer, String> getCityByDistrict(@RequestParam(value = "id") int id) {
+
+		HashMap<Integer,String> cityName=new HashMap<>();
+
+		District district=disService.findById(id);
+
+		List<City> cities= cityServie.findAllByDistrict(district);
+
+		for(City temp : cities) {
+
+			cityName.put(temp.getId(), temp.getCityName());
+		}
+		return cityName;
+
+	}
 	
 	@RequestMapping("/loadTopicByCategory")
 	public @ResponseBody HashMap<Integer, String> getTopicByCategory(@RequestParam(value = "id") int id) {

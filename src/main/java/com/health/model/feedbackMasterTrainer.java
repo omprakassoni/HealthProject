@@ -44,18 +44,18 @@ public class feedbackMasterTrainer {
 	@JoinColumn(name="cat_id")
 	private Category category;
 
-	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	 @JoinColumn(name="traning_Id")
-	 private TraningInformation TraningInformation;
-
-
-	public TraningInformation getTraningInformation() {
-		return TraningInformation;
-	}
-
-	public void setTraningInformation(TraningInformation traningInformation) {
-		TraningInformation = traningInformation;
-	}
+	/*
+	 * @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name="traning_Id") private TraningInformation TraningInformation;
+	 * 
+	 * 
+	 * public TraningInformation getTraningInformation() { return
+	 * TraningInformation; }
+	 * 
+	 * public void setTraningInformation(TraningInformation traningInformation) {
+	 * TraningInformation = traningInformation; }
+	 */
 
 	public Category getCategory() {
 		return category;

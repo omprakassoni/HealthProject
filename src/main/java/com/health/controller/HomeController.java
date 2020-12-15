@@ -1,7 +1,10 @@
 package com.health.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.security.Principal;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -37,28 +40,38 @@ import com.health.domain.security.PasswordResetToken;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
-
+import com.health.model.City;
 import com.health.model.Consultant;
 import com.health.model.ContributorAssignedTutorial;
+import com.health.model.District;
 import com.health.model.Event;
 import com.health.model.Language;
 import com.health.model.Question;
+import com.health.model.State;
 import com.health.model.Testimonial;
 import com.health.model.Topic;
 import com.health.model.TopicCategoryMapping;
+import com.health.model.TraineeInformation;
+import com.health.model.TrainingInformation;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.model.language_assign;
 import com.health.repository.LangaugeRepository;
 import com.health.service.CategoryService;
+import com.health.service.CityService;
 import com.health.service.ConsultantService;
 import com.health.service.ContributorAssignedTutorialService;
+import com.health.service.DistrictService;
 import com.health.service.EventService;
 import com.health.service.LanguageService;
 import com.health.service.QuestionService;
 import com.health.service.RoleService;
+import com.health.service.StateService;
 import com.health.service.TestimonialService;
 import com.health.service.TopicCategoryMappingService;
 import com.health.service.TopicService;
+import com.health.service.TraineeInformationService;
+import com.health.service.TrainingInformationService;
 import com.health.service.TutorialService;
 import com.health.service.UserRoleService;
 import com.health.service.UserService;
@@ -119,6 +132,21 @@ public class HomeController {
 	
 	@Autowired
 	private TutorialService tutService;
+	
+	@Autowired
+	private StateService stateService;
+	
+	@Autowired
+	private TrainingInformationService trainingInfoService;
+	
+	@Autowired
+	private DistrictService districtService;
+	
+	@Autowired
+	private CityService cityService;
+	
+	@Autowired
+	private TraineeInformationService traineeService;
 	
 
 
@@ -2264,4 +2292,221 @@ public class HomeController {
 	}
 	
 	/*********************************** END *******************************************************/
+	
+	/************************* OPERATION AT MASTER TRAINER ******************************************/
+		
+	@RequestMapping(value = "/trainerProfile", method = RequestMethod.GET)
+	public String profileMasterTrainerGet(Model model,Principal principal) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		return "traineeView";
+	
+	
+	
+	}
+	
+	@RequestMapping(value = "/masterTrainerOperation", method = RequestMethod.GET)
+	public String MasterTrainerGet(Model model,Principal principal) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		List<Category> cat=catService.findAll();
+
+		List<State> states=stateService.findAll();
+		
+		List<Language> lan=lanService.getAllLanguages();
+		
+		model.addAttribute("categories", cat);
+		
+		model.addAttribute("states", states);
+		model.addAttribute("lans", lan);
+		
+		return "masterTrainerOperation";
+	
+	}
+	
+	@RequestMapping(value = "/downloadQuestion", method = RequestMethod.POST)
+	public String downloadQuestionPost(Model model,Principal principal,
+										@RequestParam(value="catMasterId") int catName,
+										@RequestParam(value="lanMasterTrId") int topicId,
+										@RequestParam(value="dwnByLanguageId") String lanName) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		Category cat=catService.findByid(catName);
+		Topic topic=topicService.findById(topicId);
+		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
+		Language lan = lanService.getByLanName(lanName);
+		List<Question> questions = questService.getAllQuestionBasedOnTopicCatAndLan(topicCat, lan);
+		model.addAttribute("Questions", questions);
+		
+		List<Category> cats=catService.findAll();
+
+		List<State> states=stateService.findAll();
+		
+		List<Language> lans=lanService.getAllLanguages();
+		
+		model.addAttribute("categories", cats);
+		
+		model.addAttribute("states", states);
+		model.addAttribute("lans", lans);
+		
+		return "masterTrainerOperation";
+	
+	}
+	
+	@RequestMapping(value = "/viewTrainee", method = RequestMethod.GET)
+	public String downloadQuestionPost(Model model,Principal principal) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		List<TraineeInformation> trainees = traineeService.findAll();
+	
+		model.addAttribute("TraineesData", trainees);
+		
+		return "traineeView";
+	
+	}
+	
+	
+	@RequestMapping(value = "/addTrainingInfo", method = RequestMethod.POST)
+	public String addTrainingInfoPost(Model model,Principal principal,
+			@RequestParam("ParticipantsPhoto") MultipartFile[] trainingImage,
+			@RequestParam("traineeInformation") MultipartFile traineeInfo,
+			@RequestParam(value="categoryName") int catName,
+			@RequestParam(value="inputTopic") int topicId,
+			@RequestParam(value="language") String lanName,
+			@RequestParam(value="date") String startDate,
+			@RequestParam(value="endDate") String endDate,
+			@RequestParam(value="stateName") int state,
+			@RequestParam(value="districtName") int district,
+			@RequestParam(value="cityName") int city,
+			@RequestParam(value="traningInfo") String trainingInformation,
+			@RequestParam(value = "totalPar") int totaltrainee,
+			@RequestParam(value="addressInformationName") String address,
+			@RequestParam(value="pinCode") int pinCode,
+			@RequestParam(value="titleName") String titleName) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		
+		if(!ServiceUtility.checkFileExtensiononeFileCSV(traineeInfo)) {
+			
+			// throw error on output
+			return "masterTrainerOperation";
+		}
+		
+		if(!ServiceUtility.checkFileExtensionZip(trainingImage)) {
+			
+			// throw error on output
+			return "masterTrainerOperation";
+		}
+		
+		State stat=stateService.findById(state);
+		District districtTemp=districtService.findById(district);
+		City cityTemp=cityService.findById(city);
+		Language lan=lanService.getByLanName(lanName);
+		Category cat=catService.findByid(catName);
+		Topic topic=topicService.findById(topicId);
+		TopicCategoryMapping topicCatMap=topicCatService.findAllByCategoryAndTopic(cat, topic);
+		
+		int newTrainingdata=trainingInfoService.getNewId();
+		TrainingInformation trainingData=new TrainingInformation();
+		trainingData.setCity(cityTemp);
+		trainingData.setDateAdded(ServiceUtility.getCurrentTime());
+		trainingData.setState(stat);
+		trainingData.setDistrict(districtTemp);
+		trainingData.setTrainingId(newTrainingdata);
+		trainingData.setTitleName(titleName);
+		try {
+			trainingData.setStartDate(ServiceUtility.convertStringToDate(startDate));
+			trainingData.setEnddate(ServiceUtility.convertStringToDate(endDate));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			//  return error for ill formatted error
+			return "masterTrainerOperation";
+		}
+		
+		trainingData.setPincode(pinCode);
+		trainingData.setTopicCatId(topicCatMap);
+		trainingData.setLan(lan);
+		trainingData.setAddress(address);
+		trainingData.setUser(usr);
+		
+		try {
+			trainingInfoService.save(trainingData);
+			
+			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer+newTrainingdata)) {
+				String pathtoUploadPoster=ServiceUtility.uploadFile(trainingImage, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer+newTrainingdata);
+				int indexToStart=pathtoUploadPoster.indexOf("Media");
+				
+				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+				
+				trainingData.setPosterPath(document);
+				
+				byte[] bytes = traineeInfo.getBytes();
+	            String completeData = new String(bytes);
+	            String[] rows = completeData.split("#");
+	            
+	            Set<TraineeInformation> trainees=new HashSet<TraineeInformation>();
+	            int newTraineeId=traineeService.getNewId();
+	            for(int i=0;i<rows.length;i++) {
+	            	String[] columns = rows[i].split(",");
+	            	TraineeInformation temp=new TraineeInformation(newTraineeId++, columns[0], columns[1], Long.parseLong(columns[2]),Integer.parseInt(columns[3]), Long.parseLong(columns[4]), columns[5], columns[6], trainingData);
+	            	trainees.add(temp);
+	            }
+				
+	            trainingInfoService.addTrainee(trainingData, trainees);
+	            
+			}else {      // throw a error
+				
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 // throw a error
+			
+			return "masterTrainerOperation";
+		}
+		
+	
+		
+		return "masterTrainerOperation";
+	
+	}
+	
 }

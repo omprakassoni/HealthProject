@@ -404,16 +404,13 @@ $(document)
 			// });
 
 			/* Here is code for select District */
+/****************************** changes made by om prakash ****************************************/
+			
+			$('#stateNameId').change(function() {
 
-			$('#stateNameId')
-			.change(
-					function() {
+						var state = $(this).find(":selected").val();
 
-						var state = $(this).find(":selected")
-						.val();
-
-						$
-						.ajax({
+						$.ajax({
 							type : "GET",
 							url : projectPath+"loadDistrictByState",
 							data : {
@@ -425,28 +422,20 @@ $(document)
 								var html = '';
 								var len = result.length;
 								html += '<option value="0">Select District</option>';
-								for (var i = 0; i < len; i++) {
-									html += '<option value="'
-										+ result[i]
-									+ '">'
-									+ result[i]
-									+ '</option>';
-								}
-								html += '</option>';
+	  	  			            $.each(result , function( key, value ) {
+		  	  			        html += '<option value=' + key + '>'
+		  			               + value
+		  			               + '</option>';
+		  	  			        })
+	  	  			            html += '</option>';
 
-								$("#districtId").prop(
-										'disabled',
-										false);
-								$('#districtId').html(
-										html);
+								$("#districtId").prop('disabled',false);
+								$('#districtId').html(html);
 
 							},
 
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							}
 
 						});
@@ -980,15 +969,13 @@ $(document)
 
 					});
 
-			$('#districtId')
-			.change(
-					function() {
+	/*********************** changes made by om prakash ********************************/
+			
+			$('#districtId').change(function() {
 
-						var dist = $(this).find(":selected")
-						.val();
+						var dist = $(this).find(":selected").val();
 
-						$
-						.ajax({
+						$.ajax({
 							type : "GET",
 							url : projectPath+"loadCityByDistrict",
 							data : {
@@ -1000,27 +987,20 @@ $(document)
 								var html = '';
 								var len = result.length;
 								html += '<option value="0">Select City</option>';
-								for (var i = 0; i < len; i++) {
-									html += '<option value="'
-										+ result[i]
-									+ '">'
-									+ result[i]
-									+ '</option>';
-								}
-								html += '</option>';
+	  	  			            $.each(result , function( key, value ) {
+		  	  			        html += '<option value=' + key + '>'
+		  			               + value
+		  			               + '</option>';
+		  	  			        })
+	  	  			            html += '</option>';
 
-								$("#cityId").prop(
-										'disabled',
-										false);
+								$("#cityId").prop('disabled',false);
 								$('#cityId').html(html);
 
 							},
 
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							}
 
 						});
@@ -1034,7 +1014,7 @@ $(document)
 
 			// $("#catMasterId").change(function(){
 			// 2a7c4fbe32196d9c8817df70b2f7bd828dca62f6
-			$('#stateNameId')
+			/*$('#stateNameId')
 			.change(
 					function() {
 
@@ -1080,7 +1060,7 @@ $(document)
 						});
 
 					});
-
+*/
 			/* Here is code for distrcit Selection for adding city */
 			$('#stateDistrictId')
 			.change(
@@ -1131,7 +1111,7 @@ $(document)
 
 					});
 
-			$('#districtId')
+			/*$('#districtId')
 			.change(
 					function() {
 
@@ -1176,24 +1156,21 @@ $(document)
 
 						});
 
-					});
+					});*/
 
 			/*
 			 * Here is code for access topic according to category
 			 * master trainer
 			 */
+/***************** changes made by om prakash *********************************************/
+			
+			$("#catMasterId").change(function() {
 
-			$("#catMasterId")
-			.change(
-					function() {
+						var catgoryid = $(this).find(":selected").val();
 
-						var catgoryid = $(this).find(
-								":selected").val();
-
-						$
-						.ajax({
+						$.ajax({
 							type : "GET",
-							url : projectPath+"getTopicAccordingToCategory",
+							url : projectPath+"loadTopicByCategory",
 							data : {
 								"id" : catgoryid
 							},
@@ -1203,29 +1180,20 @@ $(document)
 								var html = '';
 								var len = result.length;
 								html += '<option value="0">Select Topic</option>';
-								for (var i = 0; i < len; i++) {
-									html += '<option value="'
-										+ result[i]
-									+ '">'
-									+ result[i]
-									+ '</option>';
-								}
-								html += '</option>';
+	  	  			            $.each(result , function( key, value ) {
+		  	  			        html += '<option value=' + key + '>'
+		  			               + value
+		  			               + '</option>';
+		  	  			        })
+	  	  			            html += '</option>';
 
-								$("#lanMasterTrId")
-								.prop(
-										'disabled',
-										false);
-								$('#lanMasterTrId')
-								.html(html);
+								$("#lanMasterTrId").prop('disabled',false);
+								$('#lanMasterTrId').html(html);
 
 							},
 
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 
 							}
 

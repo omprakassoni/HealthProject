@@ -82,6 +82,8 @@ public class CommonData {
 	
 	public static String uploadDirectoryConsultant = "Media/Content/Consultant/";
 	
+	public static String uploadDirectoryMasterTrainer = "Media/Content/MasterTrainer/";
+	
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
 			NEED_IMPROVEMENT_MSG, PUBLISHED
 	};

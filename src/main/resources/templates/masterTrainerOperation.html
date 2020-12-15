@@ -28,7 +28,7 @@
 								
 							</div>
 						</h5>
-						<div sec:authorize="hasAnyAuthority('MasterTrainer')">
+						<div sec:authorize="hasAnyAuthority('MASTER_TRAINER')">
 
 							  
 	<!-- <h4 class="mb-3">Master Trainer</h4> -->
@@ -89,7 +89,7 @@
 						
 			  </script>
 						    <!-- <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);"> -->
-						    <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data">
+						    <form action="/addTrainingInfo" method="post" enctype="multipart/form-data">
 						    
 									  <div class="form-group ">
 									    <label for="date">Start Date </label>
@@ -108,16 +108,16 @@
 									    
                                         <select id="MasterCategoryId" class="form-control w-75" name="categoryName"  style="width: 400px" required="required" >
 								               
-								                        <option selected="selected">Select Category</option>      
-								                        <span th:each="category: ${categorys}">
-								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
+								                        <option>Select Category</option>      
+								                        <span th:each="category: ${categories}">
+								  								<option th:value="${category.getCategoryId()}"><span th:text="${category.getCatName()}"></span></option>		
 								  						</span>
 								  						
 									  </select>								  
 								 </div>	 
 								 
 								 
-		<!-- 						   <div class="form-group ">
+								   <div class="form-group ">
 		
 										<label for="inputLanguage">Select Topic</label>
 													       	
@@ -126,17 +126,21 @@
 										  </select> 
 								           	
 								                	
-									</div> -->
+									</div>
 			
 								   
-							 <!--      <div class="form-group ">
+							      <div class="form-group ">
 							      
-							               <label for="selectLanguageId">Select Language</label>
+							               <label >Select Language</label>
 							       				   
-							                    <select id="selectLanguageId" class="form-control w-75" name="selectlanguage" style="width:400px" required="required">
+							                    <select id="selectLanguageId" class="form-control w-75" name="language" style="width:400px" required="required">
 							              
+							              		<option>Select Language</option>      
+								                        <span th:each="lan: ${lans}">
+								  								<option th:value="${lan.getLangName()}"><span th:text="${lan.getLangName()}"></span></option>		
+								  				</span>
 							                    </select> 
-									</div> -->
+									</div> 
 								   
 				
 
@@ -151,6 +155,8 @@
 									    <label for="titleName">Title Name</label>
 									    <input type="text" class="form-control w-75" name="titleName" id="titleName" required="required"/>
 						 </div> 
+						 
+							 
 								
 								
 						
@@ -178,8 +184,8 @@
 							   <select id="stateNameId" class="form-control w-75" name="stateName"  style="width: 400px" required="required" >
 									               
 									                        <option selected="selected">Select State</option>      
-									                        <span th:each="state: ${stateInfo}">
-									  								<option th:value="${state. getId()}"><span th:text="${state. getStateName()}"></span></option>		
+									                        <span th:each="state: ${states}">
+									  								<option th:value="${state.getId()}"><span th:text="${state.getStateName()}"></span></option>		
 									  						</span>
 									  						
 								</select>
@@ -230,12 +236,12 @@
 						 </div>
 							
 
-						  <div class="form-group">
+<!-- 						  <div class="form-group">
 						
 						  		 <label for="ParticipantsDe">Participants Detail</label>
 						      <input type="file" class="form-control w-75" id="ParticipantsDeatailId" accept=".csv" name="ParticipantsDeatail" required="required"/>
 				
-						    </div>
+						    </div> -->
 						 
 						  <div class="form-group">
 						
@@ -287,7 +293,7 @@
 		    		<div class=" col-md-12" style="padding-left: 100px">
 		    		
 		    
-						    <form action="/displayQuestion" method="post"> 
+						    <form action="/downloadQuestion" method="post"> 
 					<!-- 	     <form > -->
 						    
 			 
@@ -298,9 +304,9 @@
 									    
                                         <select id="catMasterId" class="form-control w-75" name="catMasterId"  style="width: 400px" required="required" >
 								               
-								                        <option selected="selected">Select Category</option>      
-								                        <span th:each="category: ${addcategory}">
-								  								<option th:value="${category}"><span th:text="${category}"></span></option>		
+								                        <option >Select Category</option>      
+								                        <span th:each="category: ${categories}">
+								  								<option th:value="${category.getCategoryId()}"><span th:text="${category.getCatName()}"></span></option>		
 								  						</span>
 									   </select>
 						</div>	   
@@ -323,29 +329,13 @@
                                        <select id="dwnByLanguageId" class="form-control w-75" name="dwnByLanguageId"   required="required" >
 			
 								                        <option selected="selected" >Select Language</option>      
-								                        <span th:each="lan: ${languagesDisplay}" >
-								  								<option th:value="${lan.getId()}"><span  th:text="${lan.getLanguageName()}"></span></option>		
+								                        <span th:each="lan: ${lans}" >
+								  								<option th:value="${lan.getLangName()}"><span th:text="${lan.getLangName()}"></span></option>		
 								  						</span>
 									  </select>
 						 	 </div>	
 					
 					
-					
-					
-					 <div class="form-group ">
-					 
-						<label for="inputLanguage" style="color: green;">
-						
-						</label>
-			
-			
-							<div class="">		               
-				
-				<!-- 		<span  id="inputdiv" class="pdfclass" target="_blank">Click To Open</span> -->
-							 
-							 </div>
-							 
-			 
 		  						<button type="submit" class="btn  btn-success" id="fetch_questions">Submit</button>
 			 
 				 
@@ -353,9 +343,18 @@
 				 
 					</form>
 					
-					<div style="border:1px solid green;" id="questions">
+					<div style="border:1px solid green;">
 						
-					</div>
+						<div th:if="${#lists.isEmpty(Questions)}">
+							Nothing exist
+						</div>
+						
+						<div th:unless="${#lists.isEmpty(Questions)}">
+							<span th:each="quest : ${Questions}"> 
+							<a target="_blank"  th:href="@{/files/}+@{${quest.getQuestionPath()}}">
+											click to open</a>
+							</span>
+						</div>
 				
 					</div>
 				
@@ -388,7 +387,7 @@
 			
 								                        <option selected="selected" >Select category</option>      
 								                        <span th:each="category : ${traningInformation}" >
-								  								<option th:value="${category.getCategory().getId()}"><span  th:text="${category.getCategory().getCategoryname()}"></span></option>		
+								  								<option th:value="${category.getCategoryId()}"><span  th:text="${category.getCategory().getCategoryname()}"></span></option>		
 								  						</span>
 									  </select>
 						 	 </div>
