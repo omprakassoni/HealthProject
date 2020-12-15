@@ -29,6 +29,8 @@ public class CommonData {
 	public static String Script_SAVE_SUCCESS_MSG = "Script Saved Successfully !";
 
 	public static String Slide_SAVE_SUCCESS_MSG = "Slide Saved Successfully !";
+	
+	public static String PRE_REQUISTIC_SAVE_SUCCESS_MSG = "Pre Requistic Saved Successfully !";
 
 	public static String Graphics_SAVE_SUCCESS_MSG = "Graphics Saved Successfully !";
 
@@ -82,9 +84,11 @@ public class CommonData {
 
 	public static int IMPROVEMENT_STATUS = 4;
 
-	public static int PUBLISH_STATUS=5;
+	public static int PUBLISH_STATUS=6;
+	
+	public static int WAITING_PUBLISH_STATUS=5;
 
-	//public static String WAITING_PUBLISH = "Waiting for Publish";
+	public static String WAITING_PUBLISH = "Waiting for Publish";
 
 	public static String PUBLISHED="Published";
 
@@ -101,6 +105,6 @@ public class CommonData {
 	public static String uploadDirectoryMasterTrainer = "Media/Content/MasterTrainer/";
 	
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
-			NEED_IMPROVEMENT_MSG, PUBLISHED
+			NEED_IMPROVEMENT_MSG, WAITING_PUBLISH,PUBLISHED
 	};
 }

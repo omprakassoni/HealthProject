@@ -588,14 +588,13 @@ $(document)
 
 
 			/*   Here is code for comment on prerequsite on Domain Reviwer side   */
+/****************** changes made by Om Prakash *******************************/
+			
 
+			$('#preAcceptOrNeedToImprovemenetByDomain').click(function() {
 
-			$('#preAcceptOrNeedToImprovemenetByDomain').click(
-					function() {
-
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						
+						var tutorialId = $("#tutorialId").val();
 						var preCommentMsg = $("#preCommentMsg").val();
 
 
@@ -612,11 +611,9 @@ $(document)
 							$.ajax({
 
 								type : "GET",
-								url : "/acceptPrerequistic",
+								url : projectPath + "acceptDomainPreRequistic",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
 								success : function(
@@ -675,13 +672,12 @@ $(document)
 
 
 			/*		Here is code for Quality Reviwer prerequisite */
+/************** changes made by om prakash *******************************/
+			
+			$('#preAcceptOrNeedToImprovemenetByQuality').click(function() {
 
-			$('#preAcceptOrNeedToImprovemenetByQuality').click(
-					function() {
-
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						
+						var tutorialId = $("#tutorialId").val();
 						var preCommentMsg = $("#preCommentMsgTest").val();
 
 
@@ -696,17 +692,13 @@ $(document)
 							$.ajax({
 
 								type : "GET",
-								url : projectPath+"acceptPrerequisticQuality",
+								url : projectPath+"acceptQualityPreRequistic",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									"preCommentMsg":preCommentMsg
+									"id" : tutorialId
 
 								},
 								contentType : "application/json",
-								success : function(
-										result) {
+								success : function(result) {
 									showStatus(SUCCESS, result);
 
 
@@ -3764,11 +3756,9 @@ $(document)
 
 			// here is code for keyword accept or need to improvement
 //			$('#AcceptOrNeedToImprovemenetByDomain').change(
-			$('#AcceptOrNeedToImprovemenetByDomain').click(
-					function() {
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+			$('#AcceptOrNeedToImprovemenetByDomain').click(function() {
+						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#KeywordAcceptDomain").val();
 
@@ -3790,11 +3780,9 @@ $(document)
 
 							$.ajax({
 								type : "GET",
-								url : projectPath+"acceptkeywordByDomain",
+								url : projectPath+"acceptDomainKeywords",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id":tutorialId
 								},
 								contentType : "application/json",
 								success : function(
@@ -3886,13 +3874,11 @@ $(document)
 
 			});
 
-			$('#outlineAcceptOrNeedToImpClick')
-			.click(
-					function() {
+/******************* changes made by om prakash **************************************/
+			
+			$('#outlineAcceptOrNeedToImpClick').click(function() {
 
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#outlineAcceptOtrNeedImp")
 						.val();
@@ -3911,29 +3897,22 @@ $(document)
 							// 'visibility' : 'hidden'
 							// });
 
-							$
-							.ajax({
+							$.ajax({
 								type : "GET",
-								url : projectPath+"acceptOutlineByDomain",
+								url : projectPath+"acceptDomainOutline",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
-								success : function(
-										result) {
+								success : function(result) {
 									// $("#statusOutlineByDomain").prop('disabled',false);
 									// $('#statusOutlineByDomain').html(result);
-									showStatus(SUCCESS,
-											result);
+									showStatus(SUCCESS,result);
 								},
 
 								error : function(err) {
 									console
-									.log("not working. ERROR: "
-											+ JSON
-											.stringify(err));
+									.log("not working. ERROR: "+ JSON.stringify(err));
 									var result = 'Error occured while submitting outline review feedback.';
 									showStatus(ERROR,result);
 								}
@@ -4508,14 +4487,12 @@ $(document)
 			/* end */
 
 			/* here is code for video accepet or need to improvement */
+/************************ changes made by om prakash **********************************/
+			
+			$('#videoAcceptOrNeedToImprovemenetByDomain').click(function() {
 
-			$('#videoAcceptOrNeedToImprovemenetByDomain')
-			.click(
-					function() {
-
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#VideoAcceptDomain")
 						.val();
@@ -4529,11 +4506,9 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"acceptVideoByDomain",
+								url : projectPath+"acceptDomainVideo",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
 								success : function(
@@ -4587,13 +4562,10 @@ $(document)
 			// Here is code for Domain review Accept or Need To
 			// Improvement
 
-			$('#scriptAcceptOrNeedToImprovemenetDomain')
-			.click(
-					function() {
+			$('#scriptAcceptOrNeedToImprovemenetDomain').click(function() {
 
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#scriptAcceptDomain")
 						.val();
@@ -4607,15 +4579,12 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"commentOnScript",
+								url : projectPath+"acceptDomainScript",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
-								success : function(
-										result) {
+								success : function(result) {
 //									$("#saveCommentScript").prop('disabled',false);
 //									$('#saveCommentScript').html(result);
 									showStatus(SUCCESS,result);
@@ -4775,14 +4744,12 @@ $(document)
 					});
 
 			// here is code for Quality Outline Code for submition
+/********************* changes made by om prakash ********************************/
+			
+			$('#submitQualityOutlineStatus').click(function() {
 
-			$('#submitQualityOutlineStatus')
-			.click(
-					function() {
-
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#outlineQualitAceept")
 						.val();
@@ -4796,15 +4763,12 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"acceptOutlineByQuality",
+								url : projectPath+"acceptQualityOutline",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+								"id" : tutorialId
 								},
 								contentType : "application/json",
-								success : function(
-										result) {
+								success : function(result) {
 									showStatus(SUCCESS,result);
 //									$(
 //									"#commentOutlineByQuality")
@@ -4819,10 +4783,7 @@ $(document)
 								},
 
 								error : function(err) {
-									console
-									.log("not working. ERROR: "
-											+ JSON
-											.stringify(err));
+									console.log("not working. ERROR: "+ JSON.stringify(err));
 									result ="Error occured";
 									showStatus(ERROR,result);
 								}
@@ -4951,14 +4912,13 @@ $(document)
 			});
 
 			// Here is code for save comment into slide
+			
+			/********************* changes made by om prakash ****************************/
 
-			$('#slideAcceptOrNeedToImprovemenetByQuality')
-			.click(
-					function() {
+			$('#slideAcceptOrNeedToImprovemenetByQuality').click(function() {
 
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						
+						var tutorialId = $("#tutorialId").val();
 						var vals = $("#slideAcceptByQuality")
 						.val();
 
@@ -4976,11 +4936,9 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"acceptSlideByQuality",
+								url : projectPath+"acceptQualitySlide",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
 								success : function(
@@ -5222,11 +5180,11 @@ $(document)
 
 			});
 
-			$('#slideAcceptOrNeedToImprovemenetByDomain').click(
-					function() {
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+			/**************** changes made by om prakash ******************************/
+			
+			$('#slideAcceptOrNeedToImprovemenetByDomain').click(function() {
+						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#SlideAcceptDomain")
 						.val();
@@ -5245,11 +5203,9 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"acceptSlideByDomain",
+								url : projectPath+"acceptDomainSlide",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+								"id" : tutorialId
 								},
 								contentType : "application/json",
 								success : function(result) {
@@ -5298,14 +5254,12 @@ $(document)
 						}
 
 					});
+/**********************  changes made by om prakash ******************************/
 
-
-			$('#graphicsAcceptOrNeedToImprovemenetByDomain').click(
-					function() {
+			$('#graphicsAcceptOrNeedToImprovemenetByDomain').click(function() {
 						console.log('here');
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#graphicsDomain")
 						.val();
@@ -5324,11 +5278,9 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"acceptGraphicsByDomain",
+								url : projectPath+"acceptDomainGraphics",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
 								success : function(result) {
@@ -5382,14 +5334,11 @@ $(document)
 			// End Slide for DOmain review
 
 			// here is code for Accept Or Need To Improvement Script
-
-			$('#KeyWordAcceptOrNeedToImprovemenetByQuality')
-			.click(
-					function() {
-//						alert('clicked');
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+/************************ changes made by om prakash *****************************/
+			
+			$('#KeyWordAcceptOrNeedToImprovemenetByQuality').click(function() {
+//						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#keywordQualitAceept")
 						.val();
@@ -5408,11 +5357,9 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"acceptKeywordByQuality",
+								url : projectPath+"acceptQualityKeywords",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
 								success : function(
@@ -5471,14 +5418,11 @@ $(document)
 
 			//
 
-
-			$('#graphicsAcceptOrNeedToImprovemenetByQuality')
-			.click(
-					function() {
-//						alert('clicked');
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+/***************** changes made by om prakash ******************************/
+			
+			$('#graphicsAcceptOrNeedToImprovemenetByQuality').click(function() {
+//						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#graphicsQuality")
 						.val();
@@ -5497,15 +5441,12 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"acceptGraphicsByQuality",
+								url : projectPath+"acceptQualityGraphics",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
-								success : function(
-										result) {
+								success : function(result) {
 									showStatus(SUCCESS,result);
 //									$("#statusKeywordByQuality").prop('disabled',false);
 //									$('#statusKeywordByQuality').html(result);
@@ -5730,15 +5671,13 @@ $(document)
 
 					});
 
-
-			$('#VideoAcceptOrNeedToImprovemenetByQuality')
-			.click(
-					function() {
+/*********************** chaanges made by om prakash ************************************/
+			
+			$('#VideoAcceptOrNeedToImprovemenetByQuality').click(function() {
 						// chage
 
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+						
+						var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#videoQualitAceept")
 						.val();
@@ -5757,25 +5696,15 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"acceptVideoByQuality",
+								url : projectPath+"acceptQualityVideo",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId
 								},
 								contentType : "application/json",
-								success : function(
-										result) {
+								success : function(result) {
 
-									$(
-											"#statusQualityByQuality")
-											.prop(
-													'disabled',
-													false);
-									$(
-									'#statusQualityByQuality')
-									.html(
-											result);
+									$("#statusQualityByQuality").prop('disabled',false);
+									$('#statusQualityByQuality').html(result);
 									showStatus(SUCCESS,result);
 
 								},

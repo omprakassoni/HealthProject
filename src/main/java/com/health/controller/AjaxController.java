@@ -727,7 +727,7 @@ public class AjaxController{
 	
 	/********************************** operation at Admin End *****************************************/
 	@RequestMapping("/acceptAdminVideo")
-	public @ResponseBody String addKeyword(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String addAdminVideo(@RequestParam(value = "id") int tutorialId) {
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
 		tutorial.setVideoStatus(CommonData.DOMAIN_STATUS);
@@ -739,8 +739,167 @@ public class AjaxController{
 	
 	
 	
+	/***********************************END ***************************************************************/
+	
+	/********************************** operation at DOMAIN USER *****************************************/
+	@RequestMapping("/acceptDomainOutline")
+	public @ResponseBody String acceptDomainOutline(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setOutlineStatus(CommonData.QUALITY_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Outline_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptDomainScript")
+	public @ResponseBody String acceptDomainScript(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setScriptStatus(CommonData.QUALITY_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Script_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptDomainVideo")
+	public @ResponseBody String acceptDomainVideo(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setVideoStatus(CommonData.QUALITY_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Video_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptDomainSlide")
+	public @ResponseBody String acceptDomainSlide(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setSlideStatus(CommonData.QUALITY_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Slide_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptDomainKeywords")
+	public @ResponseBody String acceptDomainKeywords(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setKeywordStatus(CommonData.QUALITY_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Keyword_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptDomainPreRequistic")
+	public @ResponseBody String acceptDomainPreRequistic(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setPreRequisticStatus(CommonData.QUALITY_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptDomainGraphics")
+	public @ResponseBody String acceptDomainGraphics(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setGraphicsStatus(CommonData.QUALITY_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Graphics_SAVE_SUCCESS_MSG;
+		
+	}
 	
 	
+	
+	/***********************************END ***************************************************************/
+	
+	/********************************** operation at Quality USER *****************************************/
+	@RequestMapping("/acceptQualityOutline")
+	public @ResponseBody String acceptQualityOutline(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setOutlineStatus(CommonData.WAITING_PUBLISH_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Outline_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptQualityScript")
+	public @ResponseBody String acceptQualityScript(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setScriptStatus(CommonData.WAITING_PUBLISH_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Script_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptQualityVideo")
+	public @ResponseBody String acceptQualityVideo(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setVideoStatus(CommonData.WAITING_PUBLISH_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Video_STATUS_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptQualitySlide")
+	public @ResponseBody String acceptQualitySlide(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setSlideStatus(CommonData.WAITING_PUBLISH_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Slide_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptQualityKeywords")
+	public @ResponseBody String acceptQualityKeywords(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setKeywordStatus(CommonData.WAITING_PUBLISH_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Keyword_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptQualityPreRequistic")
+	public @ResponseBody String acceptQualityPreRequistic(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setPreRequisticStatus(CommonData.WAITING_PUBLISH_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/acceptQualityGraphics")
+	public @ResponseBody String acceptQualityGraphics(@RequestParam(value = "id") int tutorialId) {
+		
+		Tutorial tutorial=tutService.getById(tutorialId);
+		tutorial.setGraphicsStatus(CommonData.WAITING_PUBLISH_STATUS);
+		tutService.save(tutorial);
+		
+		return CommonData.Graphics_SAVE_SUCCESS_MSG;
+		
+	}
 	
 	
 	
