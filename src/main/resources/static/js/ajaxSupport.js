@@ -2579,7 +2579,7 @@ $(document)
 			/* Access topic according to langaueg */
 /*********************************** Changes By Om Prakash **************************************************/
 			$('#MasterCategoryId').change(function() {
-
+//						alert('here');
 						var categoryid = $(this).find(":selected").val();
 						$.ajax({
 
@@ -2593,7 +2593,7 @@ $(document)
 
 								var html = '';
 								var len = result.length;
-								html += '<option value="0">Select Topic</option>';
+//								html += '<option value="0">Select Topic</option>';
 	  	  			            $.each(result , function( key, value ) {
 		  	  			        html += '<option value=' + key + '>'
 		  			               + value
