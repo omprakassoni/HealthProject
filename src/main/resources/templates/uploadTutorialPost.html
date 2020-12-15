@@ -452,7 +452,7 @@
 												<!-- <iframe src="about:blank" name="videoSet" id="videoSet"  height="240" width="320" scrolling="auto" autoplay="autoplay">
 		 </iframe>	 
 		 --> 
-												<div th:if="${tutorial}" id="videoDiv" class="container" height="240"
+												<div th:if="${tutorial.getVideo()}" id="videoDiv" class="container" height="240"
 													width="320" scrolling="auto" autoplay="autoplay">
 
 													<video id='storedVideoId' height="240" width="320"
@@ -1200,7 +1200,7 @@
 									<div class="row">
 									<div class="col-md-6">
 									 <div th:unless="${tutorial}" class="alert alert-secondary upload-status" role="alert">
-									  No script has been added yet.
+									  <i class="far fa-file"></i> No slide has been added yet.
 									</div> 
 
 										<form class="form-horizontal mb-3" th:action="@{/addkeyword}"
@@ -1209,7 +1209,7 @@
 											  <div class="card-body">
 											    <div class="form-group">
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
-												<a name="sliedPdf" th:if = "${tutorial.getSlideStatus() != 0}" target="_blank" th:href= "@{/files/}+@{${tutorial.getSlide()}}"id="sliedPdf">Click to view</a>
+												<a name="sliedPdf" th:if = "${tutorial.getSlideStatus() != 0}" target="_blank" th:href= "@{/files/}+@{${tutorial.getSlide()}}"id="sliedPdf"><i class="far fa-file-alt"></i> View Slide</a>
 											</div>
 											  </div>
 											</div> 
@@ -1227,7 +1227,7 @@
 											<div class="form-group">
 												 <div class="custom-file">
 												    <input type="file" class="custom-file-input" id="uploadsSlideFileId" name="uploadsSlideFile" 
-												    placeholder="uploadFile" accept=".zip" required="required"></input>
+												    placeholder="uploadFile" accept=".zip,.pdf" required="required"></input>
 												    <label class="custom-file-label" for="uploadsSlideFileId">Choose file...</label>
 												    <div class="invalid-feedback">Example invalid custom file feedback</div>
 												  </div>
@@ -1306,7 +1306,7 @@
 											  <div class="card-body">
 											    <div class="form-group">
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
-												<a name="sliedPdf" th:if ="${tutorial.getGraphicsStatus() != 0}" target="_blank" id="sliedPdf" th:href="@{/files/}+@{${tutorial.getGraphics()}}">View Graphics</a>
+												<a name="sliedPdf" th:if ="${tutorial.getGraphicsStatus() != 0}" target="_blank" id="sliedPdf" th:href="@{/files/}+@{${tutorial.getGraphics()}}"><i class="far fa-folder-open"></i> View Graphics</a>
 											</div>
 											  </div>
 											</div>

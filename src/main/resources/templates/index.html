@@ -8,7 +8,7 @@
     <title>Spoken Tutorials</title>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet" /> -->
     <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+    
   <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
@@ -18,35 +18,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/hello-parallax.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
     <link rel="stylesheet" th:href="@{/css/main-style.css}" />
   </head>
   <body>
-  <header class="fixed-top" >
-<!-- Main container -->
-<nav class="level px-6 upper-bar my-0">
-  <!-- Left side -->
-  <div class="level-left"></div>
-
-  <!-- Right side -->
-  <div class="level-right">
-    <p class="level-item"><span class="contact-num top-banner"><i class="fas fa-phone-alt"></i> Helpline : 1800-267-7782</span></p>
-    <p class="level-item"><span class="top-banner">
-      							<a sec:authorize="isAnonymous()" th:href="@{/login}">Login | New
-									User</a> <a sec:authorize="isAuthenticated()"
-									th:href="@{/dashBoard}">My Account</a> 
-      							</span></p>
-    <p class="level-item"><span class="top-banner"><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></span></p>
-    
-  </div>
-</nav>
+  <!-- Fixed Header And Menu Bar -->
+  <header class="fixed-top pt-3 mb-5" id="top-fixed-banner">
+	<section>
+	<div class="px-md-3">
+	<div class="row">
+	<div class="col-sm-6 d-flex justify-content-center justify-content-md-start">
+	<div><p> <a href="tel:1800-267-7782"> <span class="contact-num top-banner p-2"><i class="fas fa-phone-alt mr-2"></i>Helpline : 1800-267-7782</span></a></p></div>
+	</div>
+	<div class="col-sm-6 d-flex justify-content-center justify-content-md-end">
+	<div><p class="d-inline-block"><span class="top-banner">
+		<a sec:authorize="isAnonymous()" th:href="@{/login}">Login | New
+		User</a> <a sec:authorize="isAuthenticated()"
+		th:href="@{/dashBoard}">My Account</a> 
+		</span></p>
+	    <p class="d-inline-block"><span class="top-banner"><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></span></p></div>
+	</div>
+	</div>
+	</div>
+	</section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-  <a th:href="@{/}"> <img
-									th:src="@{/image/logo.png}" href="www.google."
-									alt="Smiley face" height="50" width="50"> </img>
-								</a>
+  <a th:href="@{/}"> <img th:src="@{/image/logo.png}" href="www.google." alt="Smiley face" height="50" width="50"> </img></a>
 								<span style="color: black;font-size: 2rem;" class="ml-3">Spoken <span style="color: orange;font-size: 2rem;">Tutorials</span> </span>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavBar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="mainNavBar">
@@ -68,13 +66,12 @@
   </div>
 </nav>
   </header>
+  <!-- Fixed Header And Menu Bar Ends-->
     <main>
-    <section id="search-bar" class="container my-3">
-<div class="row">
+    <section id="search-bar" class="container my-5">
 <form th:action="@{/showListTutorial}" class="form-inline" style="width:100%;">
-<div class="row px-6 mx-6" style="width:100%;">
-<div class="col-md-3">
-<label class="sr-only" for="inputState">Category</label>
+<div class="row" style="width: 100%;">
+<div class="col-md-3 mb-3">
             <select class="custom-select d-block w-100" id="categoryname" name="categoryName">
               <option value="0">Select Category...</option>
               <option th:each="category : ${categorys}"><span th:text="${category}">Title ...</span></option>
@@ -83,12 +80,12 @@
               Please select a valid foss.
             </div>
 </div>
-<div class="col-md-3">
+<div class="col-md-3 mb-3">
 <select class="custom-select d-block w-100" id="inputTopicName" name="topic">
               <option value="0">Select Topic</option>
             </select>
 </div>
-<div class="col-md-3">
+<div class="col-md-3 mb-3">
 <select class="custom-select d-block w-100" id="inputLanguage" name="inputLanguage">
               <option value="0">Select Language</option>
               <!-- <option th:each="language : ${languages}"><span th:text="${language.languageName}">Title ...</span></option> -->
@@ -97,79 +94,112 @@
               Please provide a valid language.
             </div>
 </div>
-
           <div class="col-md-3 mb-3" style="width: 100%;">
-            <button type="submit" class="btn btn-outline-info" style="height: 38px;width: 100%;margin:0;background:#1C7871;color:#fff;"> Submit </button>
+           <button type="submit" class="btn btn-outline-info" style="height: 38px;width: 100%;margin:0;background:#1C7871;color:#fff;"> Submit </button>
           </div>
 </div>
 </form>
           
-        </div>
 </section>
-    <section class="hero is-medium" id="intro">
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="subtitle" style="line-height: 2rem;">Advice on <span class="highlighter">Maternal Nutrition</span>, <span class="highlighter">child's nutrition</span>,<span class="highlighter"> Covid</span> related videos And General Nutrition <br /> 
+<section>
+<div class="container py-5">
+<div class="row">
+<div class="col-md-6">
+<h2 class="subtitle" style="line-height: 2rem;">Advice on <span class="highlighter">Maternal Nutrition</span>, <span class="highlighter">child's nutrition</span>,<span class="highlighter"> Covid</span> related videos And General Nutrition <br /> 
           by a team of <span class="highlighter-green">doctors,nutritionists and field officers</span> with 10+ years of experience</h2>
-          <a href="https://script.spoken-tutorial.org/index.php/Health_and_Nutrition" class="button is-white  spk-btn">Learn More</a>
-        </div>
-      </div>
-    </section>
-    <section id="parallax-1" class="hero is-large ">
-      <div class="hero-body py-6">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-6 is-offset-1">
-              <h1 class="title is-1 ">About Us</h1>
-              <hr class="content-divider" />
-              <h2 class="subtitle is-6" style="line-height: 2rem;">
+</div>
+<div class="col-md-6">
+
+</div>
+</div>
+</div>
+</section>
+<section id="parallax-1">
+	<div class="container py-5">
+		<div class="row">
+		<div class="col-md-6">
+		<h1 class="title is-1 ">About Us</h1>
+		<hr class="content-divider" />
+		<h2 class="subtitle is-6" style="line-height: 2rem;">
               	We are creating 40+ video tutorials of 10-12 minutes each on nourishing a mother and a child in the first 1000 days of an infant’s life, i.e, from day 1 of pregnancy till a child’s 2nd birthday.
         Each video will be translated and dubbed in 22 officially recognized Indian languages to cover the entire Indian landscape.
         Through this series, the Health Spoken Tutorial project at IIT Bombay aims to reach out to scores of people for spreading awareness on nutrition and improve the quality of life in India and globally as well.
               </h2>
-              <a href="#" class="button is-white spk-btn">Know More</a>
-            </div>
-          </div>
-        </div>
-      </div>
+              <a href="https://script.spoken-tutorial.org/index.php/Health_and_Nutrition" class="button is-white spk-btn" target="_blank">Know More</a>
+		</div>
+		<div class="col-md-6"></div>
+		</div>
+	</div>
     </section>
-    <section class="bg-light" id="stats">
-    <div class="container sandbox">
-	    <div class="columns">
-	    <div class="column is-shady has-text-centered py-5">
-	    <p class="title"><span th:text="${videoCount}"></span>+</p>
-		<p class="subtitle">Videos</p>
-		<p>
-          10-12 minutes each on nourishing a mother and a child in the first 1000 days of an infant’s life
-        </p>
-	    </div>
-	    <div class="column is-shady has-text-centered py-5">
-	    <p class="title"><span th:text="${languageCount}"></span>+</p>
-		<p class="subtitle">Languages</p>
-		 <p>
-          translated videos and dubbed in officially recognized Indian languages
-        </p>
-	    </div>
-	    <div class="column is-shady has-text-centered py-5">
-	    <p class="title"><span th:text="${consultantCount}"></span>+</p>
-		<p class="subtitle">Consultants</p>
-		<p>
-          Team of Experienced Doctors and Nutritionists
-        </p>
-	    </div>
-	    </div>            
-    </div>
-    
-    </section>
+	<section class="bg-light" id="stats">
+	<div class="container sandbox">
+		<div class="row">
+		<div class="col-md-4">
+			<div class="is-shady has-text-centered p-3">
+			    <p class="title"><span th:text="${videoCount}"></span>+</p>
+				<p class="subtitle">Videos</p>
+				<p>
+		          10-12 minutes each on nourishing a mother and a child in the first 1000 days of an infant’s life
+		        </p>
+		    </div>
+		</div>
+		<div class="col-md-4">
+			<div class="is-shady has-text-centered p-3">
+			    <p class="title"><span th:text="${languageCount}"></span>+</p>
+				<p class="subtitle">Languages</p>
+				 <p>
+		          translated videos and dubbed in officially recognized Indian languages
+		        </p>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="is-shady has-text-centered p-3 w-100">
+			    <p class="title"><span th:text="${consultantCount}"></span>+</p>
+				<p class="subtitle">Consultants</p>
+				<p>
+		          Team of Experienced Doctors and Nutritionists<hr>
+		        </p>
+		    </div>
+		</div>
+		</div>
+	</div>
+  </section>
     <section >
-    
+    <div class="container">
+    	<div class="row">
+    		<div class="col-sm-6 col-md-3 br-right br-bottom py-3">
+    		<div class="d-flex flex-column align-items-center ">
+    		<div>
+    		<img  th:src="@{/image/logo.png}" class="d-block">
+    		</div>
+    		<hr style="border: 1px solid orange; width: 50%;">
+    		<p>Test</p>
+    		<small class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+    		sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
+    		</div>
+    		</div>
+    		<div class="col-sm-6 col-md-3 br-right br-bottom py-3">
+    		<div class="d-flex justify-content-center">
+    		<p>Test</p>
+    		</div>
+    		</div>
+    		<div class="col-sm-6 col-md-3 br-right br-bottom py-3">
+    		<div class="d-flex justify-content-center">
+    		<p>Test</p>
+    		</div>
+    		</div>
+    		<div class="col-sm-6 col-md-3 br-right br-bottom py-3">
+    		<div class="d-flex justify-content-center">
+    		<p>Test</p>
+    		</div>
+    		</div>
+    	</div>
+    </div>
     </section>
     <section class="container">
     <h1 class="has-text-centered spk-title">Tutorial Categories</h1>
     <div class="columns features py-0" style="flex-wrap: wrap;">
                 <div class="column is-3" th:each="category : ${categories}">
-                
-                
                <a th:href="@{/showListTutorial(categoryName=${category.getCategoryname()},topic=0,inputLanguage=0)}">
                 <div class="card is-shady has-text-justified" style="width: 100%;height: 280px;">
                         <div class="card-image has-text-centered py-3">
@@ -192,6 +222,37 @@
     <h1 class="has-text-centered spk-title">Consultants</h1>
     <section id="parallax-2" class="py-4">
     <div class="container">
+    	<div class="row" style="color: #fff;">
+    		<div class="col-sm-6 col-md-3 br-right-wh br-bottom-wh py-3">
+    		<div class="d-flex flex-column align-items-center ">
+    		<div>
+    		<img  th:src="@{/image/logo.png}" class="d-block">
+    		</div>
+    		<hr style="border: 1px solid orange; width: 50%;">
+    		<p>Test</p>
+    		<small class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+    		sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
+    		<button type="button" class="btn consaltant-btn" data-toggle="modal" data-target="#exampleModal" >Details </button>
+    		
+    		</div>
+    		</div>
+    		<div class="col-sm-6 col-md-3 br-right-wh br-bottom-wh py-3">
+    		<div class="d-flex justify-content-center">
+    		<p>Test</p>
+    		</div>
+    		</div>
+    		<div class="col-sm-6 col-md-3 br-right-wh br-bottom-wh py-3">
+    		<div class="d-flex justify-content-center">
+    		<p>Test</p>
+    		</div>
+    		</div>
+    		<div class="col-sm-6 col-md-3 br-right-wh br-bottom-wh py-3">
+    		<div class="d-flex justify-content-center">
+    		<p>Test</p>
+    		</div>
+    		</div>
+    	</div>
+    
     <div class="columns features py-2">
         <div class="column is-4" th:each="consantant : ${listofConsalatatnt}">
           <div class="card is-shady">
@@ -243,6 +304,7 @@
     </div>
      <a th:href="@{/showEvents}" target="_blank" class="button is-link is-outlined is-fullwidth catBtn mb-5">View all Events</a>
     </section>
+   
     <div id="modal-consultant" th:each="consantant : ${listofConsalatatnt}" class="modal" th:attrappend="id=${'_'+consantant.getId()}">
 			<div class="modal-background"></div>
 			<div class="modal-card">
@@ -269,8 +331,8 @@
 		<h1 class="has-text-centered spk-title">Testimonials</h1>
     <section id="testimonial">
     <div class="container">
-    	<div class="columns">
-    <div class="column is-4 " th:each="testimonial : ${listofTestimonial}">
+    	<div class="row">
+    <div class="col-md-4 " th:each="testimonial : ${listofTestimonial}">
     <div class="card is-shady" style="width: 100%;">
             <div class="card-image has-text-centered">
           <video  controls="controls">
@@ -323,6 +385,37 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
     <h1 class="has-text-centered spk-title">Contact</h1>
+    <section>
+    <div class="container"> 
+     <div class="row">
+    <div class="col-md-6">
+    <div class="row">
+    <div class="col-md-4 text-center">
+    <div><i class="fas fa-map-marker-alt contact-icon"></i></div>
+    <p class="text-center">Spoken Tutorial Project,</br>TCS Lab,Behind CAD</br>Centre, IIT Bombay, Powai,</br>Mumbai - 400076</p>
+    </div>
+     <div class="col-md-4 text-center">
+    <div><i class="fas fa-envelope contact-icon"></i></div>
+    <p class="text-center"><a href="mailto:someone@example.com">contact@spoken-tutorial.org</a></p>
+    </div>
+     <div class="col-md-4 text-center">
+    <div><i class="fas fa-phone-alt contact-icon"></i></div>
+    <p class="text-center"> <a href="tel:+6494461709">+ 91 22 25764229</a></p>
+    </div>   
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="row">
+    <div class="col-md-4">4</div>
+    <div class="col-md-4">5</div>
+    <div class="col-md-4">6</div>   
+    </div>
+    
+    </div>
+    </div>
+    
+    </div>
+    </section>
     <section class="cta va bg-light" id="contact">
       <div class="container">
         <div class="columns">

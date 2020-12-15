@@ -27,6 +27,7 @@
 }
 body{
 	padding-top: 120px!important;
+	
 }
 /* .btn{
 	background-color: var(--btn-color);
@@ -79,6 +80,11 @@ body{
 }
 /*-----------------------------------Common---------------------------*/
 /*-----------------------------------header upper-bar---------------------------*/
+#top-fixed-banner{
+	/* border:1px solid red!important; */
+	background: #fff;
+	z-index:10;
+}
 header .upper-bar{
 	z-index : 1;
 	background: #F2FAF9;
@@ -87,6 +93,8 @@ header .upper-bar{
 .contact-num{
 	font-size: 0.9rem;
     font-family: "Times New Roman", Times, serif;
+    color: #1C7871;
+    font-weight: bold;
 }
 .h-login{
 	font-size: 1rem;
@@ -100,7 +108,7 @@ header .upper-bar{
 	border: 1px solid #1C7871;
     font-size: 1rem;
     padding: 5px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 .top-banner a{
 	color: rgb(0,0,0);
@@ -108,7 +116,7 @@ header .upper-bar{
 }
 .top-banner:hover{
 	color: #1C7871;
-	font-weight: bold;
+	/* font-weight: bold; */
 	/* border: 1px solid red; */
 }
 #mainNavBar .nav-item{
@@ -167,6 +175,22 @@ nav #dropdownMenuButton{
 	background: #fff;
 }
 
+.br-right{
+	border-right: 1px solid rgba(0,0,0,0.5);
+}
+.br-bottom{
+	border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+.br-right-wh{
+	border-right: 1px solid rgba(255,255,255,0.5);
+}
+.br-bottom-wh{
+	border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+.consaltant-btn{
+	background: #fff!important;
+	border: 1px solid #fff!important;
+}
 /*-----------------------------------/Intro text with carousel---------------------------*/
 
 /*-----------------------------------Highlights---------------------------*/
@@ -405,6 +429,10 @@ nav #dropdownMenuButton{
 }
 .social-media .s-icon{
 	color: #004F7A;
+}
+.contact-icon{
+	color: #1C7871;
+	font-size: 1.5rem;
 }
 /*-----------------------------------/Contact---------------------------*/
 
