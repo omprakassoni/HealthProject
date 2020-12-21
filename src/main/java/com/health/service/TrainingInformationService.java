@@ -1,5 +1,6 @@
 package com.health.service;
 
+import java.util.List;
 import java.util.Set;
 
 import com.health.model.TraineeInformation;
@@ -12,4 +13,8 @@ public interface TrainingInformationService {
 	void save(TrainingInformation temp);
 	
 	void addTrainee(TrainingInformation training,Set<TraineeInformation> trainee); 
+	
+	List<TrainingInformation> findAll();
+	
+	TrainingInformation getById(int id);
 }

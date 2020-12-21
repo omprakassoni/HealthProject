@@ -2,7 +2,7 @@ package com.health.service;
 
 import java.util.Set;
 
-import com.health.domain.security.PasswordResetToken;
+
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.Consultant;
@@ -17,9 +17,8 @@ import com.health.model.User;
 
 public interface UserService {
 	
-	PasswordResetToken getPasswordResetToken(final String token);
 	
-	void createPasswordResetTokenForUser(final User user, final String token);
+	
 	
 	User findByUsername(String username);   // in use
 	

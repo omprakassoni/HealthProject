@@ -446,49 +446,36 @@ $(document)
 			 * Here is code for selection of title name according to
 			 * category name
 			 */
+/******************** CHANGES MADE BYU OM PRAKASH SONI ******************************/
+			
+			$('#catMasId').change(function() {
 
-			$('#catMasId')
-			.change(
-					function() {
+						var state = $(this).find(":selected").val();
 
-						var state = $(this).find(":selected")
-						.val();
-
-						$
-						.ajax({
+						$.ajax({
 							type : "GET",
-							url : projectPath+"loadBycategoryInFeedb",
-							data : {
-								"id" : state
-							},
+							url : projectPath+"loadTitleNameInMasterTraining",
 							contentType : "application/json",
 							success : function(result) {
 
 								var html = '';
 								var len = result.length;
 								html += '<option value="0">Select Training</option>';
-								for (var i = 0; i < len; i++) {
-									html += '<option value="'
-										+ result[i]
-									+ '">'
-									+ result[i]
-									+ '</option>';
-								}
-								html += '</option>';
+								$.each(result , function( key, value ) {
+				  	  			        html += '<option value=' + key + '>'
+				  			               + value
+				  			               + '</option>';
+				  	  			})
+			  	  			     html += '</option>';
+								 	
 
-								$("#feedbackmasterId").prop(
-										'disabled',
-										false);
-								$('#feedbackmasterId')
-								.html(html);
+								$("#feedbackmasterId").prop('disabled',false);
+								$('#feedbackmasterId').html(html);
 
 							},
 
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							}
 
 						});
@@ -1178,7 +1165,7 @@ $(document)
 		  			               + '</option>';
 		  	  			        })
 	  	  			            html += '</option>';
-
+	  	  			            alert("vikash");
 								$("#lanMasterTrId").prop('disabled',false);
 								$('#lanMasterTrId').html(html);
 
@@ -2560,6 +2547,7 @@ $(document)
 		  			               + '</option>';
 		  	  			        })
 	  	  			            html += '</option>';
+	  	  			            
 
 								$("#inputTopic").prop('disabled',false);
 								$('#inputTopic').html(html);
@@ -3457,7 +3445,7 @@ $(document)
 										+ result[i] + '</option>';
 								}
 								html += '</option>';*/
-
+							
 								$("#assignTopic").prop('disabled', false);
 								$('#assignTopic').html(html);
 

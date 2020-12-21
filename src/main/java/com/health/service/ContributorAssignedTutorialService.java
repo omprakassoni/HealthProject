@@ -2,6 +2,7 @@ package com.health.service;
 
 import java.util.List;
 
+import com.health.domain.security.UserRole;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.Language;
 import com.health.model.TopicCategoryMapping;
@@ -15,5 +16,5 @@ public interface ContributorAssignedTutorialService {
 	
 	List<ContributorAssignedTutorial> findAllByUser(User user);
 	
-	List<ContributorAssignedTutorial> findByTopicCatLan(List<TopicCategoryMapping> topCat, Language lan);
+	List<ContributorAssignedTutorial> findByTopicCatLan(List<TopicCategoryMapping> topCat, List<UserRole> usrRole);
 }

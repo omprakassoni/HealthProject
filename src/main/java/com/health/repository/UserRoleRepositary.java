@@ -25,10 +25,10 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 	UserRole findByLanCatUser(Language lan,Category cat,User usr,Role role);
 	
 	@Query("from UserRole where lan=?1 and user=?2 and role=?3")
-	UserRole findByLanUser(Language lan,User usr,Role role);
+	List<UserRole> findByLanUser(Language lan,User usr,Role role);
 	
 	@Query("from UserRole where user=?1 and role=?2")
-	UserRole findByRoleUser(User usr,Role role);
+	List<UserRole> findByRoleUser(User usr,Role role);
 	
 	@Query("from UserRole where user=?1 and role=?2 and status=?3")
 	List<UserRole> findByRoleUserStatus(User usr,Role role,boolean status);
@@ -39,83 +39,5 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 	@Query("update UserRole set status=?1 where userRoleId=?2")
 	int enableRole(boolean status, long usrRoleId);
 	
-//		@Query("from UserRole u where u.status=?1 and role=?2")
-//		List<UserRole> findByStatus(int status,Role rolId);
-//		
-//		List<UserRole> findByuser_id(Long long1);
-//		
-//		
-//		@Query("from UserRole u where u.user=?1 and role=?2")
-//		UserRole findByUserAndRole(User user,Role role);
-//		
-//		@Query("from UserRole u where u.user=?1 and role=?2")
-//		List<UserRole> findByUserAndRoles(User user,Role role);
-//		
-//		
-//		
-//		@Query("from UserRole u where u.status=?1 and role=?2")
-//		UserRole findByAlreadyUser(int status,User userA);
-//		
-//		@Query("from UserRole u where u.status=?1 and u.user=?2")
-//		List<UserRole> findByUserAndStatuslan(int status,User userA);
-//		
-//		
-//		@Query("from UserRole u where u.user=?1")
-//		UserRole findByRoleCheck(Role role);
-//		
-//		@Query(" delete from UserRole u where u.user=?1")
-//		UserRole findByAndDelete(User role);
-//	
-//		@Query(" from UserRole u where u.user=?1")
-//		UserRole findByRejectElement(User role);
-//	
-//		
-//		@Query(" from UserRole u where u.user=?1")
-//		UserRole findByUserInfo(User role);
-//		
-//		@Query(" from UserRole u where u.user=?1 and u.role=?2")
-//		UserRole findByUserRole(Role role);
-//		
-//		
-//		@Query(" from UserRole u where u.user=?1")
-//		List<UserRole> findByUser(User role);
-//		
-//
-//		/* accesing value according contributor */
-//	 
-//		@Query("from UserRole u where u.status=?1 and user_id=?2")
-//		List<UserRole> findByStatusAndUser(int status,User user);
-//	
-//		/* revoke on the basis of language */
-//		
-//		@Query("from UserRole u where u.user=?1 and lan_id=?2")
-//		UserRole findByLanguageAnduser(User user,Language role);
-//		
-//		
-//		@Query("from UserRole u where u.user=?1 and role=?2")
-//		List<UserRole> findByuserAndRole(User user,Role role);
-//		
-//
-//		@Query("from UserRole u where u.user=?1 and role=?2")
-//		UserRole findByuserAndRoles(User user,Role role);
-//	
-//	   /* access the user contribution */	
-//		@Query(" from UserRole u where u.status=?1 and u.role=?2") 	
-//		List<UserRole> finbyRoleUser(int status,Role role);
-//		
-//		@Query(" from UserRole u where u.user=?1 and u.role=?2 and u.lan=?3 and u.cat=?4") 	
-//		UserRole findBycategorynameAndLanguageNameandRoleandLan(User user,Role role,Language lan,Category cat);
-//		
-//		@Query(" from UserRole u where u.user=?1")
-//		List<UserRole> findBylanguage(User user);
-//		
-//	
-//		@Query("from UserRole u where u.userRoleId=?1 and role=?2")
-//		UserRole findByContributorId(Long user,Role role);
-//		
-//		
-//		@Query("from UserRole u where  u.role=?1")
-//		List<UserRole> findByRole(Role role);
-		
-		
+			
 	}

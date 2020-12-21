@@ -1,10 +1,12 @@
 package com.health.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.Topic;
 import com.health.model.TopicCategoryMapping;
@@ -37,15 +39,25 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 	}
 
 	@Override
-	public List<TopicCategoryMapping> findAllByCategory(Category cat) {
+	public List<TopicCategoryMapping> findAllByCategoryBasedOnUserRoles(List<UserRole> userRoles) {
 		// TODO Auto-generated method stub
-		return topicCatRepo.findAllBycat(cat);
+		List<TopicCategoryMapping> temp = new ArrayList<>();
+		for(UserRole x : userRoles) {
+			temp.add((TopicCategoryMapping) topicCatRepo.findAllBycat(x.getCategory()));
+		}
+		return temp;
 	}
 
 	@Override
 	public TopicCategoryMapping findAllByCategoryAndTopic(Category cat, Topic topic) {
 		// TODO Auto-generated method stub
 		return topicCatRepo.findBycatAndtopic(cat, topic);
+	}
+
+	@Override
+	public List<TopicCategoryMapping> findAllByCategory(Category cat) {
+		// TODO Auto-generated method stub
+		return topicCatRepo.findAllBycat(cat);
 	}
 
 	

@@ -119,11 +119,19 @@
 								 
 								   <div class="form-group ">
 		
-										<label for="inputLanguage">Select Topic</label>
+									<!-- 	<label for="inputLanguage">Select Topic</label>
 													       	
 										  <select id="inputTopic" class="form-control w-75" name="inputTopic" style="width:400px" required="required">
 													              
-										  </select> 
+										  </select>  -->
+										  
+										  <div class="form-group">
+											<label for="catgoryByContributor">Select Topic</label> <select
+												id="inputTopic" class="form-control select selectpicker"
+												name="inputTopic" required="required" multiple="multiple">
+											</select>
+
+							</div>
 								           	
 								                	
 									</div>
@@ -304,7 +312,7 @@
 									    
                                         <select id="catMasterId" class="form-control w-75" name="catMasterId"  style="width: 400px" required="required" >
 								               
-								                        <option >Select Category</option>      
+								                       <option>Select Category</option>      
 								                        <span th:each="category: ${categories}">
 								  								<option th:value="${category.getCategoryId()}"><span th:text="${category.getCatName()}"></span></option>		
 								  						</span>
@@ -351,8 +359,9 @@
 						
 						<div th:unless="${#lists.isEmpty(Questions)}">
 							<span th:each="quest : ${Questions}"> 
-							<a target="_blank"  th:href="@{/files/}+@{${quest.getQuestionPath()}}">
+							<div><a target="_blank"  th:href="@{/files/}+@{${quest.getQuestionPath()}}">
 											click to open</a>
+							</div>
 							</span>
 						</div>
 				
@@ -374,7 +383,7 @@
 		    		
 		    
 						    
-						    	<form class="form-horizontal" th:action="@{/feedback}"
+						    	<form class="form-horizontal" th:action="@{/uploadfeedback}"
 							method="post" enctype="multipart/form-data">
 						
 						
@@ -385,9 +394,9 @@
 									    
                                        <select id="catMasId" class="form-control w-75" name="catMasId"   required="required" >
 			
-								                        <option selected="selected" >Select category</option>      
-								                        <span th:each="category : ${traningInformation}" >
-								  								<option th:value="${category.getCategoryId()}"><span  th:text="${category.getCategory().getCategoryname()}"></span></option>		
+								                        <option>Select Category</option>      
+								                        <span th:each="category: ${categories}">
+								  								<option th:value="${category.getCategoryId()}"><span th:text="${category.getCatName()}"></span></option>		
 								  						</span>
 									  </select>
 						 	 </div>

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.health.domain.security.PasswordResetToken;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.Consultant;
@@ -18,7 +17,6 @@ import com.health.model.Question;
 import com.health.model.Testimonial;
 import com.health.model.Topic;
 import com.health.model.User;
-import com.health.repository.PasswordResetTokenRepository;
 import com.health.repository.RoleRepository;
 import com.health.repository.UserRepository;
 import com.health.service.UserService;
@@ -33,21 +31,6 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private RoleRepository roleRepository;
-	
-	@Autowired
-	private PasswordResetTokenRepository passwordResetTokenRepository;
-	
-	@Override
-	public PasswordResetToken getPasswordResetToken(final String token) {
-		return passwordResetTokenRepository.findByToken(token);
-	}
-	
-	@Override
-	public void createPasswordResetTokenForUser(final User user, final String token) {
-		final PasswordResetToken myToken = new PasswordResetToken(token, user);
-		passwordResetTokenRepository.save(myToken);
-	}
-	
 	
 	@Override
 	public User findByUsername(String username) {
@@ -158,6 +141,7 @@ public class UserServiceImpl implements UserService{
 		return null;
 		
 	}
+
 
 	
 }

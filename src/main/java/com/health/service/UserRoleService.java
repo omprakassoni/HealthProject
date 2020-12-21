@@ -18,9 +18,9 @@ public interface UserRoleService {
 	
 	UserRole findByLanCatUser(Language lan,Category cat,User usr,Role role);
 	
-	UserRole findByLanUser(Language lan,User usr,Role role);
+	List<UserRole> findByLanUser(Language lan,User usr,Role role);
 	
-	UserRole findByRoleUser(User usr,Role role);
+	List<UserRole> findByRoleUser(User usr,Role role);
 	
 	List<UserRole> findAllByRoleAndStatus(Role role,boolean status);
 	

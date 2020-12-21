@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.health.domain.security.UserRole;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.Language;
 import com.health.model.TopicCategoryMapping;
@@ -44,12 +45,15 @@ public class ContributorAssignedTutorialServiceImpl implements ContributorAssign
 	}
 
 	@Override
-	public List<ContributorAssignedTutorial> findByTopicCatLan(List<TopicCategoryMapping> topCat, Language lan) {
+	public List<ContributorAssignedTutorial> findByTopicCatLan(List<TopicCategoryMapping> topCat, List<UserRole> usrRole) {
 		// TODO Auto-generated method stub
 		List<ContributorAssignedTutorial> localData=new ArrayList<ContributorAssignedTutorial>();
 		
 		for(TopicCategoryMapping temp:topCat) {
-			localData.add(conRepo.findByTopicCatLan(temp, lan));
+			for(UserRole xlan : usrRole) {
+				localData.add(conRepo.findByTopicCatLan(temp, xlan.getLanguage()));
+			}
+			
 		}
 		
 		return localData;
