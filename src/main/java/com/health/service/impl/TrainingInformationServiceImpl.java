@@ -1,5 +1,7 @@
 package com.health.service.impl;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,19 @@ public class TrainingInformationServiceImpl implements TrainingInformationServic
 		// TODO Auto-generated method stub
 		training.getTraineeInfos().addAll(trainee);
 		trainingInfoRepo.save(training);
+	}
+
+	@Override
+	public List<TrainingInformation> findAll() {
+		// TODO Auto-generated method stub
+		return (List<TrainingInformation>) trainingInfoRepo.findAll();
+	}
+
+	@Override
+	public TrainingInformation getById(int id) {
+		// TODO Auto-generated method stub
+		Optional<TrainingInformation> local = trainingInfoRepo.findById(id);
+		return local.get();
 	}
 
 

@@ -60,6 +60,8 @@ public class HealthNutrition extends org.springframework.boot.web.servlet.suppor
 		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial).mkdirs();
 		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryConsultant).mkdirs();
 		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial).mkdirs();
+		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer).mkdirs();
+		new File(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer).mkdirs();
 
 		Role role=new Role();
 		role.setRoleId(1);

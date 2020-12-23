@@ -54,13 +54,13 @@ public class UserRoleServiceImpl implements UserRoleService{
 	}
 
 	@Override
-	public UserRole findByLanUser(Language lan, User usr,Role role) {
+	public List<UserRole> findByLanUser(Language lan, User usr,Role role) {
 		// TODO Auto-generated method stub
 		return usrRoleRepo.findByLanUser(lan, usr,role);
 	}
 
 	@Override
-	public UserRole findByRoleUser(User usr, Role role) {
+	public List<UserRole> findByRoleUser(User usr, Role role) {
 		// TODO Auto-generated method stub
 		return usrRoleRepo.findByRoleUser(usr, role);
 	}

@@ -38,10 +38,6 @@ public class TrainingInformation{
 	private Date enddate;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="topicCat_id")
-	private TopicCategoryMapping topicCatId;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="state_id")
 	private Language lan;
 	
@@ -73,6 +69,12 @@ public class TrainingInformation{
 	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TraineeInformation> traineeInfos= new HashSet<TraineeInformation>();
 
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<TrainingTopic> trainingTopicId;
+	
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<FeedbackMasterTrainer> masterTrainerFeedback ;
+	
 	public int getTrainingId() {
 		return trainingId;
 	}
@@ -121,12 +123,12 @@ public class TrainingInformation{
 		this.enddate = enddate;
 	}
 
-	public TopicCategoryMapping getTopicCatId() {
-		return topicCatId;
+	public Set<TrainingTopic> getTrainingTopicId() {
+		return trainingTopicId;
 	}
 
-	public void setTopicCatId(TopicCategoryMapping topicCatId) {
-		this.topicCatId = topicCatId;
+	public void setTrainingTopicId(Set<TrainingTopic> trainingTopicId) {
+		this.trainingTopicId = trainingTopicId;
 	}
 
 	public Language getLan() {

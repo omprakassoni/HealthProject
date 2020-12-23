@@ -14,5 +14,5 @@ public interface QuestionService {
 	
 	Question findById(int id);
 	
-	List<Question> getAllQuestionBasedOnTopicCatAndLan(TopicCategoryMapping topicCat, Language lan);
+	Question getQuestionBasedOnTopicCatAndLan(TopicCategoryMapping topicCat, Language lan);
 }

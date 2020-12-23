@@ -25,6 +25,8 @@ import com.health.model.Question;
 import com.health.model.State;
 import com.health.model.Topic;
 import com.health.model.TopicCategoryMapping;
+import com.health.model.TrainingInformation;
+import com.health.model.TrainingTopic;
 import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.service.CategoryService;
@@ -36,6 +38,7 @@ import com.health.service.RoleService;
 import com.health.service.StateService;
 import com.health.service.TopicCategoryMappingService;
 import com.health.service.TopicService;
+import com.health.service.TrainingInformationService;
 import com.health.service.TutorialService;
 import com.health.service.UserRoleService;
 import com.health.service.UserService;
@@ -84,6 +87,23 @@ public class AjaxController{
 	@Autowired
 	private CityService cityServie;
 	
+	@Autowired
+	private TrainingInformationService trainingInforService;
+	
+	
+	@RequestMapping("/loadTitleNameInMasterTraining")
+	public @ResponseBody HashMap<Integer, String> getTopicNameFromMasterTrainer() {
+
+		HashMap<Integer,String> topicName=new HashMap<>();
+
+		List<TrainingInformation> trainig = trainingInforService.findAll();
+
+		for(TrainingInformation x : trainig) {
+			topicName.put(x.getTrainingId(), x.getTitleName());
+		}
+		return topicName;
+
+	}
 	
 	@RequestMapping("/loadDistrictByState")
 	public @ResponseBody HashMap<Integer, String> getDistrictByState(@RequestParam(value = "id") int id) {

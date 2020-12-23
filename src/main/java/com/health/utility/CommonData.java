@@ -47,6 +47,8 @@ public class CommonData {
 	public static String RECORD_EXISTS = "Record Already Exists!";
 
 	public static String RECORD_ERROR= "Error in saving record";
+	
+	public static String QUESTION_EXIST= "Question Exist";
 
 	public static String JPG_PNG_EXT= "Only .jpg or .png file allowed";
 
@@ -103,6 +105,8 @@ public class CommonData {
 	public static String uploadDirectoryConsultant = "Media/Content/Consultant/";
 
 	public static String uploadDirectoryMasterTrainer = "Media/Content/MasterTrainer/";
+	
+	public static String uploadDirectoryMasterTrainerFeedback = "Media/Content/MasterTrainerFeedback/";
 	
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
 			NEED_IMPROVEMENT_MSG, WAITING_PUBLISH,PUBLISHED

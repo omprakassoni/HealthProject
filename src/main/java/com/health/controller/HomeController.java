@@ -34,6 +34,7 @@ import com.health.model.Consultant;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
 import com.health.model.Event;
+import com.health.model.FeedbackMasterTrainer;
 import com.health.model.Language;
 import com.health.model.Question;
 import com.health.model.State;
@@ -42,6 +43,7 @@ import com.health.model.Topic;
 import com.health.model.TopicCategoryMapping;
 import com.health.model.TraineeInformation;
 import com.health.model.TrainingInformation;
+import com.health.model.TrainingTopic;
 import com.health.model.Tutorial;
 import com.health.model.User;
 
@@ -55,6 +57,7 @@ import com.health.service.ConsultantService;
 import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
 import com.health.service.EventService;
+import com.health.service.FeedBackMasterTrainerService;
 import com.health.service.LanguageService;
 import com.health.service.QuestionService;
 import com.health.service.RoleService;
@@ -64,6 +67,7 @@ import com.health.service.TopicCategoryMappingService;
 import com.health.service.TopicService;
 import com.health.service.TraineeInformationService;
 import com.health.service.TrainingInformationService;
+import com.health.service.TrainingTopicService;
 import com.health.service.TutorialService;
 import com.health.service.UserRoleService;
 import com.health.service.UserService;
@@ -137,6 +141,13 @@ public class HomeController {
 	
 	@Autowired
 	private TraineeInformationService traineeService;
+	
+	@Autowired
+	private TrainingTopicService trainingTopicServ;
+	
+	@Autowired
+	private FeedBackMasterTrainerService feedServ;
+	
 	
 //	@RequestMapping("/viewVideo/view/{id}")
 //	public String viewVideo(Model model, @PathVariable Integer id) {
@@ -336,11 +347,6 @@ public class HomeController {
 		model.addAttribute("Testimonials", testi);
 		return "signup";
 	}
-
-//	@RequestMapping("/HomeRemove")
-//	public String homeLogin() {
-//		return "HomeRemove";
-//	}
 
 	@RequestMapping(value = "/forgetPassword",method = RequestMethod.POST)
 	public String forgetPasswordPost(HttpServletRequest request, @ModelAttribute("email") String email, Model model) {
@@ -801,7 +807,7 @@ public class HomeController {
 		model.addAttribute("categories", categories);
 
 		model.addAttribute("languages", languages);
-
+	
 		if(!ServiceUtility.checkFileExtensionPDF(quesPdf)) {  // throw error
 
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
@@ -812,7 +818,14 @@ public class HomeController {
 		Topic topic=topicService.findById(topicId);
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		Language lan=lanService.getById(languageId);
+		
+		Question quesTemp = questService.getQuestionBasedOnTopicCatAndLan(topicCat, lan);
 
+		if(quesTemp != null) {
+			
+			model.addAttribute("error_msg",CommonData.QUESTION_EXIST);
+			return "uploadQuestion";
+		}
 		int newQuestionId=questService.getNewId();
 		Question question=new Question();
 		question.setQuestionId(newQuestionId);
@@ -1219,6 +1232,16 @@ public class HomeController {
 		if(cat==null) {
 			 // accommodate  error message
 			return "updateCategory";
+		}
+		
+		List<Category> cats=catService.findAll();
+		for(Category x : cats) {
+			if(x.getCategoryId()!=cat.getCategoryId()) {
+				if(catName.equalsIgnoreCase(x.getCatName())) {
+					// accommodate  error message
+					return "updateCategory";
+				}
+				}
 		}
 
 		cat.setCatName(catName);
@@ -2111,10 +2134,10 @@ public class HomeController {
 		List<Tutorial> reviewed = new ArrayList<>();
 		Role role=roleService.findByname(CommonData.adminReviewerRole);
 
-		UserRole userRoles=usrRoleService.findByRoleUser(usr, role);
-		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategory(userRoles.getCategory());
+		List<UserRole> userRoles=usrRoleService.findByRoleUser(usr, role);
+		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategoryBasedOnUserRoles(userRoles);
 
-		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles.getLanguage());
+		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles);
 
 		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
 		for(Tutorial temp:tutorials) {
@@ -2189,10 +2212,10 @@ public class HomeController {
 		List<Tutorial> published = new ArrayList<>();
 		Role role=roleService.findByname(CommonData.domainReviewerRole);
 
-		UserRole userRoles=usrRoleService.findByRoleUser(usr, role);
-		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategory(userRoles.getCategory());
+		List<UserRole> userRoles=usrRoleService.findByRoleUser(usr, role);
+		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategoryBasedOnUserRoles(userRoles);
 
-		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles.getLanguage());
+		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles);
 
 		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
 		for(Tutorial temp:tutorials) {
@@ -2278,10 +2301,10 @@ public class HomeController {
 		List<Tutorial> published = new ArrayList<>();
 		Role role=roleService.findByname(CommonData.qualityReviewerRole);
 
-		UserRole userRoles=usrRoleService.findByRoleUser(usr, role);
-		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategory(userRoles.getCategory());
+		List<UserRole> userRoles=usrRoleService.findByRoleUser(usr, role);
+		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategoryBasedOnUserRoles(userRoles);
 
-		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles.getLanguage());
+		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles);
 
 		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
 		for(Tutorial temp:tutorials) {
@@ -2302,7 +2325,6 @@ public class HomeController {
 		model.addAttribute("tutorialReviewed", published);
 
 		return "listTutorialQualityReviewer";
-
 
 
 	}
@@ -2415,7 +2437,7 @@ public class HomeController {
 		Topic topic=topicService.findById(topicId);
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		Language lan = lanService.getByLanName(lanName);
-		List<Question> questions = questService.getAllQuestionBasedOnTopicCatAndLan(topicCat, lan);
+		Question questions = questService.getQuestionBasedOnTopicCatAndLan(topicCat, lan);
 		model.addAttribute("Questions", questions);
 		
 		List<Category> cats=catService.findAll();
@@ -2457,7 +2479,7 @@ public class HomeController {
 			@RequestParam("ParticipantsPhoto") MultipartFile[] trainingImage,
 			@RequestParam("traineeInformation") MultipartFile traineeInfo,
 			@RequestParam(value="categoryName") int catName,
-			@RequestParam(value="inputTopic") int topicId,
+			@RequestParam(value="inputTopic") int[] topicId,
 			@RequestParam(value="language") String lanName,
 			@RequestParam(value="date") String startDate,
 			@RequestParam(value="endDate") String endDate,
@@ -2479,6 +2501,8 @@ public class HomeController {
 		
 		model.addAttribute("userInfo", usr);
 		
+		Set<TrainingTopic> trainingTopicTemp = new HashSet<>();
+		
 		if(!ServiceUtility.checkFileExtensiononeFileCSV(traineeInfo)) {
 			
 			// throw error on output
@@ -2491,13 +2515,29 @@ public class HomeController {
 			return "masterTrainerOperation";
 		}
 		
+		Date startDate1 =null;
+		Date endDate1 = null;
+		try {
+			startDate1 = ServiceUtility.convertStringToDate(startDate);
+			endDate1 = ServiceUtility.convertStringToDate(endDate);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			// throw error
+			return "masterTrainerOperation";
+		}
+
+		if(endDate1.before(startDate1)) {      // throws error if end date is previous to start date
+			model.addAttribute("error_msg",CommonData.EVENT_CHECK_DATE);
+			return "masterTrainerOperation";
+		}
+		
+		
 		State stat=stateService.findById(state);
 		District districtTemp=districtService.findById(district);
 		City cityTemp=cityService.findById(city);
 		Language lan=lanService.getByLanName(lanName);
 		Category cat=catService.findByid(catName);
-		Topic topic=topicService.findById(topicId);
-		TopicCategoryMapping topicCatMap=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		
 		int newTrainingdata=trainingInfoService.getNewId();
 		TrainingInformation trainingData=new TrainingInformation();
@@ -2518,12 +2558,22 @@ public class HomeController {
 		}
 		
 		trainingData.setPincode(pinCode);
-		trainingData.setTopicCatId(topicCatMap);
 		trainingData.setLan(lan);
 		trainingData.setAddress(address);
 		trainingData.setUser(usr);
 		
 		try {
+			trainingInfoService.save(trainingData);
+			int trainingTopicId=trainingTopicServ.getNewId();
+			for(int topicID : topicId) {
+				Topic topicTemp=topicService.findById(topicID);
+				TopicCategoryMapping topicCatMap=topicCatService.findAllByCategoryAndTopic(cat, topicTemp);
+				TrainingTopic trainingTemp=new TrainingTopic(trainingTopicId++, topicCatMap, trainingData);
+				trainingTopicTemp.add(trainingTemp);
+				
+			}
+			
+			trainingData.setTrainingTopicId(trainingTopicTemp);
 			trainingInfoService.save(trainingData);
 			
 			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer+newTrainingdata)) {
@@ -2563,6 +2613,72 @@ public class HomeController {
 		}
 		
 	
+		
+		return "masterTrainerOperation";
+	
+	}
+	
+	@RequestMapping(value = "/uploadfeedback", method = RequestMethod.POST)
+	public String uploadFeedbackPost(Model model,Principal principal,
+								@RequestParam(value = "catMasId") int catId,
+								@RequestParam(value = "feedbackmasterId") int trainingTitle,
+								@RequestParam(value = "feedbackForm") MultipartFile[] feedbackFile,
+								@RequestParam(value = "nameOfMasterTrainer") String name,
+								@RequestParam(value = "email") String email,
+								@RequestParam(value = "traningInformation") String desc) {
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=userService.findByUsername(principal.getName());
+		}
+		
+		model.addAttribute("userInfo", usr);
+		List<Category> cats=catService.findAll();
+
+		List<State> states=stateService.findAll();
+		
+		List<Language> lan=lanService.getAllLanguages();
+		
+		model.addAttribute("categories", cats);
+		
+		model.addAttribute("states", states);
+		model.addAttribute("lans", lan);
+		
+		if(!ServiceUtility.checkEmailValidity(email)) {   // need to accommodate
+
+			model.addAttribute("emailWrong", true);
+			return "masterTrainerOperation";
+		}
+		
+		if(!ServiceUtility.checkFileExtensionZip(feedbackFile)) {
+			
+												// Accommodate error message
+			return "masterTrainerOperation";
+		}
+		
+		TrainingInformation trainingInfo = trainingInfoService.getById(trainingTitle);
+		
+		FeedbackMasterTrainer feed = new FeedbackMasterTrainer(feedServ.getNewId(), name, email, desc, ServiceUtility.getCurrentTime(), null, trainingInfo, usr);
+		try {
+			feedServ.save(feed);
+			
+			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainerFeedback+feed.getId())) {
+				String pathtoUploadPoster=ServiceUtility.uploadFile(feedbackFile, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainerFeedback+feed.getId());
+				int indexToStart=pathtoUploadPoster.indexOf("Media");
+				
+				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+				
+				feed.setPath(document);
+				feedServ.save(feed);
+				
+			}else {
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return "masterTrainerOperation";
 	

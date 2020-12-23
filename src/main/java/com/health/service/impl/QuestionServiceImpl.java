@@ -44,7 +44,7 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public List<Question> getAllQuestionBasedOnTopicCatAndLan(TopicCategoryMapping topicCat, Language lan) {
+	public Question getQuestionBasedOnTopicCatAndLan(TopicCategoryMapping topicCat, Language lan) {
 		// TODO Auto-generated method stub
 		return questionRepo.findByTopicLan(topicCat, lan);
 	}
