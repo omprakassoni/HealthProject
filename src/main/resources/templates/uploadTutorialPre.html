@@ -11,6 +11,95 @@
 
 </head>
   <body>
+  <div th:replace="common/sidebar :: top_header"></div>
+  <div class="container-fluid">
+  <div class="row">
+  <div class="col-md-3 col-lg-2 pr-0">
+  <div th:replace="common/sidebar :: contributor_sidebar"></div>
+  </div>
+  <div class="col-md-9 col-lg-10 p-md-5">
+  <div>
+				<div class="alert alert-success" role="alert" th:if="${success_msg}">
+	 				<div id="#test" class="">
+						<div >
+							<span th:text="${success_msg}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+	 				<div id="#test" class="">
+						<div >
+							<span th:text="${error_msg}"></span>
+						</div>
+					</div>
+				</div>
+</div>
+<div class="card">
+					<div class="card-header">
+						<h4>Upload Tutorial</h4>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-6">
+								<form  th:action="@{/uploadTutorial}" method="post"  onsubmit="return submitForm(this);">
+ 			
+ 				
+ 					 <div class="form-group">  
+			                     <label for="inputUserame"></label>     
+			              <select id="categoryContributor" class="form-control " name="categoryName"   required="required" >
+								               
+							 <option id="categoryContributor" >Select Category</option>  
+							     
+								    <span th:each="catName: ${contributorTutorial}">
+								  		
+											<option th:value="${catName}">
+									
+									<span th:text="${catName}"></span>
+								
+									</option>	
+								</span>
+						</select>
+						
+					</div> 
+				
+	           				 <div class="form-group ">
+		
+					       <!-- <label for="inputTopicContributor">Topic</label> -->
+					       <label for="inputTopicContributor"></label>
+					       <select id="inputTopicContributor" class="form-control" name="inputTopic"  required="required">
+					            <!-- <option id="categoryContributor"  selected="selected">Select Category</option> -->
+					            <option value="0">Select Topic</option>  
+					       </select> 
+					                	
+							 </div>
+
+			              <div class="form-group ">
+		
+					               <!-- <label for="inputLanguageContributor">Language</label> -->
+					               <label for="inputLanguageContributor"></label>
+					               
+					                    <select id="inputLanguageContributor" class="form-control" name="inputLanguage"  required="required">
+					              		<option value="0">Select Language</option>
+					                </select> 
+					                    
+						  </div>
+						  
+		 <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
+						  
+						  
+ 		      </form>
+							</div>
+						</div>
+
+						<!-- <h5 class="card-title">Special title treatment</h5>
+						<p class="card-text">With supporting text below as a natural
+							lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a> -->
+					</div>
+				</div>
+  </div>
+  </div>
+  </div>
   		
   		<!-- <div th:replace="common/header :: c_header"></div> -->
   		

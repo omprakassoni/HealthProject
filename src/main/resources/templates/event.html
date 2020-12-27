@@ -2,160 +2,154 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 
-
-<head th:replace="common/trail :: common-trail">
-
-
-		<meta charset="utf-8"/>
-		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-		 <link rel="stylesheet" th:href="@{/css/style3.css}"/>
- 	 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/> 
- 
-		<link rel="stylesheet" type="text/css" th:href="@{/datatables.css}"/>
- 
-	
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
 </head>
-
- 
 <body>
-	<div style="display: flex;">
-		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-
-		<div class="row" style='width: 100%;'>
-			<div class="">
-				<div class="">
-
-					<div class="card-body">
-					
-				
-   <body>
-  
-  		
-  		
-			  <div class="#">
-          
-        
-          <div class="row" style="padding-top: ">
-
-            
-              <div class="col-12">
-          
-                     <div>
-					        <h2>EVENT LIST</h2>
-					        
-					        <table id="tableId" class="table table-striped">
-					        
-					        	<thead>
-					        
-					            <tr>
-					                <th>Id</th>
-					                <th>Name</th>
-					                <th>Start Date</th>
-					                <th>End Date</th>
-					                <th>Description</th>
-					                <th>Venue Name</th>
-					                <th>Contact Person</th>	
-					                <th>Contact Number</th>	
-    		                   
-					          	    <th>Email</th>
-					                <th>Edit</th>
-					                <th>Disable</th>
-					                
-					            </tr>
-					            </thead>
-					            <tbody>
-					            	<tr th:each="event : ${events}">
-						                <td th:text="${event.getEventId()}"></td>  
-						                <td th:text="${event.getEventName()}"></td>
-						                <td th:text="${event.getStartDate()}"></td>
-						                 <td th:text="${event.getEndDate()}"></td>
-						                <td th:text="${event.getDescription()}"></td>  
-						                <td th:text="${event.getLocation()}"></td>
-						                <td th:text="${event.getContactPerson()}"></td>
-						                <td th:text="${event.getContactNumber()}"></td>
-									   <td th:text="${event.getEmail()}"></td>
-
-					                <td><a onclick="submitForm()" th:href="@{${'event/edit/' + event.getEventId()}}">Edit</a></td>  
-   
-					                <td><a th:href="@{${'/event/delete/' + event.getEventId()}}">Disable</a></td>
-    
-					            </tr>
-					            
-					            </tbody>
-					        </table>
-					    </div>
-              </div>
-              
-
-              
-              <div class="col-2">
-                  
-              </div>
- 
-<!--footer --> 
-     </div>
-    
-         
- 			<script src="/js/jquery.min.js"></script>
-		 	<script type="text/javascript" charset="utf8" src="/datatables.js"></script>
-		 
-			<script>
-			
-			
-			$(document).ready( function () {
-			    $('#tableId').DataTable();
-			} );
-			
-			</script> 
-          
-          
-          
-      </div>
- 
-			<div th:fragment="body-bottom-scripts">
-
-        	 <script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
-       		 <script th:src="@{/static/js/jquery.slim.min}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-			
-			
-			
-			</div>
- </body>
-			
-					</div>
-				</div>
-			<div th:fragment="body-bottom-scripts">
-
-		<script src="static/js/bootstrap.bundle.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.5.1.js"
-			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-		<script
-			src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-
-
-	</div>
-			</div>
-		</div>
-	</div>
-	<script th:inline="javascript">
-    
-		var projectPath='[(@{/})]';
+<main id="event_page" class="p-5">
+	<div class="move-top">
+		<a href="#"><i class="fas fa-chevron-circle-up"></i></a>
 		
-	</script>
+	</div>
+	<div>
+		<h1 class="text-center">workshop name comes here</h1>
+		<div class="row">
+			<div class="col-md-8 offset-md-2 ">
+			<img src="banner.jpg" style="width: 100%;">
+			</div>
+			<div class="col-md-8 offset-md-2 " style="border-bottom: 1px solid rgba(0,0,0,0.2);">
+			<div class="row my-2">
+			<div class="col-md-3 text-center"><i class="fas fa-calendar-alt mr-2 e-icon"></i>25th Dec, 2021</div>
+			<div class="col-md-3 text-center"><i class="fas fa-user mr-2 e-icon"></i>Incharge Name</div>
+			<div class="col-md-3 text-center"><i class="fas fa-phone-alt mr-2 e-icon"></i>9810150179</div>
+			<div class="col-md-3 text-center"><i class="fas fa-envelope mr-2 e-icon"></i>9810150179</div>
+		</div>
 
+
+			</div>
+
+			<div  class="col-md-8 offset-md-2 my-2">
+				<div class="text-center"><i class="fas fa-map-marker-alt mr-2 e-icon"></i>IIT Bombay</div>
+			</div>
+			<div class="col-md-8 offset-md-2">
+				<h1>Description : </h1>
+				<p>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+				</p>
+				<p>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+				</p>
+			</div>	
+		</div>
+		
+		
+	</div>
+
+	<!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h1 class="text-center">Image Gallery</h1>
+        </div>
+
+        <!-- <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">App</li>
+              <li data-filter=".filter-card">Card</li>
+              <li data-filter=".filter-web">Web</li>
+            </ul>
+          </div>
+        </div>
+        -->
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="venobox" title="workshop name or any title"><i class="fas fa-expand-arrows-alt"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="venobox" title="workshop name or any title 1"><i class="fas fa-expand-arrows-alt"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="venobox" title="workshop name or any title 2"><i class="fas fa-expand-arrows-alt"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Web 3</h4>
+                <p>Web</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-2.jpg" data-gall="portfolioGallery" class="venobox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>App 2</h4>
+                <p>App</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-3.jpg" data-gall="portfolioGallery" class="venobox" title="App 2"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+
+         
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+	
+</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
 </body>
- 
 </html>
- 
- 

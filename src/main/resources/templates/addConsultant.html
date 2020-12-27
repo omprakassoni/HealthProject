@@ -2,7 +2,19 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 
-<head th:replace="common/trail :: common-trail">
+<!-- <head th:replace="common/trail :: common-trail">  -->
+<head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+	integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+	<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" th:href="@{/css/main.css}"/>
 <style>
 .cons_record {
 	display: none;
@@ -11,7 +23,210 @@
 </head>
 
 <body>
-	<div style="display: flex;">
+	<div th:replace="common/sidebar :: top_header"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 col-lg-2 pr-0">
+				<div th:replace="common/sidebar :: contributor_sidebar"></div>
+			</div>
+			<div class="col-md-9 col-lg-10 p-md-5">
+			<div class="alert alert-success" role="alert" th:if="${msg}">
+					<div id="#test" class="">
+						<div>
+							<span th:text="${msg}"></span>
+						</div>
+					</div>
+				</div>
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="home-tab"
+						data-toggle="tab" href="#add" role="tab" aria-controls="home"
+						aria-selected="true">Add</a></li>
+					<li class="nav-item"><a class="nav-link" id="profile-tab"
+						data-toggle="tab" href="#view" role="tab"
+						aria-controls="profile" aria-selected="false">View</a></li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active py-3" id="add" role="tabpanel"
+						aria-labelledby="home-tab" >
+					<div class="card">
+					<div class="card-header">
+						<h4>Add Consultant</h4>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-6">
+								<form th:action="@{/addConsultant}" method="post"
+									enctype="multipart/form-data">
+
+									<div class="form-group">
+										<label for="nameConsaltant">Name</label> <input type="text"
+											class="form-control" id="nameConsaltant"
+											name="nameConsaltant" required="required"
+											placeholder="Name of the consultant" />
+
+									</div>
+									<div class="form-group">
+										<label for="descriptionConsaltant">Description</label>
+										<textarea class="form-control" rows="5"
+											id="descriptionConsaltant" name="descriptionConsaltant"
+											required="required"
+											placeholder="Description about the consultant"></textarea>
+									</div>
+									<!-- <div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputGroupFileAddon01">Upload
+												Image</span>
+										</div>
+										<div class="custom-file">
+											<input type="file"
+												class="form-control-file custom-file-input"
+												id="consaltantImage" name="uploadConsaltantImage"
+												placeholder="uploadFile" accept=".jpg, .jpeg,.png"
+												required="required" /> <label class="custom-file-label"
+												for="consaltantImage">Choose file</label>
+										</div>
+									</div> -->
+									<div class="form-group">
+										<label for="consaltantImage" style="padding-top: 8px">Add
+											Image</label> <input type="file" style="padding-right: 50px"
+											class="form-control-file" id="consaltantImage"
+											name="uploadConsaltantImage" placeholder="uploadFile"
+											accept=".jpg, .jpeg,.png" required="required" />
+									</div>
+									<!-- <div class="form-group">
+										<label for="consaltantImage" style="padding-top: 8px">Add
+											Image</label> <input type="file" style="padding-right: 50px"
+											class="form-control-file" id="consaltantImage"
+											name="uploadConsaltantImage" placeholder="uploadFile"
+											accept=".jpg, .jpeg,.png" required="required" />
+
+									</div> -->
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<input type="checkbox"
+													aria-label="Checkbox for following text input"
+													id="showOnHomePage" name="showOnHomePage"
+													value="showOnHomePage">
+											</div>
+										</div>
+										<input type="text" class="form-control"
+											aria-label="Text input with checkbox" disabled
+											placeholder="Show on homepage">
+									</div>
+									<!-- <div class="form-check">
+										<input type="checkbox" class="form-check-input"
+											id="showOnHomePage" name="showOnHomePage"
+											value="showOnHomePage" /> <label class="form-check-label"
+											for="exampleCheck1">Show on Homepage</label>
+									</div> -->
+
+									<button type="submit" class="btn btn-info a-btn">Submit</button>
+									&nbsp;&nbsp;&nbsp;
+									<button type="reset" class="btn  a-btn">Reset</button>
+								</form>
+							</div>
+						</div>
+
+						<!-- <h5 class="card-title">Special title treatment</h5>
+						<p class="card-text">With supporting text below as a natural
+							lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a> -->
+					</div>
+				</div>
+					</div>
+					<div class="tab-pane fade py-3" id="view" role="tabpanel"
+						aria-labelledby="profile-tab">
+					<table class="table table-striped" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>	
+					</div>
+				</div>
+				
+				<!-- card form for adding consultant -->
+				
+
+
+
+
+				<!-- card form for adding consultant -->
+
+				<!-- <div class="card card-signin flex-row a-card">
+
+					<div class="card-body">
+						<h5 class="card-title text-center a-card-title">Add
+							Consultant</h5>
+
+						<form class="form-horizontal" th:action="@{/addConsultant}"
+							method="post" enctype="multipart/form-data">
+
+							<div class="form-group">
+								<label for="nameConsaltant">Name</label> <input type="text"
+									class="form-control input-lg" id="nameConsaltant"
+									name="nameConsaltant" required="required"
+									placeholder="Name of the consultant" />
+							</div>
+							<div class="form-group">
+								<label for="descriptionConsaltant">Description</label>
+								<textarea class="form-control" rows="5"
+									id="descriptionConsaltant" name="descriptionConsaltant"
+									required="required"
+									placeholder="Description about the consultant"></textarea>
+
+							</div>
+
+							<div class="form-group">
+								<label for="consaltantImage" style="padding-top: 8px">Add
+									Image</label> <input type="file" style="padding-right: 50px"
+									class="form-control-file" id="consaltantImage"
+									name="uploadConsaltantImage" placeholder="uploadFile"
+									accept=".jpg, .jpeg,.png" required="required" />
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input"
+									id="showOnHomePage" name="showOnHomePage"
+									value="showOnHomePage" /> <label class="form-check-label"
+									for="exampleCheck1">Show on Homepage</label>
+							</div>
+
+							<button type="submit" class="btn  a-btn">Submit</button>
+							&nbsp;&nbsp;&nbsp;
+							<button type="reset" class="btn  a-btn">Reset</button>
+						</form>
+					</div>
+				</div> -->
+
+			</div>
+		</div>
+	</div>
+	<!-- <div style="display: flex;">
 		<div th:replace="common/sidebar :: contributor_sidebar"></div>
 
 		<div class="row" style='width: 100%;'>
@@ -73,11 +288,11 @@
 				
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div th:fragment="body-bottom-scripts">
 
-		<script th:src="@{static/js/bootstrap.bundle.min.js}"></script>
+		<!-- <script th:src="@{static/js/bootstrap.bundle.min.js}"></script>
 		<script src="https://code.jquery.com/jquery-3.5.1.js"
 			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 			crossorigin="anonymous"></script>
@@ -92,58 +307,98 @@
 		<script
 			src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 		<script
-			src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-
+			src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script> -->
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" ></script>
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
 		<script type="text/javascript">
-			$(document).ready(function(){
-				  
-				function submitForm() {
-					  return confirm('Do you really want to Delete the record');
-					  alert("Delete  Recored succefully");
-					}
-				
-				
-				$("#show_cons").click(function(){
-					 $('#tableId').DataTable();
-					$.ajax({
-			   		  	 type: "GET",
-			       		 url: "/displayConsultants",
-			       		 contentType: "application/json",
-			       		 success: function (result){
-			       		 console.log(result);
-			       		 $('.cons_record').show();
-			       		var id = result[0].id;
-			       		var name = result[0].nameConsaltant;
-			       		var desc = result[0].descriptionConsaltant;
-			       		var img = result[0].uploadConsaltantImage;
-			       		var editLink = 'productconsalantant/edit/' + id;
-			       		var elink = '<a href="'+editLink+'">Edit</a>';
-			       		var deleteLink = '/consalantant/delete/' + id;
-			       		var dlink = '<a onclick="submitForm()" href="'+deleteLink+'">Delete</a>';
-			       		
-			       		var markup = "<tr><td>" + id + "</td><td>" + name + "</td><td>"+desc+"</td><td>"+"image"+"</td><td>"+elink+"</td><td>"+dlink+"</td></tr>";
-			       		
-			       		console.log(elink);
-			       		console.log(dlink);
-			       		console.log(markup);
-			            $("table tbody").append(markup);
-			       		 
-							},
-							
-								error : function(err){
-							console.log("not working. ERROR: "+JSON.stringify(err));
-						}
-					});
-				    
-				  });
-				});
-			</script>
+			$(document)
+					.ready(
+							function() {
+
+								function submitForm() {
+									return confirm('Do you really want to Delete the record');
+									alert("Delete  Recored succefully");
+								}
+
+								$("#show_cons")
+										.click(
+												function() {
+													$('#tableId').DataTable();
+													$
+															.ajax({
+																type : "GET",
+																url : "/displayConsultants",
+																contentType : "application/json",
+																success : function(
+																		result) {
+																	console
+																			.log(result);
+																	$(
+																			'.cons_record')
+																			.show();
+																	var id = result[0].id;
+																	var name = result[0].nameConsaltant;
+																	var desc = result[0].descriptionConsaltant;
+																	var img = result[0].uploadConsaltantImage;
+																	var editLink = 'productconsalantant/edit/'
+																			+ id;
+																	var elink = '<a href="'+editLink+'">Edit</a>';
+																	var deleteLink = '/consalantant/delete/'
+																			+ id;
+																	var dlink = '<a onclick="submitForm()" href="'
+																			+ deleteLink
+																			+ '">Delete</a>';
+
+																	var markup = "<tr><td>"
+																			+ id
+																			+ "</td><td>"
+																			+ name
+																			+ "</td><td>"
+																			+ desc
+																			+ "</td><td>"
+																			+ "image"
+																			+ "</td><td>"
+																			+ elink
+																			+ "</td><td>"
+																			+ dlink
+																			+ "</td></tr>";
+
+																	console
+																			.log(elink);
+																	console
+																			.log(dlink);
+																	console
+																			.log(markup);
+																	$(
+																			"table tbody")
+																			.append(
+																					markup);
+
+																},
+
+																error : function(
+																		err) {
+																	console
+																			.log("not working. ERROR: "
+																					+ JSON
+																							.stringify(err));
+																}
+															});
+
+												});
+							});
+		</script>
 	</div>
-	
+
 	<script th:inline="javascript">
-    
-		var projectPath='[(@{/})]';
-		
+		var projectPath = '[(@{/})]';
 	</script>
 </body>
 </html>

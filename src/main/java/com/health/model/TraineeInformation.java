@@ -15,21 +15,21 @@ public class TraineeInformation{
 	@Id
 	@Column(name = "TraineeId")
 	private int TraineeId;
-	
+
 	private String name;
-	
+
 	private String email;
-	
+
 	private long phone;
-	
+
 	private int age;
-	
+
 	private long aadhar;
-	
+
 	private String gender;
-	
+
 	private String organization;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="Training_id")
 	private TrainingInformation traineeInfos;
@@ -119,10 +119,10 @@ public class TraineeInformation{
 		this.organization = organization;
 		this.traineeInfos = traineeInfos;
 	}
-	
+
 	public TraineeInformation() {
-		
+
 	}
-			  
+
 
 }

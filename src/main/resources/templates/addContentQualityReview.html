@@ -2,67 +2,32 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 
-<head th:replace="common/trail :: common-trail">
-
-
-  			<link rel="stylesheet" th:href="@{/s/fonts/flaticon/font/flaticon.css}"/>
-			<link rel="stylesheet" type="text/css" th:href="@{/fontawesome-free-5.10.1-web/css/all.css}"/>		
-		
-			<link type="text/css" th:href="@{css/sample.css}" rel="stylesheet" media="screen" />
-		
-	<meta charset="utf-8"/>
-		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-		 <link rel="stylesheet" th:href="@{css/style3.css}"/>
- 	 	<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/> 
- 	 	
- 	 	<link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
-
- 		 <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
- 		 <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
- 	
-	</head>
-  <body>
-	<div class="" style="padding-top: 90px">
-
-
-
- 		<script type="text/javascript">
- 		
- /* 		
- 	 	$(document).ready(function(){
- 	 		
- 	 		$("#videoViewId").click(){
- 	 			
- 	 			 source =  document.getElementById('scriptPdfDomain');
-    		     source.setAttribute('href',res);
- 	 			
- 	 			 alert("Hi11"); 
- 	 			
- 	 			var videoIframe=document.getElementById("VideoView").src;  
-		
- 	 			
- 	 			document.getElementById("myImg").src = "hackanm.gif";
- 	 			 var scriptPdf = document.getElementById("scriptPdf");
- 	 		
- 	 			 $('#videoSet').attr('src',number);
- 	 			 
- 	 			 
- 	 	
- 	 	 });
- 	}); */
- 	 	
- 
- 		</script>
-<div style="display: flex;">
-		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-	    <div class="row" style='width: 100%;'>
-	      <div class="col-lg-10 col-xl-9 mx-auto">
-	        <div class="card card-signin flex-row my-5">
-	       
-	  
-	          <div class="card-body">
-	            <h5 class="card-title text-center" style="color:maroon;">Quality Review</h5>
-	            
+<head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+	integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+	crossorigin="anonymous" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div th:replace="common/sidebar :: top_header"></div>
+<div class="container-fluid px-0">
+<div class="row">
+<div class="col-md-3 col-lg-2 pr-0">
+<div th:replace="common/sidebar :: contributor_sidebar"></div>
+</div>
+<div class="col-md-9 col-lg-10 p-md-5">
+<div class="card">
+					<div class="card-header">
+						<h4>Add Testimonial</h4>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12">
+								
 	                  <form th:action="@{/submitTutorial}" method="post">
 
 			               <table class="table table-bordered">
@@ -189,9 +154,10 @@
 									
 											<!-- <span  th:if="${statusScriptTrue}"><button type="button" class="btn btn-info" data-toggle="modal"  data-target="#scriptStatusAccept" data-whatever="@mdo"><i class="fas fa-check-circle"></i>
 		                                     </button></span> -->
-		                                     <span ><button type="button" class="btn btn-info" data-toggle="modal"  data-target="#scriptStatusAccept" data-whatever="@mdo"><i class="fas fa-eye"></i>
-		                                     </button></span>
-						
+		                                     <span ><button type="button" class="btn btn-info" data-toggle="modal"  data-target="#scriptStatusAccept" ><i class="fas fa-eye"></i>
+		                                     </button>
+		                                    
+		                                     </span>
 		                                          </th>
 
                                      	 </tr>
@@ -377,6 +343,374 @@
 			     			
 			     				            
 			          </form>
+							</div>
+						</div>
+
+						<!-- <h5 class="card-title">Special title treatment</h5>
+						<p class="card-text">With supporting text below as a natural
+							lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a> -->
+					</div>
+				</div>
+</div>
+</div>
+</div>
+	<div class="" style="padding-top: 90px">
+
+
+
+ 		<script type="text/javascript">
+ 		
+ /* 		
+ 	 	$(document).ready(function(){
+ 	 		
+ 	 		$("#videoViewId").click(){
+ 	 			
+ 	 			 source =  document.getElementById('scriptPdfDomain');
+    		     source.setAttribute('href',res);
+ 	 			
+ 	 			 alert("Hi11"); 
+ 	 			
+ 	 			var videoIframe=document.getElementById("VideoView").src;  
+		
+ 	 			
+ 	 			document.getElementById("myImg").src = "hackanm.gif";
+ 	 			 var scriptPdf = document.getElementById("scriptPdf");
+ 	 		
+ 	 			 $('#videoSet').attr('src',number);
+ 	 			 
+ 	 			 
+ 	 	
+ 	 	 });
+ 	}); */
+ 	 	
+ 
+ 		</script>
+<div style="display: flex;">
+		<!-- <div th:replace="common/sidebar :: contributor_sidebar"></div> -->
+	    <div class="row" style='width: 100%;'>
+	      <div class="col-lg-10 col-lg-9 mx-auto">
+	        <div class="card card-signin flex-row my-5">
+	       
+	  
+	          <div class="card-body">
+	            <!-- <h5 class="card-title text-center" style="color:maroon;">Quality Review</h5> -->
+	            <!-- 
+	                  <form th:action="@{/submitTutorial}" method="post">
+
+			               <table class="table table-bordered">
+                                    <thead>
+                                      <tr>
+                                        <th>Category</th>
+                                    <td>
+                      
+										 
+										  		<input class="form-control"  id="categoryId"  name="categoryName"  th:value="${category}" readonly="readonly"></input>		
+										 
+
+                                     </td> 
+            
+                                      </tr>
+                                    </thead>
+
+                                     <thead>
+                                      <tr>
+                                      
+                                        <th>Topic</th>
+                                        <td>
+			                                          
+			   										<input class="form-control"  id="topicId" name="categoryName"  th:value="${topic}" readonly="readonly"></input>		
+			                                        
+                                        </td>
+                                      </tr>	 		
+ 
+ 	 	
+						      
+                                    </thead>
+                                 <thead>
+                                      <tr>
+                                        <th>Language</th>
+                                        <td>
+			                                    
+			                         					 <input class="form-control" id="lanId" name="languageName"  th:value="${language}" readonly="readonly"></input>		
+			                                   
+													
+										</td>
+										<input type="hidden" id="tutorialId" th:value="${tutorial.getTutorialId()}" />
+                                      </tr>
+                                   </thead>
+
+                               <thead>
+                                          <tr>
+   
+                                <th> Date</th>               
+  
+                                <td>
+                                	date remaining
+                                ${tutorialComponenet}
+			                                  <span id="lan" th:each="language : ${inputLanguage}">  
+			                         					 <input class="form-control" id="lanId" name="languageName"   readonly="readonly"></input>		
+			                                   
+												</span>		
+										</td>
+                              						</tr>
+                                    </thead>
+               
+                            </table>
+                                
+                        <table class="table table-bordered" style="background:#FAD0C9FF">
+                            
+                            <thead>
+                                      <tr>
+                                          
+		                                          <th>Sr No</th>
+		                                          <th>Component</th> 
+		                                          <th>Status</th>
+		                                          <th>User</th>  
+		                                          <th>
+		                                          <i style="color: purple; width:30px " class="fas fa-cogs"></i>
+		                                          </th>
+		                
+                                        </tr>                         
+                             </thead>
+
+                                      <tbody>
+                                      <tr>  
+		                                          <td>1</td>
+		                                          <td>Outline</td>
+		                                          <td>	                                          
+		                                              <span th:each="statusOutline : ${statusOutline}">  
+				                                    	<span style="color:green;" th:text="${statusOutline}">Pending</span>
+													</span>	
+		                        	
+												 </td>
+		                                          <th>-</th>
+		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#outlineViewModelDomain" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button>
+		                                          		
+		                                          		<span  th:if="${statusOutlineTrue}">
+		                                          		<button type="button" class="btn btn-info" data-toggle="modal"  data-target="#OutlineAccepOrNeedToImprovementQuality" data-whatever="@mdo"><i class="fas fa-check-circle"></i>	                             
+		                                          		</button>
+		                                          		</span>
+		                                          </th>
+
+                                      </tr>
+                                       <tr>
+                                            
+		                                          <td>2</td>
+		                                          <td>Script</td>
+		                                      		 <td>
+		                                  
+		                                             <span th:each="statusScript :${statusScript}">  
+				                                    	<span style="color:green;" th:text="${statusScript}">Pending</span>
+													</span>	
+		                            
+												 </td>
+		                                          <th>-</th>
+		                                          <th> 
+		                                        
+		                                        
+		                                        <span id="scriptIdQuality" th:each="scriptpath : ${tutorialComponenet}">
+		                                     
+										  			<a class="btn btn-info" target="_blank" id="cat"  name="categoryName"  th:href="${'/'+scriptpath.getScript()}" ><i class="fas fa-eye"></i></a>		
+								
+										 		</span>   
+		                                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewScriptIdDomain" data-whatever="@mdo"><i class="fas fa-eye"></i> </button>
+		                             			
+												<span  th:if="${statusScript == 'Wating for Domain Review'}"><button type="button" class="btn btn-info" data-toggle="modal"  data-target="#scriptStatusAccept" data-whatever="@mdo"><i class="fas fa-check-circle"></i>
+		                                          </button></span>
+									
+											<span  th:if="${statusScriptTrue}"><button type="button" class="btn btn-info" data-toggle="modal"  data-target="#scriptStatusAccept" data-whatever="@mdo"><i class="fas fa-check-circle"></i>
+		                                     </button></span>
+		                                     <span ><button type="button" class="btn btn-info" data-toggle="modal"  data-target="#scriptStatusAccept" ><i class="fas fa-eye"></i>
+		                                     </button>
+		                                    
+		                                     </span>
+		                                          </th>
+
+                                     	 </tr>
+                                     	 
+                                     <tr>
+                                            
+		                                          <td>3</td>
+		                                          <td>Slide</td>
+		                                       	   <td>	
+		                                       	   	                                  
+		                                             	<span th:each="statusSlide: ${statusSlide}">  
+				                                    	<span style="color:green;" th:text="${statusSlide}">Pending</span>
+														</span>	
+												  </td>
+		                                       
+		                                          <th>-</th>
+		                                          <th> 
+		                                          
+		                                          <span id="slideIdQuality" th:each="slidepath : ${tutorialComponenet}">
+		                                     
+										  			<a class="btn btn-info" target="_blank" id="cat"  name="categoryName"  th:href="${'/'+slidepath.getSlide()}" ><i class="fas fa-eye"></i></a>		
+								
+										 		</span> 
+		                                           <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModaleView" data-whatever="@mdo"><i class="fas fa-eye"></i></button>
+		                                        
+		                                          <span th:if="${statusSlideTrue}">
+		                                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideAcceptOrNeedImp" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                         
+		                                          </button>
+		                                          </span>
+		                                          </th>
+ 	
+                                     </tr>
+
+                                      <tr>
+                                            
+		                              			  <td>4</td>
+		                                          <td>Video</td>
+		                                		 <td>		                                  
+		                                              <span th:each="statusVideo : ${statusVideo}">  
+				                                    	<span style="color:green;" th:text="${statusVideo}">Pending</span>
+													 </span>	
+												 </td>
+		                                
+		                                          <th>-</th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoViewIdDomain" data-whatever="@mdo"><i class="fas fa-eye"></i> </button> 
+		                                    			 <span  th:if="${statusVideoTrue}"> <button type="button" class="btn btn-info" data-toggle="modal"  data-target="#VideoAccepOrNeedToImprovementQuality" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          </button>
+		                                          </span>
+		                                          </th>
+												     
+													     
+                                    </tr>
+                                     	 
+	                                     	 <tr>                                            
+		                                          <td>5</td>
+		                                          <td>Keywords</td>
+		                                          <td> 
+		                                          
+		                                          	 <span th:each=" statusKeyword: ${statusKeyword}">  
+				                                    	<span style="color:green;" th:text="${statusKeyword}">Pending</span>
+													</span>	
+													
+		                                         </td>
+		                                          <th>-</th>
+		                                          <th>  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModaleViewInQuality" data-whatever="@mdo"><i class="fas fa-eye"></i>  </button>
+		                                          		
+		                                           <span  th:if="${statusKeywordTrue}"> <button type="button" class="btn btn-info" data-toggle="modal"  data-target="#keywordAccepOrNeedToImprovementQuality" data-whatever="@mdo"><i class="fas fa-check-circle"></i>
+		                                          
+		                                          </button>
+		                                          </span>		
+		                                          		
+		                                          </th>
+
+                                     	 </tr>
+                                     	 
+     <tr>   	                                          
+		                                          <td>6</td>
+		                                          <td>Prerequisite</td>
+		                                          <td><span class="status-contri" th:text="${statusPreReq}"></span></td>
+		                                          <th>-</th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#PreViewQualityId" data-whatever="@mdo"><i  class="fas fa-eye"></i></button> </th>
+
+                                     	 </tr>
+                                     	 
+                                     	    	  <tr>   
+                                     	                                          
+		                                          <td>7</td>
+		                                          <td> Graphics </td>
+		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
+		                                          <th>-</th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#grahicsModale" data-whatever="@mdo"><i class="fas fa-eye"></i> </button> </th>
+
+                                     	 </tr>
+
+  
+                                    </tbody>
+							    </table>
+			     			
+			     			 				<span th:each="mesComment : ${CommentMsg}">  
+				               
+					<span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Video'}">
+				                  
+				     <div class="alert alert-danger">
+				                 
+				                 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				               <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                  
+				                   &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"></i><span style="color:green;" th:text="${mesComment.getCommentInfo()}">
+				                   
+				                   	</span>
+				                   	
+				             	</div>      	
+				                   	</span>
+				             	
+				                   	
+				     
+				                   	
+				              <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Outline'}">
+				                   	    
+				       <div class="alert alert-danger">
+				               
+				                    <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                    
+				                 <strong style="color:green; text-transform:uppercase;">  <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                    	
+				                   &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i>	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				                  </div>
+				                    
+				              	</span> 
+				                   	
+				            <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Script'}">
+				            
+				       <div class="alert alert-danger">
+				        		
+				        		    <i style="width: 30px; height: 25px" class="fas fa-comment"></i>     
+				                   <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                    
+				              &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i>  <span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    	
+				                   </div> 
+				                    
+				           </span> 
+				                   	
+				                </div>
+				                   	
+				              	
+				                	
+				          <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Slide'}">
+				                   	 
+				                <div class="alert alert-danger">
+				                	
+				                	 <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                    
+				                    <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong><br></br>
+				                    
+									  &nbsp;&nbsp;&nbsp; <i class="fas fa-arrow-right"> </i>	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				               </div>
+				                    
+				           </span> 
+				                   
+				                 
+				               <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()==keyword}">
+				                 
+				                   	<div class="alert alert-warning">
+				                   	
+				                   	        <i style="width: 30px; height: 25px" class="fas fa-comment"></i> 
+				                    
+				                     <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
+				                    
+				                    	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+				                    
+				                    </div>
+				                    
+				               </span>
+									
+												
+						<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
+			
+			</span>
+			     			
+			     				            
+			          </form> -->
 			          
 			          
 			          
@@ -477,6 +811,125 @@
 						  </div>					  
 	</div>	
 	
+	<!-- Modal -->
+<div class="modal fade" id="scriptStatusAccept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+   <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain Review-Script</h5>
+   
+       <div style="color: green; padding-left: 20px" id="saveCommentScript">
+       
+        </div>
+   
+   
+       <div class="modal-title">
+       
+        </div>
+       
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+     <div class="row">
+     <div class="col-12">
+     <div class="alert alert-msg" style="display: none;"></div>
+     <div class="border border-secondary p-3 mb-3">
+<span id="scriptIdQuality" th:each="scriptpath : ${tutorialComponenet}">
+<a  target="_blank" id="cat"  name="categoryName"  th:href="@{/files/}+@{${scriptpath.getScript()}}" >
+<span th:text="${scriptpath.getTopic().getTopicname()}"></span>
+</a>
+
+</span>
+</div>
+<div th:if="${tutorial.getScriptStatus() == 3}">
+	<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+         <div class="form-group">
+<select id="scriptAccept"  class="form-control" > 
+<option value="0">Select</option>
+    <option value="1">Accept</option>
+    <option value="2">Need Improvement</option>
+   
+ </select>  
+                   
+         </div>
+         
+<div id="scriptNeedImprovement" style="display: none;">
+<label for="msgScriptQuality">Comments</label>
+<textarea class="form-control"  name="msgScriptQuality" id="msgScriptQuality" rows="10" required="required" placeholder="Add your comments here."></textarea>
+
+</div>
+</form>
+
+
+
+
+
+</div>     
+
+     </div>
+     
+     <div class="col-12">
+     <div th:if="${not #lists.isEmpty(scriptComment)}">
+<h6 class="border-bottom">Comments: </h6>
+   <div th:each="comment : ${scriptComment}" class="border-bottom">
+   <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+  </span>
+</div>
+     
+<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+
+         <div class="form-group">
+
+                     <select id="scriptAccept"  class="form-control" >
+ 
+<option value="0">Select</option>
+    <option value="1">Accept</option>
+    <option value="2">Need Improvement</option>
+   
+ </select>  
+                   
+         </div>
+         
+<div id="scriptNeedImprovement" style="display: none;">
+<label for="msgScriptQuality">Comments</label>
+<textarea class="form-control"  name="msgScriptQuality" id="msgScriptQuality" rows="10" required="required" placeholder="Add your comments here."></textarea>
+
+</div>
+
+   
+</form>
+     </div>
+     
+     <div class="col-12">
+     <div th:if="${not #lists.isEmpty(scriptComment)}">
+<h6 class="border-bottom">Comments: </h6>
+   <div th:each="comment : ${scriptComment}" class="border-bottom">
+   <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+   <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
+   <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+   
+   </div>
+
+</div>
+     </div>
+     
+     </div>
+     
+       
+     </div>
+      <div class="modal-footer">
+         <button id="scriptAcceptOrNeedToImprovemenet"  type="button" class="btn btn-success">Submit</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+     </div>
+   
+   </div>
+    </div>
+  </div>
+</div>
+	
 				<!-- script End --> 
 			
 				
@@ -525,10 +978,10 @@
 			data-backdrop="static" data-keyboard="false">
 						
 						  <div
-								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 						    <div class="modal-content">
-						    <div class="alert alert-msg m-3" style="display: none;"></div>
+						    <div th:if="${tutorial.getVideoStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelKeyWordView">View Video</h5>
 						        <div class="modal-title">
@@ -541,7 +994,8 @@
 						      </div>
 						      <div class="modal-body">
 						       <div class="row">
-						      <div class="col-md-6">
+						      <div class="col-12">
+						      <div class="alert alert-msg" style="display: none;"></div>
 						      <div class="embed-responsive embed-responsive-16by9 mb-5">
   <video id='storedVideoIdDomain' 
 														controls="controls" style="width:100%!important;">
@@ -550,8 +1004,8 @@
 													<source th:src="@{/files/}+@{${tutorial.getVideo()}}" type="video/mp4"></source>
 													</video>
  </div>		
-	 
-<form  class="form-horizontal"  th:action="@{/addOutlineStataus}" onsubmit="return submitForm(this);" method="post" >
+<div th:if="${tutorial.getVideoStatus() == 3}">
+	<form  class="form-horizontal"  th:action="@{/addOutlineStataus}" onsubmit="return submitForm(this);" method="post" >
 
 						          <div class="form-group">
 						 
@@ -580,9 +1034,13 @@
 					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
 						     
 					</form>
+	
+
+</div>	 
+
 						      </div>
 						      
-						      <div class="col-md-6">
+						      <div class="col-12">
 						      <div th:if="${not #lists.isEmpty(videoComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${videoComment}" class="border-bottom"> 
@@ -639,10 +1097,10 @@
 							aria-hidden="true" data-backdrop="static" data-keyboard="false">
 
 							<div
-								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<div class="alert alert-msg m-3" style="display: none;"></div>
+								<div th:if="${tutorial.getPreRequisticStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Pre-requisites</h5>
@@ -654,7 +1112,7 @@
 										</button>
 									</div>
 									<div class="modal-body">
-
+	<div class="alert alert-msg" style="display: none;"></div>
 										<!-- <form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post"> -->
 
@@ -670,7 +1128,7 @@
 												</div>
 
 											</div>
-											
+											<div th:if="${tutorial.getVideoStatus() == 3}">
 											<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
@@ -698,6 +1156,11 @@
 											
 
 										</form>
+											
+											
+											
+											</div>
+											
 									</div>
 									<div class="modal-footer">
 									<button id="preAcceptOrNeedToImprovemenetByQuality"
@@ -784,10 +1247,10 @@
 	data-backdrop="static" data-keyboard="false"> -->
 						
 						  <div
-								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 						    <div class="modal-content">
-						    <div class="alert alert-msg m-3" style="display: none;"></div>
+						    
 						    <div th:if="${tutorial.getOutlineStatus() != 3}"><div class="alert alert-info m-3">Not valid for review</div></div>
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelOutlineView">Quality Review - Outline</h5>
@@ -808,11 +1271,12 @@
 						      </div>
 						      <div class="modal-body">
 						      <div class="row">
-						      <div class="col-md-6">
+						      <div class="col-12">
+						      <div class="alert alert-msg" style="display: none;"></div>
 						      <div class="border border-info p-2 mb-5">
 											<span th:utext="${tutorial.getOutline()}"></span>
 										</div>
-										<div  th:if="${statusOutline}">
+										<div th:if="${tutorial.getOutlineStatus() == 3}">
 											<form  class="form-horizontal"  th:action="@{/}" onsubmit="return submitForm(this);" method="post" >
 
 						          <div class="form-group">
@@ -842,7 +1306,7 @@
 										</div>
 						      </div>
 						      
-						      <div class="col-md-6">
+						      <div class="col-12">
 						      <div th:if="${not #lists.isEmpty(outlineComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${outlineComment}" class="border-bottom"> 
@@ -948,6 +1412,7 @@
 						
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
+						    <div th:if="${tutorial.getKeywordStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="">Quality Review-KeyWord</h5>
 						        
@@ -1009,105 +1474,24 @@
 		
 	<!-- script  review -->
 	
-	<!-- <div class="modal fade" id="scriptStatusAccept" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelSlideView" aria-hidden="true">
-						
-						
-						
-						  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
-						  
-						    <div class="modal-content">
-						    <div class="alert alert-msg m-3" style="display: none;"></div>
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain Review-Script</h5>
-						     
-						        <div style="color: green; padding-left: 20px" id="saveCommentScript">
-						        
-						         </div>
-						     		
-						     
-						        <div class="modal-title">
-						        
-						         </div>
-						         
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
-						        </button>
-						      </div>
-						      <div class="modal-body">
-						      <div class="row">
-						      <div class="col-md-6">
-						      <div class="border border-secondary p-3 mb-3">
-										 <span id="scriptIdQuality" th:each="scriptpath : ${tutorialComponenet}">
-												<a  target="_blank" id="cat"  name="categoryName"  th:href="@{/files/}+@{${scriptpath.getScript()}}" >
-												<span th:text="${scriptpath.getTopic().getTopicname()}"></span>
-												</a>		
-																				
-										 		</span> 
-										</div>
-						      
-		 	<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+			<!-- ************************ -->
+			<!-- Button trigger modal -->
 
-						          <div class="form-group">
-						 
-				                      <select id="scriptAccept"  class="form-control" > 
-									   
-									 	 <option value="0">Select</option>
-									     <option value="1">Accept</option>
-									     <option value="2">Need Improvement</option>
-									    
-									  </select>  
-				                    
-						          </div>
-						          
-				 <div id="scriptNeedImprovement" style="display: none;">
-				<label for="msgScriptQuality">Comments</label>				
-			 <textarea class="form-control"  name="msgScriptQuality" id="msgScriptQuality" rows="10" required="required" placeholder="Add your comments here."></textarea>
-							
-		</div>
-
-						     
-					</form>
-						      </div>
-						      
-						      <div class="col-md-6">
-						      <div th:if="${not #lists.isEmpty(scriptComment)}">
-									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${scriptComment}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
-											    
-											    </div>
-									
-									</div>
-						      </div>
-						      
-						      </div>
-						      
-						        
-						      </div>
-						       <div class="modal-footer">
-						          <button id="scriptAcceptOrNeedToImprovemenet"  type="button" class="btn btn-success">Submit</button>
-						          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						      </div> 
-						    
-						    </div>
-						  </div>					  
-	</div>	 -->
+<!-- ************************ -->
 		
-		
-	<div class="modal fade" id="scriptStatusAccept" data-target="#scriptStatusAcceptDomain"
-data-whatever="@mdo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelscriptStatus" aria-hidden="true"
+	<div class="modal fade" id="scriptStatusAccept" 
+ tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelscriptStatus" aria-hidden="true"
 data-backdrop="static"
 data-keyboard="false"
 >
 
 
 
- <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+ <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
  
    <div class="modal-content">
-   <div class="alert alert-msg m-3" style="display: none;"></div>
+   
+   <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
      <div class="modal-header">
        <h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain Review-Script</h5>
    
@@ -1126,7 +1510,8 @@ data-keyboard="false"
      </div>
      <div class="modal-body">
      <div class="row">
-     <div class="col-md-6">
+     <div class="col-12">
+     <div class="alert alert-msg" style="display: none;"></div>
      <div class="border border-secondary p-3 mb-3">
 <span id="scriptIdQuality" th:each="scriptpath : ${tutorialComponenet}">
 <a  target="_blank" id="cat"  name="categoryName"  th:href="@{/files/}+@{${scriptpath.getScript()}}" >
@@ -1160,7 +1545,7 @@ data-keyboard="false"
 </form>
      </div>
      
-     <div class="col-md-6">
+     <div class="col-12">
      <div th:if="${not #lists.isEmpty(scriptComment)}">
 <h6 class="border-bottom">Comments: </h6>
    <div th:each="comment : ${scriptComment}" class="border-bottom">
@@ -1216,15 +1601,16 @@ data-keyboard="false"
    
    </div>
  </div>  
-</div> 
+</div> </div> 
 	<!--Here is code for Slide Accept or Need To improvement-->
 		
 				<div class="modal fade" id="slideAcceptOrNeedImp" data-backdrop="static"
 							data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelSlideView" aria-hidden="true">
 						
-						  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+						  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 						    <div class="modal-content">
-						    <div class="alert alert-msg m-3" style="display: none;"></div>
+						    
+						    <div th:if="${tutorial.getSlideStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelSlideView">Quality Review-Slide</h5>
 						        
@@ -1243,7 +1629,8 @@ data-keyboard="false"
 						      </div>
 						      <div class="modal-body">
 						      <div class="row">
-						      <div class="col-md-6">
+						      <div class="col-12">
+						      <div class="alert alert-msg" style="display: none;"></div>
 						      <div class="border border-secondary p-3 mb-3">
 										<span id="slideIdQuality" th:each="slidepath : ${tutorialComponenet}">
 										<a target="_blank" id="cat"  name="categoryName"  th:href="@{/files/}+@{${slidepath.getSlide()}}" >
@@ -1252,8 +1639,8 @@ data-keyboard="false"
 										</span>
 							 </div>
 						      
-						      
-				 <form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
+				<div th:if="${tutorial.getSlideStatus() == 3}">
+					<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
 
 						          <div class="form-group">
 						 
@@ -1276,10 +1663,14 @@ data-keyboard="false"
 				</div>
 			
 					</form>
+				
+				
+				</div>		      
+				 
 						      
 						      </div>
 						      
-						      <div class="col-md-6">
+						      <div class="col-12">
 						      <div th:if="${not #lists.isEmpty(slideComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${slideComment}" class="border-bottom"> 
@@ -1311,11 +1702,11 @@ data-keyboard="false"
 	<div class="modal fade modal-status" id="keywordModaleViewInQuality" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelKeyWordView" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 						
 						 <div
-								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 						    <div class="modal-content">
-						    <div class="alert alert-msg m-3" style="display: none;"></div>
-								<div th:unless="${statusKeywordTrue}"><div class="alert alert-info m-3">Not valid for review</div></div>
+						    
+								<div th:if="${tutorial.getKeywordStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelKeyWordView">View Keyword</h5>
 						        <div class="modal-title">
@@ -1328,7 +1719,8 @@ data-keyboard="false"
 						      </div>
 						      <div class="modal-body">
 						      <div class="row">
-						      <div class="col-md-6">
+						      <div class="col-12">
+						      <div class="alert alert-msg" style="display: none;"></div>
 						      <div class="border border-info p-2 mb-5">
 											<span th:utext="${tutorial.getKeyword()}"></span>
 										</div>
@@ -1360,7 +1752,7 @@ data-keyboard="false"
 					</form>
 						      </div>
 						      
-						      <div class="col-md-6">
+						      <div class="col-12">
 						      <div th:if="${not #lists.isEmpty(keywordComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${keywordComment}" class="border-bottom"> 
@@ -1467,9 +1859,10 @@ data-keyboard="false"
 							aria-hidden="true" data-backdrop="static"
 							data-keyboard="false">
 
-							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<div class="alert alert-msg m-3" style="display: none;"></div>
+								
+								<div th:if="${tutorial.getGraphicsStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabeSlideStatus">Quality
 											Review-Graphics</h5>
@@ -1488,6 +1881,7 @@ data-keyboard="false"
 										</button>
 									</div>
 									<div class="modal-body">
+									<div class="alert alert-msg" style="display: none;"></div>
 									<div th:unless="${tutorial.getGraphicsStatus()}" class="alert alert-secondary upload-status" role="alert">
 									  No Graphics has been added yet.
 									</div>
@@ -1506,38 +1900,26 @@ data-keyboard="false"
 											  </div> -->
 											</div>
 									</div>
+									<div th:if="${tutorial.getGraphicsStatus() == 3}">
 										<form class="form-horizontal mb-3" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
-											
-											
-											
 											<div class="form-group">
-
 												<select id="graphicsQuality" class="form-control">
-
-
 													<option value="0">Select</option>
 													<option value="1">Accept</option>
 													<option value="2">Need Improvement</option>
-
 												</select>
-
 											</div>
-
 											<div id="graphicsNeedImprovementByQuality" style="display: none;">
 											<label for="slideCommentMsg">Comments : </label>
 												<textarea class="form-control" name="graphicsCommentMsg"
 													id="graphicsCommentMsg" rows="10" required="required" placeholder="Enter comments here."></textarea>
-
 											</div>
 											<br />
-
-											
-
 										</form>
-
-										
-
+									
+									
+									</div>
 									</div>
 									<div class="modal-footer">
 									<button id="graphicsAcceptOrNeedToImprovemenetByQuality"

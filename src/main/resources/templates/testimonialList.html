@@ -1,5 +1,8 @@
+
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
+
+
 <!-- <head th:replace="common/trail :: common-trail">
 
 
@@ -10,8 +13,6 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/datatables.css}"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"/>
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"/>
-	
-	
 </head> -->
 <head>
 <link rel="stylesheet"
@@ -25,14 +26,9 @@
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 <link rel="stylesheet" th:href="@{/css/main.css}" />
-<style>
-.td-name{
-border-right: 2px solid #014F7A;
-}
-
-</style>
 </head>
- 
+
+
 <body>
 <header class="pt-3 mb-5" id="top-fixed-banner">
 	<section>
@@ -77,42 +73,64 @@ border-right: 2px solid #014F7A;
   </div>
 </nav>
   </header>
- <div class="container-fluid">
- <div class="row">
- <div class="col">
- <table id="events_table" class="table table-striped">
-					         <thead>
-					            <tr>
-					                <th>Name</th>
-					                <th>Description</th>
-					          	    <th>Location</th>
-					          	    <th>Contact Details</th>
-					                <th>Start Date</th>
-					                <th>End Date</th>
-					            </tr>
-					            </thead>
-					            <tbody>
-					            	<tr th:each="event : ${Events}" style="">
-					                <td class="td-name" th:text="${event.getEventName()}"></td>
-					                <td th:text="${event.getDescription()}"></td>
-					                <td th:text="${event.getLocation()}"></td>
-					                <td >
-					                <p th:text="${event.getContactPerson()}"> </p>
-					                <p th:text="${event.getContactNumber()}"> </p>
-					                <p th:text="${event.getEmail()}"> </p>
-					                </td>
-					                <td th:text="${event.getStartDate()}"></td>
-					                <td th:text="${event.getEndDate()}"></td>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="home-tab"
+						data-toggle="tab" href="#text-t" role="tab" aria-controls="home"
+						aria-selected="true">Text Testimonials</a></li>
+					<li class="nav-item"><a class="nav-link" id="profile-tab"
+						data-toggle="tab" href="#video-t" role="tab"
+						aria-controls="profile" aria-selected="false">Video
+							Testimonials</a></li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active py-5" id="text-t" role="tabpanel"
+						aria-labelledby="home-tab">
+					<table id="testimonial_table" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Video</th>
+			</tr>
 
-					            </tr>
-					            
-					            </tbody>
-					        </table>
- </div>
- </div>
- </div>
+		</thead>
+		<tbody>
+			<tr th:each="testimonial : ${testimonials}" style="">
+				<td th:text="${testimonial.getName()}"></td>
+
+				<td th:text="${testimonial.getDescription()}"></td>
+				<td><video width="320" height="240" controls>
+						<source th:src="@{/files/}+@{${testimonial.getFilePath()}}"
+							type="video/mp4">
+
+						Your browser does not support the video tag.
+					</video> <!-- <iframe width="330" height="215" th:src="@{/files/}+@{${testimonial.getFilePath()}}" frameborder="0"
+						   					 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true">
+						         		 
+						   		 </iframe>	 --></td>
+
+			</tr>
+
+		</tbody>
+	</table>	
+					</div>
+					<div class="tab-pane fade" id="video-t" role="tabpanel"
+						aria-labelledby="profile-tab">...</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
 	
-	
+
+	<!-- <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+	<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" ></script>
+	<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js" ></script> -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -128,12 +146,10 @@ border-right: 2px solid #014F7A;
 		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
-	    $('#events_table').DataTable();
+	    $('#testimonial_table').DataTable();
 	} );
 	</script>
-	
 </body>
- 
+
 </html>
- 
- 
+

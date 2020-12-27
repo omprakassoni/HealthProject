@@ -1,7 +1,5 @@
 package com.health.controller;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.ParseException;
@@ -27,9 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
-
 import com.health.model.City;
-
 import com.health.model.Consultant;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
@@ -46,11 +42,6 @@ import com.health.model.TrainingInformation;
 import com.health.model.TrainingTopic;
 import com.health.model.Tutorial;
 import com.health.model.User;
-
-import com.health.model.language_assign;
-import com.health.repository.LangaugeRepository;
-
-
 import com.health.service.CategoryService;
 import com.health.service.CityService;
 import com.health.service.ConsultantService;
@@ -126,29 +117,28 @@ public class HomeController {
 
 	@Autowired
 	private TutorialService tutService;
-	
+
 	@Autowired
 	private StateService stateService;
-	
+
 	@Autowired
 	private TrainingInformationService trainingInfoService;
-	
+
 	@Autowired
 	private DistrictService districtService;
-	
+
 	@Autowired
 	private CityService cityService;
-	
+
 	@Autowired
 	private TraineeInformationService traineeService;
-	
+
 	@Autowired
 	private TrainingTopicService trainingTopicServ;
-	
+
 	@Autowired
 	private FeedBackMasterTrainerService feedServ;
-	
-	
+
 //	@RequestMapping("/viewVideo/view/{id}")
 //	public String viewVideo(Model model, @PathVariable Integer id) {
 //		// Tutorial tutorials = tutorialDao.findOne(id);
@@ -191,57 +181,65 @@ public class HomeController {
 //
 //		return "showVideo";
 //	}
-	
+
 
 	@RequestMapping("/")
 	public String index(Model model) {
-		
+
 		List<Event> events=eventservice.findAll();
 		List<Testimonial> testi=testService.findAll();
 		List<Consultant> consults= consultService.findAll();
 		List<Language> languages= lanService.getAllLanguages();
-		
+		List<Category> categories= catService.findAll();
+
+
 		List<Event> evnHome = new ArrayList<>();
 		List<Testimonial> testHome = new ArrayList<>();
 		List<Consultant> consulHome = new ArrayList<>();
+		List<Category> categoryHome = new ArrayList<>();
+
 		int upperlimit = 0;
-		
+
 		for(Event local : events) {
 			evnHome.add(local);
 			if(++upperlimit > 3) {
 				break;
 			}
 		}
-		
+
 		upperlimit = 0;
-		
+
 		for(Testimonial local : testi) {
 			testHome.add(local);
 			if(++upperlimit > 3) {
 				break;
 			}
 		}
-		
+
 		upperlimit = 0;
-		
+
 		for(Consultant local : consults) {
-			consulHome.add(local);
+			if(local.isOnHome()) {
+				consulHome.add(local);
+			}
 			if(++upperlimit > 4) {
 				break;
 			}
 		}
-		
-		
-		model.addAttribute("listofConsalatatnt", consulHome);
+//		set upper limit for categories count
+		upperlimit = 4 ;
+		categoryHome=(categories.size()>upperlimit) ? categories.subList(0, upperlimit):categories;
+
+		model.addAttribute("listOfConsultant", consulHome);
 		model.addAttribute("listofTestimonial", testHome);
+		model.addAttribute("listofCategories", categoryHome);
 		model.addAttribute("languageCount", languages.size());
 		model.addAttribute("videoCount", tutService.findAll().size());
 		model.addAttribute("consultantCount", consults.size());
-		
-		model.addAttribute("event", evnHome);
-		
-		
-		
+		model.addAttribute("events", evnHome);
+
+
+
 //		List<Tutorial> category = tutorialDao.finBystatus();
 //		ArrayList<String> tutorialRes = new ArrayList<String>();
 //		for (Tutorial tutorial : category) {
@@ -323,7 +321,7 @@ public class HomeController {
 		model.addAttribute("classActiveLogin", true);
 		return "signup";
 	}
-	
+
 	@RequestMapping(value = "/showEvent",method = RequestMethod.GET)
 	public String showEventGet(Model model) {
 
@@ -331,15 +329,16 @@ public class HomeController {
 		model.addAttribute("Events", events);
 		return "events";
 	}
-	
+
 	@RequestMapping(value = "/showConsultant",method = RequestMethod.GET)
 	public String showConsultantGet(Model model) {
 
 		List<Consultant> consults = consultService.findAll();
-		model.addAttribute("consultants", consults);
+		System.out.println("******************************"+consults);
+		model.addAttribute("listConsultant", consults);
 		return "Consultants";
 	}
-	
+
 	@RequestMapping(value = "/showTestimonial",method = RequestMethod.GET)
 	public String showTestimonialGet(Model model) {
 
@@ -361,6 +360,15 @@ public class HomeController {
 		model.addAttribute("classActiveForgetPassword", true);
 		return "signup";
 	}
+
+	@RequestMapping(value = "/categories",method = RequestMethod.GET)
+	public String showCategoriesGet(Model model) {
+
+		List<Category> categories=catService.findAll();
+		model.addAttribute("categories", categories);
+		return "categories";
+	}
+
 
 	/**************************** USER REGISTRATION *************************************************/
 
@@ -446,8 +454,6 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		return "roleAdminDetail";
-
-
 	}
 
 	/****************************************** ADD CATEGORY *************************************************/
@@ -807,7 +813,7 @@ public class HomeController {
 		model.addAttribute("categories", categories);
 
 		model.addAttribute("languages", languages);
-	
+
 		if(!ServiceUtility.checkFileExtensionPDF(quesPdf)) {  // throw error
 
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
@@ -818,11 +824,11 @@ public class HomeController {
 		Topic topic=topicService.findById(topicId);
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		Language lan=lanService.getById(languageId);
-		
+
 		Question quesTemp = questService.getQuestionBasedOnTopicCatAndLan(topicCat, lan);
 
 		if(quesTemp != null) {
-			
+
 			model.addAttribute("error_msg",CommonData.QUESTION_EXIST);
 			return "uploadQuestion";
 		}
@@ -1233,7 +1239,7 @@ public class HomeController {
 			 // accommodate  error message
 			return "updateCategory";
 		}
-		
+
 		List<Category> cats=catService.findAll();
 		for(Category x : cats) {
 			if(x.getCategoryId()!=cat.getCategoryId()) {
@@ -1265,6 +1271,23 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/************************************UPDATE AND VIEW SECTION OF EVENT**********************************************/
+	@RequestMapping(value = "/eventDetails/{id}", method = RequestMethod.GET)
+	public String eventGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		Event event= eventservice.findById(id);
+		model.addAttribute("events", event);
+
+		return "event";
+	}
 
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String viewEventGet(Model model,Principal principal) {
@@ -1480,6 +1503,24 @@ public class HomeController {
 
 	/************************************UPDATE AND VIEW SECTION OF TESTIMONIAL**********************************************/
 
+	@RequestMapping(value = "/testimonialList", method = RequestMethod.GET)
+	public String viewtestimonialListGet(Model model,Principal principal) {
+
+//		User usr=new User();
+//
+//		if(principal!=null) {
+//
+//			usr=userService.findByUsername(principal.getName());
+//		}
+//
+//		model.addAttribute("userInfo", usr);
+		List<Testimonial> test=testService.findAll();
+		model.addAttribute("testimonials", test);
+
+		return "testimonialList";
+	}
+
+
 	@RequestMapping(value = "/testimonial", method = RequestMethod.GET)
 	public String viewtestimonialGet(Model model,Principal principal) {
 
@@ -1605,8 +1646,10 @@ public class HomeController {
 		Language lan=lanService.getByLanName(lanName);
 
 		Role role=roleService.findByname(CommonData.contributorRole);
-
-		if(usrRoleService.findByLanUser(lan, usr, role)!=null) {
+		List<UserRole> userRoles = usrRoleService.findByLanUser(lan, usr, role);
+		if(!userRoles.isEmpty()) {
+			System.out.println("***************IF True*****");
+			System.out.println(usrRoleService.findByLanUser(lan, usr, role));
 
 			// throw error
 			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
@@ -1616,6 +1659,8 @@ public class HomeController {
 			model.addAttribute("categories", categories);
 
 			model.addAttribute("languages", languages);
+
+			model.addAttribute("error_msg", CommonData.CONTRIBUTOR_ERROR);
 
 			return "addContributorRole";
 		}
@@ -1629,11 +1674,11 @@ public class HomeController {
 
 		try {
 			usrRoleService.save(usrRole);
-			model.addAttribute("msgSuccefull", CommonData.CONTRIBUTOR_ADDED_SUCCESS_MSG);
+			model.addAttribute("success_msg", CommonData.CONTRIBUTOR_ADDED_SUCCESS_MSG);
 		} catch (Exception e) {
+			model.addAttribute("error_msg", CommonData.CONTRIBUTOR_ERROR_MSG);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-												// accommodate error message
 		}
 
 		List<Language> languages=lanService.getAllLanguages();
@@ -1780,6 +1825,7 @@ public class HomeController {
 			model.addAttribute("categories", categories);
 
 			model.addAttribute("languages", languages);
+			model.addAttribute("success_msg", CommonData.ROLE_REQUEST_ERROR);
 
 			return "addQualityRole";
 		}
@@ -1794,9 +1840,10 @@ public class HomeController {
 
 		try {
 			usrRoleService.save(usrRole);
-			model.addAttribute("msgSuccefull", CommonData.QUALITY_ADDED_SUCCESS_MSG);
+			model.addAttribute("success_msg", CommonData.QUALITY_ADDED_SUCCESS_MSG);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			model.addAttribute("success_msg", CommonData.ROLE_REQUEST_ERROR);
 			e.printStackTrace();
 												// accommodate error message
 		}
@@ -1859,7 +1906,8 @@ public class HomeController {
 
 		Role role=roleService.findByname(CommonData.masterTrainerRole);
 
-		if(usrRoleService.findByRoleUser(usr, role)!=null) {
+		List<UserRole> userRoles = usrRoleService.findByRoleUser(usr, role);
+		if(!userRoles.isEmpty()) {
 			// throw error
 			return "addMasterTrainerRole";
 		}
@@ -2007,7 +2055,7 @@ public class HomeController {
 
 				}else {
 					// throw error for repeated task
-					model.addAttribute("error_msg", CommonData.CONTRIBUTOR_ERROR);
+					model.addAttribute("error_msg", CommonData.CONTRIBUTOR_ERROR_MSG);
 					return "assignContributorList";
 				}
 
@@ -2235,9 +2283,6 @@ public class HomeController {
 		model.addAttribute("tutorialToReview", toReview);
 		model.addAttribute("tutorialReviewed", published);
 		return "listTutorialDomainReviewer";
-
-
-
 	}
 
 	@RequestMapping(value = "domainreview/review/{id}", method = RequestMethod.GET)
@@ -2373,107 +2418,107 @@ public class HomeController {
 	}
 
 	/*********************************** END *******************************************************/
-	
+
 	/************************* OPERATION AT MASTER TRAINER ******************************************/
-		
+
 	@RequestMapping(value = "/trainerProfile", method = RequestMethod.GET)
 	public String profileMasterTrainerGet(Model model,Principal principal) {
 		User usr=new User();
-		
+
 		if(principal!=null) {
-			
+
 			usr=userService.findByUsername(principal.getName());
 		}
-		
+
 		model.addAttribute("userInfo", usr);
-		
+
 		return "traineeView";
-	
-	
-	
+
+
+
 	}
-	
+
 	@RequestMapping(value = "/masterTrainerOperation", method = RequestMethod.GET)
 	public String MasterTrainerGet(Model model,Principal principal) {
 		User usr=new User();
-		
+
 		if(principal!=null) {
-			
+
 			usr=userService.findByUsername(principal.getName());
 		}
-		
+
 		model.addAttribute("userInfo", usr);
-		
+
 		List<Category> cat=catService.findAll();
 
 		List<State> states=stateService.findAll();
-		
+
 		List<Language> lan=lanService.getAllLanguages();
-		
+
 		model.addAttribute("categories", cat);
-		
+
 		model.addAttribute("states", states);
 		model.addAttribute("lans", lan);
-		
+
 		return "masterTrainerOperation";
-	
+
 	}
-	
+
 	@RequestMapping(value = "/downloadQuestion", method = RequestMethod.POST)
 	public String downloadQuestionPost(Model model,Principal principal,
 										@RequestParam(value="catMasterId") int catName,
 										@RequestParam(value="lanMasterTrId") int topicId,
 										@RequestParam(value="dwnByLanguageId") String lanName) {
 		User usr=new User();
-		
+
 		if(principal!=null) {
-			
+
 			usr=userService.findByUsername(principal.getName());
 		}
-		
+
 		model.addAttribute("userInfo", usr);
-		
+
 		Category cat=catService.findByid(catName);
 		Topic topic=topicService.findById(topicId);
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		Language lan = lanService.getByLanName(lanName);
 		Question questions = questService.getQuestionBasedOnTopicCatAndLan(topicCat, lan);
 		model.addAttribute("Questions", questions);
-		
+
 		List<Category> cats=catService.findAll();
 
 		List<State> states=stateService.findAll();
-		
+
 		List<Language> lans=lanService.getAllLanguages();
-		
+
 		model.addAttribute("categories", cats);
-		
+
 		model.addAttribute("states", states);
 		model.addAttribute("lans", lans);
-		
+
 		return "masterTrainerOperation";
-	
+
 	}
-	
+
 	@RequestMapping(value = "/viewTrainee", method = RequestMethod.GET)
 	public String downloadQuestionPost(Model model,Principal principal) {
 		User usr=new User();
-		
+
 		if(principal!=null) {
-			
+
 			usr=userService.findByUsername(principal.getName());
 		}
-		
+
 		model.addAttribute("userInfo", usr);
 		List<TraineeInformation> trainees = traineeService.findAll();
-	
+
 		model.addAttribute("TraineesData", trainees);
-		
+
 		return "traineeView";
-	
+
 	}
-	
-	
+
+
 	@RequestMapping(value = "/addTrainingInfo", method = RequestMethod.POST)
 	public String addTrainingInfoPost(Model model,Principal principal,
 			@RequestParam("ParticipantsPhoto") MultipartFile[] trainingImage,
@@ -2491,30 +2536,30 @@ public class HomeController {
 			@RequestParam(value="addressInformationName") String address,
 			@RequestParam(value="pinCode") int pinCode,
 			@RequestParam(value="titleName") String titleName) {
-		
+
 		User usr=new User();
-		
+
 		if(principal!=null) {
-			
+
 			usr=userService.findByUsername(principal.getName());
 		}
-		
+
 		model.addAttribute("userInfo", usr);
-		
+
 		Set<TrainingTopic> trainingTopicTemp = new HashSet<>();
-		
+
 		if(!ServiceUtility.checkFileExtensiononeFileCSV(traineeInfo)) {
-			
+
 			// throw error on output
 			return "masterTrainerOperation";
 		}
-		
+
 		if(!ServiceUtility.checkFileExtensionZip(trainingImage)) {
-			
+
 			// throw error on output
 			return "masterTrainerOperation";
 		}
-		
+
 		Date startDate1 =null;
 		Date endDate1 = null;
 		try {
@@ -2531,14 +2576,16 @@ public class HomeController {
 			model.addAttribute("error_msg",CommonData.EVENT_CHECK_DATE);
 			return "masterTrainerOperation";
 		}
-		
-		
+
 		State stat=stateService.findById(state);
 		District districtTemp=districtService.findById(district);
 		City cityTemp=cityService.findById(city);
 		Language lan=lanService.getByLanName(lanName);
 		Category cat=catService.findByid(catName);
-		
+
+//		Topic topic=topicService.findById(topicId);
+//		TopicCategoryMapping topicCatMap=topicCatService.findAllByCategoryAndTopic(cat, topic);
+
 		int newTrainingdata=trainingInfoService.getNewId();
 		TrainingInformation trainingData=new TrainingInformation();
 		trainingData.setCity(cityTemp);
@@ -2556,12 +2603,12 @@ public class HomeController {
 			//  return error for ill formatted error
 			return "masterTrainerOperation";
 		}
-		
+
 		trainingData.setPincode(pinCode);
 		trainingData.setLan(lan);
 		trainingData.setAddress(address);
 		trainingData.setUser(usr);
-		
+
 		try {
 			trainingInfoService.save(trainingData);
 			int trainingTopicId=trainingTopicServ.getNewId();
@@ -2570,24 +2617,24 @@ public class HomeController {
 				TopicCategoryMapping topicCatMap=topicCatService.findAllByCategoryAndTopic(cat, topicTemp);
 				TrainingTopic trainingTemp=new TrainingTopic(trainingTopicId++, topicCatMap, trainingData);
 				trainingTopicTemp.add(trainingTemp);
-				
+
 			}
-			
+
 			trainingData.setTrainingTopicId(trainingTopicTemp);
 			trainingInfoService.save(trainingData);
-			
+
 			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer+newTrainingdata)) {
 				String pathtoUploadPoster=ServiceUtility.uploadFile(trainingImage, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer+newTrainingdata);
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
-				
+
 				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-				
+
 				trainingData.setPosterPath(document);
-				
+
 				byte[] bytes = traineeInfo.getBytes();
 	            String completeData = new String(bytes);
 	            String[] rows = completeData.split("#");
-	            
+
 	            Set<TraineeInformation> trainees=new HashSet<TraineeInformation>();
 	            int newTraineeId=traineeService.getNewId();
 	            for(int i=0;i<rows.length;i++) {
@@ -2595,29 +2642,29 @@ public class HomeController {
 	            	TraineeInformation temp=new TraineeInformation(newTraineeId++, columns[0], columns[1], Long.parseLong(columns[2]),Integer.parseInt(columns[3]), Long.parseLong(columns[4]), columns[5], columns[6], trainingData);
 	            	trainees.add(temp);
 	            }
-				
+
 	            trainingInfoService.addTrainee(trainingData, trainees);
-	            
+
 			}else {      // throw a error
-				
+
 			}
-			
-			
-			
+
+
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			 // throw a error
-			
+
 			return "masterTrainerOperation";
 		}
-		
-	
-		
+
+
+
 		return "masterTrainerOperation";
-	
+
 	}
-	
+
 	@RequestMapping(value = "/uploadfeedback", method = RequestMethod.POST)
 	public String uploadFeedbackPost(Model model,Principal principal,
 								@RequestParam(value = "catMasId") int catId,
@@ -2627,61 +2674,61 @@ public class HomeController {
 								@RequestParam(value = "email") String email,
 								@RequestParam(value = "traningInformation") String desc) {
 		User usr=new User();
-		
+
 		if(principal!=null) {
-			
+
 			usr=userService.findByUsername(principal.getName());
 		}
-		
+
 		model.addAttribute("userInfo", usr);
 		List<Category> cats=catService.findAll();
 
 		List<State> states=stateService.findAll();
-		
+
 		List<Language> lan=lanService.getAllLanguages();
-		
+
 		model.addAttribute("categories", cats);
-		
+
 		model.addAttribute("states", states);
 		model.addAttribute("lans", lan);
-		
+
 		if(!ServiceUtility.checkEmailValidity(email)) {   // need to accommodate
 
 			model.addAttribute("emailWrong", true);
 			return "masterTrainerOperation";
 		}
-		
+
 		if(!ServiceUtility.checkFileExtensionZip(feedbackFile)) {
-			
+
 												// Accommodate error message
 			return "masterTrainerOperation";
 		}
-		
+
 		TrainingInformation trainingInfo = trainingInfoService.getById(trainingTitle);
-		
+
 		FeedbackMasterTrainer feed = new FeedbackMasterTrainer(feedServ.getNewId(), name, email, desc, ServiceUtility.getCurrentTime(), null, trainingInfo, usr);
 		try {
 			feedServ.save(feed);
-			
+
 			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainerFeedback+feed.getId())) {
 				String pathtoUploadPoster=ServiceUtility.uploadFile(feedbackFile, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainerFeedback+feed.getId());
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
-				
+
 				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-				
+
 				feed.setPath(document);
 				feedServ.save(feed);
-				
+
 			}else {
-				
+
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "masterTrainerOperation";
-	
+
 	}
-	
+
 }

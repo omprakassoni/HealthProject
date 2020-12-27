@@ -29,7 +29,7 @@ public class CommonData {
 	public static String Script_SAVE_SUCCESS_MSG = "Script Saved Successfully !";
 
 	public static String Slide_SAVE_SUCCESS_MSG = "Slide Saved Successfully !";
-	
+
 	public static String PRE_REQUISTIC_SAVE_SUCCESS_MSG = "Pre Requistic Saved Successfully !";
 
 	public static String Graphics_SAVE_SUCCESS_MSG = "Graphics Saved Successfully !";
@@ -47,7 +47,7 @@ public class CommonData {
 	public static String RECORD_EXISTS = "Record Already Exists!";
 
 	public static String RECORD_ERROR= "Error in saving record";
-	
+
 	public static String QUESTION_EXIST= "Question Exist";
 
 	public static String JPG_PNG_EXT= "Only .jpg or .png file allowed";
@@ -58,7 +58,9 @@ public class CommonData {
 
 	public static String CONTRIBUTOR_ASSIGNED_TUTORIAL = "Contributor assigned Successfully!";
 
-	public static String CONTRIBUTOR_ERROR = "Contributor already assigned!";
+	public static String CONTRIBUTOR_ERROR = "Contributor already assigned for selected language!";
+
+	public static String CONTRIBUTOR_ERROR_MSG = "Error in assigning contributor!";
 
 	public static String CONTRIBUTOR_TOPIC_ERROR = "Error in assigning topic";
 
@@ -66,7 +68,9 @@ public class CommonData {
 
 	public static String ADMIN_ADDED_SUCCESS_MSG = "Admin added Successfully!";
 
-	public static String QUALITY_ADDED_SUCCESS_MSG = "Quality added Successfully!";
+	public static String QUALITY_ADDED_SUCCESS_MSG = "Request submitted successfully for Quality Reviewer role!";
+
+	public static String ROLE_REQUEST_ERROR = "Error in sending request!";
 
 	public static String DOMAIN_REVIEW_MSG = "Waiting for Domain Review";
 
@@ -87,7 +91,7 @@ public class CommonData {
 	public static int IMPROVEMENT_STATUS = 4;
 
 	public static int PUBLISH_STATUS=6;
-	
+
 	public static int WAITING_PUBLISH_STATUS=5;
 
 	public static String WAITING_PUBLISH = "Waiting for Publish";
@@ -105,9 +109,9 @@ public class CommonData {
 	public static String uploadDirectoryConsultant = "Media/Content/Consultant/";
 
 	public static String uploadDirectoryMasterTrainer = "Media/Content/MasterTrainer/";
-	
+
 	public static String uploadDirectoryMasterTrainerFeedback = "Media/Content/MasterTrainerFeedback/";
-	
+
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
 			NEED_IMPROVEMENT_MSG, WAITING_PUBLISH,PUBLISHED
 	};
