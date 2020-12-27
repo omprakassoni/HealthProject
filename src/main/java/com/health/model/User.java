@@ -102,6 +102,9 @@ public class User implements UserDetails{
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingInformation> trainingInfo =new HashSet<TrainingInformation>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Comment> comments =new HashSet<Comment>();
 
 
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -330,6 +333,12 @@ public class User implements UserDetails{
 	}
 	public void setTrainingInfo(Set<TrainingInformation> trainingInfo) {
 		this.trainingInfo = trainingInfo;
+	}
+	public Set<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
 	}
 
 	

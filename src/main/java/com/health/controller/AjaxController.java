@@ -18,6 +18,7 @@ import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.City;
+import com.health.model.Comment;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
 import com.health.model.Language;
@@ -31,6 +32,7 @@ import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.service.CategoryService;
 import com.health.service.CityService;
+import com.health.service.CommentService;
 import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
 import com.health.service.LanguageService;
@@ -89,6 +91,10 @@ public class AjaxController{
 	
 	@Autowired
 	private TrainingInformationService trainingInforService;
+	
+	@Autowired
+	private CommentService comService;
+	
 	
 	
 	@RequestMapping("/loadTitleNameInMasterTraining")
@@ -924,4 +930,120 @@ public class AjaxController{
 	
 	
 	/***********************************END ***************************************************************/
+	
+	/******************************* COMMENT MODULE UNDER CREATION PART ********************************/
+	
+	@RequestMapping("/commentByAdminReviewer")
+	public @ResponseBody String commentByAdminReviewer(@RequestParam(value = "id") int tutorialId,
+													@RequestParam(value = "msg") String msg, Principal principal) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=usrservice.findByUsername(principal.getName());
+		}
+		
+		Tutorial tut = tutService.getById(tutorialId);
+		
+		Comment com = new Comment();
+		com.setComment(msg);
+		com.setCommentId(comService.getNewCommendId());
+		com.setDateAdded(ServiceUtility.getCurrentTime());
+		com.setType(CommonData.VIDEO);
+		com.setUser(usr);
+		com.setTutorialInfos(tut);
+		
+		try {
+			comService.save(com);
+			
+			tut.setVideoStatus(CommonData.IMPROVEMENT_STATUS);
+			tutService.save(tut);
+			
+			return CommonData.COMMENT_SUCCESS;
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			return CommonData.FAILURE;
+		}
+		
+		
+		
+	}
+	
+	@RequestMapping("/commentByReviewer")
+	public @ResponseBody String commentByReviewer(@RequestParam(value = "id") int tutorialId,
+													@RequestParam(value = "msg") String msg, 
+													@RequestParam(value = "type") String type,Principal principal) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=usrservice.findByUsername(principal.getName());
+		}
+		
+		Tutorial tut = tutService.getById(tutorialId);
+		
+		Comment com = new Comment();
+		com.setComment(msg);
+		com.setCommentId(comService.getNewCommendId());
+		com.setDateAdded(ServiceUtility.getCurrentTime());
+		
+		if(type.equalsIgnoreCase(CommonData.SCRIPT)) {
+			com.setType(CommonData.SCRIPT);
+		}else if(type.equalsIgnoreCase(CommonData.KEYWORD)) {
+			com.setType(CommonData.KEYWORD);
+		}else if(type.equalsIgnoreCase(CommonData.SLIDE)) {
+			com.setType(CommonData.SLIDE);
+		}else if(type.equalsIgnoreCase(CommonData.VIDEO)) {
+			com.setType(CommonData.VIDEO);
+		}else if(type.equalsIgnoreCase(CommonData.GRAPHICS)) {
+			com.setType(CommonData.GRAPHICS);
+		}else if(type.equalsIgnoreCase(CommonData.PRE_REQUISTIC)) {
+			com.setType(CommonData.PRE_REQUISTIC);
+		}else if(type.equalsIgnoreCase(CommonData.OUTLINE)) {
+			com.setType(CommonData.OUTLINE);
+		}else {
+			
+			return CommonData.FAILURE;
+		}
+		
+		com.setUser(usr);
+		com.setTutorialInfos(tut);
+		
+		try {
+			comService.save(com);
+			
+			if(type.equalsIgnoreCase(CommonData.SCRIPT)) {
+				tut.setScriptStatus(CommonData.IMPROVEMENT_STATUS);
+			}else if(type.equalsIgnoreCase(CommonData.KEYWORD)) {
+				tut.setKeywordStatus(CommonData.IMPROVEMENT_STATUS);
+			}else if(type.equalsIgnoreCase(CommonData.SLIDE)) {
+				tut.setSlideStatus(CommonData.IMPROVEMENT_STATUS);
+			}else if(type.equalsIgnoreCase(CommonData.VIDEO)) {
+				tut.setVideoStatus(CommonData.IMPROVEMENT_STATUS);
+			}else if(type.equalsIgnoreCase(CommonData.GRAPHICS)) {
+				tut.setGraphicsStatus(CommonData.IMPROVEMENT_STATUS);
+			}else if(type.equalsIgnoreCase(CommonData.PRE_REQUISTIC)) {
+				tut.setPreRequisticStatus(CommonData.IMPROVEMENT_STATUS);
+			}else if(type.equalsIgnoreCase(CommonData.OUTLINE)) {
+				tut.setOutlineStatus(CommonData.IMPROVEMENT_STATUS);
+			}
+			
+			tutService.save(tut);
+			
+			return CommonData.COMMENT_SUCCESS;
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			return CommonData.FAILURE;
+		}
+		
+		
+		
+	}
+	
+	
+	/************************************ END ********************************************************/
 }

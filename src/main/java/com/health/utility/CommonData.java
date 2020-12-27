@@ -115,4 +115,22 @@ public class CommonData {
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
 			NEED_IMPROVEMENT_MSG, WAITING_PUBLISH,PUBLISHED
 	};
+	
+	public static String COMMENT_SUCCESS = "Comment Added";
+	
+	public static String FAILURE = "Failed";
+	
+	public static String SCRIPT = "Script";
+	
+	public static String VIDEO = "Video";
+	
+	public static String KEYWORD = "Keyword";
+	
+	public static String OUTLINE = "Outline";
+	
+	public static String GRAPHICS = "Graphics";
+	
+	public static String PRE_REQUISTIC = "Pre_requistic";
+	
+	public static String SLIDE = "Slide";
 }

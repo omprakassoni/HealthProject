@@ -625,12 +625,11 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImpKeywordByDomainPre",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									"preCommentMsg":preCommentMsg
+									"id" : tutorialId,
+									"msg":preCommentMsg,
+									"type" : "Pre_requistic"
 								},
 								contentType : "application/json",
 								success : function(
@@ -665,7 +664,7 @@ $(document)
 
 						
 						var tutorialId = $("#tutorialId").val();
-						var preCommentMsg = $("#preCommentMsgTest").val();
+						var msg = $("#preCommentMsgTest").val();
 
 
 						var vals = $("#preAcceptQuality").val();
@@ -705,13 +704,12 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImpKeywordByQualityPre",
+								url : projectPath+"commentByReviewer",
 								data : 
 								{
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									"preCommentMsg":preCommentMsg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Pre_requistic"
 								},
 								contentType : "application/json",
 								success : function(
@@ -3801,17 +3799,15 @@ $(document)
 								'visibility' : 'visible'
 							});
 
-							var msg = $("#keywordCommentMsg")
-							.val();
+							var msg = $("#keywordCommentMsg").val();
 
 							$.ajax({
 								type : "GET",
-								url : projectPath+"needToImpKeywordByDomain",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									'msg' : msg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Keyword"
 								},
 								contentType : "application/json",
 
@@ -3916,17 +3912,14 @@ $(document)
 							// $('#OutlineNeedImp').css({
 							// 'visibility' : 'visible'
 							// });
-							var msg = $("#msgCommentOutline")
-							.val();
-							$
-							.ajax({
+							var msg = $("#msgCommentOutline").val();
+							$.ajax({
 								type : "GET",
-								url : projectPath+"needToImpOutlineByDomain",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									'msg' : msg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Outline"
 								},
 								contentType : "application/json",
 								success : function(
@@ -4383,11 +4376,10 @@ $(document)
 
 //							alert("mse admin player" + msg);
 
-							$
-							.ajax({
+							$.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImprovemenetByAdmin",
+								url : projectPath+"commentByAdminReviewer",
 								data : {
 									"id" :tutorialId,
 									"msg" : msg
@@ -4521,16 +4513,17 @@ $(document)
 							});
 
 						} else if (vals == '2') {
+							
+							var msg = $("#videoCommentMsg").val();
 
-							$
-							.ajax({
+							$.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImprovemenetByDomain",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" :tutorialId,
+									"msg" : msg,
+									"type" : "Video"
 								},
 								contentType : "application/json",
 								success : function(
@@ -4555,7 +4548,8 @@ $(document)
 
 			// Here is code for Domain review Accept or Need To
 			// Improvement
-
+/****************** changes made by om prakaSH **********************************/
+			
 			$('#scriptAcceptOrNeedToImprovemenetDomain').click(function() {
 
 						
@@ -4593,16 +4587,15 @@ $(document)
 
 						} else if (vals == "2") {
 
-							var msgScript = $(
-							"#msgScriptDomain").val();
+							var msgScript = $("#msgScriptDomain").val();
+							
 							$.ajax({
 								type : "GET",
-								url : projectPath+"needToImpScriptByDomain",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									"msgScript" : msgScript
+									"id" : tutorialId,
+									"msg" : msgScript,
+									"type" : "Script"
 								},
 								contentType : "application/json",
 								success : function(result) {
@@ -4628,14 +4621,11 @@ $(document)
 			 * Here is code for comment on componenet script Quality
 			 * accept or need To Improvement
 			 */
+/****************** changes made by om prakash *********************************/
+			
+			$('#scriptAcceptOrNeedToImprovemenet').click(function() {
 
-			$('#scriptAcceptOrNeedToImprovemenet')
-			.click(
-					function() {
-
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicId").val();
-						var lanId = $("#lanId").val();
+				var tutorialId = $("#tutorialId").val();
 
 						var vals = $("#scriptAccept").val();
 
@@ -4648,11 +4638,10 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"commentOnScriptByQuality",
+								url : projectPath+"acceptQualityScript",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId
+									"id" : tutorialId,
+				
 								},
 								contentType : "application/json",
 								success : function(
@@ -4673,19 +4662,17 @@ $(document)
 
 						} else if (vals == "2") {
 
-							var msgScript = $(
-							"#msgScriptQuality").val();
+							var msgScript = $("#msgScriptQuality").val();
 
 							$
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImpScriptByQuality",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									"msgScript" : msgScript
+									"id" : tutorialId,
+									"msg" : msgScript,
+									"type" : "Script"
 								},
 								contentType : "application/json",
 								success : function(
@@ -4745,8 +4732,7 @@ $(document)
 						
 						var tutorialId = $("#tutorialId").val();
 
-						var vals = $("#outlineQualitAceept")
-						.val();
+						var vals = $("#outlineQualitAceept").val();
 
 						if (vals == '0') {
 							alert("Accept Or Need To Improvement");
@@ -4786,19 +4772,17 @@ $(document)
 
 						} else if (vals == '2') {
 
-							var msg = $("#msgQualitytOutline")
-							.val();
+							var msg = $("#msgQualitytOutline").val();
 
 							$
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImprovementOutLineByQuality",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									"msg" : msg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Outline"
 								},
 								contentType : "application/json",
 								success : function(
@@ -4959,19 +4943,17 @@ $(document)
 								'visibility' : 'visible'
 							});
 
-							var msg = $("#slideCommentMsg")
-							.val();
+							var msg = $("#slideCommentMsg").val();
 
 							$
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImprovementSlideByQuality",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									'msg' : msg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Slide"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5180,8 +5162,7 @@ $(document)
 						
 						var tutorialId = $("#tutorialId").val();
 
-						var vals = $("#SlideAcceptDomain")
-						.val();
+						var vals = $("#SlideAcceptDomain").val();
 
 						if (vals == '0') {
 
@@ -5222,12 +5203,11 @@ $(document)
 							var msg = $("#slideCommentMsg").val();
 							$.ajax({
 								type : "GET",
-								url : projectPath+"needToImpSlideByDomain",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									'msg' : msg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Slide"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5297,12 +5277,11 @@ $(document)
 							var msg = $("#graphicsCommentMsg").val();
 							$.ajax({
 								type : "GET",
-								url : projectPath+"needToImpGraphicsByDomain",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									'msg' : msg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Graphics"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5334,8 +5313,7 @@ $(document)
 //						
 						var tutorialId = $("#tutorialId").val();
 
-						var vals = $("#keywordQualitAceept")
-						.val();
+						var vals = $("#keywordQualitAceept").val();
 
 						if (vals == '0') {
 
@@ -5374,20 +5352,16 @@ $(document)
 
 						} else if (vals == '2') {
 							$('#NeedImprovementKeyword').prop('readonly', true);
-							var msg = $(
-							"#keywordViewInDomainKeyword")
-							.val();
+							var msg = $("#msgkeywordQuality").val();
 
-							$
-							.ajax({
+							$.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImprovementKeywordByQuality",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									'msg' : msg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Keyword"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5457,20 +5431,17 @@ $(document)
 
 						} else if (vals == '2') {
 							$('#graphicsCommentMsg').prop('readonly', true);
-							var msg = $(
-							"#graphicsCommentMsg")
-							.val();
+							var msg = $("#graphicsCommentMsg").val();
 
 							$
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImprovementGraphicsByQuality",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									'msg' : msg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Graphics"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5723,20 +5694,17 @@ $(document)
 							.ajax({
 
 								type : "GET",
-								url : projectPath+"needToImprovementQualityByQuality",
+								url : projectPath+"commentByReviewer",
 								data : {
-									"categorname" : categoryid,
-									"topicid" : topicid,
-									"lanId" : lanId,
-									'msg' : msg
+									"id" : tutorialId,
+									"msg" : msg,
+									"type" : "Video"
 								},
 								contentType : "application/json",
 								success : function(
 										result) {
 
-									$(
-											"#statusQualityByQuality")
-											.prop(
+									$("#statusQualityByQuality").prop(
 													'disabled',
 													false);
 									$(

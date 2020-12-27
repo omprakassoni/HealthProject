@@ -85,6 +85,9 @@ public class Tutorial {
 	@JoinColumn(name = "conAssignedTutorial")
 	private ContributorAssignedTutorial conAssignedTutorial;
 	
+	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Comment> comments =new HashSet<Comment>();
+	
 	public int getTutorialId() {
 		return tutorialId;
 	}
@@ -244,6 +247,16 @@ public class Tutorial {
 	public void setConAssignedTutorial(ContributorAssignedTutorial conAssignedTutorial) {
 		this.conAssignedTutorial = conAssignedTutorial;
 	}
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	
 
 }
 

@@ -42,7 +42,7 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 	public List<TopicCategoryMapping> findAllByCategoryBasedOnUserRoles(List<UserRole> userRoles) {
 		// TODO Auto-generated method stub
 
-		List<TopicCategoryMapping> temp = new ArrayList<>();
+		List<TopicCategoryMapping> temp = new ArrayList<TopicCategoryMapping>();
 		for(UserRole x : userRoles) {
 			temp.add(topicCatRepo.findAllBycat(x.getCategory()).get(0));
 		}

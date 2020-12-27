@@ -26,6 +26,7 @@ import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.City;
+import com.health.model.Comment;
 import com.health.model.Consultant;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
@@ -44,6 +45,7 @@ import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.service.CategoryService;
 import com.health.service.CityService;
+import com.health.service.CommentService;
 import com.health.service.ConsultantService;
 import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
@@ -138,6 +140,9 @@ public class HomeController {
 
 	@Autowired
 	private FeedBackMasterTrainerService feedServ;
+	
+	@Autowired
+	private CommentService comService;
 
 //	@RequestMapping("/viewVideo/view/{id}")
 //	public String viewVideo(Model model, @PathVariable Integer id) {
@@ -2229,7 +2234,10 @@ public class HomeController {
 
 		}
 
-		model.addAttribute("tutorial", tutorial);
+		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial);
+	
+		model.addAttribute("comVideo", comVideo);
+	
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
@@ -2308,7 +2316,23 @@ public class HomeController {
 			return "listTutorialAdminReviwer";
 
 		}
-
+		
+		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial);
+		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial);
+		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial);
+		List<Comment> comGraphics = comService.getCommentBasedOnUserTutorialType(CommonData.GRAPHICS, usr, tutorial);
+		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial);
+		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial);
+		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial);
+		
+		model.addAttribute("comOutline", comOutline);
+		model.addAttribute("comScript",comScript );
+		model.addAttribute("comSlide",comSlide );
+		model.addAttribute("comVideo", comVideo);
+		model.addAttribute("comKeyword", comKeyword);
+		model.addAttribute("comPreReq", comPreRequistic);
+		model.addAttribute("comGraphics",comGraphics );
+		
 		model.addAttribute("statusOutline", CommonData.tutorialStatus[tutorial.getOutlineStatus()]);
 		model.addAttribute("statusScript", CommonData.tutorialStatus[tutorial.getScriptStatus()]);
 		model.addAttribute("statusSlide", CommonData.tutorialStatus[tutorial.getSlideStatus()]);
@@ -2397,6 +2421,22 @@ public class HomeController {
 			return "listTutorialAdminReviwer";
 
 		}
+		
+		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial);
+		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial);
+		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial);
+		List<Comment> comGraphics = comService.getCommentBasedOnUserTutorialType(CommonData.GRAPHICS, usr, tutorial);
+		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial);
+		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial);
+		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial);
+		
+		model.addAttribute("comOutline", comOutline);
+		model.addAttribute("comScript",comScript );
+		model.addAttribute("comSlide",comSlide );
+		model.addAttribute("comVideo", comVideo);
+		model.addAttribute("comKeyword", comKeyword);
+		model.addAttribute("comPreReq", comPreRequistic);
+		model.addAttribute("comGraphics",comGraphics );
 
 		model.addAttribute("statusOutline", CommonData.tutorialStatus[tutorial.getOutlineStatus()]);
 		model.addAttribute("statusScript", CommonData.tutorialStatus[tutorial.getScriptStatus()]);
