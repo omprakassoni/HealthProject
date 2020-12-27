@@ -1,100 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 
-<head th:replace="common/trail :: common-trail">
-
-
-<link rel="stylesheet" th:href="@{/s/fonts/flaticon/font/flaticon.css}" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/fontawesome-free-5.10.1-web/css/all.css}" />
-
-<link type="text/css" th:href="@{/css/sample.css}" rel="stylesheet"
-	media="screen" />
-
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" th:href="@{/css/style3.css}" />
-<!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
-
+<head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+	integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
-
-	<!-- <div class="" style="padding-top: 90px"> -->
-	<div style="display: flex;">
-		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-
-		<script th:src="@{js/jquery-3.3.1.js}"></script>
-
-		<!-- 	 <script type="text/javascript">
- 	 	$(document).ready(function(){
- 	 		
- 	 		$("#videoViewId").click(){
- 	 			alert("Hi");
- 	 			
- 	 			var videoIframe=document.getElementById("VideoView").src;  
-		
- 	 			
- 	 			document.getElementById("myImg").src = "hackanm.gif";
- 	 			 var scriptPdf = document.getElementById("scriptPdf");
- 	 		
- 	 			 $('#videoSet').attr('src',number);
- 	 			 
- 	 	
- 	 	 });
- 	});
- 	 			
- 		</script> -->
-
-		<script type="text/javascript">
- 		
- 	 	$(document).ready(function(){
- 	 		
- 	 		/*
- 	 		$("#videoClick").click(function()
- 		 {
- 	 		
- 	 	 	  alert("Hi");
- 	 		  var link="Media/content/Creation/Video/Yoga with Nutrition/English/Yoga/006 Start Project with Index Page.mp4";
- 	 		  
- 	 		  	//var response = $(data).find('#videoSet')[0].outerHTML;
- 	 		  	//alert(respone); 
- 	 		  	
- 	 		  	var setVideo= document.getElementById('VideoView').getAttribute('value');
- 	 		  
- 	 		  	alert(setVideo); 
- 	 		  			
-			 		 $('#videoSet').attr('src',link);
-			 	 
-			 		 
-			 		
- 	 	 });	
- 	 		 */	
-	
- 	 	 	 	  
- 	 	 	 	   	 	  
- 	 	  
- 	 	  
- 	 });
- 	 			
- 		</script>
-
-
-
-
-		<div class="row" style='width: 100%;'>
-			<div class="col-md-12 mx-auto">
-				<div class="a-update-msg"></div>
-				<div class="card card-signin flex-row a-card">
-
-
-
-
+<div th:replace="common/sidebar :: top_header"></div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-3 col-lg-2 pr-0">
+<div th:replace="common/sidebar :: contributor_sidebar"></div>
+</div>
+<div class="col-md-9 col-lg-10 p-md-5">
+<div>
+				<div class="alert alert-success" role="alert" th:if="${success_msg}">
+	 				<div id="#test" class="">
+						<div >
+							<span th:text="${success_msg}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+	 				<div id="#test" class="">
+						<div >
+							<span th:text="${error_msg}"></span>
+						</div>
+					</div>
+				</div>
+</div>
+<div class="card">
+					<div class="card-header">
+						<h4>Upload Tutorial</h4>
+					</div>
 					<div class="card-body">
-						<h5 class="card-title text-center a-card-title">Upload
-							Tutorial</h5>
-
-						<form th:action="@{/submitTutorial}" method="post">
+						<div class="row">
+							<div class="col">
+								<form th:action="@{/submitTutorial}" method="post">
 
 							<table class="table table-bordered">
 								<thead>
@@ -335,13 +284,291 @@
 
 						</form>
 
+							</div>
+						</div>
+
+						<!-- <h5 class="card-title">Special title treatment</h5>
+						<p class="card-text">With supporting text below as a natural
+							lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a> -->
+					</div>
+</div>
+</div>
+
+</div>
+
+</div>
+<!-- outline modal starts -->
+<!-- Button trigger modal -->
+
+
+	<!-- <div class="" style="padding-top: 90px"> -->
+	<div style="display: flex;">
+		<!-- <div th:replace="common/sidebar :: contributor_sidebar"></div> -->
+
+		<script th:src="@{js/jquery-3.3.1.js}"></script>
+
+
+		<div class="row" style='width: 100%;'>
+			<div class="col-md-12 mx-auto">
+				<div class="a-update-msg"></div>
+				<div class="card card-signin flex-row a-card">
+
+
+
+
+					<div class="card-body">
+						<!--  <h5 class="card-title text-center a-card-title">Upload
+							Tutorial</h5> --> 
+
+						<!-- <form th:action="@{/submitTutorial}" method="post">
+
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Category</th>
+										<td> <input
+												class="form-control" id="categoryId" name="categoryName"
+												th:value="${category.getCatName()}"
+												readonly="readonly"></input>
+										</td>
+
+										       <span  th:each="catgoryName : ${categoryName}"> 
+                                           <td   style="color:maroon;"  th:text="${catgoryName.getCategorylname()}"> </td>
+    
+										</span>	
+
+									</tr>
+								</thead>
+
+								<thead>
+									<tr>
+										<div th:if="${tutorial}">
+											<input type="hidden" id="tutorialId" th:value="${tutorial.getTutorialId()}" />
+										</div>
+										
+										<div th:unless="${tutorial}">
+											<input type="hidden" id="tutorialId" value="0" />
+										</div>
+
+										<th>Topic Name</th>
+										<td>
+												<input class="form-control" id="topicId" name="categoryName"
+												th:value="${topic.getTopicName()}" readonly="readonly"></input>
+												<input type="hidden" id="topicID" th:value="${topic.getTopicId()}"/>
+										</td>
+									</tr>
+
+								</thead>
+
+								<thead>
+									<tr>
+										<th>Language Name</th>
+										<td>
+												<input class="form-control" id="lanId" name="languageName"
+												th:value="${language.getLangName()}" readonly="readonly"></input>
+
+										</td>
+									</tr>
+								</thead>
+
+								  <thead>
+                                          <tr>
+   
+                                <th> Date</th>               
+  
+                                <td>
+                                	date remaining
+                                
+			                                  <span id="lan" th:each="language : ${inputLanguage}">  
+			                         					 <input class="form-control" id="lanId" name="languageName"   readonly="readonly"></input>		
+			                                   
+												</span>		
+										</td>
+                              						</tr>
+                                    </thead>
+
+
+							</table>
+
+							<table class="table table-bordered" style="background: lightblue">
+
+
+
+								<thead>
+									<tr>
+
+										<th>Sr.No</th>
+										<th>Component</th>
+										<th>Status</th>
+										<th>User</th>
+										<th>
+											<i style="color: purple; width:30px " class="fas fa-cogs"></i>
+										</th>
+
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>Outline</td>
+										<td><span class="status-contri" th:text="${statusOutline}"></span></td>
+										<td><span th:each="statusOutline : ${statusOutline}">
+												<span style="color: green;" th:text="${statusOutline}">Pending</span>
+										</span></td>
+										<th>-</th>
+										<th>
+											<span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#outlineModalContri" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i>
+		                                          		
+		                                          		</button></span> <span>
+												<button type="button" class="btn btn-info"
+													data-toggle="modal" data-target="#outlineModalContri"
+													data-whatever="@mdo">
+													<i style="color: blue;" class="fas fa-upload"></i>
+
+												</button>
+										</span> <span  th:if="${statusOutlineTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#outlineViewModel" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button></span>
+
+										</th>
+
+									</tr>
+									<tr>
+
+										<td>2</td>
+										<td>Script</td>
+										<td><span class="status-contri" th:text="${statusScript}">Pending</span></td>
+										<td><span th:each="statusScript :${statusScript}">
+												<span style="color: green;" th:text="${statusScript}">Pending</span>
+										</span></td>
+
+										<th>-</th>
+										<th>
+											<span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#scriptModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          </span> <span>
+												<button type="button" class="btn btn-info"
+													data-toggle="modal" data-target="#scriptModale"
+													data-whatever="@mdo">
+													<i style="color: blue;" class="fas fa-upload"></i>
+												</button>
+										</span> <span th:if="${statusScriptTrue}">  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewScriptId" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                         	</button></span>
+
+										</th>
+
+									</tr>
+
+
+									<tr>
+
+										<td>3</td>
+										<td>Slide</td>
+										<td> <span class="status-contri" th:text="${statusSlide}">Pending</span></td>
+										<td><span th:each="statusSlide: ${statusSlide}"> <span
+												style="color: green;" th:text="${statusSlide}">Pending</span>
+										</span></td>
+
+										<th>-</th>
+										<th>
+											<span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button></span>
+											<span>
+												<button type="button" class="btn btn-info"
+													data-toggle="modal" data-target="#slideModale"
+													data-whatever="@mdo">
+													<i style="color: blue;" class="fas fa-upload"></i>
+												</button>
+										</span>  <span th:if="${statusSlideTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#slideModaleView" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          </button>
+		                                          </span>
+
+										</th>
+
+									</tr>
+
+									<tr>
+
+										<td>4</td>
+										<td>Video</td>
+										<td><span class="status-contri" th:text="${statusVideo}">Pending</span></td>
+										<td><span th:each="statusVideo : ${statusVideo}">
+												<span style="color: green;" th:text="${statusVideo}">Pending</span>
+										</span></td>
+
+										<th>-</th>
+										<th>
+											<span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoModel" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> 
+		                                          </span> <span>
+												<button type="button" class="btn btn-info"
+													data-toggle="modal" data-target="#videoModel"
+													data-whatever="@mdo">
+													<i style="color: blue;" class="fas fa-upload"></i>
+												</button>
+										</span> <span th:if="${statusVideoTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#videoViewId" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button>
+		                                          	</span>
+
+										</th>
+
+									</tr>
+
+
+									<tr>
+										<td>5</td>
+										<td>Keywords</td>
+										<td><span class="status-contri" th:text="${statusKeyword}">Pending</span></td>
+										<td><span th:each=" statusKeyword: ${statusKeyword}">
+												<span style="color: green;" th:text="${statusKeyword}">Pending</span>
+										</span></td>
+										<th>-</th>
+										<th>
+											<span th:if="${uploadIcon}"> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button>
+		                                          </span> <span>
+												<button type="button" class="btn btn-info"
+													data-toggle="modal" data-target="#keywordModale"
+													data-whatever="@mdo">
+													<i style="color: blue;" class="fas fa-upload"></i>
+												</button>
+										</span> <span th:if="${statusKeywordTrue}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#keywordModaleView" data-whatever="@mdo"><i class="fas fa-eye"></i>
+		                                          		</button>
+		                                          		</span>
+
+										</th>
+
+									</tr>
+
+										  <tr>   
+                                     	                                          
+		                             		     <td>6</td>
+		                                          <td>Prerequisite</td>
+		                                          <td><span class="status-contri" th:text="${statusPreReq}"></span></td>
+		                                          <th>-</th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#prerequisiteModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
+		                             
+                                     	 </tr>
+                                     	 
+                                     	   <tr>   
+                                     	                                          
+		                             		     <td>7</td>
+		                                          <td>Graphics</td>
+		                                          <td><span class="status-contri" th:text="${statusGraphics}"></span></td>
+		                                          <th>-</th>
+		                                          <th> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#grahicsModale" data-whatever="@mdo"><i style="color: blue;" class="fas fa-upload"></i> </button> </th>
+		                             
+                                     	 </tr>
+
+								</tbody>
+							</table>
+
+						</form> -->
+
 						<!--  Outline   Start-->
 						<div class="modal fade" id="outlineModalContri"
 							data-backdrop="static" data-keyboard="false" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalLabel"
 							aria-hidden="true">
 							<div
-								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -360,7 +587,7 @@
 											id="statusOutlineC"></div>
 											<div class="container">
 											  <div class="row" >
-											    <div class="col-md-6" style="display: flex; flex-wrap: wrap;">
+											    <div class="col" style="display: flex; flex-wrap: wrap;">
 											    	<form th:action="@{/addOutline}" method="post" style="width:100%;">
 														<div class="form-group">
 															<label for="message-text" class="col-form-label"></label>
@@ -373,9 +600,9 @@
 											<!-- <button id="editOutline" type="button" class="btn btn-success">Upload Outline</button> -->
 													</form>
 											    </div>
-											    <div class="col-md-6" >
+											    <div class="col" >
 											    <div th:if="${not #lists.isEmpty(outlineComment)}">
-											    <h6 class="border-bottom">Comments: </h6>
+											    <h6 class="border-bottom" >Comments: </h6>
 											    
 											    <div th:each="outlineComment : ${outlineComment}" th:if="${not #lists.isEmpty(outlineComment)}" class="border-bottom"> 
 											    <p class="my-0"><strong><i class="far fa-comment-alt"></i> <span th:text="${outlineComment.getUser().getFullName()}"></span></strong></p>
@@ -385,7 +612,8 @@
 											    </div>
 											    </div>
 											    <div class="textarea-comment">
-												<label for="msgCommentOutline">Comments</label>
+											    
+												<label for="msgCommentOutline" class="comments">Comments</label>
 												<textarea class="form-control msgComment" name="msgCommentOutline"
 													rows="3" required="required" id="Outline_comment"
 													placeholder="Please enter your suggestions.">	</textarea>
@@ -400,8 +628,18 @@
 											</div>	
 									</div>
 									<div class="modal-footer">
-										<button id="outlineId" type="button" class="btn btn-success">Upload
-											Outline</button>
+									<div th:if="${tutorial}">
+										 <div th:if="${tutorial.getOutlineStatus() == 0 or tutorial.getOutlineStatus() == 4}">
+												 	<button id="outlineId" type="button" class="btn btn-success">Upload Outline</button>
+												 	</div>
+													<div th:unless="${tutorial.getOutlineStatus() == 0 or tutorial.getOutlineStatus() == 4}">
+													<button id="outlineId" type="button" class="btn btn-success" disabled="disabled">Upload Outline</button>
+									</div> 
+									</div>
+									<div th:unless="${tutorial}">
+									<button id="outlineId" type="button" class="btn btn-success">Upload Outline</button>
+									
+									</div>
 										<button type="button" class="btn btn-outline-warning"
 											id="editOutline">
 											<span style="color: green;"> <i class="fas fa-edit"></i>
@@ -428,9 +666,8 @@
 							aria-hidden="true" data-backdrop="static"
 							data-keyboard="false">
 
-							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<div class="alert alert-msg m-3" style="display: none;"></div>
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleVideoModalLabel">Upload
 											Video</h5>
@@ -443,7 +680,8 @@
 									</div>
 									<div class="modal-body">
 									<div class="row">
-									<div class="col-md-6">
+									<div class="col-12">
+									<div class="alert alert-msg" style="display: none;"></div>
 									<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 											<div class="form-group">
@@ -452,16 +690,19 @@
 												<!-- <iframe src="about:blank" name="videoSet" id="videoSet"  height="240" width="320" scrolling="auto" autoplay="autoplay">
 		 </iframe>	 
 		 --> 
-												<div th:if="${tutorial}" id="videoDiv" class="container" height="240"
+		 										<div th:if="${tutorial}">
+		 											<div th:if="${tutorial.getVideo()}" id="videoDiv" class="container" height="240"
 													width="320" scrolling="auto" autoplay="autoplay">
 
 													<video id='storedVideoId' height="240" width="320"
 														controls="controls">
 													<source src="movie.mp4" type="video/mp4">
-<!-- 													<source th:src="${tutorial.getVideo()}" type="video/mp4"></source> -->
+													<source th:src="${tutorial.getVideo()}" type="video/mp4"></source>
 													<source th:if = "${tutorial.getVideoStatus() != 0}" th:src="@{/files/}+@{${tutorial.getVideo()}}" type="video/mp4"></source>
 													</video>
-												</div> 
+												</div>  
+		 										</div>
+												
 											</div>
 											<!-- <button id="videoClick1" type="button"
 												class="btn btn-success">View</button>
@@ -474,9 +715,18 @@
 										<form id="upload-file-form-video"
 											onsubmit="return submitForm(this);">
 											<div class="custom-file mb-3">
-										    <input type="file" class="custom-file-input" id="videoFileIdA"
+											<div th:if="${tutorial}">
+												<div th:if="${tutorial.getVideoStatus() == 0 or tutorial.getVideoStatus() == 4}">
+												 	<input type="file" class="custom-file-input" id="videoFileIdA"
 										     name="videoFileName" placeholder="uploadVideo" accept=".mp4"  required="required"></input>
-										   
+												 	</div>
+													<div th:unless="${tutorial.getVideoStatus() == 0 or tutorial.getVideoStatus() == 4}">
+													<input type="file" class="custom-file-input" id="videoFileIdA"
+										     name="videoFileName" placeholder="uploadVideo" accept=".mp4"  disabled="disabled"></input>
+													</div>
+											
+											</div>
+											
 										    
 										    <label class="custom-file-label" for="videoFileIdA">Choose File</label>
 										    <div class="invalid-feedback">Example invalid custom file feedback</div>
@@ -484,7 +734,7 @@
 											
 										</form>
 									</div>
-									<div class="col-md-6">
+									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(videoComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${videoComment}" class="border-bottom"> 
@@ -528,10 +778,9 @@
 							data-backdrop="static" data-keyboard="false">
 
 							<div
-								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-									<div class="alert alert-msg m-3" style="display: none;"></div>
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWord">Upload
 											Keyword</h5>
@@ -546,7 +795,8 @@
 									<div class="modal-body">
 
 									<div class="row">
-									<div class="col-md-6">
+									<div class="col-12">
+									<div class="alert alert-msg" style="display: none;"></div>
 									<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 											<div class="form-group">
@@ -559,7 +809,7 @@
 										</form>
 									</div>
 									
-									<div class="col-md-6">
+									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(keywordComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${keywordComment}" class="border-bottom"> 
@@ -661,7 +911,7 @@
 									<div class="modal-body">
 				
 									<div class="row">
-									<div class="col-md-6">
+									<div class="col-12">
 									<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
@@ -674,7 +924,7 @@
 
 											</form>
 									</div>
-									<div class="col-md-6">
+									<div class="col-12">
 									
 									</div>
 									</div>
@@ -859,7 +1109,7 @@
 							role="dialog" aria-labelledby="exampleModalLabelKeyword"
 							aria-hidden="true">
 
-							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyword">Upload
@@ -870,7 +1120,7 @@
 									</div>
 									<div class="modal-body">
 										<div class="row">
-										<div class="col-md-6">
+										<div class="col-12">
 										<form method="post">
 
 											<div class="form-group">
@@ -898,11 +1148,19 @@
 													required="required">
 												</select>
 											</div>
-						<button id="uploadpreRequsiteId"  name="uploadpreRequsiteId" type="button" class="btn btn-success">Upload</button>
-				 						
+											<div th:if="${tutorial}">
+												<div th:if="${tutorial.getPreRequisticStatus() == 0 or tutorial.getPreRequisticStatus() == 4}">
+												 	<button id="uploadpreRequsiteId"  name="uploadpreRequsiteId" type="button" class="btn btn-success">Upload</button>
+												 	</div>
+													<div th:unless="${tutorial.getPreRequisticStatus() == 0 or tutorial.getPreRequisticStatus() == 4}">
+													<button id="uploadpreRequsiteId"  name="uploadpreRequsiteId" type="button" class="btn btn-success" disabled="disabled">Upload</button>
+											</div>
+											
+											</div>
+											
 				 						</form>
 										</div>
-										<div class="col-md-6">
+										<div class="col-12">
 										
 										</div>
 										</div>
@@ -921,7 +1179,7 @@
 							role="dialog" aria-labelledby="exampleModalLabelprerequisite"
 							aria-hidden="true">
 
-							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelprerequisite">Upload
@@ -987,7 +1245,7 @@
 							role="dialog" aria-labelledby="exampleModalLabelKeyword"
 							aria-hidden="true">
 
-							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyword">Upload
@@ -1076,9 +1334,8 @@
 						<div class="modal fade" id="scriptModale" data-backdrop="static"
 							data-keyboard="false" tabindex="-1" role="dialog"
 							aria-labelledby="exampleModalLabelScript" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<div class="alert alert-msg m-3" style="display: none;"></div>
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelScript">Upload
 											Script</h5>
@@ -1091,7 +1348,8 @@
 									</div>
 									<div class="modal-body">
 									 <div class="row">
-									<div class="col-md-6">
+									<div class="col-12">
+									<div class="alert alert-msg" style="display: none;"></div>
 									<!-- <div th:unless="${tutorial.scriptStatus}" class="alert alert-secondary upload-status" role="alert">
 									  No script has been added yet.
 									</div> -->
@@ -1132,7 +1390,7 @@
 										</form>
 
 									</div>
-									<div class="col-md-6">
+									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(scriptComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${scriptComment}" class="border-bottom"> 
@@ -1144,6 +1402,7 @@
 									
 									</div>
 									<div class="textarea-comment">
+									<label for="Script_comment" class="comments">Comments</label>
 												<textarea class="form-control msgComment" name="msgCommentOutline"
 													rows="3" required="required" id="Script_comment"
 													placeholder="Please enter your suggestions.">	</textarea>
@@ -1181,9 +1440,8 @@
 							data-keyboard="false">
 
 
-							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<div class="alert alert-msg m-3" style="display: none;"></div>
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelSlide">Upload
 											Slide</h5>
@@ -1198,9 +1456,10 @@
 									</div>
 									<div class="modal-body">
 									<div class="row">
-									<div class="col-md-6">
+									<div class="col-12">
+									<div class="alert alert-msg" style="display: none;"></div>
 									 <div th:unless="${tutorial}" class="alert alert-secondary upload-status" role="alert">
-									  No script has been added yet.
+									  <i class="far fa-file"></i> No slide has been added yet.
 									</div> 
 
 										<form class="form-horizontal mb-3" th:action="@{/addkeyword}"
@@ -1209,7 +1468,7 @@
 											  <div class="card-body">
 											    <div class="form-group">
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
-												<a name="sliedPdf" th:if = "${tutorial.getSlideStatus() != 0}" target="_blank" th:href= "@{/files/}+@{${tutorial.getSlide()}}"id="sliedPdf">Click to view</a>
+												<a name="sliedPdf" th:if = "${tutorial.getSlideStatus() != 0}" target="_blank" th:href= "@{/files/}+@{${tutorial.getSlide()}}"id="sliedPdf"><i class="far fa-file-alt"></i> View Slide</a>
 											</div>
 											  </div>
 											</div> 
@@ -1226,8 +1485,17 @@
 										<form id="upload-file-form" submit="return submitForm(this);">
 											<div class="form-group">
 												 <div class="custom-file">
-												    <input type="file" class="custom-file-input" id="uploadsSlideFileId" name="uploadsSlideFile" 
-												    placeholder="uploadFile" accept=".zip" required="required"></input>
+												 <div th:if="${tutorial}">
+												 		<div th:if="${tutorial.getSlideStatus() == 0 or tutorial.getSlideStatus() == 4}">
+												 	<input type="file" class="custom-file-input" id="uploadsSlideFileId" name="uploadsSlideFile" 
+												    placeholder="uploadFile" accept=".zip,.pdf" required="required"></input>
+												 	</div>
+													<div th:unless="${tutorial.getSlideStatus() == 0 or tutorial.getSlideStatus() == 4}">
+													<input type="file" class="custom-file-input" id="uploadsSlideFileId" name="uploadsSlideFile" 
+												    placeholder="uploadFile" accept=".zip,.pdf" disabled="disabled"></input>
+													</div>
+												 </div>
+												 
 												    <label class="custom-file-label" for="uploadsSlideFileId">Choose file...</label>
 												    <div class="invalid-feedback">Example invalid custom file feedback</div>
 												  </div>
@@ -1236,7 +1504,7 @@
 											</div>
 										</form>
 									</div>
-									<div class="col-md-6">
+									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(slideComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${slideComment}" th:if="${not #lists.isEmpty(slideComment)}" class="border-bottom"> 
@@ -1278,9 +1546,8 @@
 							data-keyboard="false">
 
 
-							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<div class="alert alert-msg m-3" style="display: none;"></div>
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelgraphics">Upload
 											Graphics</h5>
@@ -1295,7 +1562,8 @@
 									</div>
 									<div class="modal-body">
 									<div class="row">
-									<div class="col-md-6">
+									<div class="col-12">
+									<div class="alert alert-msg" style="display: none;"></div>
 									 <div th:unless="${tutorial}" class="alert alert-secondary upload-status" role="alert">
 									  No Graphics has been added yet.
 									</div> 
@@ -1306,7 +1574,7 @@
 											  <div class="card-body">
 											    <div class="form-group">
 												<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
-												<a name="sliedPdf" th:if ="${tutorial.getGraphicsStatus() != 0}" target="_blank" id="sliedPdf" th:href="@{/files/}+@{${tutorial.getGraphics()}}">View Graphics</a>
+												<a name="sliedPdf" th:if ="${tutorial.getGraphicsStatus() != 0}" target="_blank" id="sliedPdf" th:href="@{/files/}+@{${tutorial.getGraphics()}}"><i class="far fa-folder-open"></i> View Graphics</a>
 											</div>
 											  </div>
 											</div>
@@ -1315,15 +1583,25 @@
 										<form id="upload-file-form-graphics" submit="return submitForm(this);">
 											<div class="form-group">
 												 <div class="custom-file">
-												    <input type="file" class="custom-file-input" id="uploadGraphicUploadId" name="uploadGraphicUpload" 
+												 <div th:if="${tutorial}">
+												 <div th:if="${tutorial.getGraphicsStatus() == 0 or tutorial.getGraphicsStatus() == 4}">
+												 	<input type="file" class="custom-file-input" id="uploadGraphicUploadId" name="uploadGraphicUpload" 
 												    placeholder="uploadFile" accept=".zip" required="required"></input>
+												 	</div>
+													<div th:unless="${tutorial.getGraphicsStatus() == 0 or tutorial.getGraphicsStatus() == 4}">
+													<input type="file" class="custom-file-input" id="uploadGraphicUploadId" name="uploadGraphicUpload" 
+												    placeholder="uploadFile" accept=".zip" disabled="disabled"></input>
+													</div>
+												 
+												 </div>
+												 	
 												    <label class="custom-file-label" for="uploadGraphicUpload">Choose file...</label>
 												    <div class="invalid-feedback">Example invalid custom file feedback</div>
 												  </div>
 											</div>
 										</form>
 									</div>
-									<div class="col-md-6">
+									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(graphicsComment)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${graphicsComment}" th:if="${not #lists.isEmpty(graphicsComment)}" class="border-bottom"> 

@@ -18,12 +18,12 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 
 	@Autowired
 	private TopicCategoryMappingRepository topicCatRepo;
-	
+
 	@Override
 	public void save(TopicCategoryMapping local) {
 		// TODO Auto-generated method stub
 		topicCatRepo.save(local);
-		
+
 	}
 
 	@Override
@@ -41,10 +41,12 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 	@Override
 	public List<TopicCategoryMapping> findAllByCategoryBasedOnUserRoles(List<UserRole> userRoles) {
 		// TODO Auto-generated method stub
+
 		List<TopicCategoryMapping> temp = new ArrayList<>();
 		for(UserRole x : userRoles) {
-			temp.add((TopicCategoryMapping) topicCatRepo.findAllBycat(x.getCategory()));
+			temp.add(topicCatRepo.findAllBycat(x.getCategory()).get(0));
 		}
+
 		return temp;
 	}
 
@@ -60,5 +62,5 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 		return topicCatRepo.findAllBycat(cat);
 	}
 
-	
+
 }

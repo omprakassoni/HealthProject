@@ -2902,7 +2902,7 @@ $(document)
 //								$("#statusofSlide").prop('disabled',true);
 //								$('#statusofSlide').html(result[2]);
 
-								$('#sliedPdf').html(result);
+//								$('#sliedPdf').html(projectPath);
 								/*$("#sliedPdf").prop('href', result[1]);*/
 								var result = "Slide uploaded successfully";
 								showStatus(SUCCESS,result);
@@ -2924,6 +2924,11 @@ $(document)
 
 			/*		Here is code for graphics*/
 
+			// here is code for
+			$('#grahicsModale').on('hidden.bs.modal', function() {
+				location.reload();
+
+			});
 
 			$('#graphicsId').click(function() {
 
@@ -3016,7 +3021,8 @@ $(document)
 							success : function(result) {
 
 								$("#statusofVideo").prop('disabled',true);
-								$('#statusofVideo').html(result);
+//								$('#statusofVideo').html(result);
+								showStatus(SUCCESS,result);
 
 							/*	source = document.getElementById('storedVideoId');
 								source.setAttribute('src',result[1]);

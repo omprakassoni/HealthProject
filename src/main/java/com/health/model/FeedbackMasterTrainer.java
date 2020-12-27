@@ -2,12 +2,9 @@ package com.health.model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,22 +15,22 @@ public class FeedbackMasterTrainer {
 
 	@Id
 	private int TrainerFeedId;
-	
+
 	private String name;
-	
+
 	private String email;
-	
+
 	private String description;
-	
+
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
-	
+
 	private String path;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="Training_id")
 	private TrainingInformation traineeInfos;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
@@ -114,10 +111,10 @@ public class FeedbackMasterTrainer {
 		this.traineeInfos = traineeInfos;
 		this.user = user;
 	}
-	
+
 	public FeedbackMasterTrainer() {
-		
+
 	}
-	
+
 
 }

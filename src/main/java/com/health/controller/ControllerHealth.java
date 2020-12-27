@@ -88,16 +88,16 @@
 //
 ////@Controller
 //public class ControllerHealth {
-//	
+//
 //	@Autowired
 //	private Environment ev;
-//	
+//
 //	static final String ROLE_APPROVE_SUCCESS_MSG = "Role Approved Successfully !";
 //	static final String RECORD_SAVE_SUCCESS_MSG = "Record Saved Successfully !";
 //
 //	public static String uploadDirectoryConsaltant = "/Media/content" + "/Consaltant";
 //
-//	
+//
 //	public static String uploadDirectoryCategory = "/Media/content" + "/Category";
 //
 //	public static String uploadDirectoryFeedback = "/Media/content" + "/feedback";
@@ -108,7 +108,7 @@
 //	public static String uploadDirectorOutLine =  "/Media/content" + "/Tutorial/Outline";
 //
 //	public static String uploadDirectorScript = "/Media/content" + "/Tutorial/Script";
-//	
+//
 //	public static String uploadDirectorTimeScript =  "/Media/content"+ "/Tutorial/TimeScript";
 //
 //	public static String uploadDirectorVideo =  "/Media/content" + "/Tutorial/Video";
@@ -124,7 +124,7 @@
 //
 //	public String pathfile = uploadDirectory;
 //
-//	
+//
 //	@Autowired
 //	private ConsaltantService consaltantservice;
 //
@@ -279,7 +279,7 @@
 //		int status = 1;
 //		int id = 5;
 //		// Role role = rolerespositary.findOne(id);
-//		
+//
 //		// new version code 2.1.7
 //		Optional<Role> temp=rolerespositary.findById(id);
 //		Role role=temp.get();
@@ -351,7 +351,7 @@
 //		User user = userRepository.findByUsername(authetication.getName());
 //
 //		// Role role = rolerespositary.findOne(5);
-//		
+//
 //		// new version code 2.1.7
 //		Optional<Role> temp=rolerespositary.findById(5);
 //		Role role=temp.get();
@@ -372,7 +372,7 @@
 //		}
 //		languageId.removeAll(languageExit);
 //
-/
+//
 //
 //		model.addAttribute("languages", languageId);
 //
@@ -391,7 +391,7 @@
 //		User user = userRepository.findByUsername(authetication.getName());
 //
 //		// Role role = rolerespositary.findOne(3);
-//		
+//
 //		// new version code 2.1.7
 //		Optional<Role> temp=rolerespositary.findById(3);
 //		Role role=temp.get();
@@ -428,7 +428,7 @@
 //		User user = userRepository.findByUsername(authetication.getName());
 //
 //		// Role role = rolerespositary.findOne(3);
-//		
+//
 //		// new version code 2.1.7
 //			Optional<Role> temp=rolerespositary.findById(3);
 //			Role role=temp.get();
@@ -706,7 +706,7 @@
 //			HttpServletRequest req, @RequestParam(value = "districtName") String distname) {
 //
 //		// state state = stateRespositary.findOne(stateId);
-//		
+//
 //		// new version code 2.1.7
 //				Optional<state> temp=stateRespositary.findById(stateId);
 //				state state=temp.get();
@@ -902,11 +902,11 @@
 //		for (UserRole ur : userByStatus) {
 //
 //			// User userInformation = userRepository.findOne(ur.getUser().getId());
-//			
+//
 //			// new version code 2.1.7
 //			Optional<User> temp= userRepository.findById(ur.getUser().getId());
 //			User userInformation=temp.get();
-//			
+//
 //			userAddInformation.add(userInformation);
 //
 //		}
@@ -1008,12 +1008,12 @@
 //
 //	{
 //		System.out.println("Add Consaltant");
-//		
+//
 //		String path = null;
 //		String nameConsaltant = req.getParameter("nameConsaltant");
 //		String descriptionConsaltant = req.getParameter("descriptionConsaltant");
 //		String abc = ev.getProperty("spring.applicationexternalPath.name")+uploadDirectoryConsaltant + "/" + nameConsaltant;
-//		
+//
 //		String showOnHomePage = req.getParameter("showOnHomePage");
 //		Boolean show = false;
 //
@@ -1171,7 +1171,7 @@
 //		//String substring = fileconversion.substring(26);
 //		//-------------NEW CODE
 //		int indexToStart=fileconversion.indexOf("Media");
-//		
+//
 //		String substring=fileconversion.substring(indexToStart, fileconversion.length());
 //		//-------------END--------------
 //		String var = substring.toString();
@@ -1237,7 +1237,7 @@
 //		//String substring = filepath.substring(26);
 //		// ----------new code
 //		int indexToStart=filepath.indexOf("Media");
-//		
+//
 //		String substring=filepath.substring(indexToStart, filepath.length());
 //		///---------end --------------
 //		Testimonial testimonial = new Testimonial();
@@ -1340,10 +1340,10 @@
 //
 //		// ----------new code
 //				int indexToStart=fileconversion.indexOf("Media");
-//				
+//
 //				String substring=fileconversion.substring(indexToStart, filepath.length());
 //		///---------end --------------
-//				
+//
 //		//String substring = fileconversion.substring(26);
 //		String var = substring.toString();
 //		System.out.println(var);
@@ -1569,7 +1569,7 @@
 //		String categoryDesc = req.getParameter("categoryDesc");
 //
 //		String abc = ev.getProperty("spring.applicationexternalPath.name")+uploadDirectoryCategory + "/" + categoryName;
-//		
+//
 //		new File(abc).mkdirs();
 //
 //		if (categoryDao.findBycategoryname(categoryName) != null) {
@@ -1592,11 +1592,11 @@
 //
 //				fileCategory = fileNameAndPath.toString();
 //				// new code-------------
-//				
+//
 //				int indexToStart=fileCategory.indexOf("Media");
-//				
+//
 //				substring=fileCategory.substring(indexToStart, fileCategory.length());
-//				
+//
 //				// ---------end-------------------------------------------
 //				//substring = fileCategory.substring(26);
 //
@@ -1690,9 +1690,9 @@
 //
 //		// --------------NEW CODE ------------------
 //		int indexToStart=filepath.indexOf("Media");
-//		
+//
 //		String outlinefile=filepath.substring(indexToStart, filepath.length());
-//		
+//
 //		//-----------END ----------------------------
 //		// String outlinefile = filepath.substring(26);
 //
@@ -1722,7 +1722,7 @@
 //		}
 //		//----------------NEW CODE ----------------------
 //		int indexToStart1=filepath.indexOf("Media");
-//		
+//
 //		String scriptfile=filepath.substring(indexToStart1, filepath.length());
 //		// -------------END------------
 //		//String scriptfile = filepath.substring(26);
@@ -1753,7 +1753,7 @@
 //
 //		//----------------NEW CODE ----------------------
 //				int indexToStart2=filepath.indexOf("Media");
-//				
+//
 //				String TimeScriptfile=filepath.substring(indexToStart2, filepath.length());
 //				// -------------END------------
 //		// String TimeScriptfile = filepath.substring(26);
@@ -1785,10 +1785,10 @@
 //
 //		//----------------NEW CODE ----------------------
 //		int indexToStart3=filepath.indexOf("Media");
-//		
+//
 //		String Videofile=filepath.substring(indexToStart3, filepath.length());
 //		// -------------END------------
-//		
+//
 //		//String Videofile = filepath.substring(26);
 //
 //		Category category = categoryService.findBycategoryname(categoryName);
@@ -1895,7 +1895,7 @@
 //			// new version code 2.1.7
 //			Optional<Tutorial> temp= tutorialDao.findById(s.getTutorial().getTutorialid());
 //			Tutorial tutorial=temp.get();
-//			
+//
 //			addlanguage.add(tutorial);
 //
 //			System.err.println("Hiiii" + s.getCat().getCategoryname());
@@ -1965,7 +1965,7 @@
 //		List<String> DistrictList = new ArrayList<String>();
 //
 //		// state state = stateRespositary.findOne(id);
-//		
+//
 //		// new version code 2.1.7
 //				Optional<state> temp= stateRespositary.findById(id);
 //				state state=temp.get();
@@ -1991,7 +1991,7 @@
 //
 //
 //		// TraningInformation category= trainingInformationDao.findOne(id);
-//		
+//
 //		// new version code 2.1.7
 //		Optional<TraningInformation> temp= trainingInformationDao.findById(id);
 //		TraningInformation category=temp.get();
@@ -2081,9 +2081,9 @@
 //
 //		// new code
 //		Optional<category_Tutorial> temp=categoryTutorialDao.findById(cat.getId());
-//		
+//
 //		List<category_Tutorial> categoryTutorial=(List<category_Tutorial>) temp.get();
-//		
+//
 //		for (category_Tutorial s : categoryTutorial) {
 //
 //			topicName.add(s.getTutorial().getLanguage());
@@ -2190,7 +2190,7 @@
 //	{
 //
 //		 // traineeInformation=trainingInformationdao.findOne(id);
-//		 
+//
 //			// new version code 2.1.7
 //			Optional<traineeInformation> temp= trainingInformationdao.findById(id);
 //			traineeInformation traineeInformation=temp.get();
@@ -2481,7 +2481,7 @@
 //			Date endDateOfTrainingModal=new Date(dateUtil1.getTime());
 //
 //			// state stateVar=stateRespositary.findOne(state);
-//			
+//
 //			// code for version 2.1.7
 //			Optional<state> temp= stateRespositary.findById(state);
 //			state stateVar=temp.get();
@@ -2551,17 +2551,17 @@
 //				}
 //
 //			}
-//			
+//
 //			//----------- NEW CODE -------------
 //			int indexToStart=mastertrainer.indexOf("Media");
-//			
+//
 //			String ParticipantsDeatailFile=mastertrainer.substring(indexToStart, mastertrainer.length());
 //			//---------------END -------------------
 //			//String ParticipantsDeatailFile = mastertrainer.substring(26);
 //
 //			//----------- NEW CODE -------------
 //			int indexToStart1=traineeInfo.indexOf("Media");
-//			
+//
 //			String fileTraineeInfo=traineeInfo.substring(indexToStart1, mastertrainer.length());
 //			//---------------END -------------------
 //			//String fileTraineeInfo = traineeInfo.substring(26);
@@ -2592,10 +2592,10 @@
 //
 //
 //			// String participantdeatailPhoto = filepath.substring(26);
-//			
+//
 //			//----------- NEW CODE -------------
 //			int indexToStart2=filepath.indexOf("Media");
-//			
+//
 //			String participantdeatailPhoto=filepath.substring(indexToStart2, filepath.length());
 //			//---------------END -------------------
 //
@@ -2794,11 +2794,11 @@
 //	public String editParticipantDeatail(@PathVariable Integer id, Model model, HttpServletRequest req) {
 //
 //		// partipantDeatil participantDeatail = participantDao.findOne(id);
-//		
+//
 //		// code for version 2.1.7
 //		Optional<partipantDeatil> temp= participantDao.findById(id);
 //		partipantDeatil participantDeatail=temp.get();
-//		
+//
 //		model.addAttribute("parcipantDeatails", participantDeatail);
 //
 //		// return "Update_Consalantant"; categoryService
@@ -2837,41 +2837,41 @@
 //
 //	}
 //
-//	
+//
 //	/*
 //	 * Here is code for Feedack on Home page
 //	 */
 //
 //	@Autowired
 //	private feedbackFOrUser feedbackUserDao;
-//	
+//
 //	@RequestMapping("/feedbackForUser")
 //	public @ResponseBody String feedbackForUser(@RequestParam(name = "firstName") String firstName,
 //			@RequestParam(name = "email") String email,
 //			@RequestParam(name = "subjectName") String subjectName,
 //			@RequestParam(name = "msgForm") String msgForm,Model model) {
 //
-//			
+//
 //		feedback feedback=new feedback();
-//		
+//
 //		feedback.setName(firstName);
 //		feedback.setEmail(email);
 //		feedback.setDescription(msgForm);
 //		feedback.setSubject(subjectName);
-//		
-//		feedbackUserDao.save(feedback);
-//		
-//		
-//		return "<H1>Save FeedBack</H1>";
-//			
-//			
-//}
-//	
 //
-//	
-//	
-//	
-//	
+//		feedbackUserDao.save(feedback);
+//
+//
+//		return "<H1>Save FeedBack</H1>";
+//
+//
+//}
+//
+//
+//
+//
+//
+//
 //	/*
 //	 * here code for feedback for master trainer
 //	 */
@@ -2926,13 +2926,13 @@
 //				e.printStackTrace();
 //			}
 //		}
-//		
+//
 //		//------------ new ocde -------------
 //		int indexToStart=fileconversion.indexOf("Media");
-//		
+//
 //		String substring=fileconversion.substring(indexToStart, fileconversion.length());
 //		// -----------end-------------------
-//		
+//
 //		//String substring = fileconversion.substring(26);
 //
 //		String var = substring.toString();
@@ -2991,7 +2991,7 @@
 //		Category category = categoryDao.findByid(categoryId);
 //
 //		// com.health.model.language language = languageDao.findOne(languageName);
-//		
+//
 //		// code for version 2.1.7
 //		Optional<language> temp= languageDao.findById(languageName);
 //		language language=temp.get();
@@ -3022,11 +3022,11 @@
 //		}
 //		//----------NEW CODE-----------
 //		int indexToStart=filequestion.indexOf("Media");
-//		
+//
 //		String substring=filequestion.substring(indexToStart, filequestion.length());
 //		//------------END-----------------
 //		//String substring = filequestion.substring(26);
-//		
+//
 //		Question question = new Question();
 //		question.setQuetionpath(substring);
 //		question.setCategory(category);
@@ -3177,11 +3177,11 @@
 //		List<String> topicName = new ArrayList<String>();
 //
 //		// topic topic = topicRepositarydao.findOne(id);
-//		
+//
 //		// code for version 2.1.7
 //			Optional<topic> temp= topicRepositarydao.findById(id);
 //			topic topic=temp.get();
-//		
+//
 //		topic.getTopicid();
 //
 //		// new code
@@ -3230,7 +3230,7 @@
 //		Category category = categoryDao.findBycategoryname(catMasterId);//findByid(catMasterId);
 //		topic topicDemo = topicRepositarydao.findBytopicname(topicId);
 //		// com.health.model.language language = languageDao.findOne(dwnByLanguageId);
-//		
+//
 //		// code for version 2.1.7
 //				Optional<language> temp= languageDao.findById(dwnByLanguageId);
 //				language language=temp.get();
@@ -3328,11 +3328,11 @@
 //		List<String> topicName = new ArrayList<>();
 //
 //		// UserRole userRoles = userRoleRepositary.findOne(id);
-//		
+//
 //		// code for version 2.1.7
 //		Optional<UserRole> temp= userRoleRepositary.findById(id);
 //		UserRole userRoles=temp.get();
-//		
+//
 //
 //		String name = "Contributer";
 //
@@ -3356,7 +3356,7 @@
 //		List<String> topicName = new ArrayList<>();
 //
 //		// UserRole userRoles = userRoleRepositary.findOne(id);
-//		
+//
 //		// code for version 2.1.7
 //			Optional<UserRole> temp= userRoleRepositary.findById(id);
 //			UserRole userRoles=temp.get();
@@ -3383,7 +3383,7 @@
 //		List<String> topicName = new ArrayList<>();
 //
 //		// UserRole userRoles = userRoleRepositary.findOne(id);
-//		
+//
 //		// code for version 2.1.7
 //				Optional<UserRole> temp= userRoleRepositary.findById(id);
 //				UserRole userRoles=temp.get();
@@ -3410,7 +3410,7 @@
 //		List<String> topicName = new ArrayList<>();
 //
 //		// UserRole userRoles = userRoleRepositary.findOne(id);
-//		
+//
 //		// code for version 2.1.7
 //				Optional<UserRole> temp= userRoleRepositary.findById(id);
 //				UserRole userRoles=temp.get();
@@ -3437,7 +3437,7 @@
 //		List<String> topicName = new ArrayList<>();
 //
 //		// UserRole userRoles = userRoleRepositary.findOne(id);
-//		
+//
 //		// code for version 2.1.7
 //				Optional<UserRole> temp= userRoleRepositary.findById(id);
 //				UserRole userRoles=temp.get();
@@ -3465,7 +3465,7 @@
 //		List<String> topicName = new ArrayList<>();
 //
 //		// UserRole userRoles = userRoleRepositary.findOne(id);
-//		
+//
 //		// code for version 2.1.7
 //				Optional<UserRole> temp= userRoleRepositary.findById(id);
 //				UserRole userRoles=temp.get();
@@ -3507,16 +3507,16 @@
 //		int status = 1;
 //
 //		List<UserRole> userrole = userRoleRepositary.findByUserAndStatuslanguages(status, user);
-//		
+//
 //		for(UserRole x:userrole) {
 //			if(x.getLanguage()!=null) {
 //				System.out.println(x.getLanguage().getLanguageName());
 //			}
-//			
+//
 //		}
 //
 //		for (UserRole ur : userrole) {
-//			
+//
 //			if(ur.getLanguage()!=null) {
 //			topicName.add(ur.getLanguage().getLanguageName());
 //			}

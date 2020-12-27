@@ -26,7 +26,8 @@
 	box-sizing: border-box;
 }
 body{
-	padding-top: 120px!important;
+	/* padding-top: 120px!important; */
+	
 }
 /* .btn{
 	background-color: var(--btn-color);
@@ -56,8 +57,11 @@ body{
 	border-bottom: 2px solid #1C7871;
 }
 .spk-btn{
-	border: 1px solid #1C7871!important;
+	border: 2px solid #1C7871!important;
 	text-decoration: none;
+	padding:10px;
+	border-radius:5px;
+	color: #1C7871;
 	
 }
 .spk-title{
@@ -67,10 +71,13 @@ body{
 	font-size: 2rem;
 	font-weight: bold;
 }
-.catBtn{
+.catBtn,.consBtn{
 	border: 1px solid #004F7A!important;
     color: #004F7A!important;
     font-weight: bold; 
+    width: 100%;
+    padding: 10px ;
+    display: block;
 } 
 .catBtn:hover{
 	background: none!important;
@@ -79,6 +86,11 @@ body{
 }
 /*-----------------------------------Common---------------------------*/
 /*-----------------------------------header upper-bar---------------------------*/
+#top-fixed-banner{
+	/* border:1px solid red!important; */
+	background: #fff;
+	z-index:10;
+}
 header .upper-bar{
 	z-index : 1;
 	background: #F2FAF9;
@@ -87,6 +99,8 @@ header .upper-bar{
 .contact-num{
 	font-size: 0.9rem;
     font-family: "Times New Roman", Times, serif;
+    color: #1C7871;
+    font-weight: bold;
 }
 .h-login{
 	font-size: 1rem;
@@ -97,18 +111,22 @@ header .upper-bar{
 	color: var(--dark-orange);
 }
 .top-banner{
-	border: 1px solid #1C7871;
+	border-bottom: 1px solid #fff;
     font-size: 1rem;
     padding: 5px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 .top-banner a{
 	color: rgb(0,0,0);
 	text-decoration: none;
 }
+.top-banner a:hover{
+	color: #fff;
+	text-decoration: none;
+}
 .top-banner:hover{
 	color: #1C7871;
-	font-weight: bold;
+	/* font-weight: bold; */
 	/* border: 1px solid red; */
 }
 #mainNavBar .nav-item{
@@ -126,6 +144,13 @@ nav #dropdownMenuButton{
     color: #1C7871;
     border: none;
     font-weight: bold;
+}
+.h-nav{
+	color:#fff;
+}
+.h-nav:hover{
+	color:#fff;
+	font-weigth: bold;
 }
 /*-----------------------------------/header upper-bar---------------------------*/
 
@@ -167,6 +192,24 @@ nav #dropdownMenuButton{
 	background: #fff;
 }
 
+.br-right{
+	border-right: 1px solid rgba(0,0,0,0.1);
+}
+.br-bottom{
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.br-right-wh{
+	border-right: 1px solid rgba(255,255,255,0.5);
+}
+.br-bottom-wh{
+	border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+.consaltant-btn{
+	background: #fff!important;
+	border: 1px solid #fff!important;
+	color: #00406A!important;
+	width: 100%;
+}
 /*-----------------------------------/Intro text with carousel---------------------------*/
 
 /*-----------------------------------Highlights---------------------------*/
@@ -175,6 +218,15 @@ nav #dropdownMenuButton{
 }
 #stats .title, #stats .subtitle{
 	color: #1C7871;
+}
+#stats .stat-card{
+	height: 200px;
+	margin-bottom:1rem;
+}
+#stats .stat-num{
+	font-size: 2rem;
+	color: #1C7871;
+	font-weight: bold;
 }
 /*-----------------------------------/Highlights---------------------------*/
 /*-----------------------------------Events---------------------------*/
@@ -191,16 +243,18 @@ nav #dropdownMenuButton{
     display: flex;
     flex-direction: column;
 }
-#events .fa-user,#events .fa-phone-square-alt,#events .fa-envelope{
+#events .fa-user,#events .fa-phone-square-alt,#events .fa-envelope,#events .fa-map-marker-alt{
 	color: #004A74;
 }
 #events .event{
-	border-bottom: 1px solid rgba(0,0,0,0.2);
+	border-bottom: 1px solid #004A74;
+	border-top: 1px solid #004A74;
 	padding: 10px;
 }
 #events .name{
 	color: #1C7871;
 	font-weight: bold;
+	text-decoration: underline;
 }
 
 /*-----------------------------------/Events---------------------------*/
@@ -215,9 +269,10 @@ nav #dropdownMenuButton{
 	width: 90%;
 }
 #parallax-2 .consBtn, #events .consBtn{
-	border: 1px solid #fff;
-    color: #fff;
+	border: 1px solid #fff!important;
+    color: #fff!important;
     font-weight: bold;
+    width:100%;
 }
 #parallax-2 .consBtn:hover{
 	background: none;
@@ -244,9 +299,10 @@ nav #dropdownMenuButton{
 #testimonial video{
 	height: 220px;
 	width: auto;
+	max-width: 100%;
 }
 #testimonial .card{
-	height: 480px;
+	height: 460px;
 }
 #testimonial .modal-button{
 	position: absolute;
@@ -310,6 +366,23 @@ nav #dropdownMenuButton{
 	border-radius : 10px;
 	margin:25px;
 	padding : 20px;
+}
+#testimonial .testimonial-btn{
+	border: 1px solid #014F7A!important;
+	color: #014F7A!important;
+}
+.is-shady {
+animation: flyintoright .4s backwards;
+background: #fff;
+box-shadow: rgba(0, 0, 0, .1) 0 1px 0;
+border-radius: 4px;
+display: inline-block;
+/* margin: 10px; */
+/* position: relative; */
+transition: all .2s ease-in-out;
+}
+.is-shady:hover {
+box-shadow: 0 10px 16px rgba(0, 0, 0, .13), 0 6px 6px rgba(0, 0, 0, .19);
 }
 /*-----------------------------------Testimonials---------------------------*/
 
@@ -406,6 +479,13 @@ nav #dropdownMenuButton{
 .social-media .s-icon{
 	color: #004F7A;
 }
+.contact-icon{
+	color: #1C7871;
+	font-size: 1.5rem;
+}
+.contact-text a{
+	color:black!important;
+}
 /*-----------------------------------/Contact---------------------------*/
 
 /*-----------------------------------Footer---------------------------*/
@@ -454,9 +534,41 @@ footer{
 }
 
 
-
-
-
+.nav-tabs .nav-link.active{
+	color: #014F7A;
+	border-color: #014F7A #014F7A #fff #014F7A;
+	font-weight: bold;
+}
+.nav-tabs{
+	border-bottom: 1px solid #014F7A;
+}
+.nav-tabs .nav-item a{
+	color: rgba(0,0,0,0.6);
+}
+.comments{
+	display: block;
+	border-bottom: 2px solid #014F7A;
+	color: #014F7A;
+	font-weight: bold;
+}
+#back-to-top{
+	position:fixed;
+	bottom:16px;
+	right:16px;
+}
+#back-to-top a{
+	font-size: 3rem;
+	color:#1C7871;
+}
+.header-top{
+	background: #014F7A;
+}
+.header-top a{
+	color: #fff;
+}
+.header-top .contact-num{
+	color: #fff;
+}
 /****************************************header************************************************/
 
 /*viewport*/
@@ -485,13 +597,19 @@ footer{
 
 /*Small devices (landscape phones, less than 768px)*/
 @media (max-width: 767.98px) { 
-	
+	#stats .stat-card{
+	height: auto;
+	width: 100%;
+}
+#testimonial .card{
+	height: 420px;
+}
 	
 }
 
 /*Medium devices (tablets, less than 992px)*/
 @media (max-width: 991.98px) {  
-	
+
 }
 
 /*Large devices (desktops, less than 1200px)*/
@@ -499,3 +617,25 @@ footer{
 
 /*Extra large devices (large desktops)*/
 /*No media query since the extra-large breakpoint has no upper bound on its width*/
+
+/*  Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) { }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) { }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+			#stats .stat-card{
+	height: 220px;
+	}
+		#testimonial .card{
+	height: 500px;
+}
+	}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { }
