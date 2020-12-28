@@ -57,5 +57,11 @@ public class TrainingInformationServiceImpl implements TrainingInformationServic
 		return local.get();
 	}
 
+	@Override
+	public TrainingInformation findByTopicName(String topicName) {
+		// TODO Auto-generated method stub
+		return trainingInfoRepo.findBytitleName(topicName);
+	}
+
 
 }

@@ -12,5 +12,5 @@ public interface CommentService {
 	
 	void save(Comment com);
 	
-	List<Comment> getCommentBasedOnUserTutorialType(String type, User usr, Tutorial tut);
+	List<Comment> getCommentBasedOnUserTutorialType(String type, User usr, Tutorial tut,String role);
 }

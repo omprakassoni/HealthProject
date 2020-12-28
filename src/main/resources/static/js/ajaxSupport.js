@@ -629,7 +629,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg":preCommentMsg,
-									"type" : "Pre_requistic"
+									"type" : "Pre_requistic",
+									"role" : "Domain"
 								},
 								contentType : "application/json",
 								success : function(
@@ -709,7 +710,8 @@ $(document)
 								{
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Pre_requistic"
+									"type" : "Pre_requistic",
+									"role" : "Quality"
 								},
 								contentType : "application/json",
 								success : function(
@@ -3807,7 +3809,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Keyword"
+									"type" : "Keyword",
+									"role" : "Domain"
 								},
 								contentType : "application/json",
 
@@ -3919,7 +3922,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Outline"
+									"type" : "Outline",
+									"role" : "Domain"
 								},
 								contentType : "application/json",
 								success : function(
@@ -4523,7 +4527,8 @@ $(document)
 								data : {
 									"id" :tutorialId,
 									"msg" : msg,
-									"type" : "Video"
+									"type" : "Video",
+									"role" : "Domain"
 								},
 								contentType : "application/json",
 								success : function(
@@ -4595,7 +4600,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msgScript,
-									"type" : "Script"
+									"type" : "Script",
+									"role" : "Domain"
 								},
 								contentType : "application/json",
 								success : function(result) {
@@ -4672,7 +4678,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msgScript,
-									"type" : "Script"
+									"type" : "Script",
+									"role" : "Quality"
 								},
 								contentType : "application/json",
 								success : function(
@@ -4782,7 +4789,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Outline"
+									"type" : "Outline",
+									"role" : "Quality"
 								},
 								contentType : "application/json",
 								success : function(
@@ -4953,7 +4961,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Slide"
+									"type" : "Slide",
+									"role" : "Quality"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5207,7 +5216,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Slide"
+									"type" : "Slide",
+									"role" : "Domain"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5281,7 +5291,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Graphics"
+									"type" : "Graphics",
+									"role" : "Domain"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5361,7 +5372,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Keyword"
+									"type" : "Keyword",
+									"role" : "Quality"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5441,7 +5453,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Graphics"
+									"type" : "Graphics",
+									"role" : "Quality"
 								},
 								contentType : "application/json",
 								success : function(
@@ -5698,7 +5711,8 @@ $(document)
 								data : {
 									"id" : tutorialId,
 									"msg" : msg,
-									"type" : "Video"
+									"type" : "Video",
+									"role" : "Quality"
 								},
 								contentType : "application/json",
 								success : function(

@@ -52,6 +52,7 @@ import com.health.service.DistrictService;
 import com.health.service.EventService;
 import com.health.service.FeedBackMasterTrainerService;
 import com.health.service.LanguageService;
+import com.health.service.LogMangementService;
 import com.health.service.QuestionService;
 import com.health.service.RoleService;
 import com.health.service.StateService;
@@ -143,6 +144,7 @@ public class HomeController {
 	
 	@Autowired
 	private CommentService comService;
+
 
 //	@RequestMapping("/viewVideo/view/{id}")
 //	public String viewVideo(Model model, @PathVariable Integer id) {
@@ -2234,7 +2236,7 @@ public class HomeController {
 
 		}
 
-		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial);
+		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.adminReviewerRole);
 	
 		model.addAttribute("comVideo", comVideo);
 	
@@ -2317,13 +2319,13 @@ public class HomeController {
 
 		}
 		
-		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial);
-		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial);
-		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial);
-		List<Comment> comGraphics = comService.getCommentBasedOnUserTutorialType(CommonData.GRAPHICS, usr, tutorial);
-		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial);
-		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial);
-		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial);
+		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comGraphics = comService.getCommentBasedOnUserTutorialType(CommonData.GRAPHICS, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.domainReviewerRole);
 		
 		model.addAttribute("comOutline", comOutline);
 		model.addAttribute("comScript",comScript );
@@ -2422,13 +2424,13 @@ public class HomeController {
 
 		}
 		
-		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial);
-		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial);
-		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial);
-		List<Comment> comGraphics = comService.getCommentBasedOnUserTutorialType(CommonData.GRAPHICS, usr, tutorial);
-		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial);
-		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial);
-		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial);
+		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comGraphics = comService.getCommentBasedOnUserTutorialType(CommonData.GRAPHICS, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.qualityReviewerRole);
 		
 		model.addAttribute("comOutline", comOutline);
 		model.addAttribute("comScript",comScript );
@@ -2596,6 +2598,12 @@ public class HomeController {
 
 		if(!ServiceUtility.checkFileExtensionZip(trainingImage)) {
 
+			// throw error on output
+			return "masterTrainerOperation";
+		}
+		
+		if(trainingInfoService.findByTopicName(titleName) != null) {
+			
 			// throw error on output
 			return "masterTrainerOperation";
 		}

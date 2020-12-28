@@ -17,4 +17,7 @@ public interface TrainingInformationService {
 	List<TrainingInformation> findAll();
 	
 	TrainingInformation getById(int id);
+	
+	TrainingInformation findByTopicName(String topicName);
+	
 }

@@ -765,7 +765,7 @@
 										
 										</div>
 										<div class="col-12">
-										<div th:if="${not #lists.isEmpty(outlineComment)}">
+										<div th:if="${not #lists.isEmpty(comOutline)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${outlineComment}" class="border-bottom"> 
 											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
@@ -857,7 +857,7 @@
 										</form>
 									</div>
 									<div class="col-12">
-									<div th:if="${not #lists.isEmpty(keywordComment)}">
+									<div th:if="${not #lists.isEmpty(comKeyword)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${keywordComment}" class="border-bottom"> 
 											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
@@ -953,12 +953,12 @@
 									
 									</div>
 									<div class="col-12">
-									<div th:if="${not #lists.isEmpty(videoComment)}">
+									<div th:if="${not #lists.isEmpty(comVideo)}">
 									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${videoComment}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    <div th:each="comment : ${comVideo}" class="border-bottom"> 
+											    <!-- <p class="my-0"><strong><span th:text="${}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${}"></span></small></p> -->
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
 									
@@ -1104,7 +1104,7 @@
 										</div>
 									</div>
 									<div class="col-12">
-									<div th:if="${not #lists.isEmpty(scriptComment)}">
+									<div th:if="${not #lists.isEmpty(comScript)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${scriptComment}" class="border-bottom"> 
 											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
@@ -1298,7 +1298,7 @@
 										</div>
 									</div>
 									<div class="col-12">
-									<div th:if="${not #lists.isEmpty(slideomment)}">
+									<div th:if="${not #lists.isEmpty(comSlide)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${slideComment}" class="border-bottom"> 
 											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>

@@ -22,6 +22,7 @@ import com.health.model.Comment;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
 import com.health.model.Language;
+import com.health.model.LogManegement;
 import com.health.model.Question;
 import com.health.model.State;
 import com.health.model.Topic;
@@ -36,6 +37,7 @@ import com.health.service.CommentService;
 import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
 import com.health.service.LanguageService;
+import com.health.service.LogMangementService;
 import com.health.service.RoleService;
 import com.health.service.StateService;
 import com.health.service.TopicCategoryMappingService;
@@ -94,6 +96,9 @@ public class AjaxController{
 	
 	@Autowired
 	private CommentService comService;
+	
+	@Autowired
+	private LogMangementService logService;
 	
 	
 	
@@ -313,9 +318,13 @@ public class AjaxController{
 		
 		if(tutorialId != 0) {
 			Tutorial tut=tutService.getById(tutorialId);
+			
+			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.OUTLINE, CommonData.DOMAIN_STATUS, tut.getOutlineStatus(), CommonData.contributorRole, usr, tut);
 			tut.setOutline(outlineData);
 			tut.setOutlineStatus(CommonData.DOMAIN_STATUS);
+			
 			tutService.save(tut);
+			logService.save(log);
 			return CommonData.Outline_SAVE_SUCCESS_MSG;
 			
 		}else {
@@ -334,6 +343,9 @@ public class AjaxController{
 			
 			try {
 				tutService.save(local);
+				
+				LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.OUTLINE, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
+				logService.save(log);
 				
 			}catch (Exception e) {
 				// TODO: handle exception
@@ -375,9 +387,13 @@ public class AjaxController{
 		
 		if(tutorialId != 0) {
 			Tutorial tut=tutService.getById(tutorialId);
+			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.KEYWORD, CommonData.DOMAIN_STATUS, tut.getKeywordStatus(), CommonData.contributorRole, usr, tut);
 			tut.setKeyword(keywordData);
 			tut.setKeywordStatus(CommonData.DOMAIN_STATUS);
+			
 			tutService.save(tut);
+			
+			logService.save(log);
 			return CommonData.Keyword_SAVE_SUCCESS_MSG;
 			
 		}else {
@@ -396,6 +412,9 @@ public class AjaxController{
 			
 			try {
 				tutService.save(local);
+				
+				LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.KEYWORD, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
+				logService.save(log);
 				
 			}catch (Exception e) {
 				// TODO: handle exception
@@ -427,6 +446,7 @@ public class AjaxController{
 		
 		if(tutorialId != 0) {
 			Tutorial tut=tutService.getById(tutorialId);
+			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.VIDEO, CommonData.ADMIN_STATUS, tut.getVideoStatus(), CommonData.contributorRole, usr, tut);
 			
 			try {
 				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/Video");
@@ -437,6 +457,9 @@ public class AjaxController{
 					
 					tut.setVideo(document);
 					tut.setVideoStatus(CommonData.ADMIN_STATUS);
+					
+					
+					logService.save(log);
 					tutService.save(tut);
 					
 					return CommonData.Video_SAVE_SUCCESS_MSG;
@@ -473,6 +496,9 @@ public class AjaxController{
 					tut1.setVideo(document);
 					tut1.setVideoStatus(CommonData.ADMIN_STATUS);
 					tutService.save(tut1);
+					
+					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.KEYWORD, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
+					logService.save(log);
 					
 					return CommonData.Video_SAVE_SUCCESS_MSG;
 					
@@ -511,6 +537,7 @@ public class AjaxController{
 		
 		if(tutorialId != 0) {
 			Tutorial tut=tutService.getById(tutorialId);
+			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.GRAPHICS, CommonData.DOMAIN_STATUS, tut.getGraphicsStatus(), CommonData.contributorRole, usr, tut);
 			
 			try {
 				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/Graphics");
@@ -522,6 +549,8 @@ public class AjaxController{
 					tut.setGraphics(document);
 					tut.setGraphicsStatus(CommonData.DOMAIN_STATUS);
 					tutService.save(tut);
+					
+					logService.save(log);
 					
 					return CommonData.Graphics_SAVE_SUCCESS_MSG;
 					
@@ -557,6 +586,9 @@ public class AjaxController{
 					tut1.setGraphics(document);
 					tut1.setGraphicsStatus(CommonData.DOMAIN_STATUS);
 					tutService.save(tut1);
+					
+					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.GRAPHICS, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
+					logService.save(log);
 					
 					return CommonData.Graphics_SAVE_SUCCESS_MSG;
 					
@@ -595,6 +627,8 @@ public class AjaxController{
 		
 		if(tutorialId != 0) {
 			Tutorial tut=tutService.getById(tutorialId);
+			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SLIDE, CommonData.DOMAIN_STATUS, tut.getSlideStatus(), CommonData.contributorRole, usr, tut);
+			
 			
 			try {
 				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/Slide");
@@ -606,7 +640,7 @@ public class AjaxController{
 					tut.setSlide(document);
 					tut.setSlideStatus(CommonData.DOMAIN_STATUS);
 					tutService.save(tut);
-					
+					logService.save(log);
 					return CommonData.Slide_SAVE_SUCCESS_MSG;
 					
 			}catch (Exception e) {
@@ -641,6 +675,9 @@ public class AjaxController{
 					tut1.setSlide(document);
 					tut1.setSlideStatus(CommonData.DOMAIN_STATUS);
 					tutService.save(tut1);
+					
+					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SLIDE, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
+					logService.save(log);
 					
 					return CommonData.Slide_SAVE_SUCCESS_MSG;
 					
@@ -679,6 +716,8 @@ public class AjaxController{
 		
 		if(tutorialId != 0) {
 			Tutorial tut=tutService.getById(tutorialId);
+			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SCRIPT, CommonData.DOMAIN_STATUS, tut.getScriptStatus(), CommonData.contributorRole, usr, tut);
+			
 			
 			try {
 				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/Script");
@@ -691,6 +730,7 @@ public class AjaxController{
 					tut.setScriptStatus(CommonData.DOMAIN_STATUS);
 					tutService.save(tut);
 					
+					logService.save(log);
 					return CommonData.Script_SAVE_SUCCESS_MSG;
 					
 			}catch (Exception e) {
@@ -726,6 +766,9 @@ public class AjaxController{
 					tut1.setScriptStatus(CommonData.DOMAIN_STATUS);
 					tutService.save(tut1);
 					
+					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SCRIPT, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
+					logService.save(log);
+					
 					return CommonData.Script_SAVE_SUCCESS_MSG;
 					
 				}else {
@@ -753,12 +796,21 @@ public class AjaxController{
 	
 	/********************************** operation at Admin End *****************************************/
 	@RequestMapping("/acceptAdminVideo")
-	public @ResponseBody String addAdminVideo(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String addAdminVideo(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.VIDEO, CommonData.DOMAIN_STATUS, tutorial.getVideoStatus(), CommonData.adminReviewerRole, usr, tutorial);
+		
 		tutorial.setVideoStatus(CommonData.DOMAIN_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Video_STATUS_SUCCESS_MSG;
 		
 	}
@@ -769,78 +821,136 @@ public class AjaxController{
 	
 	/********************************** operation at DOMAIN USER *****************************************/
 	@RequestMapping("/acceptDomainOutline")
-	public @ResponseBody String acceptDomainOutline(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptDomainOutline(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.OUTLINE, CommonData.QUALITY_STATUS, tutorial.getOutlineStatus(), CommonData.domainReviewerRole, usr, tutorial);
 		tutorial.setOutlineStatus(CommonData.QUALITY_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Outline_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptDomainScript")
-	public @ResponseBody String acceptDomainScript(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptDomainScript(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SCRIPT, CommonData.QUALITY_STATUS, tutorial.getScriptStatus(), CommonData.domainReviewerRole, usr, tutorial);
+		
 		tutorial.setScriptStatus(CommonData.QUALITY_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Script_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptDomainVideo")
-	public @ResponseBody String acceptDomainVideo(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptDomainVideo(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.VIDEO, CommonData.QUALITY_STATUS, tutorial.getVideoStatus(), CommonData.domainReviewerRole, usr, tutorial);
+		
 		tutorial.setVideoStatus(CommonData.QUALITY_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Video_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptDomainSlide")
-	public @ResponseBody String acceptDomainSlide(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptDomainSlide(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SLIDE, CommonData.QUALITY_STATUS, tutorial.getSlideStatus(), CommonData.domainReviewerRole, usr, tutorial);
 		tutorial.setSlideStatus(CommonData.QUALITY_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Slide_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptDomainKeywords")
-	public @ResponseBody String acceptDomainKeywords(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptDomainKeywords(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.KEYWORD, CommonData.QUALITY_STATUS, tutorial.getKeywordStatus(), CommonData.domainReviewerRole, usr, tutorial);
 		tutorial.setKeywordStatus(CommonData.QUALITY_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Keyword_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptDomainPreRequistic")
-	public @ResponseBody String acceptDomainPreRequistic(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptDomainPreRequistic(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.PRE_REQUISTIC, CommonData.QUALITY_STATUS, tutorial.getPreRequisticStatus(), CommonData.domainReviewerRole, usr, tutorial);
 		tutorial.setPreRequisticStatus(CommonData.QUALITY_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptDomainGraphics")
-	public @ResponseBody String acceptDomainGraphics(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptDomainGraphics(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.GRAPHICS, CommonData.QUALITY_STATUS, tutorial.getGraphicsStatus(), CommonData.domainReviewerRole, usr, tutorial);
 		tutorial.setGraphicsStatus(CommonData.QUALITY_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Graphics_SAVE_SUCCESS_MSG;
 		
 	}
@@ -851,78 +961,134 @@ public class AjaxController{
 	
 	/********************************** operation at Quality USER *****************************************/
 	@RequestMapping("/acceptQualityOutline")
-	public @ResponseBody String acceptQualityOutline(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptQualityOutline(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.OUTLINE, CommonData.WAITING_PUBLISH_STATUS, tutorial.getOutlineStatus(), CommonData.qualityReviewerRole, usr, tutorial);
 		tutorial.setOutlineStatus(CommonData.WAITING_PUBLISH_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Outline_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptQualityScript")
-	public @ResponseBody String acceptQualityScript(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptQualityScript(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SCRIPT, CommonData.WAITING_PUBLISH_STATUS, tutorial.getScriptStatus(), CommonData.qualityReviewerRole, usr, tutorial);
 		tutorial.setScriptStatus(CommonData.WAITING_PUBLISH_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Script_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptQualityVideo")
-	public @ResponseBody String acceptQualityVideo(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptQualityVideo(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.VIDEO, CommonData.WAITING_PUBLISH_STATUS, tutorial.getVideoStatus(), CommonData.qualityReviewerRole, usr, tutorial);
 		tutorial.setVideoStatus(CommonData.WAITING_PUBLISH_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Video_STATUS_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptQualitySlide")
-	public @ResponseBody String acceptQualitySlide(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptQualitySlide(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SLIDE, CommonData.WAITING_PUBLISH_STATUS, tutorial.getSlideStatus(), CommonData.qualityReviewerRole, usr, tutorial);
 		tutorial.setSlideStatus(CommonData.WAITING_PUBLISH_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Slide_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptQualityKeywords")
-	public @ResponseBody String acceptQualityKeywords(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptQualityKeywords(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.KEYWORD, CommonData.WAITING_PUBLISH_STATUS, tutorial.getKeywordStatus(), CommonData.qualityReviewerRole, usr, tutorial);
 		tutorial.setKeywordStatus(CommonData.WAITING_PUBLISH_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Keyword_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptQualityPreRequistic")
-	public @ResponseBody String acceptQualityPreRequistic(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptQualityPreRequistic(@RequestParam(value = "id") int tutorialId, Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.PRE_REQUISTIC, CommonData.WAITING_PUBLISH_STATUS, tutorial.getPreRequisticStatus(), CommonData.qualityReviewerRole, usr, tutorial);
 		tutorial.setPreRequisticStatus(CommonData.WAITING_PUBLISH_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
 		
 	}
 	
 	@RequestMapping("/acceptQualityGraphics")
-	public @ResponseBody String acceptQualityGraphics(@RequestParam(value = "id") int tutorialId) {
+	public @ResponseBody String acceptQualityGraphics(@RequestParam(value = "id") int tutorialId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
 		
 		Tutorial tutorial=tutService.getById(tutorialId);
+		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.GRAPHICS, CommonData.WAITING_PUBLISH_STATUS, tutorial.getGraphicsStatus(), CommonData.qualityReviewerRole, usr, tutorial);
 		tutorial.setGraphicsStatus(CommonData.WAITING_PUBLISH_STATUS);
 		tutService.save(tutorial);
-		
+		logService.save(log);
 		return CommonData.Graphics_SAVE_SUCCESS_MSG;
 		
 	}
@@ -957,9 +1123,10 @@ public class AjaxController{
 		try {
 			comService.save(com);
 			
+			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.VIDEO, CommonData.IMPROVEMENT_STATUS, tut.getVideoStatus(), CommonData.adminReviewerRole, usr, tut);
 			tut.setVideoStatus(CommonData.IMPROVEMENT_STATUS);
 			tutService.save(tut);
-			
+			logService.save(log);
 			return CommonData.COMMENT_SUCCESS;
 			
 		}catch (Exception e) {
@@ -974,7 +1141,9 @@ public class AjaxController{
 	@RequestMapping("/commentByReviewer")
 	public @ResponseBody String commentByReviewer(@RequestParam(value = "id") int tutorialId,
 													@RequestParam(value = "msg") String msg, 
-													@RequestParam(value = "type") String type,Principal principal) {
+													@RequestParam(value = "type") String type,
+													@RequestParam(value = "role") String role,
+													Principal principal) {
 		
 		User usr=new User();
 
@@ -983,6 +1152,15 @@ public class AjaxController{
 			usr=usrservice.findByUsername(principal.getName());
 		}
 		
+		String roleName = null;
+		int statusvalue=0;
+		String typeValue=null;
+		
+		if(role.equalsIgnoreCase("Quality")) {
+			roleName=CommonData.qualityReviewerRole;
+		}else if(role.equalsIgnoreCase("Domain")) {
+			roleName=CommonData.domainReviewerRole;
+		}
 		Tutorial tut = tutService.getById(tutorialId);
 		
 		Comment com = new Comment();
@@ -992,18 +1170,39 @@ public class AjaxController{
 		
 		if(type.equalsIgnoreCase(CommonData.SCRIPT)) {
 			com.setType(CommonData.SCRIPT);
+			statusvalue = tut.getScriptStatus();
+			typeValue = CommonData.SCRIPT;
+			
 		}else if(type.equalsIgnoreCase(CommonData.KEYWORD)) {
 			com.setType(CommonData.KEYWORD);
+			statusvalue = tut.getKeywordStatus();
+			typeValue = CommonData.KEYWORD;
+			
 		}else if(type.equalsIgnoreCase(CommonData.SLIDE)) {
 			com.setType(CommonData.SLIDE);
+			statusvalue = tut.getSlideStatus();
+			typeValue = CommonData.SLIDE;
+			
 		}else if(type.equalsIgnoreCase(CommonData.VIDEO)) {
 			com.setType(CommonData.VIDEO);
+			statusvalue = tut.getVideoStatus();
+			typeValue = CommonData.VIDEO;
+			
 		}else if(type.equalsIgnoreCase(CommonData.GRAPHICS)) {
 			com.setType(CommonData.GRAPHICS);
+			statusvalue = tut.getGraphicsStatus();
+			typeValue = CommonData.GRAPHICS;
+			
 		}else if(type.equalsIgnoreCase(CommonData.PRE_REQUISTIC)) {
 			com.setType(CommonData.PRE_REQUISTIC);
+			statusvalue = tut.getPreRequisticStatus();
+			typeValue = CommonData.PRE_REQUISTIC;
+			
 		}else if(type.equalsIgnoreCase(CommonData.OUTLINE)) {
 			com.setType(CommonData.OUTLINE);
+			statusvalue = tut.getOutlineStatus();
+			typeValue = CommonData.OUTLINE;
+			
 		}else {
 			
 			return CommonData.FAILURE;
@@ -1012,8 +1211,11 @@ public class AjaxController{
 		com.setUser(usr);
 		com.setTutorialInfos(tut);
 		
+		
 		try {
 			comService.save(com);
+			
+			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), typeValue, CommonData.IMPROVEMENT_STATUS, statusvalue, roleName, usr, tut);
 			
 			if(type.equalsIgnoreCase(CommonData.SCRIPT)) {
 				tut.setScriptStatus(CommonData.IMPROVEMENT_STATUS);
@@ -1032,6 +1234,7 @@ public class AjaxController{
 			}
 			
 			tutService.save(tut);
+			logService.save(log);
 			
 			return CommonData.COMMENT_SUCCESS;
 			

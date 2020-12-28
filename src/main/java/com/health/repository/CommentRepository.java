@@ -15,6 +15,6 @@ public interface CommentRepository extends CrudRepository<Comment, Integer>{
 	@Query("select max(commentId) from Comment")
 	int getNewId();
 
-	@Query("from Comment where type=?1 and user=?2 and tutorialInfos=?3")
-	List<Comment> getCommentBasedOnUserTutorialType(String type, User usr, Tutorial tut);
+	@Query("from Comment where type=?1 and user=?2 and tutorialInfos=?3 and roleName=?4")
+	List<Comment> getCommentBasedOnUserTutorialType(String type, User usr, Tutorial tut,String roleName);
 }

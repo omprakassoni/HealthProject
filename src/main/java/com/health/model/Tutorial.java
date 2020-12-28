@@ -88,6 +88,9 @@ public class Tutorial {
 	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Comment> comments =new HashSet<Comment>();
 	
+	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<LogManegement> logs =new HashSet<LogManegement>();
+	
 	public int getTutorialId() {
 		return tutorialId;
 	}
@@ -255,6 +258,15 @@ public class Tutorial {
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
+
+	public Set<LogManegement> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(Set<LogManegement> logs) {
+		this.logs = logs;
+	}
+	
 	
 	
 

@@ -11,4 +11,6 @@ public interface TrainingInformationRespository extends CrudRepository<TrainingI
 
 	@Query("select max(trainingId) from TrainingInformation")
 	int getNewId();
+	
+	TrainingInformation findBytitleName(String topicName);
 }

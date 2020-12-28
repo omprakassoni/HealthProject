@@ -27,6 +27,8 @@ public class Comment{
 	
 	private String type;
 	
+	private String roleName;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -81,6 +83,14 @@ public class Comment{
 
 	public void setTutorialInfos(Tutorial tutorialInfos) {
 		this.tutorialInfos = tutorialInfos;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 	
 
