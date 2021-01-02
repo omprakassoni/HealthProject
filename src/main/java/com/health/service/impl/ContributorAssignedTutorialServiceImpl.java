@@ -59,4 +59,10 @@ public class ContributorAssignedTutorialServiceImpl implements ContributorAssign
 		return localData;
 	}
 
+	@Override
+	public List<ContributorAssignedTutorial> findAllByTopicCat(List<TopicCategoryMapping> topCat) {
+		// TODO Auto-generated method stub
+		return conRepo.findByTopicCat(topCat);
+	}
+
 }

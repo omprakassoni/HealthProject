@@ -8,15 +8,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -57,8 +56,9 @@ public class Tutorial {
 	@Column(name = "outline_status")
 	private int outlineStatus = 0;
 	
-	@Column(name = "preRequistic")
-	private String preRequistic;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "preRequistics")
+	private Tutorial preRequistic;
 	
 	@Column(name = "preRequistic_status")
 	private int preRequisticStatus = 0;
@@ -87,6 +87,9 @@ public class Tutorial {
 	
 	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Comment> comments =new HashSet<Comment>();
+	
+	@OneToMany(mappedBy = "preRequistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Tutorial> preRequisticTutorial =new HashSet<Tutorial>();
 	
 	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<LogManegement> logs =new HashSet<LogManegement>();
@@ -179,11 +182,11 @@ public class Tutorial {
 		this.outlineStatus = outlineStatus;
 	}
 
-	public String getPreRequistic() {
+	public  Tutorial getPreRequistic() {
 		return preRequistic;
 	}
 
-	public void setPreRequistic(String preRequistic) {
+	public void setPreRequistic(Tutorial preRequistic) {
 		this.preRequistic = preRequistic;
 	}
 

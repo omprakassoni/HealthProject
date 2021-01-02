@@ -482,21 +482,24 @@ $(document)
 
 					});
 
-			// here is code for pre requisite category
+			// Changes made by Om prakash
 
-			$('#preRequsiteId').change(
-					function() {
-						var catgoryid = $(this).find(
-								":selected").val();
+			$('#preRequsiteId').change(function() {
+						
+				var catgoryid = $(this).find(":selected").val();
+				var tutorialId=$('#tutorialId').val();
+				var langName=$('#lanId').val();
 
 
 
 						$.ajax({
 							type : "GET",
-							url : projectPath+"loadByCategoryTuturial",
+							url : projectPath+"loadTopicByCategoryPreRequistic",
 							data : {
 
-								"id" : catgoryid
+								"id" : catgoryid,
+								"tutorialId" : tutorialId,
+								"langName" : langName
 							},
 							contentType : "application/json",
 							success : function(result) 
@@ -506,31 +509,23 @@ $(document)
 								var html = '';
 								var len = result.length;
 								html += '<option value="0">Select Topic</option>';
-								for (var i = 0; i < len; i++) {
-									html += '<option value="'
-										+ result[i]
-									+ '">'
-									+ result[i]
-									+ '</option>';
-								}
+								 $.each(result , function( key, value ) {
+				  	  			        html += '<option value=' + key + '>'
+				  			               + value
+				  			               + '</option>';
+				  	  			        })
+								
 								html += '</option>';
 
 
 
-								$("#inputLanguageAll")
-								.prop(
-										'disabled',
-										false);
-								$('#inputLanguageAll')
-								.html(html);
+								$("#inputLanguageAll").prop('disabled',false);
+								$('#inputLanguageAll').html(html);
 
 							},
 
 							error : function(err) {
-								console
-								.log("not working. ERROR: "
-										+ JSON
-										.stringify(err));
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							}
 
 						});
@@ -736,53 +731,38 @@ $(document)
 
 
 
-			// here is code for prerequisite  submit
+			// Changes made by om prakash
 
-			$('#uploadpreRequsiteId').click(function() 
-					{
+			$('#uploadpreRequsiteId').click(function() {
 
-				var p_catgoryid = $("#preRequsiteId").val();
-
-				var p_topic = $("#inputLanguageAll").val();
-
-				var p_lanId = $("#lanId").val();
-
-
+			
+				var tutorialId = $("#inputLanguageAll").val();
 				var categoryid = $("#categoryId").val();
-				var topicid = $("#topicId").val();
+				var topicid = $("#topicID").val();
 				var lanId = $("#lanId").val();
+
 
 				$.ajax({
 					type : "GET",
-					url : projectPath+"loadCatAndTopicInPre",
+					url : projectPath+"addPreRequistic",
 					data : {
 
-						"p_id" : p_catgoryid,
-						"p_topic": p_topic,
-						"p_lanId": p_lanId,
-						"categorname" : categoryid,
+						"id" :tutorialId,
+						"categoryname" : categoryid,
 						"topicid" : topicid,
 						"lanId" : lanId
 					},
 					contentType : "application/json",
 					success : function(result) 
 					{
-
-
-						$("#exampleModalLabelPre")
-						.prop(
-								'disabled',
-								false);
-						$("#exampleModalLabelPre")
-						.html(html);
+						$("#exampleModalLabelPre").prop('disabled',false);
+						$("#exampleModalLabelPre").html(html);
 
 					},
 
 					error : function(err) {
 						console
-						.log("not working. ERROR: "
-								+ JSON
-								.stringify(err));
+						.log("not working. ERROR: "+ JSON.stringify(err));
 					}
 
 				});

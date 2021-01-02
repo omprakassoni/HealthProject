@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
@@ -26,4 +27,8 @@ public interface ContributorAssignedTutorialRepository extends CrudRepository<Co
 	
 	@Query("from ContributorAssignedTutorial where topicCatId=?1 and lan=?2")
 	ContributorAssignedTutorial findByTopicCatLan(TopicCategoryMapping topicCat,Language lan);
+	
+	@Query("from ContributorAssignedTutorial where topicCatId IN (:TopicCat)")
+	List<ContributorAssignedTutorial> findByTopicCat(@Param("TopicCat")List<TopicCategoryMapping> topCat);
 }
+

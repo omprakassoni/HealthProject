@@ -1132,11 +1132,11 @@
 								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
 								  						</span> -->
 
-													<span id="categorySelect" th:each="catgoryName : ${catAll}">
+													<span id="categorySelect" th:each="category : ${categories}">
 
 														<option class="form-control" id="categoryId"
 															name="categoryName"
-															th:text="${catgoryName.getCategoryname()}"
+															th:text="${category.getCatName()}"
 															readonly="readonly"></option>
 													</span>
 												</select>

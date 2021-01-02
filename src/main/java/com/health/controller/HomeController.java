@@ -683,6 +683,24 @@ public class HomeController {
 		Category cat =catService.findByid(categoryId);
 		System.out.println(cat.getCatName());
 
+		Topic topicTemp = topicService.findBytopicName(topicName);
+		
+		if(topicTemp!=null) {
+			
+			if(topicCatService.findAllByCategoryAndTopic(cat, topicTemp)==null) {
+				
+				TopicCategoryMapping localTopicMap=new TopicCategoryMapping(topicCatService.getNewId(), true, cat, topicTemp);
+				topicCatService.save(localTopicMap);
+				model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
+				return "addTopic";
+				
+			}else {
+				
+				model.addAttribute("error_msg", CommonData.RECORD_ERROR);
+				return "addTopic";
+			}
+		}
+		
 		Topic local=new Topic();
 		local.setTopicId(topicService.getNewTopicId());
 		local.setTopicName(topicName);
@@ -2131,7 +2149,7 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-
+		List<Category> categories = catService.findAll();
 		Category cat=catService.findBycategoryname(categoryName);
 		Topic topic=topicService.findById(topicId);
 		Language lan=lanService.getByLanName(langName);
@@ -2163,10 +2181,11 @@ public class HomeController {
 				model.addAttribute("tutorial", local);
 			}
 		}
-
+		
 		model.addAttribute("category", cat);
 		model.addAttribute("topic", topic);
 		model.addAttribute("language", lan);
+		model.addAttribute("categories", categories);
 		return "uploadTutorialPost";
 	}
 

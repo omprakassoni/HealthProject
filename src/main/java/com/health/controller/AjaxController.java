@@ -167,6 +167,45 @@ public class AjaxController{
 
 	}
 	
+	@RequestMapping("/loadTopicByCategoryPreRequistic")
+	public @ResponseBody HashMap<Integer, String> getTopicByCategoryPreRequistic(@RequestParam(value = "id") String id,
+																			@RequestParam(value = "tutorialId") int tutorialId,
+																			@RequestParam(value = "langName") String langName) {
+
+		HashMap<Integer,String> topicName=new HashMap<>();
+
+		Language lan=lanService.getByLanName(langName);
+		Tutorial tut =tutService.getById(tutorialId);
+		Category cat = catService.findBycategoryname(id);
+
+		List<TopicCategoryMapping> local = topicCatService.findAllByCategory(cat) ;
+		
+		List<ContributorAssignedTutorial> cons=conService.findAllByTopicCat(local);
+ 		
+		List<ContributorAssignedTutorial> tempCon= new ArrayList<ContributorAssignedTutorial>();
+		
+		for(ContributorAssignedTutorial x : cons) {
+			
+			if(x.getLan().getLangName().equalsIgnoreCase(lan.getLangName())) {
+				tempCon.add(x);
+			}
+		}
+
+		List<Tutorial> tuts = tutService.findAllByContributorAssignedTutorialList(tempCon);
+		
+		for(Tutorial temp : tuts) {
+
+			System.out.println(temp.getTutorialId());
+			if(temp.getTutorialId() != tut.getTutorialId()) {
+				
+				topicName.put(temp.getTutorialId(), temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
+			}
+			
+		}
+		return topicName;
+
+	}
+	
 	@RequestMapping("/enableRoleById")
 	public @ResponseBody String enableRoleById(@RequestParam(value = "id") long id) {
 		
@@ -425,6 +464,67 @@ public class AjaxController{
 		}
 		
 		return CommonData.Keyword_SAVE_SUCCESS_MSG;
+		
+	}
+	
+	@RequestMapping("/addPreRequistic")
+	public @ResponseBody String addPreRequistic(@RequestParam(value = "id") int tutorialId,
+			@RequestParam(value = "categoryname") String catName,
+			@RequestParam(value = "topicid") int topicId,
+			@RequestParam(value = "lanId") String lanId,Principal principal) {
+		
+		User usr=new User();
+		
+		if(principal!=null) {
+			
+			usr=usrservice.findByUsername(principal.getName());
+		}
+		Tutorial tut = null;
+		
+		if(tutorialId != 0) {
+			tut=tutService.getById(tutorialId);
+		}
+		
+		if(tutorialId != 0) {
+			
+			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.PRE_REQUISTIC, CommonData.DOMAIN_STATUS, tut.getKeywordStatus(), CommonData.contributorRole, usr, tut);
+			tut.setPreRequistic(tut);
+			tut.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+			
+			tutService.save(tut);
+			
+			logService.save(log);
+			return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
+			
+		}else {
+			
+			Category cat = catService.findBycategoryname(catName);
+			Topic topic=topicService.findById(topicId);
+			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
+			Language lan=lanService.getByLanName(lanId);
+			ContributorAssignedTutorial conLocal=conService.findByUserTopicCatLan(usr, localTopicCat, lan);
+			Tutorial local=new Tutorial();
+			local.setDateAdded(ServiceUtility.getCurrentTime());
+			local.setConAssignedTutorial(conLocal);
+			local.setPreRequistic(tut);
+			local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+			local.setTutorialId(tutService.getNewId());
+			
+			try {
+				tutService.save(local);
+				
+				LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.PRE_REQUISTIC, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
+				logService.save(log);
+				
+			}catch (Exception e) {
+				// TODO: handle exception
+				return "error";       // throw error
+			}
+			
+			
+		}
+		
+		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
 		
 	}
 	
