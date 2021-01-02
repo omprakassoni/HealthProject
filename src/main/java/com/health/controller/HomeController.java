@@ -2418,6 +2418,78 @@ public class HomeController {
 
 
 	}
+	
+	@RequestMapping(value = "tutorialToPublish", method = RequestMethod.GET)
+	public String tutorialToPublishGet(Model model,Principal principal) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		List<Tutorial> published = new ArrayList<>();
+		Role role=roleService.findByname(CommonData.qualityReviewerRole);
+
+		List<UserRole> userRoles=usrRoleService.findByRoleUser(usr, role);
+		List<TopicCategoryMapping> localMap=topicCatService.findAllByCategoryBasedOnUserRoles(userRoles);
+
+		List<ContributorAssignedTutorial> conTutorials=conRepo.findByTopicCatLan(localMap, userRoles);
+
+		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
+		for(Tutorial temp:tutorials) {
+
+			if(temp.getOutlineStatus() >= CommonData.WAITING_PUBLISH_STATUS && temp.getScriptStatus() >= CommonData.WAITING_PUBLISH_STATUS &&
+					temp.getSlideStatus() >= CommonData.WAITING_PUBLISH_STATUS && temp.getKeywordStatus() >= CommonData.WAITING_PUBLISH_STATUS &&
+					temp.getVideoStatus() >= CommonData.WAITING_PUBLISH_STATUS && temp.getGraphicsStatus() >= CommonData.WAITING_PUBLISH_STATUS &&
+					temp.getPreRequisticStatus() >= CommonData.WAITING_PUBLISH_STATUS) {
+
+				published.add(temp);
+			}
+
+		}
+
+		model.addAttribute("tutorial", published);
+
+		return "listTutorialPublishQualityReviwer";
+
+
+	}
+	
+	@RequestMapping(value = "publish/{id}", method = RequestMethod.GET)
+	public String publishTutorialGet(@PathVariable int id,Model model,Principal principal) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		Tutorial tutorial=tutService.getById(id);
+
+		if(tutorial == null) {
+			// throw a error
+			model.addAttribute("tutorialNotExist", "Bad request");   //  throw proper error
+			return "redirect:/tutorialToPublish";
+
+		}
+		
+		tutorial.setKeywordStatus(CommonData.PUBLISH_STATUS);
+		tutorial.setOutlineStatus(CommonData.PUBLISH_STATUS);
+		tutorial.setSlideStatus(CommonData.PUBLISH_STATUS);
+		tutorial.setScriptStatus(CommonData.PUBLISH_STATUS);
+		tutorial.setGraphicsStatus(CommonData.PUBLISH_STATUS);
+		tutorial.setPreRequisticStatus(CommonData.PUBLISH_STATUS);
+		tutorial.setVideoStatus(CommonData.PUBLISH_STATUS);
+		tutorial.setStatus(true);
+		
+		tutService.save(tutorial);
+		
+		
+		return "redirect:/tutorialToPublish";
+	}
 
 	@RequestMapping(value = "qualityreview/review/{id}", method = RequestMethod.GET)
 	public String listQualityReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
