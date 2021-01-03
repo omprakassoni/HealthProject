@@ -52,7 +52,6 @@ import com.health.service.DistrictService;
 import com.health.service.EventService;
 import com.health.service.FeedBackMasterTrainerService;
 import com.health.service.LanguageService;
-import com.health.service.LogMangementService;
 import com.health.service.QuestionService;
 import com.health.service.RoleService;
 import com.health.service.StateService;
@@ -141,7 +140,7 @@ public class HomeController {
 
 	@Autowired
 	private FeedBackMasterTrainerService feedServ;
-	
+
 	@Autowired
 	private CommentService comService;
 
@@ -684,23 +683,23 @@ public class HomeController {
 		System.out.println(cat.getCatName());
 
 		Topic topicTemp = topicService.findBytopicName(topicName);
-		
+
 		if(topicTemp!=null) {
-			
+
 			if(topicCatService.findAllByCategoryAndTopic(cat, topicTemp)==null) {
-				
+
 				TopicCategoryMapping localTopicMap=new TopicCategoryMapping(topicCatService.getNewId(), true, cat, topicTemp);
 				topicCatService.save(localTopicMap);
 				model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 				return "addTopic";
-				
+
 			}else {
-				
+
 				model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 				return "addTopic";
 			}
 		}
-		
+
 		Topic local=new Topic();
 		local.setTopicId(topicService.getNewTopicId());
 		local.setTopicName(topicName);
@@ -1850,7 +1849,7 @@ public class HomeController {
 			model.addAttribute("categories", categories);
 
 			model.addAttribute("languages", languages);
-			model.addAttribute("success_msg", CommonData.ROLE_REQUEST_ERROR);
+			model.addAttribute("error_msg", CommonData.ROLE_REQUEST_ERROR);
 
 			return "addQualityRole";
 		}
@@ -1868,7 +1867,7 @@ public class HomeController {
 			model.addAttribute("success_msg", CommonData.QUALITY_ADDED_SUCCESS_MSG);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			model.addAttribute("success_msg", CommonData.ROLE_REQUEST_ERROR);
+			model.addAttribute("error_msg", CommonData.ROLE_REQUEST_ERROR);
 			e.printStackTrace();
 												// accommodate error message
 		}
@@ -2181,7 +2180,7 @@ public class HomeController {
 				model.addAttribute("tutorial", local);
 			}
 		}
-		
+
 		model.addAttribute("category", cat);
 		model.addAttribute("topic", topic);
 		model.addAttribute("language", lan);
@@ -2256,9 +2255,9 @@ public class HomeController {
 		}
 
 		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.adminReviewerRole);
-	
+
 		model.addAttribute("comVideo", comVideo);
-	
+
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
@@ -2337,7 +2336,7 @@ public class HomeController {
 			return "listTutorialAdminReviwer";
 
 		}
-		
+
 		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.domainReviewerRole);
@@ -2345,7 +2344,7 @@ public class HomeController {
 		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.domainReviewerRole);
-		
+
 		model.addAttribute("comOutline", comOutline);
 		model.addAttribute("comScript",comScript );
 		model.addAttribute("comSlide",comSlide );
@@ -2353,7 +2352,7 @@ public class HomeController {
 		model.addAttribute("comKeyword", comKeyword);
 		model.addAttribute("comPreReq", comPreRequistic);
 		model.addAttribute("comGraphics",comGraphics );
-		
+
 		model.addAttribute("statusOutline", CommonData.tutorialStatus[tutorial.getOutlineStatus()]);
 		model.addAttribute("statusScript", CommonData.tutorialStatus[tutorial.getScriptStatus()]);
 		model.addAttribute("statusSlide", CommonData.tutorialStatus[tutorial.getSlideStatus()]);
@@ -2418,7 +2417,7 @@ public class HomeController {
 
 
 	}
-	
+
 	@RequestMapping(value = "tutorialToPublish", method = RequestMethod.GET)
 	public String tutorialToPublishGet(Model model,Principal principal) {
 		User usr=new User();
@@ -2456,7 +2455,7 @@ public class HomeController {
 
 
 	}
-	
+
 	@RequestMapping(value = "publish/{id}", method = RequestMethod.GET)
 	public String publishTutorialGet(@PathVariable int id,Model model,Principal principal) {
 		User usr=new User();
@@ -2475,7 +2474,7 @@ public class HomeController {
 			return "redirect:/tutorialToPublish";
 
 		}
-		
+
 		tutorial.setKeywordStatus(CommonData.PUBLISH_STATUS);
 		tutorial.setOutlineStatus(CommonData.PUBLISH_STATUS);
 		tutorial.setSlideStatus(CommonData.PUBLISH_STATUS);
@@ -2484,10 +2483,10 @@ public class HomeController {
 		tutorial.setPreRequisticStatus(CommonData.PUBLISH_STATUS);
 		tutorial.setVideoStatus(CommonData.PUBLISH_STATUS);
 		tutorial.setStatus(true);
-		
+
 		tutService.save(tutorial);
-		
-		
+
+
 		return "redirect:/tutorialToPublish";
 	}
 
@@ -2514,7 +2513,7 @@ public class HomeController {
 			return "listTutorialAdminReviwer";
 
 		}
-		
+
 		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.qualityReviewerRole);
 		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.qualityReviewerRole);
 		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.qualityReviewerRole);
@@ -2522,7 +2521,7 @@ public class HomeController {
 		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.qualityReviewerRole);
 		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.qualityReviewerRole);
 		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.qualityReviewerRole);
-		
+
 		model.addAttribute("comOutline", comOutline);
 		model.addAttribute("comScript",comScript );
 		model.addAttribute("comSlide",comSlide );
@@ -2692,9 +2691,9 @@ public class HomeController {
 			// throw error on output
 			return "masterTrainerOperation";
 		}
-		
+
 		if(trainingInfoService.findByTopicName(titleName) != null) {
-			
+
 			// throw error on output
 			return "masterTrainerOperation";
 		}

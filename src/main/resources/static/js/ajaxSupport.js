@@ -2680,7 +2680,7 @@ $(document)
 			
 			$('#outlineId').click(function() {
 				
-						$(this).toggle();
+//						$(this).toggle();
 						$('#editOutline').toggle();
 
 						var saveInfo = editor.getData();
@@ -3331,7 +3331,7 @@ $(document)
 /************************* changes made by om prakash **********************************************/
 			
 			$('#contributorId').on('change',function() {
-
+						
 						var userContributor = $(this).find(':selected').val();
 						console.log(userContributor);
 						$.ajax({
