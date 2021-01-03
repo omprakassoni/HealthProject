@@ -1,271 +1,92 @@
 
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-<head>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-	integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-</head>
+<head th:replace="common/trail :: common-trail"></head>
 <body>
-<div th:replace="common/sidebar :: top_header"></div>
-<div class="container-fluid">
-<div class="row">
-<div class="col-md-3 col-lg-2 pr-0">
-<div th:replace="common/sidebar :: contributor_sidebar"></div>
-</div>
-<div class="col-md-9 col-lg-10 p-md-5">
-<div>
-				<div class="alert alert-success" role="alert" th:if="${success_msg}">
-	 				<div id="#test" class="">
-						<div >
-							<span th:text="${success_msg}"></span>
+	<div th:replace="common/sidebar :: top_header"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 col-lg-2 pr-0">
+				<div th:replace="common/sidebar :: contributor_sidebar"></div>
+			</div>
+			<div class="col-md-9 col-lg-10 p-md-5">
+				<div>
+					<div class="alert alert-success" role="alert"
+						th:if="${success_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${success_msg}"></span>
+							</div>
+						</div>
+					</div>
+					<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${error_msg}"></span>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="alert alert-danger" role="alert" th:if="${error_msg}">
-	 				<div id="#test" class="">
-						<div >
-							<span th:text="${error_msg}"></span>
-						</div>
-					</div>
-				</div>
-</div>
-<div class="card">
+				<div class="card">
 					<div class="card-header">
 						<h4>Add Master Trainer</h4>
 					</div>
 					<div class="card-body">
 						<div class="row">
 							<div class="col-lg-6">
-								<form action="/addMasterTrainerRole" method="post" enctype="multipart/form-data">
-						    
-									  <div class="form-group ">
-									    <label for="textMasterName">Name </label>
-									    <input type="text" class="form-control w-75" name="name" id="textMasterName" th:value="${userInfo.getFirstName()}" required="required"/>
-									  </div>
-									  
-									  
-									   <div class="form-group ">
-									    <label for="textAge">Age</label>
-									    <input type="text" class="form-control w-75" name="age" id="textAge" required="required"/>
-									  </div>
-  
-								 		 <div class="form-group ">
-									    <label for="textMobile">Mobile Number</label>
-									    
-									    	<input type="Number" class="form-control w-75" name="phone" id="textMobile" th:value="${userInfo.getPhone()}"  required="required"/>
-									    
-									  </div>
-									  
-									   <div class="form-group ">
-									    <label for="textAddress">Postal Address</label>
-									    
-									    	<input type="text" class="form-control w-75" name="address" id="textAddress"  th:value="${userInfo.getAddress()}"  required="required"/>
-									    
-									  </div>
-								 		<div class="form-group">
-									    <label for="textOrganization">Organization associated</label>
-									    
-									    	<input type="text" class="form-control w-75" name="org" id="textOrganization" required="required"/>
-									    
-									  </div>	
-									  
-									  <div class="form-group ">
-									    <label for="textExpNumber">Experience in Year</label>
-									    	<input type="number" class="form-control w-75" name="experience" id="textExpNumber" required="required"/>
-									    
-									  </div> 
-									  <div class="form-group ">
-									    <label for="textAadharNumber">Aadhaar Number</label>
-									    	<input type="number" class="form-control w-75" name="aadharNumber" id="textAadharNumber" required="required"/>
-									    
-									  </div> 
-									  
-									  		        
-						   <button type="submit" class="btn  btn-success"  data-toggle="modal" onclick="myFunction()">Submit</button>
-						     <button type="reset" class="btn btn-success">Reset</button>       
-						      
-		   </form>
+								<form action="/addMasterTrainerRole" method="post"
+									enctype="multipart/form-data">
+									<div class="form-group ">
+										<label for="textMasterName">Name </label> <input type="text"
+											class="form-control w-75" name="name" id="textMasterName"
+											th:value="${userInfo.getFirstName()}" required="required" />
+									</div>
+									<div class="form-group ">
+										<label for="textAge">Age</label> <input type="text"
+											class="form-control w-75" name="age" id="textAge"
+											required="required" />
+									</div>
+									<div class="form-group ">
+										<label for="textMobile">Mobile Number</label> <input
+											type="Number" class="form-control w-75" name="phone"
+											id="textMobile" th:value="${userInfo.getPhone()}"
+											required="required" />
+									</div>
+									<div class="form-group ">
+										<label for="textAddress">Postal Address</label> <input
+											type="text" class="form-control w-75" name="address"
+											id="textAddress" th:value="${userInfo.getAddress()}"
+											required="required" />
+									</div>
+									<div class="form-group">
+										<label for="textOrganization">Organization associated</label>
+										<input type="text" class="form-control w-75" name="org"
+											id="textOrganization" required="required" />
+									</div>
+									<div class="form-group ">
+										<label for="textExpNumber">Experience in Year</label> <input
+											type="number" class="form-control w-75" name="experience"
+											id="textExpNumber" required="required" />
+									</div>
+									<div class="form-group ">
+										<label for="textAadharNumber">Aadhaar Number</label> <input
+											type="number" class="form-control w-75" name="aadharNumber"
+											id="textAadharNumber" required="required" />
+									</div>
+									<button type="submit" class="btn  btn-success"
+										data-toggle="modal" onclick="myFunction()">Submit</button>
+									<button type="reset" class="btn btn-success">Reset</button>
+								</form>
 							</div>
 						</div>
-
-						<!-- <h5 class="card-title">Special title treatment</h5>
-						<p class="card-text">With supporting text below as a natural
-							lead-in to additional content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a> -->
-					</div>
-				</div>
-
-
-
-</div>
-
-</div>
-
-</div>
-<!-- 	<div style="display: flex;">
-		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-		<div class="row" style='width: 100%;'>
-			<div class="col-lg-10 col-xl-9 mx-auto">
-				 <div class="card card-signin flex-row a-card">
-					<div class="card-body">
-						<h5 class="card-title text-center a-card-title">
-							
-						</h5>
-						
-
-					
- 								
-	<div class="#">
-	<div class="" >
-	
-	<div class="row">
-	<div class="col-sm-12">
-	<div>
-									<span th:text="${msg}"></span>
-								</div>
-	</div>
-
-		  <div class="col-12">
-		    <div class="tab-content" id="v-pills-tabContent">
-		      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-		      
-		    		<div class="container">
-		    		<div>
-		    					
- 					
-					<h4 class="text-center">Profile Master Trainer</h4>
-		    		
-		    		<div class="row shadow p-3 mb-5 bg-white rounded">
-		    		
-		    		<div class="row  p-3 mb-5 bg-white ">
-		    		
-		    		<span style="color: gray; font-family: cursive; text-shadow: 10px"><H2> </H2></span>
-		    		
-		    		
-		    		  <div class="h4  text-xs-center" style="color: chocolate; padding-top: 8px; padding-left: 250px" >Add Training Information</div>
-		    		  
-		    		  
-		    		  
-	
-		    		<div class=" col-md-12" style="padding-left: 100px">
-		    		
- 
- 					<p id="demo"></p>
- 		
-			   <script>
-						function submitForm() {
-							
-							
-							  return confirm('Do you really want to submit the form?');
-							  
-							  alert("Submit form succefully");
-							}
-						
-			  </script>
-						    <form action="/traninigMasterInformation" method="post" enctype="multipart/form-data" onsubmit="return submitForm(this);">
-						    <form action="/addMasterTrainerRole" method="post" enctype="multipart/form-data">
-						    
-									  <div class="form-group ">
-									    <label for="textMasterName">Name </label>
-									    <input type="text" class="form-control w-75" name="name" id="textMasterName" th:value="${userInfo.getFirstName()}" required="required"/>
-									  </div>
-									  
-									  
-									   <div class="form-group ">
-									    <label for="textAge">Age</label>
-									    <input type="text" class="form-control w-75" name="age" id="textAge" required="required"/>
-									  </div>
-  
-								 		 <div class="form-group ">
-									    <label for="textMobile">Mobile Number</label>
-									    
-									    	<input type="Number" class="form-control w-75" name="phone" id="textMobile" th:value="${userInfo.getPhone()}"  required="required"/>
-									    
-									  </div>
-									  
-									   <div class="form-group ">
-									    <label for="textAddress">Postal Address</label>
-									    
-									    	<input type="text" class="form-control w-75" name="address" id="textAddress"  th:value="${userInfo.getAddress()}"  required="required"/>
-									    
-									  </div>
-								 		<div class="form-group">
-									    <label for="textOrganization">Organization associated</label>
-									    
-									    	<input type="text" class="form-control w-75" name="org" id="textOrganization" required="required"/>
-									    
-									  </div>	
-									  
-									  <div class="form-group ">
-									    <label for="textExpNumber">Experience in Year</label>
-									    	<input type="number" class="form-control w-75" name="experience" id="textExpNumber" required="required"/>
-									    
-									  </div> 
-									  <div class="form-group ">
-									    <label for="textAadharNumber">Aadhaar Number</label>
-									    	<input type="number" class="form-control w-75" name="aadharNumber" id="textAadharNumber" required="required"/>
-									    
-									  </div> 
-									  
-									  		        
-						   <button type="submit" class="btn  btn-success"  data-toggle="modal" onclick="myFunction()">Submit</button>
-						     <button type="reset" class="btn btn-success">Reset</button>       
-						      
-		   </form>
-				
-					</div>
-
-		    		</div>
-	
-		    		</div>
-  
-		      </div>
-		    
-		    </div>
-		  </div>
-		</div>
-	
-	
-	</div>
-	</div>
-
-						
-
-						
 					</div>
 				</div>
 			</div>
 		</div>
-	</div> -->
-	<div th:fragment="body-bottom-scripts">
-
-		<script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
-		<script th:src="@{static/js/jquery.slim.min}"
-			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"></script>
-		<script th:src="@{/js/jquery.min.js}"></script>
-		<script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
-		<script th:src="@{/s/js/popper.min.js}"></script>
-		<script th:src="@{/s/js/bootstrap.min.js}"></script>
-		<script th:src="@{/s/js/owl.carousel.min.js}"></script>
-		<script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
-		<script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
-		<script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
-		<script th:src="@{/s/js/main.js}"></script>
-		<script th:src="@{/js/ajaxSupport.js}"></script>
-
 	</div>
-	
-		<script th:inline="javascript">
-    
-		var projectPath='[(@{/})]';
-		
+	<div th:replace="common/trail :: body-bottom-scripts"></div>
+	<script th:inline="javascript">
+		var projectPath = '[(@{/})]';
 	</script>
 </body>
 </html>

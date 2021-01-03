@@ -139,8 +139,24 @@
 							
 				</div>
 				
-				<hr/>              
-				 <button id="videoAcceptOrNeedToImprovemenetByAdmin"  type="button" class="btn btn-success">Submit</button>	   
+				<hr/> 
+				<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getVideoStatus() == 1}">
+													<button id="videoAcceptOrNeedToImprovemenetByAdmin"  type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getVideoStatus() == 1}">
+												<button id="videoAcceptOrNeedToImprovemenetByAdmin"  type="button" class="btn btn-success" disabled="disabled">Submit</button>
+												
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="videoAcceptOrNeedToImprovemenetByAdmin"  type="button" class="btn btn-success">Submit</button>
+										</div>
+				             
+				 	   
 
 		</form>	
 								</div>
@@ -721,7 +737,7 @@
 				</div>
 				<br/>
 				              
-				 <button id="videoAcceptOrNeedToImprovemenetByAdmin"  type="button" class="btn btn-success">Submit</button>	   
+				 <button id="videoAcceptOrNeedToImprovemenetByAdmin"  type="button" class="btn btn-success">Submits</button>	   
 
 		</form>	
 								    </div>

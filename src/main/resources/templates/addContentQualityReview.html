@@ -815,7 +815,7 @@
 <div class="modal fade" id="scriptStatusAccept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
-   <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
+   <!-- <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
      <div class="modal-header">
        <h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain Review-Script</h5>
    
@@ -921,7 +921,20 @@
        
      </div>
       <div class="modal-footer">
-         <button id="scriptAcceptOrNeedToImprovemenet"  type="button" class="btn btn-success">Submit</button>
+     								 <div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getScriptStatus() == 3}">
+													<button id="scriptAcceptOrNeedToImprovemenet"  type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getScriptStatus() == 3}">
+													<button id="scriptAcceptOrNeedToImprovemenet"  type="button" class="btn btn-success" disabled="disabled">Submit</button>
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="scriptAcceptOrNeedToImprovemenet"  type="button" class="btn btn-success">Submit</button>
+										</div>
+         
          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
      </div>
    
@@ -981,7 +994,7 @@
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 						    <div class="modal-content">
-						    <div th:if="${tutorial.getVideoStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
+						    <!-- <div th:if="${tutorial.getVideoStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelKeyWordView">View Video</h5>
 						        <div class="modal-title">
@@ -1073,7 +1086,21 @@
 						        
 						      </div>
 						      <div class="modal-footer">
-						           <button id="VideoAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button>
+						      <div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getVideoStatus() == 3}">
+													<button id="VideoAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getVideoStatus() == 3}">
+												<button id="VideoAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="VideoAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button>
+										</div>
+						           
 						           <button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Close</button>
 							   
@@ -1100,7 +1127,7 @@
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getPreRequisticStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getPreRequisticStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Pre-requisites</h5>
@@ -1128,7 +1155,7 @@
 												</div>
 
 											</div>
-											<div th:if="${tutorial.getVideoStatus() == 3}">
+											<div>
 											<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
@@ -1163,8 +1190,23 @@
 											
 									</div>
 									<div class="modal-footer">
-									<button id="preAcceptOrNeedToImprovemenetByQuality"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getPreRequisticStatus() == 3}">
+													<button id="preAcceptOrNeedToImprovemenetByQuality"
 												type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getPreRequisticStatus() == 3}">
+												<button id="preAcceptOrNeedToImprovemenetByQuality"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="preAcceptOrNeedToImprovemenetByQuality"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
 									
 									<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Close</button>
@@ -1251,7 +1293,7 @@
 								role="document">
 						    <div class="modal-content">
 						    
-						    <div th:if="${tutorial.getOutlineStatus() != 3}"><div class="alert alert-info m-3">Not valid for review</div></div>
+						    <!-- <div th:if="${tutorial.getOutlineStatus() != 3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelOutlineView">Quality Review - Outline</h5>
 						        
@@ -1327,7 +1369,20 @@
 						      					        
 						      </div>
 						      <div class="modal-footer">
-						      <span  th:if="${statusOutline}"> <button id="submitQualityOutlineStatus"  type="button" class="btn btn-success">Submit</button></span>
+						      <div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getOutlineStatus() == 3}">
+													<button id="submitQualityOutlineStatus"  type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getOutlineStatus() == 3}">
+												<button id="submitQualityOutlineStatus"  type="button" class="btn btn-success" disabled="disabled">Submit</button>
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="submitQualityOutlineStatus"  type="button" class="btn btn-success">Submit</button>
+								</div>
+						      
 						        
 						         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 							        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
@@ -1408,7 +1463,7 @@
 	<!-- KeyWord review -->	
 	
 						
-	<div class="modal fade" id="keywordAccepOrNeedToImprovementQuality" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelScriptView" aria-hidden="true">
+	<!-- <div class="modal fade" id="keywordAccepOrNeedToImprovementQuality" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelScriptView" aria-hidden="true">
 						
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
@@ -1456,7 +1511,7 @@
 						               
 						         <button id="KeyWordAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button> 	   
 						             
-					<!-- 	   <button id="keyword" type="submit" class="btn btn-success">Upload</button>   -->  
+						   <button id="keyword" type="submit" class="btn btn-success">Upload</button>    
 						     
 					</form>
 						    
@@ -1470,7 +1525,7 @@
 						    
 						    </div>
 						  </div>					  
-	</div>
+	</div> -->
 		
 	<!-- script  review -->
 	
@@ -1491,7 +1546,7 @@ data-keyboard="false"
  
    <div class="modal-content">
    
-   <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
+   <!-- <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
      <div class="modal-header">
        <h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain Review-Script</h5>
    
@@ -1610,7 +1665,7 @@ data-keyboard="false"
 						  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 						    <div class="modal-content">
 						    
-						    <div th:if="${tutorial.getSlideStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
+						    <!-- <div th:if="${tutorial.getSlideStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelSlideView">Quality Review-Slide</h5>
 						        
@@ -1690,7 +1745,21 @@ data-keyboard="false"
 						        
 						      </div>
 						      <div class="modal-footer">
-						           <button id="slideAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button>
+						      <div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getSlideStatus() == 3}">
+													<button id="slideAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getSlideStatus() == 3}">
+												<button id="slideAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="slideAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button>
+										</div>
+						           
 						           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						      </div> 
 						    
@@ -1706,7 +1775,7 @@ data-keyboard="false"
 								role="document">
 						    <div class="modal-content">
 						    
-								<div th:if="${tutorial.getKeywordStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getKeywordStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 						      <div class="modal-header">
 						        <h5 class="modal-title" id="exampleModalLabelKeyWordView">View Keyword</h5>
 						        <div class="modal-title">
@@ -1724,7 +1793,7 @@ data-keyboard="false"
 						      <div class="border border-info p-2 mb-5">
 											<span th:utext="${tutorial.getKeyword()}"></span>
 										</div>
-							 <div  th:if="${statusKeywordTrue}">
+							 <div>
 							 	<form  class="form-horizontal"  th:action="@{/addOutlineStataus}" onsubmit="return submitForm(this);" method="post" >
 
 						          <div class="form-group">
@@ -1791,7 +1860,21 @@ data-keyboard="false"
 						        
 						      </div>
 						      <div class="modal-footer">
-						       <span  th:if="${statusKeywordTrue}"><button id="KeyWordAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button></span>
+						      <div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getKeywordStatus() == 3}">
+													<button id="KeyWordAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getKeywordStatus() == 3}">
+												<button id="KeyWordAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="KeyWordAcceptOrNeedToImprovemenetByQuality"  type="button" class="btn btn-success">Submit</button>
+										</div>
+						       <span  ></span>
 							     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
 							      
 						      </div> 
@@ -1862,7 +1945,7 @@ data-keyboard="false"
 							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
 								
-								<div th:if="${tutorial.getGraphicsStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getGraphicsStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabeSlideStatus">Quality
 											Review-Graphics</h5>
@@ -1922,8 +2005,22 @@ data-keyboard="false"
 									</div>
 									</div>
 									<div class="modal-footer">
-									<button id="graphicsAcceptOrNeedToImprovemenetByQuality"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getGraphicsStatus() == 3}">
+													<button id="graphicsAcceptOrNeedToImprovemenetByQuality"
 												type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getGraphicsStatus() == 3}">
+												<button id="graphicsAcceptOrNeedToImprovemenetByQuality"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="graphicsAcceptOrNeedToImprovemenetByQuality"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 												
 									</div>

@@ -2262,6 +2262,7 @@ public class HomeController {
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
+		model.addAttribute("tutorial", tutorial);
 
 		return "addContentAdminReview";
 
@@ -2643,8 +2644,10 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 		List<TraineeInformation> trainees = traineeService.findAll();
+		List<Category> categories=catService.findAll();
 
 		model.addAttribute("TraineesData", trainees);
+		model.addAttribute("categories", categories);
 
 		return "traineeView";
 

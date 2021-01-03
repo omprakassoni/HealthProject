@@ -712,7 +712,7 @@
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getOutlineStatus() != 2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getOutlineStatus() != 2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 									<div class="w-100">
 									<h5 class="modal-title" id="exampleModalLabelOutlineView">Review
@@ -782,8 +782,24 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<span th:if="${tutorial.getOutlineStatus() == 2}"><button id="outlineAcceptOrNeedToImpClick" type="button"
-											class="btn btn-success">Submit</button></span>
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getOutlineStatus() == 2}">
+													<button id="outlineAcceptOrNeedToImpClick" type="button"
+											class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getOutlineStatus() == 2}">
+													<button id="outlineAcceptOrNeedToImpClick" type="button"
+											class="btn btn-success" disabled="disabled">Submit</button>
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="outlineAcceptOrNeedToImpClick" type="button"
+											class="btn btn-success">Submit</button>
+										</div>
+									<!-- 	<span th:if="${tutorial.getOutlineStatus() == 2}"><button id="outlineAcceptOrNeedToImpClick" type="button"
+											class="btn btn-success">Submit</button></span> -->
 										
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 										<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
@@ -809,7 +825,7 @@
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getKeywordStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getKeywordStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Keyword</h5>
@@ -827,7 +843,7 @@
 									<div class="border border-info p-2 mb-5">
 											<span th:utext="${tutorial.getKeyword()}"></span>
 										</div>
-										<div th:if="${tutorial.getKeywordStatus() == 2}">
+										<div>
 										<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
@@ -873,8 +889,23 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-									<span th:if="${tutorial.getKeywordStatus() == 2}"><button id="AcceptOrNeedToImprovemenetByDomain" type="button"
-												class="btn btn-success">Submit</button></span>
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getKeywordStatus() == 2}">
+													<button id="AcceptOrNeedToImprovemenetByDomain" type="button"
+												class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getKeywordStatus() == 2}">
+												<button id="AcceptOrNeedToImprovemenetByDomain" type="button"
+												class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="AcceptOrNeedToImprovemenetByDomain" type="button"
+												class="btn btn-success">Submit</button>
+										</div>
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
 										</div>
 									
@@ -900,7 +931,7 @@
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getVideoStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getVideoStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Video</h5>
@@ -970,10 +1001,23 @@
 
 									</div>
 									<div class="modal-footer">
-									<button id="videoAcceptOrNeedToImprovemenetByDomain"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getVideoStatus() == 2}">
+													<button id="videoAcceptOrNeedToImprovemenetByDomain"
 												type="button" class="btn btn-success">Submit</button>
-									
-									
+											</div>
+											<div
+												th:unless="${tutorial.getVideoStatus() == 2}">
+												<button id="videoAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="videoAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
 									<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Close</button>
 									</div>
@@ -1049,7 +1093,7 @@
 
 							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getScriptStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getScriptStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain
 											Review-Script</h5>
@@ -1120,7 +1164,20 @@
 										
 									</div>
 									<div class="modal-footer">
-									<button id="scriptAcceptOrNeedToImprovemenetDomain" type="button" class="btn btn-success">Submit</button>
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getScriptStatus() == 2}">
+													<button id="scriptAcceptOrNeedToImprovemenetDomain" type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getScriptStatus() == 2}">
+													<button id="scriptAcceptOrNeedToImprovemenetDomain" type="button" class="btn btn-success" disabled="disabled">Submit</button>
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="scriptAcceptOrNeedToImprovemenetDomain" type="button" class="btn btn-success">Submit</button>
+										</div>
+									
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 									</div>
 
@@ -1141,7 +1198,7 @@
 								role="document">
 								<div class="modal-content">
 								<div class="alert alert-msg m-3" style="display: none;"></div>
-								<div th:if="${tutorial.getPreRequisticStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getPreRequisticStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Pre-requisites</h5>
@@ -1201,13 +1258,27 @@
 
 									</div>
 									<div class="modal-footer">
-									<div th:if="${tutorial.getPreRequisticStatus()==2}">
-									<button id="preAcceptOrNeedToImprovemenetByDomain"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getPreRequisticStatus() == 2}">
+													<button id="preAcceptOrNeedToImprovemenetByDomain"
 												type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getPreRequisticStatus() == 2}">
+												<button id="preAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="preAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
 									
 									<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Close</button>
-									</div>
+									
 									</div>
 
 								</div>
@@ -1227,7 +1298,7 @@
 
 							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getSlideStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getSlideStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabeSlideStatus">Domain
 											Review-Slide</h5>
@@ -1321,8 +1392,24 @@
 
 									</div>
 									<div class="modal-footer">
-									<button id="slideAcceptOrNeedToImprovemenetByDomain"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getSlideStatus() == 2}">
+													<button id="slideAcceptOrNeedToImprovemenetByDomain"
 												type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getSlideStatus() == 2}">
+												<button id="slideAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="slideAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
+									
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 												
 									</div>
@@ -1392,7 +1479,7 @@
 							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
 								<div class="alert alert-msg m-3" style="display: none;"></div>
-									<div th:if="${tutorial.getGraphicsStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+									<!-- <div th:if="${tutorial.getGraphicsStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabeSlideStatus">Domain
 											Review-Graphics</h5>
@@ -1462,8 +1549,23 @@
 
 									</div>
 									<div class="modal-footer">
-									<button id="graphicsAcceptOrNeedToImprovemenetByDomain"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getGraphicsStatus() == 2}">
+													<button id="graphicsAcceptOrNeedToImprovemenetByDomain"
 												type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getGraphicsStatus() == 2}">
+												<button id="graphicsAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="graphicsAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
+									
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 												
 									</div>
@@ -1673,7 +1775,7 @@
 		<script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
 		<script th:src="@{/s/js/popper.min.js}"></script>
 		<script th:src="@{/s/js/bootstrap.min.js}"></script>
-
+		<script src="js/ckeditor.js"></script> 
 		<script th:src="@{/s/js/main.js}"></script>
 		<script th:src="@{/js/ajaxSupport.js}"></script>
 		<script th:src="@{js/jquery-3.3.1.js}"></script>
@@ -1683,9 +1785,7 @@
 	<script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
 	
 	<script th:inline="javascript">
-    
 		var projectPath='[(@{/})]';
-		
 		var filep='[(@{/files/})]';
 		
 	</script>

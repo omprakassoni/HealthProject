@@ -10,47 +10,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.model.Event;
-import com.health.model.Testimonial;
-
 import com.health.repository.EventRepository;
 import com.health.service.EventService;
 
 @Service
 public class EventServiceImpl implements EventService {
-	
+
 
 	@Autowired
 	private EventRepository eventRepo;
 
-	
+
 	@Override
 	public List<Event> findAll() {
-		
+
 		List<Event> local = (List<Event>) eventRepo.findAll();
 		return local;
+
 	}
-	
-	@Override 
-	public void deleteProduct(Integer id) {  
-	
+
+	@Override
+	public void deleteProduct(Integer id) {
+
 		eventRepo.deleteById(id);
-	  
+
 	}
-		
-	 
- 
+
+
+
 	@Override
 	@Transactional
 	public Boolean UpdateEvent(String eventname,Date date,Date end, String description,String venuename, String contactperson,String contactnumber,String email,int id) {
-	  
+
 //       int status= eventRepo.UpdateEvent(eventname, date,end, description, venuename, contactperson,contactnumber,email, id);
 //
 //	  System.err.println(status);
-//	  
+//
 //	  if(status>0) { return true; }
 //	  else { return false; }
 		return true;
-	  
+
 	}
 
 	@Override
@@ -79,6 +78,6 @@ public class EventServiceImpl implements EventService {
 	}
 
 
-	
+
 
 }
