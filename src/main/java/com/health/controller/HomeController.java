@@ -1765,6 +1765,7 @@ public class HomeController {
 			model.addAttribute("categories", categories);
 
 			model.addAttribute("languages", languages);
+			model.addAttribute("error_msg", CommonData.DUPLICATE_ROLE_ERROR);
 
 			return "addAdminRole";
 		}
@@ -1779,9 +1780,9 @@ public class HomeController {
 
 		try {
 			usrRoleService.save(usrRole);
-			model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			model.addAttribute("error_msg", CommonData.ROLE_ERROR_MSG);
 			e.printStackTrace();
 												// accommodate error message
 		}
@@ -1793,7 +1794,7 @@ public class HomeController {
 
 		model.addAttribute("languages", languages);
 
-
+		model.addAttribute("success_msg", CommonData.ADMIN_ADDED_SUCCESS_MSG);
 		return "addAdminRole";
 	}
 
@@ -1849,7 +1850,7 @@ public class HomeController {
 			model.addAttribute("categories", categories);
 
 			model.addAttribute("languages", languages);
-			model.addAttribute("error_msg", CommonData.ROLE_REQUEST_ERROR);
+			model.addAttribute("error_msg", CommonData.DUPLICATE_ROLE_ERROR);
 
 			return "addQualityRole";
 		}
