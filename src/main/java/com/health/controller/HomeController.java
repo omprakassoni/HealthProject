@@ -1283,7 +1283,8 @@ public class HomeController {
 		
 		List<Testimonial> testimonials = testService.findAll();
 		model.addAttribute("testimonials", testimonials);
-
+		
+		if(!file.isEmpty()) {
 		if(!ServiceUtility.checkFileExtensionVideo(file)) { // throw error on extension
 
 			return "addTestimonial";
@@ -1332,6 +1333,20 @@ public class HomeController {
 			e.printStackTrace();
 
 			return "addTestimonial";    // throw a error
+		}
+		}else {
+			
+			Testimonial test=new Testimonial();
+			test.setDateAdded(ServiceUtility.getCurrentTime());
+			test.setDescription(desc);
+			test.setName(name);
+			test.setUser(usr);
+			test.setTestimonialId(testService.getNewTestimonialId());
+			test.setFilePath("null");
+			Set<Testimonial> testi=new HashSet<Testimonial>();
+			testi.add(test);
+			
+			userService.addUserToTestimonial(usr, testi);
 		}
 
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
@@ -1700,6 +1715,7 @@ public class HomeController {
 		model.addAttribute("testimonials", test);
 
 		return "testimonial";
+	}
 
 	@RequestMapping(value = "/testimonial/edit/{id}", method = RequestMethod.GET)
 	public String edittestimonialGet(@PathVariable int id,Model model,Principal principal) {
@@ -1743,6 +1759,7 @@ public class HomeController {
 			return "updateTestimonial";
 		}
 
+		if(!file.isEmpty()) {
 		try {
 
 				String pathtoUploadPoster=ServiceUtility.uploadVideoFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
@@ -1762,6 +1779,13 @@ public class HomeController {
 			e.printStackTrace();
 
 			return "updateTestimonial";    // throw a error
+		}
+		}else {
+			
+			test.setName(name);
+			test.setDescription(desc);
+		
+			testService.save(test);
 		}
 
 
@@ -2317,6 +2341,22 @@ public class HomeController {
 				model.addAttribute("statusPreReq", CommonData.tutorialStatus[local.getPreRequisticStatus()]);
 				model.addAttribute("statusGraphics", CommonData.tutorialStatus[local.getGraphicsStatus()]);
 				model.addAttribute("tutorial", local);
+				
+				List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, local);
+				List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT, local);
+				List<Comment> comSlide = comService.getCommentBasedOnTutorialType(CommonData.SLIDE, local);
+				List<Comment> comGraphics = comService.getCommentBasedOnTutorialType(CommonData.GRAPHICS, local);
+				List<Comment> comKeyword = comService.getCommentBasedOnTutorialType(CommonData.KEYWORD, local);
+				List<Comment> comPreRequistic = comService.getCommentBasedOnTutorialType(CommonData.PRE_REQUISTIC, local);
+				List<Comment> comOutline = comService.getCommentBasedOnTutorialType(CommonData.OUTLINE, local);
+				
+				model.addAttribute("comOutline", comOutline);
+				model.addAttribute("comScript",comScript );
+				model.addAttribute("comSlide",comSlide );
+				model.addAttribute("comVideo", comVideo);
+				model.addAttribute("comKeyword", comKeyword);
+				model.addAttribute("comPreReq", comPreRequistic);
+				model.addAttribute("comGraphics",comGraphics );
 			}
 		}
 		

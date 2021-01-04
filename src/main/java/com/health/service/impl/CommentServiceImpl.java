@@ -40,5 +40,11 @@ public class CommentServiceImpl implements CommentService{
 		// TODO Auto-generated method stub
 		return comRepo.getCommentBasedOnUserTutorialType(type, usr, tut,role);
 	}
+
+	@Override
+	public List<Comment> getCommentBasedOnTutorialType(String type, Tutorial tut) {
+		// TODO Auto-generated method stub
+		return comRepo.getCommentBasedOnTutorialType(type, tut);
+	}
 }
 

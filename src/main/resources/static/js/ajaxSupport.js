@@ -5730,33 +5730,28 @@ $(document)
 				$(".modal").removeClass("is-active");
 			});
 
-
+/********* Changes made by Om Prakash ************************/
 
 			$(".comment-contri").click(function() {
 				console.log('this');
 				component = this.id;
 				var elem_id = '#'+component+'_comment'
-				var categoryid = $("#categoryId").val();
-				var topicid = $("#topicId").val();
-				var lanId = $("#lanId").val();
-				var msg = $(elem_id)
-				.val();
+				var tutorialId = $("#tutorialId").val();
+				
+				var msg = $(elem_id).val();
 				$.ajax({
 					type : "GET",
 					url : projectPath+"commentByContributor",
 					data : {
-						"categorname" : categoryid,
-						"topicid" : topicid,
-						"component":component,
-						"lanId" : lanId,
+						"id" :tutorialId,
+						"type":component,
 						'msg' : msg
 					},
 					contentType : "application/json",
-					success : function(
-							result) {
-//						alert('msg saved!');
-						// $("#statusOutlineByDomain").prop('disabled',false);
-						// $('#statusOutlineByDomain').html(result);
+					success : function(result) {
+
+						 $("#statusOutlineByDomain").prop('disabled',false);
+						 $('#statusOutlineByDomain').html(result);
 					},
 
 					error : function(err) {

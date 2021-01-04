@@ -71,7 +71,7 @@
 								<label for="testimonialVideo" style="padding-top: 8px">Add
 									Video</label> <input type="file" class="form-control-file"
 									id="testimonialVideo" name="uploadTestimonial" accept=".mp4"
-									placeholder="uploadFile" required="required" />
+									placeholder="uploadFile" />
 							</div>
 							<button type="submit" value="showAlert" onclick="showAlert();"
 								class="btn a-btn">Submit</button>
@@ -109,7 +109,7 @@
 					               
 	     <td th:text="${testimonial.getDescription()}"></td>
 		 <td>
-			<div th:if ="${testimonial.getFilePath()}" >	              			
+			<div th:if ="${testimonial.getFilePath() != 'null'}" >	              			
 			<iframe width="330" height="215" th:src="@{/files/}+@{${testimonial.getFilePath()}}" frameborder="0"
 						   					 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true">
 						         		 
