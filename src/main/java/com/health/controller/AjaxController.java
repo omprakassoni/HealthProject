@@ -167,6 +167,7 @@ public class AjaxController{
 	public @ResponseBody HashMap<Integer, String> getTopicByCategoryPreRequistic(@RequestParam(value = "id") String id,
 																			@RequestParam(value = "tutorialId") int tutorialId,
 																			@RequestParam(value = "langName") String langName) {
+		System.out.println("*********************L");
 
 		HashMap<Integer,String> topicName=new HashMap<>();
 
@@ -191,7 +192,9 @@ public class AjaxController{
 
 		for(Tutorial temp : tuts) {
 
+			System.out.println("*********************");
 			System.out.println(temp.getTutorialId());
+			System.out.println("*********************");
 			if(temp.getTutorialId() != tut.getTutorialId()) {
 
 				topicName.put(temp.getTutorialId(), temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
@@ -476,13 +479,15 @@ public class AjaxController{
 		if(tutorialId != 0) {
 			tut=tutService.getById(tutorialId);
 		}
-
+		Tutorial tutorial_temp = tutService.getById(topicId);
+		System.out.println(topicId);
 		if(tutorialId != 0) {
 
 			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.PRE_REQUISTIC, CommonData.DOMAIN_STATUS, tut.getKeywordStatus(), CommonData.contributorRole, usr, tut);
 
-			tut.setPreRequistic(tut);
+			tut.setPreRequistic(tutorial_temp);
 			System.out.println("******************************************"+tut);
+			System.out.println("******************************************"+tutorial_temp);
 			tut.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
 
 			tutService.save(tut);
@@ -490,33 +495,34 @@ public class AjaxController{
 			logService.save(log);
 			return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
 
-		}else {
-
-			Category cat = catService.findBycategoryname(catName);
-			Topic topic=topicService.findById(topicId);
-			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
-			Language lan=lanService.getByLanName(lanId);
-			ContributorAssignedTutorial conLocal=conService.findByUserTopicCatLan(usr, localTopicCat, lan);
-			Tutorial local=new Tutorial();
-			local.setDateAdded(ServiceUtility.getCurrentTime());
-			local.setConAssignedTutorial(conLocal);
-			local.setPreRequistic(tut);
-			local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
-			local.setTutorialId(tutService.getNewId());
-
-			try {
-				tutService.save(local);
-
-				LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.PRE_REQUISTIC, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
-				logService.save(log);
-
-			}catch (Exception e) {
-				// TODO: handle exception
-				return "error";       // throw error
-			}
-
-
 		}
+//		else {
+//
+//			Category cat = catService.findBycategoryname(catName);
+//			Topic topic=topicService.findById(topicId);
+//			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
+//			Language lan=lanService.getByLanName(lanId);
+//			ContributorAssignedTutorial conLocal=conService.findByUserTopicCatLan(usr, localTopicCat, lan);
+//			Tutorial local=new Tutorial();
+//			local.setDateAdded(ServiceUtility.getCurrentTime());
+//			local.setConAssignedTutorial(conLocal);
+//			local.setPreRequistic(tut);
+//			local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+//			local.setTutorialId(tutService.getNewId());
+//
+//			try {
+//				tutService.save(local);
+//
+//				LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.PRE_REQUISTIC, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
+//				logService.save(log);
+//
+//			}catch (Exception e) {
+//				// TODO: handle exception
+//				return "error";       // throw error
+//			}
+//
+//
+//		}
 
 		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
 

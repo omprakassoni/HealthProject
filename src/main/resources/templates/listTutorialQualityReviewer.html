@@ -204,19 +204,19 @@
 									  
 						                   <span th:if="${ componenettutorial.getVideoStatus()== 1}">
 						                   
-						                		<i style="color: orange;" class="fas fa-check-circle"></i>	
+						                		<i  class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>	
 						                		
 						                   </span>
 						                   
 						                      <span th:if="${componenettutorial.getVideoStatus()== 3}">
 						                   
-						                		<i style="color: aqua;" class="fas fa-check-circle"></i>	
+						                		<i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>	
 						                		
 						                   </span>
 						                   
 						                     <span th:if="${componenettutorial.getVideoStatus()== 5}">
 						                   
-						                		<i style="color: green; ;" class="fas fa-check-circle"></i>	
+						                		<i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>	
 						                		
 						                   </span>
 						                   
@@ -292,7 +292,7 @@
 						    
 						    </td>			    
 						           				                
-						               <td><a th:href="@{${'/qualityreview/review/'+ componenettutorial.getTutorialId()}}"><b><i  class="fas fa-link"></i><u style="color: green;"> Review </u></b></a></td>
+						               <td><a th:href="@{${'/qualityreview/review/'+ componenettutorial.getTutorialId()}}"><b>Review</b></a></td>
 										
 										
 									<!-- 	<td>
@@ -946,7 +946,9 @@
 
  
 		 
-			<script>
+			
+<div th:replace="common/trail :: body-bottom-scripts"></div>
+<script>
 			
 			
 			$(document).ready( function () {
@@ -954,7 +956,6 @@
 			} );
 			
 			</script>
-<div th:replace="common/trail :: body-bottom-scripts"></div>
 			
 				<script th:inline="javascript">
     

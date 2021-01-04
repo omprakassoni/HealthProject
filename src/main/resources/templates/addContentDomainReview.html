@@ -718,15 +718,10 @@
 									<h5 class="modal-title" id="exampleModalLabelOutlineView">Review
 											Outline</h5>
 									</div>
-										
-										
-
 										<button type="button" class="close ml-0" data-dismiss="modal"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
-
 										</button>
-										
 									</div>
 									<div class="modal-body">
 										<div class="row">
@@ -767,10 +762,10 @@
 										<div class="col-12">
 										<div th:if="${not #lists.isEmpty(comOutline)}">
 									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${outlineComment}" class="border-bottom"> 
+											    <div th:each="comment : ${comOutline}" class="border-bottom"> 
 											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
 									
@@ -875,10 +870,10 @@
 									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(comKeyword)}">
 									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${keywordComment}" class="border-bottom"> 
+											    <div th:each="comment : ${comKeyword}" class="border-bottom"> 
 											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
 									
@@ -960,7 +955,7 @@
 </div>
 
 											</div>
-											<div th:if="${tutorial.getVideoStatus() == 2}">
+											<div>
 											<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
@@ -987,8 +982,8 @@
 									<div th:if="${not #lists.isEmpty(comVideo)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${comVideo}" class="border-bottom"> 
-											    <!-- <p class="my-0"><strong><span th:text="${}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${}"></span></small></p> -->
+											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
@@ -1150,15 +1145,14 @@
 									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(comScript)}">
 									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${scriptComment}" class="border-bottom"> 
+											    <div th:each="comment : ${comScript}" class="border-bottom"> 
 											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
 									
 									</div>
-									
 									</div>
 									</div>
 										
@@ -1371,10 +1365,10 @@
 									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(comSlide)}">
 									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${slideComment}" class="border-bottom"> 
+											    <div th:each="comment : ${comSlide}" class="border-bottom"> 
 											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
 									

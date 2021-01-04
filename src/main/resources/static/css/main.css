@@ -507,7 +507,8 @@ footer{
 	color: #D9534F;
 }
 .admin-review{
-	color:#D9534F;
+	/* color:#D9534F; */
+	color: #263238
 }
 .domain-review{
 	color:#F0AD4E;

@@ -1,16 +1,7 @@
 
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-<head>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-	integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-</head>
+<head th:replace="common/trail :: common-trail"></head>
 <body>
 <div th:replace="common/sidebar :: top_header"></div>
 <div class="container-fluid">
@@ -214,19 +205,19 @@
 									  
 						                   <span th:if="${ componenettutorial.getVideoStatus()== 1}">
 						                   
-						                		<i style="color: orange;" class="fas fa-check-circle"></i>	
+						                		<i  class="fas fa-check-circle admin-review"></i>	
 						                		
 						                   </span>
 						                   
 						                      <span th:if="${componenettutorial.getVideoStatus()== 3}">
 						                   
-						                		<i style="color: aqua;" class="fas fa-check-circle"></i>	
+						                		<i class="fas fa-check-circle quality-review"></i>	
 						                		
 						                   </span>
 						                   
 						                     <span th:if="${componenettutorial.getVideoStatus()== 5}">
 						                   
-						                		<i style="color: green; ;" class="fas fa-check-circle"></i>	
+						                		<i  class="fas fa-check-circle review-accepted"></i>	
 						                		
 						                   </span>
 						                   
@@ -302,7 +293,7 @@
 						    
 						    </td>			    
 						           				                
-						               <td><a th:href="@{${'/adminreview/review/'+ componenettutorial.getTutorialId()}}"><b><i  class="fas fa-link"></i><u style="color: green;"> Review </u></b></a></td>
+						               <td><a th:href="@{${'/adminreview/review/'+ componenettutorial.getTutorialId()}}"><b>Review </b></a></td>
 										
 										
 									<!-- 	<td>
@@ -842,19 +833,19 @@
 									  
 						                   <span th:if="${ componenettutorial.getVideoStatus()== 1}">
 						                   
-						                		<i style="color: orange;" class="fas fa-check-circle"></i>	
+						                		<i style="color: orange;" class="fas fa-check-circle admin-review" data-toggle="tooltip" data-placement="top"></i>	
 						                		
 						                   </span>
 						                   
 						                      <span th:if="${componenettutorial.getVideoStatus()== 3}">
 						                   
-						                		<i style="color: aqua;" class="fas fa-check-circle"></i>	
+						                		<i style="color: aqua;" class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>	
 						                		
 						                   </span>
 						                   
 						                     <span th:if="${componenettutorial.getVideoStatus()== 5}">
 						                   
-						                		<i style="color: green; ;" class="fas fa-check-circle"></i>	
+						                		<i style="color: green; ;" class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>	
 						                		
 						                   </span>
 						                   
@@ -1448,33 +1439,15 @@
          
 			</div> 
 	</div> 
- 
- 			<script th:src="@{/js/jquery.min.js}"></script>
-		 	<script type="text/javascript" charset="utf8" th:src="@{/datatables.js}"></script>
-		 
+
+			
+			
+			<div th:replace="common/trail :: body-bottom-scripts"></div>
 			<script>
-			
-			
 			$(document).ready( function () {
 			    $('#tableId').DataTable();
 			} );
-			
 			</script>
-			
-			
-			<div th:fragment="body-bottom-scripts">
-
-        	 <!-- <script src="static/js/bootstrap.bundle.min.js"></script>
-       		 <script src="static/js/jquery.slim.min" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
-       		 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-			 	
-			 	
-			<script th:src="@{/js/ajaxSupport.js}"></script>
-			
-			
-			</div>
 			
 				<script th:inline="javascript">
     

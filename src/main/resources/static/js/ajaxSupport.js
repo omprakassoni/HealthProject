@@ -11,6 +11,7 @@ $(document)
 			$('.review-accepted').tooltip({ title: 'Accepted' });
 			$('.review-improvement').tooltip({ title: 'Need Improvement' });
 			$('.not-required').tooltip({ title: 'Not Required' });
+			
 
 			/*--------------- constants ---------------*/
 			const SUCCESS = 1;
@@ -504,12 +505,10 @@ $(document)
 			// Changes made by Om prakash
 
 			$('#preRequsiteId').change(function() {
-						
+			
 				var catgoryid = $(this).find(":selected").val();
 				var tutorialId=$('#tutorialId').val();
 				var langName=$('#lanId').val();
-
-
 
 						$.ajax({
 							type : "GET",
@@ -599,7 +598,7 @@ $(document)
 						var preCommentMsg = $("#preCommentMsg").val();
 
 
-						alert(preCommentMsg);
+//						alert(preCommentMsg);
 
 						var vals = $("#preAcceptDomain").val();
 
@@ -754,11 +753,13 @@ $(document)
 
 			$('#uploadpreRequsiteId').click(function() {
 
-				var tutorialId = $("#inputLanguageAll").val();
+//				var tutorialId = $("#inputLanguageAll").val();
+				var tutorialId = $("#tutorialId").val();
 				var categoryid = $("#categoryId").val();
-				var topicid = $("#topicID").val();
+//				var topicid = $("#topicID").val();
+				var topicid = $("#inputLanguageAll").val();
+				
 				var lanId = $("#lanId").val();
-
 
 				$.ajax({
 					type : "GET",

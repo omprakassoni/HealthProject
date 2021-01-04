@@ -44,7 +44,9 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 
 		List<TopicCategoryMapping> temp = new ArrayList<TopicCategoryMapping>();
 		for(UserRole x : userRoles) {
-			temp.add(topicCatRepo.findAllBycat(x.getCategory()).get(0));
+			System.out.println("********************************");
+			System.out.println(topicCatRepo.findAllBycat(x.getCategory()).get(0));
+			temp.addAll(topicCatRepo.findAllBycat(x.getCategory()));
 		}
 
 		return temp;

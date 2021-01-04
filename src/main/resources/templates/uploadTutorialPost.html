@@ -370,20 +370,19 @@
 
 																<video id='storedVideoId' height="240" width="320"
 																	controls="controls">
-																	<source src="movie.mp4" type="video/mp4">
-																	<source th:src="${tutorial.getVideo()}"
-																		type="video/mp4"></source>
+																	<!-- <source src="movie.mp4" type="video/mp4"> -->
+																	<!-- <source th:src="${tutorial.getVideo()}"
+																		type="video/mp4"></source> -->
 																	<source th:if="${tutorial.getVideoStatus() != 0}"
 																		th:src="@{/files/}+@{${tutorial.getVideo()}}"
 																		type="video/mp4"></source>
 																</video>
 															</div>
+															
 														</div>
 
 													</div>
 												</form>
-
-
 												<form id="upload-file-form-video"
 													onsubmit="return submitForm(this);">
 													<div class="custom-file mb-3">
@@ -654,10 +653,6 @@
 															id="preRequsiteId" class="form-control"
 															name="preRequsite" required="required">
 															<option selected="selected">Select Category</option>
-															<!-- <span th:each="category: ${categorys}">
-								  								<option th:value="${category.getId()}"><span th:text="${category.categoryname}"></span></option>		
-								  						</span> -->
-
 															<span id="categorySelect"
 															th:each="category : ${categories}">
 
@@ -1245,7 +1240,7 @@
 	    .create( document.querySelector( '#editor' ) )
 	    .then( newEditor => {
 	       editor = newEditor;
-	       editor.setReadOnly(true);
+	       /* editor.setReadOnly(true); */
 	    } )
 	    .catch( error => {
 	        console.error( error );"@{/}"
