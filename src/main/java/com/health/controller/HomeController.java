@@ -573,7 +573,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-
+		
+		List<Category> categories = catService.findAll();
+		model.addAttribute("categories", categories);
+		
 		return "addCategory";
 
 	}
@@ -590,6 +593,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		List<Category> categoriesTemp = catService.findAll();
+		model.addAttribute("categories", categoriesTemp);
 
 		String categoryName = req.getParameter("categoryname");
 		String categoryDesc = req.getParameter("categoryDesc");
@@ -671,7 +676,7 @@ public class HomeController {
 
 		List<Language> languages=lanService.getAllLanguages();
 
-		model.addAttribute("languageAll", languages);
+		model.addAttribute("languages", languages);
 
 		return "addlanguage";
 
@@ -688,22 +693,22 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Language> languagesTemp=lanService.getAllLanguages();
 
-		List<Language> languageExist=lanService.getAllLanguages();
+		model.addAttribute("languages", languagesTemp);
 
 		String languagename=req.getParameter("languageName");
 
 		if(languagename==null) {
 
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
-			model.addAttribute("languageAll", languageExist);
 			return "addlanguage";
 		}
 
 		if(lanService.getByLanName(languagename)!=null) {
 
 			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
-			model.addAttribute("languageAll", languageExist);
 			return "addlanguage";
 		}
 
@@ -728,10 +733,6 @@ public class HomeController {
 
 		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 
-		languageExist=lanService.getAllLanguages();
-
-		model.addAttribute("languageAll", languageExist);
-
 		return "addlanguage";
 
 	}
@@ -755,6 +756,10 @@ public class HomeController {
 		List<Category> category = catService.findAll();
 
 		model.addAttribute("categories", category);
+		
+		List<Topic> topics = topicService.findAll();
+		
+		model.addAttribute("topics", topics);
 
 		return "addTopic";
 
@@ -773,6 +778,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		List<Topic> topicsTemp = topicService.findAll();
+		
+		model.addAttribute("topics", topicsTemp);
 
 		List<Category> category = catService.findAll();
 
@@ -840,6 +848,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Role> roles = roleService.findAll();
+		
+		model.addAttribute("roles", roles);
 
 		return "addNewRole";
 
@@ -856,6 +868,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Role> roles = roleService.findAll();
+		
+		model.addAttribute("roles", roles);
 
 		String roleName = req.getParameter("roleName");
 
@@ -899,6 +915,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Question> questions = questService.findAll();
+		model.addAttribute("questions", questions);
 
 		List<Language> languages=lanService.getAllLanguages();
 
@@ -928,6 +947,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Question> questionsTemp = questService.findAll();
+		model.addAttribute("questions", questionsTemp);
 
 		List<Language> languages=lanService.getAllLanguages();
 
@@ -1027,6 +1049,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Consultant> consultants = consultService.findAll();
+		model.addAttribute("consultants", consultants);
 
 		return "addConsultant";
 
@@ -1047,6 +1072,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Consultant> consultants = consultService.findAll();
+		model.addAttribute("consultants", consultants);
+		
 		boolean show=false;
 
 		if(showOnHomePage!=null) {
@@ -1124,6 +1153,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Event> events = eventservice.findAll();
+		model.addAttribute("events", events);
 
 		return "addEvent";
 
@@ -1140,6 +1172,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Event> eventsTemp = eventservice.findAll();
+		model.addAttribute("events", eventsTemp);
+		
 		String eventName = req.getParameter("eventname");
 		String desc = req.getParameter("description");
 		String venueName = req.getParameter("venuename");
@@ -1222,7 +1258,9 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
-
+		List<Testimonial> testimonials = testService.findAll();
+		model.addAttribute("testimonials", testimonials);
+		
 		return "addTestimonial";
 
 
@@ -1242,6 +1280,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Testimonial> testimonials = testService.findAll();
+		model.addAttribute("testimonials", testimonials);
 
 		if(!ServiceUtility.checkFileExtensionVideo(file)) { // throw error on extension
 
@@ -1659,7 +1700,6 @@ public class HomeController {
 		model.addAttribute("testimonials", test);
 
 		return "testimonial";
-	}
 
 	@RequestMapping(value = "/testimonial/edit/{id}", method = RequestMethod.GET)
 	public String edittestimonialGet(@PathVariable int id,Model model,Principal principal) {

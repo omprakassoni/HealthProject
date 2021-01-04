@@ -49,5 +49,11 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionRepo.findByTopicLan(topicCat, lan);
 	}
 
+	@Override
+	public List<Question> findAll() {
+		// TODO Auto-generated method stub
+		return (List<Question>) questionRepo.findAll();
+	}
+
 	
 }

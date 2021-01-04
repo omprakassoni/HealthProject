@@ -42,10 +42,10 @@
 				</div>
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#add" role="tab" aria-controls="home" aria-selected="true">Home</a>
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#add" role="tab" aria-controls="home" aria-selected="true">Add</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#view" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#view" role="tab" aria-controls="profile" aria-selected="false">View</a>
   </li>
   
 </ul>
@@ -127,31 +127,23 @@
   <table class="table table-striped" id="myTable">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Category Name</th>
+      <th scope="col">Topic Name>
+      <th scope="col">Language</th>
+      <th scope="col">Question</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+     <tr th:each="question : ${questions}">
+      <td scope="row"><span th:text = "${question.getTopicCatId().getCat().getCatName()}"></span></td>
+      <td><span th:text = "${question.getTopicCatId().getTopic().getTopicName()}"></span></td>
+      <td><span th:text = "${question.getLan().getLangName()}"> </span>
+	  </td>
+      <td><a th:href="@{/files/}+@{${question.getQuestionPath()}}"
+			target="_blank" class="pdfclass"><img id="pdfsource"
+			th:src="${question.getQuestionPath()}" alt="Click here"></img></a></td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+   
   </tbody>
 </table>
   </div>

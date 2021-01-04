@@ -39,10 +39,10 @@
 </div>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#add" role="tab" aria-controls="home" aria-selected="true">Home</a>
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#add" role="tab" aria-controls="home" aria-selected="true">Add</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#view" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#view" role="tab" aria-controls="profile" aria-selected="false">View</a>
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -93,31 +93,34 @@
   	<table class="table table-striped" id="myTable">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th>Id</th>
+	  <th>Name</th>
+	  <th>Description</th>
+	  <th>Video</th>
+	  <th>Edit</th>
+	  <!-- <th>Disable</th> --> 
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+    
+     <tr th:each="testimonial : ${testimonials}" style="">
+		 <td th:text="${testimonial.getTestimonialId()}"></td>  
+		 <td th:text="${testimonial.getName()}"></td>
+					               
+	     <td th:text="${testimonial.getDescription()}"></td>
+		 <td>
+			<div th:if ="${testimonial.getFilePath()}" >	              			
+			<iframe width="330" height="215" th:src="@{/files/}+@{${testimonial.getFilePath()}}" frameborder="0"
+						   					 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true">
+						         		 
+			 </iframe>		
+			</div>	     			 		
+		</td> 
+					
+		<td><a th:href="@{${'/testimonial/edit/' + testimonial.getTestimonialId()}}">Edit</a></td>
+		<!-- <td><a onclick="submitForm()" th:href="@{${'/testimonial/delete/' + testimonial.getTestimonialId()}}">Disable</a></td>   -->
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    
   </tbody>
 </table>
   </div>
