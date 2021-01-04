@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class TopicServiceImpl implements TopicService {
 		// TODO Auto-generated method stub
 		Optional<Topic> local=topicRepo.findById(id);
 		return local.get();
+	}
+
+	@Override
+	public List<Topic> findAll() {
+		// TODO Auto-generated method stub
+		return (List<Topic>) topicRepo.findAll();
 	}
 
 }

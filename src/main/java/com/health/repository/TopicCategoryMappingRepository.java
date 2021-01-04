@@ -17,6 +17,8 @@ public interface TopicCategoryMappingRepository extends CrudRepository<TopicCate
 	
 	List<TopicCategoryMapping> findAllBycat(Category cat);
 	
+	List<TopicCategoryMapping> findAllBytopic(Topic topic);
+	
 	@Query("from TopicCategoryMapping where cat=?1 and topic=?2")
 	TopicCategoryMapping findBycatAndtopic(Category cat,Topic topic); 
 	

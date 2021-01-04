@@ -44,7 +44,7 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 
 		List<TopicCategoryMapping> temp = new ArrayList<TopicCategoryMapping>();
 		for(UserRole x : userRoles) {
-			temp.add(topicCatRepo.findAllBycat(x.getCategory()).get(0));
+			temp.addAll(topicCatRepo.findAllBycat(x.getCategory()));
 		}
 
 		return temp;
@@ -60,6 +60,12 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 	public List<TopicCategoryMapping> findAllByCategory(Category cat) {
 		// TODO Auto-generated method stub
 		return topicCatRepo.findAllBycat(cat);
+	}
+
+	@Override
+	public List<TopicCategoryMapping> findAllByTopic(Topic topic) {
+		// TODO Auto-generated method stub
+		return topicCatRepo.findAllBytopic(topic);
 	}
 
 

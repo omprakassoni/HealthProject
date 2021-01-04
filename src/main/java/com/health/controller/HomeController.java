@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
@@ -198,6 +199,7 @@ public class HomeController {
 		List<Consultant> consults= consultService.findAll();
 		List<Language> languages= lanService.getAllLanguages();
 		List<Category> categories= catService.findAll();
+		List<Topic> topics =topicService.findAll();
 
 
 		List<Event> evnHome = new ArrayList<>();
@@ -244,6 +246,10 @@ public class HomeController {
 		model.addAttribute("videoCount", tutService.findAll().size());
 		model.addAttribute("consultantCount", consults.size());
 		model.addAttribute("events", evnHome);
+		
+		model.addAttribute("categories", categories);
+		model.addAttribute("languages", languages);
+		model.addAttribute("topics", topics);
 
 
 
@@ -321,6 +327,98 @@ public class HomeController {
 //		model.addAttribute("event", event);
 
 		return "index";
+	}
+	
+	@RequestMapping(value = "/tutorials", method = RequestMethod.GET)
+	public String viewCoursesAvailable(HttpServletRequest req,
+			@RequestParam(name = "categoryName") String cat,
+			@RequestParam(name = "topic") String topic, 
+			@RequestParam(name = "lan") String lan,Principal principal,Model model) {
+		
+		Category localCat = null;
+		Language localLan = null;
+		Topic localTopic = null;
+		TopicCategoryMapping localTopicCat = null;
+		List<TopicCategoryMapping> localTopicCatList = null;
+		List<ContributorAssignedTutorial> conAssigTutorialList =null;
+		ContributorAssignedTutorial conAssigTutorial = null;
+		
+		List<Tutorial> tut = null;
+		List<Tutorial> tutToView = new ArrayList<Tutorial>();
+		
+		User usr=new User();
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		System.out.println(lan);
+		if(!cat.contentEquals("Select Category")) {
+			localCat = catService.findBycategoryname(cat);
+		}
+		
+		if(!topic.contentEquals("Select Topic")) {
+			localTopic = topicService.findBytopicName(topic);
+		}
+		
+		if(!lan.contentEquals("Select Language")) {
+			localLan= lanService.getByLanName(lan);
+		}
+		
+		if(localCat != null && localTopic != null) {
+			localTopicCat = topicCatService.findAllByCategoryAndTopic(localCat, localTopic);
+		}else if (localCat != null) {
+			localTopicCatList = topicCatService.findAllByCategory(localCat);
+		}else if (localTopic != null) {
+			localTopicCatList = topicCatService.findAllByTopic(localTopic);
+		}
+	
+		if(localTopicCat != null) {
+			
+			if(localLan != null) {
+				conAssigTutorial = conRepo.findByTopicCatAndLanViewPart(localTopicCat, localLan);
+			}else {
+				conAssigTutorialList = conRepo.findByTopicCat(localTopicCat);
+			}
+		}else if(localTopicCatList != null) {
+			
+			if(localLan != null) {
+				conAssigTutorialList = conRepo.findAllByTopicCatAndLanViewPart(localTopicCatList, localLan);
+			}else {
+				conAssigTutorialList = conRepo.findAllByTopicCat(localTopicCatList);
+			}
+		}else {
+			if(localLan != null) {
+				conAssigTutorialList = conRepo.findAllByLan(localLan);
+			}
+		}
+		
+	
+		
+		if(conAssigTutorial != null) {
+			tut = tutService.findAllByContributorAssignedTutorial(conAssigTutorial);
+		} else if(conAssigTutorialList != null) {
+			tut =tutService.findAllByContributorAssignedTutorialList(conAssigTutorialList);
+		}else {
+			tut = tutService.findAll();
+		}
+		
+		for(Tutorial temp :tut) {
+			System.out.println(temp.getTutorialId());
+			if(temp.isStatus()) {
+				tutToView.add(temp);
+			}
+		}
+		
+		for(Tutorial temp :tutToView) {
+			System.out.println(temp.getTutorialId());
+			
+		}
+
+		model.addAttribute("tutorials", tutToView);
+		
+		return "signup";   // add view name (filename)
 	}
 
 	@RequestMapping("/login")									// in use

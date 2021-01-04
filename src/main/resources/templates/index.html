@@ -72,12 +72,12 @@
   <!-- Fixed Header And Menu Bar Ends-->
     <main>
     <section id="search-bar" class="container-lg my-5">
-<form th:action="@{/showListTutorial}" class="form-inline" style="width:100%;">
+<form th:action="@{/tutorials}" class="form-inline" style="width:100%;">
 <div class="row" style="width: 100%;">
 <div class="col-md-3 mb-3">
             <select class="custom-select d-block w-100" id="categoryname" name="categoryName">
-              <option value="0">Select Category...</option>
-              <option th:each="category : ${categorys}"><span th:text="${category}">Title ...</span></option>
+              <option>Select Category</option>
+              <option th:each="category : ${categories}"><span th:text="${category.getCatName()}">Title ...</span></option>
             </select>
             <div class="invalid-feedback">
               Please select a valid foss.
@@ -85,13 +85,14 @@
 </div>
 <div class="col-md-3 mb-3">
 <select class="custom-select d-block w-100" id="inputTopicName" name="topic">
-              <option value="0">Select Topic</option>
+              <option >Select Topic</option>
+              <option th:each="topic : ${topics}"><span th:text="${topic.getTopicName()}">Title ...</span></option>
             </select>
 </div>
 <div class="col-md-3 mb-3">
-<select class="custom-select d-block w-100" id="inputLanguage" name="inputLanguage">
-              <option value="0">Select Language</option>
-              <!-- <option th:each="language : ${languages}"><span th:text="${language.languageName}">Title ...</span></option> -->
+<select class="custom-select d-block w-100" id="inputL" name="lan">
+              <option >Select Language</option>
+              <option th:each="language : ${languages}"><span th:text="${language.getLangName()}">Title ...</span></option> 
             </select>
             <div class="invalid-feedback">
               Please provide a valid language.
