@@ -30,10 +30,10 @@
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active" id="home-tab"
 						data-toggle="tab" href="#add" role="tab" aria-controls="home"
-						aria-selected="true">Home</a></li>
+						aria-selected="true">Add</a></li>
 					<li class="nav-item"><a class="nav-link" id="profile-tab"
 						data-toggle="tab" href="#view" role="tab" aria-controls="profile"
-						aria-selected="false">Profile</a></li>
+						aria-selected="false">View</a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active py-3" id="add"
@@ -42,88 +42,89 @@
 							<div class="card-header">
 								<h4>Add Testimonial</h4>
 							</div>
-							<div class="card-body">
-								<div class="row">
-									<div class="col-lg-6">
-										<form th:action="@{/addTestimonial}" method="post"
-											enctype="multipart/form-data">
-											<div class="form-group">
-												<label for="testimonialName">Name</label> <input type="text"
-													class="form-control" id="testimonialName"
-													name="testimonialName" required="required" />
-											</div>
-											<div class="form-group">
-												<label for="testimonialDescription">Description</label>
-												<textarea class="form-control" rows="5"
-													id="testimoniaqlDescription" name="description"
-													required="required" placeholder="Testimonial text"></textarea>
-											</div>
-											<div class="form-group">
-												<label for="testimonialVideo" style="padding-top: 8px">Add
-													Video</label> <input type="file" class="form-control-file"
-													id="testimonialVideo" name="uploadTestimonial"
-													accept=".mp4" placeholder="uploadFile" required="required" />
-											</div>
-											<button type="submit" value="showAlert"
-												onclick="showAlert();" class="btn a-btn">Submit</button>
-											&nbsp;&nbsp;&nbsp;
-											<button type="reset" class="btn a-btn">Reset</button>
-										</form>
-									</div>
+
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<form th:action="@{/addTestimonial}" method="post"
+										enctype="multipart/form-data">
+										<div class="form-group">
+											<label for="testimonialName">Name</label> <input type="text"
+												class="form-control" id="testimonialName"
+												name="testimonialName" required="required" />
+										</div>
+										<div class="form-group">
+											<label for="testimonialDescription">Description</label>
+											<textarea class="form-control" rows="5"
+												id="testimoniaqlDescription" name="description"
+												required="required" placeholder="Testimonial text"></textarea>
+										</div>
+										<div class="form-group">
+											<label for="testimonialVideo" style="padding-top: 8px">Add
+												Video</label> <input type="file" class="form-control-file"
+												id="testimonialVideo" name="uploadTestimonial" accept=".mp4"
+												placeholder="uploadFile" />
+										</div>
+										<button type="submit" value="showAlert" onclick="showAlert();"
+											class="btn a-btn">Submit</button>
+										&nbsp;&nbsp;&nbsp;
+										<button type="reset" class="btn a-btn">Reset</button>
+									</form>
 								</div>
 							</div>
 						</div>
-
 					</div>
 					<div class="tab-pane fade py-3" id="view" role="tabpanel"
 						aria-labelledby="profile-tab">
 						<table class="table table-striped" id="myTable">
 							<thead>
 								<tr>
-									<th scope="col">#</th>
-									<th scope="col">First</th>
-									<th scope="col">Last</th>
-									<th scope="col">Handle</th>
+									<th>Id</th>
+									<th>Name</th>
+									<th>Description</th>
+									<th>Video</th>
+									<th>Edit</th>
+									<!-- <th>Disable</th> -->
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
+
+								<tr th:each="testimonial : ${testimonials}" style="">
+									<td th:text="${testimonial.getTestimonialId()}"></td>
+									<td th:text="${testimonial.getName()}"></td>
+
+									<td th:text="${testimonial.getDescription()}"></td>
+									<td>
+										 <div th:if="${testimonial.getFilePath() != 'null'}"> 
+											<iframe width="330" height="215"
+												th:src="@{/files/}+@{${testimonial.getFilePath()}}"
+												frameborder="0"
+												allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+												allowfullscreen="true"> </iframe>
+										</div>
+									</td>
+
+									<td><a
+										th:href="@{${'/testimonial/edit/' + testimonial.getTestimonialId()}}">Edit</a></td>
+									<!-- <td><a onclick="submitForm()" th:href="@{${'/testimonial/delete/' + testimonial.getTestimonialId()}}">Disable</a></td>   -->
 								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td>Larry</td>
-									<td>the Bird</td>
-									<td>@twitter</td>
-								</tr>
+
 							</tbody>
 						</table>
 					</div>
-					<div class="tab-pane fade" id="contact" role="tabpanel"
-						aria-labelledby="contact-tab">...</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
 
-
 	<div th:replace="common/trail :: body-bottom-scripts"></div>
 
 	<script type="text/javascript">
-$(document).ready( function () {
-    $('#myTable').DataTable();
-} );
-</script>
+		$(document).ready(function() {
+			$('#myTable').DataTable();
+		});
+	</script>
 
 	<script th:inline="javascript">
 		var projectPath='[(@{/})]';

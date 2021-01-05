@@ -1347,5 +1347,66 @@ public class AjaxController{
 	}
 
 
+	@RequestMapping("/commentByContributor")
+	public @ResponseBody String commentByContributor(@RequestParam(value = "id") int tutorialId,
+													@RequestParam(value = "type") String type,
+													@RequestParam(value = "msg") String msg, Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=usrservice.findByUsername(principal.getName());
+		}
+
+		Tutorial tut = tutService.getById(tutorialId);
+
+		Comment com = new Comment();
+		com.setComment(msg);
+		com.setCommentId(comService.getNewCommendId());
+		com.setDateAdded(ServiceUtility.getCurrentTime());
+		com.setUser(usr);
+		com.setTutorialInfos(tut);
+		com.setRoleName(CommonData.contributorRole);
+
+		if(type.equalsIgnoreCase(CommonData.SCRIPT)) {
+			com.setType(CommonData.SCRIPT);
+
+		}else if(type.equalsIgnoreCase(CommonData.KEYWORD)) {
+			com.setType(CommonData.KEYWORD);
+
+		}else if(type.equalsIgnoreCase(CommonData.SLIDE)) {
+			com.setType(CommonData.SLIDE);
+
+		}else if(type.equalsIgnoreCase(CommonData.VIDEO)) {
+			com.setType(CommonData.VIDEO);
+
+		}else if(type.equalsIgnoreCase(CommonData.GRAPHICS)) {
+			com.setType(CommonData.GRAPHICS);
+
+		}else if(type.equalsIgnoreCase(CommonData.PRE_REQUISTIC)) {
+			com.setType(CommonData.PRE_REQUISTIC);
+
+		}else if(type.equalsIgnoreCase(CommonData.OUTLINE)) {
+			com.setType(CommonData.OUTLINE);
+
+		}
+
+		try {
+			comService.save(com);
+
+			return CommonData.COMMENT_SUCCESS;
+
+		}catch (Exception e) {
+			// TODO: handle exception
+			return CommonData.FAILURE;
+		}
+
+
+
+	}
+
+
+
 	/************************************ END ********************************************************/
 }

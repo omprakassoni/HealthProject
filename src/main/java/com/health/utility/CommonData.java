@@ -150,5 +150,7 @@ public class CommonData {
 
 	public static String EVENT_SUCCESS= "Event added successfully";
 
+	public static String PUBLISHED_SUCCESS= "Tutorial published successfully";
+
 
 }

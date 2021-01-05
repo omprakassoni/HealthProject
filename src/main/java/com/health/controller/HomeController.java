@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
@@ -414,7 +415,25 @@ public class HomeController {
 		}
 		model.addAttribute("tutorials", tutToView);
 
-		return "signup";   // add view name (filename)
+		return "tutorialList";   // add view name (filename)
+	}
+
+	@RequestMapping(value = "/tutorialView/{id}", method = RequestMethod.GET)
+	public String viewTutorial(HttpServletRequest req,
+			@PathVariable int id,
+			Principal principal,Model model) {
+			 Tutorial tutorial = tutService.getById(id);
+			 model.addAttribute("tutorial", tutorial);
+
+			 Category category = catService.findByid(tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCategoryId());
+			 List<TopicCategoryMapping> topicCatMapping = topicCatService.findAllByCategory(category);
+			 List<ContributorAssignedTutorial> contriAssignedTut = conRepo.findAllByTopicCat(topicCatMapping);
+			 List<Tutorial> tutorials = tutService.findAllByContributorAssignedTutorialList(contriAssignedTut);
+			 model.addAttribute("tutorials", tutorials);
+			 System.out.println("*******************");
+			 System.out.println(tutorials);
+			 System.out.println("*******************");
+			return "tutorial";
 	}
 
 	@RequestMapping("/login")									// in use
@@ -570,6 +589,9 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
+		List<Category> categories = catService.findAll();
+		model.addAttribute("categories", categories);
+
 		return "addCategory";
 
 	}
@@ -586,6 +608,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		List<Category> categoriesTemp = catService.findAll();
+		model.addAttribute("categories", categoriesTemp);
 
 		String categoryName = req.getParameter("categoryname");
 		String categoryDesc = req.getParameter("categoryDesc");
@@ -667,7 +691,7 @@ public class HomeController {
 
 		List<Language> languages=lanService.getAllLanguages();
 
-		model.addAttribute("languageAll", languages);
+		model.addAttribute("languages", languages);
 
 		return "addlanguage";
 
@@ -685,21 +709,21 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
-		List<Language> languageExist=lanService.getAllLanguages();
+		List<Language> languagesTemp=lanService.getAllLanguages();
+
+		model.addAttribute("languages", languagesTemp);
 
 		String languagename=req.getParameter("languageName");
 
 		if(languagename==null) {
 
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
-			model.addAttribute("languageAll", languageExist);
 			return "addlanguage";
 		}
 
 		if(lanService.getByLanName(languagename)!=null) {
 
 			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
-			model.addAttribute("languageAll", languageExist);
 			return "addlanguage";
 		}
 
@@ -723,10 +747,6 @@ public class HomeController {
 
 
 		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
-
-		languageExist=lanService.getAllLanguages();
-
-		model.addAttribute("languageAll", languageExist);
 
 		return "addlanguage";
 
@@ -752,6 +772,10 @@ public class HomeController {
 
 		model.addAttribute("categories", category);
 
+		List<Topic> topics = topicService.findAll();
+
+		model.addAttribute("topics", topics);
+
 		return "addTopic";
 
 	}
@@ -769,6 +793,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		List<Topic> topicsTemp = topicService.findAll();
+
+		model.addAttribute("topics", topicsTemp);
 
 		List<Category> category = catService.findAll();
 
@@ -837,6 +864,10 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
+		List<Role> roles = roleService.findAll();
+
+		model.addAttribute("roles", roles);
+
 		return "addNewRole";
 
 	}
@@ -852,6 +883,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+
+		List<Role> roles = roleService.findAll();
+
+		model.addAttribute("roles", roles);
 
 		String roleName = req.getParameter("roleName");
 
@@ -896,6 +931,9 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
+		List<Question> questions = questService.findAll();
+		model.addAttribute("questions", questions);
+
 		List<Language> languages=lanService.getAllLanguages();
 
 		List<Category> categories=catService.findAll();
@@ -924,6 +962,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+
+		List<Question> questionsTemp = questService.findAll();
+		model.addAttribute("questions", questionsTemp);
 
 		List<Language> languages=lanService.getAllLanguages();
 
@@ -1024,6 +1065,9 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
+		List<Consultant> consultants = consultService.findAll();
+		model.addAttribute("consultants", consultants);
+
 		return "addConsultant";
 
 	}
@@ -1043,6 +1087,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+
+		List<Consultant> consultants = consultService.findAll();
+		model.addAttribute("consultants", consultants);
+
 		boolean show=false;
 
 		if(showOnHomePage!=null) {
@@ -1121,6 +1169,9 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
+		List<Event> events = eventservice.findAll();
+		model.addAttribute("events", events);
+
 		return "addEvent";
 
 	}
@@ -1136,6 +1187,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+
+		List<Event> eventsTemp = eventservice.findAll();
+		model.addAttribute("events", eventsTemp);
+
 		String eventName = req.getParameter("eventname");
 		String desc = req.getParameter("description");
 		String venueName = req.getParameter("venuename");
@@ -1218,6 +1273,8 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
+		List<Testimonial> testimonials = testService.findAll();
+		model.addAttribute("testimonials", testimonials);
 
 		return "addTestimonial";
 
@@ -1239,6 +1296,10 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
+		List<Testimonial> testimonials = testService.findAll();
+		model.addAttribute("testimonials", testimonials);
+
+		if(!file.isEmpty()) {
 		if(!ServiceUtility.checkFileExtensionVideo(file)) { // throw error on extension
 
 			return "addTestimonial";
@@ -1287,6 +1348,20 @@ public class HomeController {
 			e.printStackTrace();
 
 			return "addTestimonial";    // throw a error
+		}
+		}else {
+
+			Testimonial test=new Testimonial();
+			test.setDateAdded(ServiceUtility.getCurrentTime());
+			test.setDescription(desc);
+			test.setName(name);
+			test.setUser(usr);
+			test.setTestimonialId(testService.getNewTestimonialId());
+			test.setFilePath("null");
+			Set<Testimonial> testi=new HashSet<Testimonial>();
+			testi.add(test);
+
+			userService.addUserToTestimonial(usr, testi);
 		}
 
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
@@ -1699,6 +1774,7 @@ public class HomeController {
 			return "updateTestimonial";
 		}
 
+		if(!file.isEmpty()) {
 		try {
 
 				String pathtoUploadPoster=ServiceUtility.uploadVideoFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
@@ -1718,6 +1794,13 @@ public class HomeController {
 			e.printStackTrace();
 
 			return "updateTestimonial";    // throw a error
+		}
+		}else {
+
+			test.setName(name);
+			test.setDescription(desc);
+
+			testService.save(test);
 		}
 
 
@@ -2281,6 +2364,22 @@ public class HomeController {
 				model.addAttribute("statusPreReq", CommonData.tutorialStatus[local.getPreRequisticStatus()]);
 				model.addAttribute("statusGraphics", CommonData.tutorialStatus[local.getGraphicsStatus()]);
 				model.addAttribute("tutorial", local);
+
+				List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, local);
+				List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT, local);
+				List<Comment> comSlide = comService.getCommentBasedOnTutorialType(CommonData.SLIDE, local);
+				List<Comment> comGraphics = comService.getCommentBasedOnTutorialType(CommonData.GRAPHICS, local);
+				List<Comment> comKeyword = comService.getCommentBasedOnTutorialType(CommonData.KEYWORD, local);
+				List<Comment> comPreRequistic = comService.getCommentBasedOnTutorialType(CommonData.PRE_REQUISTIC, local);
+				List<Comment> comOutline = comService.getCommentBasedOnTutorialType(CommonData.OUTLINE, local);
+
+				model.addAttribute("comOutline", comOutline);
+				model.addAttribute("comScript",comScript );
+				model.addAttribute("comSlide",comSlide );
+				model.addAttribute("comVideo", comVideo);
+				model.addAttribute("comKeyword", comKeyword);
+				model.addAttribute("comPreReq", comPreRequistic);
+				model.addAttribute("comGraphics",comGraphics );
 			}
 		}
 
@@ -2563,7 +2662,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "publish/{id}", method = RequestMethod.GET)
-	public String publishTutorialGet(@PathVariable int id,Model model,Principal principal) {
+	public String publishTutorialGet(@PathVariable int id,Model model,Principal principal,RedirectAttributes redirectAttributes) {
 		User usr=new User();
 
 		if(principal!=null) {
@@ -2591,6 +2690,9 @@ public class HomeController {
 		tutorial.setStatus(true);
 
 		tutService.save(tutorial);
+		model.addAttribute("success_msg", CommonData.PUBLISHED_SUCCESS);
+		model.addAttribute("success_msg", "as");
+		redirectAttributes.addAttribute("success_msg", "rdValue");
 
 
 		return "redirect:/tutorialToPublish";
@@ -2734,6 +2836,7 @@ public class HomeController {
 
 		model.addAttribute("states", states);
 		model.addAttribute("lans", lans);
+		model.addAttribute("question", "question");
 
 		return "masterTrainerOperation";
 
