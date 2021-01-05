@@ -48,6 +48,8 @@ public class CommonData {
 
 	public static String RECORD_ERROR= "Error in saving record";
 
+	public static String STATUS_ERROR= "Error in updating status";
+
 	public static String QUESTION_EXIST= "Question Exist";
 
 	public static String JPG_PNG_EXT= "Only .jpg or .png file allowed";
@@ -67,6 +69,10 @@ public class CommonData {
 	public static String MASTER_TRAINER_ADDED_SUCCESS_MSG = "Master Trainer added Successfully!";
 
 	public static String ADMIN_ADDED_SUCCESS_MSG = "Admin added Successfully!";
+
+	public static String ROLE_ERROR_MSG = "Error in assigning role!";
+
+	public static String DUPLICATE_ROLE_ERROR= "Role request already submitted!";
 
 	public static String QUALITY_ADDED_SUCCESS_MSG = "Request submitted successfully for Quality Reviewer role!";
 
@@ -115,22 +121,36 @@ public class CommonData {
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
 			NEED_IMPROVEMENT_MSG, WAITING_PUBLISH,PUBLISHED
 	};
-	
+
 	public static String COMMENT_SUCCESS = "Comment Added";
-	
+
 	public static String FAILURE = "Failed";
-	
+
 	public static String SCRIPT = "Script";
-	
+
 	public static String VIDEO = "Video";
-	
+
 	public static String KEYWORD = "Keyword";
-	
+
 	public static String OUTLINE = "Outline";
-	
+
 	public static String GRAPHICS = "Graphics";
-	
+
 	public static String PRE_REQUISTIC = "Pre_requistic";
-	
+
 	public static String SLIDE = "Slide";
+
+	public static String CSV_ERROR = "Error in uploading csv file";
+
+	public static String ZIP_ERROR = "Error in uploading zip file";
+
+	public static String NAME_ERROR = "Enter valid event name";
+
+	public static String EVENT_ERROR = "Error in adding event";
+
+	public static String EVENT_SUCCESS= "Event added successfully";
+
+	public static String PUBLISHED_SUCCESS= "Tutorial published successfully";
+
+
 }

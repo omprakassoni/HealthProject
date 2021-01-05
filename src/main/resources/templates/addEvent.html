@@ -1,17 +1,7 @@
 
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-
-<head>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-	integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-	crossorigin="anonymous" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" th:href="@{/css/main.css}"/>
-</head>
+<head th:replace="common/trail :: common-trail"></head>
 <body>
 	<div th:replace="common/sidebar :: top_header"></div>
 	<div class="container-fluid">
@@ -37,105 +27,101 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active" id="home-tab"
 						data-toggle="tab" href="#add" role="tab" aria-controls="home"
 						aria-selected="true">Add</a></li>
 					<li class="nav-item"><a class="nav-link" id="profile-tab"
-						data-toggle="tab" href="#view" role="tab"
-						aria-controls="profile" aria-selected="false">View</a></li>
-					
+						data-toggle="tab" href="#view" role="tab" aria-controls="profile"
+						aria-selected="false">View</a></li>
+
 				</ul>
 				<div class="tab-content" id="myTabContent">
-					<div class="tab-pane fade show active py-3" id="add" role="tabpanel"
-						aria-labelledby="home-tab">
-										<div class="card">
-					<div class="card-header">
-						<h4>Add Event</h4>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-lg-6">
-								<form class="form-horizontal" th:action="@{/addEvent}"
-									method="post">
-									<div class="form-group">
+					<div class="tab-pane fade show active py-3" id="add"
+						role="tabpanel" aria-labelledby="home-tab">
+						<div class="card">
+							<div class="card-header">
+								<h4>Add Event</h4>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-lg-6">
+										<form class="form-horizontal" th:action="@{/addEvent}"
+											method="post">
+											<div class="form-group">
 
-										<label for="event">Event Name</label> <input type="text"
-											class="form-control" id="event" name="eventname"
-											required="required" />
-									</div>
-									<!-- <div class="form-group">
+												<label for="event">Event Name</label> <input type="text"
+													class="form-control" id="event" name="eventname"
+													required="required" />
+											</div>
+											<!-- <div class="form-group">
 
 								<label for="eventdate">Event Date</label> <input type="date"
 									class="form-control" id="eventdate" name="date"
 									required="required" />
 							</div> -->
-									<div class="form-group">
+											<div class="form-group">
 
-										<label for="eventdate">Start Date</label> <input type="date"
-											class="form-control" id="eventdate" name="date"
-											required="required" />
+												<label for="eventdate">Start Date</label> <input type="date"
+													class="form-control" id="eventdate" name="date"
+													required="required" />
 
+											</div>
+
+											<div class="form-group">
+
+												<label for="endDate">End Date</label> <input type="date"
+													class="form-control" id="endDatee" name="endDate"
+													required="required" />
+
+											</div>
+
+
+											<div class="form-group">
+												<label for="eventDescription" style="padding-top: 40px">Enter
+													Description</label>
+												<textarea class="form-control" rows="5"
+													id="eventDescription" name="description"
+													required="required" placeholder="Description of the event"></textarea>
+											</div>
+											<div class="form-group">
+												<label for="venue">Venue Name</label> <input type="text"
+													class="form-control" id="venue" name="venuename"
+													required="required" />
+											</div>
+											<div class="form-group">
+												<label for="contactperson">Contact Person</label> <input
+													type="text" class="form-control" id="contactperson"
+													name="contactperson" required="required" />
+											</div>
+											<div class="form-group">
+												<label for="contactnumber">Contact Number</label> <input
+													type="number" class="form-control" id="conatctNumber"
+													name="contactnumber" required="required" />
+											</div>
+											<div class="form-group">
+
+												<label for="email">Email Id</label> <input type="email"
+													class="form-control" id="email" name="email"
+													required="required" />
+											</div>
+
+											<button type="submit" class="btn a-btn">Submit</button>
+											&nbsp;&nbsp;&nbsp;
+											<button type="reset" class="btn a-btn">Reset</button>
+										</form>
 									</div>
-
-									<div class="form-group">
-
-										<label for="endDate">End Date</label> <input type="date"
-											class="form-control" id="endDatee" name="endDate"
-											required="required" />
-
-									</div>
-
-
-									<div class="form-group">
-										<label for="eventDescription" style="padding-top: 40px">Enter
-											Description</label>
-										<textarea class="form-control" rows="5" id="eventDescription"
-											name="description" required="required"
-											placeholder="Description of the event"></textarea>
-									</div>
-									<div class="form-group">
-										<label for="venue">Venue Name</label> <input type="text"
-											class="form-control" id="venue" name="venuename"
-											required="required" />
-									</div>
-									<div class="form-group">
-										<label for="contactperson">Contact Person</label> <input
-											type="text" class="form-control" id="contactperson"
-											name="contactperson" required="required" />
-									</div>
-									<div class="form-group">
-										<label for="contactnumber">Contact Number</label> <input
-											type="number" class="form-control" id="conatctNumber"
-											name="contactnumber" required="required" />
-									</div>
-									<div class="form-group">
-
-										<label for="email">Email Id</label> <input type="email"
-											class="form-control" id="email" name="email"
-											required="required" />
-									</div>
-
-									<button type="submit" class="btn a-btn">Submit</button>
-									&nbsp;&nbsp;&nbsp;
-									<button type="reset" class="btn a-btn">Reset</button>
-								</form>
+								</div>
 							</div>
 						</div>
 
-						<!-- <h5 class="card-title">Special title treatment</h5>
-						<p class="card-text">With supporting text below as a natural
-							lead-in to additional content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a> -->
+
 					</div>
-				</div>
-						
-						
-						</div>
 					<div class="tab-pane fade py-3" id="view" role="tabpanel"
 						aria-labelledby="profile-tab">
 						<table class="table table-striped" id="myTable">
+
   <thead>
     <tr>
       <th scope="col">Event Name</th>
@@ -163,33 +149,21 @@
   </tbody>
 </table>
 						
-						
+
 					</div>
-					
 				</div>
-
-
 			</div>
 		</div>
 	</div>
 
-	<div th:fragment="body-bottom-scripts">
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-		<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" ></script>
-<script type="text/javascript">
+	<div th:replace="common/trail :: body-bottom-scripts"></div>
+	<script type="text/javascript">
 $(document).ready( function () {
     $('#myTable').DataTable();
 } );
 </script>
-	</div>
-
 	<script th:inline="javascript">
-    
 		var projectPath='[(@{/})]';
-		
 	</script>
 </body>
 </html>

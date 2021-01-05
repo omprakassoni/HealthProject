@@ -1,230 +1,90 @@
 
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-
-<head>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-	integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-</head>
+<head th:replace="common/trail :: common-trail"></head>
 <body>
-<div th:replace="common/sidebar :: top_header"></div>
-<div class="container-fluid">
-<div class="row">
-<div class="col-md-3 col-lg-2 pr-0">
-<div th:replace="common/sidebar :: contributor_sidebar"></div>
-</div>
-<div class="col-md-9 col-lg-10 p-md-5">
-<div>
-				<div class="alert alert-success" role="alert" th:if="${success_msg}">
-	 				<div id="#test" class="">
-						<div >
-							<span th:text="${success_msg}"></span>
+	<div th:replace="common/sidebar :: top_header"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 col-lg-2 pr-0">
+				<div th:replace="common/sidebar :: contributor_sidebar"></div>
+			</div>
+			<div class="col-md-9 col-lg-10 p-md-5">
+				<div>
+					<div class="alert alert-success" role="alert"
+						th:if="${success_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${success_msg}"></span>
+							</div>
+						</div>
+					</div>
+					<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${error_msg}"></span>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="alert alert-danger" role="alert" th:if="${error_msg}">
-	 				<div id="#test" class="">
-						<div >
-							<span th:text="${error_msg}"></span>
-						</div>
-					</div>
-				</div>
-</div>
-<div class="card">
+				<div class="card">
 					<div class="card-header">
 						<h4>Add Admin Reviewer</h4>
 					</div>
 					<div class="card-body">
 						<div class="row">
 							<div class="col-lg-6">
-								<form class="form-horizontal"
-							th:action="@{/addAdminRole}" method="post"
-							onsubmit="return submitForm()(this);">
-						
-						
-							<div class="form-group">
-								<div class="form-group">
-								
-									<label for="">Select Language </label>	
-									<select id="languageContributerId"
-									class="form-control" name="selectedLan" required="required">
+								<form class="form-horizontal" th:action="@{/addAdminRole}"
+									method="post" onsubmit="return submitForm()(this);">
 
-									<option>Select Language</option>
-										<span th:each="lan : ${languages}">
 
-											<option th:value="${lan.getLangName()}"><span th:text="${lan.getLangName()}"></span></option>
+									<div class="form-group">
+										<div class="form-group">
 
-									</span>
-								
-								</select>
-									
-								</div>
-					
-							</div>
-							
-							<div class="form-group">
-								<label for="categoryId">Select Category</label> 
-								<select id="categoryDomainId" name="catSelected"
-									class="form-control" required="required">
-									
-									<option>Select Category</option>
-										<span th:each="cat : ${categories}">
+											<label for="">Select Language </label> <select
+												id="languageContributerId" class="form-control"
+												name="selectedLan" required="required">
 
-											<option th:value="${cat.getCatName()}"><span th:text="${cat.getCatName()}"></span></option>
+												<option>Select Language</option>
 
-								</select>
+												<option th:each="lan : ${languages}"
+													th:value="${lan.getLangName()}"
+													th:text="${lan.getLangName()}"></option>
 
-						</div>
-							
-								<div class="form-group">
-								 <span style="color: red;"
-									th:if="${msg}"> Already exists. Choose
-									a different one.</span>
-							</div>
-							
-							<button type="submit" value="showAlert" class="btn btn-success">Submit</button>
-							&nbsp;&nbsp;&nbsp;
-							<button type="reset" class="btn btn-success">Reset</button>
-						</form>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="categoryId">Select Category</label> <select
+											id="categoryDomainId" name="catSelected" class="form-control"
+											required="required">
+
+											<option>Select Category</option>
+											<option th:each="cat : ${categories}"
+												th:value="${cat.getCatName()}" th:text="${cat.getCatName()}"></option>
+										</select>
+									</div>
+
+									<div class="form-group">
+										<span style="color: red;" th:if="${msg}"> Already
+											exists. Choose a different one.</span>
+									</div>
+
+									<button type="submit" value="showAlert" class="btn btn-success">Submit</button>
+									&nbsp;&nbsp;&nbsp;
+									<button type="reset" class="btn btn-success">Reset</button>
+								</form>
 							</div>
 						</div>
-
-						<!-- <h5 class="card-title">Special title treatment</h5>
-						<p class="card-text">With supporting text below as a natural
-							lead-in to additional content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a> -->
-					</div>
-				</div>
-</div>
-</div>
-</div>
-	<!-- <div style="display: flex;">
-		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-		<div class="row" style='width: 100%;'>
-			<div class="col-lg-10 col-xl-9 mx-auto">
-				<div class="a-update-msg"></div>
-				<div class="card card-signin flex-row a-card">
-					<div class="card-body">
-						<h5 class="card-title text-center"
-							style="color: maroon; font-size: 20px">
-							<div class="">
-								<div th:if="${msgSuccefull}">
-									<span th:text="${msgSuccefull}"></span>
-								</div>
-							</div>
-						</h5>
-						<h5 class="card-title text-center a-card-title">Add Admin
-							Language</h5>
-
-						<form class="form-horizontal"
-							th:action="@{/addAdminRole}" method="post"
-							onsubmit="return submitForm()(this);">
-						
-						
-							<div class="form-group">
-								<div class="form-group">
-								
-									<label for="">Select Language </label>	
-									<select id="languageContributerId"
-									class="form-control" name="selectedLan" required="required">
-
-									<option>Select Language</option>
-										<span th:each="lan : ${languages}">
-
-											<option th:value="${lan.getLangName()}"><span th:text="${lan.getLangName()}"></span></option>
-
-									</span>
-								
-								</select>
-									
-								</div>
-					
-							</div>
-							
-							<div class="form-group">
-								<label for="categoryId">Select Category</label> 
-								<select id="categoryDomainId" name="catSelected"
-									class="form-control" required="required">
-									
-									<option>Select Category</option>
-										<span th:each="cat : ${categories}">
-
-											<option th:value="${cat.getCatName()}"><span th:text="${cat.getCatName()}"></span></option>
-
-								</select>
-
-						</div>
-							
-								<div class="form-group">
-								 <span style="color: red;"
-									th:if="${msg}"> Already exists. Choose
-									a different one.</span>
-							</div>
-							
-							<button type="submit" value="showAlert" class="btn btn-success">Submit</button>
-							&nbsp;&nbsp;&nbsp;
-							<button type="reset" class="btn btn-success">Reset</button>
-						</form>
-						
-						<script>
-					$( document ).ready(function() {
-						var msg = localStorage.getItem("domain_role_msg");
-						
-						
-					    if(Boolean(msg)){
-					    	/* alert('here'); */
-					    	var content = '<div class="alert alert-info" role="alert">'+msg+'</div>';
-					    	/* alert('not null'); */
-					    	$(".a-update-msg").html(content);
-						    localStorage.setItem("domain_role_msg", "");
-					    	$('.a-card').css("margin-top", "20px"); 	
-					    }
-					    
-					});
-					function submitForm() {
-						  localStorage.setItem("domain_role_msg", "Request submitted successfully for Domain Reviewer role.");
-						}
-					</script>
-					
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
- -->
-
-	<div th:fragment="body-bottom-scripts">
-		<script th:src="@{static/js/bootstrap.bundle.min.js}"></script>
-		<script th:src="@{static/js/jquery.slim.min}"
-			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"></script>
-
-		<script th:src="@{/js/jquery.min.js}"></script>
-		<script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
-		<script th:src="@{/s/js/popper.min.js}"></script>
-		<script th:src="@{/s/js/bootstrap.min.js}"></script>
-		<script th:src="@{/s/js/owl.carousel.min.js}"></script>
-		<script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
-		<script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
-		<script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
-		<script th:src="@{/s/js/main.js}"></script>
-		<script th:src="@{/js/ajaxSupport.js}"></script>
-			
-			
-
-
-	</div>
-	
+	<div th:replace="common/trail :: body-bottom-scripts"></div>
 	<script th:inline="javascript">
-    
-		var projectPath='[(@{/})]';
-		
+		var projectPath = '[(@{/})]';
 	</script>
 </body>
 </html>

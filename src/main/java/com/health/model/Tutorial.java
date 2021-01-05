@@ -8,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,75 +24,75 @@ public class Tutorial {
 	@Id
 	@Column(name = "tutorial_id",updatable = false,nullable = false)
 	private int tutorialId;
-	
+
 	@Column(name = "script",length = 1000)
 	private String script;
-	
+
 	@Column(name = "script_status")
 	private int scriptStatus = 0;
-	
+
 	@Column(name = "slide",length = 1000)
 	private String slide;
-	
+
 	@Column(name = "slide_status")
 	private int slideStatus = 0;
-	
+
 	@Column(name = "graphics",length = 1000)
 	private String graphics;
-	
+
 	@Column(name = "graphics_status")
 	private int graphicsStatus = 0;
-	
+
 	@Column(name = "keyword",length = 1000)
 	private String keyword;
-	
+
 	@Column(name = "keyword_status")
 	private int keywordStatus = 0;
-	
+
 	@Column(name = "outline",length = 1000)
 	private String outline;
-	
+
 	@Column(name = "outline_status")
 	private int outlineStatus = 0;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "preRequistics")
 	private Tutorial preRequistic;
-	
+
 	@Column(name = "preRequistic_status")
 	private int preRequisticStatus = 0;
-	
+
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
-	
+
 	@Column(name = "enabled")
 	private boolean status;
-	
+
 	@Column(name = "timescript",length = 1000)
 	private String timeScript;
-	
+
 	@Column(name = "topicName",length = 1000)
 	private String topicName;
-	
+
 	@Column(name = "video",length = 1000)
 	private String video;
-	
+
 	@Column(name = "video_status")
 	private int videoStatus = 0;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "conAssignedTutorial")
 	private ContributorAssignedTutorial conAssignedTutorial;
-	
+
 	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Comment> comments =new HashSet<Comment>();
-	
+
 	@OneToMany(mappedBy = "preRequistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Tutorial> preRequisticTutorial =new HashSet<Tutorial>();
-	
+
 	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<LogManegement> logs =new HashSet<LogManegement>();
-	
+
 	public int getTutorialId() {
 		return tutorialId;
 	}
@@ -269,9 +268,9 @@ public class Tutorial {
 	public void setLogs(Set<LogManegement> logs) {
 		this.logs = logs;
 	}
-	
-	
-	
+
+
+
 
 }
 

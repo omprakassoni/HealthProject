@@ -48,68 +48,114 @@
 						</div>
 					</div>
 				</div>
-				<div class="card">
-					<div class="card-header">
-						<h4>Trainee Detail</h4>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-12">
-								<div
-									sec:authorize="hasAnyAuthority('MASTER_TRAINER','SUPER_USER')">
-									<div>
-										<span th:text="${msg}"></span>
-									</div>
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation"><a
+						class="nav-link active" id="home-tab" data-toggle="tab"
+						href="#viewAllParticipants" role="tab" aria-controls="home"
+						aria-selected="true">All participants</a></li>
+					<li class="nav-item" role="presentation"><a class="nav-link"
+						id="profile-tab" data-toggle="tab" href="#searchParticipants"
+						role="tab" aria-controls="profile" aria-selected="false">Search
+							participants</a></li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active py-3"
+						id="viewAllParticipants" role="tabpanel"
+						aria-labelledby="home-tab">
+						<div class="card">
+							<div class="card-header">
+								<h4>Trainee Detail</h4>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12">
+										<div
+											sec:authorize="hasAnyAuthority('MASTER_TRAINER','SUPER_USER')">
+											<div>
+												<span th:text="${msg}"></span>
+											</div>
+											<div>
+												<table id="tableId" class="table table-striped">
+													<thead>
 
-									<div>
+														<tr>
 
-										<table id="tableId" class="table table-striped">
-											<thead>
-
-												<tr>
-
-													<th>Name</th>
-													<th>Age</th>
-													<th>Aadhar no</th>
-													<th>Mobile Number</th>
-													<th>Organization</th>
-													<th>email</th>
-													<th>Gender</th>
-													<!--   <th>Premark</th>
+															<th>Name</th>
+															<th>Age</th>
+															<th>Aadhar no</th>
+															<th>Mobile Number</th>
+															<th>Organization</th>
+															<th>email</th>
+															<th>Gender</th>
+															<!--   <th>Premark</th>
 					          	    <th>Postmark</th> -->
-													<th>Edit</th>
+															<th>Edit</th>
 
 
-												</tr>
+														</tr>
 
-											</thead>
-											<tbody>
-												<tr th:each="traineeInformation : ${TraineesData}">
-													<td th:text="${traineeInformation.getName()}">ID</td>
-													<td th:text="${traineeInformation.getAge()}">Name</td>
-													<td th:text="${traineeInformation.getAadhar()}">description</td>
-													<td th:text="${traineeInformation.getPhone()}">description</td>
-													<td th:text="${traineeInformation.getOrganization()}">description</td>
-													<td th:text="${traineeInformation. getEmail()}">description</td>
-													<td th:text="${traineeInformation. getGender()}">description</td>
-													<!--  <td th:text="${traineeInformation.premark}">description</td>  
+													</thead>
+													<tbody>
+														<tr th:each="traineeInformation : ${TraineesData}">
+															<td th:text="${traineeInformation.getName()}">ID</td>
+															<td th:text="${traineeInformation.getAge()}">Name</td>
+															<td th:text="${traineeInformation.getAadhar()}">description</td>
+															<td th:text="${traineeInformation.getPhone()}">description</td>
+															<td th:text="${traineeInformation.getOrganization()}">description</td>
+															<td th:text="${traineeInformation. getEmail()}">description</td>
+															<td th:text="${traineeInformation. getGender()}">description</td>
+															<!--  <td th:text="${traineeInformation.premark}">description</td>  
 					                <td th:text="${traineeInformation.postmark}">description</td>  -->
-													<td>
-														<!-- <a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a> -->
-													</td>
+															<td>
+																<!-- <a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a> -->
+															</td>
 
 
-												</tr>
+														</tr>
 
-											</tbody>
-										</table>
+													</tbody>
+												</table>
 
 
+											</div>
+
+
+										</div>
 									</div>
-
-
 								</div>
 							</div>
+						</div>
+
+					</div>
+					<div class="tab-pane fade py-3" id="searchParticipants" role="tabpanel"
+						aria-labelledby="profile-tab">
+						<div class="container">
+						<div class="row">
+						<div class="col-md-6">
+						<form>
+							<div class="form-group">
+								<label for="exampleFormControlSelect1">Select Category</label> <select
+									class="form-control" id="eventCategory">
+									<!-- <option id="categoryContributor">Select Category</option> -->
+									<option th:each="category: ${categories}"
+												th:value="${category.getCategoryId()}" th:text="${category.getCatName()}"></option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleFormControlSelect1">Select Event</label> <select
+									class="form-control" id="eventName">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+								</select>
+							</div>
+						</form>
+						</div>
+						
+						</div>
+						
 						</div>
 					</div>
 				</div>
@@ -163,6 +209,8 @@
 			crossorigin="anonymous"></script>
 		<script
 			src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+			<script th:src="@{/s/js/main.js}"></script>
+		<script th:src="@{/js/ajaxSupport.js}"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#tableId').DataTable();

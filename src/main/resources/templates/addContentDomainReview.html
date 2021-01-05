@@ -11,6 +11,10 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
+<style>
+.fa-user,.fa-clock{
+color : #014F7A;}
+</style>
 </head>
 <body>
 <div th:replace="common/sidebar :: top_header"></div>
@@ -712,21 +716,16 @@
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getOutlineStatus() != 2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getOutlineStatus() != 2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 									<div class="w-100">
 									<h5 class="modal-title" id="exampleModalLabelOutlineView">Review
 											Outline</h5>
 									</div>
-										
-										
-
 										<button type="button" class="close ml-0" data-dismiss="modal"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
-
 										</button>
-										
 									</div>
 									<div class="modal-body">
 										<div class="row">
@@ -767,10 +766,10 @@
 										<div class="col-12">
 										<div th:if="${not #lists.isEmpty(comOutline)}">
 									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${outlineComment}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    <div th:each="comment : ${comOutline}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
 									
@@ -782,8 +781,24 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<span th:if="${tutorial.getOutlineStatus() == 2}"><button id="outlineAcceptOrNeedToImpClick" type="button"
-											class="btn btn-success">Submit</button></span>
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getOutlineStatus() == 2}">
+													<button id="outlineAcceptOrNeedToImpClick" type="button"
+											class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getOutlineStatus() == 2}">
+													<button id="outlineAcceptOrNeedToImpClick" type="button"
+											class="btn btn-success" disabled="disabled">Submit</button>
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="outlineAcceptOrNeedToImpClick" type="button"
+											class="btn btn-success">Submit</button>
+										</div>
+									<!-- 	<span th:if="${tutorial.getOutlineStatus() == 2}"><button id="outlineAcceptOrNeedToImpClick" type="button"
+											class="btn btn-success">Submit</button></span> -->
 										
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 										<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
@@ -809,7 +824,7 @@
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getKeywordStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getKeywordStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Keyword</h5>
@@ -827,7 +842,7 @@
 									<div class="border border-info p-2 mb-5">
 											<span th:utext="${tutorial.getKeyword()}"></span>
 										</div>
-										<div th:if="${tutorial.getKeywordStatus() == 2}">
+										<div>
 										<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
@@ -859,10 +874,10 @@
 									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(comKeyword)}">
 									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${keywordComment}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    <div th:each="comment : ${comKeyword}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
 									
@@ -873,8 +888,23 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-									<span th:if="${tutorial.getKeywordStatus() == 2}"><button id="AcceptOrNeedToImprovemenetByDomain" type="button"
-												class="btn btn-success">Submit</button></span>
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getKeywordStatus() == 2}">
+													<button id="AcceptOrNeedToImprovemenetByDomain" type="button"
+												class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getKeywordStatus() == 2}">
+												<button id="AcceptOrNeedToImprovemenetByDomain" type="button"
+												class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="AcceptOrNeedToImprovemenetByDomain" type="button"
+												class="btn btn-success">Submit</button>
+										</div>
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
 										</div>
 									
@@ -900,7 +930,7 @@
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getVideoStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getVideoStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Video</h5>
@@ -929,7 +959,7 @@
 </div>
 
 											</div>
-											<div th:if="${tutorial.getVideoStatus() == 2}">
+											<div>
 											<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
@@ -956,8 +986,8 @@
 									<div th:if="${not #lists.isEmpty(comVideo)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${comVideo}" class="border-bottom"> 
-											    <!-- <p class="my-0"><strong><span th:text="${}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${}"></span></small></p> -->
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
@@ -970,10 +1000,23 @@
 
 									</div>
 									<div class="modal-footer">
-									<button id="videoAcceptOrNeedToImprovemenetByDomain"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getVideoStatus() == 2}">
+													<button id="videoAcceptOrNeedToImprovemenetByDomain"
 												type="button" class="btn btn-success">Submit</button>
-									
-									
+											</div>
+											<div
+												th:unless="${tutorial.getVideoStatus() == 2}">
+												<button id="videoAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="videoAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
 									<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Close</button>
 									</div>
@@ -1049,7 +1092,7 @@
 
 							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getScriptStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getScriptStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain
 											Review-Script</h5>
@@ -1106,21 +1149,33 @@
 									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(comScript)}">
 									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${scriptComment}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    <div th:each="comment : ${comScript}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
 									
 									</div>
-									
 									</div>
 									</div>
 										
 									</div>
 									<div class="modal-footer">
-									<button id="scriptAcceptOrNeedToImprovemenetDomain" type="button" class="btn btn-success">Submit</button>
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getScriptStatus() == 2}">
+													<button id="scriptAcceptOrNeedToImprovemenetDomain" type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getScriptStatus() == 2}">
+													<button id="scriptAcceptOrNeedToImprovemenetDomain" type="button" class="btn btn-success" disabled="disabled">Submit</button>
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="scriptAcceptOrNeedToImprovemenetDomain" type="button" class="btn btn-success">Submit</button>
+										</div>
+									
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 									</div>
 
@@ -1141,7 +1196,7 @@
 								role="document">
 								<div class="modal-content">
 								<div class="alert alert-msg m-3" style="display: none;"></div>
-								<div th:if="${tutorial.getPreRequisticStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getPreRequisticStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Pre-requisites</h5>
@@ -1153,11 +1208,8 @@
 										</button>
 									</div>
 									<div class="modal-body">
-									
-
-										<!-- <form class="form-horizontal" th:action="@{/addkeyword}"
-											onsubmit="return submitForm(this);" method="post"> -->
-
+										<div class="row">
+											<div class="col-12">
 											<div class="form-group mb-3" th:if="${tutorial.getPreRequisticStatus()>0}">
 
 												<div class="embed-responsive embed-responsive-16by9 mb-5">
@@ -1198,16 +1250,46 @@
 
 										</form>
 										</div>
+											</div>
+											<div class="col-12">
+												<div th:if="${not #lists.isEmpty(comPreReq)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${comPreReq}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+											</div>
+										</div>
+
+											
 
 									</div>
 									<div class="modal-footer">
-									<div th:if="${tutorial.getPreRequisticStatus()==2}">
-									<button id="preAcceptOrNeedToImprovemenetByDomain"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getPreRequisticStatus() == 2}">
+													<button id="preAcceptOrNeedToImprovemenetByDomain"
 												type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getPreRequisticStatus() == 2}">
+												<button id="preAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="preAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
 									
 									<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Close</button>
-									</div>
+									
 									</div>
 
 								</div>
@@ -1227,7 +1309,7 @@
 
 							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<div th:if="${tutorial.getSlideStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+								<!-- <div th:if="${tutorial.getSlideStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabeSlideStatus">Domain
 											Review-Slide</h5>
@@ -1300,10 +1382,10 @@
 									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(comSlide)}">
 									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${slideComment}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getCommentdate()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getCommentInfo()}"></span></p>
+											    <div th:each="comment : ${comSlide}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
 									
@@ -1321,8 +1403,24 @@
 
 									</div>
 									<div class="modal-footer">
-									<button id="slideAcceptOrNeedToImprovemenetByDomain"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getSlideStatus() == 2}">
+													<button id="slideAcceptOrNeedToImprovemenetByDomain"
 												type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getSlideStatus() == 2}">
+												<button id="slideAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+													
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="slideAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
+									
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 												
 									</div>
@@ -1392,7 +1490,7 @@
 							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
 								<div class="alert alert-msg m-3" style="display: none;"></div>
-									<div th:if="${tutorial.getGraphicsStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
+									<!-- <div th:if="${tutorial.getGraphicsStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabeSlideStatus">Domain
 											Review-Graphics</h5>
@@ -1411,8 +1509,9 @@
 										</button>
 									</div>
 									<div class="modal-body">
-									
-									<div class="border border-secondary p-3 mb-3">
+									<div class="row">
+										<div class="col-12">
+																			<div class="border border-secondary p-3 mb-3">
 									<div th:if="${tutorial.getGraphicsStatus()}">
 											 <!--  <div class="card-body">
 											    <div class="form-group"> -->
@@ -1459,11 +1558,41 @@
 										</form>
 </div>
 										
+										</div>
+										<div class="col-12">
+												<div th:if="${not #lists.isEmpty(comGraphics)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${comGraphics}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+											</div>
+									</div>
+										
 
 									</div>
 									<div class="modal-footer">
-									<button id="graphicsAcceptOrNeedToImprovemenetByDomain"
+									<div th:if="${tutorial}">
+											<div
+												th:if="${tutorial.getGraphicsStatus() == 2}">
+													<button id="graphicsAcceptOrNeedToImprovemenetByDomain"
 												type="button" class="btn btn-success">Submit</button>
+											</div>
+											<div
+												th:unless="${tutorial.getGraphicsStatus() == 2}">
+												<button id="graphicsAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success" disabled="disabled">Submit</button>
+											</div>
+										</div>
+										<div th:unless="${tutorial}">
+											<button id="graphicsAcceptOrNeedToImprovemenetByDomain"
+												type="button" class="btn btn-success">Submit</button>
+										</div>
+									
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 												
 									</div>
@@ -1673,7 +1802,7 @@
 		<script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
 		<script th:src="@{/s/js/popper.min.js}"></script>
 		<script th:src="@{/s/js/bootstrap.min.js}"></script>
-
+		<script src="js/ckeditor.js"></script> 
 		<script th:src="@{/s/js/main.js}"></script>
 		<script th:src="@{/js/ajaxSupport.js}"></script>
 		<script th:src="@{js/jquery-3.3.1.js}"></script>
@@ -1683,9 +1812,7 @@
 	<script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
 	
 	<script th:inline="javascript">
-    
 		var projectPath='[(@{/})]';
-		
 		var filep='[(@{/files/})]';
 		
 	</script>

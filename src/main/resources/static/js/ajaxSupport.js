@@ -11,6 +11,7 @@ $(document)
 			$('.review-accepted').tooltip({ title: 'Accepted' });
 			$('.review-improvement').tooltip({ title: 'Need Improvement' });
 			$('.not-required').tooltip({ title: 'Not Required' });
+			
 
 			/*--------------- constants ---------------*/
 			const SUCCESS = 1;
@@ -103,6 +104,19 @@ $(document)
 						$('.approve-success-msg').text(
 								localStorage.getItem('msg'));
 					});
+			
+			// domain
+			$('#SlideStatusAccept').on('hidden.bs.modal', function() {
+				location.reload();
+
+			});
+			$('#keywordModaleViewInDomain').on('hidden.bs.modal', function() {
+				location.reload();
+			});
+			$('#PreViewIdDomain').on('hidden.bs.modal', function() {
+				location.reload();
+			});
+			
 
 			// Contributor
 
@@ -138,7 +152,7 @@ $(document)
 
 			// Quality
 
-			$('#OutlineAccepOrNeedToImprovementQuality').on(
+			$('#outlineViewModelDomain').on(
 					'hidden.bs.modal', function() {
 						location.reload();
 
@@ -161,7 +175,13 @@ $(document)
 
 					});
 
-			$('#keywordAccepOrNeedToImprovementQuality').on(
+			$('#keywordModaleViewInQuality').on(
+					'hidden.bs.modal', function() {
+						location.reload();
+
+					});
+			
+			$('#PreViewQualityId').on(
 					'hidden.bs.modal', function() {
 						location.reload();
 
@@ -449,7 +469,7 @@ $(document)
 /******************** CHANGES MADE BYU OM PRAKASH SONI ******************************/
 			
 			$('#catMasId').change(function() {
-
+						
 						var state = $(this).find(":selected").val();
 
 						$.ajax({
@@ -485,12 +505,10 @@ $(document)
 			// Changes made by Om prakash
 
 			$('#preRequsiteId').change(function() {
-						
+			
 				var catgoryid = $(this).find(":selected").val();
 				var tutorialId=$('#tutorialId').val();
 				var langName=$('#lanId').val();
-
-
 
 						$.ajax({
 							type : "GET",
@@ -580,7 +598,7 @@ $(document)
 						var preCommentMsg = $("#preCommentMsg").val();
 
 
-						alert(preCommentMsg);
+//						alert(preCommentMsg);
 
 						var vals = $("#preAcceptDomain").val();
 
@@ -735,12 +753,13 @@ $(document)
 
 			$('#uploadpreRequsiteId').click(function() {
 
-			
-				var tutorialId = $("#inputLanguageAll").val();
+//				var tutorialId = $("#inputLanguageAll").val();
+				var tutorialId = $("#tutorialId").val();
 				var categoryid = $("#categoryId").val();
-				var topicid = $("#topicID").val();
+//				var topicid = $("#topicID").val();
+				var topicid = $("#inputLanguageAll").val();
+				
 				var lanId = $("#lanId").val();
-
 
 				$.ajax({
 					type : "GET",
@@ -755,12 +774,14 @@ $(document)
 					contentType : "application/json",
 					success : function(result) 
 					{
+						console.log("success");
 						$("#exampleModalLabelPre").prop('disabled',false);
-						$("#exampleModalLabelPre").html(html);
+						$("#exampleModalLabelPre").html("Result");
 
 					},
 
 					error : function(err) {
+						console.log("error");
 						console
 						.log("not working. ERROR: "+ JSON.stringify(err));
 					}
@@ -1145,7 +1166,6 @@ $(document)
 		  			               + '</option>';
 		  	  			        })
 	  	  			            html += '</option>';
-	  	  			            alert("vikash");
 								$("#lanMasterTrId").prop('disabled',false);
 								$('#lanMasterTrId').html(html);
 
@@ -1266,7 +1286,7 @@ $(document)
 										if(result!=null){
 											$("#keyword").val(result);
 											$('#keyword').prop('readonly', true);
-											$("#keywordId").hide();
+//											$("#keywordId").hide();
 										}
 										
 		
@@ -1316,7 +1336,7 @@ $(document)
 										// outline
 										// content
 										// to editor
-										editor.isReadOnly = true;
+//										editor.isReadOnly = true;
 		
 									},
 									error : function(err) {
@@ -1588,7 +1608,12 @@ $(document)
 //			});
 //			});
 //			question end
-
+			$('#fetch_questions').click(
+			function() {
+			alert('ques');
+			$('#questionnaire').tab('show');
+			
+			});
 
 
 
@@ -2114,6 +2139,7 @@ $(document)
 
 					});
 			$( "#categoryname" ).change(function() {
+				alert('test');
 //				$('#categoryname')
 //				.on('change',function() {
 
@@ -2129,6 +2155,7 @@ $(document)
 					},
 					contentType : "application/json",
 					success : function(result) {
+						alert("ter");
 
 						var html = '';
 						var len = result.length;
@@ -2680,7 +2707,7 @@ $(document)
 			
 			$('#outlineId').click(function() {
 				
-						$(this).toggle();
+//						$(this).toggle();
 						$('#editOutline').toggle();
 
 						var saveInfo = editor.getData();
@@ -2694,7 +2721,7 @@ $(document)
 						var topicid = $("#topicID").val();
 						var lanId = $("#lanId").val();
 						localStorage.setItem("upload_outline_msg","Outline updated.");
-						editor.isReadOnly = true;
+//						editor.isReadOnly = true;
 
 						$.ajax({
 							type : "GET",
@@ -2745,30 +2772,37 @@ $(document)
 
 			});
 
-			$('#editKeyword').click(function() {
-				$(this).toggle();
-				$('keywordId').toggle();
-				$('#keyword').prop('readonly', false);
-				// outlineId
-				$('#keywordId').show();
-				$("#keywordId").html("Save changes");
-
-			});
+//			$('#editKeyword').click(function() {
+//				$(this).toggle();
+//				$('keywordId').toggle();
+//				$('#keyword').prop('readonly', false);
+//				// outlineId
+//				$('#keywordId').show();
+//				$("#keywordId").html("Save changes");
+//
+//			});
 
 			/* Save keyWord information into table */
 	/*********************** changes made by om prakash *************************************/
 
 			$('#keywordId').click(function() {
 				
-						$(this).toggle();
-						$('#editKeyword').toggle();
+//						$(this).toggle();
+//						$('#editKeyword').toggle();
 						
 						var keywordArea = $("#keywordArea").val();
+						console.log("keywordArea "+keywordArea);
 						var categoryid = $("#categoryId").val();
+						console.log("categoryid "+categoryid);
 						var topicid = $("#topicID").val();
+						console.log("topicid "+topicid);
 						var lanId = $("#lanId").val();
-						
-						$('#keyword').prop('readonly', true);
+						console.log("lanId "+lanId);
+//						var categoryid = $("#categoryId").val();
+//						var topicid = $("#topicID").val();
+//						var lanId = $("#lanId").val();
+						var tutorialId=$("#tutorialId").val();
+//						$('#keyword').prop('readonly', true);
 						$.ajax({
 							type : "GET",
 							url : projectPath+"addKeyword",
@@ -3331,7 +3365,7 @@ $(document)
 /************************* changes made by om prakash **********************************************/
 			
 			$('#contributorId').on('change',function() {
-
+						
 						var userContributor = $(this).find(':selected').val();
 						console.log(userContributor);
 						$.ajax({
@@ -4331,13 +4365,15 @@ $(document)
 								type : "GET",
 								url : projectPath+"acceptAdminVideo",
 								data : {
-									"id" : tutorialId
+									"id" : tutorialId,
+									"show_status" :1
 								},
 								contentType : "application/json",
 								success : function(result) {
 
 									$("#statusVideoByAdmin").prop('disabled',false);
 									$('#statusVideoByAdmin').html(result);
+										$('#success_msg').html(result);
 									showStatus(SUCCESS, result);
 
 								},
@@ -5842,6 +5878,45 @@ $(document)
 					return false;
 				}
 			});
+			
+			$('#eventCategory').on('change', function() {
+				category_id = this.value;
+//				  alert( this.value );
+				$.ajax({
+
+					type : "GET",
+					url : projectPath+"loadEventByCategory",
+					data : {
+						"id" : catgoryid
+					},
+					contentType : "application/json",
+					success : function(result) {
+
+					//	html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
+
+						var html = '';
+						var len = result.length;
+						html += '<option value="0">Select Topic</option>';
+						$.each(result , function( key, value ) {
+	  	  			        html += '<option value=' + key + '>'+ value  + '</option>';
+	  	  			     })
+						html += '</option>';
+
+						$("#inputTopicContributor").prop('disabled',false);
+						$('#inputTopicContributor').html(html);
+
+					},
+
+					error : function(err) {
+						console.log("not working. ERROR: "	+ JSON.stringify(err));
+					}
+
+				});
+				
+				});
+
+			
+			
 
 		});
 

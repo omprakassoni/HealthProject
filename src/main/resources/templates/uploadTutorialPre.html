@@ -1,210 +1,79 @@
 
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-
-<head th:replace="common/trail :: common-trail">
-
-	<meta charset="utf-8"/>
-		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-		 <link rel="stylesheet" th:href="@{css/style3.css}"/>
- 	 	<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/> 
-
-</head>
-  <body>
-  <div th:replace="common/sidebar :: top_header"></div>
-  <div class="container-fluid">
-  <div class="row">
-  <div class="col-md-3 col-lg-2 pr-0">
-  <div th:replace="common/sidebar :: contributor_sidebar"></div>
-  </div>
-  <div class="col-md-9 col-lg-10 p-md-5">
-  <div>
-				<div class="alert alert-success" role="alert" th:if="${success_msg}">
-	 				<div id="#test" class="">
-						<div >
-							<span th:text="${success_msg}"></span>
+<head th:replace="common/trail :: common-trail"></head>
+<body>
+	<div th:replace="common/sidebar :: top_header"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 col-lg-2 pr-0">
+				<div th:replace="common/sidebar :: contributor_sidebar"></div>
+			</div>
+			<div class="col-md-9 col-lg-10 p-md-5">
+				<div>
+					<div class="alert alert-success" role="alert"
+						th:if="${success_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${success_msg}"></span>
+							</div>
+						</div>
+					</div>
+					<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${error_msg}"></span>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="alert alert-danger" role="alert" th:if="${error_msg}">
-	 				<div id="#test" class="">
-						<div >
-							<span th:text="${error_msg}"></span>
-						</div>
-					</div>
-				</div>
-</div>
-<div class="card">
+				<div class="card">
 					<div class="card-header">
 						<h4>Upload Tutorial</h4>
 					</div>
 					<div class="card-body">
 						<div class="row">
 							<div class="col-lg-6">
-								<form  th:action="@{/uploadTutorial}" method="post"  onsubmit="return submitForm(this);">
- 			
- 				
- 					 <div class="form-group">  
-			                     <label for="inputUserame"></label>     
-			              <select id="categoryContributor" class="form-control " name="categoryName"   required="required" >
-								               
-							 <option id="categoryContributor" >Select Category</option>  
-							     
-								    <span th:each="catName: ${contributorTutorial}">
-								  		
-											<option th:value="${catName}">
-									
-									<span th:text="${catName}"></span>
-								
-									</option>	
-								</span>
-						</select>
-						
-					</div> 
-				
-	           				 <div class="form-group ">
-		
-					       <!-- <label for="inputTopicContributor">Topic</label> -->
-					       <label for="inputTopicContributor"></label>
-					       <select id="inputTopicContributor" class="form-control" name="inputTopic"  required="required">
-					            <!-- <option id="categoryContributor"  selected="selected">Select Category</option> -->
-					            <option value="0">Select Topic</option>  
-					       </select> 
-					                	
-							 </div>
+								<form th:action="@{/uploadTutorial}" method="post"
+									onsubmit="return submitForm(this);">
+									<div class="form-group">
+										<label for="inputUserame"></label> <select
+											id="categoryContributor" class="form-control "
+											name="categoryName" required="required">
 
-			              <div class="form-group ">
-		
-					               <!-- <label for="inputLanguageContributor">Language</label> -->
-					               <label for="inputLanguageContributor"></label>
-					               
-					                    <select id="inputLanguageContributor" class="form-control" name="inputLanguage"  required="required">
-					              		<option value="0">Select Language</option>
-					                </select> 
-					                    
-						  </div>
-						  
-		 <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
-						  
-						  
- 		      </form>
+											<option id="categoryContributor">Select Category</option>
+											<option th:each="catName: ${contributorTutorial}"
+												th:value="${catName}" th:text="${catName}"></option>
+										</select>
+									</div>
+									<div class="form-group ">
+										<label for="inputTopicContributor"></label> <select
+											id="inputTopicContributor" class="form-control"
+											name="inputTopic" required="required">
+											<option value="0">Select Topic</option>
+										</select>
+									</div>
+									<div class="form-group ">
+										<label for="inputLanguageContributor"></label> <select
+											id="inputLanguageContributor" class="form-control"
+											name="inputLanguage" required="required">
+											<option value="0">Select Language</option>
+										</select>
+									</div>
+									<button type="submit" class="btn btn-success">Submit</button>
+									&nbsp;&nbsp;&nbsp;
+								</form>
 							</div>
 						</div>
-
-						<!-- <h5 class="card-title">Special title treatment</h5>
-						<p class="card-text">With supporting text below as a natural
-							lead-in to additional content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a> -->
 					</div>
 				</div>
-  </div>
-  </div>
-  </div>
-  		
-  		<!-- <div th:replace="common/header :: c_header"></div> -->
-  		
-  		
-  		<div style="display:flex;">
-  		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-
-	    <div class="row" style='width:100%;'>
-	      <div class="col-lg-10 col-xl-9 mx-auto">
-	        <div class="card card-signin flex-row a-card">
-	       
-	          <div class="card-body">
-	           <h5 class="card-title text-center a-card-title">
-    			<div class="">    
-                                <div th:if="${msg}">
-   								 <span th:text="${msg}"></span>
- 									 </div> </div></h5>
-	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px"> Tutorial Upload Form </h5>
-	            
-	       	   <form class="form-horizontal"  th:action="@{/uploadTutorial}" method="post"  onsubmit="return submitForm(this);">
- 			
- 				
- 					 <div class="form-group">  
-			                     <label for="inputUserame"></label>     
-			              <select id="categoryContributor" class="form-control " name="categoryName"   required="required" >
-								               
-							 <option id="categoryContributor" >Select Category</option>  
-							     
-								    <span th:each="catName: ${contributorTutorial}">
-								  		
-											<option th:value="${catName}">
-									
-									<span th:text="${catName}"></span>
-								
-									</option>	
-								</span>
-						</select>
-						
-					</div> 
-				
-	           				 <div class="form-group ">
-		
-					       <!-- <label for="inputTopicContributor">Topic</label> -->
-					       <label for="inputTopicContributor"></label>
-					       <select id="inputTopicContributor" class="form-control" name="inputTopic"  required="required">
-					            <!-- <option id="categoryContributor"  selected="selected">Select Category</option> -->
-					            <option value="0">Select Topic</option>  
-					       </select> 
-					                	
-							 </div>
-
-			              <div class="form-group ">
-		
-					               <!-- <label for="inputLanguageContributor">Language</label> -->
-					               <label for="inputLanguageContributor"></label>
-					               
-					                    <select id="inputLanguageContributor" class="form-control" name="inputLanguage"  required="required">
-					              		<option value="0">Select Language</option>
-					                </select> 
-					                    
-						  </div>
-						  
-		 <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
-						  
-						  
- 		      </form>
-         	
-					<script>
-					function submitForm() {
-						  /* return confirm('Do you really want to submit the form?'); */
-						  
-						  /* alert("Submit form succefully"); */
-						}
-					</script>
-  				 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
- 
-			<div th:fragment="body-bottom-scripts">
-
-        	 <script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
-       		 <script th:src="@{/static/js/jquery.slim.min}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-			
-				<script th:src="@{/js/jquery.min.js}"></script>
-			    <script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
-			    <script th:src="@{/s/js/popper.min.js}"></script>
-			    <script th:src="@{/s/js/bootstrap.min.js}"></script>
-			    <script th:src="@{/s/js/owl.carousel.min.js}"></script>
-			    <script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
-			    <script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
-			    <script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
-			    <script th:src="@{/s/js/main.js}"></script>
-			    <script th:src="@{/js/ajaxSupport.js}"></script>
-			    
-			    	<script th:inline="javascript">
-    
-		var projectPath='[(@{/})]';
-		
-	</script>
-			
 			</div>
- </body>
+		</div>
+	</div>
+	<div th:replace="common/trail :: body-bottom-scripts"></div>
+	<script th:inline="javascript">
+		var projectPath = '[(@{/})]';
+	</script>
+</body>
 </html>
- 
- 
+

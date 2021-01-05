@@ -507,7 +507,8 @@ footer{
 	color: #D9534F;
 }
 .admin-review{
-	color:#D9534F;
+	/* color:#D9534F; */
+	color: #263238
 }
 .domain-review{
 	color:#F0AD4E;
@@ -569,6 +570,130 @@ footer{
 .header-top .contact-num{
 	color: #fff;
 }
+
+/****************************************Tutorial Page Starts************************************************/
+.main-color{
+	color: #0066A1; 
+	font-weight: bold;
+}
+#t-video{
+	/*border: 1px solid green;*/
+}
+ .t-icon{
+	color: #0066A1;
+	font-size: 1.4rem;
+	/*color: red;*/
+}
+.rel-vid-b{
+	border-bottom: 1px solid black;
+	padding-top: 10px;
+}
+.t-related{
+		max-height: 60vh;
+	overflow-y: scroll; 
+	 overflow: -moz-scrollbars-vertical; 
+	 overflow-x: hidden;
+}
+#t-content{
+	/*border: 1px solid red;*/
+
+}
+#resources{
+	/* border: 1px solid rgba(0,0,0,0.5); */
+}
+#t-related{
+	/*border: 1px solid blue;*/
+}
+#tutorialPage .outline{
+	font-size: 0.9rem;
+   	color: rgba(0,0,0,0.6);
+}
+#tutorialPage h1, #tutorial_list h1, #event_page h1{
+	font-size: 1.1rem;
+    color: #0066A1;
+    /*color: #00695D;*/
+}
+#tutorialPage h4, #tutorial_list h4{
+	font-size: 1rem;
+	font-weight: normal;
+}
+#tutorial_list h4{
+	font-size: 1rem;
+	font-weight: bold;
+	color: #0066A1;
+}
+
+#tutorialPage h5, #tutorial_list h5{
+	font-size: 1rem;
+    /*color: #0066A1;*/
+    /*color: #00695D;*/
+}
+#tutorialPage h6, #tutorial_list h6{
+	font-size: 0.9rem;
+	font-weight: normal;
+}
+#tutorialPage .title{
+	border-bottom: 2px solid rgba(0,0,0,0.5);
+}
+#tutorialPage .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+	background: #fff;
+	color: #0066A1;
+	border-bottom: 2px solid #0066A1;
+	border-radius: 0;
+	/*transition: border 4s;*/
+	
+}
+#tutorialPage .nav-pills .nav-link{
+	border-bottom: 0px solid #0066A1;
+}
+#tutorialPage .nav-item a{
+	color: rgba(0,0,0,0.8);
+	font-weight: bold;
+}
+#tutorialPage .link-style {
+    display: inline-block;
+    color: #000;
+    text-decoration: none;
+}
+
+#tutorialPage .link-style::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #0066A1;
+    transition: width .3s;
+}
+
+#tutorialPage .link-style:hover::after {
+    width: 100%;
+    //transition: width .3s;
+}
+#tutorialPage ul{
+	list-style-type: none;
+}
+#tutorialPage a{
+	text-decoration: none;
+	color: black;
+	border-bottom: 2px solid #0066A1;
+}
+#tutorialPage .d-script{
+	/*border-bottom: 1px solid #0066A1;*/
+}
+
+/*------------------------------------------------*/
+#tutorial_list .t-wrapper{
+	border-bottom: 1px solid #0066A1;
+}
+
+
+#pills-tabContent-tutorial{
+	border: 1px solid #0066A1; 
+}
+.main-color{
+	color: rgba(0,102,161,1);
+}
+/****************************************Tutorial Page Ends************************************************/
 /****************************************header************************************************/
 
 /*viewport*/
@@ -579,10 +704,22 @@ footer{
 @media (min-width: 576px) {  }
 
 /*Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) {  }
+@media (min-width: 768px) {  
+	#tutorial_list{
+		padding-right: 10%;
+		padding-left: 10%;
+	}
+	
+	
+}
 
 /*Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) {  }
+@media (min-width: 992px) {
+	#tutorial_list{
+		padding-right: 20%;
+		padding-left: 20%;
+	}	
+}
 
 /*Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {  }
@@ -604,6 +741,10 @@ footer{
 #testimonial .card{
 	height: 420px;
 }
+#tutorial_list{
+		padding-right: 5%;
+		padding-left: 5%;
+	} 
 	
 }
 
