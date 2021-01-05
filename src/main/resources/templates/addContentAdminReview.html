@@ -20,6 +20,23 @@
   <div th:replace="common/sidebar :: contributor_sidebar"></div>
   </div>
   <div class="col-md-9 col-lg-10 p-md-5">
+  <div>
+					<div class="alert alert-success" role="alert"
+						th:if="${success_msg}">
+						<div id="#test" class="">
+							<div>
+								<span id="success_msg"></span>
+							</div>
+						</div>
+					</div>
+					<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+						<div id="#test" class="">
+							<div>
+								<span  id="error_msg"></span>
+							</div>
+						</div>
+					</div>
+				</div>
   <div class="card">
 					<div class="card-header">
 						<h4>Review video</h4>

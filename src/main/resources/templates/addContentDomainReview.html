@@ -11,6 +11,10 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
+<style>
+.fa-user,.fa-clock{
+color : #014F7A;}
+</style>
 </head>
 <body>
 <div th:replace="common/sidebar :: top_header"></div>
@@ -763,8 +767,8 @@
 										<div th:if="${not #lists.isEmpty(comOutline)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${comOutline}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
@@ -871,8 +875,8 @@
 									<div th:if="${not #lists.isEmpty(comKeyword)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${comKeyword}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
@@ -982,8 +986,8 @@
 									<div th:if="${not #lists.isEmpty(comVideo)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${comVideo}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
@@ -1146,8 +1150,8 @@
 									<div th:if="${not #lists.isEmpty(comScript)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${comScript}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
@@ -1204,11 +1208,8 @@
 										</button>
 									</div>
 									<div class="modal-body">
-									
-
-										<!-- <form class="form-horizontal" th:action="@{/addkeyword}"
-											onsubmit="return submitForm(this);" method="post"> -->
-
+										<div class="row">
+											<div class="col-12">
 											<div class="form-group mb-3" th:if="${tutorial.getPreRequisticStatus()>0}">
 
 												<div class="embed-responsive embed-responsive-16by9 mb-5">
@@ -1249,6 +1250,22 @@
 
 										</form>
 										</div>
+											</div>
+											<div class="col-12">
+												<div th:if="${not #lists.isEmpty(comPreReq)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${comPreReq}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+											</div>
+										</div>
+
+											
 
 									</div>
 									<div class="modal-footer">
@@ -1366,8 +1383,8 @@
 									<div th:if="${not #lists.isEmpty(comSlide)}">
 									<h6 class="border-bottom">Comments: </h6>
 											    <div th:each="comment : ${comSlide}" class="border-bottom"> 
-											    <p class="my-0"><strong><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
 											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 											    
 											    </div>
@@ -1492,8 +1509,9 @@
 										</button>
 									</div>
 									<div class="modal-body">
-									
-									<div class="border border-secondary p-3 mb-3">
+									<div class="row">
+										<div class="col-12">
+																			<div class="border border-secondary p-3 mb-3">
 									<div th:if="${tutorial.getGraphicsStatus()}">
 											 <!--  <div class="card-body">
 											    <div class="form-group"> -->
@@ -1539,6 +1557,21 @@
 
 										</form>
 </div>
+										
+										</div>
+										<div class="col-12">
+												<div th:if="${not #lists.isEmpty(comGraphics)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${comGraphics}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+											</div>
+									</div>
 										
 
 									</div>

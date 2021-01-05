@@ -4359,13 +4359,15 @@ $(document)
 								type : "GET",
 								url : projectPath+"acceptAdminVideo",
 								data : {
-									"id" : tutorialId
+									"id" : tutorialId,
+									"show_status" :1
 								},
 								contentType : "application/json",
 								success : function(result) {
 
 									$("#statusVideoByAdmin").prop('disabled',false);
 									$('#statusVideoByAdmin').html(result);
+										$('#success_msg').html(result);
 									showStatus(SUCCESS, result);
 
 								},

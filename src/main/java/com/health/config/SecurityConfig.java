@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/feedcustomerdat",
 			"/feedbackForUser",
 			"/login",
+			"/tutorials",
 			"/s/**",
 			"/dashBoard/**",
 			"/loadByCategoryTuturial",

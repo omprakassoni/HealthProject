@@ -479,15 +479,14 @@ public class AjaxController{
 		if(tutorialId != 0) {
 			tut=tutService.getById(tutorialId);
 		}
-		Tutorial tutorial_temp = tutService.getById(topicId);
-		System.out.println(topicId);
+
+		Tutorial tutorial_temp= tutService.getById(topicId);
+
 		if(tutorialId != 0) {
 
 			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.PRE_REQUISTIC, CommonData.DOMAIN_STATUS, tut.getKeywordStatus(), CommonData.contributorRole, usr, tut);
 
 			tut.setPreRequistic(tutorial_temp);
-			System.out.println("******************************************"+tut);
-			System.out.println("******************************************"+tutorial_temp);
 			tut.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
 
 			tutService.save(tut);
@@ -496,8 +495,10 @@ public class AjaxController{
 			return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
 
 		}
-//		else {
+
+//		}else {
 //
+
 //			Category cat = catService.findBycategoryname(catName);
 //			Topic topic=topicService.findById(topicId);
 //			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
@@ -509,6 +510,7 @@ public class AjaxController{
 //			local.setPreRequistic(tut);
 //			local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
 //			local.setTutorialId(tutService.getNewId());
+
 //
 //			try {
 //				tutService.save(local);
@@ -516,14 +518,19 @@ public class AjaxController{
 //				LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.PRE_REQUISTIC, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
 //				logService.save(log);
 //
+
 //			}catch (Exception e) {
 //				// TODO: handle exception
 //				return "error";       // throw error
 //			}
+
+
+
 //
 //
 //		}
 
+//>>>>>>> c22072d4967124d69c0e3524156a07ce6a2ad4e2
 		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
 
 	}

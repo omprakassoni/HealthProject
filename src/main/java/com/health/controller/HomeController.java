@@ -197,6 +197,7 @@ public class HomeController {
 		List<Consultant> consults= consultService.findAll();
 		List<Language> languages= lanService.getAllLanguages();
 		List<Category> categories= catService.findAll();
+		List<Topic> topics =topicService.findAll();
 
 
 		List<Event> evnHome = new ArrayList<>();
@@ -243,6 +244,10 @@ public class HomeController {
 		model.addAttribute("videoCount", tutService.findAll().size());
 		model.addAttribute("consultantCount", consults.size());
 		model.addAttribute("events", evnHome);
+
+		model.addAttribute("categories", categories);
+		model.addAttribute("languages", languages);
+		model.addAttribute("topics", topics);
 
 
 
@@ -320,6 +325,96 @@ public class HomeController {
 //		model.addAttribute("event", event);
 
 		return "index";
+	}
+
+	@RequestMapping(value = "/tutorials", method = RequestMethod.GET)
+	public String viewCoursesAvailable(HttpServletRequest req,
+			@RequestParam(name = "categoryName") String cat,
+			@RequestParam(name = "topic") String topic,
+			@RequestParam(name = "lan") String lan,Principal principal,Model model) {
+
+		Category localCat = null;
+		Language localLan = null;
+		Topic localTopic = null;
+		TopicCategoryMapping localTopicCat = null;
+		List<TopicCategoryMapping> localTopicCatList = null;
+		List<ContributorAssignedTutorial> conAssigTutorialList =null;
+		ContributorAssignedTutorial conAssigTutorial = null;
+
+		List<Tutorial> tut = null;
+		List<Tutorial> tutToView = new ArrayList<Tutorial>();
+
+		User usr=new User();
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		System.out.println(lan);
+		if(!cat.contentEquals("Select Category")) {
+			localCat = catService.findBycategoryname(cat);
+		}
+
+		if(!topic.contentEquals("Select Topic")) {
+			localTopic = topicService.findBytopicName(topic);
+		}
+
+		if(!lan.contentEquals("Select Language")) {
+			localLan= lanService.getByLanName(lan);
+		}
+
+		if(localCat != null && localTopic != null) {
+			localTopicCat = topicCatService.findAllByCategoryAndTopic(localCat, localTopic);
+		}else if (localCat != null) {
+			localTopicCatList = topicCatService.findAllByCategory(localCat);
+		}else if (localTopic != null) {
+			localTopicCatList = topicCatService.findAllByTopic(localTopic);
+		}
+
+		if(localTopicCat != null) {
+
+			if(localLan != null) {
+				conAssigTutorial = conRepo.findByTopicCatAndLanViewPart(localTopicCat, localLan);
+			}else {
+				conAssigTutorialList = conRepo.findByTopicCat(localTopicCat);
+			}
+		}else if(localTopicCatList != null) {
+
+			if(localLan != null) {
+				conAssigTutorialList = conRepo.findAllByTopicCatAndLanViewPart(localTopicCatList, localLan);
+			}else {
+				conAssigTutorialList = conRepo.findAllByTopicCat(localTopicCatList);
+			}
+		}else {
+			if(localLan != null) {
+				conAssigTutorialList = conRepo.findAllByLan(localLan);
+			}
+		}
+
+
+
+		if(conAssigTutorial != null) {
+			tut = tutService.findAllByContributorAssignedTutorial(conAssigTutorial);
+		} else if(conAssigTutorialList != null) {
+			tut =tutService.findAllByContributorAssignedTutorialList(conAssigTutorialList);
+		}else {
+			tut = tutService.findAll();
+		}
+
+		for(Tutorial temp :tut) {
+			System.out.println(temp.getTutorialId());
+			if(temp.isStatus()) {
+				tutToView.add(temp);
+			}
+		}
+
+		for(Tutorial temp :tutToView) {
+			System.out.println(temp.getTutorialId() +"***********");
+		}
+		model.addAttribute("tutorials", tutToView);
+
+		return "signup";   // add view name (filename)
 	}
 
 	@RequestMapping("/login")									// in use
@@ -1891,9 +1986,11 @@ public class HomeController {
 		if(principal!=null) {
 
 			usr=userService.findByUsername(principal.getName());
+//			model.addAttribute("success_msg", "Error in requesting role");
 		}
 
 		model.addAttribute("userInfo", usr);
+//		model.addAttribute("success_msg", "Request submitted for master trainer role");
 
 		return "addMasterTrainerRole";
 	}
@@ -1920,12 +2017,14 @@ public class HomeController {
 
 		if(aadhar.length()!=12) {
 			 // throw error
+			model.addAttribute("error_msg", "Invalid aadhar number");
 			return "addMasterTrainerRole";
 		}
 
 		if(mobileNumber.length()!=10) {
 
 			// throw error
+			model.addAttribute("error_msg", "Invalid phone number");
 			return "addMasterTrainerRole";
 		}
 
@@ -1934,6 +2033,7 @@ public class HomeController {
 		List<UserRole> userRoles = usrRoleService.findByRoleUser(usr, role);
 		if(!userRoles.isEmpty()) {
 			// throw error
+			model.addAttribute("error_msg", "Error in submitting request");
 			return "addMasterTrainerRole";
 		}
 
@@ -1956,15 +2056,17 @@ public class HomeController {
 			usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
 
 			usrRoleService.save(usrRole);
-			model.addAttribute("msgSuccefull", CommonData.MASTER_TRAINER_ADDED_SUCCESS_MSG);
+//			model.addAttribute("msgSuccefull", CommonData.MASTER_TRAINER_ADDED_SUCCESS_MSG);
+//			model.addAttribute("success_msg", "Request submitted for role successfully");
 
 		}catch (Exception e) {
 			// TODO: handle exception
-
+//			model.addAttribute("userInfo", usr);
+			model.addAttribute("error_msg", "Error in submitting request");
 			// throw error
 		}
-
 		model.addAttribute("userInfo", usr);
+		model.addAttribute("success_msg", "Request submitted for role successfully");
 		return "addMasterTrainerRole";
 	}
 
@@ -2250,6 +2352,7 @@ public class HomeController {
 
 		if(tutorial == null) {
 			// throw a error
+			model.addAttribute("error_msg", CommonData.STATUS_ERROR);
 			model.addAttribute("tutorialNotExist", "Bad request");   //  throw proper error
 			return "listTutorialAdminReviwer";
 
@@ -2265,6 +2368,7 @@ public class HomeController {
 		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
 		model.addAttribute("tutorial", tutorial);
 
+		model.addAttribute("success_msg", CommonData.Video_STATUS_SUCCESS_MSG);
 		return "addContentAdminReview";
 
 
@@ -2526,6 +2630,7 @@ public class HomeController {
 
 		model.addAttribute("comOutline", comOutline);
 		model.addAttribute("comScript",comScript );
+		System.out.println(comScript+"********************");
 		model.addAttribute("comSlide",comSlide );
 		model.addAttribute("comVideo", comVideo);
 		model.addAttribute("comKeyword", comKeyword);
@@ -2687,18 +2792,21 @@ public class HomeController {
 		if(!ServiceUtility.checkFileExtensiononeFileCSV(traineeInfo)) {
 
 			// throw error on output
+			model.addAttribute("error_msg",CommonData.CSV_ERROR);
 			return "masterTrainerOperation";
 		}
 
 		if(!ServiceUtility.checkFileExtensionZip(trainingImage)) {
 
 			// throw error on output
+			model.addAttribute("error_msg",CommonData.ZIP_ERROR);
 			return "masterTrainerOperation";
 		}
 
 		if(trainingInfoService.findByTopicName(titleName) != null) {
 
 			// throw error on output
+			model.addAttribute("error_msg",CommonData.NAME_ERROR);
 			return "masterTrainerOperation";
 		}
 
@@ -2711,6 +2819,7 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			// throw error
+			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
 			return "masterTrainerOperation";
 		}
 
@@ -2741,6 +2850,7 @@ public class HomeController {
 			trainingData.setEnddate(ServiceUtility.convertStringToDate(endDate));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
+			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
 			e.printStackTrace();
 			//  return error for ill formatted error
 			return "masterTrainerOperation";
@@ -2797,12 +2907,12 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			 // throw a error
-
+			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
 			return "masterTrainerOperation";
 		}
 
 
-
+		model.addAttribute("error_msg",CommonData.EVENT_SUCCESS);
 		return "masterTrainerOperation";
 
 	}

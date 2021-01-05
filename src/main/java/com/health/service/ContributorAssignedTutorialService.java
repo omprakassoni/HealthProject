@@ -18,5 +18,13 @@ public interface ContributorAssignedTutorialService {
 	
 	List<ContributorAssignedTutorial> findAllByTopicCat(List<TopicCategoryMapping> topCat);
 	
+	List<ContributorAssignedTutorial> findByTopicCat(TopicCategoryMapping topCat);
+	
+	List<ContributorAssignedTutorial> findAllByLan(Language lan);
+	
 	List<ContributorAssignedTutorial> findByTopicCatLan(List<TopicCategoryMapping> topCat, List<UserRole> usrRole);
+	
+	List<ContributorAssignedTutorial> findAllByTopicCatAndLanViewPart(List<TopicCategoryMapping> topCat,Language lan);
+	
+	ContributorAssignedTutorial findByTopicCatAndLanViewPart(TopicCategoryMapping topCat,Language lan);
 }

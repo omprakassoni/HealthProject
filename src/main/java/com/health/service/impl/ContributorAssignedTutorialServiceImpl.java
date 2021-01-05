@@ -65,4 +65,36 @@ public class ContributorAssignedTutorialServiceImpl implements ContributorAssign
 		return conRepo.findByTopicCat(topCat);
 	}
 
+	@Override
+	public List<ContributorAssignedTutorial> findAllByTopicCatAndLanViewPart(List<TopicCategoryMapping> topCat,Language lan) {
+		// TODO Auto-generated method stub
+		List<ContributorAssignedTutorial> localData=new ArrayList<ContributorAssignedTutorial>();
+		
+		for(TopicCategoryMapping temp:topCat) {
+			
+			localData.add(conRepo.findByTopicCatLan(temp, lan));
+			
+		}
+		
+		return localData;
+	}
+
+	@Override
+	public ContributorAssignedTutorial findByTopicCatAndLanViewPart(TopicCategoryMapping topCat, Language lan) {
+		// TODO Auto-generated method stub
+		return conRepo.findByTopicCatLan(topCat, lan);
+	}
+
+	@Override
+	public List<ContributorAssignedTutorial> findByTopicCat(TopicCategoryMapping topCat) {
+		// TODO Auto-generated method stub
+		return conRepo.findAllBytopicCatId(topCat);
+	}
+
+	@Override
+	public List<ContributorAssignedTutorial> findAllByLan(Language lan) {
+		// TODO Auto-generated method stub
+		return conRepo.findAllBylan(lan);
+	}
+
 }

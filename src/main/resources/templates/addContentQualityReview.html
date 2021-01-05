@@ -820,7 +820,7 @@
 									<div class="modal-content">
 										<!-- <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
 										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain
+											<h5 class="modal-title" id="exampleModalLabelscriptStatus">Quality
 												Review-Script</h5>
 
 											<div style="color: green; padding-left: 20px"
@@ -848,7 +848,7 @@
 
 														</span>
 													</div>
-													<div th:if="${tutorial.getScriptStatus() == 3}">
+													<div>
 														<form class="form-horizontal" th:action="@{/addkeyword}"
 															onsubmit="return submitForm(this);" method="post">
 															<div class="form-group">
@@ -877,69 +877,21 @@
 													</div>
 
 												</div>
-
-												<div class="col-12">
-													<div th:if="${not #lists.isEmpty(scriptComment)}">
-														<h6 class="border-bottom">Comments:</h6>
-														<div th:each="comment : ${comScript}"
-															class="border-bottom">
-															<p class="my-0">
-																<strong><span
-																	th:text="${comment.getUser().getFullName()}"></span></strong>
-															</p>
-															</span>
-														</div>
-
-														<form class="form-horizontal" th:action="@{/addkeyword}"
-															onsubmit="return submitForm(this);" method="post">
-
-															<div class="form-group">
-
-																<select id="scriptAccept" class="form-control">
-
-																	<option value="0">Select</option>
-																	<option value="1">Accept</option>
-																	<option value="2">Need Improvement</option>
-
-																</select>
-
-															</div>
-
-															<div id="scriptNeedImprovement" style="display: none;">
-																<label for="msgScriptQuality">Comments</label>
-																<textarea class="form-control" name="msgScriptQuality"
-																	id="msgScriptQuality" rows="10" required="required"
-																	placeholder="Add your comments here."></textarea>
-
-															</div>
-
-
-														</form>
-													</div>
 
 													<div class="col-12">
-														<div th:if="${not #lists.isEmpty(scriptComment)}">
+														<div th:if="${not #lists.isEmpty(comScript)}">
 															<h6 class="border-bottom">Comments:</h6>
-															<div th:each="comment : ${scriptComment}"
+															<div th:each="comment : ${comScript}"
 																class="border-bottom">
-																<p class="my-0">
-																	<strong><span
-																		th:text="${comment.getUser().getFullName()}"></span></strong>
-																</p>
-																<p class="my-0">
-																	<small><span
-																		th:text="${comment.getCommentdate()}"></span></small>
-																</p>
-																<p class="my-0 text-muted">
-																	<span th:text="${comment.getCommentInfo()}"></span>
-																</p>
+																<p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 
 															</div>
 
 														</div>
 													</div>
 
-												</div>
 
 
 											</div>
@@ -1085,9 +1037,9 @@
 												</div>
 
 												<div class="col-12">
-													<div th:if="${not #lists.isEmpty(videoComment)}">
+													<div th:if="${not #lists.isEmpty(comVideo)}">
 														<h6 class="border-bottom">Comments:</h6>
-														<div th:each="comment : ${videoComment}"
+														<div th:each="comment : ${comVideo}"
 															class="border-bottom">
 															<p class="my-0">
 																<strong><span
@@ -1095,10 +1047,10 @@
 															</p>
 															<p class="my-0">
 																<small><span
-																	th:text="${comment.getCommentdate()}"></span></small>
+																	th:text="${comment.getDateAdded()}"></span></small>
 															</p>
 															<p class="my-0 text-muted">
-																<span th:text="${comment.getCommentInfo()}"></span>
+																<span th:text="${comment.getComment()}"></span>
 															</p>
 
 														</div>
@@ -1180,11 +1132,10 @@
 											</button>
 										</div>
 										<div class="modal-body">
-											<div class="alert alert-msg" style="display: none;"></div>
-											<!-- <form class="form-horizontal" th:action="@{/addkeyword}"
-											onsubmit="return submitForm(this);" method="post"> -->
-
-											<div class="form-group mb-3">
+											<div class="row">
+												<div class="col-12">
+												<div class="alert alert-msg" style="display: none;"></div>
+																							<div class="form-group mb-3">
 
 												<div class="embed-responsive embed-responsive-16by9 mb-5">
 													<video id='storedPreId' controls="controls"
@@ -1222,14 +1173,24 @@
 
 													</div>
 													<br />
-
-
-
 												</form>
-
-
-
 											</div>
+												</div>
+												<div class="col-12">
+												<div th:if="${not #lists.isEmpty(comPreReq)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${comPreReq}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+												
+												</div>
+											</div>
+
 
 										</div>
 										<div class="modal-footer">
@@ -1398,21 +1359,13 @@
 												</div>
 
 												<div class="col-12">
-													<div th:if="${not #lists.isEmpty(outlineComment)}">
+													<div th:if="${not #lists.isEmpty(comOutline)}">
 														<h6 class="border-bottom">Comments:</h6>
-														<div th:each="comment : ${outlineComment}"
+														<div th:each="comment : ${comOutline}"
 															class="border-bottom">
-															<p class="my-0">
-																<strong><span
-																	th:text="${comment.getUser().getFullName()}"></span></strong>
-															</p>
-															<p class="my-0">
-																<small><span
-																	th:text="${comment.getCommentdate()}"></span></small>
-															</p>
-															<p class="my-0 text-muted">
-																<span th:text="${comment.getCommentInfo()}"></span>
-															</p>
+															<p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 
 														</div>
 
@@ -1597,19 +1550,16 @@
 
 							<!-- ************************ -->
 
-							<div class="modal fade" id="scriptStatusAccept" tabindex="-1"
+							<!-- <div class="modal fade" id="scriptStatusAccept" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalLabelscriptStatus"
 								aria-hidden="true" data-backdrop="static" data-keyboard="false">
-
-
-
 								<div
 									class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 									role="document">
 
 									<div class="modal-content">
 
-										<!-- <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+										<div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div>
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLabelscriptStatus">Domain
 												Review-Script</h5>
@@ -1668,65 +1618,20 @@
 												</div>
 
 												<div class="col-12">
-													<div th:if="${not #lists.isEmpty(scriptComment)}">
-														<h6 class="border-bottom">Comments:</h6>
-														<div th:each="comment : ${scriptComment}"
-															class="border-bottom">
-															<p class="my-0">
-																<strong><span
-																	th:text="${comment.getUser().getFullName()}"></span></strong>
-															</p>
-															</span>
-														</div>
+													<p>Here</p>
+														
+														<div th:if="${not #lists.isEmpty(comScript)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${comScript}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
+											    
+											    </div>
+									
+									</div>
 
-														<form class="form-horizontal" th:action="@{/addkeyword}"
-															onsubmit="return submitForm(this);" method="post">
-
-															<div class="form-group">
-
-																<select id="scriptAccept" class="form-control">
-
-																	<option value="0">Select</option>
-																	<option value="1">Accept</option>
-																	<option value="2">Need Improvement</option>
-
-																</select>
-
-															</div>
-
-															<div id="scriptNeedImprovement" style="display: none;">
-																<label for="msgScriptQuality">Comments</label>
-																<textarea class="form-control" name="msgScriptQuality"
-																	id="msgScriptQuality" rows="10" required="required"
-																	placeholder="Add your comments here."></textarea>
-
-															</div>
-
-
-														</form>
-													</div>
-
-													<div class="col-md-6">
-														<div th:if="${not #lists.isEmpty(scriptComment)}">
-															<h6 class="border-bottom">Comments:</h6>
-															<div th:each="comment : ${scriptComment}"
-																class="border-bottom">
-																<p class="my-0">
-																	<strong><span
-																		th:text="${comment.getUser().getFullName()}"></span></strong>
-																</p>
-																<p class="my-0">
-																	<small><span
-																		th:text="${comment.getCommentdate()}"></span></small>
-																</p>
-																<p class="my-0 text-muted">
-																	<span th:text="${comment.getCommentInfo()}"></span>
-																</p>
-
-															</div>
-
-														</div>
-													</div>
+														
 
 												</div>
 
@@ -1742,7 +1647,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<!--Here is code for Slide Accept or Need To improvement-->
 
 							<div class="modal fade" id="slideAcceptOrNeedImp"
@@ -1820,21 +1725,13 @@
 												</div>
 
 												<div class="col-12">
-													<div th:if="${not #lists.isEmpty(slideComment)}">
+													<div th:if="${not #lists.isEmpty(comSlide)}">
 														<h6 class="border-bottom">Comments:</h6>
-														<div th:each="comment : ${slideComment}"
+														<div th:each="comment : ${comSlide}"
 															class="border-bottom">
-															<p class="my-0">
-																<strong><span
-																	th:text="${comment.getUser().getFullName()}"></span></strong>
-															</p>
-															<p class="my-0">
-																<small><span
-																	th:text="${comment.getCommentdate()}"></span></small>
-															</p>
-															<p class="my-0 text-muted">
-																<span th:text="${comment.getCommentInfo()}"></span>
-															</p>
+															<p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 
 														</div>
 
@@ -1934,21 +1831,13 @@
 													</div>
 
 													<div class="col-12">
-														<div th:if="${not #lists.isEmpty(keywordComment)}">
+														<div th:if="${not #lists.isEmpty(comKeyword)}">
 															<h6 class="border-bottom">Comments:</h6>
-															<div th:each="comment : ${keywordComment}"
+															<div th:each="comment : ${comKeyword}"
 																class="border-bottom">
-																<p class="my-0">
-																	<strong><span
-																		th:text="${comment.getUser().getFullName()}"></span></strong>
-																</p>
-																<p class="my-0">
-																	<small><span
-																		th:text="${comment.getCommentdate()}"></span></small>
-																</p>
-																<p class="my-0 text-muted">
-																	<span th:text="${comment.getCommentInfo()}"></span>
-																</p>
+																<p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
 
 															</div>
 
@@ -2093,7 +1982,9 @@
 											</button>
 										</div>
 										<div class="modal-body">
-											<div class="alert alert-msg" style="display: none;"></div>
+											<div class="row">
+											<div class="col-12">
+													<div class="alert alert-msg" style="display: none;"></div>
 											<div th:unless="${tutorial.getGraphicsStatus()}"
 												class="alert alert-secondary upload-status" role="alert">
 												No Graphics has been added yet.</div>
@@ -2111,7 +2002,7 @@
 											  </div> -->
 												</div>
 											</div>
-											<div th:if="${tutorial.getGraphicsStatus() == 3}">
+											<div>
 												<form class="form-horizontal mb-3"
 													th:action="@{/addkeyword}"
 													onsubmit="return submitForm(this);" method="post">
@@ -2134,6 +2025,22 @@
 
 
 											</div>
+											</div>
+											<div class="col-12">
+											<div th:if="${not #lists.isEmpty(comGraphics)}">
+									<h6 class="border-bottom">Comments: </h6>
+											    <div th:each="comment : ${comGraphics}" class="border-bottom"> 
+											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
+											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
+											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
+											    
+											    </div>
+									
+									</div>
+											
+											</div>
+											</div>
+										
 										</div>
 										<div class="modal-footer">
 											<div th:if="${tutorial}">
