@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -1076,7 +1077,7 @@ public class HomeController {
 	public String addConsultantPost(Model model,Principal principal,
 									@RequestParam("uploadConsaltantImage") MultipartFile[] file,
 									@RequestParam("nameConsaltant") String name,
-									@RequestParam("descriptionConsaltant") String desc,
+									@RequestParam("email") String email,
 									@RequestParam(defaultValue = "false") String showOnHomePage) {
 
 		User usr=new User();
@@ -1097,19 +1098,43 @@ public class HomeController {
 			show=showOnHomePage.equals("showOnHomePage");
 		}
 
-		if(!ServiceUtility.checkFileExtensionImage(file)) {   // throw error extension file.
-
+//		if(!ServiceUtility.checkFileExtensionImage(file)) {   // throw error extension file.
+//
+//			return "addConsultant";
+//		}
+		
+		if(!ServiceUtility.checkEmailValidity(email)) {  // throw email wromng error
+			
 			return "addConsultant";
 		}
+		
+		if (userService.findByUsername(email) != null) {
+			model.addAttribute("emailExists", true);
+			return "addConsultant";
+		}
+
+		if (userService.findByEmail(email) != null) {
+			model.addAttribute("emailExists", true);
+			return "addConsultant";
+		}
+		
+		User userTemp = new User();
+		userTemp.setId(userService.getNewId());
+		userTemp.setEmail(email);
+		userTemp.setUsername(email);
+		userTemp.setDateAdded(ServiceUtility.getCurrentTime());
+		
+		userService.save(userTemp);
+		
 
 		int newConsultid=consultService.getNewConsultantId();
 		Consultant local=new Consultant();
 		local.setConsultantId(newConsultid);
-		local.setDescription(desc);
+		local.setDescription("null");
 		local.setDateAdded(ServiceUtility.getCurrentTime());
 		local.setName(name);
 		local.setPosterPath("null");
-		local.setUser(usr);
+		local.setUser(userTemp);
 		local.setOnHome(show);
 
 		Set<Consultant> consults=new HashSet<Consultant>();
@@ -1117,6 +1142,8 @@ public class HomeController {
 
 		try {
 			userService.addUserToConsultant(usr, consults);
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1124,30 +1151,30 @@ public class HomeController {
 			return "addConsultant";    // throw a error
 		}
 
-		try {
-			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryConsultant+newConsultid)) {
-				String pathtoUploadPoster=ServiceUtility.uploadFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryConsultant+newConsultid);
-				int indexToStart=pathtoUploadPoster.indexOf("Media");
-
-				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-
-				Consultant temp=consultService.findById(newConsultid);
-
-				temp.setPosterPath(document);
-
-				consultService.save(temp);
-
-			}else {      // throw a error
-
-			}
-
-		}catch (Exception e) {
-			// TODO: handle exception
-
-			e.printStackTrace();
-
-			return "addConsultant";    // throw a error
-		}
+//		try {
+//			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryConsultant+newConsultid)) {
+//				String pathtoUploadPoster=ServiceUtility.uploadFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryConsultant+newConsultid);
+//				int indexToStart=pathtoUploadPoster.indexOf("Media");
+//
+//				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+//
+//				Consultant temp=consultService.findById(newConsultid);
+//
+//				temp.setPosterPath(document);
+//
+//				consultService.save(temp);
+//
+//			}else {      // throw a error
+//
+//			}
+//
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//
+//			e.printStackTrace();
+//
+//			return "addConsultant";    // throw a error
+//		}
 
 		model.addAttribute("msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 		return "addConsultant";
@@ -3085,5 +3112,104 @@ public class HomeController {
 		return "masterTrainerOperation";
 
 	}
+	
+	
+	/************************ DOMAIN ROLE CONSULTANT MAPPING *************************************/
+	
+	@RequestMapping(value = "/assignRoleToDomain" , method = RequestMethod.GET)
+	public String assignRoleToDomainGet(Model model,Principal principal) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		List<Consultant> consults = consultService.findAll();
+		List<Category> categories = catService.findAll();
+		List<Language> languages = lanService.getAllLanguages();
+		
+		model.addAttribute("categories", categories);
+		model.addAttribute("consultants", consults);
+		model.addAttribute("languages", languages);
+		
+		return "assignRoleToDomain"; // add html page
+		
+	}
+	
+	@RequestMapping(value = "/assignRoleToDomain" , method = RequestMethod.POST)
+	public String assignRoleToDomainPost(Model model,Principal principal,
+									@RequestParam(value = "consultEmail") String email,
+									@RequestParam(value = "category") String cat,
+									@RequestParam(value = "language") String lan) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		List<Consultant> consults = consultService.findAll();
+		List<Category> categories = catService.findAll();
+		List<Language> languages = lanService.getAllLanguages();
+		
+		model.addAttribute("categories", categories);
+		model.addAttribute("consultants", consults);
+		model.addAttribute("languages", languages);
+		
+		User usrTemp = userService.findByEmail(email);
+		Category category = catService.findBycategoryname(cat);
+		Language language = lanService.getByLanName(lan);
+		Role role = roleService.findByname(CommonData.domainReviewerRole);
+		
+		if(usrRoleService.findByLanCatUser(language, category, usrTemp, role)!=null) {
+
+			// throw error
+			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+			
+			model.addAttribute("error_msg", CommonData.DUPLICATE_ROLE_ERROR);
+
+			return "assignRoleToDomain";
+		}
+
+		UserRole usrRole=new UserRole();
+		usrRole.setCreated(ServiceUtility.getCurrentTime());
+		usrRole.setUser(usrTemp);
+		usrRole.setRole(role);
+		usrRole.setLanguage(language);
+		usrRole.setCategory(category);
+		usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
+
+		try {
+			usrRoleService.save(usrRole);
+			
+			usrTemp.setPassword(SecurityUtility.passwordEncoder().encode(CommonData.COMMON_PASSWORD));
+			userService.save(usrTemp);
+			
+			SimpleMailMessage newEmail = mailConstructor.domainRoleMailSend(usrTemp);
+
+			mailSender.send(newEmail);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			model.addAttribute("error_msg", CommonData.ROLE_ERROR_MSG);
+			e.printStackTrace();
+			return "assignRoleToDomain";				// accommodate error message
+		}
+		
+		
+		model.addAttribute("success_msg", CommonData.MAIL_SEND);
+		
+		
+		return "assignRoleToDomain"; // add html page
+		
+	}
+	
+	
+	/****************************** END ***********************************************************/
 
 }

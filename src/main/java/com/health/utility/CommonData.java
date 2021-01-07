@@ -151,6 +151,10 @@ public class CommonData {
 	public static String EVENT_SUCCESS= "Event added successfully";
 
 	public static String PUBLISHED_SUCCESS= "Tutorial published successfully";
+	
+	public static String COMMON_PASSWORD= "health";
+	
+	public static String MAIL_SEND= "Mail has been send";
 
 
 }

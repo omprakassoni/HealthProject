@@ -35,4 +35,15 @@ public class MailConstructor {
 		
 		
 	}
+	
+	public SimpleMailMessage domainRoleMailSend(User usr) {
+		String message="Hello Your account has been created please use below details to access\n"
+				+ "username : "+ usr.getEmail() +"\n"
+				+ "password : "+ CommonData.COMMON_PASSWORD;
+		SimpleMailMessage email=new SimpleMailMessage();
+		email.setSubject("Credentials to login into Health Website");
+		email.setText(message);
+		email.setTo(usr.getEmail());
+		return email;
+	}
 }
