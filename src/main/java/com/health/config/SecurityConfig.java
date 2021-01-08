@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/s/**",
 			"/dashBoard/**",
 			"/loadByCategoryTuturial",
+			"/addContactForm",
 			"/ControllerHealth",
 			"/showTutorial",
 			"/findTutorialByLanand",

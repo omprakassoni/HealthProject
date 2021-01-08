@@ -434,27 +434,32 @@
     	<div class="col-lg-6 py-3 is-shady" style="height: 100%;">
     	<div>
     		<h1 class="text-center spk-title" style="font-size: 1.5rem;">Feedback Form</h1>
-    		<form>
+  
         <div class="row">
             <div class="col-md-6 mb-3">
               <label for="firstName">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="" value="" />
-              <div class="invalid-feedback">Valid first name is required. </div>
+              <input type="text" class="form-control" id="name" name= "name" placeholder="" value="" />
 							   </div>         
             <div class="col-md-6 mb-3">
               <label for="email">Email </label>
-              <input type="email" class="form-control" id="email"  />
-              <div class="invalid-feedback">Please enter a valid email address for shipping updates 
-              </div>
+              <input type="email" class="form-control" id="email"  name= "email" />
+              
             </div>
         </div>
         
           <div class="form-group">
           <label for="exampleFormControlTextarea1">Message</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <textarea class="form-control"  id="message" rows="3"></textarea>
           </div>
-          <a href=""><input type="submit" name="submit" class="btn"></input></a>
-          </form>
+          
+          <div id="statusOnContactForm" style="color: red; display: none; margin-top: 10px;">Provide Correct E-mail</div>
+		 <div id="statusOnContactFormAfterAjaxCallSucess" style="color: green; display: none; margin-top: 10px;">Query has been recorded,Soon you will be contacted.
+		 </div>
+		 <div id="statusOnContactFormAfterAjaxCallFailure" style="color: red; display: none; margin-top: 10px;">Please
+						Try Again
+		 </div>
+          <input type="submit" id="contactForm" name="submit" class="btn" disabled></input>
+         
     	</div>
     	</div>
     </div>

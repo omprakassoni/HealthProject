@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +24,7 @@ import com.health.model.City;
 import com.health.model.Comment;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
+import com.health.model.FeedbackForm;
 import com.health.model.Language;
 import com.health.model.LogManegement;
 import com.health.model.State;
@@ -33,6 +38,7 @@ import com.health.service.CityService;
 import com.health.service.CommentService;
 import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
+import com.health.service.FeedbackService;
 import com.health.service.LanguageService;
 import com.health.service.LogMangementService;
 import com.health.service.RoleService;
@@ -96,6 +102,9 @@ public class AjaxController{
 
 	@Autowired
 	private LogMangementService logService;
+	
+	@Autowired
+	private FeedbackService ffService;
 
 	@RequestMapping("/loadTitleNameInMasterTraining")
 	public @ResponseBody HashMap<Integer, String> getTopicNameFromMasterTrainer() {
@@ -1407,6 +1416,34 @@ public class AjaxController{
 	}
 
 
+	
+	@PostMapping("/addContactForm")
+	public @ResponseBody List<String> addContactData(@Valid @RequestBody FeedbackForm contactData){
+		List<String> status=new ArrayList<String>();
+		
+		
+		
+		try {
+			FeedbackForm addLocal=new FeedbackForm();
+			addLocal.setId(ffService.getNewId());
+			addLocal.setDateAdded(ServiceUtility.getCurrentTime());
+			addLocal.setEmail(contactData.getEmail());
+			addLocal.setMessage(contactData.getMessage());
+			addLocal.setName(contactData.getName());
+			
+			ffService.save(addLocal);
+			status.add("Success");
+			
+		} catch (Exception e) {
+			
+			status.add("Failure");
+			e.printStackTrace();
+		}
+				
+				
+				
+		return status;
+	}
 
 	/************************************ END ********************************************************/
 }

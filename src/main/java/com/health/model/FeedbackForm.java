@@ -1,5 +1,8 @@
 package com.health.model;
 
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,20 +17,24 @@ public class FeedbackForm {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	
 	private int id;	
-	private String  mastertTrainerName;
+	private String name;
 	private String email;
 	private String message;
+	
+	@Column(name = "date_added", nullable = false)
+	private Timestamp dateAdded;
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getMastertTrainerName() {
-		return mastertTrainerName;
+	public String getName() {
+		return name;
 	}
-	public void setMastertTrainerName(String mastertTrainerName) {
-		this.mastertTrainerName = mastertTrainerName;
+	public void setName(String mastertTrainerName) {
+		this.name = mastertTrainerName;
 	}
 	public String getEmail() {
 		return email;
@@ -40,6 +47,12 @@ public class FeedbackForm {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public Timestamp getDateAdded() {
+		return dateAdded;
+	}
+	public void setDateAdded(Timestamp dateAdded) {
+		this.dateAdded = dateAdded;
 	}
 	
 	

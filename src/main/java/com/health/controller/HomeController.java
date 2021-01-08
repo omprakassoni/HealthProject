@@ -2975,6 +2975,7 @@ public class HomeController {
 		trainingData.setDistrict(districtTemp);
 		trainingData.setTrainingId(newTrainingdata);
 		trainingData.setTitleName(titleName);
+		trainingData.setTotalParticipant(totaltrainee);
 		try {
 			trainingData.setStartDate(ServiceUtility.convertStringToDate(startDate));
 			trainingData.setEnddate(ServiceUtility.convertStringToDate(endDate));
@@ -3015,10 +3016,13 @@ public class HomeController {
 
 				byte[] bytes = traineeInfo.getBytes();
 	            String completeData = new String(bytes);
-	            String[] rows = completeData.split("#");
+	            System.out.println(completeData);
+	            String[] rows = completeData.split("\n");
+	            System.out.println("data"+rows.length);
 
 	            Set<TraineeInformation> trainees=new HashSet<TraineeInformation>();
 	            int newTraineeId=traineeService.getNewId();
+	   
 	            for(int i=0;i<rows.length;i++) {
 	            	String[] columns = rows[i].split(",");
 	            	TraineeInformation temp=new TraineeInformation(newTraineeId++, columns[0], columns[1], Long.parseLong(columns[2]),Integer.parseInt(columns[3]), Long.parseLong(columns[4]), columns[5], columns[6], trainingData);
