@@ -2283,7 +2283,7 @@ public class HomeController {
 				TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, localtopic);
 
 				System.out.println(topicCat.getTopicCategoryId());
-				ContributorAssignedTutorial x=conRepo.findByUserTopicCatLan(userAssigned, topicCat, lan);
+				ContributorAssignedTutorial x=conRepo.findByTopicCatAndLanViewPart(topicCat, lan);
 
 				if(x == null) {
 
