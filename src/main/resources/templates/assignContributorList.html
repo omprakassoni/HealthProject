@@ -100,35 +100,30 @@
 					<div class="tab-pane fade py-3" id="view" role="tabpanel"
 						aria-labelledby="profile-tab">
 						<table class="table table-striped" id="myTable">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">First</th>
-									<th scope="col">Last</th>
-									<th scope="col">Handle</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td>Larry</td>
-									<td>the Bird</td>
-									<td>@twitter</td>
-								</tr>
-							</tbody>
-						</table>
+  <thead>
+    <tr>
+      <th scope="col">Firt Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Language</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="user : ${userByContributors}">
+      <td scope="row"><span th:text = "${user.getUser().getFirstName()}"></span></td>
+      <td><span th:text = "${user.getUser().getLastName()}"></span></td>
+      <td><span th:if= "${user.getCategory() != null}" th:text="${user.getCategory().getCatName()}">
+											</span></td>
+	  <td><span th:if= "${user.getLanguage() != null}" th:text="${user.getLanguage().getLangName()}">
+											</span></td>
+	  <td><span th:if= "${user.getStatus()}" ><i class="far fa-check-circle"></i>
+											</span>
+	<span th:if= "not ${user.getStatus()}"><i class="fas fa-minus-circle"></i>	</span></td>
+    </tr>
+  
+  </tbody>
+</table>
 					</div>
 				</div>
 			</div>

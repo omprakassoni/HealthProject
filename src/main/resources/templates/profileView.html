@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head th:replace="common/trail :: common-trail"></head>
+<body>
+	<div th:replace="common/sidebar :: top_header"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 col-lg-2 pr-0">
+				<div th:replace="common/sidebar :: contributor_sidebar"></div>
+			</div>
+			<div class="col-md-9 col-lg-10 p-md-5">
+				<div>
+					<div class="alert alert-success" role="alert"
+						th:if="${success_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${success_msg}"></span>
+							</div>
+						</div>
+					</div>
+					<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${error_msg}"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<h4>Add Master Trainer</h4>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-6">
+								<form action="/addMasterTrainerRole" method="post"
+									enctype="multipart/form-data">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group ">
+												<label for="firstName">First Name </label> <input
+													type="text" class="form-control" name="firstName"
+													id="userFirstName" th:value="${userInfo.getFirstName()}"
+													required="required" />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group ">
+												<label for="lastName">Last Name </label> <input type="text"
+													class="form-control" name="lastName" id="userLastName"
+													th:value="${userInfo.getLastName()}" required="required" />
+											</div>
+
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group ">
+												<div class="form-group ">
+													<label for="textMasterName">Date of birth </label> <input
+														type="date" id="birthday" name="birthday"
+														class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group ">
+												<label for="textMobile">Mobile Number</label> <input
+													type="Number" class="form-control" name="phone"
+													id="textMobile" th:value="${userInfo.getPhone()}"
+													required="required" />
+											</div>
+										</div>
+
+									</div>
+
+									<div class="form-group ">
+										<label for="textAddress">Postal Address</label>
+										<textarea class="form-control" name="address" id="textAddress"
+											rows="3" th:value="${userInfo.getAddress()}"
+											required="required"></textarea>
+									</div>
+									<div class="form-group ">
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input" id="checkbox">
+											<label class="form-check-label" for="exampleCheck1">Consultant</label>
+										</div>
+									</div>
+									<div id="cons_info" style="display: none;">
+										<div class="form-group">
+											<label for="textAddress">Description <small
+												id="emailHelp" class="form-text text-muted d-inline">(Maximum
+													250 characters)</small></label>
+											<textarea class="form-control" name="description"
+												id="description" rows="3"
+												th:value="${userInfo.getAddress()}" maxlength="4"
+												required="required"
+												placeholder="Enter description - Years of experience, speciality & hospital associated with"></textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+										<label for="existingEmail">Email address</label> <input
+											type="email" class="form-control" id="existingEmail"
+											aria-describedby="emailHelp" placeholder="Enter email" th:value="${userInfo.getEmail()}" readonly>
+										
+									</div>
+										</div>
+										<div class="col-md-6">
+										<div class="form-group ">
+												<div class="form-group ">
+													<label for="registrtionDate">Registration date</label> <input
+														type="date" id="registrtionDate" name="registrtionDate"
+														class="form-control" th:value="${userInfo.getDateAdded()}" readonly>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<button type="submit" class="btn  btn-success"
+										data-toggle="modal" onclick="myFunction()">Submit</button>
+									<!-- <button type="reset" class="btn btn-success">Reset</button> -->
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="common/trail :: body-bottom-scripts"></div>
+	<script th:inline="javascript">
+		var projectPath = '[(@{/})]';
+		$('#checkbox').change(function() {
+			var x = document.getElementById("cons_info");
+			if (x.style.display === "none") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+			}
+		});
+	</script>
+</body>
+</html>

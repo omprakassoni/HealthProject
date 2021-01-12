@@ -583,6 +583,18 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
+		List<UserRole> userRoles= usrRoleService.findAllByUser(usr);
+		List<UserRole> pendingUserRoles= usrRoleService.findAllByUser(usr);
+		List<Integer> roleIds = new ArrayList<Integer>();
+
+		for(int i=0; i<userRoles.size();i++) {
+			if(!userRoles.get(i).getStatus()) {
+//				roleIds.add(userRoles.get(i).getRole().getRoleId());
+				pendingUserRoles.add(userRoles.get(i));
+			}
+		}
+		model.addAttribute("roleIds", roleIds);
+		model.addAttribute("userRoles", pendingUserRoles);
 		return "roleAdminDetail";
 	}
 
@@ -1111,12 +1123,12 @@ public class HomeController {
 //
 //			return "addConsultant";
 //		}
-		
+
 		if(!ServiceUtility.checkEmailValidity(email)) {  // throw email wromng error
-			
+
 			return "addConsultant";
 		}
-		
+
 		if (userService.findByUsername(email) != null) {
 			model.addAttribute("emailExists", true);
 			return "addConsultant";
@@ -1126,15 +1138,15 @@ public class HomeController {
 			model.addAttribute("emailExists", true);
 			return "addConsultant";
 		}
-		
+
 		User userTemp = new User();
 		userTemp.setId(userService.getNewId());
 		userTemp.setEmail(email);
 		userTemp.setUsername(email);
 		userTemp.setDateAdded(ServiceUtility.getCurrentTime());
-		
+
 		userService.save(userTemp);
-		
+
 
 		int newConsultid=consultService.getNewConsultantId();
 		Consultant local=new Consultant();
@@ -1151,8 +1163,8 @@ public class HomeController {
 
 		try {
 			userService.addUserToConsultant(usr, consults);
-			
-			
+
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2210,16 +2222,19 @@ public class HomeController {
 		Role admin=roleService.findByname(CommonData.adminReviewerRole);
 		Role master=roleService.findByname(CommonData.masterTrainerRole);
 		Role quality=roleService.findByname(CommonData.qualityReviewerRole);
+		Role domain=roleService.findByname(CommonData.domainReviewerRole);
 
 		List<UserRole> adminReviewer = usrRoleService.findAllByRoleAndStatus(admin,false);
 		List<UserRole> masterTrainer = usrRoleService.findAllByRoleAndStatus(master,false);
 		List<UserRole> qualityReviewer = usrRoleService.findAllByRoleAndStatus(quality,false);
 		List<UserRole> contributorReviewer = usrRoleService.findAllByRoleAndStatus(contributor,false);
+		List<UserRole> domainReviewer = usrRoleService.findAllByRoleAndStatus(domain,false);
 
 		model.addAttribute("userInfoAdmin", adminReviewer);
 		model.addAttribute("userInfoQuality", qualityReviewer);
 		model.addAttribute("userInfoContributor", contributorReviewer);
 		model.addAttribute("userInfoMaster", masterTrainer);
+		model.addAttribute("userInfoDomain", domainReviewer);
 
 
 		return "approveRole";
@@ -3031,7 +3046,7 @@ public class HomeController {
 
 	            Set<TraineeInformation> trainees=new HashSet<TraineeInformation>();
 	            int newTraineeId=traineeService.getNewId();
-	   
+
 	            for(int i=0;i<rows.length;i++) {
 	            	String[] columns = rows[i].split(",");
 	            	TraineeInformation temp=new TraineeInformation(newTraineeId++, columns[0], columns[1], Long.parseLong(columns[2]),Integer.parseInt(columns[3]), Long.parseLong(columns[4]), columns[5], columns[6], trainingData);
@@ -3119,10 +3134,10 @@ public class HomeController {
 		return "masterTrainerOperation";
 
 	}
-	
-	
+
+
 	/************************ DOMAIN ROLE CONSULTANT MAPPING *************************************/
-	
+
 	@RequestMapping(value = "/assignRoleToDomain" , method = RequestMethod.GET)
 	public String assignRoleToDomainGet(Model model,Principal principal) {
 		User usr=new User();
@@ -3133,19 +3148,19 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		List<Consultant> consults = consultService.findAll();
 		List<Category> categories = catService.findAll();
 		List<Language> languages = lanService.getAllLanguages();
-		
+
 		model.addAttribute("categories", categories);
 		model.addAttribute("consultants", consults);
 		model.addAttribute("languages", languages);
-		
+
 		return "assignRoleToDomain"; // add html page
-		
+
 	}
-	
+
 	@RequestMapping(value = "/assignRoleToDomain" , method = RequestMethod.POST)
 	public String assignRoleToDomainPost(Model model,Principal principal,
 									@RequestParam(value = "consultEmail") String email,
@@ -3159,25 +3174,25 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		List<Consultant> consults = consultService.findAll();
 		List<Category> categories = catService.findAll();
 		List<Language> languages = lanService.getAllLanguages();
-		
+
 		model.addAttribute("categories", categories);
 		model.addAttribute("consultants", consults);
 		model.addAttribute("languages", languages);
-		
+
 		User usrTemp = userService.findByEmail(email);
 		Category category = catService.findBycategoryname(cat);
 		Language language = lanService.getByLanName(lan);
 		Role role = roleService.findByname(CommonData.domainReviewerRole);
-		
+
 		if(usrRoleService.findByLanCatUser(language, category, usrTemp, role)!=null) {
 
 			// throw error
 			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
-			
+
 			model.addAttribute("error_msg", CommonData.DUPLICATE_ROLE_ERROR);
 
 			return "assignRoleToDomain";
@@ -3193,30 +3208,45 @@ public class HomeController {
 
 		try {
 			usrRoleService.save(usrRole);
-			
+
 			usrTemp.setPassword(SecurityUtility.passwordEncoder().encode(CommonData.COMMON_PASSWORD));
 			userService.save(usrTemp);
-			
+
 			SimpleMailMessage newEmail = mailConstructor.domainRoleMailSend(usrTemp);
 
 			mailSender.send(newEmail);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			model.addAttribute("error_msg", CommonData.ROLE_ERROR_MSG);
 			e.printStackTrace();
 			return "assignRoleToDomain";				// accommodate error message
 		}
-		
-		
+
+
 		model.addAttribute("success_msg", CommonData.MAIL_SEND);
-		
-		
+
+
 		return "assignRoleToDomain"; // add html page
-		
+
 	}
-	
-	
+
+
 	/****************************** END ***********************************************************/
+
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String profileUserGet(Model model,Principal principal) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		return "profileView";
+
+	}
 
 }

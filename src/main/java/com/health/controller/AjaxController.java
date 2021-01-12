@@ -102,7 +102,7 @@ public class AjaxController{
 
 	@Autowired
 	private TrainingInformationService trainingInforService;
-	
+
 	@Autowired
 	private TraineeInformationService traineeService;
 
@@ -111,19 +111,19 @@ public class AjaxController{
 
 	@Autowired
 	private LogMangementService logService;
-	
+
 	@Autowired
 	private FeedbackService ffService;
-	
+
 	@Autowired
 	private TrainingTopicService trainingTopicService;
-	
+
 	@RequestMapping("/loadTraineeByTrainingId")
 	public @ResponseBody List<TraineeInformation> getTraineeInfoOnTrainingId(@RequestParam(value = "id") int id) {
 
 		TrainingInformation training = trainingInforService.getById(id);
 		List<TraineeInformation> traineeList = traineeService.findAllBytraineeInfos(training);
-		
+
 		return traineeList;
 
 	}
@@ -137,7 +137,7 @@ public class AjaxController{
 		List<TopicCategoryMapping> topicCatList = topicCatService.findAllByCategory(cat);
 		Set<TrainingTopic> trainingTopic = trainingTopicService.findByTopicCat(topicCatList);
 
-		
+
 		for(TrainingTopic x :trainingTopic) {
 			TrainingInformation temp = trainingInforService.getById(x.getTraineeInfos().getTrainingId());
 			topicName.put(temp.getTrainingId(), temp.getTitleName());
@@ -147,7 +147,7 @@ public class AjaxController{
 		 * for(TrainingInformation x : training) { topicName.put(x.getTrainingId(),
 		 * x.getTitleName()); }
 		 */
-		
+
 		return topicName;
 
 	}
@@ -538,7 +538,7 @@ public class AjaxController{
 		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
 
 	}
-	
+
 	@RequestMapping("/addPreRequistic")
 	public @ResponseBody String addPreRequistic(@RequestParam(value = "id") int tutorialId,
 			@RequestParam(value = "categoryname") String catName,
@@ -1484,13 +1484,13 @@ public class AjaxController{
 	}
 
 
-	
+
 	@PostMapping("/addContactForm")
 	public @ResponseBody List<String> addContactData(@Valid @RequestBody FeedbackForm contactData){
 		List<String> status=new ArrayList<String>();
-		
-		
-		
+
+
+
 		try {
 			FeedbackForm addLocal=new FeedbackForm();
 			addLocal.setId(ffService.getNewId());
@@ -1498,35 +1498,35 @@ public class AjaxController{
 			addLocal.setEmail(contactData.getEmail());
 			addLocal.setMessage(contactData.getMessage());
 			addLocal.setName(contactData.getName());
-			
+
 			ffService.save(addLocal);
 			status.add("Success");
-			
+
 		} catch (Exception e) {
-			
+
 			status.add("Failure");
 			e.printStackTrace();
 		}
-				
-				
-				
+
+
+
 		return status;
 	}
-	
-	
-	
+
+
+
 	@GetMapping("/revokeRoleByRole")
 	public @ResponseBody String revokeRoleByRole(@RequestParam(value = "role") int role,Principal principal){
-		
+
 		User usr=new User();
 
 		if(principal!=null) {
 
 			usr=usrservice.findByUsername(principal.getName());
 		}
-		
+
 		Role roles = null;
-		
+
 		if(role == 4) {
 			roles = roleService.findByname(CommonData.domainReviewerRole);
 		}else if(role == 5) {
@@ -1538,17 +1538,17 @@ public class AjaxController{
 		}else if(role == 8) {
 			roles = roleService.findByname(CommonData.contributorRole);
 		}
-		
+
 		List<UserRole> usrRole = usrRoleService.findByRoleUser(usr, roles);
-		
+
 		for(UserRole x : usrRole) {
 			x.setStatus(true);
 			usrRoleService.save(x);
 		}
-		
-		return "success";
+
+		return "roleAdminDetail";
 	}
-	
-	
+
+
 	/************************************ END ********************************************************/
 }
