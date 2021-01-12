@@ -586,11 +586,14 @@ $(document).ready(function() {
 			
 			$('#catMasId').change(function() {
 						
-						var state = $(this).find(":selected").val();
+						var catId = $(this).find(":selected").val();
 
 						$.ajax({
 							type : "GET",
 							url : projectPath+"loadTitleNameInMasterTraining",
+							data : {
+								"id" : catId
+							},
 							contentType : "application/json",
 							success : function(result) {
 
@@ -617,7 +620,46 @@ $(document).ready(function() {
 						});
 
 					});
+			
+			$('#eventCategory').change(function() {
+				
+				var catId = $(this).find(":selected").val();
+			
+				$.ajax({
+					type : "GET",
+					url : projectPath+"loadTitleNameInMasterTraining",
+					data : {
+						"id" : catId
+					},
+					contentType : "application/json",
+					success : function(result) {
 
+						var html = '';
+						var len = result.length;
+						html += '<option value="0">Select Training</option>';
+						$.each(result , function( key, value ) {
+		  	  			        html += '<option value=' + key + '>'
+		  			               + value
+		  			               + '</option>';
+		  	  			})
+	  	  			     html += '</option>';
+						 	
+
+						$("#eventName").prop('disabled',false);
+						$('#eventName').html(html);
+
+					},
+
+					error : function(err) {
+						console.log("not working. ERROR: "+ JSON.stringify(err));
+					}
+
+				});
+
+			});
+
+			
+			
 			// Changes made by Om prakash
 
 			$('#preRequsiteId').change(function() {

@@ -2295,7 +2295,7 @@ public class HomeController {
 				TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, localtopic);
 
 				System.out.println(topicCat.getTopicCategoryId());
-				ContributorAssignedTutorial x=conRepo.findByUserTopicCatLan(userAssigned, topicCat, lan);
+				ContributorAssignedTutorial x=conRepo.findByTopicCatAndLanViewPart(topicCat, lan);
 
 				if(x == null) {
 
@@ -3090,12 +3090,6 @@ public class HomeController {
 		model.addAttribute("states", states);
 		model.addAttribute("lans", lan);
 
-		if(!ServiceUtility.checkEmailValidity(email)) {   // need to accommodate
-
-			model.addAttribute("emailWrong", true);
-			return "masterTrainerOperation";
-		}
-
 		if(!ServiceUtility.checkFileExtensionZip(feedbackFile)) {
 
 												// Accommodate error message
@@ -3104,7 +3098,7 @@ public class HomeController {
 
 		TrainingInformation trainingInfo = trainingInfoService.getById(trainingTitle);
 
-		FeedbackMasterTrainer feed = new FeedbackMasterTrainer(feedServ.getNewId(), name, email, desc, ServiceUtility.getCurrentTime(), null, trainingInfo, usr);
+		FeedbackMasterTrainer feed = new FeedbackMasterTrainer(feedServ.getNewId(), desc, ServiceUtility.getCurrentTime(), null, trainingInfo, usr);
 		try {
 			feedServ.save(feed);
 

@@ -16,10 +16,6 @@ public class FeedbackMasterTrainer {
 	@Id
 	private int TrainerFeedId;
 
-	private String name;
-
-	private String email;
-
 	private String description;
 
 	@Column(name = "date_added", nullable = false)
@@ -41,22 +37,6 @@ public class FeedbackMasterTrainer {
 
 	public void setId(int id) {
 		this.TrainerFeedId = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getDescription() {
@@ -99,12 +79,10 @@ public class FeedbackMasterTrainer {
 		this.user = user;
 	}
 
-	public FeedbackMasterTrainer(int trainerFeedId, String name, String email, String description, Timestamp dateAdded,
+	public FeedbackMasterTrainer(int trainerFeedId, String description, Timestamp dateAdded,
 			String path, TrainingInformation traineeInfos, User user) {
 		super();
 		TrainerFeedId = trainerFeedId;
-		this.name = name;
-		this.email = email;
 		this.description = description;
 		this.dateAdded = dateAdded;
 		this.path = path;

@@ -40,4 +40,4 @@ public interface UserRoleRepositary extends  CrudRepository<UserRole, Long>{
 	int enableRole(boolean status, long usrRoleId);
 	
 			
-	}
+}

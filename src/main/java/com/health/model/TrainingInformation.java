@@ -70,10 +70,10 @@ public class TrainingInformation{
 	private Set<TraineeInformation> traineeInfos= new HashSet<TraineeInformation>();
 
 	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<TrainingTopic> trainingTopicId;
+	private Set<TrainingTopic> trainingTopicId = new HashSet<TrainingTopic>();
 	
 	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<FeedbackMasterTrainer> masterTrainerFeedback ;
+	private Set<FeedbackMasterTrainer> masterTrainerFeedback = new HashSet<FeedbackMasterTrainer>();
 	
 	public int getTrainingId() {
 		return trainingId;
