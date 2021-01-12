@@ -221,7 +221,6 @@
 		<script th:src="@{js/jquery-3.3.1.js}"></script>
 		<div class="row" style='width: 100%;'>
 			<div class="col-md-12 mx-auto">
-				<div class="a-update-msg"></div>
 				<div class="card card-signin flex-row a-card">
 
 					<div class="card-body">
@@ -378,7 +377,7 @@
 																		type="video/mp4"></source>
 																</video>
 															</div>
-															
+
 														</div>
 
 													</div>
@@ -640,7 +639,7 @@
 											Prerequisite</h5>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close">
-											 <span aria-hidden="true">&times;</span>
+											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
 									<div class="modal-body">
@@ -668,6 +667,15 @@
 															name="inputLanguageAll" required="required">
 														</select>
 													</div>
+													<div class="form-group ">
+													<div class="form-check">
+														<input type="checkbox" class="form-check-input"
+															id="prRequired"> <label
+															class="form-check-label" for="prRequired">No Prerequisite</label>
+													</div>
+														
+													</div>
+													
 													<div th:if="${tutorial}">
 														<div
 															th:if="${tutorial.getPreRequisticStatus() == 0 or tutorial.getPreRequisticStatus() == 4}">
@@ -715,7 +723,7 @@
 											id="statusofprerequisite"> </span>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close">
-											 <span aria-hidden="true">&times;</span>
+											<span aria-hidden="true">&times;</span>
 										</button>
 
 									</div>
@@ -833,8 +841,9 @@
 																<a th:if="${tutorial.getScriptStatus() != 0}"
 																	th:href="@{/files/}+@{${tutorial.getScript()}}"
 																	name="ScriptPdf" target="_blank" id="ScriptPdf">Click
-																	To View</a> <a name="ScriptPdf" target="_blank"
-																	id="viewScript" href="#"></a>
+																	To View</a>
+																<!-- <a name="ScriptPdf" target="_blank"
+																	id="viewScript" href="#"></a> -->
 															</div>
 														</div>
 													</div>
@@ -963,7 +972,7 @@
 													<div th:if="${tutorial}" class="card">
 														<div class="card-body">
 															<div class="form-group">
-																<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
+
 																<a name="sliedPdf"
 																	th:if="${tutorial.getSlideStatus() != 0}"
 																	target="_blank"
@@ -1103,7 +1112,7 @@
 													<div th:if="${tutorial}" class="card">
 														<div class="card-body">
 															<div class="form-group">
-																<!-- <a name="ScriptPdf" target="_blank" id="ScriptPdf" >Click To View</a> -->
+
 																<a name="sliedPdf"
 																	th:if="${tutorial.getGraphicsStatus() != 0}"
 																	target="_blank" id="sliedPdf"
@@ -1259,11 +1268,13 @@
 	<script type="application/javascript">
 		
 		
+		
     $('input[type="file"]').change(function(e){
         var fileName = e.target.files[0].name;
         $('.custom-file-label').html(fileName);
     });
 
+	
 	
 	</script>
 
