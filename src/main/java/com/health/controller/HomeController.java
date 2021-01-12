@@ -2213,16 +2213,19 @@ public class HomeController {
 		Role admin=roleService.findByname(CommonData.adminReviewerRole);
 		Role master=roleService.findByname(CommonData.masterTrainerRole);
 		Role quality=roleService.findByname(CommonData.qualityReviewerRole);
+		Role domain=roleService.findByname(CommonData.domainReviewerRole);
 
 		List<UserRole> adminReviewer = usrRoleService.findAllByRoleAndStatus(admin,false);
 		List<UserRole> masterTrainer = usrRoleService.findAllByRoleAndStatus(master,false);
 		List<UserRole> qualityReviewer = usrRoleService.findAllByRoleAndStatus(quality,false);
 		List<UserRole> contributorReviewer = usrRoleService.findAllByRoleAndStatus(contributor,false);
+		List<UserRole> domainReviewer = usrRoleService.findAllByRoleAndStatus(domain,false);
 
 		model.addAttribute("userInfoAdmin", adminReviewer);
 		model.addAttribute("userInfoQuality", qualityReviewer);
 		model.addAttribute("userInfoContributor", contributorReviewer);
 		model.addAttribute("userInfoMaster", masterTrainer);
+		model.addAttribute("userInfoDomain", domainReviewer);
 
 
 		return "approveRole";
