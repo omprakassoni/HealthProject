@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.health.model.TraineeInformation;
 import com.health.model.TrainingInformation;
+import com.health.model.TrainingTopic;
 import com.health.repository.TrainingInformationRespository;
 import com.health.service.TrainingInformationService;
 
@@ -62,6 +64,9 @@ public class TrainingInformationServiceImpl implements TrainingInformationServic
 		// TODO Auto-generated method stub
 		return trainingInfoRepo.findBytitleName(topicName);
 	}
+
+
+	
 
 
 }

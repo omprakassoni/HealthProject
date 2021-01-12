@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -30,7 +31,9 @@ import com.health.model.LogManegement;
 import com.health.model.State;
 import com.health.model.Topic;
 import com.health.model.TopicCategoryMapping;
+import com.health.model.TraineeInformation;
 import com.health.model.TrainingInformation;
+import com.health.model.TrainingTopic;
 import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.service.CategoryService;
@@ -45,7 +48,9 @@ import com.health.service.RoleService;
 import com.health.service.StateService;
 import com.health.service.TopicCategoryMappingService;
 import com.health.service.TopicService;
+import com.health.service.TraineeInformationService;
 import com.health.service.TrainingInformationService;
+import com.health.service.TrainingTopicService;
 import com.health.service.TutorialService;
 import com.health.service.UserRoleService;
 import com.health.service.UserService;
@@ -96,6 +101,9 @@ public class AjaxController{
 
 	@Autowired
 	private TrainingInformationService trainingInforService;
+	
+	@Autowired
+	private TraineeInformationService traineeService;
 
 	@Autowired
 	private CommentService comService;
@@ -105,17 +113,40 @@ public class AjaxController{
 	
 	@Autowired
 	private FeedbackService ffService;
+	
+	@Autowired
+	private TrainingTopicService trainingTopicService;
+	
+	@RequestMapping("/loadTraineeByTrainingId")
+	public @ResponseBody List<TraineeInformation> getTraineeInfoOnTrainingId(@RequestParam(value = "id") int id) {
+
+		TrainingInformation training = trainingInforService.getById(id);
+		List<TraineeInformation> traineeList = traineeService.findAllBytraineeInfos(training);
+		
+		return traineeList;
+
+	}
 
 	@RequestMapping("/loadTitleNameInMasterTraining")
-	public @ResponseBody HashMap<Integer, String> getTopicNameFromMasterTrainer() {
+	public @ResponseBody HashMap<Integer, String> getTopicNameFromMasterTrainer(@RequestParam(value = "id") int id) {
 
 		HashMap<Integer,String> topicName=new HashMap<>();
 
-		List<TrainingInformation> trainig = trainingInforService.findAll();
+		Category cat = catService.findByid(id);
+		List<TopicCategoryMapping> topicCatList = topicCatService.findAllByCategory(cat);
+		Set<TrainingTopic> trainingTopic = trainingTopicService.findByTopicCat(topicCatList);
 
-		for(TrainingInformation x : trainig) {
-			topicName.put(x.getTrainingId(), x.getTitleName());
+		
+		for(TrainingTopic x :trainingTopic) {
+			TrainingInformation temp = trainingInforService.getById(x.getTraineeInfos().getTrainingId());
+			topicName.put(temp.getTrainingId(), temp.getTitleName());
 		}
+
+		/*
+		 * for(TrainingInformation x : training) { topicName.put(x.getTrainingId(),
+		 * x.getTitleName()); }
+		 */
+		
 		return topicName;
 
 	}

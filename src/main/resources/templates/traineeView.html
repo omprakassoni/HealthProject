@@ -136,7 +136,7 @@
 							<div class="form-group">
 								<label for="exampleFormControlSelect1">Select Category</label> <select
 									class="form-control" id="eventCategory">
-									<!-- <option id="categoryContributor">Select Category</option> -->
+									<option >Select Category</option> 
 									<option th:each="category: ${categories}"
 												th:value="${category.getCategoryId()}" th:text="${category.getCatName()}"></option>
 								</select>
