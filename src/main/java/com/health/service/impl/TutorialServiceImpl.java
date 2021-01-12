@@ -67,6 +67,12 @@ public class TutorialServiceImpl implements TutorialService {
 
 	}
 
+	@Override
+	public List<Tutorial> findAllBystatus(boolean status) {
+		// TODO Auto-generated method stub
+		return tutorialRepo.findAllBystatus(status);
+	}
+
 
 
 

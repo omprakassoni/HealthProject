@@ -77,7 +77,7 @@
 <div class="col-md-3 mb-3">
             <select class="custom-select d-block w-100" id="categoryname" name="categoryName">
               <option>Select Category</option>
-              <option th:each="category : ${categories}"><span th:text="${category.getCatName()}">Title ...</span></option>
+              <option th:each="category : ${categories}"><span th:text="${category}">Title ...</span></option>
             </select>
             <div class="invalid-feedback">
               Please select a valid foss.
@@ -86,13 +86,13 @@
 <div class="col-md-3 mb-3">
 <select class="custom-select d-block w-100" id="inputTopicName" name="topic">
               <option >Select Topic</option>
-              <option th:each="topic : ${topics}"><span th:text="${topic.getTopicName()}">Title ...</span></option>
+              <option th:each="topic : ${topics}"><span th:text="${topic}">Title ...</span></option>
             </select>
 </div>
 <div class="col-md-3 mb-3">
 <select class="custom-select d-block w-100" id="inputL" name="lan">
               <option >Select Language</option>
-              <option th:each="language : ${languages}"><span th:text="${language.getLangName()}">Title ...</span></option> 
+              <option th:each="language : ${languages}"><span th:text="${language}">Title ...</span></option> 
             </select>
             <div class="invalid-feedback">
               Please provide a valid language.

@@ -23,6 +23,8 @@ public interface TutorialRepository extends CrudRepository<Tutorial, Integer> {
 	
 	List<Tutorial> findAllByconAssignedTutorial(ContributorAssignedTutorial con);
 	
+	List<Tutorial> findAllBystatus(boolean status);
+	
 	
 //	Tutorial findByLanguage(String name);
 //

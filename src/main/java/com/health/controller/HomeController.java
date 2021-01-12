@@ -197,11 +197,20 @@ public class HomeController {
 		List<Event> events=eventservice.findAll();
 		List<Testimonial> testi=testService.findAll();
 		List<Consultant> consults= consultService.findAll();
-		List<Language> languages= lanService.getAllLanguages();
 		List<Category> categories= catService.findAll();
-		List<Topic> topics =topicService.findAll();
-
-
+		List<Language> languages = lanService.getAllLanguages();
+		
+		Set<String> catTemp = new HashSet<String>();
+		Set<String> topicTemp = new HashSet<String>();
+		Set<String> lanTemp = new HashSet<String>();
+		
+		List<Tutorial> tutorials = tutService.findAllBystatus(true);
+		for(Tutorial temp :tutorials) {
+			catTemp.add(temp.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
+			lanTemp.add(temp.getConAssignedTutorial().getLan().getLangName());
+			topicTemp.add(temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
+		}
+		
 		List<Event> evnHome = new ArrayList<>();
 		List<Testimonial> testHome = new ArrayList<>();
 		List<Consultant> consulHome = new ArrayList<>();
@@ -247,9 +256,9 @@ public class HomeController {
 		model.addAttribute("consultantCount", consults.size());
 		model.addAttribute("events", evnHome);
 
-		model.addAttribute("categories", categories);
-		model.addAttribute("languages", languages);
-		model.addAttribute("topics", topics);
+		model.addAttribute("categories", catTemp);
+		model.addAttribute("languages", lanTemp);
+		model.addAttribute("topics", topicTemp);
 
 
 

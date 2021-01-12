@@ -19,5 +19,7 @@ public interface TutorialService {
 	void save(Tutorial tut);
 
 	Tutorial getById(int id);
+	
+	List<Tutorial> findAllBystatus(boolean status);
 
 }
