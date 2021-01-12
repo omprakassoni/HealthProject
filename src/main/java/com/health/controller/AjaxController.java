@@ -1515,39 +1515,7 @@ public class AjaxController{
 
 
 
-	@GetMapping("/revokeRoleByRole")
-	public @ResponseBody String revokeRoleByRole(@RequestParam(value = "role") int role,Principal principal){
-
-		User usr=new User();
-
-		if(principal!=null) {
-
-			usr=usrservice.findByUsername(principal.getName());
-		}
-
-		Role roles = null;
-
-		if(role == 4) {
-			roles = roleService.findByname(CommonData.domainReviewerRole);
-		}else if(role == 5) {
-			roles = roleService.findByname(CommonData.qualityReviewerRole);
-		}else if(role == 6) {
-			roles = roleService.findByname(CommonData.adminReviewerRole);
-		}else if(role == 7) {
-			roles = roleService.findByname(CommonData.masterTrainerRole);
-		}else if(role == 8) {
-			roles = roleService.findByname(CommonData.contributorRole);
-		}
-
-		List<UserRole> usrRole = usrRoleService.findByRoleUser(usr, roles);
-
-		for(UserRole x : usrRole) {
-			x.setStatus(true);
-			usrRoleService.save(x);
-		}
-
-		return "roleAdminDetail";
-	}
+	
 
 
 	/************************************ END ********************************************************/
