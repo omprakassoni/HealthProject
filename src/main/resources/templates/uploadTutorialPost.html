@@ -667,7 +667,12 @@
 															name="inputLanguageAll" required="required">
 														</select>
 													</div>
-													<div class="form-group ">
+													
+													
+													<div th:if="${tutorial}">
+														<div
+															th:if="${tutorial.getPreRequisticStatus() == 0 or tutorial.getPreRequisticStatus() == 4}">
+															<div class="form-group ">
 													<div class="form-check">
 														<input type="checkbox" class="form-check-input"
 															id="prRequired"> <label
@@ -675,10 +680,6 @@
 													</div>
 														
 													</div>
-													
-													<div th:if="${tutorial}">
-														<div
-															th:if="${tutorial.getPreRequisticStatus() == 0 or tutorial.getPreRequisticStatus() == 4}">
 															<button id="uploadpreRequsiteId"
 																name="uploadpreRequsiteId" type="button"
 																class="btn btn-success">Upload</button>
@@ -691,7 +692,7 @@
 														</div>
 
 													</div>
-
+													<button type="button" class="btn btn-success" id="addNullPrerequisite" style="display:none;">Submit</button>
 												</form>
 											</div>
 											<div class="col-12"></div>
@@ -1283,6 +1284,21 @@
 	<script th:inline="javascript">
 		var projectPath='[(@{/})]';
 		var filep='[(@{/files/})]';
+		
+		$('#prRequired').change(function() {
+			var upload = document.getElementById("uploadpreRequsiteId");
+			var submit = document.getElementById("addNullPrerequisite");
+			if (upload.style.display === "none") {
+				upload.style.display = "block";
+				submit.style.display = "none";
+			} else {
+				upload.style.display = "none";
+				submit.style.display = "block";
+			}
+			
+		});
+		
+		
 	</script>
 </body>
 </html>

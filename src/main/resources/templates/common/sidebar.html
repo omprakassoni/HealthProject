@@ -432,36 +432,36 @@
         </ul>
         <ul class="nav flex-column" th:if="!${#authorization.expression('hasAuthority(''SUPER_USER'')')}">
         	<li class="nav-item " >
-            <a class="nav-link" href="#View">
+            <a class="nav-link revoke_role" href="#View">
               <i class="fas fa-user-minus sidebar-icon"></i>Remove Role
             </a>
           </li>
            <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
-            <a class="nav-link" th:href="@{/domainLanguage}">
+            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=6)}">
               <span data-feather="file"></span>
                Admin Reviewer
             </a>
           </li>
           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''CONTRIBUTOR'')')}">
-            <a class="nav-link" th:href="@{/domainLanguage}">
+            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=8)}">
               <span data-feather="file"></span>
                Contributor
             </a>
           </li>
             <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''DOMAIN_REVIEWER'')')}">
-            <a class="nav-link" th:href="@{/domainLanguage}">
+            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=4)}">
               <span data-feather="file"></span>
                Domain Reviewer
             </a>
           </li>
           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''MASTER_TRAINER'')')}">
-            <a class="nav-link" th:href="@{/domainLanguage}">
+            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=7)}">
               <span data-feather="file"></span>
                Master Trainer 
             </a>
           </li>
           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''QUALITY_REVIEWER'')')}">
-            <a class="nav-link" th:href="@{/domainLanguage}">
+            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=5)}">
               <span data-feather="file"></span>
                Quality Reviewer
             </a>
