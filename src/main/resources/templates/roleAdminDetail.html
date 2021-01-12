@@ -1,92 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 
-<!-- <head th:replace="common/header :: common-header" /> -->
-<head>	
-	<meta charset="utf-8"/> 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300, 400, 700" rel="stylesheet"/>
-    <link rel="stylesheet" th:href="@{/s/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/s/css/animate.css}"/>
-    <link rel="stylesheet" th:href="@{/s/css/owl.carousel.min.css}"/>
-    <link rel="stylesheet" th:href="@{/s/css/bootstrap-datepicker.css}"/>
-    <link rel="stylesheet" th:href="@{/s/css/jquery.timepicker.css}"/>
-    <link rel="stylesheet" th:href="@{/s/fonts/ionicons/css/ionicons.min.css}"/>
-    <link rel="stylesheet" th:href="@{/s/fonts/font-awesome.min.css}"/>
-    <link rel="stylesheet" th:href="@{/s/fonts/flaticon/font/flaticon.css}"/>
-    Theme Style
-    <link rel="stylesheet" th:href="@{/s/css/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome-free-5.10.1-web/css/all.css}"/> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
+<head th:replace="common/trail :: common-trail"></head>
 <body>
-<div th:replace="common/sidebar :: top_header"></div>
-<div class="container-fluid">
-<div class="row">
-<div class="col-md-3 col-lg-2 pr-0">
-<div th:replace="common/sidebar :: contributor_sidebar"></div>
-</div>
-<div class="col-md-9 col-lg-10">
-Test
-</div>
-</div>
-</div>
-
-<!-- <div style="display:flex">
-<div>
-<div th:replace="common/sidebar :: contributor_sidebar"></div>
-</div>
-</div> -->
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<!-- <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
-    <script th:src="@{/s/js/popper.min.js}"></script>
-    <script th:src="@{/s/js/bootstrap.min.js}"></script>
-    <script th:src="@{/s/js/owl.carousel.min.js}"></script>
-    <script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
-    <script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
-    <script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
-    <script th:src="@{/s/js/main.js}"></script>
-     <script th:src="@{/js/ajaxSupport.js}"></script>
- 	<script th:src="@{/fontawesome-free-5.10.1-web/js/all.js}"></script>
-	<div th:replace="common/header :: body-bottom-scripts" />
-	<div th:fragment="body-bottom-scripts">
-			<script th:src="@{/js/jquery.min.js}"></script>
-		 	<script type="text/javascript" charset="utf8" th:src="@{/datatables.js}"></script> 
-		 
-			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-			
-
-        	 <script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
-       		 <script th:src="@{/static/js/jquery.slim.min}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-			
-				<script th:src="@{/js/jquery.min.js}"></script>
-			    <script th:src="@{/s/js/jquery-3.2.1.min.js}"></script>
-			    <script th:src="@{/s/js/popper.min.js}"></script>
-			    <script th:src="@{/s/js/bootstrap.min.js}"></script>
-			    <script th:src="@{/s/js/owl.carousel.min.js}"></script>
-			    <script th:src="@{/s/js/bootstrap-datepicker.js}"></script>
-			    <script th:src="@{/s/js/jquery.timepicker.min.js}"></script>
-			    <script th:src="@{/s/js/jquery.waypoints.min.js}"></script>
-			    <script th:src="@{/s/js/main.js}"></script>
-			    <script th:src="@{/js/ajaxSupport.js}"></script>
-			
-			
+	<div th:replace="common/sidebar :: top_header"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 col-lg-2 pr-0">
+				<div th:replace="common/sidebar :: contributor_sidebar"></div>
 			</div>
-	
-		<script th:inline="javascript">
-    
-		var projectPath='[(@{/})]';
-		
-	</script> -->
-	
+
+			<!-- <div class="col-md-9 col-lg-10"
+				sec:authorize="hasAnyAuthority('CONTRIBUTOR')">contributor</div> -->
+
+			<!-- <div th:if="${#lists.contains(roleIds, 8)}">
+       
+</div> -->
+<div class="col-md-9 col-lg-10">
+<div class="row p-3">
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header">Pending Role Requests</div>
+						<div class="card-body">
+							<table class="table table-striped" id="myTable">
+								<thead>
+									<tr>
+										<th scope="col"><i class="fas fa-user-tag mr-1"></i>Role</th>
+										<th scope="col">Language</th>
+										<th scope="col">Category</th>
+										<th scope="col"><i class="far fa-calendar-minus mr-1"></i>Applied on</th>
+									</tr>
+								</thead>
+								<tbody>
+									<div th:if="${not #lists.isEmpty(userRoles)}">
+										<tr th:each="userRole : ${userRoles}">
+											<td scope="row"><span
+												th:text="${userRole.getRole().getName()}"></span></td>
+											<td>
+											<span th:if= "${userRole.getLanguage() != null}" th:text="${userRole.getLanguage().getLangName()}">
+											</span>
+											<!-- <span
+												th:text="${userRole.getLanguage().getLangName()}"></span> --></td>
+											<td><span th:if= "${userRole.getCategory() != null}" th:text="${userRole.getCategory().getCatName()}">
+											</span></td>
+											<td><span th:text="${userRole.getCreated()}"></span></td>
+										</tr>
+									</div>
+
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+
+</div>
+			
+		</div>
+	</div>
+	<div th:replace="common/trail :: body-bottom-scripts"></div>
+
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			/* $('#myTable').DataTable(); */
+		});
+
+		var projectPath = '[(@{/})]';
+	</script>
+
 </body>
 </html>
 
- 
+

@@ -212,6 +212,11 @@ $(document).ready(function() {
 				location.reload();
 
 			});
+			
+			$('#prerequisiteModale').on('hidden.bs.modal', function() {
+				location.reload();
+
+			});
 
 			$('.nav-item').on(
 					'click',
@@ -823,10 +828,6 @@ $(document).ready(function() {
 						}
 
 					});
-
-
-
-
 
 
 			/*		Here is code for Quality Reviwer prerequisite */
@@ -6073,6 +6074,32 @@ $(document).ready(function() {
 				
 				});
 
+			$("#addNullPrerequisite").click(function() {
+				component = this.id;
+				var elem_id = '#'+component+'_comment'
+				var tutorialId = $("#tutorialId").val();
+				
+				var msg = $(elem_id).val();
+				$.ajax({
+					type : "GET",
+					url : projectPath+"addPreRequisticWhenNotRequired",
+					data : {
+						"id" :tutorialId
+					},
+					contentType : "application/json",
+					success : function(result) {
+
+
+					},
+
+					error : function(err) {
+						alert('error');
+						console.log("not working. ERROR: "+ JSON.stringify(err));
+
+					}
+				});
+
+			});
 			
 			
 

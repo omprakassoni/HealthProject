@@ -15,6 +15,23 @@ body {
 				<div th:replace="common/sidebar :: contributor_sidebar"></div>
 			</div>
 			<div class="col-md-9 col-lg-10 p-md-5">
+				<div>
+					<div class="alert alert-success" role="alert"
+						th:if="${success_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${success_msg}"></span>
+							</div>
+						</div>
+					</div>
+					<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${error_msg}"></span>
+							</div>
+						</div>
+					</div>
+				</div>
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active"
 						id="admin-rev-tab" data-toggle="tab" href="#Admin" role="tab"
@@ -22,6 +39,9 @@ body {
 					<li class="nav-item"><a class="nav-link" id="contri-tab"
 						data-toggle="tab" href="#Contributer" role="tab"
 						aria-controls="profile" aria-selected="false">Contributor</a></li>
+					<li class="nav-item"><a class="nav-link" id="domain-tab"
+						data-toggle="tab" href="#domain" role="tab"
+						aria-controls="profile" aria-selected="false">Domain</a></li>
 					<li class="nav-item"><a class="nav-link"
 						id="master-trainer-tab" data-toggle="tab" href="#MasterTrainer"
 						role="tab" aria-controls="contact" aria-selected="false">Master
@@ -91,6 +111,43 @@ body {
 												name</td>
 											<td th:text="${approve.getLanguage().getLangName()}">Language
 												Name</td>
+											<td>
+												<button id="approveContributorId" type="button"
+													th:value="${approve.getUserRoleId()}"
+													class="btn btn-info approveContributor">Approve</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade py-3" id="domain" role="tabpanel"
+						aria-labelledby="domain-tab">
+						<div class="row">
+							<div class="col-sm-12">
+								<table id="tableIdDomain"
+									class="table table-striped a-table-font">
+									<thead>
+										<tr>
+											<th>User Name</th>
+											<th>First Name</th>
+											<th>Last Name</th>
+											<th>Language</th>
+											<th>Category</th>
+											<th>Approve</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="approve : ${userInfoDomain}">
+											<td th:text="${approve.getUser().getUsername()}">User
+												Name</td>
+											<td th:text="${approve.getUser().getFirstName()}">First
+												Name</td>
+											<td th:text="${approve.getUser().getLastName()}">Last
+												name</td>
+											<td th:text="${approve.getLanguage().getLangName()}">Language</td>
+											<td th:text="${approve.getCategory().getCatName()}">Category</td>
 											<td>
 												<button id="approveContributorId" type="button"
 													th:value="${approve.getUserRoleId()}"
@@ -377,6 +434,7 @@ body {
 				/* $('#tableIdContributor').DataTable(); */
 				$('#tableIdMaster').DataTable();
 				$('#tableIdQuality').DataTable();
+				$('#tableIdDomain').DataTable();
 
 				$('#tableIdContributor').DataTable({
 					columnDefs : [ {
