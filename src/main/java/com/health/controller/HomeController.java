@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -201,18 +200,18 @@ public class HomeController {
 		List<Consultant> consults= consultService.findAll();
 		List<Category> categories= catService.findAll();
 		List<Language> languages = lanService.getAllLanguages();
-		
+
 		Set<String> catTemp = new HashSet<String>();
 		Set<String> topicTemp = new HashSet<String>();
 		Set<String> lanTemp = new HashSet<String>();
-		
+
 		List<Tutorial> tutorials = tutService.findAllBystatus(true);
 		for(Tutorial temp :tutorials) {
 			catTemp.add(temp.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 			lanTemp.add(temp.getConAssignedTutorial().getLan().getLangName());
 			topicTemp.add(temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 		}
-		
+
 		List<Event> evnHome = new ArrayList<>();
 		List<Testimonial> testHome = new ArrayList<>();
 		List<Consultant> consulHome = new ArrayList<>();
@@ -777,6 +776,27 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/************************************ADD TOPIC**********************************************/
+	@RequestMapping(value = "/topic/edit/{id}", method = RequestMethod.GET)
+	public String editTopicGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		Topic topic=topicService.findById(id);
+
+		model.addAttribute("topic",topic);
+		List<Category> category = catService.findAll();
+
+		model.addAttribute("categories", category);
+
+		return "updateTopic";
+	}
 
 	@RequestMapping(value = "/addTopic",method = RequestMethod.GET)
 	public String addTopicGet(Model model,Principal principal) {
@@ -1013,6 +1033,27 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/************************************ADD QUESTION**********************************************/
+	@RequestMapping(value = "/question/edit/{id}", method = RequestMethod.GET)
+	public String editQuestionGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		Topic topic=topicService.findById(id);
+
+		model.addAttribute("topic",topic);
+		List<Category> category = catService.findAll();
+
+		model.addAttribute("categories", category);
+
+		return "updateQuestion";
+	}
 
 	@RequestMapping(value = "/uploadQuestion",method = RequestMethod.GET)
 	public String addQuestionGet(Model model,Principal principal) {
@@ -1809,6 +1850,24 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/************************************VIEW SECTION OF LANGAUAGE**********************************************/
+	@RequestMapping(value = "/language/edit/{id}", method = RequestMethod.GET)
+	public String editLanguageGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		Language lang=lanService.getById(id);
+
+		model.addAttribute("language",lang);
+
+		return "updateLanguage";
+	}
 
 	@RequestMapping(value = "/language", method = RequestMethod.GET)
 	public String viewLanguageGet(Model model,Principal principal) {
@@ -2477,6 +2536,23 @@ public class HomeController {
 
 
 	/*************************************** ASSIGN CONTRINUTOR ****************************************/
+	@RequestMapping(value = "/assignContributor/edit/{id}", method = RequestMethod.GET)
+	public String editAssignContributor(@PathVariable Long id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+		Role role=roleService.findByname(CommonData.contributorRole);
+		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatus(role, true);
+
+		model.addAttribute("userByContributors", userRoles);
+		model.addAttribute("userInfo", usr);
+
+		return "updateAssignContributor";
+	}
 
 	@RequestMapping(value = "/assignTutorialToContributor", method = RequestMethod.GET)
 	public String assignTutorialToContributoreGet(Model model,Principal principal) {
@@ -3474,7 +3550,7 @@ public class HomeController {
 		return "profileView";
 
 	}
-	
+
 	@GetMapping("/revokeRoleByRole")
 	public String revokeRoleByRole(@RequestParam(value = "role") int role,Principal principal,Model model){
 
@@ -3505,7 +3581,6 @@ public class HomeController {
 			x.setStatus(false);
 			usrRoleService.save(x);
 		}
-		
 		model.addAttribute("msg", "Role revoked Successfully");
 
 		return "roleAdminDetail";

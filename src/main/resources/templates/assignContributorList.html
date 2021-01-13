@@ -107,6 +107,7 @@
       <th scope="col">Category</th>
       <th scope="col">Language</th>
       <th scope="col">Status</th>
+      <th scope="col">Edit</th>
     </tr>
   </thead>
   <tbody>
@@ -120,6 +121,7 @@
 	  <td><span th:if= "${user.getStatus()}" ><i class="far fa-check-circle"></i>
 											</span>
 	<span th:if= "not ${user.getStatus()}"><i class="fas fa-minus-circle"></i>	</span></td>
+	<td><a th:href="@{${'/assignContributor/edit/' + user.getUser().getId()}}">Edit</a></td>
     </tr>
   
   </tbody>
