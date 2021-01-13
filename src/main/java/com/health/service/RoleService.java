@@ -13,6 +13,8 @@ public interface RoleService {
 	  Role findByname(String roleName);
 	  
 	  int getNewRoleId();
+	  
+	  Role findById(int id);
 
 
 }

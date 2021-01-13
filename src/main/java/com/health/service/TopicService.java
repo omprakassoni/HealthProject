@@ -13,4 +13,6 @@ public interface TopicService {
 	Topic findById(int id);
 	
 	List<Topic> findAll();
+	
+	void save(Topic topic);
 }

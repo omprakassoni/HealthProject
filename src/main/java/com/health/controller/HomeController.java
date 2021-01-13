@@ -670,7 +670,7 @@ public class HomeController {
 		}
 
 		try {
-			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryCategory+newCatId)) {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryCategory+newCatId);
 				String pathtoUploadPoster=ServiceUtility.uploadFile(files, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryCategory+newCatId);
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -680,9 +680,7 @@ public class HomeController {
 				local.setPosterPath(document);
 
 				catService.save(local);
-			}else {
-
-			}
+			
 
 
 		} catch (Exception e) {
@@ -871,6 +869,78 @@ public class HomeController {
 		return "addTopic";
 
 	}
+	
+	@RequestMapping(value = "/topic/edit/{id}", method = RequestMethod.GET)
+	public String editTopicGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		Topic topic=topicService.findById(id);
+
+		model.addAttribute("topic",topic);
+
+		return "updateCategory";  // need to accomdate view part
+	}
+	
+	@RequestMapping(value = "/updateTopic",method = RequestMethod.POST)
+	public String updateTopicPost(Model model,Principal principal,HttpServletRequest req) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		String topicname=req.getParameter("topicName");
+		String topicIdInString = req.getParameter("TopicId");
+		int topicId = Integer.parseInt(topicIdInString);
+		
+		Topic topic = topicService.findById(topicId);
+		
+		if(topic == null) {
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
+			return "addlanguage";  //  accomodate view part
+		}
+
+		if(topicname==null) {
+
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
+			return "addlanguage";  //  accomodate view part
+		}
+
+		if(topicService.findBytopicName(topicname)!=null) {
+
+			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
+			return "addlanguage";   //  accomodate view part
+		}
+
+		topic.setTopicName(topicname);
+
+		try {
+			topicService.save(topic);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "addlanguage";  //  accomodate view part
+		}
+
+
+		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
+
+		return "addlanguage";  //  accomodate view part
+
+	}
+
 
 	/************************************END**********************************************/
 
@@ -937,7 +1007,8 @@ public class HomeController {
 		return "addNewRole";
 
 	}
-
+	
+	
 
 	/************************************END**********************************************/
 
@@ -1039,7 +1110,7 @@ public class HomeController {
 		}
 
 		try {
-			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryQuestion+newQuestionId)) {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryQuestion+newQuestionId);
 				String pathtoUploadPoster=ServiceUtility.uploadFile(quesPdf, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryQuestion+newQuestionId);
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -1052,10 +1123,6 @@ public class HomeController {
 				questService.save(temp);
 
 
-
-			}else {
-
-			}
 
 
 		} catch (Exception e) {
@@ -1071,7 +1138,77 @@ public class HomeController {
 
 
 	}
+	
+	@RequestMapping(value = "/question/edit/{id}", method = RequestMethod.GET)
+	public String editQuestionGet(@PathVariable int id,Model model,Principal principal) {
 
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		Question ques = questService.findById(id);
+
+		model.addAttribute("question",ques);
+
+		return "updateCategory"; // question edit page
+	}
+
+	
+	@RequestMapping(value = "/updateQuestion",method = RequestMethod.POST)
+	public String updateQuestionPost(HttpServletRequest req,Model model,Principal principal,
+								  @RequestParam("questionName") MultipartFile[] quesPdf) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		String quesIdInString=req.getParameter("id");
+		int idQues =  Integer.parseInt(quesIdInString);		
+		Question ques = questService.findById(idQues);
+
+		if(!ServiceUtility.checkFileExtensionPDF(quesPdf)) {  // throw error
+
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			return "uploadQuestion"; // accomodate error
+		}
+
+
+		try {
+				
+				String pathtoUploadPoster=ServiceUtility.uploadFile(quesPdf, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryQuestion+ques.getQuestionId());
+				int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+
+				ques.setQuestionPath(document);
+
+				questService.save(ques);
+
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			return "uploadQuestion";   // accomodate view part
+		}
+
+		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
+
+		return "uploadQuestion";     // accomodate view part
+
+
+	}
 
 	/************************************END**********************************************/
 
@@ -1376,7 +1513,7 @@ public class HomeController {
 		}
 
 		try {
-			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+newTestiId)) {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+newTestiId);
 				String pathtoUploadPoster=ServiceUtility.uploadVideoFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+newTestiId);
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -1388,9 +1525,7 @@ public class HomeController {
 
 				testService.save(temp);
 
-			}else {      // throw a error
-
-			}
+			
 
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -1463,7 +1598,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/updateCategory", method = RequestMethod.POST)
-	public String updateCategoryGet(Model model,Principal principal,HttpServletRequest req) {
+	public String updateCategoryGet(Model model,Principal principal,HttpServletRequest req,
+			@RequestParam("categoryImage") MultipartFile[] file) {
 
 		User usr=new User();
 
@@ -1476,6 +1612,8 @@ public class HomeController {
 
 		String catId=req.getParameter("id");
 		String catName=req.getParameter("categoryname");
+		String categoryDesc = req.getParameter("categoryDesc");
+		
 
 		Category cat=catService.findByid(Integer.parseInt(catId));
 
@@ -1495,16 +1633,34 @@ public class HomeController {
 		}
 
 		cat.setCatName(catName);
-		try {
-			catService.save(cat);
+		cat.setDescription(categoryDesc);
+		
+		if(file.length != 0) {
+			try {
+				
+					String pathtoUploadPoster=ServiceUtility.uploadFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryCategory+cat.getCategoryId());
+					
+					int indexToStart=pathtoUploadPoster.indexOf("Media");
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			// need to return some error message
+					String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+					
+					cat.setPosterPath(document);
 
-			return "updateCategory";
-		}
+					catService.save(cat);
+
+
+			}catch (Exception e) {
+				// TODO: handle exception
+
+				e.printStackTrace();
+
+				return "updateCategory";  // throw a error
+			}
+			}else {
+
+				catService.save(cat);
+			}
+		
 
 		model.addAttribute("msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);   // need to accommodate
 
@@ -1669,6 +1825,78 @@ public class HomeController {
 		model.addAttribute("lan", lan);
 
 		return "language";
+	}
+	
+	@RequestMapping(value = "/language/edit/{id}", method = RequestMethod.GET)
+	public String editLanguageGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		Language lan=lanService.getById(id);
+
+		model.addAttribute("language",lan);
+
+		return "updateCategory";  // need to accomdate view part
+	}
+	
+	@RequestMapping(value = "/updateLanguage",method = RequestMethod.POST)
+	public String updateLanguagePost(Model model,Principal principal,HttpServletRequest req) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		String languagename=req.getParameter("languageName");
+		String lanIdInString = req.getParameter("lanId");
+		int lanId = Integer.parseInt(lanIdInString);
+		
+		Language lan = lanService.getById(lanId);
+		
+		if(lan == null) {
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
+			return "addlanguage";  //  accomodate view part
+		}
+
+		if(languagename==null) {
+
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
+			return "addlanguage";  //  accomodate view part
+		}
+
+		if(lanService.getByLanName(languagename)!=null) {
+
+			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
+			return "addlanguage";   //  accomodate view part
+		}
+
+		String language_formatted = languagename.substring(0, 1).toUpperCase() + languagename.substring(1).toLowerCase();
+		lan.setLangName(language_formatted);
+
+		try {
+			lanService.save(lan);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "addlanguage";  //  accomodate view part
+		}
+
+
+		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
+
+		return "addlanguage";  //  accomodate view part
+
 	}
 
 	/************************************END**********************************************/
@@ -3032,7 +3260,7 @@ public class HomeController {
 			trainingData.setTrainingTopicId(trainingTopicTemp);
 			trainingInfoService.save(trainingData);
 
-			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer+newTrainingdata)) {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer+newTrainingdata);
 				String pathtoUploadPoster=ServiceUtility.uploadFile(trainingImage, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer+newTrainingdata);
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -3057,9 +3285,7 @@ public class HomeController {
 
 	            trainingInfoService.addTrainee(trainingData, trainees);
 
-			}else {      // throw a error
-
-			}
+			
 
 
 
@@ -3116,7 +3342,7 @@ public class HomeController {
 		try {
 			feedServ.save(feed);
 
-			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainerFeedback+feed.getId())) {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainerFeedback+feed.getId());
 				String pathtoUploadPoster=ServiceUtility.uploadFile(feedbackFile, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainerFeedback+feed.getId());
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -3125,9 +3351,7 @@ public class HomeController {
 				feed.setPath(document);
 				feedServ.save(feed);
 
-			}else {
-
-			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -47,4 +47,10 @@ public class TopicServiceImpl implements TopicService {
 		return (List<Topic>) topicRepo.findAll();
 	}
 
+	@Override
+	public void save(Topic topic) {
+		// TODO Auto-generated method stub
+		topicRepo.save(topic);
+	}
+
 }

@@ -39,23 +39,6 @@ public class ServiceUtility {
 	
 	
 	
-//	public static boolean createclassSubjectFolder(String className,String subject,String topicName) throws Exception{  // creating folder for topic
-//		
-//		boolean status=true;
-//		if(!new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/").exists()) {
-//			if(new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/").mkdirs()) {
-//				
-//				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Document/").mkdirs();
-//				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Lessonplan/").mkdirs();
-//				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Quiz/").mkdirs();
-//				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"ConceptMap/").mkdirs();
-//				new File(mediaPath+uploadDirectory+className+"_"+subject+"/"+topicName+"/"+"Video/").mkdirs();
-//			}
-//		}
-//		return status;
-//	}
-	
-	
 	public static boolean createFolder(String path) {					// check for existence of path
 		boolean status=false;
 		if(!new File(path).exists()) {

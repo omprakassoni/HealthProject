@@ -13,5 +13,7 @@ public interface LanguageService {
 	Language getByLanName(String langName);
 	
 	Language getById(int lanId);
+	
+	void save(Language lan);
 
 }

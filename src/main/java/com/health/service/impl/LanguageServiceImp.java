@@ -56,6 +56,13 @@ public class LanguageServiceImp implements LanguageService
 		
 		return local.get();
 	}
+
+	@Override
+	public void save(Language lan) {
+		// TODO Auto-generated method stub
+		languageRepo.save(lan);
+		
+	}
 	
 	
 	
