@@ -36,18 +36,20 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-lg-6">
-										<form class="form-horizontal" th:action="@{/addLanguage}"
+										<form class="form-horizontal" th:action="@{/updateLanguage}"
 											method="post" enctype="multipart/form-data">
 											<div class="form-group">
 
 												<label for="languageId">Language</label> <input type="text"
-													class="form-control" id="languageId" name="languageName"
+													class="form-control" id="languageId" name="languageName" th:value="${language.getLangName()}"
 													required="required" /> <span style="color: red;"
 													th:if="${msg}"> Please enter language.</span> <span
 													style="color: red;" th:if="${msg1}"> Choose another
 													language.</span>
 
 											</div>
+											
+											<input type="hidden"  name="lanId"  th:value="${language.getLanId()}"/>
 											<button type="submit" value="showAlert" class="btn a-btn">Submit</button>
 											&nbsp;&nbsp;&nbsp;
 											<button type="reset" class="btn a-btn">Reset</button>

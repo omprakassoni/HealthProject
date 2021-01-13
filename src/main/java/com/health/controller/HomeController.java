@@ -776,27 +776,6 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/************************************ADD TOPIC**********************************************/
-	@RequestMapping(value = "/topic/edit/{id}", method = RequestMethod.GET)
-	public String editTopicGet(@PathVariable int id,Model model,Principal principal) {
-
-		User usr=new User();
-
-		if(principal!=null) {
-
-			usr=userService.findByUsername(principal.getName());
-		}
-
-		model.addAttribute("userInfo", usr);
-
-		Topic topic=topicService.findById(id);
-
-		model.addAttribute("topic",topic);
-		List<Category> category = catService.findAll();
-
-		model.addAttribute("categories", category);
-
-		return "updateTopic";
-	}
 
 	@RequestMapping(value = "/addTopic",method = RequestMethod.GET)
 	public String addTopicGet(Model model,Principal principal) {
@@ -906,7 +885,7 @@ public class HomeController {
 
 		model.addAttribute("topic",topic);
 
-		return "updateCategory";  // need to accomdate view part
+		return "updateTopic";  // need to accomdate view part
 	}
 	
 	@RequestMapping(value = "/updateTopic",method = RequestMethod.POST)
@@ -929,19 +908,22 @@ public class HomeController {
 		
 		if(topic == null) {
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
-			return "addlanguage";  //  accomodate view part
+			model.addAttribute("topic",topic);
+			return "updateTopic";  //  accomodate view part
 		}
 
 		if(topicname==null) {
 
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
-			return "addlanguage";  //  accomodate view part
+			model.addAttribute("topic",topic);
+			return "updateTopic";  //  accomodate view part
 		}
 
 		if(topicService.findBytopicName(topicname)!=null) {
 
 			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
-			return "addlanguage";   //  accomodate view part
+			model.addAttribute("topic",topic);
+			return "updateTopic";   //  accomodate view part
 		}
 
 		topic.setTopicName(topicname);
@@ -951,13 +933,16 @@ public class HomeController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "addlanguage";  //  accomodate view part
+			model.addAttribute("topic",topic);
+			return "updateTopic";  //  accomodate view part
 		}
 
+		topic = topicService.findById(topicId);
+		model.addAttribute("topic",topic);
 
 		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 
-		return "addlanguage";  //  accomodate view part
+		return "updateTopic";  //  accomodate view part
 
 	}
 
@@ -1033,27 +1018,6 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/************************************ADD QUESTION**********************************************/
-	@RequestMapping(value = "/question/edit/{id}", method = RequestMethod.GET)
-	public String editQuestionGet(@PathVariable int id,Model model,Principal principal) {
-
-		User usr=new User();
-
-		if(principal!=null) {
-
-			usr=userService.findByUsername(principal.getName());
-		}
-
-		model.addAttribute("userInfo", usr);
-
-		Topic topic=topicService.findById(id);
-
-		model.addAttribute("topic",topic);
-		List<Category> category = catService.findAll();
-
-		model.addAttribute("categories", category);
-
-		return "updateQuestion";
-	}
 
 	@RequestMapping(value = "/uploadQuestion",method = RequestMethod.GET)
 	public String addQuestionGet(Model model,Principal principal) {
@@ -1196,7 +1160,7 @@ public class HomeController {
 
 		model.addAttribute("question",ques);
 
-		return "updateCategory"; // question edit page
+		return "updateQuestion"; // question edit page
 	}
 
 	
@@ -1220,7 +1184,8 @@ public class HomeController {
 		if(!ServiceUtility.checkFileExtensionPDF(quesPdf)) {  // throw error
 
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
-			return "uploadQuestion"; // accomodate error
+			model.addAttribute("question",ques);
+			return "updateQuestion"; // accomodate error
 		}
 
 
@@ -1241,12 +1206,16 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
-			return "uploadQuestion";   // accomodate view part
+			model.addAttribute("question",ques);
+			return "updateQuestion";   // accomodate view part
 		}
+		
+		ques = questService.findById(idQues);
+		model.addAttribute("question",ques);
 
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 
-		return "uploadQuestion";     // accomodate view part
+		return "updateQuestion";     // accomodate view part
 
 
 	}
@@ -1633,7 +1602,7 @@ public class HomeController {
 
 		Category cat=catService.findByid(id);
 
-		model.addAttribute("category",cat);
+		model.addAttribute("category",cat); 
 
 		return "updateCategory";
 	}
@@ -1660,6 +1629,7 @@ public class HomeController {
 
 		if(cat==null) {
 			 // accommodate  error message
+			model.addAttribute("category",cat); 
 			return "updateCategory";
 		}
 
@@ -1668,6 +1638,7 @@ public class HomeController {
 			if(x.getCategoryId()!=cat.getCategoryId()) {
 				if(catName.equalsIgnoreCase(x.getCatName())) {
 					// accommodate  error message
+					model.addAttribute("category",cat); 
 					return "updateCategory";
 				}
 				}
@@ -1675,7 +1646,7 @@ public class HomeController {
 
 		cat.setCatName(catName);
 		cat.setDescription(categoryDesc);
-		
+		System.out.println(file.length);
 		if(file.length != 0) {
 			try {
 				
@@ -1694,6 +1665,7 @@ public class HomeController {
 				// TODO: handle exception
 
 				e.printStackTrace();
+				model.addAttribute("category",cat); 
 
 				return "updateCategory";  // throw a error
 			}
@@ -1702,6 +1674,8 @@ public class HomeController {
 				catService.save(cat);
 			}
 		
+		cat=catService.findByid(Integer.parseInt(catId));
+		model.addAttribute("category",cat); 
 
 		model.addAttribute("msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);   // need to accommodate
 
@@ -1850,24 +1824,7 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/************************************VIEW SECTION OF LANGAUAGE**********************************************/
-	@RequestMapping(value = "/language/edit/{id}", method = RequestMethod.GET)
-	public String editLanguageGet(@PathVariable int id,Model model,Principal principal) {
 
-		User usr=new User();
-
-		if(principal!=null) {
-
-			usr=userService.findByUsername(principal.getName());
-		}
-
-		model.addAttribute("userInfo", usr);
-
-		Language lang=lanService.getById(id);
-
-		model.addAttribute("language",lang);
-
-		return "updateLanguage";
-	}
 
 	@RequestMapping(value = "/language", method = RequestMethod.GET)
 	public String viewLanguageGet(Model model,Principal principal) {
@@ -1900,9 +1857,9 @@ public class HomeController {
 
 		Language lan=lanService.getById(id);
 
-		model.addAttribute("language",lan);
+		model.addAttribute("language",lan); 
 
-		return "updateCategory";  // need to accomdate view part
+		return "updateLanguage";  // need to accomdate view part
 	}
 	
 	@RequestMapping(value = "/updateLanguage",method = RequestMethod.POST)
@@ -1925,19 +1882,22 @@ public class HomeController {
 		
 		if(lan == null) {
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
-			return "addlanguage";  //  accomodate view part
+			model.addAttribute("language",lan);
+			return "updateLanguage";  //  accomodate view part
 		}
 
 		if(languagename==null) {
 
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
-			return "addlanguage";  //  accomodate view part
+			model.addAttribute("language",lan);
+			return "updateLanguage";  //  accomodate view part
 		}
 
 		if(lanService.getByLanName(languagename)!=null) {
 
 			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
-			return "addlanguage";   //  accomodate view part
+			model.addAttribute("language",lan);
+			return "updateLanguage";   //  accomodate view part
 		}
 
 		String language_formatted = languagename.substring(0, 1).toUpperCase() + languagename.substring(1).toLowerCase();
@@ -1948,13 +1908,15 @@ public class HomeController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "addlanguage";  //  accomodate view part
+			model.addAttribute("language",lan);
+			return "updateLanguage";  //  accomodate view part
 		}
 
-
+		lan = lanService.getById(lanId);
+		model.addAttribute("language",lan);
 		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 
-		return "addlanguage";  //  accomodate view part
+		return "updateLanguage";  //  accomodate view part
 
 	}
 

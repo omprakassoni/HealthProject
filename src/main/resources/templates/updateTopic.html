@@ -36,25 +36,15 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-lg-6">
-										<form th:action="@{/addTopic}"
+										<form th:action="@{/updateTopic}"
 							method="post" enctype="multipart/form-data">
 
-							<div class="form-group">
-								<label for="categoryId"></label> <select id="categoryId"
-									class="form-control" name="categoryName" required="required">
-
-									<option>Update Topic</option>
-									
-										<option th:each="category: ${categories}" th:value="${category.getCategoryId()}" th:text="${category.getCatName()}">
-												</option>
-								
-								</select>
-							</div>
+							<input type="hidden"  name="TopicId"  th:value="${topic.getTopicId()}"/>
 
 							<div class="form-group">
 
 								<label for="topicId">Topic Name</label> <input type="text"
-									class="form-control" id="topicId" name="topicName"
+									class="form-control" id="topicId" name="topicName" th:value="${topic.getTopicName()}"
 									required="required" placeholder="Enter topic name" />
 							</div>
 
