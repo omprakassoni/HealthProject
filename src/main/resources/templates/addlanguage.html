@@ -65,11 +65,7 @@
 									</div>
 								</div>
 
-								<!-- <h5 class="card-title">Special title treatment</h5>
-						<p class="card-text">With supporting text below as a natural
-							lead-in to additional content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a> -->
-
+								
 							</div>
 
 					</div>
@@ -81,12 +77,14 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Language Name</th>
+      <th scope="col">Edit</th>
     </tr>
   </thead>
   <tbody>
     <tr th:each="lan : ${languages}">
       <td scope="row"><span th:text = "${lan.getLanId()}"></span></td>
       <td><span th:text = "${lan.getLangName()}"></span></td>
+      <td><a th:href="@{${'/language/edit/' + lan.getLanId()}}">Edit</a></td>
     </tr>
    
    
