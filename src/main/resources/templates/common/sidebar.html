@@ -154,6 +154,10 @@
 	font-size: 1.5rem!important;
 	margin-right:6px;
 }
+.sidebar-icon-sm{
+	color: rgba(0,0,0,0.4);
+	margin-right: 16px;
+}
 
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
@@ -376,19 +380,17 @@
         	<li class="nav-item ">
             <a class="nav-link" href="#View">
               <span data-feather="bar-chart-2"></span>
-              <i class="fas fa-tag"></i> Master Trainer
+              <i class="fas fa-user-tag sidebar-icon"></i> Master Trainer
             </a>
           </li>
           <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/viewTrainee}">
-              <span data-feather="file"></span>
-              View Trainee
+              <i class="fas fa-users sidebar-icon-sm"></i>View Trainee
             </a>
           </li>
           <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/masterTrainerOperation}">
-              <span data-feather="shopping-cart"></span>
-              Training Form
+              <i class="far fa-file-alt sidebar-icon-sm"></i>Training Form
             </a>
           </li>
         </ul>
