@@ -121,6 +121,8 @@ public class AjaxController{
 	@Autowired
 	private TrainingTopicService trainingTopicService;
 	
+	
+	
 	@RequestMapping("/updatePassword")
 	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "password") String newPass,
 												@RequestParam(value = "currentPassword") String oldPass,Principal principal){
@@ -164,8 +166,16 @@ public class AjaxController{
 
 		TrainingInformation training = trainingInforService.getById(id);
 		List<TraineeInformation> traineeList = traineeService.findAllBytraineeInfos(training);
+		List<TraineeInformation> traineeListResponse = new ArrayList<TraineeInformation>() ;
+		
+		for(TraineeInformation x : traineeList) {
+		
+			System.out.println(x.getAge());
+			TraineeInformation tem = new TraineeInformation(x.getTrainingId(), x.getName(), x.getEmail(), x.getPhone(), x.getAge(), x.getAadhar(), x.getGender(), x.getOrganization(), null);
+			traineeListResponse.add(tem);
+		}
 
-		return traineeList;
+		return traineeListResponse;
 
 	}
 

@@ -11,6 +11,31 @@ $(document).ready(function() {
 			$('.not-required').tooltip({ title: 'Not Required' });
 			
 			
+			$('#searchTrainees').click(function() {
+				
+				var traineeId = $("#eventName").find(":selected").val();
+			
+				$.ajax({
+					type : "GET",
+					url : projectPath+"loadTraineeByTrainingId",
+					data : {
+						"id" : traineeId
+					},
+					contentType : "application/json",
+					success : function(result) {
+
+						
+
+					},
+
+					error : function(err) {
+						console.log("not working. ERROR: "+ JSON.stringify(err));
+					}
+
+				});
+
+			});
+
 			
 			$('#newPassTeacher').change(function(){
   				
@@ -6159,7 +6184,7 @@ $(document).ready(function() {
 				}
 			});
 			
-			$('#eventCategory').on('change', function() {
+			/*$('#eventCategory').on('change', function() {
 				category_id = this.value;
 //				  alert( this.value );
 				$.ajax({
@@ -6193,7 +6218,7 @@ $(document).ready(function() {
 
 				});
 				
-				});
+				});*/
 
 			$("#addNullPrerequisite").click(function() {
 				component = this.id;

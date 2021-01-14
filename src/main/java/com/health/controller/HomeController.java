@@ -1374,7 +1374,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/addEvent",method = RequestMethod.POST)
-	public String addEventPost(Model model,Principal principal,HttpServletRequest req) {
+	public String addEventPost(Model model,Principal principal,HttpServletRequest req,
+						@RequestParam("Image") MultipartFile[] files) {
 
 		User usr=new User();
 
@@ -1404,6 +1405,11 @@ public class HomeController {
 			startDate=ServiceUtility.convertStringToDate(startDateTemp);
 			endDate=ServiceUtility.convertStringToDate(endDateTemp);
 
+			if(!ServiceUtility.checkFileExtensionImage(files)) {
+				model.addAttribute("error_msg", CommonData.JPG_PNG_EXT);
+				return "addEvent";
+			}
+			
 			if(endDate.before(startDate)) {      // throws error if end date is previous to start date
 				model.addAttribute("error_msg",CommonData.EVENT_CHECK_DATE);
 				return "addEvent";
@@ -1423,6 +1429,15 @@ public class HomeController {
 
 			newEventid=eventservice.getNewEventId();
 			Event event=new Event();
+			
+			ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+newEventid);
+			String pathtoUploadPoster=ServiceUtility.uploadFile(files, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+newEventid);
+			int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+			String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+			
+			event.setPosterPath(document);
+			
 			event.setEventId(newEventid);
 			event.setContactPerson(contactPerson);
 			event.setDateAdded(ServiceUtility.getCurrentTime());
