@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.health.config.SecurityConfig;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
@@ -56,7 +57,9 @@ import com.health.service.TutorialService;
 import com.health.service.UserRoleService;
 import com.health.service.UserService;
 import com.health.utility.CommonData;
+import com.health.utility.SecurityUtility;
 import com.health.utility.ServiceUtility;
+
 
 @Controller
 public class AjaxController{
@@ -117,6 +120,44 @@ public class AjaxController{
 
 	@Autowired
 	private TrainingTopicService trainingTopicService;
+	
+	@RequestMapping("/updatePassword")
+	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "password") String newPass,
+												@RequestParam(value = "currentPassword") String oldPass,Principal principal){
+		List<String> status=new ArrayList<String>();
+		boolean statusPassword=false;
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=usrservice.findByUsername(principal.getName());
+		}
+		
+		if(newPass.length()<6) {
+			System.out.println("vik");
+			status.add("passwordLengthError");
+			return status;
+		}
+		
+		statusPassword =SecurityConfig.passwordEncoder().matches(oldPass, usr.getPassword());
+		
+		if(statusPassword) {
+		try {
+			usr.setPassword(SecurityUtility.passwordEncoder().encode(newPass));
+			usrservice.save(usr);
+			status.add("Success");
+		}catch (Exception e) {
+			// TODO: handle exception
+			status.add("failure");
+		} 
+		}else {
+			status.add("failure");
+		}
+		
+		return status;
+		
+	}
 
 	@RequestMapping("/loadTraineeByTrainingId")
 	public @ResponseBody List<TraineeInformation> getTraineeInfoOnTrainingId(@RequestParam(value = "id") int id) {

@@ -1,5 +1,6 @@
 package com.health.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
@@ -30,6 +31,8 @@ public class User implements UserDetails{
 	private Long id;
 	
 	private String username;
+	
+	private Date dob;
 	
 	private String password;
 	
@@ -348,6 +351,12 @@ public class User implements UserDetails{
 	}
 	public void setLogs(Set<LogManegement> logs) {
 		this.logs = logs;
+	}
+	public Date getDob() {
+		return dob;
+	}
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
 	

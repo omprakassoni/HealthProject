@@ -3547,5 +3547,56 @@ public class HomeController {
 
 		return "roleAdminDetail";
 	}
+	
+	/************************ PROFILE UPDATE SECTION *****************************************/
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	public String updateuserdataPost(HttpServletRequest req,Model model,Principal principal,
+			 						@ModelAttribute("firstName") String firstName,
+			 						@ModelAttribute("lastName") String lastName,
+			 						@ModelAttribute("phone") String phone,
+			 						@ModelAttribute("address") String address,
+			 						@ModelAttribute("birthday") String dob) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+		model.addAttribute("userInfo", usr);
+		
+		long phoneLongValue ;
+		if(phone.length()>10) {								// need to accommodate
+
+			model.addAttribute("error_msg", "Entered Mobile Number is not of 10 digit");
+			return "profileView";
+
+		}else {
+			phoneLongValue = Long.parseLong(phone);
+
+		}
+		
+	
+		try {
+			usr.setFirstName(firstName);
+			usr.setLastName(lastName);
+			usr.setAddress(address);
+			usr.setPhone(phoneLongValue);
+			usr.setDob(ServiceUtility.convertStringToDate(dob));
+			
+			userService.save(usr);
+			
+			model.addAttribute("success_msg", "Data Updated Successfully");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			model.addAttribute("error_msg", "Please Try Later");
+		}
+		
+		usr=userService.findByUsername(principal.getName());
+		model.addAttribute("userInfo", usr);
+		return "profileView";
+
+	}
 
 }

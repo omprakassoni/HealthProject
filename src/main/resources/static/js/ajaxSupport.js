@@ -11,6 +11,127 @@ $(document).ready(function() {
 			$('.not-required').tooltip({ title: 'Not Required' });
 			
 			
+			
+			$('#newPassTeacher').change(function(){
+  				
+  				$('#updatePasswordTeacher').prop('disabled',true);
+  				var confpass=$('#confPassTeacher').val();
+  				var pass=$(this).val();
+  				if(confpass.length>0 && pass.length>0){
+  					$('#updatePasswordTeacher').prop('disabled',false);
+  					
+  				}
+  			
+  			})
+  			
+  			$('#confPassTeacher').change(function(){
+  				
+  				$('#updatePasswordTeacher').prop('disabled',true);
+  				var confpass=$('#newPassTeacher').val();
+  				var pass=$(this).val();
+  				if(confpass.length>0 && pass.length>0){
+  					$('#updatePasswordTeacher').prop('disabled',false);
+  					
+  				}
+  			
+  			})
+  				
+  			$('#updatePasswordTeacher').click(function(){
+  			
+  			var currPass=$('#currentPasswordTeacher').val();	
+  			var pass=$('#newPassTeacher').val();
+  			var confpass=$('#confPassTeacher').val();
+  			
+			
+			var urlPassed;
+		
+        	urlPassed= projectPath+"updatePassword";
+		
+        
+  			if(pass === confpass){
+  				
+  				var passwordData={
+  					"password":pass,
+  					"currentPassword":currPass
+  					
+  				};
+  				
+  				
+  				$.ajax({
+  					type: "GET",
+  					contentType: "application/json",
+  					url: urlPassed,
+  					data:passwordData,
+  					cache:false,
+  					timeout: 600000,
+  					success:function(data){
+  						 
+  						 $('#Success').css({"display": "none"}); 
+  						 $('#FailurePassMismatch').css({"display": "none"});
+  						 $('#FailureCurPassWrong').css({"display": "none"});
+  						 $('#lengthIncorrect').css({"display": "none"});
+  						
+  						 if(data[0]==="Success"){
+  							 $('#Success').css({"display": "block"});
+  							 $('#newPassTeacher').prop('value',"");
+  							 $('#confPassTeacher').prop('value',"");
+  							 $('#currentPasswordTeacher').prop('value',"");
+  							 $('#updatePasswordTeacher').prop('disabled',true);
+  							 
+  							 setTimeout(function() {
+  					            $('#Success').fadeOut(1000)}, 4000);
+  						 }else if(data[0]==="failure"){
+  							 $('#FailureCurPassWrong').css({"display": "block"});
+  							 $('#newPassTeacher').prop('value',"");
+ 							 $('#confPassTeacher').prop('value',"");
+ 							 $('#currentPasswordTeacher').prop('value',"");
+ 							 $('#updatePasswordTeacher').prop('disabled',true);
+ 							 
+ 							 setTimeout(function() {
+ 					            $('#FailureCurPassWrong').fadeOut(1000)}, 4000);
+  						 }else if(data[0]==="passwordLengthError"){
+  							 
+  							 $('#lengthIncorrect').css({"display": "block"});
+  							 $('#newPassTeacher').prop('value',"");
+ 							 $('#confPassTeacher').prop('value',"");
+ 							 $('#currentPasswordTeacher').prop('value',"");
+ 							 $('#updatePasswordTeacher').prop('disabled',true);
+ 							 
+ 							 setTimeout(function() {
+ 					            $('#lengthIncorrect').fadeOut(1000)}, 4000);
+  							 
+  						 }
+  						
+  					
+  					},
+  				
+  				error : function(err){
+  					console.log("not working. ERROR: "+JSON.stringify(err));
+  				}
+  				
+  				});
+  				
+  				
+  			}else{
+  				 $('#Success').css({"display": "none"}); 
+  				 $('#FailurePassMismatch').css({"display": "none"});
+				 $('#FailureCurPassWrong').css({"display": "none"});
+				 $('#FailurePassMismatch').css({"display": "block"});
+			
+				 setTimeout(function() {
+			            $('#FailurePassMismatch').fadeOut(1000)}, 4000);
+			  
+				 
+				 $('#newPassTeacher').prop('value',"");
+				 $('#confPassTeacher').prop('value',"");
+				 $('#currentPasswordTeacher').prop('value',"");
+				 
+				 $('#updatePasswordTeacher').prop('disabled',true);
+  				
+  			}
+  			
+  		})
+  		
 	// JQUERY AJAX CALL TO TAKE CONTACT DATA FROM USER SIDE ----------------------------------------
 			
 			
