@@ -1,15 +1,6 @@
 
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-<!-- <head th:replace="common/trail :: common-trail">
-
-
-		<meta charset="utf-8"/>
-		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-		 <link rel="stylesheet" th:href="@{/css/style3.css}"/>
- 	 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/> 
-		<link rel="stylesheet" type="text/css" th:href="@{/datatables.css}"/>
-</head> -->
 <head>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -115,8 +106,6 @@
 
 													</tbody>
 												</table>
-
-
 											</div>
 
 
@@ -144,16 +133,56 @@
 							<div class="form-group">
 								<label for="exampleFormControlSelect1">Select Event</label> <select
 									class="form-control" id="eventName">
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
 								</select>
 							</div>
+							<button type="button" class="btn btn-success" id="searchTrainees">Success</button>
 						</form>
 						</div>
 						
+						</div>
+						<hr>
+						<div class="row">
+						<div class="col-md-12">
+						<table id="tableSearch" class="table table-striped">
+													<thead>
+
+														<tr>
+
+															<th>Name</th>
+															<th>Age</th>
+															<th>Aadhar no</th>
+															<th>Mobile Number</th>
+															<th>Organization</th>
+															<th>email</th>
+															<th>Gender</th>
+															<th>Edit</th>
+
+
+														</tr>
+
+													</thead>
+													<tbody>
+														<tr th:each="traineeInformation : ${TraineesData}">
+															<td>Name</td>
+															<td>Date of birth</td>
+															<td>Aadhar</td>
+															<td>Phone</td>
+															<td>Organization</td>
+															<td>Email</td>
+															<td>Gender</td>
+															<!--  <td th:text="${traineeInformation.premark}">description</td>  
+					                <td th:text="${traineeInformation.postmark}">description</td>  -->
+															<td>
+																<!-- <a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a> -->
+															</td>
+
+
+														</tr>
+
+													</tbody>
+												</table>
+						
+						</div>
 						</div>
 						
 						</div>
@@ -162,62 +191,14 @@
 			</div>
 		</div>
 	</div>
-	<div th:fragment="body-bottom-scripts">
-
-
-
-		<!-- <script>
-			
-			
-			$(document).ready( function () {
-			    $('#tableId').DataTable();
-			} );
-			
-			</script>
-					<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-		<script src="https://code.jquery.com/jquery-3.5.1.js"
-			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-		<script
-			src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-			
-
-		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-		<script th:src="@{/js/jquery.slim.min.js}"
-			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"></script> -->
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
-			integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-			<script th:src="@{/s/js/main.js}"></script>
-		<script th:src="@{/js/ajaxSupport.js}"></script>
+	
+		<div th:replace="common/trail :: body-bottom-scripts"></div>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#tableId').DataTable();
+				$('#tableSearch').DataTable();
 			});
 		</script>
-
-	</div>
 
 	<script th:inline="javascript">
 		var projectPath = '[(@{/})]';
