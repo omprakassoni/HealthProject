@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+	integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+	<div th:replace="common/sidebar :: top_header"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 col-lg-2 pr-0">
+				<div th:replace="common/sidebar :: contributor_sidebar"></div>
+			</div>
+			<div class="col-md-9 col-lg-10 p-md-5">
+				<div>
+					<div class="alert alert-success" role="alert"
+						th:if="${success_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${success_msg}"></span>
+							</div>
+						</div>
+					</div>
+					<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${error_msg}"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="card">
+						<div class="card-header">
+							<h4>Training details</h4>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-12">
+									<div
+										sec:authorize="hasAnyAuthority('MASTER_TRAINER','SUPER_USER')">
+										<div>
+											<span th:text="${msg}"></span>
+										</div>
+										<div>
+											<table id="tableId" class="table table-striped">
+												<thead>
+
+													<tr>
+														<th>Title</th>
+														<th>Category</th>
+														
+														<th>Edit</th>
+
+
+													</tr>
+
+												</thead>
+												<tbody>
+													<tr th:each="feedback : ${feedbacks}">
+														<td th:text="${feedback.getTraineeInfos().getTitleName()}">ID</td>
+														<td th:text="${feedback.getTraineeInfos().getTrainingId()}">Name</td>
+														<td><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" th:attrappend="data-target=${'#fb'+'_'+feedback.getId()}">
+  edit
+</button></td>
+
+
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			
+			<!-- Modals -->
+			<div>
+			<!-- Modal -->
+<div th:each="feedback : ${feedbacks}" class="modal fade" th:attrappend="id=${'fb'+'_'+feedback.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Training information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<form class="form-horizontal"
+														th:action="@{/uploadfeedback}" method="post"
+														enctype="multipart/form-data">
+
+
+
+														<div class="form-group">
+
+															<label for="categoryId">Select Category </label> <select
+																id="catMasId" class="form-control " name="catMasId"
+																required="required">
+																<option>Select Category</option>
+
+																<option th:each="category: ${categories}"
+																	th:value="${category.getCategoryId()}"
+																	th:text="${category.getCatName()}"></option>
+															</select>
+														</div>
+
+														<div class="form-group">
+
+															<label for="feedbackmasterId">Select Training</label> <select
+																id="feedbackmasterId" class="form-control "
+																name="feedbackmasterId" required="required">
+																<option selected="selected">Select Training</option>
+
+															</select>
+														</div>
+
+														<div class="form-group">
+
+															<label for="messageId">Enter Message</label>
+
+															<textarea class="form-control " name="traningInformation"
+																rows="5" id="messageId" required="required"></textarea>
+
+														</div>
+
+
+														<div class="form-group">
+
+															<label for="fileId">Upload Feedbacks</label> <input
+																type="file" class="form-control " name="feedbackForm"
+																id="fileId" accept=".zip" required="required"></input>
+
+														</div>
+
+
+														<button type="submit" class="btn  btn-success">Submit</button>
+														<button type="reset" class="btn btn-success">Reset</button>
+													</form>
+
+
+
+	 </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+			
+			
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="common/trail :: body-bottom-scripts"></div>
+	<script type="text/javascript">
+			$(document).ready(function() {
+				$('#tableId').DataTable();
+				$('#tableSearch').DataTable();
+			});
+		</script>
+
+	<script th:inline="javascript">
+		var projectPath = '[(@{/})]';
+	</script>
+</body>
+</html>
