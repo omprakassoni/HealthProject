@@ -105,6 +105,8 @@ public class CommonData {
 	public static String PUBLISHED="Published";
 
 	public static String uploadDirectoryQuestion = "Media/Content/Question/";
+	
+	public static String uploadDirectoryEvent = "Media/Content/Event/";
 
 	public static String uploadDirectoryCategory = "Media/Content/Category/";
 

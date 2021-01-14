@@ -37,6 +37,9 @@ public class Event {
 	@Column(name = "email", nullable = false)
 	private String email;
 	
+	@Column(name = "path", nullable = false)
+	private String posterPath;
+	
 	@Column(name = "start_Date", nullable = false)
 	private Date startDate ;
 	
@@ -136,6 +139,14 @@ public class Event {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getPosterPath() {
+		return posterPath;
+	}
+
+	public void setPosterPath(String posterPath) {
+		this.posterPath = posterPath;
 	}
 	
 	
