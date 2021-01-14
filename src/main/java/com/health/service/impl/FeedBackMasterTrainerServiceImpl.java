@@ -1,9 +1,12 @@
 package com.health.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.model.FeedbackMasterTrainer;
+import com.health.model.User;
 import com.health.repository.FeedBackRepository;
 import com.health.service.FeedBackMasterTrainerService;
 
@@ -12,7 +15,7 @@ public class FeedBackMasterTrainerServiceImpl implements FeedBackMasterTrainerSe
 
 	@Autowired
 	private FeedBackRepository feedRepo;
-	
+
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -29,6 +32,18 @@ public class FeedBackMasterTrainerServiceImpl implements FeedBackMasterTrainerSe
 	public void save(FeedbackMasterTrainer temp) {
 		// TODO Auto-generated method stub
 		feedRepo.save(temp);
+	}
+
+	@Override
+	public List<FeedbackMasterTrainer> findByUser(User user) {
+		// TODO Auto-generated method stub
+		return feedRepo.findByUser(user);
+	}
+
+	@Override
+	public List<FeedbackMasterTrainer> findAll() {
+		// TODO Auto-generated method stub
+		return (List<FeedbackMasterTrainer>) feedRepo.findAll();
 	}
 
 }

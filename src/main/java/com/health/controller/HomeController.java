@@ -679,7 +679,7 @@ public class HomeController {
 				local.setPosterPath(document);
 
 				catService.save(local);
-			
+
 
 
 		} catch (Exception e) {
@@ -868,7 +868,7 @@ public class HomeController {
 		return "addTopic";
 
 	}
-	
+
 	@RequestMapping(value = "/topic/edit/{id}", method = RequestMethod.GET)
 	public String editTopicGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -887,7 +887,7 @@ public class HomeController {
 
 		return "updateTopic";  // need to accomdate view part
 	}
-	
+
 	@RequestMapping(value = "/updateTopic",method = RequestMethod.POST)
 	public String updateTopicPost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -903,9 +903,9 @@ public class HomeController {
 		String topicname=req.getParameter("topicName");
 		String topicIdInString = req.getParameter("TopicId");
 		int topicId = Integer.parseInt(topicIdInString);
-		
+
 		Topic topic = topicService.findById(topicId);
-		
+
 		if(topic == null) {
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			model.addAttribute("topic",topic);
@@ -1012,8 +1012,8 @@ public class HomeController {
 		return "addNewRole";
 
 	}
-	
-	
+
+
 
 	/************************************END**********************************************/
 
@@ -1143,7 +1143,7 @@ public class HomeController {
 
 
 	}
-	
+
 	@RequestMapping(value = "/question/edit/{id}", method = RequestMethod.GET)
 	public String editQuestionGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -1163,7 +1163,7 @@ public class HomeController {
 		return "updateQuestion"; // question edit page
 	}
 
-	
+
 	@RequestMapping(value = "/updateQuestion",method = RequestMethod.POST)
 	public String updateQuestionPost(HttpServletRequest req,Model model,Principal principal,
 								  @RequestParam("questionName") MultipartFile[] quesPdf) {
@@ -1176,9 +1176,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		String quesIdInString=req.getParameter("id");
-		int idQues =  Integer.parseInt(quesIdInString);		
+		int idQues =  Integer.parseInt(quesIdInString);
 		Question ques = questService.findById(idQues);
 
 		if(!ServiceUtility.checkFileExtensionPDF(quesPdf)) {  // throw error
@@ -1190,7 +1190,7 @@ public class HomeController {
 
 
 		try {
-				
+
 				String pathtoUploadPoster=ServiceUtility.uploadFile(quesPdf, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryQuestion+ques.getQuestionId());
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -1209,7 +1209,7 @@ public class HomeController {
 			model.addAttribute("question",ques);
 			return "updateQuestion";   // accomodate view part
 		}
-		
+
 		ques = questService.findById(idQues);
 		model.addAttribute("question",ques);
 
@@ -1535,7 +1535,7 @@ public class HomeController {
 
 				testService.save(temp);
 
-			
+
 
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -1602,7 +1602,7 @@ public class HomeController {
 
 		Category cat=catService.findByid(id);
 
-		model.addAttribute("category",cat); 
+		model.addAttribute("category",cat);
 
 		return "updateCategory";
 	}
@@ -1623,13 +1623,13 @@ public class HomeController {
 		String catId=req.getParameter("id");
 		String catName=req.getParameter("categoryname");
 		String categoryDesc = req.getParameter("categoryDesc");
-		
+
 
 		Category cat=catService.findByid(Integer.parseInt(catId));
 
 		if(cat==null) {
 			 // accommodate  error message
-			model.addAttribute("category",cat); 
+			model.addAttribute("category",cat);
 			return "updateCategory";
 		}
 
@@ -1638,7 +1638,7 @@ public class HomeController {
 			if(x.getCategoryId()!=cat.getCategoryId()) {
 				if(catName.equalsIgnoreCase(x.getCatName())) {
 					// accommodate  error message
-					model.addAttribute("category",cat); 
+					model.addAttribute("category",cat);
 					return "updateCategory";
 				}
 				}
@@ -1649,13 +1649,13 @@ public class HomeController {
 		System.out.println(file.length);
 		if(file.length != 0) {
 			try {
-				
+
 					String pathtoUploadPoster=ServiceUtility.uploadFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryCategory+cat.getCategoryId());
-					
+
 					int indexToStart=pathtoUploadPoster.indexOf("Media");
 
 					String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-					
+
 					cat.setPosterPath(document);
 
 					catService.save(cat);
@@ -1665,7 +1665,7 @@ public class HomeController {
 				// TODO: handle exception
 
 				e.printStackTrace();
-				model.addAttribute("category",cat); 
+				model.addAttribute("category",cat);
 
 				return "updateCategory";  // throw a error
 			}
@@ -1673,9 +1673,9 @@ public class HomeController {
 
 				catService.save(cat);
 			}
-		
+
 		cat=catService.findByid(Integer.parseInt(catId));
-		model.addAttribute("category",cat); 
+		model.addAttribute("category",cat);
 
 		model.addAttribute("msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);   // need to accommodate
 
@@ -1842,7 +1842,7 @@ public class HomeController {
 
 		return "language";
 	}
-	
+
 	@RequestMapping(value = "/language/edit/{id}", method = RequestMethod.GET)
 	public String editLanguageGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -1857,11 +1857,11 @@ public class HomeController {
 
 		Language lan=lanService.getById(id);
 
-		model.addAttribute("language",lan); 
+		model.addAttribute("language",lan);
 
 		return "updateLanguage";  // need to accomdate view part
 	}
-	
+
 	@RequestMapping(value = "/updateLanguage",method = RequestMethod.POST)
 	public String updateLanguagePost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -1877,9 +1877,9 @@ public class HomeController {
 		String languagename=req.getParameter("languageName");
 		String lanIdInString = req.getParameter("lanId");
 		int lanId = Integer.parseInt(lanIdInString);
-		
+
 		Language lan = lanService.getById(lanId);
-		
+
 		if(lan == null) {
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			model.addAttribute("language",lan);
@@ -3181,6 +3181,56 @@ public class HomeController {
 
 	}
 
+	@RequestMapping(value = "/workshopInfo", method = RequestMethod.GET)
+	public String viewWorkshopList(Model model,Principal principal) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		List<TrainingInformation> workshops = trainingInfoService.findByUser(usr);
+		model.addAttribute("workshops", workshops);
+
+		Set<UserRole> roleId = usr.getUserRoles();
+		for (UserRole r : roleId) {
+		    System.out.println(r.getUserRoleId());
+		    if(r.getUserRoleId()==1) {
+		    	List<TrainingInformation> workshops_all = trainingInfoService.findAll();
+		    	model.addAttribute("workshops", workshops_all);
+		    }
+		}
+		return "workshopInfo";
+
+	}
+
+	@RequestMapping(value = "/feedbackInfo", method = RequestMethod.GET)
+	public String viewFeedbacks(Model model,Principal principal) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		List<FeedbackMasterTrainer> feedbacks = feedServ.findByUser(usr);
+		model.addAttribute("feedbacks", feedbacks);
+		model.addAttribute("userInfo", usr);
+		Set<UserRole> roleId = usr.getUserRoles();
+		for (UserRole r : roleId) {
+		    System.out.println(r.getUserRoleId());
+		    if(r.getUserRoleId()==1) {
+		    	List<FeedbackMasterTrainer> feedbacks_all = feedServ.findAll();
+		    	model.addAttribute("feedbacks", feedbacks_all);
+		    }
+		}
+
+		return "feedbackInfo";
+
+	}
+
 
 	@RequestMapping(value = "/addTrainingInfo", method = RequestMethod.POST)
 	public String addTrainingInfoPost(Model model,Principal principal,
@@ -3323,7 +3373,7 @@ public class HomeController {
 
 	            trainingInfoService.addTrainee(trainingData, trainees);
 
-			
+
 
 
 
@@ -3389,7 +3439,7 @@ public class HomeController {
 				feed.setPath(document);
 				feedServ.save(feed);
 
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -3547,7 +3597,7 @@ public class HomeController {
 
 		return "roleAdminDetail";
 	}
-	
+
 	/************************ PROFILE UPDATE SECTION *****************************************/
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String updateuserdataPost(HttpServletRequest req,Model model,Principal principal,
@@ -3563,7 +3613,7 @@ public class HomeController {
 			usr=userService.findByUsername(principal.getName());
 		}
 		model.addAttribute("userInfo", usr);
-		
+
 		long phoneLongValue ;
 		if(phone.length()>10) {								// need to accommodate
 
@@ -3574,25 +3624,25 @@ public class HomeController {
 			phoneLongValue = Long.parseLong(phone);
 
 		}
-		
-	
+
+
 		try {
 			usr.setFirstName(firstName);
 			usr.setLastName(lastName);
 			usr.setAddress(address);
 			usr.setPhone(phoneLongValue);
 			usr.setDob(ServiceUtility.convertStringToDate(dob));
-			
+
 			userService.save(usr);
-			
+
 			model.addAttribute("success_msg", "Data Updated Successfully");
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			model.addAttribute("error_msg", "Please Try Later");
 		}
-		
+
 		usr=userService.findByUsername(principal.getName());
 		model.addAttribute("userInfo", usr);
 		return "profileView";
