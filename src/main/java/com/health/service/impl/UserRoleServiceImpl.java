@@ -66,13 +66,13 @@ public class UserRoleServiceImpl implements UserRoleService{
 	}
 
 	@Override
-	public List<UserRole> findAllByRoleAndStatus(Role role,boolean status) {
+	public List<UserRole> findAllByRoleAndStatusAndRevoked(Role role,boolean status,boolean revokeStatus) {
 		// TODO Auto-generated method stub
 		List<UserRole> data=new ArrayList<UserRole>();
 		
 		List<UserRole> temp=usrRoleRepo.findAllByrole(role);
 		for(UserRole local:temp) {
-			if(local.getStatus()== status) {
+			if(local.getStatus()== status && local.isRevoked() == revokeStatus) {
 				data.add(local);
 			}
 		}

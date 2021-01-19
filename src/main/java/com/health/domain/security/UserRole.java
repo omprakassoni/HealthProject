@@ -47,6 +47,8 @@ public class UserRole
 	
 	private boolean status=false;
 	
+	private boolean revoked = false;
+	
 
 	public Category getCategory() {
 		return cat;
@@ -117,6 +119,30 @@ public class UserRole
 
 	public void setLanguage(Language language) {
 		this.lan = language;
+	}
+
+	public Language getLan() {
+		return lan;
+	}
+
+	public void setLan(Language lan) {
+		this.lan = lan;
+	}
+
+	public Category getCat() {
+		return cat;
+	}
+
+	public void setCat(Category cat) {
+		this.cat = cat;
+	}
+
+	public boolean isRevoked() {
+		return revoked;
+	}
+
+	public void setRevoked(boolean revoked) {
+		this.revoked = revoked;
 	}
 	
 }

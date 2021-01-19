@@ -22,7 +22,7 @@ public interface UserRoleService {
 	
 	List<UserRole> findByRoleUser(User usr,Role role);
 	
-	List<UserRole> findAllByRoleAndStatus(Role role,boolean status);
+	List<UserRole> findAllByRoleAndStatusAndRevoked(Role role,boolean status,boolean revokeStatus);
 	
 	int enableRole(UserRole usrRole);
 	

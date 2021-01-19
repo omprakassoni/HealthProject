@@ -16,4 +16,8 @@ public interface TraineeInformationService {
 	
 	List<TraineeInformation> findAllBytraineeInfos(TrainingInformation trainingId);
 	
+	TraineeInformation findById(int traineeId);
+	
+	void save(TraineeInformation temp);
+	
 }

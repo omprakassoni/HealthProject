@@ -122,6 +122,51 @@ public class AjaxController{
 	private TrainingTopicService trainingTopicService;
 	
 	
+	@RequestMapping("/updateTrainee")
+	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "aadhar") String addharNo,
+												@RequestParam(value = "age") int age,Principal principal,
+												@RequestParam(value = "email") String email,
+												@RequestParam(value = "gender") String gender,
+												@RequestParam(value = "name") String name,
+												@RequestParam(value = "org") String org,
+												@RequestParam(value = "phone") String phone,
+												@RequestParam(value = "traineeId") int traineeId){
+		List<String> status=new ArrayList<String>();
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=usrservice.findByUsername(principal.getName());
+		}
+		
+		long aadharNumber = Long.parseLong(addharNo);
+		long phoneNumber = Long.parseLong(phone);
+		
+		TraineeInformation trainee = traineeService.findById(traineeId);
+		
+		trainee.setAadhar(aadharNumber);
+		trainee.setAge(age);
+		trainee.setEmail(email);
+		trainee.setGender(gender);
+		trainee.setName(name);
+		trainee.setOrganization(org);
+		trainee.setPhone(phoneNumber);
+	
+		try {
+			traineeService.save(trainee);
+			status.add("Success");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			status.add("failure");
+		}
+		
+		
+		return status;
+		
+	}
 	
 	@RequestMapping("/updatePassword")
 	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "password") String newPass,

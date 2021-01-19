@@ -2490,11 +2490,11 @@ public class HomeController {
 		Role quality=roleService.findByname(CommonData.qualityReviewerRole);
 		Role domain=roleService.findByname(CommonData.domainReviewerRole);
 
-		List<UserRole> adminReviewer = usrRoleService.findAllByRoleAndStatus(admin,false);
-		List<UserRole> masterTrainer = usrRoleService.findAllByRoleAndStatus(master,false);
-		List<UserRole> qualityReviewer = usrRoleService.findAllByRoleAndStatus(quality,false);
-		List<UserRole> contributorReviewer = usrRoleService.findAllByRoleAndStatus(contributor,false);
-		List<UserRole> domainReviewer = usrRoleService.findAllByRoleAndStatus(domain,false);
+		List<UserRole> adminReviewer = usrRoleService.findAllByRoleAndStatusAndRevoked(admin,false,false);
+		List<UserRole> masterTrainer = usrRoleService.findAllByRoleAndStatusAndRevoked(master,false,false);
+		List<UserRole> qualityReviewer = usrRoleService.findAllByRoleAndStatusAndRevoked(quality,false,false);
+		List<UserRole> contributorReviewer = usrRoleService.findAllByRoleAndStatusAndRevoked(contributor,false,false);
+		List<UserRole> domainReviewer = usrRoleService.findAllByRoleAndStatusAndRevoked(domain,false,false);
 
 		model.addAttribute("userInfoAdmin", adminReviewer);
 		model.addAttribute("userInfoQuality", qualityReviewer);
@@ -2523,7 +2523,7 @@ public class HomeController {
 			usr=userService.findByUsername(principal.getName());
 		}
 		Role role=roleService.findByname(CommonData.contributorRole);
-		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatus(role, true);
+		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
 
 		model.addAttribute("userByContributors", userRoles);
 		model.addAttribute("userInfo", usr);
@@ -2545,7 +2545,7 @@ public class HomeController {
 
 		Role role=roleService.findByname(CommonData.contributorRole);
 
-		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatus(role, true);
+		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
 
 		model.addAttribute("userByContributors", userRoles);
 
@@ -2570,7 +2570,7 @@ public class HomeController {
 
 		Role role=roleService.findByname(CommonData.contributorRole);
 
-		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatus(role, true);
+		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
 
 		model.addAttribute("userByContributors", userRoles);
 
@@ -3556,6 +3556,7 @@ public class HomeController {
 
 		for(UserRole x : usrRole) {
 			x.setStatus(false);
+			x.setRevoked(true);
 			usrRoleService.save(x);
 		}
 		model.addAttribute("msg", "Role revoked Successfully");
