@@ -17,12 +17,12 @@ public class language_assign {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private  Long userRoleId;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 	
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="language_id")
 	private Language lan;
 

@@ -23,11 +23,11 @@ public class FeedbackMasterTrainer {
 
 	private String path;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="Training_id")
 	private TrainingInformation traineeInfos;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 

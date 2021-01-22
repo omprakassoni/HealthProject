@@ -28,15 +28,15 @@ public class Question{
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lan_id")
 	private Language lan;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "topic_cat_id")
 	private TopicCategoryMapping topicCatId;
 	
@@ -117,7 +117,7 @@ public class Question{
 //	@ManyToOne		
 //	private Tutorial tutorial;
 //	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	@JoinColumn(name="topic_id")
 //	private topic topic;
 //	
@@ -127,11 +127,11 @@ public class Question{
 //		// TODO Auto-generated constructor stub
 //	}
 //
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	@JoinColumn(name="cat_id")
 //	private Category category;
 //	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	@JoinColumn(name="lan_id")
 //	private language lan;
 //	

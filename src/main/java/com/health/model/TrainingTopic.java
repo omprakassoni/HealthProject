@@ -12,11 +12,11 @@ public class TrainingTopic {
 	@Id
 	private int trainingTopicId;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="topicCat_id")
 	private TopicCategoryMapping topicCatId;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="Training_id")
 	private TrainingInformation traineeInfos;
 	

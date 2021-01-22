@@ -41,14 +41,14 @@ public class Category {
 	@Column(name = "Description", nullable = false)
 	private String description;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<TopicCategoryMapping> topicCategoryMap=new HashSet<TopicCategoryMapping>();
 	
-	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<UserRole> userRoles=new HashSet<UserRole>();
 	
 

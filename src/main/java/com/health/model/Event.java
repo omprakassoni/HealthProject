@@ -49,7 +49,7 @@ public class Event {
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 

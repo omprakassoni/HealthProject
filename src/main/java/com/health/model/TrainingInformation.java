@@ -37,23 +37,23 @@ public class TrainingInformation{
 	@Column(name= "endDate")
 	private Date enddate;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="state_id")
 	private Language lan;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="lan_id")
 	private State state;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="district_id")
 	private District district;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="city_id")
 	private City city;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 		
@@ -66,13 +66,13 @@ public class TrainingInformation{
 	@Column(name = "address" ,length = 10000)
 	private String address;
 	
-	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<TraineeInformation> traineeInfos= new HashSet<TraineeInformation>();
 
-	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<TrainingTopic> trainingTopicId = new HashSet<TrainingTopic>();
 	
-	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<FeedbackMasterTrainer> masterTrainerFeedback = new HashSet<FeedbackMasterTrainer>();
 	
 	public int getTrainingId() {

@@ -26,21 +26,21 @@ public class TopicCategoryMapping {
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category cat;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "topic_id")
 	private Topic topic;
 	
-	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Question> questions=new HashSet<Question>();
 	
-	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
 		
-	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
 	private Set<TrainingTopic> trainingTopic=new HashSet<TrainingTopic>();
 	
 
