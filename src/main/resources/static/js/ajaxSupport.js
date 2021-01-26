@@ -11,6 +11,21 @@ $(document).ready(function() {
 			$('.not-required').tooltip({ title: 'Not Required' });
 			
 			
+			$('#profilePicture').change(function(){
+				
+				readImageUrl(this);
+				$("#chngProfilePic").prop('disabled', false);
+			})
+			
+			
+			$('#chngProfilePic').click(function(){
+				
+				event.preventDefault();
+				
+				updateProfilePicture();
+				
+			})
+			
 			$('#searchTrainees').click(function() {
 				
 				var traineeId = $("#eventName").find(":selected").val();
@@ -23,9 +38,21 @@ $(document).ready(function() {
 					},
 					contentType : "application/json",
 					success : function(result) {
-
+						html = '';
+						$.each(result,function(key,value){
+						      html +='<tr>';
+						      html +='<td>'+ value.name + '</td>';
+						      html +='<td>'+ value.age + '</td>';
+						      html +='<td>'+ value.aadhar + '</td>';
+						      html +='<td>'+ value.phone + '</td>';
+						      html +='<td>'+ value.organization + '</td>';
+						      html +='<td>'+ value.email + '</td>';
+						      html +='<td>'+ value.gender + '</td>';
+						      html +='</tr>';
+						      alert(key.name);
+						  });
 						
-
+						$('#tableBody').html(html);
 					},
 
 					error : function(err) {
@@ -2444,14 +2471,10 @@ $(document).ready(function() {
 
 					});
 			$( "#categoryname" ).change(function() {
-				alert('test');
-//				$('#categoryname')
-//				.on('change',function() {
+				
 
-//				var catgoryid = $(this).find(
-//				":selected").val();
 				var catgoryid = $(this).val();
-				console.log(catgoryid);
+				
 				$.ajax({
 					type : "GET",
 					url : projectPath+"listTopicsByCategory",
@@ -6256,6 +6279,59 @@ function validateEmail($email) {
 	  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 	  return emailReg.test( $email );
 }
+
+/*---------------------------------------Profile picture update Ajax call-------------------------------*/
+
+function updateProfilePicture(){
+	
+	var form=$('#uploadProfilePic')[0];
+	var data=new FormData(form);
+	
+	
+	var urlPassed;
+	
+	urlPassed= projectPath+"updateProfilePic";
+
+
+		$.ajax({
+			type: "POST",
+			enctype: 'multipart/form-data',
+			url: urlPassed,
+			data:data,
+			cache:false,
+			contentType:false,
+			processData:false,
+			timeout: 600000,
+			success:function(data){
+				
+				 $('#chngProfilePic').prop('disabled',true);
+				 $('#profileText').css({"display": "block"});
+				
+			
+			},
+		
+		error : function(err){
+			console.log("not working. ERROR: "+JSON.stringify(err));
+			}
+
+	});
+	
+	
+}
+
+
+function readImageUrl(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    
+	    reader.onload = function(e) {
+	      $('#pictureShow').attr('src', e.target.result);
+	    }
+	    
+	    reader.readAsDataURL(input.files[0]); // convert to base64 string
+	  }
+	}
+
 
 /* here is code for download question */
 

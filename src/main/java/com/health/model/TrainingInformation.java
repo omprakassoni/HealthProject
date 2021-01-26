@@ -31,29 +31,27 @@ public class TrainingInformation{
 	@Column(name= "PosterPath")
 	private String posterPath;
 	
-	@Column(name= "startDate")
-	private Date startDate;
-	
-	@Column(name= "endDate")
-	private Date enddate;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="state_id")
 	private Language lan;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="lan_id")
 	private State state;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="district_id")
 	private District district;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="city_id")
 	private City city;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="event_id")
+	private Event event;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 		
@@ -66,13 +64,13 @@ public class TrainingInformation{
 	@Column(name = "address" ,length = 10000)
 	private String address;
 	
-	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TraineeInformation> traineeInfos= new HashSet<TraineeInformation>();
 
-	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingTopic> trainingTopicId = new HashSet<TrainingTopic>();
 	
-	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<FeedbackMasterTrainer> masterTrainerFeedback = new HashSet<FeedbackMasterTrainer>();
 	
 	public int getTrainingId() {
@@ -105,22 +103,6 @@ public class TrainingInformation{
 
 	public void setPosterPath(String posterPath) {
 		this.posterPath = posterPath;
-	}
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEnddate() {
-		return enddate;
-	}
-
-	public void setEnddate(Date enddate) {
-		this.enddate = enddate;
 	}
 
 	public Set<TrainingTopic> getTrainingTopicId() {
@@ -201,6 +183,22 @@ public class TrainingInformation{
 
 	public void setTraineeInfos(Set<TraineeInformation> traineeInfos) {
 		this.traineeInfos = traineeInfos;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public Set<FeedbackMasterTrainer> getMasterTrainerFeedback() {
+		return masterTrainerFeedback;
+	}
+
+	public void setMasterTrainerFeedback(Set<FeedbackMasterTrainer> masterTrainerFeedback) {
+		this.masterTrainerFeedback = masterTrainerFeedback;
 	}
 
 

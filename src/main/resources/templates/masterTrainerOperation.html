@@ -82,16 +82,14 @@
 													enctype="multipart/form-data">
 
 													<div class="form-group ">
-														<label for="date">Start Date </label> <input type="date"
-															class="form-control" name="date" id="date"
-															required="required" />
-													</div>
+														<label for="date">Start Event </label>  <select class="form-control"
+															name="event" required="required">
 
-
-													<div class="form-group ">
-														<label for="date">End Date </label> <input type="date"
-															class="form-control" name="endDate" id="startDate"
-															required="required" />
+															<option>Select Event</option>
+															<option th:each="event: ${events}"
+																th:value="${event.getEventId()}"
+																th:text="${event.getEventName()}"></option>
+														</select>
 													</div>
 
 													<div class="form-group">
@@ -353,22 +351,7 @@
 															</select>
 														</div>
 
-														<div class="form-group">
-
-															<label for="nameOfMasterTrainerId">Name</label> <input
-																type="text" class="form-control "
-																id="nameOfMasterTrainerId" name="nameOfMasterTrainer"
-																required="required" />
-
-														</div>
-
-														<div class="form-group ">
-
-															<label for="emailId">Email</label> <input type="email"
-																class="form-control " id="emailId" name="email"
-																required="required" />
-
-														</div>
+						
 
 														<div class="form-group">
 

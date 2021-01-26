@@ -26,11 +26,11 @@ public class City {
 	
 	private String cityName;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="district_id")
 	private District district;
 	
-	@OneToMany(mappedBy = "city",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "city",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<TrainingInformation> trainingInfo =new HashSet<TrainingInformation>();
 
 	public int getId() {

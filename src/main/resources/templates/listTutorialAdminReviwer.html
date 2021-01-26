@@ -13,9 +13,22 @@
 <div class="col-md-9 col-lg-10 p-md-5">
 <div class="card">
 					<div class="card-header">
-						<h4>Admin Reviewer</h4>
+						<h4>Admin Review </h4>
 					</div>
+				
 					<div class="card-body">
+						
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="home-tab"
+						data-toggle="tab" href="#add" role="tab" aria-controls="home"
+						aria-selected="true">To Review</a></li>
+					<li class="nav-item"><a class="nav-link" id="profile-tab"
+						data-toggle="tab" href="#view" role="tab" aria-controls="profile"
+						aria-selected="false">Reviewed</a></li>
+					</ul>
+					<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active py-3" id="add"
+						role="tabpanel" aria-labelledby="home-tab">
 						<div class="row">
 							<div class="col">
 								 <table id="tableId" class="table table-striped">
@@ -306,6 +319,303 @@
 					            </tbody>			            
 					        </table>
 							</div>
+						</div>
+						</div>
+						
+						<div class="tab-pane fade show active py-3" id="view"
+						role="tabpanel" aria-labelledby="home-tab">
+						<div class="row">
+							<div class="col">
+								 <table id="tableId" class="table table-striped">
+					      
+					        <thead class="">
+					         
+					            <tr>
+						            	<th>Sr No</th>
+						            	<th>Category</th>
+						                <th>Tutorial</th>
+						                <th>Language</th>
+						                <th>Outline</th>
+						               	<th>Script</th>
+						                <th>Slide</th>
+						                <th>Keyword</th>
+						                <th>Video</th>
+						                <th>Prerequisite</th>
+						                <th>Graphics</th>
+						                
+						 
+					            </tr>    			    
+					            </thead>
+					            <tbody>	
+					            
+					            	<tr th:each="componenettutorial : ${tutorialReviewed}">
+					  					
+					  					<td th:text="${componenettutorial.getTutorialId()}"><i style="color: green;" class="fas fa-check-circle"></i> </td>  						              	
+						              	<td th:text="${componenettutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName()}"><i style="color: green;" class="fas fa-check-circle"></i> </td>     
+						                <td th:text="${componenettutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName()}"><i style="color: green;" class="fas fa-check-circle"></i> </td>  
+						                <td th:text="${componenettutorial.getConAssignedTutorial().getLan().getLangName()}"><i  style="color: maroon;" class="fas fa-check-circle"></i> </td>
+						               
+						               
+						   <td>
+						        
+							 			 <span th:if="${componenettutorial.getOutlineStatus()==0}">
+									                 
+									               			 <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
+									               			 
+									              </span>
+						           
+									                 <span th:if="${componenettutorial.getOutlineStatus()==2}">
+									                 
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	
+									               	
+									             
+									               	
+									               	  <span th:if="${componenettutorial.getOutlineStatus()==3}">
+									               	  
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	
+									               	
+									               	  <span th:if="${componenettutorial.getOutlineStatus()==5}">
+									               	  
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>
+						               		 
+						    
+						    
+						    
+						               		 		 <span th:if="${componenettutorial.getOutlineStatus()==4}">
+
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
+									                   
+									                   </span>
+
+
+
+							</td>
+						                
+						     <td>
+						            
+						            <span th:if="${componenettutorial.getScriptStatus()==0}">
+									         
+									       
+									                <i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
+									               			  
+									   	  </span>	
+						                
+						                  		 <span th:if="${componenettutorial.getScriptStatus()==2}">
+									                 
+									               			 <i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	
+									               		 
+									               	
+									               	  <span th:if="${componenettutorial.getScriptStatus()==3}">
+									               	  
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	
+									               	
+									               	  <span th:if="${componenettutorial.getScriptStatus()==5}">
+									               	  
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
+									               	  </span>
+									               	   <span th:if="${componenettutorial.getScriptStatus()==4}">
+
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
+									                   
+									                   
+									                   </span>      
+						            
+						                
+						                
+						     </td>
+						    <td>
+						    
+						    								             	
+						                   <span th:if="${componenettutorial.getSlideStatus()==0}">
+									                 
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
+									        </span>
+						             	
+						                   <span th:if="${componenettutorial.getSlideStatus()==2}">	
+									                 
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
+									        </span>	
+									               	
+				
+									               	
+									               	  <span th:if="${componenettutorial.getSlideStatus()==3}">
+									               	  
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	
+									               	
+									               	  <span th:if="${componenettutorial.getSlideStatus()==5}">
+									               	  
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
+									               	  </span>
+												     <span th:if="${componenettutorial.getSlideStatus()==4}">
+	
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
+									                   
+									                   
+									                   </span>
+						    
+						    
+						    </td>
+						    
+						    <td>
+						    
+						    					    								             	
+						                   <span th:if="${componenettutorial.getKeywordStatus()==0}">
+									                 
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
+									        </span>
+						             	
+						                   <span th:if="${componenettutorial.getKeywordStatus()==2}">	
+									                 
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
+									        </span>	
+									               	
+		 
+									               	
+									               	  <span th:if="${componenettutorial.getKeywordStatus()==3}">
+									               	  
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	
+									               	
+									               	  <span th:if="${componenettutorial.getKeywordStatus()==5}">
+									               	  
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
+									               	  </span>
+												     <span th:if="${componenettutorial.getKeywordStatus()==4}">
+	
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
+									                   
+									                   
+									                   </span>
+						    
+						    
+						    </td>
+						    
+						    
+						    <td>
+						    
+													               	   
+						              <span th:if="${componenettutorial.getVideoStatus()==0}">
+									                 
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
+									  </span>
+									   
+									    <span th:if="${ componenettutorial.getVideoStatus()== 2}">
+						                   
+						            				<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
+						                		
+						                 </span>
+									  
+						                   <span th:if="${ componenettutorial.getVideoStatus()== 1}">
+						                   
+						                		<i  class="fas fa-check-circle admin-review"></i>	
+						                		
+						                   </span>
+						                   
+						                      <span th:if="${componenettutorial.getVideoStatus()== 3}">
+						                   
+						                		<i class="fas fa-check-circle quality-review"></i>	
+						                		
+						                   </span>
+						                   
+						                     <span th:if="${componenettutorial.getVideoStatus()== 5}">
+						                   
+						                		<i  class="fas fa-check-circle review-accepted"></i>	
+						                		
+						                   </span>
+						                   
+						              		 <span th:if="${componenettutorial.getVideoStatus()== 4}">
+						                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
+						                   </span>
+						    
+					   </td>			
+					   <td>
+						    
+						    					    								             	
+						                   <span th:if="${componenettutorial.getPreRequisticStatus()==0}">
+									                 
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
+									        </span>
+						             	
+						                   <span th:if="${componenettutorial.getPreRequisticStatus()==2}">	
+									                 
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
+									        </span>	
+									               	
+									              
+									               	
+									               	  <span th:if="${componenettutorial.getPreRequisticStatus()==3}">
+									               	  
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	
+									               	
+									               	  <span th:if="${componenettutorial.getPreRequisticStatus()==5}">
+									               	  
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
+									               	  </span>
+												     <span th:if="${componenettutorial.getPreRequisticStatus()==4}">
+	
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
+									                   
+									                   
+									                   </span>
+						    
+						    
+						    </td>
+						    <td>
+						    
+						    					    								             	
+						                   <span th:if="${componenettutorial.getGraphicsStatus()==0}">
+									                 
+									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
+									        </span>
+						             	
+						                   <span th:if="${componenettutorial.getGraphicsStatus()==2}">	
+									                 
+									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
+									        </span>	
+									               	
+									             	 
+									               	
+									               	  <span th:if="${componenettutorial.getGraphicsStatus()==3}">
+									               	  
+									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
+									               	</span>	
+									               	
+									               	  <span th:if="${componenettutorial.getGraphicsStatus()==5}">
+									               	  
+									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
+									               	  </span>
+												     <span th:if="${componenettutorial.getGraphicsStatus()==4}">
+	
+									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
+									                   
+									                   
+									                   </span>
+						    
+						    
+						    </td>			    
+						           				                
+						              
+										
+										
+									<!-- 	<td>
+										
+										<button  type="button" id="reviewIdAdmin"> <b><i  class="fas fa-link"></i><u style="color: green;"> Review </u></b></button>
+									
+										</td>  -->
+					
+					            </tr>
+					            </tbody>			            
+					        </table>
+							</div>
+						</div>
+						</div>
 						</div>
 
 						<!-- <h5 class="card-title">Special title treatment</h5>

@@ -10,11 +10,14 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.health.model.Event;
 import com.health.model.Testimonial;
+import com.health.model.User;
 
 public interface EventRepository extends  CrudRepository<Event, Integer> {
 	
 	@Query("select max(eventId) from Event")
 	int getNewId();
+	
+	List<Event> findByuser(User usr);
 	
 //	@Modifying
 //	@Query("update Event set  eventname=?1 ,date=?2,endDate=?3, description=?4,venuename=?5,contactperson=?6,contactnumber=?7,email=?8 where id=?9")

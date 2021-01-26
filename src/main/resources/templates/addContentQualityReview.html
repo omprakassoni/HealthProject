@@ -25,7 +25,7 @@
 			<div class="col-md-9 col-lg-10 p-md-5">
 				<div class="card">
 					<div class="card-header">
-						<h4>Add Testimonial</h4>
+						<h4>Tutorial</h4>
 					</div>
 					<div class="card-body">
 						<div class="row">
@@ -818,7 +818,7 @@
 									class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 									role="document">
 									<div class="modal-content">
-										<!-- <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+										 <div th:if="${tutorial.getScriptStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> 
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLabelscriptStatus">Quality
 												Review-Script</h5>
@@ -849,6 +849,7 @@
 														</span>
 													</div>
 													<div>
+													
 														<form class="form-horizontal" th:action="@{/addkeyword}"
 															onsubmit="return submitForm(this);" method="post">
 															<div class="form-group">
@@ -974,7 +975,7 @@
 									class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 									role="document">
 									<div class="modal-content">
-										<!-- <div th:if="${tutorial.getVideoStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+										 <div th:if="${tutorial.getVideoStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> 
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 												Video</h5>
@@ -1120,7 +1121,7 @@
 									class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 									role="document">
 									<div class="modal-content">
-										<!-- <div th:if="${tutorial.getPreRequisticStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+										<div th:if="${tutorial.getPreRequisticStatus()!=3}"><div class="alert alert-info m-3">Not valid for review</div></div> 
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 												Pre-requisites</h5>
@@ -1150,6 +1151,7 @@
 
 											</div>
 											<div>
+												<div th:if="${tutorial.getPreRequisticStatus()!=3}">
 												<form class="form-horizontal" th:action="@{/addkeyword}"
 													onsubmit="return submitForm(this);" method="post">
 
@@ -1174,6 +1176,7 @@
 													</div>
 													<br />
 												</form>
+												</div>
 											</div>
 												</div>
 												<div class="col-12">
@@ -1302,7 +1305,7 @@
 									role="document">
 									<div class="modal-content">
 
-										<!-- <div th:if="${tutorial.getOutlineStatus() != 3}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+										 <div th:if="${tutorial.getOutlineStatus() != 3}"><div class="alert alert-info m-3">Not valid for review</div></div> 
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLabelOutlineView">Quality
 												Review - Outline</h5>

@@ -37,6 +37,32 @@
 									<div class="col-lg-6">
 										<form th:action="@{/addConsultant}" method="post"
 											enctype="multipart/form-data">
+											
+											<div class="form-group">
+													<label for="categoryId">Select Category</label> 
+													<select id="categoryId" class="form-control" name="categoryName" required="required">
+				
+													<option>Select Category</option>
+													
+														<option th:each="category: ${categories}" th:value="${category.getCategoryId()}" th:text="${category.getCatName()}">
+																</option>
+												
+													</select>
+
+											</div>
+											
+											<div class="form-group">
+													<label for="lanId">Select Language</label> 
+													<select id="lanId" class="form-control" name="lanName" required="required">
+				
+													<option>Select Language</option>
+													
+														<option th:each="lan: ${languages}" th:value="${lan.getLanId()}" th:text="${lan.getLangName()}">
+																</option>
+												
+													</select>
+
+											</div>
 
 											<div class="form-group">
 												<label for="nameConsaltant">Name</label> <input type="text"
@@ -45,13 +71,7 @@
 													placeholder="Name of the consultant" />
 
 											</div>
-											<!-- <div class="form-group">
-												<label for="descriptionConsaltant">Description</label>
-												<textarea class="form-control" rows="5"
-													id="descriptionConsaltant" name="descriptionConsaltant"
-													required="required"
-													placeholder="Description about the consultant"></textarea>
-											</div> -->
+											
 											<div class="form-group">
 												<label for="email" style="padding-top: 8px">Add
 													Email</label> <!-- <input type="file" style="padding-right: 50px"
@@ -61,19 +81,7 @@
 													
 													<input required="required" type="text" class="form-control" id="email" name="email" />
 											</div>
-											<div class="input-group mb-3">
-												<div class="input-group-prepend">
-													<div class="input-group-text">
-														<input type="checkbox"
-															aria-label="Checkbox for following text input"
-															id="showOnHomePage" name="showOnHomePage"
-															value="showOnHomePage">
-													</div>
-												</div>
-												<input type="text" class="form-control"
-													aria-label="Text input with checkbox" disabled
-													placeholder="Show on homepage">
-											</div>
+											
 
 											<button type="submit" class="btn btn-info a-btn">Submit</button>
 											&nbsp;&nbsp;&nbsp;
@@ -90,16 +98,16 @@
 					<table class="table table-striped" id="myTable">
   <thead>
     <tr>
-      <th scope="col">Name</th>
+      <th scope="col">E-mail</th>
       <th scope="col">Description</th>
       <th scope="col">Poster</th>
     </tr>
   </thead>
   <tbody>
     <tr th:each="consultant : ${consultants}" >
-       <td th:text="${consultant.getName()}"></td>
+       <td th:text="${consultant.getUser().getEmail()}"></td>
        <td th:text="${consultant.getDescription()}"></td>
-       <td><img id="imagesource" th:src="@{/files/}+@{${consultant.getPosterPath()}}"
+       <td><img id="imagesource" th:src="@{/files/}+@{${consultant.getUser().getProfilePic()}}"
 			style="width: 150px; height: 100px" />
 	  </td>
       

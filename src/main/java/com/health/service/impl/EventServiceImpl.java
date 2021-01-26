@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.model.Event;
+import com.health.model.User;
 import com.health.repository.EventRepository;
 import com.health.service.EventService;
 
@@ -75,6 +76,12 @@ public class EventServiceImpl implements EventService {
 	public void save(Event event) {
 		// TODO Auto-generated method stub
 		eventRepo.save(event);
+	}
+
+	@Override
+	public List<Event> findByUser(User usr) {
+		// TODO Auto-generated method stub
+		return eventRepo.findByuser(usr);
 	}
 
 

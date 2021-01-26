@@ -4,61 +4,23 @@
 <head th:replace="common/trail :: common-trail"></head>
 <body>
 	<div th:replace="common/sidebar :: top_header"></div>
-	<div class="container-fluid">
+	<div class="">
 		<div class="row">
 			<div class="col-md-3 col-lg-2 pr-0">
 				<div th:replace="common/sidebar :: contributor_sidebar"></div>
 			</div>
-
-			<!-- <div class="col-md-9 col-lg-10"
-				sec:authorize="hasAnyAuthority('CONTRIBUTOR')">contributor</div> -->
-
-			<!-- <div th:if="${#lists.contains(roleIds, 8)}">
-       
-</div> -->
-<div class="col-md-9 col-lg-10">
-<div class="row p-3">
-				<div class="col-md-6">
-					<div class="card">
-						<div class="card-header">Pending Role Requests</div>
-						<div class="card-body">
-							<table class="table table-striped" id="myTable">
-								<thead>
-									<tr>
-										<th scope="col"><i class="fas fa-user-tag mr-1"></i>Role</th>
-										<th scope="col">Language</th>
-										<th scope="col">Category</th>
-										<th scope="col"><i class="far fa-calendar-minus mr-1"></i>Applied on</th>
-									</tr>
-								</thead>
-								<tbody>
-									<div th:if="${not #lists.isEmpty(userRoles)}">
-										<tr th:each="userRole : ${userRoles}">
-											<td scope="row"><span
-												th:text="${userRole.getRole().getName()}"></span></td>
-											<td>
-											<span th:if= "${userRole.getLanguage() != null}" th:text="${userRole.getLanguage().getLangName()}">
-											</span>
-											<!-- <span
-												th:text="${userRole.getLanguage().getLangName()}"></span> --></td>
-											<td><span th:if= "${userRole.getCategory() != null}" th:text="${userRole.getCategory().getCatName()}">
-											</span></td>
-											<td><span th:text="${userRole.getCreated()}"></span></td>
-										</tr>
-									</div>
-
-
-								</tbody>
-							</table>
+			
+			<div class="alert alert-success" role="alert"
+						th:if="${msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${msg}"></span>
+							</div>
 						</div>
-					</div>
-
-				</div>
 			</div>
+       
+</div> 
 
-
-
-</div>
 			
 		</div>
 	</div>

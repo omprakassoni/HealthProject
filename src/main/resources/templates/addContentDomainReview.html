@@ -42,7 +42,7 @@ color : #014F7A;}
 </div>
 <div class="card">
 					<div class="card-header">
-						<h4>Add Testimonial</h4>
+						<h4>Review Tutorial</h4>
 					</div>
 					<div class="card-body">
 						<div class="row">
@@ -716,7 +716,7 @@ color : #014F7A;}
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<!-- <div th:if="${tutorial.getOutlineStatus() != 2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+								 <div th:if="${tutorial.getOutlineStatus() != 2}"><div class="alert alert-info m-3">Not valid for review</div></div> 
 									<div class="modal-header">
 									<div class="w-100">
 									<h5 class="modal-title" id="exampleModalLabelOutlineView">Review
@@ -824,7 +824,7 @@ color : #014F7A;}
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<!-- <div th:if="${tutorial.getKeywordStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+								<div th:if="${tutorial.getKeywordStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> 
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Keyword</h5>
@@ -843,6 +843,7 @@ color : #014F7A;}
 											<span th:utext="${tutorial.getKeyword()}"></span>
 										</div>
 										<div>
+										<div th:if="${tutorial.getKeywordStatus() == 2}">
 										<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
@@ -870,6 +871,7 @@ color : #014F7A;}
 											
 
 										</form>
+										</div>
 									</div>
 									<div class="col-12">
 									<div th:if="${not #lists.isEmpty(comKeyword)}">
@@ -930,7 +932,7 @@ color : #014F7A;}
 								class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
 								role="document">
 								<div class="modal-content">
-								<!-- <div th:if="${tutorial.getVideoStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+								 <div th:if="${tutorial.getVideoStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> 
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Video</h5>
@@ -960,6 +962,7 @@ color : #014F7A;}
 
 											</div>
 											<div>
+											<div th:if="${tutorial.getVideoStatus() == 2}">
 											<form class="form-horizontal" th:action="@{/addkeyword}"
 											onsubmit="return submitForm(this);" method="post">
 
@@ -979,6 +982,7 @@ color : #014F7A;}
 											</div>
 											<br />
 										</form>
+										</div>
 										</div>
 									
 									</div>
@@ -1196,7 +1200,7 @@ color : #014F7A;}
 								role="document">
 								<div class="modal-content">
 								<div class="alert alert-msg m-3" style="display: none;"></div>
-								<!-- <div th:if="${tutorial.getPreRequisticStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+								 <div th:if="${tutorial.getPreRequisticStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> 
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabelKeyWordView">View
 											Pre-requisites</h5>
@@ -1309,7 +1313,7 @@ color : #014F7A;}
 
 							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
-								<!-- <div th:if="${tutorial.getSlideStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+								<div th:if="${tutorial.getSlideStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div>
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabeSlideStatus">Domain
 											Review-Slide</h5>
@@ -1490,7 +1494,7 @@ color : #014F7A;}
 							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
 								<div class="modal-content">
 								<div class="alert alert-msg m-3" style="display: none;"></div>
-									<!-- <div th:if="${tutorial.getGraphicsStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> -->
+									 <div th:if="${tutorial.getGraphicsStatus()!=2}"><div class="alert alert-info m-3">Not valid for review</div></div> 
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabeSlideStatus">Domain
 											Review-Graphics</h5>

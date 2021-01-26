@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.health.model.Consultant;
-
+import com.health.model.User;
 import com.health.repository.ConsultantRepository;
 
 import com.health.service.ConsultantService;
@@ -80,6 +80,12 @@ public class ConsultantServiceImpl implements ConsultantService {
 			e.printStackTrace();
 			return 1;
 		}
+	}
+
+	@Override
+	public Consultant findByUser(User usr) {
+		// TODO Auto-generated method stub
+		return consultantRepo.findByuser(usr);
 	}
 
 	

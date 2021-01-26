@@ -35,11 +35,11 @@ public class Topic {
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TopicCategoryMapping> topicCategoryMap=new HashSet<TopicCategoryMapping>();
 	
 
@@ -115,12 +115,12 @@ public class Topic {
 //	  private int status;
 //		
 //	
-//     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	 @JoinColumn(name="category_id")
 //	 private Category category;
 //		 
 //	 
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name="user_id")
 //	private User  user;
 //	

@@ -148,49 +148,6 @@ public class HomeController {
 	private CommentService comService;
 
 
-//	@RequestMapping("/viewVideo/view/{id}")
-//	public String viewVideo(Model model, @PathVariable Integer id) {
-//		// Tutorial tutorials = tutorialDao.findOne(id);
-//
-//		// code for version 2.1.7
-//		Optional<Tutorial> temp1= tutorialDao.findById(id);
-//		Tutorial tutorials=temp1.get();
-//
-//		int status = 1;
-//		List<Tutorial> tutorialRes = tutorialDao.findByLanAndCat(tutorials.getCategory(), tutorials.getLan(), status);
-//
-//		model.addAttribute("list", tutorials);
-//		model.addAttribute("listOfTutorial", tutorialRes);
-//
-//		List<Tutorial> category = tutorialDao.finBystatus();
-//		ArrayList<String> tutorialRes1 = new ArrayList<String>();
-//		for (Tutorial tutorial : category) {
-//			tutorialRes1.add(tutorial.getCategory().getCategoryname());
-//		}
-//		Set<String> categoryList=new LinkedHashSet<String>(tutorialRes1);
-//		model.addAttribute("categorys",categoryList);
-//
-//		return "showVideo";
-//	}
-//
-//	@RequestMapping("/viewVideoList/view/{id}")
-//	public String viewVideoList(Model model, @PathVariable Integer id) {
-//
-//		// Tutorial tutorials = tutorialDao.findOne(id);
-//
-//		// code for version 2.1.7
-//				Optional<Tutorial> temp1= tutorialDao.findById(id);
-//				Tutorial tutorials=temp1.get();
-//
-//		tutorials.getTopic().getTopicname();
-//		int status = 1;
-//		List<Tutorial> tutorialRes = tutorialDao.findByLanAndCat(tutorials.getCategory(), tutorials.getLan(), status);
-//		model.addAttribute("list", tutorials);
-//		model.addAttribute("listOfTutorial", tutorialRes);
-//
-//		return "showVideo";
-//	}
-
 
 	@RequestMapping("/")
 	public String index(Model model) {
@@ -262,80 +219,6 @@ public class HomeController {
 		model.addAttribute("topics", topicTemp);
 
 
-
-//		List<Tutorial> category = tutorialDao.finBystatus();
-//		ArrayList<String> tutorialRes = new ArrayList<String>();
-//		for (Tutorial tutorial : category) {
-//			tutorialRes.add(tutorial.getCategory().getCategoryname());
-//		}
-//		Set<String> categoryList=new LinkedHashSet<String>(tutorialRes);
-//		model.addAttribute("categorys",categoryList);
-//
-//		List<Event> event=eventDao.getAllEvent();
-//
-//		model.addAttribute("events",event);
-//
-//		List<Consaltantant> consalatant=consalatantDao.findByConsultantShowonHomepage(true);
-//
-//		for (Consaltantant consaltantant : consalatant)
-//		{
-//			System.err.println(consaltantant.getNameConsaltant());
-//		}
-//
-//		List<Testimonial> testimonial = testimonialdao.findBydate();
-//		for (Testimonial videotestimonial : testimonial) {
-//			System.err.println(videotestimonial.getUploadTestiminial());
-//		}
-//
-//		List<Tutorial> tutorials = tutorialDao.finBystatus();
-//
-//		long languageCount = languageDao.count();
-//		java.util.List<Tutorial> videos = tutorialDao.finBystatus();
-//
-//		List<Category> categories = categoryDao.findBystatus(1);
-//		List<Category> categoriesDisplay = new ArrayList<>();
-//		int size = 4;
-//		if(categories.size()>=size) {
-//			for(int i = 0; i< size; i++) {
-//				categoriesDisplay.add(categories.get(i));
-//			}
-//			categories = categoriesDisplay;
-//		}
-//		List<Consaltantant> consultantDisplay = new ArrayList<>();
-//		size = 3;
-//		if(consalatant.size()>=size) {
-//			for(int i = 0; i< size; i++) {
-//				consultantDisplay.add(consalatant.get(i));
-//			}
-//			consalatant = consultantDisplay;
-//		}
-//		List<Testimonial> testimonialDisplay = new ArrayList<>();
-//		if(testimonial.size()>=size) {
-//			for(int i = 0; i< size; i++) {
-//				testimonialDisplay.add(testimonial.get(i));
-//			}
-//			testimonial = testimonialDisplay;
-//		}
-//		List<Event> eventDisplay = new ArrayList<>();
-//		size = 3;
-//		if(event.size()>=size) {
-//			for(int i = 0; i< size; i++) {
-//				eventDisplay.add(event.get(i));
-//			}
-//			event = eventDisplay;
-//		}
-//		int videoCount = videos.size();
-//		long consultantCount = consultantDao.count();
-//
-//		model.addAttribute("tutorials", tutorials);
-//		model.addAttribute("listofConsalatatnt", consalatant);
-//		model.addAttribute("listofTestimonial", testimonial);
-//		model.addAttribute("languageCount", languageCount);
-//		model.addAttribute("videoCount", videoCount);
-//		model.addAttribute("consultantCount", consultantCount);
-//		model.addAttribute("categories", categories);
-//		model.addAttribute("event", event);
-
 		return "index";
 	}
 
@@ -344,6 +227,21 @@ public class HomeController {
 			@RequestParam(name = "categoryName") String cat,
 			@RequestParam(name = "topic") String topic,
 			@RequestParam(name = "lan") String lan,Principal principal,Model model) {
+		
+		Set<String> catTemp = new HashSet<String>();
+		Set<String> topicTemp = new HashSet<String>();
+		Set<String> lanTemp = new HashSet<String>();
+
+		List<Tutorial> tutorials = tutService.findAllBystatus(true);
+		for(Tutorial temp :tutorials) {
+			catTemp.add(temp.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
+			lanTemp.add(temp.getConAssignedTutorial().getLan().getLangName());
+			topicTemp.add(temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
+		}
+		
+		model.addAttribute("categories", catTemp);
+		model.addAttribute("languages", lanTemp);
+		model.addAttribute("topics", topicTemp);
 
 		Category localCat = null;
 		Language localLan = null;
@@ -444,6 +342,22 @@ public class HomeController {
 			 System.out.println("*******************");
 			 System.out.println(tutorials);
 			 System.out.println("*******************");
+			 
+				Set<String> catTemp = new HashSet<String>();
+				Set<String> topicTemp = new HashSet<String>();
+				Set<String> lanTemp = new HashSet<String>();
+
+				List<Tutorial> tutorialse = tutService.findAllBystatus(true);
+				for(Tutorial temp :tutorialse) {
+					catTemp.add(temp.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
+					lanTemp.add(temp.getConAssignedTutorial().getLan().getLangName());
+					topicTemp.add(temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
+				}
+				
+				model.addAttribute("categories", catTemp);
+				model.addAttribute("languages", lanTemp);
+				model.addAttribute("topics", topicTemp);
+				
 			return "tutorial";
 	}
 
@@ -763,6 +677,7 @@ public class HomeController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			return "addlanguage";
 		}
 
@@ -861,6 +776,7 @@ public class HomeController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			return "addTopic";
 		}
 
@@ -934,6 +850,7 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			model.addAttribute("topic",topic);
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			return "updateTopic";  //  accomodate view part
 		}
 
@@ -1005,6 +922,7 @@ public class HomeController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			return "addNewRole";
 		}
 
@@ -1237,7 +1155,12 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<Consultant> consultants = consultService.findAll();
+		List<Category> cat=catService.findAll();
+		List<Language> lans=lanService.getAllLanguages();
+
+		model.addAttribute("categories", cat);
 		model.addAttribute("consultants", consultants);
+		model.addAttribute("languages", lans);
 
 		return "addConsultant";
 
@@ -1247,6 +1170,8 @@ public class HomeController {
 	public String addConsultantPost(Model model,Principal principal,
 									@RequestParam("uploadConsaltantImage") MultipartFile[] file,
 									@RequestParam("nameConsaltant") String name,
+									@RequestParam("categoryName") int catId,
+									@RequestParam("lanName") int lanId,
 									@RequestParam("email") String email,
 									@RequestParam(defaultValue = "false") String showOnHomePage) {
 
@@ -1260,21 +1185,16 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<Consultant> consultants = consultService.findAll();
+		List<Category> cat=catService.findAll();
+		List<Language> lans=lanService.getAllLanguages();
+
+		model.addAttribute("categories", cat);
 		model.addAttribute("consultants", consultants);
-
-		boolean show=false;
-
-		if(showOnHomePage!=null) {
-			show=showOnHomePage.equals("showOnHomePage");
-		}
-
-//		if(!ServiceUtility.checkFileExtensionImage(file)) {   // throw error extension file.
-//
-//			return "addConsultant";
-//		}
+		model.addAttribute("languages", lans);
 
 		if(!ServiceUtility.checkEmailValidity(email)) {  // throw email wromng error
-
+			
+			model.addAttribute("msg", CommonData.NOT_VALID_EMAIL_ERROR);
 			return "addConsultant";
 		}
 
@@ -1287,12 +1207,17 @@ public class HomeController {
 			model.addAttribute("emailExists", true);
 			return "addConsultant";
 		}
+		
+		Category cats = catService.findByid(catId);
+		Language lan =lanService.getById(lanId);
+		Role role = roleService.findByname(CommonData.adminReviewerRole);
 
 		User userTemp = new User();
 		userTemp.setId(userService.getNewId());
 		userTemp.setEmail(email);
 		userTemp.setUsername(email);
 		userTemp.setDateAdded(ServiceUtility.getCurrentTime());
+		userTemp.setPassword(SecurityUtility.passwordEncoder().encode(CommonData.COMMON_PASSWORD));
 
 		userService.save(userTemp);
 
@@ -1302,50 +1227,36 @@ public class HomeController {
 		local.setConsultantId(newConsultid);
 		local.setDescription("null");
 		local.setDateAdded(ServiceUtility.getCurrentTime());
-		local.setName(name);
-		local.setPosterPath("null");
 		local.setUser(userTemp);
-		local.setOnHome(show);
 
 		Set<Consultant> consults=new HashSet<Consultant>();
 		consults.add(local);
 
 		try {
 			userService.addUserToConsultant(usr, consults);
+			
+			UserRole usrRole= new UserRole();
+			usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
+			usrRole.setCat(cats);
+			usrRole.setLan(lan);
+			usrRole.setUser(userTemp);
+			usrRole.setRole(role);
+			usrRole.setStatus(true);
+			usrRole.setCreated(ServiceUtility.getCurrentTime());
+			
+			usrRoleService.save(usrRole);
+			
 
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-
+			model.addAttribute("msg",CommonData.RECORD_ERROR);
 			return "addConsultant";    // throw a error
 		}
 
-//		try {
-//			if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryConsultant+newConsultid)) {
-//				String pathtoUploadPoster=ServiceUtility.uploadFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryConsultant+newConsultid);
-//				int indexToStart=pathtoUploadPoster.indexOf("Media");
-//
-//				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-//
-//				Consultant temp=consultService.findById(newConsultid);
-//
-//				temp.setPosterPath(document);
-//
-//				consultService.save(temp);
-//
-//			}else {      // throw a error
-//
-//			}
-//
-//		}catch (Exception e) {
-//			// TODO: handle exception
-//
-//			e.printStackTrace();
-//
-//			return "addConsultant";    // throw a error
-//		}
-
+		consultants = consultService.findAll();
+		model.addAttribute("consultants", consultants);
 		model.addAttribute("msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 		return "addConsultant";
 
@@ -1513,7 +1424,7 @@ public class HomeController {
 
 		if(!file.isEmpty()) {
 		if(!ServiceUtility.checkFileExtensionVideo(file)) { // throw error on extension
-
+			model.addAttribute("error_msg",CommonData.VIDEO_FILE_EXTENSION_ERROR);
 			return "addTestimonial";
 		}
 
@@ -1534,6 +1445,7 @@ public class HomeController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 			return "addTestimonial";
 		}
 
@@ -1556,7 +1468,7 @@ public class HomeController {
 			// TODO: handle exception
 
 			e.printStackTrace();
-
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 			return "addTestimonial";    // throw a error
 		}
 		}else {
@@ -1645,6 +1557,7 @@ public class HomeController {
 		if(cat==null) {
 			 // accommodate  error message
 			model.addAttribute("category",cat); 
+			model.addAttribute("msg","Category doesn't exist");
 			return "updateCategory";
 		}
 
@@ -1681,7 +1594,7 @@ public class HomeController {
 
 				e.printStackTrace();
 				model.addAttribute("category",cat); 
-
+				model.addAttribute("msg",CommonData.RECORD_ERROR);
 				return "updateCategory";  // throw a error
 			}
 			}else {
@@ -1782,7 +1695,7 @@ public class HomeController {
 		Event event= eventservice.findById(Integer.parseInt(eventId));
 
 		if(event==null) {
-			 // accommodate  error message
+			model.addAttribute("msg","Event doesn't exist");
 			return "updateEvent";
 		}
 
@@ -1791,22 +1704,20 @@ public class HomeController {
 			endDate=ServiceUtility.convertStringToDate(endDateTemp);
 
 			if(endDate.before(startDate)) {      // throws error if end date is previous to start date
-
-				return "updateEvent";
-			}
-
-			if(!ServiceUtility.checkEmailValidity(email)) { // throw error on wrong email
-
+				
+				model.addAttribute("msg","End date must be after Start date");
 				return "updateEvent";
 			}
 
 			if(contactNumber.length() != 10) {        // throw error on wrong phone number
 
+				model.addAttribute("msg","Contact number must be 10 digit");
 				return "updateEvent";
 			}
 
 			if(!ServiceUtility.checkEmailValidity(email)) {    // throw error on wrong email
 
+				model.addAttribute("msg",CommonData.NOT_VALID_EMAIL_ERROR);
 				return "updateEvent";
 			}
 
@@ -1825,7 +1736,7 @@ public class HomeController {
 
 		}catch (Exception e) {
 			// TODO: handle exception
-
+			model.addAttribute("msg",CommonData.RECORD_ERROR);
 			return "updateEvent";        // need to add some error message
 		}
 
@@ -1924,6 +1835,7 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			model.addAttribute("language",lan);
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			return "updateLanguage";  //  accomodate view part
 		}
 
@@ -2084,7 +1996,7 @@ public class HomeController {
 
 		if(test==null) {
 			// accommodate error message
-
+			model.addAttribute("error_msg", CommonData.TESTIMONIAL_NOT_ERROR);
 			return "updateTestimonial";
 		}
 
@@ -2106,7 +2018,7 @@ public class HomeController {
 			// TODO: handle exception
 
 			e.printStackTrace();
-
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			return "updateTestimonial";    // throw a error
 		}
 		}else {
@@ -2118,6 +2030,7 @@ public class HomeController {
 		}
 
 
+		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 
 		return "updateTestimonial";
 	}
@@ -2835,10 +2748,10 @@ public class HomeController {
 		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
 		for(Tutorial temp:tutorials) {
 
-			if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
-					temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
-					temp.getVideoStatus() == CommonData.PUBLISH_STATUS && temp.getGraphicsStatus() == CommonData.PUBLISH_STATUS &&
-					temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
+			if(temp.getOutlineStatus() > CommonData.DOMAIN_STATUS && temp.getScriptStatus() > CommonData.DOMAIN_STATUS &&
+					temp.getSlideStatus() > CommonData.DOMAIN_STATUS && temp.getKeywordStatus() > CommonData.DOMAIN_STATUS &&
+					temp.getVideoStatus() > CommonData.DOMAIN_STATUS && temp.getGraphicsStatus() > CommonData.DOMAIN_STATUS &&
+					temp.getPreRequisticStatus() > CommonData.DOMAIN_STATUS) {
 
 				published.add(temp);
 			}else {
@@ -3123,6 +3036,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Event> events = eventservice.findByUser(usr);
 
 		List<Category> cat=catService.findAll();
 
@@ -3134,6 +3049,8 @@ public class HomeController {
 
 		model.addAttribute("states", states);
 		model.addAttribute("lans", lan);
+		
+		model.addAttribute("events", events);
 
 		return "masterTrainerOperation";
 
@@ -3204,8 +3121,7 @@ public class HomeController {
 			@RequestParam(value="categoryName") int catName,
 			@RequestParam(value="inputTopic") int[] topicId,
 			@RequestParam(value="language") String lanName,
-			@RequestParam(value="date") String startDate,
-			@RequestParam(value="endDate") String endDate,
+			@RequestParam(value="event") int eventId,
 			@RequestParam(value="stateName") int state,
 			@RequestParam(value="districtName") int district,
 			@RequestParam(value="cityName") int city,
@@ -3223,6 +3139,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		Event event = eventservice.findById(eventId);
 
 		Set<TrainingTopic> trainingTopicTemp = new HashSet<>();
 
@@ -3247,23 +3165,7 @@ public class HomeController {
 			return "masterTrainerOperation";
 		}
 
-		Date startDate1 =null;
-		Date endDate1 = null;
-		try {
-			startDate1 = ServiceUtility.convertStringToDate(startDate);
-			endDate1 = ServiceUtility.convertStringToDate(endDate);
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			// throw error
-			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
-			return "masterTrainerOperation";
-		}
-
-		if(endDate1.before(startDate1)) {      // throws error if end date is previous to start date
-			model.addAttribute("error_msg",CommonData.EVENT_CHECK_DATE);
-			return "masterTrainerOperation";
-		}
+	
 
 		State stat=stateService.findById(state);
 		District districtTemp=districtService.findById(district);
@@ -3283,21 +3185,11 @@ public class HomeController {
 		trainingData.setTrainingId(newTrainingdata);
 		trainingData.setTitleName(titleName);
 		trainingData.setTotalParticipant(totaltrainee);
-		try {
-			trainingData.setStartDate(ServiceUtility.convertStringToDate(startDate));
-			trainingData.setEnddate(ServiceUtility.convertStringToDate(endDate));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
-			e.printStackTrace();
-			//  return error for ill formatted error
-			return "masterTrainerOperation";
-		}
-
 		trainingData.setPincode(pinCode);
 		trainingData.setLan(lan);
 		trainingData.setAddress(address);
 		trainingData.setUser(usr);
+		trainingData.setEvent(event);
 
 		try {
 			trainingInfoService.save(trainingData);
@@ -3361,8 +3253,6 @@ public class HomeController {
 								@RequestParam(value = "catMasId") int catId,
 								@RequestParam(value = "feedbackmasterId") int trainingTitle,
 								@RequestParam(value = "feedbackForm") MultipartFile[] feedbackFile,
-								@RequestParam(value = "nameOfMasterTrainer") String name,
-								@RequestParam(value = "email") String email,
 								@RequestParam(value = "traningInformation") String desc) {
 		User usr=new User();
 
@@ -3385,7 +3275,7 @@ public class HomeController {
 
 		if(!ServiceUtility.checkFileExtensionZip(feedbackFile)) {
 
-												// Accommodate error message
+			model.addAttribute("error_msg",CommonData.ZIP_ERROR);								// Accommodate error message
 			return "masterTrainerOperation";
 		}
 
@@ -3407,9 +3297,12 @@ public class HomeController {
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
 			e.printStackTrace();
 		}
+		
 
+		model.addAttribute("success_msg",CommonData.EVENT_SUCCESS);
 		return "masterTrainerOperation";
 
 	}
@@ -3428,12 +3321,11 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
-		List<Consultant> consults = consultService.findAll();
 		List<Category> categories = catService.findAll();
 		List<Language> languages = lanService.getAllLanguages();
 
 		model.addAttribute("categories", categories);
-		model.addAttribute("consultants", consults);
+		
 		model.addAttribute("languages", languages);
 
 		return "assignRoleToDomain"; // add html page
@@ -3442,7 +3334,6 @@ public class HomeController {
 
 	@RequestMapping(value = "/assignRoleToDomain" , method = RequestMethod.POST)
 	public String assignRoleToDomainPost(Model model,Principal principal,
-									@RequestParam(value = "consultEmail") String email,
 									@RequestParam(value = "category") String cat,
 									@RequestParam(value = "language") String lan) {
 		User usr=new User();
@@ -3454,20 +3345,17 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
-		List<Consultant> consults = consultService.findAll();
 		List<Category> categories = catService.findAll();
 		List<Language> languages = lanService.getAllLanguages();
 
 		model.addAttribute("categories", categories);
-		model.addAttribute("consultants", consults);
 		model.addAttribute("languages", languages);
 
-		User usrTemp = userService.findByEmail(email);
 		Category category = catService.findBycategoryname(cat);
 		Language language = lanService.getByLanName(lan);
 		Role role = roleService.findByname(CommonData.domainReviewerRole);
 
-		if(usrRoleService.findByLanCatUser(language, category, usrTemp, role)!=null) {
+		if(usrRoleService.findByLanCatUser(language, category, usr, role)!=null) {
 
 			// throw error
 			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
@@ -3479,7 +3367,7 @@ public class HomeController {
 
 		UserRole usrRole=new UserRole();
 		usrRole.setCreated(ServiceUtility.getCurrentTime());
-		usrRole.setUser(usrTemp);
+		usrRole.setUser(usr);
 		usrRole.setRole(role);
 		usrRole.setLanguage(language);
 		usrRole.setCategory(category);
@@ -3488,12 +3376,9 @@ public class HomeController {
 		try {
 			usrRoleService.save(usrRole);
 
-			usrTemp.setPassword(SecurityUtility.passwordEncoder().encode(CommonData.COMMON_PASSWORD));
-			userService.save(usrTemp);
-
-			SimpleMailMessage newEmail = mailConstructor.domainRoleMailSend(usrTemp);
-
-			mailSender.send(newEmail);
+//			SimpleMailMessage newEmail = mailConstructor.domainRoleMailSend(usrTemp);
+//
+//			mailSender.send(newEmail);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -3528,8 +3413,8 @@ public class HomeController {
 
 	}
 
-	@GetMapping("/revokeRoleByRole")
-	public String revokeRoleByRole(@RequestParam(value = "role") int role,Principal principal,Model model){
+	@GetMapping("/revokeRole/{usrRoleId}")
+	public String revokeRoleByRole(@PathVariable long usrRoleId,Principal principal,Model model){
 
 		User usr=new User();
 
@@ -3538,30 +3423,21 @@ public class HomeController {
 			usr=userService.findByUsername(principal.getName());
 		}
 
-		Role roles = null;
-
-		if(role == 4) {
-			roles = roleService.findByname(CommonData.domainReviewerRole);
-		}else if(role == 5) {
-			roles = roleService.findByname(CommonData.qualityReviewerRole);
-		}else if(role == 6) {
-			roles = roleService.findByname(CommonData.adminReviewerRole);
-		}else if(role == 7) {
-			roles = roleService.findByname(CommonData.masterTrainerRole);
-		}else if(role == 8) {
-			roles = roleService.findByname(CommonData.contributorRole);
+		UserRole usrRole = usrRoleService.findById(usrRoleId);
+		
+		if(usrRole.getUser().getId() == usr.getId()) {
+			usrRole.setStatus(false);
+			usrRole.setRevoked(true);
+			usrRoleService.save(usrRole);
+			
+			model.addAttribute("success_msg", "Role revoked Successfully");
+		}else {
+			model.addAttribute("error_msg", "Wrong operation");
 		}
 
-		List<UserRole> usrRole = usrRoleService.findByRoleUser(usr, roles);
+		model.addAttribute("userInfo", usr);
 
-		for(UserRole x : usrRole) {
-			x.setStatus(false);
-			x.setRevoked(true);
-			usrRoleService.save(x);
-		}
-		model.addAttribute("msg", "Role revoked Successfully");
-
-		return "roleAdminDetail";
+		return "revokeRole";
 	}
 	
 	/************************ PROFILE UPDATE SECTION *****************************************/
@@ -3571,7 +3447,8 @@ public class HomeController {
 			 						@ModelAttribute("lastName") String lastName,
 			 						@ModelAttribute("phone") String phone,
 			 						@ModelAttribute("address") String address,
-			 						@ModelAttribute("birthday") String dob) {
+			 						@ModelAttribute("birthday") String dob,
+			 						@ModelAttribute("description") String desc) {
 		User usr=new User();
 
 		if(principal!=null) {
@@ -3601,6 +3478,12 @@ public class HomeController {
 			
 			userService.save(usr);
 			
+			if(!desc.isEmpty()) {
+				Consultant consult = consultService.findByUser(usr);
+				consult.setDescription(desc);
+				consultService.save(consult);
+			}
+			
 			model.addAttribute("success_msg", "Data Updated Successfully");
 			
 		} catch (Exception e) {
@@ -3613,6 +3496,90 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 		return "profileView";
 
+	}
+	
+	@GetMapping("/revokeRoleContributor")
+	public String revokeRoleByContributor(Principal principal,Model model){
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		Role role = roleService.findByname(CommonData.contributorRole);
+		
+		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(role, usr, true);
+		
+		model.addAttribute("userRoles", userRoles);
+
+		return "revokeRole";
+	}
+	
+	@GetMapping("/revokeRoleDomain")
+	public String revokeRoleByDomain(Principal principal,Model model){
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		Role role = roleService.findByname(CommonData.domainReviewerRole);
+		
+		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(role, usr, true);
+		
+		model.addAttribute("userRoles", userRoles);
+
+		return "revokeRole";
+	}
+	
+	@GetMapping("/revokeRoleQuality")
+	public String revokeRoleBYQuality(Principal principal,Model model){
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		Role role = roleService.findByname(CommonData.qualityReviewerRole);
+		
+		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(role, usr, true);
+		
+		model.addAttribute("userRoles", userRoles);
+
+		return "revokeRole";
+	}
+	
+	@GetMapping("/revokeRoleMaster")
+	public String revokeRoleMaster(Principal principal,Model model){
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		Role role = roleService.findByname(CommonData.masterTrainerRole);
+		
+		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(role, usr, true);
+		
+		model.addAttribute("userRoles", userRoles);
+
+		return "revokeRole";
 	}
 
 }

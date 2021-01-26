@@ -30,7 +30,7 @@ public class TraineeInformation{
 
 	private String organization;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="Training_id")
 	private TrainingInformation traineeInfos;
 

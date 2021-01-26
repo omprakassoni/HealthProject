@@ -1610,6 +1610,27 @@ public class AjaxController{
 	}
 
 
+	@PostMapping("/updateProfilePic")
+	public @ResponseBody String updateProfilePic(@RequestParam("profilePicture") MultipartFile[] uploadPhoto,Principal principal) throws Exception{
+	
+		
+		ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadUserImage+principal.getName());
+		
+		String createFolder=env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadUserImage+principal.getName();
+		
+		String documentLocal=ServiceUtility.uploadFile(uploadPhoto, createFolder);
+		
+		int indexToStart=documentLocal.indexOf("Media");
+		
+		String document=documentLocal.substring(indexToStart, documentLocal.length());
+		
+		User usr=usrservice.findByUsername(principal.getName());
+		usr.setProfilePic(document);
+		
+		usrservice.save(usr);
+		
+		return "ok";
+	}
 
 	
 

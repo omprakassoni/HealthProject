@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.health.model.Event;
+import com.health.model.User;
 
 
 
@@ -20,6 +21,8 @@ public interface EventService {
 	int getNewEventId();       // in use
 	  
 	void save(Event event);   // in use
+	
+	List<Event> findByUser(User usr);
 
  
 

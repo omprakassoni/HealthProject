@@ -36,20 +36,20 @@ public class Language {
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserRole> userRoles=new HashSet<UserRole>();
 	
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Question> questions=new HashSet<Question>();
 	
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
 	
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingInformation> trainingInfos=new HashSet<TrainingInformation>();
 
 	public int getLanId() {
@@ -158,7 +158,7 @@ public class Language {
 //	}
 //
 //	/*
-//	 * @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	 * @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	 * 
 //	 * @JoinColumn(name="user_id") private User user;
 //	 */
@@ -169,14 +169,14 @@ public class Language {
 //	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL)
 //	private List<contributor_Role> contributor_Roles;
 //	 
-//	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 //	private Set<UserRole> userRoles = new HashSet<>();
 //
 //	
-//	@OneToMany(mappedBy = "lan", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	@OneToMany(mappedBy = "lan", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 //	private Set<language_assign> languages= new HashSet<>();
 //	
-//	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 //	private Set<commentOnComponent>  commentOnComponent= new HashSet<>();
 //	
 //	

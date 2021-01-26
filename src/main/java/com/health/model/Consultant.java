@@ -18,22 +18,16 @@ public class Consultant{
 	@Column(name = "consult_id",updatable = false,nullable = false)
 	private int consultantId;
 	
-	@Column(name = "name", nullable = false)
-	private String name;
-	
 	@Column(name = "description", nullable = false)
 	private String description;
-	
-	@Column(name = "poster_path", nullable = false)
-	private String posterPath;
 	
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 	
 	@Column(name = "showonhomepage", nullable = false)
-	private boolean onHome;
+	private boolean onHome = false;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
 
@@ -45,14 +39,6 @@ public class Consultant{
 		this.consultantId = consultantId;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -61,13 +47,6 @@ public class Consultant{
 		this.description = description;
 	}
 
-	public String getPosterPath() {
-		return posterPath;
-	}
-
-	public void setPosterPath(String posterPath) {
-		this.posterPath = posterPath;
-	}
 
 	public Timestamp getDateAdded() {
 		return dateAdded;

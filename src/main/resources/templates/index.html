@@ -193,7 +193,7 @@
     </div>  
   </section>
     
-    <section id="parallax-2" class="py-4">
+    <section id="parallax-2" class="py-4" th:if="${listOfConsultant != null}">
     <h1 class="text-center spk-title">Consultants</h1>
     <div class="container-lg">
     	<div class="row" style="color: #fff;">
@@ -237,7 +237,7 @@
 </div>
     </div> <!-- Modal data for consulatants on homepage ends -->
     
-    <section id="events">
+    <section id="events" th:if="${events != null}">
     <h1 class="text-center spk-title">Events</h1>
     <div class="container-lg px-6">
     
@@ -278,7 +278,7 @@
      
     </section>
    
-    <div id="modal-consultant" th:each="consantant : ${listofConsalatatnt}" class="modal" th:attrappend="id=${'_'+consantant.getId()}">
+    <div id="modal-consultant" th:each="consantant : ${listofConsalatatnt}" class="modal" th:attrappend="id=${'_'+consantant.getId()}"  th:if="${listofConsalatatnt != null}">
 			<div class="modal-background"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">
@@ -300,7 +300,7 @@
 				</footer>
 			</div>
 		</div>	
-  <section id="testimonial">
+  <section id="testimonial" th:if="${listofTestimonial != null}">
     <h1 class="text-center spk-title">Testimonials</h1>
     <div class="container-lg">
     	<div class="row">

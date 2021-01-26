@@ -3,6 +3,7 @@ package com.health.service;
 import java.util.List;
 
 import com.health.model.Consultant;
+import com.health.model.User;
 
 
 
@@ -19,6 +20,8 @@ public interface ConsultantService {
 	void save(Consultant consult);   // in use
 	
 	int getNewConsultantId();       // in use
+	
+	Consultant findByUser(User usr);
 	
 
 }

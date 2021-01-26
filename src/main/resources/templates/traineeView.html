@@ -135,7 +135,7 @@
 									class="form-control" id="eventName">
 								</select>
 							</div>
-							<button type="button" class="btn btn-success" id="searchTrainees">Success</button>
+							<button type="button" class="btn btn-success" id="searchTrainees">Submit</button>
 						</form>
 						</div>
 						
@@ -161,8 +161,8 @@
 														</tr>
 
 													</thead>
-													<tbody>
-														<tr th:each="traineeInformation : ${TraineesData}">
+													<tbody id="tableBody">
+														<!-- <tr th:each="traineeInformation : ${TraineesData}">
 															<td>Name</td>
 															<td>Date of birth</td>
 															<td>Aadhar</td>
@@ -170,14 +170,14 @@
 															<td>Organization</td>
 															<td>Email</td>
 															<td>Gender</td>
-															<!--  <td th:text="${traineeInformation.premark}">description</td>  
-					                <td th:text="${traineeInformation.postmark}">description</td>  -->
+															 <td th:text="${traineeInformation.premark}">description</td>  
+					                <td th:text="${traineeInformation.postmark}">description</td> 
 															<td>
-																<!-- <a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a> -->
+																<a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a>
 															</td>
 
 
-														</tr>
+														</tr> -->
 
 													</tbody>
 												</table>

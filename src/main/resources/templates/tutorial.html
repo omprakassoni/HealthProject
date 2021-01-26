@@ -68,42 +68,37 @@
 	</nav>
 	<div class="container">
 		<div id="search-bar" class="container-lg my-3">
-			<form th:action="@{/tutorials}" class="form-inline"
-				style="width: 100%;">
-				<div class="row" style="width: 100%;">
-					<div class="col-md-3 mb-3">
-						<select class="custom-select d-block w-100" id="categoryname"
-							name="categoryName">
-							<option>Select Category</option>
-							<option th:each="category : ${categories}"><span
-									th:text="${category.getCatName()}">Title ...</span></option>
-						</select>
-						<div class="invalid-feedback">Please select a valid foss.</div>
-					</div>
-					<div class="col-md-3 mb-3">
-						<select class="custom-select d-block w-100" id="inputTopicName"
-							name="topic">
-							<option>Select Topic</option>
-							<option th:each="topic : ${topics}"><span
-									th:text="${topic.getTopicName()}">Title ...</span></option>
-						</select>
-					</div>
-					<div class="col-md-3 mb-3">
-						<select class="custom-select d-block w-100" id="inputL" name="lan">
-							<option>Select Language</option>
-							<option th:each="language : ${languages}"><span
-									th:text="${language.getLangName()}">Title ...</span></option>
-						</select>
-						<div class="invalid-feedback">Please provide a valid
-							language.</div>
-					</div>
-					<div class="col-md-3 mb-3" style="width: 100%;">
-						<button type="submit" class="btn btn-outline-info"
-							style="height: 38px; width: 100%; margin: 0; background: #1C7871; color: #fff;">
-							Submit</button>
-					</div>
-				</div>
-			</form>
+			<form th:action="@{/tutorials}" class="form-inline" style="width:100%;">
+<div class="row" style="width: 100%;">
+<div class="col-md-3 mb-3">
+            <select class="custom-select d-block w-100" id="categoryname" name="categoryName">
+              <option>Select Category</option>
+              <option th:each="category : ${categories}"><span th:text="${category}">Title ...</span></option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid foss.
+            </div>
+</div>
+<div class="col-md-3 mb-3">
+<select class="custom-select d-block w-100" id="inputTopicName" name="topic">
+              <option >Select Topic</option>
+              <option th:each="topic : ${topics}"><span th:text="${topic}">Title ...</span></option>
+            </select>
+</div>
+<div class="col-md-3 mb-3">
+<select class="custom-select d-block w-100" id="inputL" name="lan">
+              <option >Select Language</option>
+              <option th:each="language : ${languages}"><span th:text="${language}">Title ...</span></option> 
+            </select>
+            <div class="invalid-feedback">
+              Please provide a valid language.
+            </div>
+</div>
+          <div class="col-md-3 mb-3" style="width: 100%;">
+           <button type="submit" class="btn btn-outline-info" style="height: 38px;width: 100%;margin:0;background:#1C7871;color:#fff;"> Submit </button>
+          </div>
+</div>
+</form>
 
 		</div>
 	</div>
@@ -181,7 +176,7 @@
 				</div>
 			</div>
 		</section>
-		<section><p>Watch pre-requisite : <a th:href="@{'/tutorialView/'+ ${tutorial.getPreRequistic().getTutorialId()}}">
+		<section th:if="${tutorial.getPreRequistic() != null}"><p>Watch pre-requisite : <a th:href="@{'/tutorialView/'+ ${tutorial.getPreRequistic().getTutorialId()}}">
 		<span th:text="${tutorial.getPreRequistic().getConAssignedTutorial().getTopicCatId().getCat().getCatName()}"></span> :
 		<span th:text="${tutorial.getPreRequistic().getConAssignedTutorial().getTopicCatId().getTopic().getTopicName()}"></span>
 		</a></p></section>

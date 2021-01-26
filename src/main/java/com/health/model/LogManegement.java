@@ -26,11 +26,11 @@ public class LogManegement {
 	
 	private String userRole;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="Tutorial_id")
 	private Tutorial tutorialInfos;
 

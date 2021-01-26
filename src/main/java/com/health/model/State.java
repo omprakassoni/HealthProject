@@ -27,10 +27,10 @@ public class State {
 	
 	private Timestamp dateAdded;
 	
-	@OneToMany(mappedBy = "state", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "state", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<District>  Districts=new HashSet<District>();
 	
-	@OneToMany(mappedBy = "state", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "state", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<TrainingInformation>  trainigInfos=new HashSet<TrainingInformation>();
 
 	public int getId() {

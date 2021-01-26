@@ -24,14 +24,14 @@ public class District {
 	
 	private Timestamp dateAdded;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="state_id")
 	private State state;
 	
-	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<City> cities=new HashSet<City>();
 	
-	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<TrainingInformation> trainingInfos=new HashSet<TrainingInformation>();
 
 	public int getId() {

@@ -55,7 +55,7 @@ public class Tutorial {
 	@Column(name = "outline_status")
 	private int outlineStatus = 0;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "preRequistics")
 	private Tutorial preRequistic;
 
@@ -80,17 +80,17 @@ public class Tutorial {
 	@Column(name = "video_status")
 	private int videoStatus = 0;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "conAssignedTutorial")
 	private ContributorAssignedTutorial conAssignedTutorial;
 
-	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Comment> comments =new HashSet<Comment>();
 
-	@OneToMany(mappedBy = "preRequistic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "preRequistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Tutorial> preRequisticTutorial =new HashSet<Tutorial>();
 
-	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<LogManegement> logs =new HashSet<LogManegement>();
 
 	public int getTutorialId() {
@@ -314,7 +314,7 @@ public class Tutorial {
 //
 //
 //	/*
-//	 * @ManyToOne(cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+//	 * @ManyToOne(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
 //	 *
 //	 * @JoinColumn(name="outline_user_id")
 //	 */
@@ -551,26 +551,26 @@ public class Tutorial {
 //		this.timeScript = timeScript;
 //
 //	}
-//	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	 @JoinColumn(name="category_id")
 //	 private Category category;
 //
 //
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name="langaueg_id")
 //	 private language lan;
 //
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name="topic_id")
 //	private topic topic;
 //
 //
-//	@ManyToOne(cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+//	@ManyToOne(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
 //	@JoinColumn(name="user_id")
 //	private  User user;
 //
 //
-//	@OneToMany(mappedBy = "tutorial", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@OneToMany(mappedBy = "tutorial", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JsonIgnore
 //	private Set<commentOnComponent> commentOnComponent = new HashSet<>();
 //

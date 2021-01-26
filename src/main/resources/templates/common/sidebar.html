@@ -323,12 +323,7 @@
               Tutorials waiting for Domain review
             </a>
           </li>
-          <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/contributorComponenentStatus}">
-              <span data-feather="shopping-cart"></span>
-              Tutorial Review Status
-            </a>
-          </li>
+          
         </ul>
         <ul class="nav flex-column" sec:authorize="hasAnyAuthority('QUALITY_REVIEWER')">
         	<li class="nav-item ">
@@ -349,12 +344,7 @@
               Tutorials ready to publish
             </a>
           </li>
-          <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/contributorComponenentStatus}">
-              <span data-feather="shopping-cart"></span>
-              Tutorial Under Need To Improvement State
-            </a>
-          </li>
+          
         </ul>
         <ul class="nav flex-column" sec:authorize="hasAnyAuthority('ADMIN_REVIEWER')">
         	<li class="nav-item ">
@@ -369,18 +359,19 @@
               Tutorials pending for Admin Review
             </a>
           </li>
-          <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/contributorComponenentStatus}">
-              <span data-feather="shopping-cart"></span>
-              Tutorials under need to improvement
-            </a>
-          </li>
+         
         </ul>
         <ul class="nav flex-column" sec:authorize="hasAnyAuthority('MASTER_TRAINER')">
         	<li class="nav-item ">
             <a class="nav-link" href="#View">
               <span data-feather="bar-chart-2"></span>
               <i class="fas fa-user-tag sidebar-icon"></i> Master Trainer
+            </a>
+          </li>
+           <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/addEvent}">
+              <span data-feather="users"></span>
+              Events
             </a>
           </li>
           <li class="nav-item border-lt">
@@ -439,31 +430,31 @@
             </a>
           </li>
            <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
-            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=6)}">
+            <a class="nav-link revoke_role" th:href="@{/}">
               <span data-feather="file"></span>
                Admin Reviewer
             </a>
           </li>
           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''CONTRIBUTOR'')')}">
-            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=8)}">
+            <a class="nav-link revoke_role" th:href="@{/revokeRoleContributor}">
               <span data-feather="file"></span>
                Contributor
             </a>
           </li>
             <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''DOMAIN_REVIEWER'')')}">
-            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=4)}">
+            <a class="nav-link revoke_role" th:href="@{/revokeRoleDomain}">
               <span data-feather="file"></span>
                Domain Reviewer
             </a>
           </li>
           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''MASTER_TRAINER'')')}">
-            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=7)}">
+            <a class="nav-link revoke_role" th:href="@{/revokeRoleMaster}">
               <span data-feather="file"></span>
                Master Trainer 
             </a>
           </li>
           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''QUALITY_REVIEWER'')')}">
-            <a class="nav-link revoke_role" th:href="@{/revokeRoleByRole(role=5)}">
+            <a class="nav-link revoke_role" th:href="@{/revokeRoleQuality}">
               <span data-feather="file"></span>
                Quality Reviewer
             </a>
