@@ -1172,8 +1172,7 @@ public class HomeController {
 									@RequestParam("nameConsaltant") String name,
 									@RequestParam("categoryName") int catId,
 									@RequestParam("lanName") int lanId,
-									@RequestParam("email") String email,
-									@RequestParam(defaultValue = "false") String showOnHomePage) {
+									@RequestParam("email") String email) {
 
 		User usr=new User();
 
@@ -1210,7 +1209,7 @@ public class HomeController {
 		
 		Category cats = catService.findByid(catId);
 		Language lan =lanService.getById(lanId);
-		Role role = roleService.findByname(CommonData.adminReviewerRole);
+		Role role = roleService.findByname(CommonData.domainReviewerRole);
 
 		User userTemp = new User();
 		userTemp.setId(userService.getNewId());
@@ -3310,7 +3309,7 @@ public class HomeController {
 
 	/************************ DOMAIN ROLE CONSULTANT MAPPING *************************************/
 
-	@RequestMapping(value = "/assignRoleToDomain" , method = RequestMethod.GET)
+	@RequestMapping(value = "/assignRoleToAdmin" , method = RequestMethod.GET)
 	public String assignRoleToDomainGet(Model model,Principal principal) {
 		User usr=new User();
 
@@ -3332,7 +3331,7 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "/assignRoleToDomain" , method = RequestMethod.POST)
+	@RequestMapping(value = "/assignRoleToAdmin" , method = RequestMethod.POST)
 	public String assignRoleToDomainPost(Model model,Principal principal,
 									@RequestParam(value = "category") String cat,
 									@RequestParam(value = "language") String lan) {
@@ -3353,7 +3352,7 @@ public class HomeController {
 
 		Category category = catService.findBycategoryname(cat);
 		Language language = lanService.getByLanName(lan);
-		Role role = roleService.findByname(CommonData.domainReviewerRole);
+		Role role = roleService.findByname(CommonData.adminReviewerRole);
 
 		if(usrRoleService.findByLanCatUser(language, category, usr, role)!=null) {
 

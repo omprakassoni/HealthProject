@@ -391,12 +391,12 @@
               <i class="fas fa-user-plus sidebar-icon"></i>Add Role
             </a>
           </li>
-          <li class="nav-item border-lt" th:unless="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
+         <!--  <li class="nav-item border-lt" th:unless="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
             <a class="nav-link" th:href="@{/addAdminRole}">
               <span data-feather="shopping-cart"></span>
              Admin Reviewer
             </a>
-          </li>
+          </li> -->
           <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/addContributorRole}">
               <span data-feather="shopping-cart"></span>
@@ -404,9 +404,9 @@
             </a>
           </li>
           <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/assignRoleToDomain}">
+            <a class="nav-link" th:href="@{/assignRoleToAdmin}">
               <span data-feather="shopping-cart"></span>
-              Domain Reviewer
+              Admin Reviewer
             </a>
           </li>
           <li class="nav-item border-lt">
