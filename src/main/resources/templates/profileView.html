@@ -176,8 +176,9 @@
                                     
                                         <a href="#" data-toggle="modal" data-target="#ProfilePictureModal">
                                         
-                                        	<span th:if="${userInfo.getProfilePic()}">
-                                        		<img class="avatar border-gray" th:src="@{files/}+@{${userInfo.getProfilePic()}}" th:alt="@{/img/default-avatar.png}">
+                                        	<span th:if="${userInfo.getProfilePic()}" >
+                                        		<img class="avatar border-gray" th:src="@{files/}+@{${userInfo.getProfilePic()}}" th:alt="@{/img/default-avatar.png}"
+                                        		style="width:100%;">
                                         	</span> 
                                         	<span th:unless="${userInfo.getProfilePic()}">
                                         		<img class="avatar border-gray" th:src="@{/image/default-avatar.png}">
@@ -230,7 +231,7 @@
       	<h4 style="text-align:center;color:green;display:none;" id="profileText">Profile Picture Updated Successfully</h4>
       	<form action="" method="post" enctype="multipart/form-data" id="uploadProfilePic">
       		<span th:if="${userInfo.getProfilePic()}">
-                <img class="avatar border-gray" id="pictureShow" th:src="@{files/}+@{${userInfo.getProfilePic()}}" width="100%" height="400px" /><br/>
+                <img class="avatar border-gray" id="pictureShow" th:src="@{files/}+@{${userInfo.getProfilePic()}}" width="100%" height="auto" /><br/>
             </span>
             <span th:unless="${userInfo.getProfilePic()}">
                 <img class="avatar border-gray" id="pictureShow" th:src="@{/image/default-avatar.png}" width="100%" height="400px"/><br/>
