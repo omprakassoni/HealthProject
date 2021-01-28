@@ -83,7 +83,7 @@
 											rows="3" th:text="${userInfo.getAddress()}"
 											required="required"></textarea>
 									</div>
-									<div sec:authorize="hasAnyAuthority('ADMIN_REVIEWER')">
+									<div sec:authorize="hasAnyAuthority('DOMAIN_REVIEWER')">
 									<div id="cons_info">
 										<div class="form-group">
 											<label for="textAddress">Description <small
