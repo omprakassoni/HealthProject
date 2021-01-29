@@ -125,9 +125,32 @@ public class AjaxController{
 
 	@Autowired
 	private ConsultantService consultantService;
-
-
-
+	
+	@Autowired
+	private ConsultantService consultService;
+	
+	@GetMapping("/enableDisableConsultant")
+	public @ResponseBody boolean enableDisableConsultant(int id){
+		Consultant con = consultService.findById(id);
+		
+		try {
+			if(con.isOnHome()) {
+				con.setOnHome(false);
+				consultService.save(con);
+				return true;
+				
+			}else {
+				con.setOnHome(true);
+				consultService.save(con);
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 	@RequestMapping("/updateTrainee")
 	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "aadhar") String addharNo,
 												@RequestParam(value = "age") int age,Principal principal,

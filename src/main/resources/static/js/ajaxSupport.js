@@ -10,6 +10,82 @@ $(document).ready(function() {
 			$('.review-improvement').tooltip({ title: 'Need Improvement' });
 			$('.not-required').tooltip({ title: 'Not Required' });
 			
+		/******************* Changes made by om prakash *************************************/
+			
+			$('.enableConsult').click(function() {
+				
+				var consult_id=$(this).attr('value');
+				
+				
+				$('#Success').css({"display": "none"});
+				$('#Failure').css({"display": "none"});
+			
+				$.ajax({
+					type : "GET",
+					url : projectPath+"enableDisableConsultant",
+					data : {
+						"id" : consult_id
+					},
+					contentType : "application/json",
+					success : function(data) {
+						if(data){
+			   				$('#'+consult_id).addClass('fas fa-times-circle');
+			   				$('#'+consult_id).removeClass('fas fa-check-circle');
+			   				$('#'+consult_id).css({"color": "red"});
+			   				$('#Success').css({"display": "block"});
+			   	
+			   			}else{
+			   				$('#Failure').css({"display": "block"});
+			   			}
+					},
+
+					error : function(err) {
+						console.log("not working. ERROR: "+ JSON.stringify(err));
+					}
+
+				});
+
+			});
+			
+			
+			$('.disableConsult').click(function() {
+				
+				var consult_id=$(this).attr('value');
+				
+				$('#Success').css({"display": "none"});
+				$('#Failure').css({"display": "none"});
+			
+				$.ajax({
+					type : "GET",
+					url : projectPath+"enableDisableConsultant",
+					data : {
+						"id" : consult_id
+					},
+					contentType : "application/json",
+					success : function(data) {
+						if(data){
+			   				
+			   				$('#'+consult_id).addClass('fas fa-check-circle');
+			   				$('#'+consult_id).removeClass('fas fa-times-circle');
+			   				$('#'+consult_id).css({"color": "green"});
+			   				$('#Success').css({"display": "block"});
+			   				
+			   	
+			   			}else{
+			   				$('#Failure').css({"display": "block"});
+			   			}
+					},
+
+					error : function(err) {
+						console.log("not working. ERROR: "+ JSON.stringify(err));
+					}
+
+				});
+
+			});
+			
+			
+		/******************* end ****************************************************/
 			
 			$('#profilePicture').change(function(){
 				
