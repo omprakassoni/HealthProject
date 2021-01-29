@@ -25,6 +25,7 @@ import com.health.domain.security.UserRole;
 import com.health.model.Category;
 import com.health.model.City;
 import com.health.model.Comment;
+import com.health.model.Consultant;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
 import com.health.model.FeedbackForm;
@@ -41,6 +42,7 @@ import com.health.model.User;
 import com.health.service.CategoryService;
 import com.health.service.CityService;
 import com.health.service.CommentService;
+import com.health.service.ConsultantService;
 import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
 import com.health.service.FeedbackService;
@@ -121,6 +123,31 @@ public class AjaxController{
 	@Autowired
 	private TrainingTopicService trainingTopicService;
 	
+	@Autowired
+	private ConsultantService consultService;
+	
+	@GetMapping("/enableDisableConsultant")
+	public @ResponseBody boolean enableDisableConsultant(int id){
+		Consultant con = consultService.findById(id);
+		
+		try {
+			if(con.isOnHome()) {
+				con.setOnHome(false);
+				consultService.save(con);
+				return true;
+				
+			}else {
+				con.setOnHome(true);
+				consultService.save(con);
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 	
 	@RequestMapping("/updateTrainee")
 	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "aadhar") String addharNo,

@@ -200,10 +200,10 @@
     		<div class="col-sm-6 col-md-4 col-lg-3 br-right-wh br-bottom-wh py-3" th:each="consantant : ${listOfConsultant}">
     		<div class="d-flex flex-column align-items-center ">
     		<div>
-    		<img th:src="@{/files/}+@{${consantant.getPosterPath()}}" alt="image" class="d-block"/>
+    		<img th:src="@{/files/}+@{${consantant.getUser().getProfilePic()}}" alt="image" class="d-block"/>
     		</div>
     		<hr style="border: 1px solid orange; width: 50%;">
-    		<p th:text="${consantant.getName()}">Consultant Name</p>
+    		<p th:text="${consantant.getUser().getFullName()}">Consultant Name</p>
     		<small class="text-justify" th:text="${#strings.abbreviate(consantant.getDescription(),150)}">Consultant Description</small>
     		<hr>
     		<button type="button" class="btn consaltant-btn" data-toggle="modal" th:attrappend="data-target=${'#detail'+'_'+consantant.getConsultantId()}">View Details</button>
