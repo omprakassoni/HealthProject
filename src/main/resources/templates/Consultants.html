@@ -94,9 +94,9 @@ border: 1px solid #014F7A!important;}
 				<thead class="">
 
 					<tr>
-						<th>A</th>
+						<th></th>
 						<th>Consultant</th>
-						<th>B</th>
+						<th>Profile</th>
 
 					</tr>
 
@@ -107,9 +107,9 @@ border: 1px solid #014F7A!important;}
 
 					<tr th:each="consultant : ${listConsultant}" class="py-6">
 						<td class="td-img"><img
-							th:src="@{/files/}+@{${consultant.getPosterPath()}}"
-							width="120" height="180" /></td>
-						<td th:text="${consultant.getName()}" class="td-name">Name</td>
+							th:src="@{/files/}+@{${consultant.getUser().getProfilePic()}}"
+							 /></td>
+						<td th:text="${consultant.getUser().getFullName()}" class="td-name">Name</td>
 						<td th:text="${consultant.getDescription()}">Description</td>
 
 

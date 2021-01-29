@@ -62,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/listLangByCategoryTopic",
 			"/testimonialList",
 			"/fonts/**",
+			"/eventDetails/**",
 			"/tutorialView/**"
 	};
 

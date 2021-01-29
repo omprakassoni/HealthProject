@@ -105,7 +105,7 @@ public class CommonData {
 	public static String PUBLISHED="Published";
 
 	public static String uploadDirectoryQuestion = "Media/Content/Question/";
-	
+
 	public static String uploadDirectoryEvent = "Media/Content/Event/";
 
 	public static String uploadDirectoryCategory = "Media/Content/Category/";
@@ -119,7 +119,7 @@ public class CommonData {
 	public static String uploadDirectoryMasterTrainer = "Media/Content/MasterTrainer/";
 
 	public static String uploadDirectoryMasterTrainerFeedback = "Media/Content/MasterTrainerFeedback/";
-	
+
 	public static String uploadUserImage = "Media/Content/ProfileImage/";
 
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
@@ -153,23 +153,25 @@ public class CommonData {
 	public static String EVENT_ERROR = "Error in adding event";
 
 	public static String EVENT_SUCCESS= "Event added successfully";
-	
+
 	public static String FEEDBACK_SUCCESS = "Feedback Added Successfully";
-	
+
 	public static String FEEDBACK_ERROR = "Error while Adding";
 
 	public static String PUBLISHED_SUCCESS= "Tutorial published successfully";
-	
+
 	public static String COMMON_PASSWORD= "health";
-	
+
 	public static String MAIL_SEND= "Mail has been send";
-	
+
 	public static String NOT_VALID_EMAIL_ERROR= "Please Enter Correct Email";
-	
+
 	public static String VIDEO_FILE_EXTENSION_ERROR= "Provide MP4 extension File";
-	
+
 	public static String TESTIMONIAL_NOT_ERROR= "Testimonial doesn't exist";
-	
+
+	public static String ADMIN_REVIEWER_REQ= "Admin Reviewer role request submitted";
+
 
 
 }

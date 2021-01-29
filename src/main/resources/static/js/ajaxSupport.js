@@ -339,6 +339,7 @@ $(document).ready(function() {
 				}
 
 			}
+			
 			$('.modal-status').on('hidden.bs.modal', function() {
 				$('.alert-msg').hide();
 
@@ -6260,7 +6261,6 @@ $(document).ready(function() {
 					},
 					contentType : "application/json",
 					success : function(result) {
-						alert("success");
 						var msg = "Prerequisite saved successfully!";
 						$('#statusPrereq').html(msg);
 						$('#statusPrereq')
@@ -6276,6 +6276,8 @@ $(document).ready(function() {
 				});
 
 			});
+			
+			
 			
 			
 
