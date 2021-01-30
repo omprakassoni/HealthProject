@@ -72,6 +72,10 @@
 										class="nav-link" id="contact-tab" data-toggle="tab"
 										href="#feedbackForm" role="tab" aria-controls="contact"
 										aria-selected="false">Feedback Form</a></li>
+									<li class="nav-item" role="presentation"><a
+										class="nav-link" id="post1" data-toggle="tab"
+										href="#post" role="tab" aria-controls="post"
+										aria-selected="false">Post Questionaire</a></li>
 								</ul>
 								<div class="tab-content" id="myTabContent">
 									<div class="tab-pane fade show active" id="addTrainingInfo"
@@ -286,7 +290,7 @@
 
 
 														<button type="submit" class="btn  btn-success"
-															id="fetch_questions">Submit</button>
+															id="fetch_questions">Download</button>
 													</form>
 												</div>
 												<div class="col-12">
@@ -367,6 +371,72 @@
 
 															<label for="fileId">Upload Feedbacks</label> <input
 																type="file" class="form-control " name="feedbackForm"
+																id="fileId" accept=".zip" required="required"></input>
+
+														</div>
+
+
+														<button type="submit" class="btn  btn-success">Submit</button>
+														<button type="reset" class="btn btn-success">Reset</button>
+													</form>
+
+												</div>
+
+											</div>
+
+
+										</div>
+
+									</div>
+									
+									<div class="tab-pane fade py-3" id="post"
+										role="tabpanel" aria-labelledby="post">
+
+										<div class="container">
+
+											<div class="row">
+
+												<div class=" col-lg-6">
+
+
+
+													<form class="form-horizontal"
+														th:action="@{/uploadPostQuestionaire}" method="post"
+														enctype="multipart/form-data">
+
+
+
+														<div class="form-group">
+
+															<label for="catMasPostId">Select Category </label> <select
+																id="catMasPostId" class="form-control " name="catMasPostId"
+																required="required">
+																<option>Select Category</option>
+
+																<option th:each="category: ${categories}"
+																	th:value="${category.getCategoryId()}"
+																	th:text="${category.getCatName()}"></option>
+															</select>
+														</div>
+
+														<div class="form-group">
+
+															<label for="postTrainingdataId">Select Training</label> <select
+																id="postTrainingdataId" class="form-control "
+																name="postTraining" required="required">
+																<option selected="selected">Select Training</option>
+
+															</select>
+														</div>
+
+						
+
+
+
+														<div class="form-group">
+
+															<label for="fileId">Upload Post Questionaire</label> <input
+																type="file" class="form-control " name="postQuestions"
 																id="fileId" accept=".zip" required="required"></input>
 
 														</div>

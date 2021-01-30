@@ -38,6 +38,8 @@ public class User implements UserDetails{
 	
 	private String firstName;
 	
+	private String gender;
+	
 	private String lastName;
 	
 	private String address;
@@ -113,39 +115,12 @@ public class User implements UserDetails{
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<LogManegement> logs =new HashSet<LogManegement>();
-
-
-//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JsonIgnore
-//	private Set<commentOnComponent> commentOnComponent = new HashSet<>();
-
-
-
-//	@OneToMany(mappedBy ="user",cascade =
-//	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
-//	 List<Topic> topics;
-
-//	 @OneToMany(mappedBy = "user",cascade =
-//	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
-//	 List<language_assign> languageassigns;
-//
-//
-//
-//	@OneToMany(mappedBy ="user",cascade =
-//	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
-//	 List<contributor_Role> contributor_Roles;
-//
-//
-//	@OneToMany(mappedBy ="user",cascade =
-//	{CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH })
-//	List<Tutorial> tutorial;
-
-
-	/*
-	 * @OneToMany(mappedBy ="user",cascade =
-	 * {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH
-	 * }) List<language> language;
-	 */
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<UserIndianLanguageMapping> userKnownLans =new HashSet<UserIndianLanguageMapping>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<PostQuestionaire> questionsPost =new HashSet<PostQuestionaire>();
 
 
 	public Set<Question> getQuestions() {
@@ -365,6 +340,24 @@ public class User implements UserDetails{
 	}
 	public void setProfilePic(String profilePic) {
 		this.profilePic = profilePic;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public Set<UserIndianLanguageMapping> getUserKnownLans() {
+		return userKnownLans;
+	}
+	public void setUserKnownLans(Set<UserIndianLanguageMapping> userKnownLans) {
+		this.userKnownLans = userKnownLans;
+	}
+	public Set<PostQuestionaire> getQuestionsPost() {
+		return questionsPost;
+	}
+	public void setQuestionsPost(Set<PostQuestionaire> questionsPost) {
+		this.questionsPost = questionsPost;
 	}
 
 	

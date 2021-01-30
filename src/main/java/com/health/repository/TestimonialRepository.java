@@ -15,13 +15,6 @@ public interface TestimonialRepository extends CrudRepository<Testimonial, Integ
 	@Query("select max(testimonialId) from Testimonial")
 	int getNewId();
 	
-//	@Modifying
-//	@Query("update Testimonial set  testimonialName=?1 ,testimoniaqlDescription=?2, uploadTestiminial=?3 where id=?4")
-//	int updateTestimonial(String testimonialName,String testimoniaqlDescription, String uploadTestiminial,int id);
-//
-//
-//	@Query("from Testimonial order by timedate desc")
-//	List<Testimonial> findBydate();
-
+	List<Testimonial> findByapproved(boolean value);
 
 }

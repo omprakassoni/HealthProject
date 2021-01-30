@@ -32,6 +32,7 @@ import com.health.model.FeedbackForm;
 import com.health.model.Language;
 import com.health.model.LogManegement;
 import com.health.model.State;
+import com.health.model.Testimonial;
 import com.health.model.Topic;
 import com.health.model.TopicCategoryMapping;
 import com.health.model.TraineeInformation;
@@ -50,6 +51,7 @@ import com.health.service.LanguageService;
 import com.health.service.LogMangementService;
 import com.health.service.RoleService;
 import com.health.service.StateService;
+import com.health.service.TestimonialService;
 import com.health.service.TopicCategoryMappingService;
 import com.health.service.TopicService;
 import com.health.service.TraineeInformationService;
@@ -126,6 +128,9 @@ public class AjaxController{
 	@Autowired
 	private ConsultantService consultService;
 	
+	@Autowired
+	private TestimonialService testService;
+	
 	@GetMapping("/enableDisableConsultant")
 	public @ResponseBody boolean enableDisableConsultant(int id){
 		Consultant con = consultService.findById(id);
@@ -139,6 +144,29 @@ public class AjaxController{
 			}else {
 				con.setOnHome(true);
 				consultService.save(con);
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	@GetMapping("/enableDisableTestimonial")
+	public @ResponseBody boolean enableDisableTestimonial(int id){
+		Testimonial test = testService.findById(id);
+		
+		try {
+			if(test.isApproved()) {
+				test.setApproved(false);
+				testService.save(test);
+				return true;
+				
+			}else {
+				test.setApproved(true);
+				testService.save(test);
 				return true;
 			}
 		} catch (Exception e) {

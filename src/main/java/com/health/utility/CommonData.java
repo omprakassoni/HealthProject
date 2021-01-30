@@ -1,6 +1,8 @@
 package com.health.utility;
 
 public class CommonData {
+	
+	public static final long videoDuration=300000000L;
 
 	public static String superUserRole = "SUPER_USER";
 
@@ -121,6 +123,8 @@ public class CommonData {
 	public static String uploadDirectoryMasterTrainerFeedback = "Media/Content/MasterTrainerFeedback/";
 	
 	public static String uploadUserImage = "Media/Content/ProfileImage/";
+	
+	public static String uploadPostQuestion = "Media/Content/PostQuestion/";
 
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
 			NEED_IMPROVEMENT_MSG, WAITING_PUBLISH,PUBLISHED
@@ -169,6 +173,10 @@ public class CommonData {
 	public static String VIDEO_FILE_EXTENSION_ERROR= "Provide MP4 extension File";
 	
 	public static String TESTIMONIAL_NOT_ERROR= "Testimonial doesn't exist";
+	
+	public static String VIDEO_DURATION_ERROR= "Video durastion must be less than 5 min";
+	
+	public static String ADD_PROFILE_PIC_CONSTRAINT= "Please Add profile pic and user deatils before Requesting Master Trainer Role";
 	
 
 

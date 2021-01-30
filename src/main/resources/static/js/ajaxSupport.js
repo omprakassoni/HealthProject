@@ -10,6 +10,83 @@ $(document).ready(function() {
 			$('.review-improvement').tooltip({ title: 'Need Improvement' });
 			$('.not-required').tooltip({ title: 'Not Required' });
 			
+			
+/******************* Changes made by om prakash *************************************/
+			
+			$('.enableTest').click(function() {
+				
+				var test_id=$(this).attr('value');
+				
+				
+				$('#Success').css({"display": "none"});
+				$('#Failure').css({"display": "none"});
+			
+				$.ajax({
+					type : "GET",
+					url : projectPath+"enableDisableTestimonial",
+					data : {
+						"id" : test_id
+					},
+					contentType : "application/json",
+					success : function(data) {
+						if(data){
+			   				$('#'+test_id).addClass('fas fa-times-circle');
+			   				$('#'+test_id).removeClass('fas fa-check-circle');
+			   				$('#'+test_id).css({"color": "red"});
+			   				$('#Success').css({"display": "block"});
+			   	
+			   			}else{
+			   				$('#Failure').css({"display": "block"});
+			   			}
+					},
+
+					error : function(err) {
+						console.log("not working. ERROR: "+ JSON.stringify(err));
+					}
+
+				});
+
+			});
+			
+			
+			$('.disableTest').click(function() {
+				
+				var test_id=$(this).attr('value');
+				
+				$('#Success').css({"display": "none"});
+				$('#Failure').css({"display": "none"});
+			
+				$.ajax({
+					type : "GET",
+					url : projectPath+"enableDisableTestimonial",
+					data : {
+						"id" : test_id
+					},
+					contentType : "application/json",
+					success : function(data) {
+						if(data){
+			   				
+			   				$('#'+test_id).addClass('fas fa-check-circle');
+			   				$('#'+test_id).removeClass('fas fa-times-circle');
+			   				$('#'+test_id).css({"color": "green"});
+			   				$('#Success').css({"display": "block"});
+			   				
+			   	
+			   			}else{
+			   				$('#Failure').css({"display": "block"});
+			   			}
+					},
+
+					error : function(err) {
+						console.log("not working. ERROR: "+ JSON.stringify(err));
+					}
+
+				});
+
+			});
+			
+			
+		/******************* end ****************************************************/
 		/******************* Changes made by om prakash *************************************/
 			
 			$('.enableConsult').click(function() {
@@ -837,6 +914,43 @@ $(document).ready(function() {
 			 * category name
 			 */
 /******************** CHANGES MADE BYU OM PRAKASH SONI ******************************/
+			
+			$('#catMasPostId').change(function() {
+				
+				var catId = $(this).find(":selected").val();
+
+				$.ajax({
+					type : "GET",
+					url : projectPath+"loadTitleNameInMasterTraining",
+					data : {
+						"id" : catId
+					},
+					contentType : "application/json",
+					success : function(result) {
+
+						var html = '';
+						var len = result.length;
+						html += '<option value="0">Select Training</option>';
+						$.each(result , function( key, value ) {
+		  	  			        html += '<option value=' + key + '>'
+		  			               + value
+		  			               + '</option>';
+		  	  			})
+	  	  			     html += '</option>';
+						 	
+
+						$("#postTrainingdataId").prop('disabled',false);
+						$('#postTrainingdataId').html(html);
+
+					},
+
+					error : function(err) {
+						console.log("not working. ERROR: "+ JSON.stringify(err));
+					}
+
+				});
+
+			});
 			
 			$('#catMasId').change(function() {
 						

@@ -31,9 +31,16 @@ public class Testimonial {
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 	
+	@Column(name ="approved", nullable = false)
+	private boolean approved=true;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="Training_id")
+	private TrainingInformation traineeInfos;
 
 	public int getTestimonialId() {
 		return testimonialId;
@@ -83,48 +90,23 @@ public class Testimonial {
 		this.user = user;
 	}
 
-//		@Id
-//		@GeneratedValue(strategy = GenerationType.AUTO)
-//		private  int id;
-//		private String testimonialName;
-//		@Column(length = 3000)
-//		private String testimoniaqlDescription;
-//		private String uploadTestiminial;
-//		private java.sql.Timestamp timedate;
-//
-//
-//
-//		public java.sql.Timestamp getTimedate() {
-//			return timedate;
-//		}
-//		public void setTimedate(java.sql.Timestamp timedate) {
-//			this.timedate = timedate;
-//		}
-//
-//		public int getId() {
-//			return id;
-//		}
-//		public void setId(int id) {
-//			this.id = id;
-//		}
-//		public String getTestimonialName() {
-//			return testimonialName;
-//		}
-//		public void setTestimonialName(String testimonialName) {
-//			this.testimonialName = testimonialName;
-//		}
-//		public String getUploadTestiminial() {
-//			return uploadTestiminial;
-//		}
-//		public void setUploadTestiminial(String uploadTestiminial) {
-//			this.uploadTestiminial = uploadTestiminial;
-//		}
-//		public String getTestimoniaqlDescription() {
-//			return testimoniaqlDescription;
-//		}
-//		public void setTestimoniaqlDescription(String testimoniaqlDescription) {
-//			this.testimoniaqlDescription = testimoniaqlDescription;
-//		}
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public TrainingInformation getTraineeInfos() {
+		return traineeInfos;
+	}
+
+	public void setTraineeInfos(TrainingInformation traineeInfos) {
+		this.traineeInfos = traineeInfos;
+	}
+
+
 
 
 

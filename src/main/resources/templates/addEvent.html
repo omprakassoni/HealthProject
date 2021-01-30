@@ -145,6 +145,7 @@
   </thead>
   <tbody>
     <tr th:each="event : ${events}">
+    <div th:if="${event.getUser().getId() == userInfo.getId()}">
       <td th:text = "${event.getEventName()}"></td>
       <td th:text = "${event.getDescription()}"></td>
       <td th:text = "${event.getLocation()}"></td>
@@ -156,6 +157,7 @@
       <td><img id="imagesource" th:src="@{/files/}+@{${event.getPosterPath()}}"
 			style="width: 150px; height: 100px" />
 	  </td>
+	  </div>
     </tr>
    
   </tbody>

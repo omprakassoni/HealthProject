@@ -12,11 +12,11 @@ public interface TestimonialService {
     void deleteProduct(Integer id);
     
     Testimonial findById(int id);   // in use
-    
-	Boolean updateTestimonial(String description,String name, String uploadVideo,int consalantant_id);
 	
 	int getNewTestimonialId();
 	
 	void save(Testimonial temp);   // in use
+	
+	List<Testimonial> findByApproved(boolean value);
 	
 }

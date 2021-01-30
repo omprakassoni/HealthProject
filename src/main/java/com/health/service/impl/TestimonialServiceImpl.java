@@ -39,11 +39,7 @@ public class TestimonialServiceImpl implements  TestimonialService {
 		return local.get();
 	}
 
-	@Override
-	public Boolean updateTestimonial(String description, String name, String uploadVideo, int consalantant_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public int getNewTestimonialId() {
@@ -62,6 +58,12 @@ public class TestimonialServiceImpl implements  TestimonialService {
 		// TODO Auto-generated method stub
 		
 		testRepo.save(temp);
+	}
+
+	@Override
+	public List<Testimonial> findByApproved(boolean value) {
+		// TODO Auto-generated method stub
+		return testRepo.findByapproved(value);
 	}
 	
 	

@@ -73,6 +73,12 @@ public class TrainingInformation{
 	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<FeedbackMasterTrainer> masterTrainerFeedback = new HashSet<FeedbackMasterTrainer>();
 	
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<PostQuestionaire> postQuestions = new HashSet<PostQuestionaire>();
+	
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Testimonial> testimonials = new HashSet<Testimonial>();
+	
 	public int getTrainingId() {
 		return trainingId;
 	}
@@ -199,6 +205,14 @@ public class TrainingInformation{
 
 	public void setMasterTrainerFeedback(Set<FeedbackMasterTrainer> masterTrainerFeedback) {
 		this.masterTrainerFeedback = masterTrainerFeedback;
+	}
+
+	public Set<PostQuestionaire> getPostQuestions() {
+		return postQuestions;
+	}
+
+	public void setPostQuestions(Set<PostQuestionaire> postQuestions) {
+		this.postQuestions = postQuestions;
 	}
 
 

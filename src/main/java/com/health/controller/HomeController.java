@@ -1,5 +1,9 @@
 package com.health.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.ParseException;
@@ -36,6 +40,7 @@ import com.health.model.District;
 import com.health.model.Event;
 import com.health.model.FeedbackMasterTrainer;
 import com.health.model.Language;
+import com.health.model.PostQuestionaire;
 import com.health.model.Question;
 import com.health.model.State;
 import com.health.model.Testimonial;
@@ -55,6 +60,7 @@ import com.health.service.DistrictService;
 import com.health.service.EventService;
 import com.health.service.FeedBackMasterTrainerService;
 import com.health.service.LanguageService;
+import com.health.service.PostQuestionaireService;
 import com.health.service.QuestionService;
 import com.health.service.RoleService;
 import com.health.service.StateService;
@@ -71,6 +77,7 @@ import com.health.utility.CommonData;
 import com.health.utility.MailConstructor;
 import com.health.utility.SecurityUtility;
 import com.health.utility.ServiceUtility;
+import com.xuggle.xuggler.IContainer;
 
 @Controller
 public class HomeController {
@@ -146,14 +153,16 @@ public class HomeController {
 
 	@Autowired
 	private CommentService comService;
-
+	
+	@Autowired
+	private PostQuestionaireService postQuestionService; 
 
 
 	@RequestMapping("/")
 	public String index(Model model) {
 
 		List<Event> events=eventservice.findAll();
-		List<Testimonial> testi=testService.findAll();
+		List<Testimonial> testi=testService.findByApproved(true);
 		List<Consultant> consults= consultService.findAll();
 		List<Category> categories= catService.findAll();
 		List<Language> languages = lanService.getAllLanguages();
@@ -387,7 +396,7 @@ public class HomeController {
 	@RequestMapping(value = "/showTestimonial",method = RequestMethod.GET)
 	public String showTestimonialGet(Model model) {
 
-		List<Testimonial> testi = testService.findAll();
+		List<Testimonial> testi = testService.findByApproved(true);
 		model.addAttribute("Testimonials", testi);
 		return "signup";
 	}
@@ -423,7 +432,7 @@ public class HomeController {
 			@ModelAttribute("username") String username, @ModelAttribute("firstName") String firstName,
 			@ModelAttribute("lastName") String lastName, @ModelAttribute("email") String userEmail,
 			@ModelAttribute("password") String password, @ModelAttribute("address") String address,
-			@ModelAttribute("phone") String phone,
+			@ModelAttribute("phone") String phone,@ModelAttribute("gender") String gender,
 			Model model) throws Exception {
 
 		long phoneLongValue;
@@ -463,6 +472,7 @@ public class HomeController {
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.setAddress(address);
+		user.setGender(gender);
 		user.setPhone(phoneLongValue);
 		user.setPassword(SecurityUtility.passwordEncoder().encode(password));
 		user.setDateAdded(ServiceUtility.getCurrentTime());
@@ -1396,7 +1406,9 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<Testimonial> testimonials = testService.findAll();
+		List<TrainingInformation> trainings = trainingInfoService.findAll();
 		model.addAttribute("testimonials", testimonials);
+		model.addAttribute("trainings", trainings);
 
 		return "addTestimonial";
 
@@ -1407,7 +1419,8 @@ public class HomeController {
 	public String addTestimonialPost(Model model,Principal principal,
 									@RequestParam("uploadTestimonial") MultipartFile file,
 									@RequestParam("testimonialName") String name,
-									@RequestParam("description") String desc) {
+									@RequestParam("description") String desc,
+									@RequestParam(value ="trainingName", required = false ) String trainingId) {
 
 		User usr=new User();
 
@@ -1419,11 +1432,47 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<Testimonial> testimonials = testService.findAll();
+		List<TrainingInformation> trainings = trainingInfoService.findAll();
 		model.addAttribute("testimonials", testimonials);
+		model.addAttribute("trainings", trainings);
 
 		if(!file.isEmpty()) {
 		if(!ServiceUtility.checkFileExtensionVideo(file)) { // throw error on extension
 			model.addAttribute("error_msg",CommonData.VIDEO_FILE_EXTENSION_ERROR);
+			return "addTestimonial";
+		}
+		
+		String pathSampleVideo = null;;
+		try {
+			pathSampleVideo = ServiceUtility.uploadVideoFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		IContainer container = IContainer.make();
+		int result=10;
+		result = container.open(pathSampleVideo,IContainer.Type.READ,null);
+		
+		try {
+			if(result<0) {
+				
+				model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+				return "addTestimonial";
+				
+			}else {
+					if(container.getDuration()>CommonData.videoDuration) {
+					
+						model.addAttribute("error_msg",CommonData.VIDEO_DURATION_ERROR);
+						Path deletePreviousPath=Paths.get(pathSampleVideo);
+						Files.delete(deletePreviousPath);
+						return "addTestimonial";
+				}
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 			return "addTestimonial";
 		}
 
@@ -1435,6 +1484,12 @@ public class HomeController {
 		test.setUser(usr);
 		test.setTestimonialId(newTestiId);
 		test.setFilePath("null");
+		
+		if(trainingId != null) {
+			TrainingInformation train = trainingInfoService.getById(Integer.parseInt(trainingId));
+			test.setTraineeInfos(train);
+			test.setApproved(false);
+		}
 
 		Set<Testimonial> testi=new HashSet<Testimonial>();
 		testi.add(test);
@@ -1479,6 +1534,13 @@ public class HomeController {
 			test.setUser(usr);
 			test.setTestimonialId(testService.getNewTestimonialId());
 			test.setFilePath("null");
+			
+			if(trainingId != null) {
+				TrainingInformation train = trainingInfoService.getById(Integer.parseInt(trainingId));
+				test.setTraineeInfos(train);
+				test.setApproved(false);
+			}
+			
 			Set<Testimonial> testi=new HashSet<Testimonial>();
 			testi.add(test);
 
@@ -2002,6 +2064,41 @@ public class HomeController {
 		if(!file.isEmpty()) {
 		try {
 
+			String pathSampleVideo = null;;
+			try {
+				pathSampleVideo = ServiceUtility.uploadVideoFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			IContainer container = IContainer.make();
+			int result=10;
+			result = container.open(pathSampleVideo,IContainer.Type.READ,null);
+			
+			try {
+				if(result<0) {
+					
+					model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+					return "updateTestimonial";
+					
+				}else {
+						if(container.getDuration()>CommonData.videoDuration) {
+						
+							model.addAttribute("error_msg",CommonData.VIDEO_DURATION_ERROR);
+							Path deletePreviousPath=Paths.get(pathSampleVideo);
+							Files.delete(deletePreviousPath);
+							return "updateTestimonial";
+					}
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+				return "updateTestimonial";
+			}
+			
+			
 				String pathtoUploadPoster=ServiceUtility.uploadVideoFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -2299,7 +2396,13 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-//		model.addAttribute("success_msg", "Request submitted for master trainer role");
+		
+		if(usr.getProfilePic() == null) {
+			model.addAttribute("error_msg", CommonData.ADD_PROFILE_PIC_CONSTRAINT);
+			return "profileView";
+		}
+		
+
 
 		return "addMasterTrainerRole";
 	}
@@ -3298,6 +3401,66 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
 			e.printStackTrace();
+		}
+		
+
+		model.addAttribute("success_msg",CommonData.EVENT_SUCCESS);
+		return "masterTrainerOperation";
+
+	}
+	
+	
+	@RequestMapping(value = "/uploadPostQuestionaire", method = RequestMethod.POST)
+	public String uploadQuestionPost(Model model,Principal principal,
+								@RequestParam(value = "catMasPostId") int catId,
+								@RequestParam(value = "postTraining") int trainingTitle,
+								@RequestParam(value = "postQuestions") MultipartFile[] postQuestions) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		List<Category> cats=catService.findAll();
+
+		List<State> states=stateService.findAll();
+
+		List<Language> lan=lanService.getAllLanguages();
+
+		model.addAttribute("categories", cats);
+
+		model.addAttribute("states", states);
+		model.addAttribute("lans", lan);
+
+		if(!ServiceUtility.checkFileExtensionZip(postQuestions)) {
+
+			model.addAttribute("error_msg",CommonData.ZIP_ERROR);								// Accommodate error message
+			return "masterTrainerOperation";
+		}
+
+		TrainingInformation trainingInfo = trainingInfoService.getById(trainingTitle);
+
+		PostQuestionaire feed = new PostQuestionaire(postQuestionService.getNewCatId(), null, ServiceUtility.getCurrentTime(), trainingInfo, usr);
+		try {
+			postQuestionService.save(feed);
+
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadPostQuestion+feed.getId());
+				String pathtoUploadPoster=ServiceUtility.uploadFile(postQuestions, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadPostQuestion+feed.getId());
+				int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+
+				feed.setQuestionPath(document);
+				postQuestionService.save(feed);
+
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
+			e.printStackTrace();
+			return "masterTrainerOperation";
 		}
 		
 
