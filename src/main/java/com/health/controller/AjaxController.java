@@ -124,6 +124,9 @@ public class AjaxController{
 
 	@Autowired
 	private TrainingTopicService trainingTopicService;
+
+	@Autowired
+	private ConsultantService consultantService;
 	
 	@Autowired
 	private ConsultantService consultService;
@@ -187,19 +190,19 @@ public class AjaxController{
 												@RequestParam(value = "phone") String phone,
 												@RequestParam(value = "traineeId") int traineeId){
 		List<String> status=new ArrayList<String>();
-		
+
 		User usr=new User();
 
 		if(principal!=null) {
 
 			usr=usrservice.findByUsername(principal.getName());
 		}
-		
+
 		long aadharNumber = Long.parseLong(addharNo);
 		long phoneNumber = Long.parseLong(phone);
-		
+
 		TraineeInformation trainee = traineeService.findById(traineeId);
-		
+
 		trainee.setAadhar(aadharNumber);
 		trainee.setAge(age);
 		trainee.setEmail(email);
@@ -207,43 +210,43 @@ public class AjaxController{
 		trainee.setName(name);
 		trainee.setOrganization(org);
 		trainee.setPhone(phoneNumber);
-	
+
 		try {
 			traineeService.save(trainee);
 			status.add("Success");
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			status.add("failure");
 		}
-		
-		
+
+
 		return status;
-		
+
 	}
-	
+
 	@RequestMapping("/updatePassword")
 	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "password") String newPass,
 												@RequestParam(value = "currentPassword") String oldPass,Principal principal){
 		List<String> status=new ArrayList<String>();
 		boolean statusPassword=false;
-		
+
 		User usr=new User();
 
 		if(principal!=null) {
 
 			usr=usrservice.findByUsername(principal.getName());
 		}
-		
+
 		if(newPass.length()<6) {
 			System.out.println("vik");
 			status.add("passwordLengthError");
 			return status;
 		}
-		
+
 		statusPassword =SecurityConfig.passwordEncoder().matches(oldPass, usr.getPassword());
-		
+
 		if(statusPassword) {
 		try {
 			usr.setPassword(SecurityUtility.passwordEncoder().encode(newPass));
@@ -252,13 +255,13 @@ public class AjaxController{
 		}catch (Exception e) {
 			// TODO: handle exception
 			status.add("failure");
-		} 
+		}
 		}else {
 			status.add("failure");
 		}
-		
+
 		return status;
-		
+
 	}
 
 	@RequestMapping("/loadTraineeByTrainingId")
@@ -267,9 +270,9 @@ public class AjaxController{
 		TrainingInformation training = trainingInforService.getById(id);
 		List<TraineeInformation> traineeList = traineeService.findAllBytraineeInfos(training);
 		List<TraineeInformation> traineeListResponse = new ArrayList<TraineeInformation>() ;
-		
+
 		for(TraineeInformation x : traineeList) {
-		
+
 			System.out.println(x.getAge());
 			TraineeInformation tem = new TraineeInformation(x.getTrainingId(), x.getName(), x.getEmail(), x.getPhone(), x.getAge(), x.getAadhar(), x.getGender(), x.getOrganization(), null);
 			traineeListResponse.add(tem);
@@ -1667,27 +1670,50 @@ public class AjaxController{
 
 	@PostMapping("/updateProfilePic")
 	public @ResponseBody String updateProfilePic(@RequestParam("profilePicture") MultipartFile[] uploadPhoto,Principal principal) throws Exception{
-	
-		
+
+
 		ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadUserImage+principal.getName());
-		
+
 		String createFolder=env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadUserImage+principal.getName();
-		
+
 		String documentLocal=ServiceUtility.uploadFile(uploadPhoto, createFolder);
-		
+
 		int indexToStart=documentLocal.indexOf("Media");
-		
+
 		String document=documentLocal.substring(indexToStart, documentLocal.length());
-		
+
 		User usr=usrservice.findByUsername(principal.getName());
 		usr.setProfilePic(document);
-		
+
 		usrservice.save(usr);
-		
+
 		return "ok";
 	}
 
-	
+	@GetMapping("/getConsultantDetails")
+	public @ResponseBody List<String> getConsultantDetailsInfo(@RequestParam(value = "id") int consultantId) {
+		System.err.print("inside*********************************************");
+		System.out.println("inside test *********************************************");
+		Consultant cons = consultantService.findById(consultantId);
+		User user = cons.getUser();
+
+
+		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(roleService.findByname(CommonData.domainReviewerRole), user, true);
+		List<UserRole> domainRoles = null;
+		List<String> cat_lang = null;
+		for (UserRole u : userRoles) {
+			  if (u.getRole().getRoleId()==4) {
+
+				  cat_lang.add(u.getCat().getCatName() + " - "+  u.getLanguage().getLangName());
+
+			}
+			}
+		System.err.print("cat-lang*********************************************");
+		System.err.print(cat_lang);
+		System.err.print("cat-lang*********************************************");
+		return cat_lang;
+
+	}
 
 
 	/************************************ END ********************************************************/

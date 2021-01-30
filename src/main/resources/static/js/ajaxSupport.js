@@ -492,6 +492,7 @@ $(document).ready(function() {
 				}
 
 			}
+			
 			$('.modal-status').on('hidden.bs.modal', function() {
 				$('.alert-msg').hide();
 
@@ -2074,32 +2075,34 @@ $(document).ready(function() {
 
 					});
 
-			$('#lanId').change(
-					function() {
-						var languageName = $("#option :selected").text();
-						$.ajax({
-							type : "GET",
-							url : projectPath+"loadCategoryByLanguage",
-							data : {
-								"id" : languageName
-							},
-							contentType : "application/json",
-							success : function(result) {
-								var html = '';
-								var len = result.length;
-								html += '<option value="0">Select Category</option>';
-								for (var i = 0; i < len; i++) {
-									html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
-								}
-								html += '</option>';
-								$("#catgoryByContributor").prop('disabled',false);
-								$('#catgoryByContributor').html(html);
-							},
-							error : function(err) {
-								console.log("not working. ERROR: "+ JSON.stringify(err));
-							}
-						});
-					});
+//			$('#lanId').change(
+//					
+//					function() {
+//						alert('test');
+//						var languageName = $("#option :selected").val();
+//						$.ajax({
+//							type : "GET",
+//							url : projectPath+"loadCategoryByLanguage",
+//							data : {
+//								"id" : languageName
+//							},
+//							contentType : "application/json",
+//							success : function(result) {
+//								var html = '';
+//								var len = result.length;
+//								html += '<option value="0">Select Category</option>';
+//								for (var i = 0; i < len; i++) {
+//									html += '<option value="'+ result[i]+ '">'+ result[i]+ '</option>';
+//								}
+//								html += '</option>';
+//								$("#catgoryByContributor").prop('disabled',false);
+//								$('#catgoryByContributor').html(html);
+//							},
+//							error : function(err) {
+//								console.log("not working. ERROR: "+ JSON.stringify(err));
+//							}
+//						});
+//					});
 
 
 //			question start
@@ -3917,8 +3920,8 @@ $(document).ready(function() {
 					});
 			
 /************************* changes made by om prakash **********************************************/			
-
-			$('#lanId').click(function() {
+			$('#lanId').on('change',function() {
+				console.log('test');
 					var languageName = $("#option :selected").text();
 
 						$.ajax({
@@ -6434,6 +6437,7 @@ $(document).ready(function() {
 				});*/
 
 			$("#addNullPrerequisite").click(function() {
+				console.log("this.......");
 				component = this.id;
 				var elem_id = '#'+component+'_comment'
 				var tutorialId = $("#tutorialId").val();
@@ -6447,8 +6451,11 @@ $(document).ready(function() {
 					},
 					contentType : "application/json",
 					success : function(result) {
-
-
+						var msg = "Prerequisite saved successfully!";
+						$('#statusPrereq').html(msg);
+						$('#statusPrereq')
+						.addClass(
+						'd-block');
 					},
 
 					error : function(err) {
@@ -6459,6 +6466,8 @@ $(document).ready(function() {
 				});
 
 			});
+			
+			
 			
 			
 

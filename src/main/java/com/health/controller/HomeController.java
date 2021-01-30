@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Date;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -214,8 +212,8 @@ public class HomeController {
 //		set upper limit for categories count
 		upperlimit = 4 ;
 		categoryHome=(categories.size()>upperlimit) ? categories.subList(0, upperlimit):categories;
-
-		model.addAttribute("listOfConsultant", consulHome);
+//		model.addAttribute("listOfConsultant", consulHome);
+		model.addAttribute("listOfConsultant", consults);
 		model.addAttribute("listofTestimonial", testHome);
 		model.addAttribute("listofCategories", categoryHome);
 		model.addAttribute("languageCount", languages.size());
@@ -236,7 +234,7 @@ public class HomeController {
 			@RequestParam(name = "categoryName") String cat,
 			@RequestParam(name = "topic") String topic,
 			@RequestParam(name = "lan") String lan,Principal principal,Model model) {
-		
+
 		Set<String> catTemp = new HashSet<String>();
 		Set<String> topicTemp = new HashSet<String>();
 		Set<String> lanTemp = new HashSet<String>();
@@ -247,7 +245,7 @@ public class HomeController {
 			lanTemp.add(temp.getConAssignedTutorial().getLan().getLangName());
 			topicTemp.add(temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 		}
-		
+
 		model.addAttribute("categories", catTemp);
 		model.addAttribute("languages", lanTemp);
 		model.addAttribute("topics", topicTemp);
@@ -351,7 +349,7 @@ public class HomeController {
 			 System.out.println("*******************");
 			 System.out.println(tutorials);
 			 System.out.println("*******************");
-			 
+
 				Set<String> catTemp = new HashSet<String>();
 				Set<String> topicTemp = new HashSet<String>();
 				Set<String> lanTemp = new HashSet<String>();
@@ -362,11 +360,11 @@ public class HomeController {
 					lanTemp.add(temp.getConAssignedTutorial().getLan().getLangName());
 					topicTemp.add(temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 				}
-				
+
 				model.addAttribute("categories", catTemp);
 				model.addAttribute("languages", lanTemp);
 				model.addAttribute("topics", topicTemp);
-				
+
 			return "tutorial";
 	}
 
@@ -603,7 +601,7 @@ public class HomeController {
 				local.setPosterPath(document);
 
 				catService.save(local);
-			
+
 
 
 		} catch (Exception e) {
@@ -794,7 +792,7 @@ public class HomeController {
 		return "addTopic";
 
 	}
-	
+
 	@RequestMapping(value = "/topic/edit/{id}", method = RequestMethod.GET)
 	public String editTopicGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -813,7 +811,7 @@ public class HomeController {
 
 		return "updateTopic";  // need to accomdate view part
 	}
-	
+
 	@RequestMapping(value = "/updateTopic",method = RequestMethod.POST)
 	public String updateTopicPost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -829,9 +827,9 @@ public class HomeController {
 		String topicname=req.getParameter("topicName");
 		String topicIdInString = req.getParameter("TopicId");
 		int topicId = Integer.parseInt(topicIdInString);
-		
+
 		Topic topic = topicService.findById(topicId);
-		
+
 		if(topic == null) {
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			model.addAttribute("topic",topic);
@@ -940,8 +938,8 @@ public class HomeController {
 		return "addNewRole";
 
 	}
-	
-	
+
+
 
 	/************************************END**********************************************/
 
@@ -1071,7 +1069,7 @@ public class HomeController {
 
 
 	}
-	
+
 	@RequestMapping(value = "/question/edit/{id}", method = RequestMethod.GET)
 	public String editQuestionGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -1091,7 +1089,7 @@ public class HomeController {
 		return "updateQuestion"; // question edit page
 	}
 
-	
+
 	@RequestMapping(value = "/updateQuestion",method = RequestMethod.POST)
 	public String updateQuestionPost(HttpServletRequest req,Model model,Principal principal,
 								  @RequestParam("questionName") MultipartFile[] quesPdf) {
@@ -1104,9 +1102,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		String quesIdInString=req.getParameter("id");
-		int idQues =  Integer.parseInt(quesIdInString);		
+		int idQues =  Integer.parseInt(quesIdInString);
 		Question ques = questService.findById(idQues);
 
 		if(!ServiceUtility.checkFileExtensionPDF(quesPdf)) {  // throw error
@@ -1118,7 +1116,7 @@ public class HomeController {
 
 
 		try {
-				
+
 				String pathtoUploadPoster=ServiceUtility.uploadFile(quesPdf, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryQuestion+ques.getQuestionId());
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -1137,7 +1135,7 @@ public class HomeController {
 			model.addAttribute("question",ques);
 			return "updateQuestion";   // accomodate view part
 		}
-		
+
 		ques = questService.findById(idQues);
 		model.addAttribute("question",ques);
 
@@ -1202,7 +1200,7 @@ public class HomeController {
 		model.addAttribute("languages", lans);
 
 		if(!ServiceUtility.checkEmailValidity(email)) {  // throw email wromng error
-			
+
 			model.addAttribute("msg", CommonData.NOT_VALID_EMAIL_ERROR);
 			return "addConsultant";
 		}
@@ -1216,7 +1214,7 @@ public class HomeController {
 			model.addAttribute("emailExists", true);
 			return "addConsultant";
 		}
-		
+
 		Category cats = catService.findByid(catId);
 		Language lan =lanService.getById(lanId);
 		Role role = roleService.findByname(CommonData.domainReviewerRole);
@@ -1243,7 +1241,7 @@ public class HomeController {
 
 		try {
 			userService.addUserToConsultant(usr, consults);
-			
+
 			UserRole usrRole= new UserRole();
 			usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
 			usrRole.setCat(cats);
@@ -1252,9 +1250,9 @@ public class HomeController {
 			usrRole.setRole(role);
 			usrRole.setStatus(true);
 			usrRole.setCreated(ServiceUtility.getCurrentTime());
-			
+
 			usrRoleService.save(usrRole);
-			
+
 
 
 		} catch (Exception e) {
@@ -1329,7 +1327,7 @@ public class HomeController {
 				model.addAttribute("error_msg", CommonData.JPG_PNG_EXT);
 				return "addEvent";
 			}
-			
+
 			if(endDate.before(startDate)) {      // throws error if end date is previous to start date
 				model.addAttribute("error_msg",CommonData.EVENT_CHECK_DATE);
 				return "addEvent";
@@ -1349,15 +1347,15 @@ public class HomeController {
 
 			newEventid=eventservice.getNewEventId();
 			Event event=new Event();
-			
+
 			ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+newEventid);
 			String pathtoUploadPoster=ServiceUtility.uploadFile(files, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+newEventid);
 			int indexToStart=pathtoUploadPoster.indexOf("Media");
 
 			String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-			
+
 			event.setPosterPath(document);
-			
+
 			event.setEventId(newEventid);
 			event.setContactPerson(contactPerson);
 			event.setDateAdded(ServiceUtility.getCurrentTime());
@@ -1516,7 +1514,7 @@ public class HomeController {
 
 				testService.save(temp);
 
-			
+
 
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -1590,7 +1588,7 @@ public class HomeController {
 
 		Category cat=catService.findByid(id);
 
-		model.addAttribute("category",cat); 
+		model.addAttribute("category",cat);
 
 		return "updateCategory";
 	}
@@ -1611,13 +1609,13 @@ public class HomeController {
 		String catId=req.getParameter("id");
 		String catName=req.getParameter("categoryname");
 		String categoryDesc = req.getParameter("categoryDesc");
-		
+
 
 		Category cat=catService.findByid(Integer.parseInt(catId));
 
 		if(cat==null) {
 			 // accommodate  error message
-			model.addAttribute("category",cat); 
+			model.addAttribute("category",cat);
 			model.addAttribute("msg","Category doesn't exist");
 			return "updateCategory";
 		}
@@ -1627,7 +1625,7 @@ public class HomeController {
 			if(x.getCategoryId()!=cat.getCategoryId()) {
 				if(catName.equalsIgnoreCase(x.getCatName())) {
 					// accommodate  error message
-					model.addAttribute("category",cat); 
+					model.addAttribute("category",cat);
 					return "updateCategory";
 				}
 				}
@@ -1638,13 +1636,13 @@ public class HomeController {
 		System.out.println(file.length);
 		if(file.length != 0) {
 			try {
-				
+
 					String pathtoUploadPoster=ServiceUtility.uploadFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryCategory+cat.getCategoryId());
-					
+
 					int indexToStart=pathtoUploadPoster.indexOf("Media");
 
 					String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-					
+
 					cat.setPosterPath(document);
 
 					catService.save(cat);
@@ -1654,7 +1652,7 @@ public class HomeController {
 				// TODO: handle exception
 
 				e.printStackTrace();
-				model.addAttribute("category",cat); 
+				model.addAttribute("category",cat);
 				model.addAttribute("msg",CommonData.RECORD_ERROR);
 				return "updateCategory";  // throw a error
 			}
@@ -1662,9 +1660,9 @@ public class HomeController {
 
 				catService.save(cat);
 			}
-		
+
 		cat=catService.findByid(Integer.parseInt(catId));
-		model.addAttribute("category",cat); 
+		model.addAttribute("category",cat);
 
 		model.addAttribute("msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);   // need to accommodate
 
@@ -1675,6 +1673,7 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/************************************UPDATE AND VIEW SECTION OF EVENT**********************************************/
+
 	@RequestMapping(value = "/eventDetails/{id}", method = RequestMethod.GET)
 	public String eventGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -1688,7 +1687,7 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Event event= eventservice.findById(id);
-		model.addAttribute("events", event);
+		model.addAttribute("event", event);
 
 		return "event";
 	}
@@ -1765,7 +1764,7 @@ public class HomeController {
 			endDate=ServiceUtility.convertStringToDate(endDateTemp);
 
 			if(endDate.before(startDate)) {      // throws error if end date is previous to start date
-				
+
 				model.addAttribute("msg","End date must be after Start date");
 				return "updateEvent";
 			}
@@ -1829,7 +1828,7 @@ public class HomeController {
 
 		return "language";
 	}
-	
+
 	@RequestMapping(value = "/language/edit/{id}", method = RequestMethod.GET)
 	public String editLanguageGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -1844,11 +1843,11 @@ public class HomeController {
 
 		Language lan=lanService.getById(id);
 
-		model.addAttribute("language",lan); 
+		model.addAttribute("language",lan);
 
 		return "updateLanguage";  // need to accomdate view part
 	}
-	
+
 	@RequestMapping(value = "/updateLanguage",method = RequestMethod.POST)
 	public String updateLanguagePost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -1864,9 +1863,9 @@ public class HomeController {
 		String languagename=req.getParameter("languageName");
 		String lanIdInString = req.getParameter("lanId");
 		int lanId = Integer.parseInt(lanIdInString);
-		
+
 		Language lan = lanService.getById(lanId);
-		
+
 		if(lan == null) {
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			model.addAttribute("language",lan);
@@ -3138,7 +3137,7 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		List<Event> events = eventservice.findByUser(usr);
 
 		List<Category> cat=catService.findAll();
@@ -3151,7 +3150,7 @@ public class HomeController {
 
 		model.addAttribute("states", states);
 		model.addAttribute("lans", lan);
-		
+
 		model.addAttribute("events", events);
 
 		return "masterTrainerOperation";
@@ -3241,7 +3240,7 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		Event event = eventservice.findById(eventId);
 
 		Set<TrainingTopic> trainingTopicTemp = new HashSet<>();
@@ -3267,7 +3266,7 @@ public class HomeController {
 			return "masterTrainerOperation";
 		}
 
-	
+
 
 		State stat=stateService.findById(state);
 		District districtTemp=districtService.findById(district);
@@ -3332,7 +3331,7 @@ public class HomeController {
 
 	            trainingInfoService.addTrainee(trainingData, trainees);
 
-			
+
 
 
 
@@ -3345,7 +3344,7 @@ public class HomeController {
 		}
 
 
-		model.addAttribute("error_msg",CommonData.EVENT_SUCCESS);
+		model.addAttribute("success_msg",CommonData.EVENT_SUCCESS);
 		return "masterTrainerOperation";
 
 	}
@@ -3396,13 +3395,13 @@ public class HomeController {
 				feed.setPath(document);
 				feedServ.save(feed);
 
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
 			e.printStackTrace();
 		}
-		
+
 
 		model.addAttribute("success_msg",CommonData.EVENT_SUCCESS);
 		return "masterTrainerOperation";
@@ -3487,7 +3486,7 @@ public class HomeController {
 		List<Language> languages = lanService.getAllLanguages();
 
 		model.addAttribute("categories", categories);
-		
+
 		model.addAttribute("languages", languages);
 
 		return "assignRoleToDomain"; // add html page
@@ -3550,7 +3549,7 @@ public class HomeController {
 		}
 
 
-		model.addAttribute("success_msg", CommonData.MAIL_SEND);
+		model.addAttribute("success_msg", CommonData.ADMIN_REVIEWER_REQ);
 
 
 		return "assignRoleToDomain"; // add html page
@@ -3586,12 +3585,12 @@ public class HomeController {
 		}
 
 		UserRole usrRole = usrRoleService.findById(usrRoleId);
-		
+
 		if(usrRole.getUser().getId() == usr.getId()) {
 			usrRole.setStatus(false);
 			usrRole.setRevoked(true);
 			usrRoleService.save(usrRole);
-			
+
 			model.addAttribute("success_msg", "Role revoked Successfully");
 		}else {
 			model.addAttribute("error_msg", "Wrong operation");
@@ -3601,7 +3600,7 @@ public class HomeController {
 
 		return "revokeRole";
 	}
-	
+
 	/************************ PROFILE UPDATE SECTION *****************************************/
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String updateuserdataPost(HttpServletRequest req,Model model,Principal principal,
@@ -3618,7 +3617,7 @@ public class HomeController {
 			usr=userService.findByUsername(principal.getName());
 		}
 		model.addAttribute("userInfo", usr);
-		
+
 		long phoneLongValue ;
 		if(phone.length()>10) {								// need to accommodate
 
@@ -3629,37 +3628,37 @@ public class HomeController {
 			phoneLongValue = Long.parseLong(phone);
 
 		}
-		
-	
+
+
 		try {
 			usr.setFirstName(firstName);
 			usr.setLastName(lastName);
 			usr.setAddress(address);
 			usr.setPhone(phoneLongValue);
 			usr.setDob(ServiceUtility.convertStringToDate(dob));
-			
+
 			userService.save(usr);
-			
+
 			if(!desc.isEmpty()) {
 				Consultant consult = consultService.findByUser(usr);
 				consult.setDescription(desc);
 				consultService.save(consult);
 			}
-			
+
 			model.addAttribute("success_msg", "Data Updated Successfully");
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			model.addAttribute("error_msg", "Please Try Later");
 		}
-		
+
 		usr=userService.findByUsername(principal.getName());
 		model.addAttribute("userInfo", usr);
 		return "profileView";
 
 	}
-	
+
 	@GetMapping("/revokeRoleContributor")
 	public String revokeRoleByContributor(Principal principal,Model model){
 
@@ -3671,16 +3670,16 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		Role role = roleService.findByname(CommonData.contributorRole);
-		
+
 		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(role, usr, true);
-		
+
 		model.addAttribute("userRoles", userRoles);
 
 		return "revokeRole";
 	}
-	
+
 	@GetMapping("/revokeRoleDomain")
 	public String revokeRoleByDomain(Principal principal,Model model){
 
@@ -3692,16 +3691,16 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		Role role = roleService.findByname(CommonData.domainReviewerRole);
-		
+
 		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(role, usr, true);
-		
+
 		model.addAttribute("userRoles", userRoles);
 
 		return "revokeRole";
 	}
-	
+
 	@GetMapping("/revokeRoleQuality")
 	public String revokeRoleBYQuality(Principal principal,Model model){
 
@@ -3713,16 +3712,16 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		Role role = roleService.findByname(CommonData.qualityReviewerRole);
-		
+
 		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(role, usr, true);
-		
+
 		model.addAttribute("userRoles", userRoles);
 
 		return "revokeRole";
 	}
-	
+
 	@GetMapping("/revokeRoleMaster")
 	public String revokeRoleMaster(Principal principal,Model model){
 
@@ -3734,11 +3733,11 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		Role role = roleService.findByname(CommonData.masterTrainerRole);
-		
+
 		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(role, usr, true);
-		
+
 		model.addAttribute("userRoles", userRoles);
 
 		return "revokeRole";

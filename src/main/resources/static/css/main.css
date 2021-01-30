@@ -130,7 +130,7 @@ header .upper-bar{
 	/* border: 1px solid red; */
 }
 #mainNavBar .nav-item{
-	color: #1C7871;
+	color: #1C7871!important;
 	font-weight: bold;
 }
 #mainNavBar .nav-item:hover{
