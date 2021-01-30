@@ -63,7 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/testimonialList",
 			"/fonts/**",
 			"/eventDetails/**",
-			"/tutorialView/**"
+			"/tutorialView/**",
+			"/getConsultantDetails/**"
 	};
 
 	@Override

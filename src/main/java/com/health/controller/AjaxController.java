@@ -1699,15 +1699,17 @@ public class AjaxController{
 
 
 		List<UserRole> userRoles = usrRoleService.findAllByRoleUserStatus(roleService.findByname(CommonData.domainReviewerRole), user, true);
-		List<UserRole> domainRoles = null;
-		List<String> cat_lang = null;
-		for (UserRole u : userRoles) {
-			  if (u.getRole().getRoleId()==4) {
+		List<String> cat_lang = new ArrayList();
+		if(userRoles.size()>0) {
+			for (UserRole u : userRoles) {
+				  if (u.getRole().getRoleId()==4) {
 
-				  cat_lang.add(u.getCat().getCatName() + " - "+  u.getLanguage().getLangName());
+					  cat_lang.add(u.getCat().getCatName() + " - "+  u.getLan().getLangName());
 
+				}
 			}
-			}
+		}
+		
 		System.err.print("cat-lang*********************************************");
 		System.err.print(cat_lang);
 		System.err.print("cat-lang*********************************************");
