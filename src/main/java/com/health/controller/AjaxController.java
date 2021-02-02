@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.health.config.SecurityConfig;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
+import com.health.model.Brouchure;
 import com.health.model.Category;
 import com.health.model.City;
 import com.health.model.Comment;
@@ -40,6 +41,7 @@ import com.health.model.TrainingInformation;
 import com.health.model.TrainingTopic;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.service.BrouchureService;
 import com.health.service.CategoryService;
 import com.health.service.CityService;
 import com.health.service.CommentService;
@@ -133,6 +135,33 @@ public class AjaxController{
 	
 	@Autowired
 	private TestimonialService testService;
+	
+	@Autowired
+	private BrouchureService broService;
+	
+	
+	@GetMapping("/enableDisableBrouchure")
+	public @ResponseBody boolean enableDisableBrouchure(int id){
+		Brouchure bro = broService.findById(id);
+		
+		try {
+			if(bro.isShowOnHomepage()) {
+				bro.setShowOnHomepage(false);
+				broService.save(bro);
+				return true;
+				
+			}else {
+				bro.setShowOnHomepage(true);
+				broService.save(bro);
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 	
 	@GetMapping("/enableDisableConsultant")
 	public @ResponseBody boolean enableDisableConsultant(int id){
