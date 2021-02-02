@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
+import com.health.model.Brouchure;
 import com.health.model.Category;
 import com.health.model.City;
 import com.health.model.Comment;
@@ -49,6 +50,7 @@ import com.health.model.TrainingInformation;
 import com.health.model.TrainingTopic;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.service.BrouchureService;
 import com.health.service.CategoryService;
 import com.health.service.CityService;
 import com.health.service.CommentService;
@@ -154,6 +156,9 @@ public class HomeController {
 	
 	@Autowired
 	private PostQuestionaireService postQuestionService; 
+	
+	@Autowired
+	private BrouchureService broService;
 
 
 	@RequestMapping("/")
@@ -697,6 +702,118 @@ public class HomeController {
 	}
 
 	/************************************END**********************************************/
+	
+	/******************************ADD BROUCHURE ******************************************/
+	@RequestMapping(value = "/addBrouchure",method = RequestMethod.GET)
+	public String addBrouchureGet(Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		List<Category> category = catService.findAll();
+
+		model.addAttribute("categories", category);
+
+		List<Language> lans = lanService.getAllLanguages();
+		
+		model.addAttribute("languages", lans);
+		
+		List<Brouchure> brouchures = broService.findAll();
+		
+		model.addAttribute("brouchures", brouchures);
+
+		return "addBrouchure";
+
+	}
+	
+	@RequestMapping(value = "/addBrouchure",method = RequestMethod.POST)
+	public String addBrouchurePost(Model model,Principal principal,
+								  @RequestParam("brouchure") MultipartFile[] brochure,
+								  @RequestParam(value = "categoryName") int categoryId,
+								  @RequestParam(name = "inputTopicName") int topicId,
+								  @RequestParam(name = "languageyName") int languageId) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		List<Brouchure> brouchures = broService.findAll();
+		
+		model.addAttribute("brouchures", brouchures);
+
+		List<Language> languages=lanService.getAllLanguages();
+
+		List<Category> categories=catService.findAll();
+
+		model.addAttribute("categories", categories);
+
+		model.addAttribute("languages", languages);
+
+		if(!ServiceUtility.checkFileExtensionImage(brochure)) {  // throw error
+
+			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
+			return "addBrouchure";
+		}
+
+		Category cat=catService.findByid(categoryId);
+		Topic topic=topicService.findById(topicId);
+		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
+		Language lan=lanService.getById(languageId);
+
+		int newBroId=broService.getNewId();
+		Brouchure brochureTemp = new Brouchure();
+		brochureTemp.setId(newBroId);
+		brochureTemp.setLan(lan);
+		brochureTemp.setTopicCatId(topicCat);
+
+		try {
+			broService.save(brochureTemp);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			return "addBrouchure";
+		}
+
+		try {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadBrouchure+newBroId);
+				String pathtoUploadPoster=ServiceUtility.uploadFile(brochure, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadBrouchure+newBroId);
+				int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+
+				brochureTemp.setPosterPath(document);
+
+				broService.save(brochureTemp);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			broService.delete(brochureTemp);
+			return "addBrouchure";
+		}
+
+		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
+
+		return "addBrouchure";
+
+
+	}
+	
+	/********************************END****************************************************/
 
 	/************************************ADD TOPIC**********************************************/
 

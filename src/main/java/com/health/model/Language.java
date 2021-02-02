@@ -52,6 +52,9 @@ public class Language {
 	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingInformation> trainingInfos=new HashSet<TrainingInformation>();
 
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Brouchure> brouchure=new HashSet<Brouchure>();
+	
 	public int getLanId() {
 		return lanId;
 	}
