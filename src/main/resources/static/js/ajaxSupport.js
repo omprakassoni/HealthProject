@@ -2135,7 +2135,6 @@ $(document).ready(function() {
 //			question end
 			$('#fetch_questions').click(
 			function() {
-			alert('ques');
 			$('#questionnaire').tab('show');
 			
 			});
