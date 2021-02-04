@@ -17,6 +17,7 @@ import com.health.model.Question;
 import com.health.model.Testimonial;
 import com.health.model.Topic;
 import com.health.model.User;
+import com.health.model.UserIndianLanguageMapping;
 import com.health.repository.RoleRepository;
 import com.health.repository.UserRepository;
 import com.health.service.UserService;
@@ -140,6 +141,14 @@ public class UserServiceImpl implements UserService{
 		userRepository.save(usr);
 		return null;
 		
+	}
+
+	@Override
+	public User addUserToUserIndianMapping(User usr, Set<UserIndianLanguageMapping> userMapping) {
+		// TODO Auto-generated method stub
+		usr.getUserKnownLans().addAll(userMapping);
+		userRepository.save(usr);
+		return null;
 	}
 
 

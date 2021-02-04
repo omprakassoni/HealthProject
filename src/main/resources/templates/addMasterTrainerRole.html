@@ -78,7 +78,7 @@
 									<div class="col-md-1"><button data-duplicate-remove="demo">-</button></div>
 									<div class="col-md-5">
 										<select class="form-control select_language sl" name="language" onload="addEL()">
-										<option th:each="language : ${languages}" th:text="${language.getLangName()}"></option>
+										<option th:each="language : ${languages}" th:text="${language.getLanName()}"></option>
 										</select>
 										<div class="form-check">
 										
@@ -104,8 +104,8 @@
 									
 									</div>
 									<div>
-									<button class="btn btn-sm btn-info" data-duplicate-add="demo" id="addLangSelect">+ add</button>
-									<button class="btn btn-sm btn-danger" data-duplicate-remove="demo">- remove</button>
+									<button type="button" class="btn btn-sm btn-info" data-duplicate-add="demo" id="addLangSelect">+ add</button>
+									<button type="button" class="btn btn-sm btn-danger" data-duplicate-remove="demo">- remove</button>
 									</div>
 									
 									<br>
@@ -155,7 +155,7 @@
 			
 			});
 		
-$(".sl").on('click',function(){
+/* $(".sl").on('click',function(){
 			console.log("select_language.......",this);
 			component = this;
 			$.ajax({
@@ -178,7 +178,7 @@ $(".sl").on('click',function(){
 
 				}
 			});
-		});
+		}); */
 		
 		
 		
