@@ -73,9 +73,95 @@
 											type="number" class="form-control w-75" name="aadharNumber"
 											id="textAadharNumber" required="required" />
 									</div>
+									<div>
+										<div class="form-group">
+										<label for="exampleFormControlSelect1">Example select</label>
+										<select class="form-control" id="exampleFormControlSelect1" name="lang1">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="r"
+											id="defaultCheck1" name="read1"> <label class="form-check-label"
+											for="defaultCheck1"> Default checkbox </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="w"
+											id="defaultCheck2" name="write1"> <label class="form-check-label"
+											for="defaultCheck2"> Default checkbox </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="s"
+											id="defaultCheck3" name="speak1"> <label class="form-check-label"
+											for="defaultCheck3"> Default checkbox </label>
+									</div>
+									</div>
+									<div>
+										<div class="form-group">
+										<label for="exampleFormControlSelect1">Example select</label>
+										<select class="form-control" id="exampleFormControlSelect1" name="lang2">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="r"
+											id="defaultCheck1" name="read2"> <label class="form-check-label"
+											for="defaultCheck1"> Default checkbox </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value=""
+											id="defaultCheck2" name="write2"> <label class="form-check-label"
+											for="defaultCheck2"> Default checkbox </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value=""
+											id="defaultCheck3" name="speak2"> <label class="form-check-label"
+											for="defaultCheck3"> Default checkbox </label>
+									</div>
+									</div>
+									<button data-duplicate-add="demo" id="addLangSelect">+ add</button>
+									<button data-duplicate-remove="demo">- remove</button>
+									<div data-duplicate="demo">
+									<button data-duplicate-remove="phone">-</button>
+									<div class="form-group">
+										<label for="exampleFormControlSelect1">Example select</label>
+										<select class="form-control select_language sl" name="language">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select>
+										<div class="form-check">
+										<input class="form-check-input r_check" type="checkbox" value="r"
+											name="read"> <label class="form-check-label"
+											for="defaultCheck1"> Default checkbox </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input w_check" type="checkbox" value="w"
+											name="write"> <label class="form-check-label"
+											for="defaultCheck2"> Default checkbox </label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input s_check" type="checkbox" value="s"
+											name="speak"> <label class="form-check-label"
+											for="defaultCheck3"> Default checkbox </label>
+									</div>
+									</div>
+									</div>
+									
+									<input type="hidden" id="custId" name="languages" value="">
 									<button type="submit" class="btn  btn-success"
-										data-toggle="modal" onclick="myFunction()">Submit</button>
-									<button type="reset" class="btn btn-success">Reset</button>
+										data-toggle="modal" id="addMaster">Submit</button>
+									<button type="reset" class="btn btn-success" >Reset</button>
 								</form>
 							</div>
 						</div>
@@ -87,6 +173,40 @@
 	<div th:replace="common/trail :: body-bottom-scripts"></div>
 	<script th:inline="javascript">
 		var projectPath = '[(@{/})]';
+		$( "#addMaster" ).click(function() {
+			var form = document.forms[0];
+			form.languages.value = "English_rws&German_r"
+			lang_length = form.language.length;
+			for(i=0; i<lang_length;i++){
+				r='';w='';s='';
+				lang = form.language[i].value;
+				var elem_r = form.read[i];
+				if ($(elem_r).is(":checked"))
+				{
+					r = form.read[i].value;
+				}
+				var elem_w = form.write[i];
+				if ($(elem_w).is(":checked"))
+				{
+					w = form.write[i].value;
+				}
+				if ($('.s_check').is(":checked"))
+				{
+					s = form.speak[i].value;
+				}
+			}
+			
+			});
+		$("#addLangSelect").on('click',function(){
+			
+			alert('clik');
+			/* $(".sl").addClass("select_language"); */
+			document.querySelector('.sl').addEventListener('click', loadAllLanguages)
+		});
+		
+		
+		
+		
 	</script>
 </body>
 </html>

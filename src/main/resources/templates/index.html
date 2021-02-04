@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="../css/hello-parallax.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
     <link rel="stylesheet" th:href="@{/css/main-style.css}" />
+    <link rel="stylesheet" th:href="@{/VenoBox/venobox/venobox.css}" />
   </head>
   <body>
   <div id="back-to-top">
@@ -330,6 +331,18 @@
     <div class=" text-center"><a th:href="@{/testimonialList}" target="_blank" class="button catBtn mb-5 ">View all Testimonials</a></div>
     </div>
     </section>
+    <section id="testimonial" th:if="${listofTestimonial != null}">
+    <h1 class="text-center spk-title">Brochures</h1>
+    <div class="container-lg">
+    <div class="row">
+   	<div th:each="brochure : ${listofBrochures}" class="col-md-3">
+   		<a  class="venobox " data-gall="myGallery" th:href="@{/files/}+@{${brochure.getPosterPath()}}"><img style="width:100%;" th:src="@{/files/}+@{${brochure.getPosterPath()}}" /></a>
+   	</div>
+    </div>
+    <br>
+    <div class=" text-center"><a th:href="@{/brochures}" target="_blank" class="button catBtn mb-5 ">View all Brochures</a></div>
+    </div>
+    </section>
     <section> 
     	<div th:each="testimonial : ${listofTestimonial}" class="modal fade" th:attrappend="id=${'_'+testimonial.getTestimonialId()}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
@@ -421,10 +434,11 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
 <script src="/js/ajaxSupport.js"></script>
+<script src="/VenoBox/venobox/venobox.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	$('.venobox').venobox(); 
 	$('.consultant_modal').on('shown.bs.modal', function () {
 		
 		id = $(this).attr('id');

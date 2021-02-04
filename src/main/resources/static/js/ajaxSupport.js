@@ -6539,7 +6539,33 @@ $(document).ready(function() {
 
 			});
 			
-			
+//			$(".select_language").on('click',function(){
+//			
+//				console.log("select_language.......",this);
+//				component = this;
+//				$.ajax({
+//					type : "GET",
+//					url : projectPath+"loadLanguages",
+//					data : {
+////						"id" :tutorialId
+//					},
+//					contentType : "application/json",
+//					success : function(result) {
+//						$(component).html('');
+//						for (lang in result){
+//							$(component).append("<option>"+result[lang]+"</option>");
+//						}
+//					},
+//
+//					error : function(err) {
+//						alert('error');
+//						console.log("not working. ERROR: "+ JSON.stringify(err));
+//
+//					}
+//				});
+//
+//			});
+//			
 			
 			
 
@@ -6549,6 +6575,31 @@ $(document).ready(function() {
 function validateEmail($email) {
 	  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 	  return emailReg.test( $email );
+}
+
+function loadAllLanguages() {
+	console.log("select_language.......",this);
+	component = this;
+	$.ajax({
+		type : "GET",
+		url : projectPath+"loadLanguages",
+		data : {
+//			"id" :tutorialId
+		},
+		contentType : "application/json",
+		success : function(result) {
+			$(component).html('');
+			for (lang in result){
+				$(component).append("<option>"+result[lang]+"</option>");
+			}
+		},
+
+		error : function(err) {
+			alert('error');
+			console.log("not working. ERROR: "+ JSON.stringify(err));
+
+		}
+	});
 }
 
 /*---------------------------------------Profile picture update Ajax call-------------------------------*/

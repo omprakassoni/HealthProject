@@ -129,27 +129,30 @@ public class AjaxController{
 
 	@Autowired
 	private ConsultantService consultantService;
-	
+
 	@Autowired
 	private ConsultantService consultService;
-	
+
 	@Autowired
 	private TestimonialService testService;
-	
+
 	@Autowired
 	private BrouchureService broService;
-	
-	
+
+	@Autowired
+	private LanguageService langService;
+
+
 	@GetMapping("/enableDisableBrouchure")
 	public @ResponseBody boolean enableDisableBrouchure(int id){
 		Brouchure bro = broService.findById(id);
-		
+
 		try {
 			if(bro.isShowOnHomepage()) {
 				bro.setShowOnHomepage(false);
 				broService.save(bro);
 				return true;
-				
+
 			}else {
 				bro.setShowOnHomepage(true);
 				broService.save(bro);
@@ -160,19 +163,19 @@ public class AjaxController{
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
-	
+
 	@GetMapping("/enableDisableConsultant")
 	public @ResponseBody boolean enableDisableConsultant(int id){
 		Consultant con = consultService.findById(id);
-		
+
 		try {
 			if(con.isOnHome()) {
 				con.setOnHome(false);
 				consultService.save(con);
 				return true;
-				
+
 			}else {
 				con.setOnHome(true);
 				consultService.save(con);
@@ -183,19 +186,19 @@ public class AjaxController{
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
-	
+
 	@GetMapping("/enableDisableTestimonial")
 	public @ResponseBody boolean enableDisableTestimonial(int id){
 		Testimonial test = testService.findById(id);
-		
+
 		try {
 			if(test.isApproved()) {
 				test.setApproved(false);
 				testService.save(test);
 				return true;
-				
+
 			}else {
 				test.setApproved(true);
 				testService.save(test);
@@ -206,9 +209,9 @@ public class AjaxController{
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
-	
+
 	@RequestMapping("/updateTrainee")
 	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "aadhar") String addharNo,
 												@RequestParam(value = "age") int age,Principal principal,
@@ -1738,7 +1741,7 @@ public class AjaxController{
 				}
 			}
 		}
-		
+
 		System.err.print("cat-lang*********************************************");
 		System.err.print(cat_lang);
 		System.err.print("cat-lang*********************************************");
@@ -1746,6 +1749,18 @@ public class AjaxController{
 
 	}
 
+	@RequestMapping("/loadLanguages")
+	public @ResponseBody List<String> getLanguages() {
+
+		List<String> langauges=new ArrayList<String>();
+		List<Language> langs = langService.getAllLanguages();
+
+		for(Language temp:langs) {
+				langauges.add(temp.getLangName());
+		}
+
+		return langauges;
+	}
 
 	/************************************ END ********************************************************/
 }
