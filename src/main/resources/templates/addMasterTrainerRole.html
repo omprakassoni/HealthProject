@@ -73,9 +73,47 @@
 											type="number" class="form-control w-75" name="aadharNumber"
 											id="textAadharNumber" required="required" />
 									</div>
+									<div data-duplicate="demo" >
+									<div class="row">
+									<div class="col-md-1"><button data-duplicate-remove="demo">-</button></div>
+									<div class="col-md-5">
+										<select class="form-control select_language sl" name="language" onload="addEL()">
+										<option th:each="language : ${languages}" th:text="${language.getLangName()}"></option>
+										</select>
+										<div class="form-check">
+										
+									</div>
+									</div>
+									<div class="col-md-2 p-6">
+									<input class="form-check-input w_check" type="checkbox" value="w"
+											name="write"> <label class="form-check-label"
+											for="defaultCheck2"> Write </label></div>
+									<div class="col-md-2">
+									<input class="form-check-input r_check" type="checkbox" value="r"
+											name="read"> <label class="form-check-label"
+											for="defaultCheck1"> Read </label>
+									</div>
+									<div class="col-md-2">
+									<input class="form-check-input s_check" type="checkbox" value="s"
+											name="speak"> <label class="form-check-label"
+											for="defaultCheck3"> Speak </label>
+									</div>
+									
+									</div>
+									<br>
+									
+									</div>
+									<div>
+									<button class="btn btn-sm btn-info" data-duplicate-add="demo" id="addLangSelect">+ add</button>
+									<button class="btn btn-sm btn-danger" data-duplicate-remove="demo">- remove</button>
+									</div>
+									
+									<br>
+									
+									<input type="hidden" id="custId" name="languages" value="">
 									<button type="submit" class="btn  btn-success"
-										data-toggle="modal" onclick="myFunction()">Submit</button>
-									<button type="reset" class="btn btn-success">Reset</button>
+										data-toggle="modal" id="addMaster">Submit</button>
+									<button type="reset" class="btn btn-success" >Reset</button>
 								</form>
 							</div>
 						</div>
@@ -87,6 +125,64 @@
 	<div th:replace="common/trail :: body-bottom-scripts"></div>
 	<script th:inline="javascript">
 		var projectPath = '[(@{/})]';
+		$( "#addMaster" ).click(function() {
+			var form = document.forms[0];
+			out = '';
+			
+			lang_length = form.language.length;
+			for(i=0; i<lang_length;i++){
+				r='';w='';s='';
+				lang = form.language[i].value;
+				var elem_r = form.read[i];
+				if ($(elem_r).is(":checked"))
+				{
+					r = form.read[i].value;
+				}
+				var elem_w = form.write[i];
+				if ($(elem_w).is(":checked"))
+				{
+					w = form.write[i].value;
+				}
+				if ($('.s_check').is(":checked"))
+				{
+					s = form.speak[i].value;
+				}
+				out+=lang+"_"+r+w+s+"&";
+				console.log("**************** lang : ",lang+"_"+r+w+s);
+			}
+			console.log("**************** out : ",out);
+			form.languages.value = out;
+			
+			});
+		
+$(".sl").on('click',function(){
+			console.log("select_language.......",this);
+			component = this;
+			$.ajax({
+				type : "GET",
+				url : projectPath+"loadLanguages",
+				data : {
+//					"id" :tutorialId
+				},
+				contentType : "application/json",
+				success : function(result) {
+					$(component).html('');
+					for (lang in result){
+						$(component).append("<option>"+result[lang]+"</option>");
+					}
+				},
+
+				error : function(err) {
+					alert('error');
+					console.log("not working. ERROR: "+ JSON.stringify(err));
+
+				}
+			});
+		});
+		
+		
+		
+		
 	</script>
 </body>
 </html>

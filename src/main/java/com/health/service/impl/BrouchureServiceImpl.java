@@ -1,12 +1,16 @@
 package com.health.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.health.model.Brouchure;
+import com.health.model.Category;
+import com.health.model.TopicCategoryMapping;
 import com.health.repository.BrouchureRepository;
+import com.health.repository.TopicCategoryMappingRepository;
 import com.health.service.BrouchureService;
 
 @Service
@@ -14,7 +18,10 @@ public class BrouchureServiceImpl implements BrouchureService{
 
 	@Autowired
 	private BrouchureRepository repo;
-	
+
+	@Autowired
+	private TopicCategoryMappingRepository topicCatRepo;
+
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -56,7 +63,19 @@ public class BrouchureServiceImpl implements BrouchureService{
 		// TODO Auto-generated method stub
 		return repo.findById(id).get();
 	}
-	
-	
+
+	@Override
+	public List<Brouchure> findByCategory(Category cat) {
+		// TODO Auto-generated method stub
+		List<TopicCategoryMapping> topicCat = topicCatRepo.findAllBycat(cat);
+		List<Brouchure> brochures = new ArrayList<Brouchure>();
+		for (TopicCategoryMapping t:topicCat) {
+			brochures.addAll(repo.findByTopicCat(t));
+		}
+
+		return brochures;
+	}
+
+
 
 }

@@ -155,10 +155,10 @@ public class HomeController {
 
 	@Autowired
 	private CommentService comService;
-	
+
 	@Autowired
-	private PostQuestionaireService postQuestionService; 
-	
+	private PostQuestionaireService postQuestionService;
+
 	@Autowired
 	private BrouchureService broService;
 
@@ -171,6 +171,7 @@ public class HomeController {
 		List<Consultant> consults= consultService.findAll();
 		List<Category> categories= catService.findAll();
 		List<Language> languages = lanService.getAllLanguages();
+		List<Brouchure> brochures= broService.findAll();
 
 		Set<String> catTemp = new HashSet<String>();
 		Set<String> topicTemp = new HashSet<String>();
@@ -187,6 +188,8 @@ public class HomeController {
 		List<Testimonial> testHome = new ArrayList<>();
 		List<Consultant> consulHome = new ArrayList<>();
 		List<Category> categoryHome = new ArrayList<>();
+		List<Brouchure> brochureHome = new ArrayList<>();
+
 
 		int upperlimit = 0;
 
@@ -219,6 +222,7 @@ public class HomeController {
 //		set upper limit for categories count
 		upperlimit = 4 ;
 		categoryHome=(categories.size()>upperlimit) ? categories.subList(0, upperlimit):categories;
+		brochureHome=(brochures.size()>upperlimit) ? brochures.subList(0, upperlimit):brochures;
 //		model.addAttribute("listOfConsultant", consulHome);
 		model.addAttribute("listOfConsultant", consults);
 		model.addAttribute("listofTestimonial", testHome);
@@ -227,10 +231,12 @@ public class HomeController {
 		model.addAttribute("videoCount", tutService.findAll().size());
 		model.addAttribute("consultantCount", consults.size());
 		model.addAttribute("events", evnHome);
+		model.addAttribute("listofBrochures", brochureHome);
 
 		model.addAttribute("categories", catTemp);
 		model.addAttribute("languages", lanTemp);
 		model.addAttribute("topics", topicTemp);
+
 
 
 		return "index";
@@ -704,7 +710,7 @@ public class HomeController {
 	}
 
 	/************************************END**********************************************/
-	
+
 	/******************************ADD BROUCHURE ******************************************/
 	@RequestMapping(value = "/addBrouchure",method = RequestMethod.GET)
 	public String addBrouchureGet(Model model,Principal principal) {
@@ -723,17 +729,17 @@ public class HomeController {
 		model.addAttribute("categories", category);
 
 		List<Language> lans = lanService.getAllLanguages();
-		
+
 		model.addAttribute("languages", lans);
-		
+
 		List<Brouchure> brouchures = broService.findAll();
-		
+
 		model.addAttribute("brouchures", brouchures);
 
 		return "addBrouchure";
 
 	}
-	
+
 	@RequestMapping(value = "/addBrouchure",method = RequestMethod.POST)
 	public String addBrouchurePost(Model model,Principal principal,
 								  @RequestParam("brouchure") MultipartFile[] brochure,
@@ -751,7 +757,7 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<Brouchure> brouchures = broService.findAll();
-		
+
 		model.addAttribute("brouchures", brouchures);
 
 		List<Language> languages=lanService.getAllLanguages();
@@ -814,7 +820,7 @@ public class HomeController {
 
 
 	}
-	
+
 	/********************************END****************************************************/
 
 	/************************************ADD TOPIC**********************************************/
@@ -1558,7 +1564,7 @@ public class HomeController {
 			model.addAttribute("error_msg",CommonData.VIDEO_FILE_EXTENSION_ERROR);
 			return "addTestimonial";
 		}
-		
+
 		String pathSampleVideo = null;;
 		try {
 			pathSampleVideo = ServiceUtility.uploadVideoFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial);
@@ -1566,20 +1572,20 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		IContainer container = IContainer.make();
 		int result=10;
 		result = container.open(pathSampleVideo,IContainer.Type.READ,null);
-		
+
 		try {
 			if(result<0) {
-				
+
 				model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 				return "addTestimonial";
-				
+
 			}else {
 					if(container.getDuration()>CommonData.videoDuration) {
-					
+
 						model.addAttribute("error_msg",CommonData.VIDEO_DURATION_ERROR);
 						Path deletePreviousPath=Paths.get(pathSampleVideo);
 						Files.delete(deletePreviousPath);
@@ -1601,7 +1607,7 @@ public class HomeController {
 		test.setUser(usr);
 		test.setTestimonialId(newTestiId);
 		test.setFilePath("null");
-		
+
 		if(trainingId != null) {
 			TrainingInformation train = trainingInfoService.getById(Integer.parseInt(trainingId));
 			test.setTraineeInfos(train);
@@ -1651,13 +1657,13 @@ public class HomeController {
 			test.setUser(usr);
 			test.setTestimonialId(testService.getNewTestimonialId());
 			test.setFilePath("null");
-			
+
 			if(trainingId != null) {
 				TrainingInformation train = trainingInfoService.getById(Integer.parseInt(trainingId));
 				test.setTraineeInfos(train);
 				test.setApproved(false);
 			}
-			
+
 			Set<Testimonial> testi=new HashSet<Testimonial>();
 			testi.add(test);
 
@@ -2099,20 +2105,15 @@ public class HomeController {
 	}
 
 	/************************************END**********************************************/
+	/************************************BROCHURE**********************************************/
 
+
+
+	/************************************END**********************************************/
 	/************************************UPDATE AND VIEW SECTION OF TESTIMONIAL**********************************************/
 
 	@RequestMapping(value = "/testimonialList", method = RequestMethod.GET)
 	public String viewtestimonialListGet(Model model,Principal principal) {
-
-//		User usr=new User();
-//
-//		if(principal!=null) {
-//
-//			usr=userService.findByUsername(principal.getName());
-//		}
-//
-//		model.addAttribute("userInfo", usr);
 		List<Testimonial> test=testService.findAll();
 		model.addAttribute("testimonials", test);
 
@@ -2189,20 +2190,20 @@ public class HomeController {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+
 			IContainer container = IContainer.make();
 			int result=10;
 			result = container.open(pathSampleVideo,IContainer.Type.READ,null);
-			
+
 			try {
 				if(result<0) {
-					
+
 					model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 					return "updateTestimonial";
-					
+
 				}else {
 						if(container.getDuration()>CommonData.videoDuration) {
-						
+
 							model.addAttribute("error_msg",CommonData.VIDEO_DURATION_ERROR);
 							Path deletePreviousPath=Paths.get(pathSampleVideo);
 							Files.delete(deletePreviousPath);
@@ -2215,8 +2216,8 @@ public class HomeController {
 				model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 				return "updateTestimonial";
 			}
-			
-			
+
+
 				String pathtoUploadPoster=ServiceUtility.uploadVideoFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -2506,6 +2507,7 @@ public class HomeController {
 	public String addMasterTrainerGet(Model model,Principal principal) {
 
 		User usr=new User();
+		List<Language> languages = lanService.getAllLanguages();
 
 		if(principal!=null) {
 
@@ -2514,12 +2516,13 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+		model.addAttribute("languages", languages);
+
 		if(usr.getProfilePic() == null) {
 			model.addAttribute("error_msg", CommonData.ADD_PROFILE_PIC_CONSTRAINT);
 			return "profileView";
 		}
-		
+
 
 
 		return "addMasterTrainerRole";
@@ -2544,6 +2547,7 @@ public class HomeController {
 		String organization=(req.getParameter("org"));
 		String exp=req.getParameter("experience");
 		String aadhar=req.getParameter("aadharNumber");
+		String lang=req.getParameter("languages");
 
 		if(aadhar.length()!=12) {
 			 // throw error
@@ -2597,6 +2601,9 @@ public class HomeController {
 		}
 		model.addAttribute("userInfo", usr);
 		model.addAttribute("success_msg", "Request submitted for role successfully");
+
+
+
 		return "addMasterTrainerRole";
 	}
 
@@ -3526,8 +3533,8 @@ public class HomeController {
 		return "masterTrainerOperation";
 
 	}
-	
-	
+
+
 	@RequestMapping(value = "/uploadPostQuestionaire", method = RequestMethod.POST)
 	public String uploadQuestionPost(Model model,Principal principal,
 								@RequestParam(value = "catMasPostId") int catId,
@@ -3573,14 +3580,14 @@ public class HomeController {
 				feed.setQuestionPath(document);
 				postQuestionService.save(feed);
 
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
 			e.printStackTrace();
 			return "masterTrainerOperation";
 		}
-		
+
 
 		model.addAttribute("success_msg",CommonData.EVENT_SUCCESS);
 		return "masterTrainerOperation";
@@ -3861,7 +3868,7 @@ public class HomeController {
 
 		return "revokeRole";
 	}
-	
+
 	@GetMapping("/brochure")
 	public String brochure(Principal principal,Model model){
 
@@ -3875,17 +3882,17 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<Category> cat = catService.findAll();
-		
+
 		Map<Category, List<TopicCategoryMapping>> dataToSend = new HashMap<Category, List<TopicCategoryMapping>>();
 
 		for(Category temp : cat) {
 			List<TopicCategoryMapping> tempTopic = topicCatService.findAllByCategory(temp);
 			dataToSend.put(temp, tempTopic);
-			
+
 		}
 		model.addAttribute("brochuresData", dataToSend);
-		
-		return "";  // view name
+
+		return "brochures";  // view name
 	}
 
 }
