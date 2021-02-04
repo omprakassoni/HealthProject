@@ -73,90 +73,42 @@
 											type="number" class="form-control w-75" name="aadharNumber"
 											id="textAadharNumber" required="required" />
 									</div>
-									<div>
-										<div class="form-group">
-										<label for="exampleFormControlSelect1">Example select</label>
-										<select class="form-control" id="exampleFormControlSelect1" name="lang1">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-										</select>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="r"
-											id="defaultCheck1" name="read1"> <label class="form-check-label"
-											for="defaultCheck1"> Default checkbox </label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="w"
-											id="defaultCheck2" name="write1"> <label class="form-check-label"
-											for="defaultCheck2"> Default checkbox </label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="s"
-											id="defaultCheck3" name="speak1"> <label class="form-check-label"
-											for="defaultCheck3"> Default checkbox </label>
-									</div>
-									</div>
-									<div>
-										<div class="form-group">
-										<label for="exampleFormControlSelect1">Example select</label>
-										<select class="form-control" id="exampleFormControlSelect1" name="lang2">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-										</select>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="r"
-											id="defaultCheck1" name="read2"> <label class="form-check-label"
-											for="defaultCheck1"> Default checkbox </label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value=""
-											id="defaultCheck2" name="write2"> <label class="form-check-label"
-											for="defaultCheck2"> Default checkbox </label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value=""
-											id="defaultCheck3" name="speak2"> <label class="form-check-label"
-											for="defaultCheck3"> Default checkbox </label>
-									</div>
-									</div>
-									<button data-duplicate-add="demo" id="addLangSelect">+ add</button>
-									<button data-duplicate-remove="demo">- remove</button>
-									<div data-duplicate="demo">
-									<button data-duplicate-remove="phone">-</button>
-									<div class="form-group">
-										<label for="exampleFormControlSelect1">Example select</label>
-										<select class="form-control select_language sl" name="language">
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
+									<div data-duplicate="demo" >
+									<div class="row">
+									<div class="col-md-1"><button data-duplicate-remove="demo">-</button></div>
+									<div class="col-md-5">
+										<select class="form-control select_language sl" name="language" onload="addEL()">
+										<option th:each="language : ${languages}" th:text="${language.getLangName()}"></option>
 										</select>
 										<div class="form-check">
-										<input class="form-check-input r_check" type="checkbox" value="r"
-											name="read"> <label class="form-check-label"
-											for="defaultCheck1"> Default checkbox </label>
+										
 									</div>
-									<div class="form-check">
-										<input class="form-check-input w_check" type="checkbox" value="w"
+									</div>
+									<div class="col-md-2 p-6">
+									<input class="form-check-input w_check" type="checkbox" value="w"
 											name="write"> <label class="form-check-label"
-											for="defaultCheck2"> Default checkbox </label>
+											for="defaultCheck2"> Write </label></div>
+									<div class="col-md-2">
+									<input class="form-check-input r_check" type="checkbox" value="r"
+											name="read"> <label class="form-check-label"
+											for="defaultCheck1"> Read </label>
 									</div>
-									<div class="form-check">
-										<input class="form-check-input s_check" type="checkbox" value="s"
+									<div class="col-md-2">
+									<input class="form-check-input s_check" type="checkbox" value="s"
 											name="speak"> <label class="form-check-label"
-											for="defaultCheck3"> Default checkbox </label>
+											for="defaultCheck3"> Speak </label>
 									</div>
+									
 									</div>
+									<br>
+									
 									</div>
+									<div>
+									<button class="btn btn-sm btn-info" data-duplicate-add="demo" id="addLangSelect">+ add</button>
+									<button class="btn btn-sm btn-danger" data-duplicate-remove="demo">- remove</button>
+									</div>
+									
+									<br>
 									
 									<input type="hidden" id="custId" name="languages" value="">
 									<button type="submit" class="btn  btn-success"
@@ -175,7 +127,8 @@
 		var projectPath = '[(@{/})]';
 		$( "#addMaster" ).click(function() {
 			var form = document.forms[0];
-			form.languages.value = "English_rws&German_r"
+			out = '';
+			
 			lang_length = form.language.length;
 			for(i=0; i<lang_length;i++){
 				r='';w='';s='';
@@ -194,14 +147,37 @@
 				{
 					s = form.speak[i].value;
 				}
+				out+=lang+"_"+r+w+s+"&";
+				console.log("**************** lang : ",lang+"_"+r+w+s);
 			}
+			console.log("**************** out : ",out);
+			form.languages.value = out;
 			
 			});
-		$("#addLangSelect").on('click',function(){
-			
-			alert('clik');
-			/* $(".sl").addClass("select_language"); */
-			document.querySelector('.sl').addEventListener('click', loadAllLanguages)
+		
+$(".sl").on('click',function(){
+			console.log("select_language.......",this);
+			component = this;
+			$.ajax({
+				type : "GET",
+				url : projectPath+"loadLanguages",
+				data : {
+//					"id" :tutorialId
+				},
+				contentType : "application/json",
+				success : function(result) {
+					$(component).html('');
+					for (lang in result){
+						$(component).append("<option>"+result[lang]+"</option>");
+					}
+				},
+
+				error : function(err) {
+					alert('error');
+					console.log("not working. ERROR: "+ JSON.stringify(err));
+
+				}
+			});
 		});
 		
 		

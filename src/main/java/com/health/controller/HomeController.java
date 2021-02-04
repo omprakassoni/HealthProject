@@ -2507,6 +2507,7 @@ public class HomeController {
 	public String addMasterTrainerGet(Model model,Principal principal) {
 
 		User usr=new User();
+		List<Language> languages = lanService.getAllLanguages();
 
 		if(principal!=null) {
 
@@ -2515,6 +2516,7 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		model.addAttribute("languages", languages);
 
 		if(usr.getProfilePic() == null) {
 			model.addAttribute("error_msg", CommonData.ADD_PROFILE_PIC_CONSTRAINT);
@@ -2546,9 +2548,6 @@ public class HomeController {
 		String exp=req.getParameter("experience");
 		String aadhar=req.getParameter("aadharNumber");
 		String lang=req.getParameter("languages");
-		System.err.println("****************** lang : ");
-		System.err.println(lang);
-		System.err.println("****************** lang : ");
 
 		if(aadhar.length()!=12) {
 			 // throw error
@@ -2602,6 +2601,9 @@ public class HomeController {
 		}
 		model.addAttribute("userInfo", usr);
 		model.addAttribute("success_msg", "Request submitted for role successfully");
+
+
+
 		return "addMasterTrainerRole";
 	}
 
