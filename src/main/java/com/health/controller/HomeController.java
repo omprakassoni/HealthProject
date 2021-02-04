@@ -7,8 +7,10 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -3858,6 +3860,32 @@ public class HomeController {
 		model.addAttribute("userRoles", userRoles);
 
 		return "revokeRole";
+	}
+	
+	@GetMapping("/brochure")
+	public String brochure(Principal principal,Model model){
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		List<Category> cat = catService.findAll();
+		
+		Map<Category, List<TopicCategoryMapping>> dataToSend = new HashMap<Category, List<TopicCategoryMapping>>();
+
+		for(Category temp : cat) {
+			List<TopicCategoryMapping> tempTopic = topicCatService.findAllByCategory(temp);
+			dataToSend.put(temp, tempTopic);
+			
+		}
+		model.addAttribute("brochuresData", dataToSend);
+		
+		return "";  // view name
 	}
 
 }
