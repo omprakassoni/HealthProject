@@ -2106,14 +2106,7 @@ public class HomeController {
 
 	/************************************END**********************************************/
 	/************************************BROCHURE**********************************************/
-	@RequestMapping(value = "/brochures", method = RequestMethod.GET)
-	public String viewBrochureGet(Model model,Principal principal) {
-		List<Brouchure> brochures=broService.findAll();
 
-		model.addAttribute("brochures", brochures);
-
-		return "brochures";
-	}
 
 
 	/************************************END**********************************************/
@@ -3873,7 +3866,7 @@ public class HomeController {
 
 		return "revokeRole";
 	}
-	
+
 	@GetMapping("/brochure")
 	public String brochure(Principal principal,Model model){
 
@@ -3887,17 +3880,17 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<Category> cat = catService.findAll();
-		
+
 		Map<Category, List<TopicCategoryMapping>> dataToSend = new HashMap<Category, List<TopicCategoryMapping>>();
 
 		for(Category temp : cat) {
 			List<TopicCategoryMapping> tempTopic = topicCatService.findAllByCategory(temp);
 			dataToSend.put(temp, tempTopic);
-			
+
 		}
 		model.addAttribute("brochuresData", dataToSend);
-		
-		return "";  // view name
+
+		return "brochures";  // view name
 	}
 
 }
