@@ -127,6 +127,8 @@ public class CommonData {
 	public static String uploadPostQuestion = "Media/Content/PostQuestion/";
 	
 	public static String uploadBrouchure = "Media/Content/Brouchure/";
+	
+	public static String uploadCarousel = "Media/Content/Carousel/";
 
 	public static String[] tutorialStatus= { ADD_CONTENT, ADMIN_REVIEW_MSG, DOMAIN_REVIEW_MSG, QUALITY_REVIEW_MSG,
 			NEED_IMPROVEMENT_MSG, WAITING_PUBLISH,PUBLISHED

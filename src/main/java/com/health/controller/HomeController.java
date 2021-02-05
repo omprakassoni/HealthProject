@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.health.domain.security.Role;
 import com.health.domain.security.UserRole;
 import com.health.model.Brouchure;
+import com.health.model.Carousel;
 import com.health.model.Category;
 import com.health.model.City;
 import com.health.model.Comment;
@@ -55,6 +56,7 @@ import com.health.model.Tutorial;
 import com.health.model.User;
 import com.health.model.UserIndianLanguageMapping;
 import com.health.service.BrouchureService;
+import com.health.service.CarouselService;
 import com.health.service.CategoryService;
 import com.health.service.CityService;
 import com.health.service.CommentService;
@@ -171,6 +173,9 @@ public class HomeController {
 	
 	@Autowired
 	private UserIndianLanguageMappingService userIndianMappingService;
+	
+	@Autowired
+	private CarouselService caroService;
 
 
 	@RequestMapping("/")
@@ -729,21 +734,20 @@ public class HomeController {
 			usr=userService.findByUsername(principal.getName());
 		}
 		model.addAttribute("userInfo", usr);
-//		List<Category> category = catService.findAll();
-//		model.addAttribute("categories", category);
-//		List<Language> lans = lanService.getAllLanguages();
-//		model.addAttribute("languages", lans);
-//		List<Brouchure> brouchures = broService.findAll();
-//		model.addAttribute("brouchures", brouchures);
+
+		List<Carousel> cara = caroService.findAll();
+		
+		model.addAttribute("carousels", cara);
+		
 		return "addCarousel";
 	}
 
 	@RequestMapping(value = "/addCarousel",method = RequestMethod.POST)
 	public String addCarouselPost(Model model,Principal principal,
-								  @RequestParam("brouchure") MultipartFile[] brochure,
-								  @RequestParam(value = "categoryName") int categoryId,
-								  @RequestParam(name = "inputTopicName") int topicId,
-								  @RequestParam(name = "languageyName") int languageId) {
+								  @RequestParam("file") MultipartFile[] file,
+								  @RequestParam(value = "eventName") String name,
+								  @RequestParam(name = "eventDesc") String desc
+								  ) {
 
 		User usr=new User();
 
@@ -753,8 +757,46 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		List<Carousel> cara = caroService.findAll();
+		
+		model.addAttribute("carousels", cara);
+		
+		if(!ServiceUtility.checkFileExtensionImage(file)) {  // throw error
+			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
+			return "addCarousel";
+		}
+		
+		Carousel caraTemp = new Carousel();
+		caraTemp.setId(caroService.getNewId());
+		caraTemp.setDescription(desc);
+		caraTemp.setEventName(name);
+		
+		try {
+			
+			caroService.save(caraTemp);
+			
+			ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadCarousel+caraTemp.getId());
+			String pathtoUploadPoster=ServiceUtility.uploadFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadCarousel+caraTemp.getId());
+			int indexToStart=pathtoUploadPoster.indexOf("Media");
 
-		return "addBrouchure";
+			String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+
+			caraTemp.setPosterPath(document);
+
+			caroService.save(caraTemp);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+				caroService.delete(caraTemp);
+				return "addCarousel";
+			}
+		
+		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
+
+		return "addCarousel";
 
 
 	}
