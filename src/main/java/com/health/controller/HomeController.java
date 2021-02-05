@@ -40,6 +40,7 @@ import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
 import com.health.model.Event;
 import com.health.model.FeedbackMasterTrainer;
+import com.health.model.IndianLanguage;
 import com.health.model.Language;
 import com.health.model.PostQuestionaire;
 import com.health.model.Question;
@@ -52,6 +53,7 @@ import com.health.model.TrainingInformation;
 import com.health.model.TrainingTopic;
 import com.health.model.Tutorial;
 import com.health.model.User;
+import com.health.model.UserIndianLanguageMapping;
 import com.health.service.BrouchureService;
 import com.health.service.CategoryService;
 import com.health.service.CityService;
@@ -61,6 +63,7 @@ import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
 import com.health.service.EventService;
 import com.health.service.FeedBackMasterTrainerService;
+import com.health.service.IndianLanguageService;
 import com.health.service.LanguageService;
 import com.health.service.PostQuestionaireService;
 import com.health.service.QuestionService;
@@ -73,6 +76,7 @@ import com.health.service.TraineeInformationService;
 import com.health.service.TrainingInformationService;
 import com.health.service.TrainingTopicService;
 import com.health.service.TutorialService;
+import com.health.service.UserIndianLanguageMappingService;
 import com.health.service.UserRoleService;
 import com.health.service.UserService;
 import com.health.utility.CommonData;
@@ -161,6 +165,12 @@ public class HomeController {
 
 	@Autowired
 	private BrouchureService broService;
+	
+	@Autowired
+	private IndianLanguageService iLanService;
+	
+	@Autowired
+	private UserIndianLanguageMappingService userIndianMappingService;
 
 
 	@RequestMapping("/")
@@ -2525,12 +2535,12 @@ public class HomeController {
 	public String addMasterTrainerGet(Model model,Principal principal) {
 
 		User usr=new User();
-		List<Language> languages = lanService.getAllLanguages();
+		List<IndianLanguage> languages = iLanService.findAll();
 
 		if(principal!=null) {
 
 			usr=userService.findByUsername(principal.getName());
-//			model.addAttribute("success_msg", "Error in requesting role");
+
 		}
 
 		model.addAttribute("userInfo", usr);
@@ -2566,6 +2576,10 @@ public class HomeController {
 		String exp=req.getParameter("experience");
 		String aadhar=req.getParameter("aadharNumber");
 		String lang=req.getParameter("languages");
+		System.out.println("******"+lang);
+		int userIndianMappingId=userIndianMappingService.getNewId();
+		
+		Set<UserIndianLanguageMapping> userIndianMapping = new HashSet<UserIndianLanguageMapping>();
 
 		if(aadhar.length()!=12) {
 			 // throw error
@@ -2580,6 +2594,45 @@ public class HomeController {
 			return "addMasterTrainerRole";
 		}
 
+		
+		String[] lan = lang.split("&");
+		for(String x : lan) {
+			
+			
+			System.out.println("lanName:"+ x);
+			
+			String[] y = x.split("_");
+			for(int z=1 ; z<y.length ; z++) {
+				
+				IndianLanguage temp = iLanService.findByName(y[0]);
+				System.out.println(temp.getLanName());
+				
+				UserIndianLanguageMapping tempUser = new UserIndianLanguageMapping();
+				tempUser.setId(userIndianMappingId++);
+				tempUser.setUser(usr);
+				tempUser.setIndianlan(temp);
+				
+				for(char xx : y[z].toCharArray()) {
+					
+					System.out.println(xx);
+					if(xx=='r') {
+						tempUser.setRead(true);
+						System.out.println("read"+xx);
+					}else if(xx=='w') {
+						tempUser.setWrite(true);
+						System.out.println(xx);
+					}else if(xx=='s') {
+						tempUser.setSpeak(true);
+						System.out.println(xx);
+					}
+				}
+				
+				userIndianMapping.add(tempUser);
+				System.out.println("name"+y[z]);
+			}
+			
+		}
+	
 		Role role=roleService.findByname(CommonData.masterTrainerRole);
 
 		List<UserRole> userRoles = usrRoleService.findByRoleUser(usr, role);
@@ -2599,7 +2652,7 @@ public class HomeController {
 
 		try {
 
-			userService.save(usr);
+			userService.addUserToUserIndianMapping(usr, userIndianMapping);
 
 			UserRole usrRole=new UserRole();
 			usrRole.setCreated(ServiceUtility.getCurrentTime());
@@ -2608,12 +2661,12 @@ public class HomeController {
 			usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
 
 			usrRoleService.save(usrRole);
-//			model.addAttribute("msgSuccefull", CommonData.MASTER_TRAINER_ADDED_SUCCESS_MSG);
-//			model.addAttribute("success_msg", "Request submitted for role successfully");
+
+			model.addAttribute("success_msg", "Request submitted for role successfully");
 
 		}catch (Exception e) {
 			// TODO: handle exception
-//			model.addAttribute("userInfo", usr);
+			
 			model.addAttribute("error_msg", "Error in submitting request");
 			// throw error
 		}

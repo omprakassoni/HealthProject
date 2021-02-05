@@ -13,11 +13,11 @@ public class UserIndianLanguageMapping {
 	@Id
 	private int id;
 	
-	private boolean reading;
+	private boolean reading = false;
 	
-	private boolean writing;
+	private boolean writing = false;
 	
-	private boolean speaking;
+	private boolean speaking = false;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")

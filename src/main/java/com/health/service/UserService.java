@@ -13,6 +13,7 @@ import com.health.model.Question;
 import com.health.model.Testimonial;
 import com.health.model.Topic;
 import com.health.model.User;
+import com.health.model.UserIndianLanguageMapping;
 
 
 public interface UserService {
@@ -45,6 +46,8 @@ public interface UserService {
 	User addUserToTestimonial(User usr,Set<Testimonial> testi);     // in use
 	
 	User addUserToContributorTutorial(User usr,Set<ContributorAssignedTutorial> testi);     // in use
+	
+	User addUserToUserIndianMapping(User usr,Set<UserIndianLanguageMapping> userMapping);  
 
 	
 }
