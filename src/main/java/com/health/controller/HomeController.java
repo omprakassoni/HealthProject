@@ -711,9 +711,29 @@ public class HomeController {
 
 	/************************************END**********************************************/
 
-	/******************************ADD BROUCHURE ******************************************/
-	@RequestMapping(value = "/addBrouchure",method = RequestMethod.GET)
-	public String addBrouchureGet(Model model,Principal principal) {
+	/******************************ADD CAROUSEL ******************************************/
+	@RequestMapping(value = "/addCarousel",method = RequestMethod.GET)
+	public String addCarouselGet(Model model,Principal principal) {
+		User usr=new User();
+		if(principal!=null) {
+			usr=userService.findByUsername(principal.getName());
+		}
+		model.addAttribute("userInfo", usr);
+//		List<Category> category = catService.findAll();
+//		model.addAttribute("categories", category);
+//		List<Language> lans = lanService.getAllLanguages();
+//		model.addAttribute("languages", lans);
+//		List<Brouchure> brouchures = broService.findAll();
+//		model.addAttribute("brouchures", brouchures);
+		return "addCarousel";
+	}
+
+	@RequestMapping(value = "/addCarousel",method = RequestMethod.POST)
+	public String addCarouselPost(Model model,Principal principal,
+								  @RequestParam("brouchure") MultipartFile[] brochure,
+								  @RequestParam(value = "categoryName") int categoryId,
+								  @RequestParam(name = "inputTopicName") int topicId,
+								  @RequestParam(name = "languageyName") int languageId) {
 
 		User usr=new User();
 
@@ -724,20 +744,27 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
-		List<Category> category = catService.findAll();
-
-		model.addAttribute("categories", category);
-
-		List<Language> lans = lanService.getAllLanguages();
-
-		model.addAttribute("languages", lans);
-
-		List<Brouchure> brouchures = broService.findAll();
-
-		model.addAttribute("brouchures", brouchures);
-
 		return "addBrouchure";
 
+
+	}
+	/************************************END**********************************************/
+
+	/******************************ADD BROUCHURE ******************************************/
+	@RequestMapping(value = "/addBrouchure",method = RequestMethod.GET)
+	public String addBrouchureGet(Model model,Principal principal) {
+		User usr=new User();
+		if(principal!=null) {
+			usr=userService.findByUsername(principal.getName());
+		}
+		model.addAttribute("userInfo", usr);
+		List<Category> category = catService.findAll();
+		model.addAttribute("categories", category);
+		List<Language> lans = lanService.getAllLanguages();
+		model.addAttribute("languages", lans);
+		List<Brouchure> brouchures = broService.findAll();
+		model.addAttribute("brouchures", brouchures);
+		return "addBrouchure";
 	}
 
 	@RequestMapping(value = "/addBrouchure",method = RequestMethod.POST)
@@ -755,25 +782,16 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-
 		List<Brouchure> brouchures = broService.findAll();
-
 		model.addAttribute("brouchures", brouchures);
-
 		List<Language> languages=lanService.getAllLanguages();
-
 		List<Category> categories=catService.findAll();
-
 		model.addAttribute("categories", categories);
-
 		model.addAttribute("languages", languages);
-
 		if(!ServiceUtility.checkFileExtensionImage(brochure)) {  // throw error
-
 			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
 			return "addBrouchure";
 		}
-
 		Category cat=catService.findByid(categoryId);
 		Topic topic=topicService.findById(topicId);
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
