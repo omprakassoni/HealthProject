@@ -122,7 +122,7 @@
 											<iframe width="330" height="215"
 												th:src="@{/files/}+@{${testimonial.getFilePath()}}"
 												frameborder="0"
-												allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+												allow="accelerometer;  encrypted-media; gyroscope; picture-in-picture"
 												allowfullscreen="true"> </iframe>
 										</div>
 									</td>
@@ -148,8 +148,8 @@
 								</div>
 								
 								<div sec:authorize="hasAnyAuthority('MASTER_TRAINER')">
-								<tr th:each="testimonial : ${testimonials}" style="">
-									<div th:if="${testimonial.getUser().getId() == userInfo.getId()}">
+								<tr th:each="testimonial : ${testimonials}" th:if="${testimonial.getUser().getId() == userInfo.getId()}">
+									<!-- <div th:if="${testimonial.getUser().getId() == userInfo.getId()}"> -->
 									<td th:text="${testimonial.getTestimonialId()}"></td>
 									<td th:text="${testimonial.getName()}"></td>
 
@@ -159,7 +159,7 @@
 											<iframe width="330" height="215"
 												th:src="@{/files/}+@{${testimonial.getFilePath()}}"
 												frameborder="0"
-												allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+												allow="accelerometer;  encrypted-media; gyroscope; picture-in-picture"
 												allowfullscreen="true"> </iframe>
 										</div>
 									</td>
@@ -180,7 +180,7 @@
 									<td><a
 										th:href="@{${'/testimonial/edit/' + testimonial.getTestimonialId()}}">Edit</a></td>
 									
-								</div>
+								<!-- </div> -->
 								</tr>
 								</div>
 							</tbody>

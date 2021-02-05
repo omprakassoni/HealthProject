@@ -165,10 +165,10 @@ public class HomeController {
 
 	@Autowired
 	private BrouchureService broService;
-	
+
 	@Autowired
 	private IndianLanguageService iLanService;
-	
+
 	@Autowired
 	private UserIndianLanguageMappingService userIndianMappingService;
 
@@ -2578,7 +2578,7 @@ public class HomeController {
 		String lang=req.getParameter("languages");
 		System.out.println("******"+lang);
 		int userIndianMappingId=userIndianMappingService.getNewId();
-		
+
 		Set<UserIndianLanguageMapping> userIndianMapping = new HashSet<UserIndianLanguageMapping>();
 
 		if(aadhar.length()!=12) {
@@ -2594,26 +2594,26 @@ public class HomeController {
 			return "addMasterTrainerRole";
 		}
 
-		
+
 		String[] lan = lang.split("&");
 		for(String x : lan) {
-			
-			
+
+
 			System.out.println("lanName:"+ x);
-			
+
 			String[] y = x.split("_");
 			for(int z=1 ; z<y.length ; z++) {
-				
+
 				IndianLanguage temp = iLanService.findByName(y[0]);
 				System.out.println(temp.getLanName());
-				
+
 				UserIndianLanguageMapping tempUser = new UserIndianLanguageMapping();
 				tempUser.setId(userIndianMappingId++);
 				tempUser.setUser(usr);
 				tempUser.setIndianlan(temp);
-				
+
 				for(char xx : y[z].toCharArray()) {
-					
+
 					System.out.println(xx);
 					if(xx=='r') {
 						tempUser.setRead(true);
@@ -2626,13 +2626,13 @@ public class HomeController {
 						System.out.println(xx);
 					}
 				}
-				
+
 				userIndianMapping.add(tempUser);
 				System.out.println("name"+y[z]);
 			}
-			
+
 		}
-	
+
 		Role role=roleService.findByname(CommonData.masterTrainerRole);
 
 		List<UserRole> userRoles = usrRoleService.findByRoleUser(usr, role);
@@ -2666,10 +2666,12 @@ public class HomeController {
 
 		}catch (Exception e) {
 			// TODO: handle exception
-			
+
 			model.addAttribute("error_msg", "Error in submitting request");
 			// throw error
 		}
+		List<IndianLanguage> languages = iLanService.findAll();
+
 		model.addAttribute("userInfo", usr);
 		model.addAttribute("success_msg", "Request submitted for role successfully");
 
