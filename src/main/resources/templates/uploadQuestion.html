@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 <head th:replace="common/trail :: common-trail"></head>
@@ -53,7 +52,6 @@
 											name="categoryName" required="required">
 
 											<option>Select Category</option>
-											
 												<option 
 												th:each="category: ${categories}"
 												th:value="${category.getCategoryId()}" th:text="${category.getCatName()}">

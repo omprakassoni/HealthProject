@@ -247,6 +247,12 @@
             </a>
           </li>
           <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/addOrganizationRole}">
+              <span data-feather="users"></span>
+              Organizational Roles
+            </a>
+          </li>
+          <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/addLanguage}">
               <span data-feather="users"></span>
               Language
@@ -264,10 +270,22 @@
               Topic
             </a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#content">
+              <i class="far fa-newspaper sidebar-icon"></i>
+              Training
+            </a>
+          </li>
            <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/uploadQuestion}">
               <span data-feather="bar-chart-2"></span>
-              Upload Question
+              Upload Questionnaire
+            </a>
+          </li>
+          <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/downloadQuestion}">
+              <span data-feather="bar-chart-2"></span>
+              Download Questionnaire
             </a>
           </li>
           
@@ -401,6 +419,11 @@
           <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/masterTrainerOperation}">
               <i class="far fa-file-alt sidebar-icon-sm"></i>Training Form
+            </a>
+          </li>
+           <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/details}">
+              <i class="far fa-file-alt sidebar-icon-sm"></i>Workshop Details
             </a>
           </li>
         </ul>

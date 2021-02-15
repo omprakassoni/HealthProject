@@ -43,6 +43,7 @@ import com.health.model.Event;
 import com.health.model.FeedbackMasterTrainer;
 import com.health.model.IndianLanguage;
 import com.health.model.Language;
+import com.health.model.OrganizationRole;
 import com.health.model.PostQuestionaire;
 import com.health.model.Question;
 import com.health.model.State;
@@ -67,6 +68,7 @@ import com.health.service.EventService;
 import com.health.service.FeedBackMasterTrainerService;
 import com.health.service.IndianLanguageService;
 import com.health.service.LanguageService;
+import com.health.service.OrganizationRoleService;
 import com.health.service.PostQuestionaireService;
 import com.health.service.QuestionService;
 import com.health.service.RoleService;
@@ -167,15 +169,20 @@ public class HomeController {
 
 	@Autowired
 	private BrouchureService broService;
-	
+
 	@Autowired
 	private IndianLanguageService iLanService;
-	
+
 	@Autowired
 	private UserIndianLanguageMappingService userIndianMappingService;
-	
+
 	@Autowired
 	private CarouselService caroService;
+
+	@Autowired
+	private OrganizationRoleService organizationRoleService;
+
+
 
 
 	@RequestMapping("/")
@@ -187,6 +194,7 @@ public class HomeController {
 		List<Category> categories= catService.findAll();
 		List<Language> languages = lanService.getAllLanguages();
 		List<Brouchure> brochures= broService.findAll();
+		List<Carousel> carousel= caroService.findAll();
 
 		Set<String> catTemp = new HashSet<String>();
 		Set<String> topicTemp = new HashSet<String>();
@@ -204,6 +212,8 @@ public class HomeController {
 		List<Consultant> consulHome = new ArrayList<>();
 		List<Category> categoryHome = new ArrayList<>();
 		List<Brouchure> brochureHome = new ArrayList<>();
+		List<Carousel> carouselHome = new ArrayList<>();
+
 
 
 		int upperlimit = 0;
@@ -238,7 +248,7 @@ public class HomeController {
 		upperlimit = 4 ;
 		categoryHome=(categories.size()>upperlimit) ? categories.subList(0, upperlimit):categories;
 		brochureHome=(brochures.size()>upperlimit) ? brochures.subList(0, upperlimit):brochures;
-//		model.addAttribute("listOfConsultant", consulHome);
+		carouselHome=(carousel.size()>upperlimit) ? carousel.subList(0, upperlimit):carousel;
 		model.addAttribute("listOfConsultant", consults);
 		model.addAttribute("listofTestimonial", testHome);
 		model.addAttribute("listofCategories", categoryHome);
@@ -252,7 +262,23 @@ public class HomeController {
 		model.addAttribute("languages", lanTemp);
 		model.addAttribute("topics", topicTemp);
 
+		model.addAttribute("carousel", carouselHome.get(0));
+		model.addAttribute("carouselList", carouselHome.subList(1, carousel.size()));
 
+//		EPLiteClient client = new EPLiteClient("http://localhost:9001", "bb1fe836e7b81e0158d210baa1c7a9c854b74a183da71f8fa0a32eb108952961");
+//		client.createPad("my_pad1");
+//		client.setText("my_pad1", "foo!!");
+//		String text = client.getText("Demo").get("text").toString();
+//		Map result = client.listAllPads();
+//		List padIds = (List) result.get("padIDs");
+
+
+		System.err.println("*************************");
+		System.err.println("EPLiteClient");
+//		System.err.println(text);
+//		System.err.println(padIds);
+
+		System.err.println("*************************");
 
 		return "index";
 	}
@@ -645,6 +671,158 @@ public class HomeController {
 	}
 
 	/************************************END**********************************************/
+	/************************************ADD ORGANIZATIONAL ROLE**********************************************/
+
+	@RequestMapping(value = "/addOrganizationRole",method = RequestMethod.GET)
+	public String addOrganizationRoleGet(Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		List<OrganizationRole> orgRoles=organizationRoleService.findAll();
+
+		model.addAttribute("orgRoles", orgRoles);
+
+		return "addOrganizationRole";
+
+	}
+
+	@RequestMapping(value = "/addOrganizationRole",method = RequestMethod.POST)
+	public String addOrganizationRolePost(Model model,Principal principal,HttpServletRequest req) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		List<OrganizationRole> orgRoles=organizationRoleService.findAll();
+
+		model.addAttribute("orgRoles", orgRoles);
+
+		String orgRoleName=req.getParameter("role");
+
+		if(orgRoleName==null) {
+
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
+			return "addOrganizationRole";
+		}
+
+		if(organizationRoleService.getByRole(orgRoleName)!=null) {
+
+			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
+			return "addOrganizationRole";
+		}
+
+		String roleName = orgRoleName.substring(0, 1).toUpperCase() + orgRoleName.substring(1).toLowerCase();
+		OrganizationRole orgRole = new OrganizationRole();
+		orgRole.setDateAdded(ServiceUtility.getCurrentTime());
+		orgRole.setRoleId(organizationRoleService.getnewRoleId());
+		orgRole.setRole(roleName);
+		organizationRoleService.save(orgRole);
+
+		Set<OrganizationRole> roles=new HashSet<OrganizationRole>();
+		roles.add(orgRole);
+
+		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
+
+		return "addOrganizationRole";
+
+	}
+	@RequestMapping(value = "/organization_role/edit/{id}", method = RequestMethod.GET)
+	public String editOrganizationRoleGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		OrganizationRole role = organizationRoleService.getById(id);
+//		Language lan=lanService.getById(id);
+
+		model.addAttribute("role",role);
+
+		return "updateOrganizationalRole";
+	}
+
+	@RequestMapping(value = "/update_organization_role",method = RequestMethod.POST)
+	public String updateOrganizationRolePost(Model model,Principal principal,HttpServletRequest req) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		String roleName=req.getParameter("role");
+		String lanIdInString = req.getParameter("roleId");
+		System.err.print("***************** ROLE ID");
+		System.err.print(lanIdInString);
+		System.err.print("***************** ROLE ID");
+		int roleId = Integer.parseInt(lanIdInString);
+		OrganizationRole role = organizationRoleService.getById(roleId);
+//		Language lan = lanService.getById(lanId);
+
+		if(role == null) {
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
+			model.addAttribute("role",role);
+			return "updateOrganizationalRole";  //  accomodate view part
+		}
+
+		if(roleName==null) {
+
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
+			model.addAttribute("role",role);
+			return "updateOrganizationalRole";  //  accomodate view part
+		}
+
+		if(lanService.getByLanName(roleName)!=null) {
+
+			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
+			model.addAttribute("role",role);
+			return "updateOrganizationalRole";   //  accomodate view part
+		}
+
+		String role_formatted = roleName.substring(0, 1).toUpperCase() + roleName.substring(1).toLowerCase();
+
+		role.setRole(role_formatted);
+		try {
+			organizationRoleService.save(role);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			model.addAttribute("language",role);
+			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
+			return "updateOrganizationalRole";  //  accomodate view part
+		}
+
+//		role = lanService.getById(lanId);
+		role = organizationRoleService.getById(roleId);
+		model.addAttribute("role",role);
+		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
+
+		return "updateOrganizationalRole";  //  accomodate view part
+
+	}
+
+
+	/************************************END**********************************************/
 
 	/************************************ADD LANGUAGE**********************************************/
 
@@ -736,9 +914,9 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<Carousel> cara = caroService.findAll();
-		
+
 		model.addAttribute("carousels", cara);
-		
+
 		return "addCarousel";
 	}
 
@@ -757,25 +935,25 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		
+
 		List<Carousel> cara = caroService.findAll();
-		
+
 		model.addAttribute("carousels", cara);
-		
+
 		if(!ServiceUtility.checkFileExtensionImage(file)) {  // throw error
 			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
 			return "addCarousel";
 		}
-		
+
 		Carousel caraTemp = new Carousel();
 		caraTemp.setId(caroService.getNewId());
 		caraTemp.setDescription(desc);
 		caraTemp.setEventName(name);
-		
+
 		try {
-			
+
 			caroService.save(caraTemp);
-			
+
 			ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadCarousel+caraTemp.getId());
 			String pathtoUploadPoster=ServiceUtility.uploadFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadCarousel+caraTemp.getId());
 			int indexToStart=pathtoUploadPoster.indexOf("Media");
@@ -793,7 +971,7 @@ public class HomeController {
 				caroService.delete(caraTemp);
 				return "addCarousel";
 			}
-		
+
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 
 		return "addCarousel";
@@ -2175,6 +2353,30 @@ public class HomeController {
 	}
 
 	/************************************END**********************************************/
+
+	/*********************************** VIEW SECTION OF QUESTIONNAIRE ************************************/
+
+	@RequestMapping(value = "/downloadQuestion", method = RequestMethod.GET)
+	public String PostQuestionaireGet(Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		List<PostQuestionaire> postQuestionnaires = postQuestionService.findAll();
+//		Role master=roleService.findByname(CommonData.masterTrainerRole);
+
+//		List<UserRole> masters = usrRoleService.findAllByRole(master);
+		model.addAttribute("postQuestionnaires", postQuestionnaires);
+
+		return "viewQuestionnaire";
+	}
+
+	/************************************END**********************************************/
 	/************************************BROCHURE**********************************************/
 
 
@@ -2592,7 +2794,11 @@ public class HomeController {
 			model.addAttribute("error_msg", CommonData.ADD_PROFILE_PIC_CONSTRAINT);
 			return "profileView";
 		}
-
+		List<OrganizationRole> org_roles = organizationRoleService.findAll();
+		System.err.println("**********************ROLES**********************************");
+		System.err.println(org_roles);
+		System.err.println("*************************ROLES*******************************");
+		model.addAttribute("org_roles", org_roles);
 
 
 		return "addMasterTrainerRole";
@@ -2618,9 +2824,12 @@ public class HomeController {
 		String exp=req.getParameter("experience");
 		String aadhar=req.getParameter("aadharNumber");
 		String lang=req.getParameter("languages");
+		String roleOrg=req.getParameter("newRole");
 		System.out.println("******"+lang);
+
+
 		int userIndianMappingId=userIndianMappingService.getNewId();
-		
+
 		Set<UserIndianLanguageMapping> userIndianMapping = new HashSet<UserIndianLanguageMapping>();
 
 		if(aadhar.length()!=12) {
@@ -2636,45 +2845,47 @@ public class HomeController {
 			return "addMasterTrainerRole";
 		}
 
-		
+
 		String[] lan = lang.split("&");
 		for(String x : lan) {
-			
-			
+
+
 			System.out.println("lanName:"+ x);
-			
+
 			String[] y = x.split("_");
 			for(int z=1 ; z<y.length ; z++) {
-				
+
 				IndianLanguage temp = iLanService.findByName(y[0]);
 				System.out.println(temp.getLanName());
-				
+
 				UserIndianLanguageMapping tempUser = new UserIndianLanguageMapping();
 				tempUser.setId(userIndianMappingId++);
 				tempUser.setUser(usr);
 				tempUser.setIndianlan(temp);
-				
+
 				for(char xx : y[z].toCharArray()) {
-					
+
 					System.out.println(xx);
 					if(xx=='r') {
 						tempUser.setRead(true);
 						System.out.println("read"+xx);
-					}else if(xx=='w') {
-						tempUser.setWrite(true);
-						System.out.println(xx);
-					}else if(xx=='s') {
+					}
+//					else if(xx=='w') {
+//						tempUser.setWrite(true);
+//						System.out.println(xx);
+//					}
+					else if(xx=='s') {
 						tempUser.setSpeak(true);
 						System.out.println(xx);
 					}
 				}
-				
+
 				userIndianMapping.add(tempUser);
 				System.out.println("name"+y[z]);
 			}
-			
+
 		}
-	
+
 		Role role=roleService.findByname(CommonData.masterTrainerRole);
 
 		List<UserRole> userRoles = usrRoleService.findByRoleUser(usr, role);
@@ -2691,7 +2902,24 @@ public class HomeController {
 		usr.setOrganization(organization);
 		usr.setAge(Integer.parseInt(age));
 		usr.setPhone(Long.parseLong(mobileNumber));
+		System.err.print("**********************************");
+		System.err.print(roleOrg);
+		System.err.print("**********************************");
 
+		List<OrganizationRole> orgRolesList = organizationRoleService.findAll();
+		boolean isRoleExist = orgRolesList.stream().anyMatch(o -> o.getRole().equals(roleOrg));
+		OrganizationRole r;
+		if(isRoleExist) {
+			 r = organizationRoleService.getByRole(roleOrg);
+		}else {
+			r = new OrganizationRole();
+			r.setDateAdded(ServiceUtility.getCurrentTime());
+			r.setRole(roleOrg);
+			r.setRoleId(organizationRoleService.getnewRoleId());
+			organizationRoleService.save(r);
+		}
+		usr.setOrgRolev(r);
+		userService.save(usr);
 		try {
 
 			userService.addUserToUserIndianMapping(usr, userIndianMapping);
@@ -2708,14 +2936,14 @@ public class HomeController {
 
 		}catch (Exception e) {
 			// TODO: handle exception
-			
+
 			model.addAttribute("error_msg", "Error in submitting request");
 			// throw error
 		}
+		List<IndianLanguage> languages = iLanService.findAll();
+
 		model.addAttribute("userInfo", usr);
 		model.addAttribute("success_msg", "Request submitted for role successfully");
-
-
 
 		return "addMasterTrainerRole";
 	}
@@ -3393,6 +3621,28 @@ public class HomeController {
 		model.addAttribute("events", events);
 
 		return "masterTrainerOperation";
+
+	}
+
+	@RequestMapping(value = "/details", method = RequestMethod.GET)
+	public String MasterTrainerDetailsGet(Model model,Principal principal) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		List<PostQuestionaire> postQuestionnaire = postQuestionService.findByUser(usr);
+		List<FeedbackMasterTrainer> feedbackMasterTrainer = feedServ.findByUser(usr);
+		List<TrainingInformation> trainingInfo = trainingInfoService.findByUser(usr);
+		model.addAttribute("postQuestionnaire", postQuestionnaire);
+		model.addAttribute("feedbackMasterTrainer", feedbackMasterTrainer);
+		model.addAttribute("trainingInfo", trainingInfo);
+
+		return "masterTrainerViewDetails";
 
 	}
 

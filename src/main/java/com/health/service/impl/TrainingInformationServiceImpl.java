@@ -1,6 +1,5 @@
 package com.health.service.impl;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.health.model.TraineeInformation;
 import com.health.model.TrainingInformation;
-import com.health.model.TrainingTopic;
+import com.health.model.User;
 import com.health.repository.TrainingInformationRespository;
 import com.health.service.TrainingInformationService;
 
@@ -19,7 +18,7 @@ public class TrainingInformationServiceImpl implements TrainingInformationServic
 
 	@Autowired
 	private TrainingInformationRespository trainingInfoRepo;
-	
+
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -36,7 +35,7 @@ public class TrainingInformationServiceImpl implements TrainingInformationServic
 	public void save(TrainingInformation temp) {
 		// TODO Auto-generated method stub
 		trainingInfoRepo.save(temp);
-		
+
 	}
 
 	@Override
@@ -65,8 +64,14 @@ public class TrainingInformationServiceImpl implements TrainingInformationServic
 		return trainingInfoRepo.findBytitleName(topicName);
 	}
 
+	@Override
+	public List<TrainingInformation> findByUser(User user) {
+		// TODO Auto-generated method stub
+		return trainingInfoRepo.findByUser(user);
+	}
 
-	
+
+
 
 
 }
