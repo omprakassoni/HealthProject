@@ -169,7 +169,7 @@ body {
 										<tr>
 											<th>Name</th>
 											<th>Age</th>
-											<th>Organization</th>
+											<th>Organization (Role)</th>
 											<th>Aadhaar Number</th>
 											<th>Experience</th>
 											<th>Contact Info</th>
@@ -181,7 +181,10 @@ body {
 											<td th:text="${master.getUser().getFirstName()}">First
 												Name</td>
 											<td th:text="${master.getUser().getAge()}"></td>
-											<td th:text="${master.getUser().getOrganization()}"></td>
+											<td>
+											<span th:text="${master.getUser().getOrganization()}"></span>
+											(<span th:text="${master.getUser().getOrgRolev().getRole()}"></span>)
+											</td>
 											<td th:text="${master.getUser().getAadharNumber()}"></td>
 											<td th:text="${master.getUser().getExperience()}"></td>
 											<td th:text="${master.getUser().getPhone()}"></td>

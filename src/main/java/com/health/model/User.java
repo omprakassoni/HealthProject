@@ -4,16 +4,15 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -29,96 +28,109 @@ public class User implements UserDetails{
 	@Id
 	@Column(name="id", nullable = false, updatable = false)
 	private Long id;
-	
+
 	private String username;
-	
+
 	private Date dob;
-	
+
 	private String password;
-	
+
 	private String firstName;
-	
+
 	private String gender;
-	
+
 	private String lastName;
-	
+
 	private String address;
-	
+
 	@Column(name = "token")
 	private String token;
-	
+
 	@Column(name = "age")
 	private int age;
-	
+
 	@Column(name = "master_trainer_organization")
 	private String organization ;
-	
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "org_role_id")
+	private OrganizationRole orgRolev;
+
+
+
+
+	public OrganizationRole getOrgRolev() {
+		return orgRolev;
+	}
+	public void setOrgRolev(OrganizationRole orgRolev) {
+		this.orgRolev = orgRolev;
+	}
 	@Column(name = "master_trainer_experience")
 	private int experience;
-	
+
 	@Column(name = "master_trainer_aadhar")
 	private long aadharNumber;
 
 	@Column(name="profilePic")
 	private String profilePic;
-	
+
 	@Column(name="email", nullable = false, updatable = false)
 	private String email;
-	
+
 	private long phone;
-	
+
 	private boolean registered=true;
-	
+
 	@Column(name = "dateAdded",nullable = false,updatable = false)
 	private Timestamp dateAdded;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Category> categories = new HashSet<Category>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Topic> topics = new HashSet<Topic>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Language> languages = new HashSet<Language>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Question> questions = new HashSet<Question>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Event> events = new HashSet<Event>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Testimonial> testi = new HashSet<Testimonial>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Consultant> consults = new HashSet<Consultant>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingInformation> trainingInfo =new HashSet<TrainingInformation>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Comment> comments =new HashSet<Comment>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<LogManegement> logs =new HashSet<LogManegement>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserIndianLanguageMapping> userKnownLans =new HashSet<UserIndianLanguageMapping>();
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<PostQuestionaire> questionsPost =new HashSet<PostQuestionaire>();
 
@@ -136,7 +148,7 @@ public class User implements UserDetails{
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	@Override
 	public String getPassword() {
 		return password;
@@ -213,7 +225,7 @@ public class User implements UserDetails{
 	public String getFullName() {
 		return  firstName + ' ' + lastName;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -360,7 +372,7 @@ public class User implements UserDetails{
 		this.questionsPost = questionsPost;
 	}
 
-	
-	
+
+
 
 }
