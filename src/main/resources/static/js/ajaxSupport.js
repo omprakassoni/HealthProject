@@ -3537,65 +3537,7 @@ $(document).ready(function() {
 
 			});
 
-			$('#graphicsId').click(function() {
-
-						var categoryid = $("#categoryId").val();
-						var topicid = $("#topicID").val();
-						var lanId = $("#lanId").val();
-						var TutorialID=$("#tutorialId").val();
-
-						var form = $('#upload-file-form-graphics')[0];
-						var formData = new FormData(form);
-						console.log(formData);
-
-						formData.append('categoryname', categoryid);
-						formData.append('topicid', topicid);
-						formData.append('lanId', lanId);
-						formData.append('id',TutorialID);
-
-						$.ajax({
-							type : "POST",
-							url : projectPath+"addGraphics",
-							data : formData,
-							enctype : 'multipart/form-data',
-							processData : false,
-							contentType : false,
-							cache : false,
-							success : function(result) {
-//								$("#statusofSlide").prop('disabled',true);
-//								$('#statusofSlide').html(result[2]);
-
-//								alert("12345hi");
-
-								$('#sliedPdf').html(result);
-							/*	$("#sliedPdf").prop('href', result[1]);*/
-								var result = "Graphics uploaded successfully";
-								showStatus(SUCCESS,result);
-
-							},
-
-							error : function(err) {console.log("not working. ERROR: "+ JSON.stringify(err));
-							var result = "Graphics uploaded successfully";
-							showStatus(SUCCESS,result);
-							}
-
-						});
-
-					});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			
 
 
 			/* video for thumnail and video */
@@ -5849,83 +5791,6 @@ $(document).ready(function() {
 					});
 /**********************  changes made by om prakash ******************************/
 
-			$('#graphicsAcceptOrNeedToImprovemenetByDomain').click(function() {
-						console.log('here');
-						
-						var tutorialId = $("#tutorialId").val();
-
-						var vals = $("#graphicsDomain")
-						.val();
-
-						if (vals == '0') {
-
-							alert("Select Accept Or Need To Improvement");
-
-							// here is code for Script // here
-							// is code for Script
-							// css({'visibility':'hidden'});
-
-						} else if (vals == '1') {
-
-							$
-							.ajax({
-
-								type : "GET",
-								url : projectPath+"acceptDomainGraphics",
-								data : {
-									"id" : tutorialId
-								},
-								contentType : "application/json",
-								success : function(result) {
-//									$("#statusSlideByDomain").prop('disabled',false);
-//									$('#statusSlideByDomain').html(result);
-									showStatus(SUCCESS, result);
-
-								},
-
-								error : function(err) {
-									console.log("not working. ERROR: "+ JSON.stringify(err));
-									result = "Error";
-									showStatus(ERROR, result);
-								}
-
-							});
-
-						} else if (vals == '2') {
-
-							var msg = $("#graphicsCommentMsg").val();
-							$.ajax({
-								type : "GET",
-								url : projectPath+"commentByReviewer",
-								data : {
-									"id" : tutorialId,
-									"msg" : msg,
-									"type" : "Graphics",
-									"role" : "Domain"
-								},
-								contentType : "application/json",
-								success : function(
-										result) {
-
-//									$("#statusSlideByDomain").prop('disabled',false);
-//									$('#statusKeywordByQuality').html(result);
-									showStatus(SUCCESS, result);
-								},
-
-								error : function(err) {
-									console.log("not working. ERROR: "+ JSON.stringify(err));
-									result = "Error";
-									showStatus(ERROR, result);
-								}
-
-							});
-
-						}
-
-					});
-
-			// End Slide for DOmain review
-
 			// here is code for Accept Or Need To Improvement Script
 /************************ changes made by om prakash *****************************/
 			
@@ -6007,86 +5872,8 @@ $(document).ready(function() {
 
 			//
 
-/***************** changes made by om prakash ******************************/
-			
-			$('#graphicsAcceptOrNeedToImprovemenetByQuality').click(function() {
-//						
-						var tutorialId = $("#tutorialId").val();
 
-						var vals = $("#graphicsQuality")
-						.val();
-
-						if (vals == '0') {
-
-							alert("Select Accept Or Need To Improvement");
-
-							// here is code for Script // here
-							// is code for Script
-							// css({'visibility':'hidden'});
-
-						} else if (vals == '1') {
-
-							$
-							.ajax({
-
-								type : "GET",
-								url : projectPath+"acceptQualityGraphics",
-								data : {
-									"id" : tutorialId
-								},
-								contentType : "application/json",
-								success : function(result) {
-									showStatus(SUCCESS,result);
-//									$("#statusKeywordByQuality").prop('disabled',false);
-//									$('#statusKeywordByQuality').html(result);
-
-								},
-
-								error : function(err) {
-									console.log("not working. ERROR: "+ JSON.stringify(err));
-									result = "Error";
-									showStatus(ERROR,result);
-								}
-
-							});
-
-						} else if (vals == '2') {
-							$('#graphicsCommentMsg').prop('readonly', true);
-							var msg = $("#graphicsCommentMsg").val();
-
-							$
-							.ajax({
-
-								type : "GET",
-								url : projectPath+"commentByReviewer",
-								data : {
-									"id" : tutorialId,
-									"msg" : msg,
-									"type" : "Graphics",
-									"role" : "Quality"
-								},
-								contentType : "application/json",
-								success : function(
-										result) {
-
-//									$("#statusKeywordByQuality").prop('disabled',false);
-//									$('#statusKeywordByQuality').html(result);
-									showStatus(SUCCESS,result);
-								},
-
-								error : function(err) {
-									console.log("not working. ERROR: "+ JSON.stringify(err));
-									result = "Error";
-									showStatus(ERROR,result);
-								}
-
-							});
-
-						}
-
-					});
-
-
+	
 
 			/*Here is code for Contributor PreRequistic component  display topic */
 

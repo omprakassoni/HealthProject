@@ -54,7 +54,7 @@
 						                <th>Keyword</th>
 						                <th>Video</th>
 						                <th>Prerequisite</th>
-						                <th>Graphics</th>
+						                
 						                <th>Review</th>
 						 
 					            </tr>    			    
@@ -280,39 +280,7 @@
 						    
 						    
 						    </td>
-						    <td>
-						    
-						    					    								             	
-						                   <span th:if="${componenettutorial.getGraphicsStatus()==0}">
-									                 
-									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
-									        </span>
-						             	
-						                   <span th:if="${componenettutorial.getGraphicsStatus()==2}">	
-									                 
-									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
-									        </span>	
-									               	
-									             	 
-									               	
-									               	  <span th:if="${componenettutorial.getGraphicsStatus()==3}">
-									               	  
-									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
-									               	</span>	
-									               	
-									               	  <span th:if="${componenettutorial.getGraphicsStatus()==5}">
-									               	  
-									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
-									               	  </span>
-												     <span th:if="${componenettutorial.getGraphicsStatus()==4}">
-	
-									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
-									                   
-									                   
-									                   </span>
-						    
-						    
-						    </td>			    
+									    
 						           				                
 						               <td><a th:href="@{${'/domainreview/review/'+ componenettutorial.getTutorialId()}}"><b>Review </b></a></td>
 										
@@ -348,7 +316,7 @@
 						                <th>Keyword</th>
 						                <th>Video</th>
 						                <th>Prerequisite</th>
-						                <th>Graphics</th>
+						                
 						                
 						 
 					            </tr>    			    
@@ -574,39 +542,7 @@
 						    
 						    
 						    </td>
-						    <td>
-						    
-						    					    								             	
-						                   <span th:if="${componenettutorial.getGraphicsStatus()==0}">
-									                 
-									               			<i class="fas fa-minus-circle pending-upload" data-toggle="tooltip" data-placement="top"></i>
-									        </span>
-						             	
-						                   <span th:if="${componenettutorial.getGraphicsStatus()==2}">	
-									                 
-									               		<i class="fas fa-check-circle domain-review" data-toggle="tooltip" data-placement="top"></i>
-									        </span>	
-									               	
-									             	 
-									               	
-									               	  <span th:if="${componenettutorial.getGraphicsStatus()==3}">
-									               	  
-									               			 <i class="fas fa-check-circle quality-review" data-toggle="tooltip" data-placement="top"></i>
-									               	</span>	
-									               	
-									               	  <span th:if="${componenettutorial.getGraphicsStatus()==5}">
-									               	  
-									               			 <i class="fas fa-check-circle review-accepted" data-toggle="tooltip" data-placement="top"></i>
-									               	  </span>
-												     <span th:if="${componenettutorial.getGraphicsStatus()==4}">
-	
-									                   <i class="fas fa-times-circle review-improvement" data-toggle="tooltip" data-placement="top"></i>
-									                   
-									                   
-									                   </span>
-						    
-						    
-						    </td>			    
+								    
 						           				                
 						              
 										

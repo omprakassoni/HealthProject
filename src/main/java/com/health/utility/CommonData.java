@@ -146,8 +146,6 @@ public class CommonData {
 
 	public static String OUTLINE = "Outline";
 
-	public static String GRAPHICS = "Graphics";
-
 	public static String PRE_REQUISTIC = "Pre_requistic";
 
 	public static String SLIDE = "Slide";

@@ -890,92 +890,6 @@ public class AjaxController{
 
 	}
 
-	@RequestMapping("/addGraphics")
-	public @ResponseBody String addGraphics(@RequestParam(value = "id") int tutorialId,
-											@RequestParam(value = "uploadGraphicUpload") MultipartFile videoFile,
-											@RequestParam(value = "categoryname") String catName,
-											@RequestParam(value = "topicid") int topicId,
-											@RequestParam(value = "lanId") String lanId,
-											Principal principal) {
-
-		User usr=new User();
-
-		if(principal!=null) {
-
-			usr=usrservice.findByUsername(principal.getName());
-		}
-
-		if(tutorialId != 0) {
-			Tutorial tut=tutService.getById(tutorialId);
-			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.GRAPHICS, CommonData.DOMAIN_STATUS, tut.getGraphicsStatus(), CommonData.contributorRole, usr, tut);
-
-			try {
-				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/Graphics");
-					String pathtoUploadPoster=ServiceUtility.uploadVideoFile(videoFile, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/Graphics");
-					int indexToStart=pathtoUploadPoster.indexOf("Media");
-
-					String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-
-					tut.setGraphics(document);
-					tut.setGraphicsStatus(CommonData.DOMAIN_STATUS);
-					tutService.save(tut);
-					logService.save(log);
-
-					return CommonData.Graphics_SAVE_SUCCESS_MSG;
-
-			}catch (Exception e) {
-				// TODO: handle exception
-
-				// throw error
-			}
-
-		}else {
-
-			Category cat = catService.findBycategoryname(catName);
-			Topic topic=topicService.findById(topicId);
-			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
-			Language lan=lanService.getByLanName(lanId);
-			ContributorAssignedTutorial conLocal=conService.findByUserTopicCatLan(usr, localTopicCat, lan);
-			int newTutorialid=tutService.getNewId();
-
-			Tutorial local=new Tutorial();
-			local.setDateAdded(ServiceUtility.getCurrentTime());
-			local.setConAssignedTutorial(conLocal);
-			local.setTutorialId(newTutorialid);
-
-			try {
-				tutService.save(local);
-
-				if(ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+newTutorialid+"/Graphics")) {
-					String pathtoUploadPoster=ServiceUtility.uploadVideoFile(videoFile, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+newTutorialid+"/Graphics");
-					int indexToStart=pathtoUploadPoster.indexOf("Media");
-
-					String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-					Tutorial tut1=tutService.getById(newTutorialid);
-					tut1.setGraphics(document);
-					tut1.setGraphicsStatus(CommonData.DOMAIN_STATUS);
-					tutService.save(tut1);
-					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.GRAPHICS, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
-					logService.save(log);
-					return CommonData.Graphics_SAVE_SUCCESS_MSG;
-
-				}else {
-
-					return "error" ; /////////////////  throw error
-				}
-
-
-			}catch (Exception e) {
-				// TODO: handle exception
-				return "error";       // throw error
-			}
-
-
-		}
-
-		return CommonData.Graphics_SAVE_SUCCESS_MSG;
-
-	}
 
 	@RequestMapping("/addSlide")
 	public @ResponseBody String addSlide(@RequestParam(value = "id") int tutorialId,
@@ -1298,25 +1212,6 @@ public class AjaxController{
 
 	}
 
-	@RequestMapping("/acceptDomainGraphics")
-	public @ResponseBody String acceptDomainGraphics(@RequestParam(value = "id") int tutorialId,Principal principal) {
-
-		User usr=new User();
-
-		if(principal!=null) {
-
-			usr=usrservice.findByUsername(principal.getName());
-		}
-
-		Tutorial tutorial=tutService.getById(tutorialId);
-		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.GRAPHICS, CommonData.QUALITY_STATUS, tutorial.getGraphicsStatus(), CommonData.domainReviewerRole, usr, tutorial);
-		tutorial.setGraphicsStatus(CommonData.QUALITY_STATUS);
-		tutService.save(tutorial);
-		logService.save(log);
-		return CommonData.Graphics_SAVE_SUCCESS_MSG;
-
-	}
-
 
 
 	/***********************************END ***************************************************************/
@@ -1436,25 +1331,7 @@ public class AjaxController{
 
 	}
 
-	@RequestMapping("/acceptQualityGraphics")
-	public @ResponseBody String acceptQualityGraphics(@RequestParam(value = "id") int tutorialId,Principal principal) {
-
-		User usr=new User();
-		if(principal!=null) {
-
-			usr=usrservice.findByUsername(principal.getName());
-		}
-
-		Tutorial tutorial=tutService.getById(tutorialId);
-		LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.GRAPHICS, CommonData.WAITING_PUBLISH_STATUS, tutorial.getGraphicsStatus(), CommonData.qualityReviewerRole, usr, tutorial);
-		tutorial.setGraphicsStatus(CommonData.WAITING_PUBLISH_STATUS);
-		tutService.save(tutorial);
-		logService.save(log);
-		return CommonData.Graphics_SAVE_SUCCESS_MSG;
-
-	}
-
-
+	
 
 	/***********************************END ***************************************************************/
 /******************************* COMMENT MODULE UNDER CREATION PART ********************************/
@@ -1549,11 +1426,6 @@ public class AjaxController{
 			statusvalue = tut.getVideoStatus();
 			typeValue = CommonData.VIDEO;
 
-		}else if(type.equalsIgnoreCase(CommonData.GRAPHICS)) {
-			com.setType(CommonData.GRAPHICS);
-			statusvalue = tut.getGraphicsStatus();
-			typeValue = CommonData.GRAPHICS;
-
 		}else if(type.equalsIgnoreCase(CommonData.PRE_REQUISTIC)) {
 			com.setType(CommonData.PRE_REQUISTIC);
 			statusvalue = tut.getPreRequisticStatus();
@@ -1587,8 +1459,6 @@ public class AjaxController{
 				tut.setSlideStatus(CommonData.IMPROVEMENT_STATUS);
 			}else if(type.equalsIgnoreCase(CommonData.VIDEO)) {
 				tut.setVideoStatus(CommonData.IMPROVEMENT_STATUS);
-			}else if(type.equalsIgnoreCase(CommonData.GRAPHICS)) {
-				tut.setGraphicsStatus(CommonData.IMPROVEMENT_STATUS);
 			}else if(type.equalsIgnoreCase(CommonData.PRE_REQUISTIC)) {
 				tut.setPreRequisticStatus(CommonData.IMPROVEMENT_STATUS);
 			}else if(type.equalsIgnoreCase(CommonData.OUTLINE)) {
@@ -1643,9 +1513,6 @@ public class AjaxController{
 
 		}else if(type.equalsIgnoreCase(CommonData.VIDEO)) {
 			com.setType(CommonData.VIDEO);
-
-		}else if(type.equalsIgnoreCase(CommonData.GRAPHICS)) {
-			com.setType(CommonData.GRAPHICS);
 
 		}else if(type.equalsIgnoreCase(CommonData.PRE_REQUISTIC)) {
 			com.setType(CommonData.PRE_REQUISTIC);

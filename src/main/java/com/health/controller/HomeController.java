@@ -3177,13 +3177,13 @@ public class HomeController {
 				model.addAttribute("statusVideo", CommonData.tutorialStatus[local.getVideoStatus()]);
 				model.addAttribute("statusKeyword", CommonData.tutorialStatus[local.getKeywordStatus()]);
 				model.addAttribute("statusPreReq", CommonData.tutorialStatus[local.getPreRequisticStatus()]);
-				model.addAttribute("statusGraphics", CommonData.tutorialStatus[local.getGraphicsStatus()]);
+				
 				model.addAttribute("tutorial", local);
 
 				List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, local);
 				List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT, local);
 				List<Comment> comSlide = comService.getCommentBasedOnTutorialType(CommonData.SLIDE, local);
-				List<Comment> comGraphics = comService.getCommentBasedOnTutorialType(CommonData.GRAPHICS, local);
+				
 				List<Comment> comKeyword = comService.getCommentBasedOnTutorialType(CommonData.KEYWORD, local);
 				List<Comment> comPreRequistic = comService.getCommentBasedOnTutorialType(CommonData.PRE_REQUISTIC, local);
 				List<Comment> comOutline = comService.getCommentBasedOnTutorialType(CommonData.OUTLINE, local);
@@ -3194,7 +3194,7 @@ public class HomeController {
 				model.addAttribute("comVideo", comVideo);
 				model.addAttribute("comKeyword", comKeyword);
 				model.addAttribute("comPreReq", comPreRequistic);
-				model.addAttribute("comGraphics",comGraphics );
+				
 			}
 		}
 
@@ -3318,7 +3318,7 @@ public class HomeController {
 
 			if(temp.getOutlineStatus() > CommonData.DOMAIN_STATUS && temp.getScriptStatus() > CommonData.DOMAIN_STATUS &&
 					temp.getSlideStatus() > CommonData.DOMAIN_STATUS && temp.getKeywordStatus() > CommonData.DOMAIN_STATUS &&
-					temp.getVideoStatus() > CommonData.DOMAIN_STATUS && temp.getGraphicsStatus() > CommonData.DOMAIN_STATUS &&
+					temp.getVideoStatus() > CommonData.DOMAIN_STATUS && 
 					temp.getPreRequisticStatus() > CommonData.DOMAIN_STATUS) {
 
 				published.add(temp);
@@ -3360,7 +3360,7 @@ public class HomeController {
 		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.domainReviewerRole);
-		List<Comment> comGraphics = comService.getCommentBasedOnUserTutorialType(CommonData.GRAPHICS, usr, tutorial,CommonData.domainReviewerRole);
+
 		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.domainReviewerRole);
@@ -3371,7 +3371,7 @@ public class HomeController {
 		model.addAttribute("comVideo", comVideo);
 		model.addAttribute("comKeyword", comKeyword);
 		model.addAttribute("comPreReq", comPreRequistic);
-		model.addAttribute("comGraphics",comGraphics );
+		
 
 		model.addAttribute("statusOutline", CommonData.tutorialStatus[tutorial.getOutlineStatus()]);
 		model.addAttribute("statusScript", CommonData.tutorialStatus[tutorial.getScriptStatus()]);
@@ -3379,7 +3379,7 @@ public class HomeController {
 		model.addAttribute("statusVideo", CommonData.tutorialStatus[tutorial.getVideoStatus()]);
 		model.addAttribute("statusKeyword", CommonData.tutorialStatus[tutorial.getKeywordStatus()]);
 		model.addAttribute("statusPreReq", CommonData.tutorialStatus[tutorial.getPreRequisticStatus()]);
-		model.addAttribute("statusGraphics", CommonData.tutorialStatus[tutorial.getGraphicsStatus()]);
+		
 		model.addAttribute("tutorial", tutorial);
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
@@ -3420,7 +3420,7 @@ public class HomeController {
 
 			if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
 					temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
-					temp.getVideoStatus() == CommonData.PUBLISH_STATUS && temp.getGraphicsStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getVideoStatus() == CommonData.PUBLISH_STATUS  &&
 					temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
 
 				published.add(temp);
@@ -3461,7 +3461,7 @@ public class HomeController {
 
 			if(temp.getOutlineStatus() >= CommonData.WAITING_PUBLISH_STATUS && temp.getScriptStatus() >= CommonData.WAITING_PUBLISH_STATUS &&
 					temp.getSlideStatus() >= CommonData.WAITING_PUBLISH_STATUS && temp.getKeywordStatus() >= CommonData.WAITING_PUBLISH_STATUS &&
-					temp.getVideoStatus() >= CommonData.WAITING_PUBLISH_STATUS && temp.getGraphicsStatus() >= CommonData.WAITING_PUBLISH_STATUS &&
+					temp.getVideoStatus() >= CommonData.WAITING_PUBLISH_STATUS &&
 					temp.getPreRequisticStatus() >= CommonData.WAITING_PUBLISH_STATUS) {
 
 				published.add(temp);
@@ -3499,7 +3499,6 @@ public class HomeController {
 		tutorial.setOutlineStatus(CommonData.PUBLISH_STATUS);
 		tutorial.setSlideStatus(CommonData.PUBLISH_STATUS);
 		tutorial.setScriptStatus(CommonData.PUBLISH_STATUS);
-		tutorial.setGraphicsStatus(CommonData.PUBLISH_STATUS);
 		tutorial.setPreRequisticStatus(CommonData.PUBLISH_STATUS);
 		tutorial.setVideoStatus(CommonData.PUBLISH_STATUS);
 		tutorial.setStatus(true);
@@ -3540,7 +3539,7 @@ public class HomeController {
 		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.qualityReviewerRole);
 		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.qualityReviewerRole);
 		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.qualityReviewerRole);
-		List<Comment> comGraphics = comService.getCommentBasedOnUserTutorialType(CommonData.GRAPHICS, usr, tutorial,CommonData.qualityReviewerRole);
+		
 		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.qualityReviewerRole);
 		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.qualityReviewerRole);
 		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.qualityReviewerRole);
@@ -3552,7 +3551,7 @@ public class HomeController {
 		model.addAttribute("comVideo", comVideo);
 		model.addAttribute("comKeyword", comKeyword);
 		model.addAttribute("comPreReq", comPreRequistic);
-		model.addAttribute("comGraphics",comGraphics );
+		
 
 		model.addAttribute("statusOutline", CommonData.tutorialStatus[tutorial.getOutlineStatus()]);
 		model.addAttribute("statusScript", CommonData.tutorialStatus[tutorial.getScriptStatus()]);
@@ -3560,7 +3559,7 @@ public class HomeController {
 		model.addAttribute("statusVideo", CommonData.tutorialStatus[tutorial.getVideoStatus()]);
 		model.addAttribute("statusKeyword", CommonData.tutorialStatus[tutorial.getKeywordStatus()]);
 		model.addAttribute("statusPreReq", CommonData.tutorialStatus[tutorial.getPreRequisticStatus()]);
-		model.addAttribute("statusGraphics", CommonData.tutorialStatus[tutorial.getGraphicsStatus()]);
+	
 		model.addAttribute("tutorial", tutorial);
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());

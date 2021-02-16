@@ -186,22 +186,7 @@
 
 											</tr>
 
-											<tr>
-
-												<td>7</td>
-												<td>Graphics</td>
-												<td><span class="status-contri"
-													th:text="${statusGraphics}"></span></td>
-												<th>-</th>
-												<th>
-													<button type="button" class="btn btn-info"
-														data-toggle="modal" data-target="#grahicsModale"
-														data-whatever="@mdo">
-														<i class="fas fa-eye"></i>
-													</button>
-												</th>
-
-											</tr>
+										
 
 
 										</tbody>
@@ -1006,115 +991,6 @@
 								</div>
 							</div>
 
-							<div class="modal fade" id="grahicsModale" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalLabeSlideStatus"
-								aria-hidden="true" data-backdrop="static" data-keyboard="false">
-
-								<div
-									class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
-									role="document">
-									<div class="modal-content">
-
-										
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabeSlideStatus">Quality Review - Graphics</h5>
-
-											<div style="color: green; padding-left: 20px"
-												id="saveCommentSlide"></div>
-
-											<div style="color: green; padding-left: 20px"
-												id="statusSlideByDomain"></div>
-
-											<div class="modal-title"></div>
-
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<div class="row">
-											<div class="col-12">
-											<div class="alert alert-msg" style="display: none;"></div>
-													<div th:if="${tutorial.getGraphicsStatus() != 3}"><div class="alert alert-info">Not valid for review</div></div>
-											<div th:unless="${tutorial.getGraphicsStatus()}"
-												class="alert alert-secondary upload-status" role="alert">
-												No Graphics has been added yet.</div>
-											<div th:if="${tutorial.getGraphicsStatus()!=0}" class="border border-secondary p-3 mb-3">
-												<div>
-													
-													
-													<span id="scriptIdDomain" th:each="comp : ${tutorial}">
-														<a target="_blank" name="categoryName"
-														th:href="@{/files/}+@{${comp.getGraphics()}}"> <span>View
-																Graphics</span></a>
-													</span>
-													
-												</div>
-											</div>
-											<div th:if="${tutorial.getGraphicsStatus()==3}">
-												<form class="form-horizontal mb-3"
-													th:action="@{/addkeyword}"
-													 method="post">
-													<div class="form-group">
-														<select id="graphicsQuality" class="form-control">
-															<option value="0">Select</option>
-															<option value="1">Accept</option>
-															<option value="2">Need Improvement</option>
-														</select>
-													</div>
-													<div id="graphicsNeedImprovementByQuality"
-														style="display: none;">
-														<label for="slideCommentMsg">Comments : </label>
-														<textarea class="form-control" name="graphicsCommentMsg"
-															id="graphicsCommentMsg" rows="10" required="required"
-															placeholder="Enter comments here."></textarea>
-													</div>
-													<br />
-												</form>
-
-
-											</div>
-											</div>
-											<div class="col-12">
-											<div th:if="${not #lists.isEmpty(comGraphics)}">
-									<h6 class="border-bottom">Comments: </h6>
-											    <div th:each="comment : ${comGraphics}" class="border-bottom"> 
-											    <p class="my-0"><strong><i class="fas fa-user mr-2"></i><span th:text="${comment.getUser().getFullName()}"></span></strong></p>
-											    <p class="my-0"><small><i class="far fa-clock mr-2"></i><span th:text="${comment.getDateAdded()}"></span></small></p>
-											    <p class="my-0 text-muted" ><span th:text="${comment.getComment()}"></span></p>
-											    
-											    </div>
-									
-									</div>
-											
-											</div>
-											</div>
-										
-										</div>
-										<div class="modal-footer">
-											<div th:if="${tutorial}">
-												<div th:if="${tutorial.getGraphicsStatus() == 3}">
-													<button id="graphicsAcceptOrNeedToImprovemenetByQuality"
-														type="button" class="btn btn-success">Submit</button>
-												</div>
-												<div th:unless="${tutorial.getGraphicsStatus() == 3}">
-													<button id="graphicsAcceptOrNeedToImprovemenetByQuality"
-														type="button" class="btn btn-success" disabled="disabled">Submit</button>
-												</div>
-											</div>
-											<div th:unless="${tutorial}">
-												<button id="graphicsAcceptOrNeedToImprovemenetByQuality"
-													type="button" class="btn btn-success">Submit</button>
-											</div>
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
-
-										</div>
-
-									</div>
-								</div>
-							</div>
 
 				</div>
 			</div>
