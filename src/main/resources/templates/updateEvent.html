@@ -1,190 +1,139 @@
 
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-
-
-<head th:replace="common/trail :: common-trail">
-
-
-		<meta charset="utf-8"/>
-		 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-		 <link rel="stylesheet" th:href="@{/css/style3.css}"/>
- 	 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/> 
-		<link rel="stylesheet" type="text/css" th:href="@{/datatables.css}"/>
- 
-	
-</head>
-
- 
+<head th:replace="common/trail :: common-trail"></head>
 <body>
-	<div style="display: flex;">
-		<div th:replace="common/sidebar :: contributor_sidebar"></div>
-
-		<div class="row" style='width: 100%;'>
-			<div class="col-lg-10 col-xl-9 mx-auto">
-				<div class="card card-signin flex-row a-card">
-
-					<div class="card-body">
-					
-					
-
-<body>
-  
-  		
-	<div class="container" style="padding-top: 15px">
-	
-	
-	    <div class="row">
-	      <div class="col-lg-10 col-xl-9 mx-auto">
-	        <div class="card card-signin flex-row my-5">
-	       
-	          <div class="card-body">
-	           <h5 class="card-title text-center" style="color:maroon; font-size: 20px">
-    	<div class="">    
-                                <div th:if="${msg}">
-   								 <span th:text="${msg}"></span>
- 											 </div> </div></h5>
-	            <h5 class="card-title text-center" style="color:maroon; font-size: 30px">Update Event</h5>
-	            
-	            
-	               <form class="form-horizontal"  th:action="@{/updateEvent}" method="post">
-                        
-                        <div th:each="event : ${events}">
-    
-      				 <input type="hidden"  name="eventId"  th:value="${event.getEventId()}"/>
-      				 
-      				 
-      				 	 <div class="form-group"> 
-   
-                                          <label for="event">Event Name</label> 
-                                                   <input type="text" class="form-control" id="event" name="eventname" th:value="${event.getEventName()}"/>
-   							</div>
-   
-					   <div class="form-group">
-					   
-					      <label for="eventdate">Start Date</label> 
-                                                   <input type="date" class="form-control" id="date" name="date"  th:value="${event.getStartDate()}"/>
-					   
-					   
-					   </div>
-					      <div class="form-group">
-					   
-					      <label for="eventdate">End Date</label> 
-                                                   <input type="date" class="form-control" id="date" name="endDate"  th:value="${event.getEndDate()}"/>
-					   
-					   
-					   </div>
-					   
-					   
-					    <div class="form-group">
-					           <label for="eventDescription" >Enter Description</label> 
-                                                
-                               <textarea class="form-control" rows="5" id="eventDescription" name="description"  th:text="${event.getDescription()}"></textarea>
-                                              
-  						 </div>
-  						 
-  						   <div class="form-group">
-  						   
-  						   <label for="venue">Venue Name</label> 
-                          <input type="text" class="form-control" id="venue" name="venuename"  th:value="${event.getLocation()}"/>
-                                     
-  						   
-  						   </div>
-  						    <div class="form-group">
-  						   
-  						         <label for="contactperson">Contact Person</label> 
-  						     <input type="text" class="form-control" id="contactperson" name="contactperson"  th:value="${event.getContactPerson()}"/>
-  						   
-  						   </div>
-  						       <div class="form-group">
-  						       
-  						          <label for="contactnumber">Contact Number</label> 
-  						         <input type="text" class="form-control" id="conatctNumber" name="contactnumber"  th:value="${event.getContactNumber()}"/>
-  						       
-  						       </div>
-  						   
-  						    <div class="form-group">
-  						     <label for="email">Email Id</label> 
-                                        
-                                    	  <input type="text" class="form-control" id="email" name="email"  th:value="${event.getEmail()}"/>
-                                    
-  						   </div>
-  						   
-  						   
-                       
-                                                  <div class=""  style="padding-left: 20px; padding-top: 20px">
-                                                            <button type="submit" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
-                                                            
-                                                             
-
-                                                  </div>
-          
-                  
-                  </div>
-               </form>
-        
-	            
-	            
-	
-					<script>
-					function submitForm() {
-						  return confirm('Do you really want to submit the form?');
-						  
-						  alert("Submit form succefully");
-						}
-					</script>
-  				 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
- 
-			<div th:fragment="body-bottom-scripts">
-
-        	 <script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
-       		 <script th:src="@{/static/js/jquery.slim.min}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-			
-			
-			
+	<div th:replace="common/sidebar :: top_header"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 col-lg-2 pr-0">
+				<div th:replace="common/sidebar :: contributor_sidebar"></div>
 			</div>
- </body>
-
-					
+			<div class="col-md-9 col-lg-10 p-md-5">
+				<div>
+					<div class="alert alert-success" role="alert"
+						th:if="${success_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${success_msg}"></span>
+							</div>
+						</div>
+					</div>
+					<div class="alert alert-danger" role="alert" th:if="${error_msg}">
+						<div id="#test" class="">
+							<div>
+								<span th:text="${error_msg}"></span>
+							</div>
+						</div>
 					</div>
 				</div>
-							<div th:fragment="body-bottom-scripts">
-				<script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
-	
-		<script src="https://code.jquery.com/jquery-3.5.1.js"
-			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-		<script
-			src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+				
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active py-3" id="add"
+						role="tabpanel" aria-labelledby="home-tab">
+						<div class="card">
+							<div class="card-header">
+								<h4>Update Event</h4>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-lg-6">
+										<form class="form-horizontal" th:action="@{/updateEvent}"
+											method="post" enctype="multipart/form-data">
+											<div class="form-group">
+
+												<label for="event">Event Name</label> <input type="text"
+													class="form-control" id="event" name="eventname"
+													required="required" th:value="${events.getEventName()}" />
+											</div>
+									
+											<div class="form-group">
+
+												<label for="eventdate">Start Date</label> <input type="date"
+													class="form-control" id="eventdate" name="date"
+													required="required" th:value="${events.getStartDate()}"/>
+
+											</div>
+											
+											 
+  											<input type="hidden"  name="eventId"  th:value="${events.getEventId()}"/>
+
+											<div class="form-group">
+
+												<label for="endDate">End Date</label> <input type="date"
+													class="form-control" id="endDatee" name="endDate"
+													required="required" th:value="${events.getEndDate()}" />
+
+											</div>
 
 
-	</div>
+											<div class="form-group">
+												<label for="eventDescription" style="padding-top: 40px">Enter
+													Description</label>
+												<textarea class="form-control" rows="5"
+													id="eventDescription" name="description"
+													required="required" th:text="${events.getDescription()}"></textarea>
+											</div>
+											<div class="form-group">
+												<label for="venue">Venue Name</label> <input type="text"
+													class="form-control" id="venue" name="venuename"
+													required="required" th:value="${events.getLocation()}"/>
+											</div>
+											<div class="form-group">
+												<label for="contactperson">Contact Person</label> <input
+													type="text" class="form-control" id="contactperson"
+													name="contactperson" required="required" th:value="${events.getContactPerson()}"/>
+											</div>
+											<div class="form-group">
+												<label for="contactnumber">Contact Number</label> <input
+													type="number" class="form-control" id="conatctNumber"
+													name="contactnumber" required="required" th:value="${events.getContactNumber()}" />
+											</div>
+											<div class="form-group">
+
+												<label for="email">Email Id</label> <input type="email"
+													class="form-control" id="email" name="email"
+													required="required" th:value="${events.getEmail()}"/>
+											</div>
+											
+											<div class="form-group">
+												<label for="Image" style="padding-top: 8px">Event Image </label> <input type="file" style="padding-right: 50px"
+													class="form-control-file " id="Image"
+													name="Image" placeholder="uploadFile"
+													accept=".jpg, .jpeg ,.png" required/>
+
+											</div>
+
+											<button type="submit" class="btn a-btn">Submit</button>
+											&nbsp;&nbsp;&nbsp;
+											<button type="reset" class="btn a-btn">Reset</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
 					</div>
+			
+				</div>
+			</div>
 		</div>
 	</div>
 
+	<div th:replace="common/trail :: body-bottom-scripts"></div>
+	<script type="text/javascript">
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
 	<script th:inline="javascript">
-    
 		var projectPath='[(@{/})]';
-		
 	</script>
 </body>
- 
 </html>
+
  
+
  

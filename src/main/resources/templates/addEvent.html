@@ -141,6 +141,7 @@
       <th scope="col">Start Date</th>
       <th scope="col">End Date</th>
       <th scope="col">Poster</th>
+      <th scope="col">Edit</th>
     </tr>
   </thead>
   <tbody>
@@ -157,6 +158,7 @@
       <td><img id="imagesource" th:src="@{/files/}+@{${event.getPosterPath()}}"
 			style="width: 150px; height: 100px" />
 	  </td>
+	  <td><a th:href="@{${'/event/edit/' + event.getEventId()}}">Edit</a></td>
 	  </div>
     </tr>
    

@@ -2102,7 +2102,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/updateEvent", method = RequestMethod.POST)
-	public String updateEventGet(HttpServletRequest req,Model model,Principal principal) {
+	public String updateEventGet(HttpServletRequest req,Model model,Principal principal,
+			@RequestParam("Image") MultipartFile[] files) {
 
 		User usr=new User();
 
@@ -2126,9 +2127,11 @@ public class HomeController {
 		Date endDate;
 
 		Event event= eventservice.findById(Integer.parseInt(eventId));
+		
+		model.addAttribute("events", event);
 
 		if(event==null) {
-			model.addAttribute("msg","Event doesn't exist");
+			model.addAttribute("error_msg","Event doesn't exist");
 			return "updateEvent";
 		}
 
@@ -2138,22 +2141,27 @@ public class HomeController {
 
 			if(endDate.before(startDate)) {      // throws error if end date is previous to start date
 
-				model.addAttribute("msg","End date must be after Start date");
+				model.addAttribute("error_msg","End date must be after Start date");
 				return "updateEvent";
 			}
 
 			if(contactNumber.length() != 10) {        // throw error on wrong phone number
 
-				model.addAttribute("msg","Contact number must be 10 digit");
+				model.addAttribute("error_msg","Contact number must be 10 digit");
 				return "updateEvent";
 			}
 
 			if(!ServiceUtility.checkEmailValidity(email)) {    // throw error on wrong email
 
-				model.addAttribute("msg",CommonData.NOT_VALID_EMAIL_ERROR);
+				model.addAttribute("error_msg",CommonData.NOT_VALID_EMAIL_ERROR);
 				return "updateEvent";
 			}
-
+				
+			if(!ServiceUtility.checkFileExtensionImage(files)) { // throw error on extension
+					model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
+					return "updateEvent";
+			}
+			
 			long contact=Long.parseLong(contactNumber);
 
 			event.setContactPerson(contactPerson);
@@ -2164,17 +2172,27 @@ public class HomeController {
 			event.setContactNumber(contact);
 			event.setEventName(eventName);
 			event.setLocation(venueName);
+				
+			String pathtoUploadPoster=ServiceUtility.uploadFile(files, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+event.getEventId());
+			int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+			String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+
+			event.setPosterPath(document);
+			
 
 			eventservice.save(event);
 
 		}catch (Exception e) {
 			// TODO: handle exception
-			model.addAttribute("msg",CommonData.RECORD_ERROR);
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			model.addAttribute("events", event);
 			return "updateEvent";        // need to add some error message
 		}
 
 
-		model.addAttribute("msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);
+		model.addAttribute("success_msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);
+		model.addAttribute("events", event);
 
 		return "updateEvent";
 	}
