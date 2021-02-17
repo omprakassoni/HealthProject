@@ -16,6 +16,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.EmitUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -3720,6 +3721,89 @@ public class HomeController {
 
 	}
 
+	@RequestMapping(value = "/trainee/edit/{id}", method = RequestMethod.GET)
+	public String editTraineeGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		TraineeInformation trainee=traineeService.findById(id);
+		
+		if(trainee.getTraineeInfos().getUser().getId() != usr.getId()) {
+			
+			 return "redirect:/viewTrainee";
+		}
+
+		model.addAttribute("trainee",trainee);
+
+		return "editTrainee";  // need to accomdate view part
+	}
+	
+	@RequestMapping(value = "/updateTrainee", method = RequestMethod.POST)
+	public String editTraineeGet(Model model,Principal principal,HttpServletRequest req) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		String Id=req.getParameter("traineeId");
+		String name = req.getParameter("name");
+		String age = req.getParameter("age");
+		String email = req.getParameter("email");
+		String gender = req.getParameter("gender");
+		String aadhar = req.getParameter("aadhar");
+		String org = req.getParameter("org");
+		String phone=req.getParameter("contactnumber");
+	
+		TraineeInformation trainee=traineeService.findById(Integer.parseInt(Id));
+	
+		model.addAttribute("trainee",trainee);
+		
+		if(Long.parseLong(aadhar)!=12) {
+			 // throw error
+			model.addAttribute("error_msg", "Invalid aadhar number");
+			return "editTrainee";
+		}
+
+		if(Long.parseLong(phone)!=10) {
+
+			// throw error
+			model.addAttribute("error_msg", "Invalid phone number");
+			return "editTrainee";
+		}
+		
+		if(!ServiceUtility.checkEmailValidity(email)) {   // need to accommodate
+
+			model.addAttribute("error_msg", "E-mail Wrong");
+			return "editTrainee";
+		}
+		
+		trainee.setAadhar(Long.parseLong(aadhar));
+		trainee.setAge(Integer.parseInt(age));
+		trainee.setEmail(email);
+		trainee.setGender(gender);
+		trainee.setOrganization(org);
+		trainee.setPhone(Long.parseLong(phone));
+		trainee.setName(name);
+		
+		traineeService.save(trainee);
+		
+		model.addAttribute("trainee",trainee);
+		model.addAttribute("success_msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);
+		
+		return "editTrainee";  // need to accomdate view part
+	}
 
 	@RequestMapping(value = "/addTrainingInfo", method = RequestMethod.POST)
 	public String addTrainingInfoPost(Model model,Principal principal,
