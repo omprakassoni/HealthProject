@@ -32,4 +32,6 @@ public interface UserRoleService {
 	
 	List<UserRole> findAllByRoleUserStatus(Role role,User usr, boolean status);
 	
+	void delete(UserRole u);
+	
 }

@@ -83,6 +83,7 @@
 															<th>Location</th>
 															<th>Category</th>
 															<th>Language</th>
+															<th>Edit</th>
 
 
 														</tr>
@@ -106,6 +107,7 @@
 															</td>
 
 															<td th:text="${t.getLan().getLangName()}">Language</td>
+															<td><a th:href="@{${'/training/edit/' + t.getTrainingId()}}">Edit</a></td>
 
 
 

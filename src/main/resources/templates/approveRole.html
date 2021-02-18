@@ -174,6 +174,7 @@ body {
 											<th>Experience</th>
 											<th>Contact Info</th>
 											<th>Approve</th>
+											<th>Disapprove</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -183,7 +184,7 @@ body {
 											<td th:text="${master.getUser().getAge()}"></td>
 											<td>
 											<span th:text="${master.getUser().getOrganization()}"></span>
-											(<span th:text="${master.getUser().getOrgRolev().getRole()}"></span>)
+											(<!-- <span th:text="${master.getUser().getOrgRolev().getRole()}"></span> -->)
 											</td>
 											<td th:text="${master.getUser().getAadharNumber()}"></td>
 											<td th:text="${master.getUser().getExperience()}"></td>
@@ -192,6 +193,12 @@ body {
 												<button id="approvemasterId" type="button"
 													th:value="${master.getUserRoleId()}"
 													class="btn btn-info approvemaster">Approve</button>
+											</td>
+											
+											<td>
+												<button id="disaaprovemasterId" type="button"
+													th:value="${master.getUserRoleId()}"
+													class="btn btn-info ">Disapprove</button>
 											</td>
 										</tr>
 									</tbody>

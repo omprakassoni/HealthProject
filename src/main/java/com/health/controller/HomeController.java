@@ -4358,5 +4358,109 @@ public class HomeController {
 
 		return "brochures";  // view name
 	}
+	
+	
+	@RequestMapping(value = "/training/edit/{id}", method = RequestMethod.GET)
+	public String editTrainingGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		TrainingInformation training=trainingInfoService.getById(id);
+		
+		if(training.getUser().getId() != usr.getId()) {
+			
+			 return "redirect:/viewTrainee";
+		}
+		
+		List<State> states=stateService.findAll();
+		
+		model.addAttribute("states",states);
+
+		model.addAttribute("training",training);
+
+		return "updateTraining";  // need to accomdate view part
+	}
+	
+	@RequestMapping(value = "/updateTraining", method = RequestMethod.POST)
+	public String updateTrainingPost(Model model,Principal principal,
+			@RequestParam("ParticipantsPhoto") MultipartFile[] trainingImage,
+			@RequestParam("traineeInformation") MultipartFile traineeInfo,
+			@RequestParam(value="stateName") int state,
+			@RequestParam(value="districtName") int district,
+			@RequestParam(value="cityName") int city,
+			@RequestParam(value="traningInfo") String trainingInformation,
+			@RequestParam(value = "totalPar") int totaltrainee,
+			@RequestParam(value="addressInformationName") String address,
+			@RequestParam(value="pinCode") int pinCode,
+			@RequestParam(value="titleName") String titleName,
+			@RequestParam(value="trainingId") int trainingId) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		List<State> states=stateService.findAll();
+		
+		model.addAttribute("states",states);
+		
+		model.addAttribute("userInfo", usr);
+		
+		TrainingInformation trainingData=trainingInfoService.getById(trainingId);
+		
+		model.addAttribute("training",trainingData);
+		
+		if(trainingInfoService.findByTopicName(titleName) != null) {
+
+			// throw error on output
+			model.addAttribute("error_msg",CommonData.NAME_ERROR);
+			return "updateTraining";
+		}
+
+		State stat=stateService.findById(state);
+		District districtTemp=districtService.findById(district);
+		City cityTemp=cityService.findById(city);
+	
+		
+		trainingData.setCity(cityTemp);
+		
+		trainingData.setState(stat);
+		trainingData.setDistrict(districtTemp);
+		
+		trainingData.setTitleName(titleName);
+		trainingData.setTotalParticipant(totaltrainee);
+		trainingData.setPincode(pinCode);
+		trainingData.setAddress(address);
+	
+		
+
+		try {
+			trainingInfoService.save(trainingData);
+			
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 // throw a error
+			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
+			return "updateTraining";
+		}
+
+
+		model.addAttribute("success_msg",CommonData.EVENT_SUCCESS);
+		model.addAttribute("training",trainingData);
+		return "updateTraining";
+
+	}
 
 }
