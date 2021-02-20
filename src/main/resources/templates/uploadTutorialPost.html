@@ -250,11 +250,11 @@
 													</form>
 												</div>
 												<div class="col">
-													<div th:if="${not #lists.isEmpty(outlineComment)}">
+													<div th:if="${not #lists.isEmpty(comOutline)}">
 														<h6 class="border-bottom">Comments:</h6>
 
-														<div th:each="outlineComment : ${outlineComment}"
-															th:if="${not #lists.isEmpty(outlineComment)}"
+														<div th:each="outlineComment : ${comOutline}"
+															th:if="${not #lists.isEmpty(comOutline)}"
 															class="border-bottom">
 															<p class="my-0">
 																<strong><i class="far fa-comment-alt"></i> <span
@@ -262,10 +262,10 @@
 															</p>
 															<p class="my-0">
 																<small><span
-																	th:text="${outlineComment.getCommentdate()}"></span></small>
+																	th:text="${outlineComment.getDateAdded()}"></span></small>
 															</p>
 															<p class="my-0 text-muted">
-																<span th:text="${outlineComment.getCommentInfo()}"></span>
+																<span th:text="${outlineComment.getComment()}"></span>
 															</p>
 
 														</div>
@@ -398,9 +398,9 @@
 												</form>
 											</div>
 											<div class="col-12">
-												<div th:if="${not #lists.isEmpty(videoComment)}">
+												<div th:if="${not #lists.isEmpty(comVideo)}">
 													<h6 class="border-bottom">Comments:</h6>
-													<div th:each="comment : ${videoComment}"
+													<div th:each="comment : ${comVideo}"
 														class="border-bottom">
 														<p class="my-0">
 															<strong><i class="far fa-comment-alt"></i> <span
@@ -408,10 +408,10 @@
 														</p>
 														<p class="my-0">
 															<small><span
-																th:text="${comment.getCommentdate()}"></span></small>
+																th:text="${comment.getDateAdded()}"></span></small>
 														</p>
 														<p class="my-0 text-muted">
-															<span th:text="${comment.getCommentInfo()}"></span>
+															<span th:text="${comment.getComment()}"></span>
 														</p>
 
 													</div>
@@ -497,9 +497,9 @@
 											</div>
 
 											<div class="col-12">
-												<div th:if="${not #lists.isEmpty(keywordComment)}">
+												<div th:if="${not #lists.isEmpty(comKeyword)}">
 													<h6 class="border-bottom">Comments:</h6>
-													<div th:each="comment : ${keywordComment}"
+													<div th:each="comment : ${comKeyword}"
 														class="border-bottom">
 														<p class="my-0">
 															<strong><span
@@ -507,10 +507,10 @@
 														</p>
 														<p class="my-0">
 															<small><span
-																th:text="${comment.getCommentdate()}"></span></small>
+																th:text="${comment.getDateAdded()}"></span></small>
 														</p>
 														<p class="my-0 text-muted">
-															<span th:text="${comment.getCommentInfo()}"></span>
+															<span th:text="${comment.getComment()}"></span>
 														</p>
 
 													</div>
@@ -755,9 +755,9 @@
 												</form>
 											</div>
 											<div class="col-md-6">
-												<div th:if="${not #lists.isEmpty(preReqComment)}">
+												<div th:if="${not #lists.isEmpty(comPreReq)}">
 													<h6 class="border-bottom">Comments:</h6>
-													<div th:each="comment : ${preReqComment}"
+													<div th:each="comment : ${comPreReq}"
 														class="border-bottom">
 														<p class="my-0">
 															<i class="far fa-user"></i> <strong><span
@@ -765,10 +765,10 @@
 														</p>
 														<p class="my-0">
 															<i class="far fa-clock"></i> <small><span
-																th:text="${comment.getCommentdate()}"></span></small>
+																th:text="${comment.getDateAdded()}"></span></small>
 														</p>
 														<p class="my-0 text-muted">
-															<span th:text="${comment.getCommentInfo()}"></span>
+															<span th:text="${comment.getComment()}"></span>
 														</p>
 
 													</div>
@@ -856,9 +856,9 @@
 
 											</div>
 											<div class="col-12">
-												<div th:if="${not #lists.isEmpty(scriptComment)}">
+												<div th:if="${not #lists.isEmpty(comScript)}">
 													<h6 class="border-bottom">Comments:</h6>
-													<div th:each="comment : ${scriptComment}"
+													<div th:each="comment : ${comScript}"
 														class="border-bottom">
 														<p class="my-0">
 															<i class="far fa-user"></i> <strong><span
@@ -866,10 +866,10 @@
 														</p>
 														<p class="my-0">
 															<i class="far fa-clock"></i> <small><span
-																th:text="${comment.getCommentdate()}"></span></small>
+																th:text="${comment.getDateAdded()}"></span></small>
 														</p>
 														<p class="my-0 text-muted">
-															<span th:text="${comment.getCommentInfo()}"></span>
+															<span th:text="${comment.getComment()}"></span>
 														</p>
 
 													</div>
@@ -1002,10 +1002,10 @@
 												</form>
 											</div>
 											<div class="col-12">
-												<div th:if="${not #lists.isEmpty(slideComment)}">
+												<div th:if="${not #lists.isEmpty(comSlide)}">
 													<h6 class="border-bottom">Comments:</h6>
-													<div th:each="comment : ${slideComment}"
-														th:if="${not #lists.isEmpty(slideComment)}"
+													<div th:each="comment : ${comSlide}"
+														th:if="${not #lists.isEmpty(comSlide)}"
 														class="border-bottom">
 														<p class="my-0">
 															<strong><span
@@ -1013,10 +1013,10 @@
 														</p>
 														<p class="my-0">
 															<small><span
-																th:text="${comment.getCommentdate()}"></span></small>
+																th:text="${comment.getDateAdded()}"></span></small>
 														</p>
 														<p class="my-0 text-muted">
-															<span th:text="${comment.getCommentInfo()}"></span>
+															<span th:text="${comment.getComment()}"></span>
 														</p>
 
 													</div>

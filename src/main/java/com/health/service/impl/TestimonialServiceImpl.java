@@ -35,8 +35,14 @@ public class TestimonialServiceImpl implements  TestimonialService {
 	@Override
 	public Testimonial findById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Testimonial> local=testRepo.findById(id);
-		return local.get();
+		try {
+			Optional<Testimonial> local=testRepo.findById(id);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	

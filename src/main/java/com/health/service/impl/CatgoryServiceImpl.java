@@ -32,9 +32,15 @@ public class CatgoryServiceImpl implements CategoryService {
 	@Override
 	public Category findBycategoryname(String name) {
 
-		Category local =  categoryRepo.findBycatName(name);
+		try {
+			Category local =  categoryRepo.findBycatName(name);
 
-		return local;
+			return local;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 
 	}
 	
@@ -64,8 +70,14 @@ public class CatgoryServiceImpl implements CategoryService {
 	@Override 
 	public Category findByid(int id){
 	  
-		Optional<Category> var=categoryRepo.findById(id);
-		return var.get();
+		try {
+			Optional<Category> var=categoryRepo.findById(id);
+			return var.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	  
 	 }
 

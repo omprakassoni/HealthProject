@@ -31,7 +31,7 @@
 					<div class="card-header">
 						<h4>Add Master Trainer</h4>
 					</div>
-					<div class="card-body">
+					<div class="card-body" th:if="${alredaySubmittedFlag != true}">
 						<div class="row">
 							<div class="col-lg-6">
 								<form action="/addMasterTrainerRole" method="post"

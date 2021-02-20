@@ -59,8 +59,14 @@ public class ConsultantServiceImpl implements ConsultantService {
 	@Override
 	public Consultant findById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Consultant> local=consultantRepo.findById(id);
-		return local.get();
+		try {
+			Optional<Consultant> local=consultantRepo.findById(id);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -86,6 +92,12 @@ public class ConsultantServiceImpl implements ConsultantService {
 	public Consultant findByUser(User usr) {
 		// TODO Auto-generated method stub
 		return consultantRepo.findByuser(usr);
+	}
+
+	@Override
+	public List<Consultant> findByOnHome(boolean value) {
+		// TODO Auto-generated method stub
+		return consultantRepo.findByonHome(value);
 	}
 
 	

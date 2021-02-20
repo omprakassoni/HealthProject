@@ -23,5 +23,7 @@ public interface ConsultantService {
 	
 	Consultant findByUser(User usr);
 	
+	List<Consultant> findByOnHome(boolean value);
+	
 
 }

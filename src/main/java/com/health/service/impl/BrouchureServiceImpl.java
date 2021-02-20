@@ -61,7 +61,13 @@ public class BrouchureServiceImpl implements BrouchureService{
 	@Override
 	public Brouchure findById(int id) {
 		// TODO Auto-generated method stub
-		return repo.findById(id).get();
+		try {
+			return repo.findById(id).get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

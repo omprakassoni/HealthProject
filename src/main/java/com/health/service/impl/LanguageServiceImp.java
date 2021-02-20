@@ -45,16 +45,28 @@ public class LanguageServiceImp implements LanguageService
 	@Override
 	public Language getByLanName(String langName) {
 		// TODO Auto-generated method stub
-		return languageRepo.findBylangName(langName);
+		try {
+			return languageRepo.findBylangName(langName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 		
 	}
 
 	@Override
 	public Language getById(int lanId) {
 		// TODO Auto-generated method stub
-		Optional<Language> local=languageRepo.findById(lanId);
-		
-		return local.get();
+		try {
+			Optional<Language> local=languageRepo.findById(lanId);
+			
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

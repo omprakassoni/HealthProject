@@ -28,9 +28,15 @@ public class DistrictServiceImpl implements DistrictService {
 	@Override
 	public District findById(int id) {
 		// TODO Auto-generated method stub
-		Optional<District> local=distRepo.findById(id);
-		
-		return local.get();
+		try {
+			Optional<District> local=distRepo.findById(id);
+			
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

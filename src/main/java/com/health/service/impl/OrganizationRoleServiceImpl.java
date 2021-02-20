@@ -45,8 +45,14 @@ public class OrganizationRoleServiceImpl implements OrganizationRoleService {
 	@Override
 	public OrganizationRole getById(int roleId) {
 
-		Optional<OrganizationRole> local=repo.findById(roleId);
-		return local.get();
+		try {
+			Optional<OrganizationRole> local=repo.findById(roleId);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

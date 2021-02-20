@@ -49,16 +49,16 @@ public class ServiceUtility {
 	}
 	
 
-	public static String uploadFile(MultipartFile[] uploadFile,String pathToUpload) throws Exception{		// uploading file
+	public static String uploadFile(MultipartFile uploadFile,String pathToUpload) throws Exception{		// uploading file
 		String path=null;	
-		for(MultipartFile file:uploadFile) {
-			Path fileNameAndPath =Paths.get(pathToUpload, file.getOriginalFilename());
 		
-				Files.write(fileNameAndPath, file.getBytes());
+			Path fileNameAndPath =Paths.get(pathToUpload, uploadFile.getOriginalFilename());
+		
+				Files.write(fileNameAndPath, uploadFile.getBytes());
 				System.out.println(fileNameAndPath.toString());
 				path=fileNameAndPath.toString();
 			
-			}
+			
 		
 		return path;
 	}
@@ -80,16 +80,6 @@ public class ServiceUtility {
 		return path;
 	}
 	
-	
-	public static boolean checkFileExtensionPDF(MultipartFile[] pdfFile) {				// validate file against PDF extension
-		
-		for(MultipartFile temp:pdfFile) {
-			if(!temp.getOriginalFilename().endsWith(".pdf") && !temp.getOriginalFilename().endsWith(".PDF")) {
-				return false;
-			}
-		}
-		return true;
-	}
 
 	public static boolean checkFileExtensiononeFilePDF(MultipartFile pdfFile) {				// validate file against PDF extension
 		
@@ -114,15 +104,15 @@ public class ServiceUtility {
 	
 	
 	
-	public static boolean checkFileExtensionImage(MultipartFile[] imageFile) {			// validate file against Image Extension
+	public static boolean checkFileExtensionImage(MultipartFile temp) {			// validate file against Image Extension
 		
-		for(MultipartFile temp:imageFile) {
+		
 			if(!temp.getOriginalFilename().endsWith(".jpg") && !temp.getOriginalFilename().endsWith(".jpeg") && !temp.getOriginalFilename().endsWith(".png")
 					&& !temp.getOriginalFilename().endsWith(".JPG") && !temp.getOriginalFilename().endsWith(".JPEG") && !temp.getOriginalFilename().endsWith(".PNG")) {
 				
 				return false;
 			}
-		}
+		
 		return true;
 	}
 	
@@ -140,14 +130,14 @@ public class ServiceUtility {
 	}
 	
 
-	public static boolean checkFileExtensionZip(MultipartFile[] zipFile) {			// validate file against HTML Extension
+	public static boolean checkFileExtensionZip(MultipartFile temp) {			// validate file against HTML Extension
 		
-		for(MultipartFile temp:zipFile) {
+		
 			if(!temp.getOriginalFilename().endsWith(".zip") && !temp.getOriginalFilename().endsWith(".ZIP")) {
 				
 				return false;
 			}
-		}
+		
 		return true;
 	}
 	

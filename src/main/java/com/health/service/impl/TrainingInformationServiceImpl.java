@@ -54,8 +54,14 @@ public class TrainingInformationServiceImpl implements TrainingInformationServic
 	@Override
 	public TrainingInformation getById(int id) {
 		// TODO Auto-generated method stub
-		Optional<TrainingInformation> local = trainingInfoRepo.findById(id);
-		return local.get();
+		try {
+			Optional<TrainingInformation> local = trainingInfoRepo.findById(id);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

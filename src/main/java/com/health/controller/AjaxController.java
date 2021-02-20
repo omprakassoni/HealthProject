@@ -1604,7 +1604,7 @@ public class AjaxController{
 
 
 	@PostMapping("/updateProfilePic")
-	public @ResponseBody String updateProfilePic(@RequestParam("profilePicture") MultipartFile[] uploadPhoto,Principal principal) throws Exception{
+	public @ResponseBody String updateProfilePic(@RequestParam("profilePicture") MultipartFile uploadPhoto,Principal principal) throws Exception{
 
 
 		ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadUserImage+principal.getName());

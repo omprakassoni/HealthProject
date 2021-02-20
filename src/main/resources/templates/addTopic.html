@@ -48,10 +48,10 @@
 							method="post" enctype="multipart/form-data">
 
 							<div class="form-group">
-								<label for="categoryId"></label> <select id="categoryId"
+								<label for="categoryId">Select Category</label> <select id="categoryId"
 									class="form-control" name="categoryName" required="required">
 
-									<option>Select Category</option>
+									<option value='0'>Select Category</option>
 									
 										<option th:each="category: ${categories}" th:value="${category.getCategoryId()}" th:text="${category.getCatName()}">
 												</option>

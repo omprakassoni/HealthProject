@@ -113,13 +113,23 @@
 										email has been sent to the email address you just registered.
 										Please validate your email address and update your password
 										information.</div>
+									<div class="alert alert-info" style="color:red" th:if="${usernameExists}">
+										Username Already Exist Please Try New Name</div>
+										
+									<div class="alert alert-info" style="color:red" th:if="${emailWrong}">
+										Wrong Email.</div>
+										'
+									<div class="alert alert-info" style="color:red" th:if="${emailExists}">
+										With given E-mail user Exists.</div>
+										
+									<div class="alert alert-info" style="color:red" th:if="${phoneWrong}">
+										Phone Number must be 10 Digit Number.</div>
+									
 									<form th:action="@{/newUser}" method="post">
 									
 									
 										<div class="form-group">
-											<label for="newUsername">Username </label>&nbsp;<span
-												style="color: red;" th:if="${usernameExists}">Username
-												already exists. Choose a different one.</span> <input
+											<label for="newUsername">Username </label>&nbsp; <input
 												required="required" type="text" class="form-control"
 												id="newUsername" name="username" />
 											<!-- <p style="color: #828282">Enter your username here.</p> -->
@@ -128,10 +138,7 @@
 										<div class="form-group">
 										
 											<label for="firstName">First Name </label>&nbsp;
-											<!-- <span
-												style="color: red;" th:if="${usernameExists}">Username
-												already exists. Choose a different one.
-										   </span -->
+											 
 											<input
 												required="required" type="text" class="form-control"
 												id="firstName" name="firstName" />
@@ -157,9 +164,7 @@
 										<div class="form-group">
 
 
-											<label for="email">Email Id </label><span
-												style="color: red;" th:if="${emailExists}">Email
-												already exists. Choose a different one.</span> <input
+											<label for="email">Email Id </label> <input
 												required="required" type="text" class="form-control"
 												id="email" name="email" />
 											<p style="color: #828282">
@@ -218,10 +223,7 @@
 										<div class="form-group">
 										
 											<label for="address">Phone </label>&nbsp;
-											<!-- <span
-												style="color: red;" th:if="${usernameExists}">Username
-												already exists. Choose a different one.
-										   </span> -->
+										
 										   
 										<input	required="required" type="number" class="form-control"
 												id="phone" name="phone"	/>
