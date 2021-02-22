@@ -26,8 +26,14 @@ public class StateServiceImpl implements StateService {
 	@Override
 	public State findById(int id) {
 		// TODO Auto-generated method stub
-		Optional<State> local=stateRepo.findById(id);
-		return local.get();
+		try {
+			Optional<State> local=stateRepo.findById(id);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

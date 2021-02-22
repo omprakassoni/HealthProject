@@ -110,7 +110,7 @@
 <p style="line-height: 2rem;font-size:1.2rem;">Advice on <span class="highlighter">Maternal Nutrition</span>, <span class="highlighter">child's nutrition</span>,<span class="highlighter"> Covid</span> related videos And General Nutrition <br /> 
           by a team of <span class="highlighter-green">doctors,nutritionists and field officers</span> with 10+ years of experience</p>
 </div>
-<div class="col-md-6">
+<div class="col-md-6" th:if="${carousel}">
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -204,7 +204,7 @@
 	</div>
   </section>
     
-  <section>
+  <section th:if="${listofCategories}">
 	<h1 class="text-center spk-title">Tutorial Categories</h1>
     <div class="container-lg">
     	<div class="row" >
@@ -225,7 +225,7 @@
     </div>  
   </section>
     
-    <section id="parallax-2" class="py-4" th:if="${listOfConsultant != null}">
+    <section id="parallax-2" class="py-4" th:if="${listOfConsultant}">
     <h1 class="text-center spk-title" style="color:#fff!important;">Consultants</h1>
     <div class="container-lg">
     	<div class="row" style="color: #fff;">

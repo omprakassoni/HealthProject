@@ -2,7 +2,6 @@ package com.health.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -17,6 +16,8 @@ public interface ConsultantRepository extends CrudRepository<Consultant,Integer>
 	int getNewId();
 
 	Consultant findByuser(User usr);
+	
+	List<Consultant> findByonHome(boolean valuee);
 
 
 }

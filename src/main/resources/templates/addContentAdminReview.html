@@ -190,80 +190,22 @@
 	<!-- 	Here is code for comment View -->  
 	
 	
-			<span th:each="mesComment : ${CommentMsg}">  
+			<span th:each="mesComment : ${comVideo}">  
 				               
-					<span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Video'}">
+					
 				                  
 				       <div class="alert alert-info">
 				                  
-				               <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
+				               <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getComment()}"></span></strong>
 				                  
-				                     <span style="color:green;" th:text="${mesComment.getCommentInfo()}">
+				                     <span style="color:green;" th:text="${mesComment.getComment()}">
 				                   
 				                   	</span>
 				                   	
 				             	</div>      	
-				                   	</span>
+				    	</span>
 				             	
-				                   	
-				     
-				                   	
-				              <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Outline'}">
-				                   	    
-				                  <div class="alert alert-info">
-				                    
-				                 <strong style="color:green; text-transform:uppercase;">  <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span>	</strong>
-				                    	
-				                    	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
-				                    
-				                  </div>
-				                    
-				              	</span> 
-				                   	
-				            <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Script'}">
-				            
-				               <div class="alert alert-info">
-				                    
-				                   <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
-				                    
-				               <span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
-				                    	
-				                   </div> 
-				                    
-				           </span> 
-				                   	
-				              <!--   </div> -->
-				                   	
-				              	
-				                	
-				          <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()=='Slide'}">
-				                   	 
-				               <div class="alert alert-info">
-				                    
-				                  <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
-				                    
-									<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
-				                    
-				               </div>
-				                    
-				           </span> 
-				                   
-				                 
-				               <span style="color:green;" th:if="${mesComment.getComponenenetDeatail()==keyword}">
-				                 
-				                   	 <div class="alert alert-info">	 
-				                    
-				                   <strong style="color:green; text-transform:uppercase;"><span style="color:green;" th:text="${mesComment.getComponenenetDeatail()}"></span></strong>
-				                    
-				                    	<span style="color:green;" th:text="${mesComment.getCommentInfo()}">Pending</span>
-				                    
-				                    </div>
-				                    
-				                   	</span>
-									
-										
-			
-			</span>
+				             
 	
 						    
 							    

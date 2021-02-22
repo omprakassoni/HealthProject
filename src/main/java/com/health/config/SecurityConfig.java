@@ -42,7 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/login",
 			"/tutorials",
 			"/s/**",
-			"/dashBoard/**",
 			"/loadByCategoryTuturial",
 			"/addContactForm",
 			"/ControllerHealth",
@@ -61,11 +60,121 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/listTopicsByCategory",
 			"/listLangByCategoryTopic",
 			"/testimonialList",
-			"/brochures",
+			"/brochure",
 			"/fonts/**",
 			"/eventDetails/**",
 			"/tutorialView/**",
 			"/getConsultantDetails/**"
+	};
+	
+	public static final String[] SUPERUSER_URL= {
+			"/addCategory/**",
+			"/updateCategory/**",
+			"/category/edit/**",
+			"/addOrganizationRole/**",
+			"/organization_role/edit/**",
+			"/update_organization_role/**",
+			"/addLanguage/**",
+			"/language/edit/**",
+			"/updateLanguage/**",
+			"/addRole/**",
+			"/addTopic/**",
+			"/topic/edit/**",
+			"/updateTopic/**",
+			"/uploadQuestion/**",
+			"/question/edit/**",
+			"/updateQuestion/**",
+			"/addBrouchure/**",
+			"/addCarousel/**",
+			"/addEvent/**",
+			"/addTestimonial/**",
+			"/event/edit/**",
+			"/updateEvent/**",
+			"/testimonial/edit/**",
+			"/updateTestimonial/**",
+			"/approveRole/**",
+			"/assignTutorialToContributor/**",
+			"/assignContributor/edit/**",
+			"/enableDisableBrouchure/**",
+			"/enableDisableConsultant/**",
+			"/enableDisableTestimonial/**",
+			"/enableRoleById/**",
+			"/deleteMasterRole/**",
+			"/viewTrainee/**",
+			
+	};
+
+	public static final String[] MASTERTRAINER_URL= {
+			"/addEvent/**",
+			"/addTestimonial/**",
+			"/event/edit/**",
+			"/updateEvent/**",
+			"/testimonial/edit/**",
+			"/updateTestimonial/**",
+			"/viewTrainee/**",
+			"/masterTrainerOperation/**",
+			"/details/**",
+			"/addTrainingInfo/**",
+			"/downloadQuestion/**",
+			"/uploadfeedback/**",
+			"/uploadPostQuestionaire/**",
+			"/training/edit/**",
+			"/updateTraining/**",
+			"/trainee/edit/**",
+			"/updateTrainee/**",
+			
+					
+	};
+	
+	public static final String[] CONTRIBUTOR_URL= {
+			"/uploadTutorial/**",
+			"/addOutline/**",
+			"/addKeyword**",
+			"/addPreRequisticWhenNotRequired/**",
+			"/addPreRequistic/**",
+			"/addVideo/**",
+			"/addSlide/**",
+			"/addScript/**",
+			"/listTutorialForContributorReview/**",
+			"/Contributor/review/**",
+			
+			
+					
+	};
+	
+	public static final String[] ADMIN_URL= {
+			"/listTutorialForAdminReview/**",
+			"/adminreview/review/**",
+			"/acceptAdminVideo/**",
+			
+					
+	};
+	
+	public static final String[] DOMAIN_URL= {
+			"/listTutorialForDomainReview/**",
+			"/domainreview/review/**",
+			"/acceptAdminVideo/**",
+			"/acceptDomainOutline/**",
+			"/acceptDomainScript/**",
+			"/acceptDomainVideo/**",
+			"/acceptDomainSlide/**",
+			"/acceptDomainKeywords/**",
+			"/acceptDomainPreRequistic/**",
+					
+	};
+	
+	public static final String[] QUALITY_URL= {
+			"/listTutorialForQualityReview/**",
+			"/publish/**",
+			"/tutorialToPublish/**",
+			"/qualityreview/review/**",
+			"/acceptQualityOutline/**",
+			"/acceptQualityScript/**",
+			"/acceptQualityVideo/**",
+			"/acceptQualitySlide/**",
+			"/acceptQualityKeywords/**",
+			"/acceptQualityPreRequistic/**",
+					
 	};
 
 	@Override
@@ -93,8 +202,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 			.antMatchers("/").hasAnyAuthority()
-				/* .antMatchers("/adminDeatail/**").hasRole("Admin") */
-				/* .antMatchers("/userDetail/**").hasAnyAuthority("Admin") */
+			.antMatchers(SUPERUSER_URL).hasAnyAuthority("SUPER_USER")
+			.antMatchers(MASTERTRAINER_URL).hasAnyAuthority("MASTER_TRAINER")
+			.antMatchers(CONTRIBUTOR_URL).hasAnyAuthority("CONTRIBUTOR")
+			.antMatchers(ADMIN_URL).hasAnyAuthority("ADMIN_REVIEWER")
+			.antMatchers(DOMAIN_URL).hasAnyAuthority("DOMAIN_REVIEWER")
+			.antMatchers(QUALITY_URL).hasAnyAuthority("QUALITY_REVIEWER")
 			.antMatchers(PUBLIC_MATCHERS).
 				permitAll().anyRequest().authenticated().
 				and()

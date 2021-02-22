@@ -44,7 +44,13 @@ public class TraineeInformationServiceImpl implements TraineeInformationService{
 	@Override
 	public TraineeInformation findById(int traineeId) {
 		// TODO Auto-generated method stub
-		return repo.findById(traineeId).get();
+		try {
+			return repo.findById(traineeId).get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

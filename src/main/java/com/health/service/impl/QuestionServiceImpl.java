@@ -39,8 +39,14 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public Question findById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Question> local=questionRepo.findById(id);
-		return local.get();
+		try {
+			Optional<Question> local=questionRepo.findById(id);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

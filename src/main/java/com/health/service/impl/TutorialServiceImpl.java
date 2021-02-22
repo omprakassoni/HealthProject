@@ -52,8 +52,14 @@ public class TutorialServiceImpl implements TutorialService {
 	@Override
 	public Tutorial getById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Tutorial> local=tutorialRepo.findById(id);
-		return local.get();
+		try {
+			Optional<Tutorial> local=tutorialRepo.findById(id);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

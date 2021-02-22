@@ -191,7 +191,7 @@ public class HomeController {
 
 		List<Event> events=eventservice.findAll();
 		List<Testimonial> testi=testService.findByApproved(true);
-		List<Consultant> consults= consultService.findAll();
+		List<Consultant> consults= consultService.findByOnHome(true);
 		List<Category> categories= catService.findAll();
 		List<Language> languages = lanService.getAllLanguages();
 		List<Brouchure> brochures= broService.findAll();
@@ -250,21 +250,44 @@ public class HomeController {
 		categoryHome=(categories.size()>upperlimit) ? categories.subList(0, upperlimit):categories;
 		brochureHome=(brochures.size()>upperlimit) ? brochures.subList(0, upperlimit):brochures;
 		carouselHome=(carousel.size()>upperlimit) ? carousel.subList(0, upperlimit):carousel;
-		model.addAttribute("listOfConsultant", consults);
-		model.addAttribute("listofTestimonial", testHome);
-		model.addAttribute("listofCategories", categoryHome);
+		
+		if(!consulHome.isEmpty()) {
+			model.addAttribute("listOfConsultant", consulHome);
+		}
+		
+		if(!testHome.isEmpty()) {
+			model.addAttribute("listofTestimonial", testHome);
+		}
+		
+		if(!categoryHome.isEmpty()) {
+			model.addAttribute("listofCategories", categoryHome);
+		}
+		
+		if(!evnHome.isEmpty()) {
+			model.addAttribute("events", evnHome);
+		}
+		
+		if(!brochureHome.isEmpty()) {
+			model.addAttribute("listofBrochures", brochureHome);
+		}
+		
+		
 		model.addAttribute("languageCount", languages.size());
 		model.addAttribute("videoCount", tutService.findAll().size());
 		model.addAttribute("consultantCount", consults.size());
-		model.addAttribute("events", evnHome);
-		model.addAttribute("listofBrochures", brochureHome);
+		
+		
 
 		model.addAttribute("categories", catTemp);
 		model.addAttribute("languages", lanTemp);
 		model.addAttribute("topics", topicTemp);
 
-		model.addAttribute("carousel", carouselHome.get(0));
-		model.addAttribute("carouselList", carouselHome.subList(1, carousel.size()));
+		if(!carouselHome.isEmpty()) {
+			model.addAttribute("carousel", carouselHome.get(0));
+			model.addAttribute("carouselList", carouselHome.subList(1, carousel.size()));
+		}
+		
+		
 
 //		EPLiteClient client = new EPLiteClient("http://localhost:9001", "bb1fe836e7b81e0158d210baa1c7a9c854b74a183da71f8fa0a32eb108952961");
 //		client.createPad("my_pad1");
@@ -598,7 +621,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/addCategory",method = RequestMethod.POST)
 	public String addCategoryPost(Model model,Principal principal,HttpServletRequest req,
-								  @RequestParam("categoryImage") MultipartFile[] files) {
+								  @RequestParam("categoryImage") MultipartFile files) {
 
 		User usr=new User();
 
@@ -923,7 +946,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/addCarousel",method = RequestMethod.POST)
 	public String addCarouselPost(Model model,Principal principal,
-								  @RequestParam("file") MultipartFile[] file,
+								  @RequestParam("file") MultipartFile file,
 								  @RequestParam(value = "eventName") String name,
 								  @RequestParam(name = "eventDesc") String desc
 								  ) {
@@ -1000,7 +1023,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/addBrouchure",method = RequestMethod.POST)
 	public String addBrouchurePost(Model model,Principal principal,
-								  @RequestParam("brouchure") MultipartFile[] brochure,
+								  @RequestParam("brouchure") MultipartFile brochure,
 								  @RequestParam(value = "categoryName") int categoryId,
 								  @RequestParam(name = "inputTopicName") int topicId,
 								  @RequestParam(name = "languageyName") int languageId) {
@@ -1120,7 +1143,11 @@ public class HomeController {
 		model.addAttribute("categories", category);
 
 		Category cat =catService.findByid(categoryId);
-		System.out.println(cat.getCatName());
+		
+		if(cat == null) {
+			model.addAttribute("error_msg", "Category Doesn't Exist");
+			return "addTopic";
+		}
 
 		Topic topicTemp = topicService.findBytopicName(topicName);
 
@@ -1349,7 +1376,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/uploadQuestion",method = RequestMethod.POST)
 	public String addQuestionPost(Model model,Principal principal,
-								  @RequestParam("questionName") MultipartFile[] quesPdf,
+								  @RequestParam("questionName") MultipartFile quesPdf,
 								  @RequestParam(value = "categoryName") int categoryId,
 								  @RequestParam(name = "inputTopicName") int topicId,
 								  @RequestParam(name = "languageyName") int languageId) {
@@ -1374,7 +1401,7 @@ public class HomeController {
 
 		model.addAttribute("languages", languages);
 
-		if(!ServiceUtility.checkFileExtensionPDF(quesPdf)) {  // throw error
+		if(!ServiceUtility.checkFileExtensiononeFilePDF(quesPdf)) {  // throw error
 
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 			return "uploadQuestion";
@@ -1466,7 +1493,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/updateQuestion",method = RequestMethod.POST)
 	public String updateQuestionPost(HttpServletRequest req,Model model,Principal principal,
-								  @RequestParam("questionName") MultipartFile[] quesPdf) {
+								  @RequestParam("questionName") MultipartFile quesPdf) {
 
 		User usr=new User();
 
@@ -1481,7 +1508,7 @@ public class HomeController {
 		int idQues =  Integer.parseInt(quesIdInString);
 		Question ques = questService.findById(idQues);
 
-		if(!ServiceUtility.checkFileExtensionPDF(quesPdf)) {  // throw error
+		if(!ServiceUtility.checkFileExtensiononeFilePDF(quesPdf)) {  // throw error
 
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 			model.addAttribute("question",ques);
@@ -1660,7 +1687,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/addEvent",method = RequestMethod.POST)
 	public String addEventPost(Model model,Principal principal,HttpServletRequest req,
-						@RequestParam("Image") MultipartFile[] files) {
+						@RequestParam("Image") MultipartFile files) {
 
 		User usr=new User();
 
@@ -1962,7 +1989,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/updateCategory", method = RequestMethod.POST)
 	public String updateCategoryGet(Model model,Principal principal,HttpServletRequest req,
-			@RequestParam("categoryImage") MultipartFile[] file) {
+			@RequestParam("categoryImage") MultipartFile file) {
 
 		User usr=new User();
 
@@ -1983,7 +2010,7 @@ public class HomeController {
 		if(cat==null) {
 			 // accommodate  error message
 			model.addAttribute("category",cat);
-			model.addAttribute("msg","Category doesn't exist");
+			model.addAttribute("error_msg","Category doesn't exist");
 			return "updateCategory";
 		}
 
@@ -1993,6 +2020,7 @@ public class HomeController {
 				if(catName.equalsIgnoreCase(x.getCatName())) {
 					// accommodate  error message
 					model.addAttribute("category",cat);
+					model.addAttribute("error_msg","Category Name Already Exist");
 					return "updateCategory";
 				}
 				}
@@ -2000,8 +2028,8 @@ public class HomeController {
 
 		cat.setCatName(catName);
 		cat.setDescription(categoryDesc);
-		System.out.println(file.length);
-		if(file.length != 0) {
+		
+		if(!file.isEmpty()) {
 			try {
 
 					String pathtoUploadPoster=ServiceUtility.uploadFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryCategory+cat.getCategoryId());
@@ -2020,7 +2048,7 @@ public class HomeController {
 
 				e.printStackTrace();
 				model.addAttribute("category",cat);
-				model.addAttribute("msg",CommonData.RECORD_ERROR);
+				model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 				return "updateCategory";  // throw a error
 			}
 			}else {
@@ -2031,7 +2059,7 @@ public class HomeController {
 		cat=catService.findByid(Integer.parseInt(catId));
 		model.addAttribute("category",cat);
 
-		model.addAttribute("msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);   // need to accommodate
+		model.addAttribute("success_msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);   // need to accommodate
 
 		return "updateCategory";
 	}
@@ -2090,6 +2118,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Event event= eventservice.findById(id);
+		
+		if(event.getUser().getId() != usr.getId()) {
+			
+			return "redirect:/addEvent";
+		}
 		model.addAttribute("events", event);
 
 		return "updateEvent";
@@ -2097,7 +2130,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/updateEvent", method = RequestMethod.POST)
 	public String updateEventGet(HttpServletRequest req,Model model,Principal principal,
-			@RequestParam("Image") MultipartFile[] files) {
+			@RequestParam("Image") MultipartFile files) {
 
 		User usr=new User();
 
@@ -2151,10 +2184,13 @@ public class HomeController {
 				return "updateEvent";
 			}
 				
-			if(!ServiceUtility.checkFileExtensionImage(files)) { // throw error on extension
+			if(!files.isEmpty()) {
+				if(!ServiceUtility.checkFileExtensionImage(files)) { // throw error on extension
 					model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
 					return "updateEvent";
 			}
+			}
+			
 			
 			long contact=Long.parseLong(contactNumber);
 
@@ -2167,14 +2203,16 @@ public class HomeController {
 			event.setEventName(eventName);
 			event.setLocation(venueName);
 				
-			String pathtoUploadPoster=ServiceUtility.uploadFile(files, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+event.getEventId());
-			int indexToStart=pathtoUploadPoster.indexOf("Media");
+			if(!files.isEmpty()) {
+				String pathtoUploadPoster=ServiceUtility.uploadFile(files, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+event.getEventId());
+				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
-			String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
 
-			event.setPosterPath(document);
+				event.setPosterPath(document);
+				
+			}
 			
-
 			eventservice.save(event);
 
 		}catch (Exception e) {
@@ -2435,6 +2473,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Testimonial test=testService.findById(id);
+		
+		if(test.getUser().getId() != usr.getId()) {
+			
+			return "redirect:/addTestimonial";
+		}
 
 		model.addAttribute("testimonials", test);
 
@@ -2501,7 +2544,7 @@ public class HomeController {
 				return "updateTestimonial";
 			}
 
-
+			    ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
 				String pathtoUploadPoster=ServiceUtility.uploadVideoFile(file, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
 				int indexToStart=pathtoUploadPoster.indexOf("Media");
 
@@ -2806,13 +2849,22 @@ public class HomeController {
 			model.addAttribute("error_msg", CommonData.ADD_PROFILE_PIC_CONSTRAINT);
 			return "profileView";
 		}
+		
+		Role role = roleService.findByname(CommonData.masterTrainerRole);
+		
+		if(usrRoleService.findByRoleUser(usr, role) != null) {
+			
+			model.addAttribute("success_msg", "Request Already submitted for role");
+			model.addAttribute("alredaySubmittedFlag", true);
+			return "addMasterTrainerRole";
+		}
 		List<OrganizationRole> org_roles = organizationRoleService.findAll();
 		System.err.println("**********************ROLES**********************************");
 		System.err.println(org_roles);
 		System.err.println("*************************ROLES*******************************");
 		model.addAttribute("org_roles", org_roles);
 
-
+		model.addAttribute("alredaySubmittedFlag", false);
 		return "addMasterTrainerRole";
 	}
 
@@ -2839,6 +2891,11 @@ public class HomeController {
 		String roleOrg=req.getParameter("newRole");
 		System.out.println("******"+lang);
 
+		List<OrganizationRole> org_roles = organizationRoleService.findAll();
+		System.err.println("**********************ROLES**********************************");
+		System.err.println(org_roles);
+		System.err.println("*************************ROLES*******************************");
+		model.addAttribute("org_roles", org_roles);
 
 		int userIndianMappingId=userIndianMappingService.getNewId();
 
@@ -3216,6 +3273,87 @@ public class HomeController {
 		model.addAttribute("categories", categories);
 		return "uploadTutorialPost";
 	}
+	
+	@RequestMapping(value = "listTutorialForContributorReview", method = RequestMethod.GET)
+	public String listContributorReviewTutorialGet(Model model,Principal principal) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		List<ContributorAssignedTutorial> conTutorials=conRepo.findAllByUser(usr);
+		
+		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
+		
+		model.addAttribute("tutorial", tutorials);
+	
+		return "listTutorialContributorReviwer";
+
+	}
+	
+	@RequestMapping(value = "Contributor/review/{id}", method = RequestMethod.GET)
+	public String listContributorReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		Tutorial tutorial=tutService.getById(id);
+
+		if(tutorial == null) {
+			// throw a error
+			model.addAttribute("error_msg", CommonData.STATUS_ERROR);
+			model.addAttribute("tutorialNotExist", "Bad request");   //  throw proper error
+			return "redirect:/listTutorialForContributorReview";
+
+		}
+		
+		if(tutorial.getConAssignedTutorial().getUser().getId() != usr.getId()) {
+			
+			return "redirect:/listTutorialForContributorReview";
+		}
+
+		model.addAttribute("statusOutline", CommonData.tutorialStatus[tutorial.getOutlineStatus()]);
+		model.addAttribute("statusScript", CommonData.tutorialStatus[tutorial.getScriptStatus()]);
+		model.addAttribute("statusSlide", CommonData.tutorialStatus[tutorial.getSlideStatus()]);
+		model.addAttribute("statusVideo", CommonData.tutorialStatus[tutorial.getVideoStatus()]);
+		model.addAttribute("statusKeyword", CommonData.tutorialStatus[tutorial.getKeywordStatus()]);
+		model.addAttribute("statusPreReq", CommonData.tutorialStatus[tutorial.getPreRequisticStatus()]);
+		
+		model.addAttribute("tutorial", tutorial);
+
+		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, tutorial);
+		List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT, tutorial);
+		List<Comment> comSlide = comService.getCommentBasedOnTutorialType(CommonData.SLIDE, tutorial);
+		
+		List<Comment> comKeyword = comService.getCommentBasedOnTutorialType(CommonData.KEYWORD, tutorial);
+		List<Comment> comPreRequistic = comService.getCommentBasedOnTutorialType(CommonData.PRE_REQUISTIC, tutorial);
+		List<Comment> comOutline = comService.getCommentBasedOnTutorialType(CommonData.OUTLINE, tutorial);
+
+		model.addAttribute("comOutline", comOutline);
+		model.addAttribute("comScript",comScript );
+		model.addAttribute("comSlide",comSlide );
+		model.addAttribute("comVideo", comVideo);
+		model.addAttribute("comKeyword", comKeyword);
+		model.addAttribute("comPreReq", comPreRequistic);
+		
+		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat());
+		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic());
+		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan());
+		
+		return "uploadTutorialPost";
+
+
+
+	}
+
 
 
 
@@ -3273,16 +3411,15 @@ public class HomeController {
 
 		if(tutorial.getVideoStatus() != CommonData.ADMIN_STATUS) {
 			 // return some error
-
+			return "redirect:/listTutorialForAdminReview";
 		}
 
 		if(tutorial == null) {
 			// throw a error
-			model.addAttribute("error_msg", CommonData.STATUS_ERROR);
-			model.addAttribute("tutorialNotExist", "Bad request");   //  throw proper error
-			return "listTutorialAdminReviwer";
+			return "redirect:/listTutorialForAdminReview";
 
 		}
+		
 
 		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.adminReviewerRole);
 
@@ -3357,18 +3494,13 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 		Tutorial tutorial=tutService.getById(id);
 
-		if(tutorial.getVideoStatus() != CommonData.DOMAIN_STATUS) {
-			 // return some error
-
-		}
 
 		if(tutorial == null) {
-			// throw a error
-			model.addAttribute("tutorialNotExist", "Bad request");   //  throw proper error
-			return "listTutorialAdminReviwer";
+			
+			return "redirect:/listTutorialForDomainReview";
 
 		}
-
+		
 		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.domainReviewerRole);
 		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.domainReviewerRole);
@@ -3536,17 +3668,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 		Tutorial tutorial=tutService.getById(id);
 
-		if(tutorial.getVideoStatus() != CommonData.QUALITY_STATUS) {
-			 // return some error
-
-		}
-
 		if(tutorial == null) {
-			// throw a error
-			model.addAttribute("tutorialNotExist", "Bad request");   //  throw proper error
-			return "listTutorialAdminReviwer";
+			return "redirect:/listTutorialForQualityReview";
 
 		}
+		
 
 		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.qualityReviewerRole);
 		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.qualityReviewerRole);
@@ -3763,13 +3889,13 @@ public class HomeController {
 	
 		model.addAttribute("trainee",trainee);
 		
-		if(Long.parseLong(aadhar)!=12) {
+		if(aadhar.length()!=12) {
 			 // throw error
 			model.addAttribute("error_msg", "Invalid aadhar number");
 			return "editTrainee";
 		}
 
-		if(Long.parseLong(phone)!=10) {
+		if(phone.length()!=10) {
 
 			// throw error
 			model.addAttribute("error_msg", "Invalid phone number");
@@ -3800,7 +3926,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/addTrainingInfo", method = RequestMethod.POST)
 	public String addTrainingInfoPost(Model model,Principal principal,
-			@RequestParam("ParticipantsPhoto") MultipartFile[] trainingImage,
+			@RequestParam("ParticipantsPhoto") MultipartFile trainingImage,
 			@RequestParam("traineeInformation") MultipartFile traineeInfo,
 			@RequestParam(value="categoryName") int catName,
 			@RequestParam(value="inputTopic") int[] topicId,
@@ -3936,7 +4062,7 @@ public class HomeController {
 	public String uploadFeedbackPost(Model model,Principal principal,
 								@RequestParam(value = "catMasId") int catId,
 								@RequestParam(value = "feedbackmasterId") int trainingTitle,
-								@RequestParam(value = "feedbackForm") MultipartFile[] feedbackFile,
+								@RequestParam(value = "feedbackForm") MultipartFile feedbackFile,
 								@RequestParam(value = "traningInformation") String desc) {
 		User usr=new User();
 
@@ -3996,7 +4122,7 @@ public class HomeController {
 	public String uploadQuestionPost(Model model,Principal principal,
 								@RequestParam(value = "catMasPostId") int catId,
 								@RequestParam(value = "postTraining") int trainingTitle,
-								@RequestParam(value = "postQuestions") MultipartFile[] postQuestions) {
+								@RequestParam(value = "postQuestions") MultipartFile postQuestions) {
 		User usr=new User();
 
 		if(principal!=null) {
@@ -4383,12 +4509,9 @@ public class HomeController {
 	
 	@RequestMapping(value = "/updateTraining", method = RequestMethod.POST)
 	public String updateTrainingPost(Model model,Principal principal,
-			@RequestParam("ParticipantsPhoto") MultipartFile[] trainingImage,
-			@RequestParam("traineeInformation") MultipartFile traineeInfo,
 			@RequestParam(value="stateName") int state,
 			@RequestParam(value="districtName") int district,
 			@RequestParam(value="cityName") int city,
-			@RequestParam(value="traningInfo") String trainingInformation,
 			@RequestParam(value = "totalPar") int totaltrainee,
 			@RequestParam(value="addressInformationName") String address,
 			@RequestParam(value="pinCode") int pinCode,

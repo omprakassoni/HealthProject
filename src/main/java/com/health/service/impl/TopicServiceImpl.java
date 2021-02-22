@@ -37,8 +37,14 @@ public class TopicServiceImpl implements TopicService {
 	@Override
 	public Topic findById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Topic> local=topicRepo.findById(id);
-		return local.get();
+		try {
+			Optional<Topic> local=topicRepo.findById(id);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

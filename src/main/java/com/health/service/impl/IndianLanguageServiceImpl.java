@@ -30,7 +30,13 @@ public class IndianLanguageServiceImpl implements IndianLanguageService{
 	@Override
 	public IndianLanguage findByName(String lanName) {
 		// TODO Auto-generated method stub
-		return repo.findBylanName(lanName);
+		try {
+			return repo.findBylanName(lanName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
