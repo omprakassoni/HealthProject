@@ -16,23 +16,26 @@ import javax.persistence.OneToMany;
 @Entity
 public class District {
 
-	@Id 
+	@Id
 	@Column(name = "district_id", nullable = false)
 	int id;
-	
+
 	private String districtName;
-	
+
 	private Timestamp dateAdded;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="state_id")
 	private State state;
-	
+
 	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<City> cities=new HashSet<City>();
-	
+
 	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<TrainingInformation> trainingInfos=new HashSet<TrainingInformation>();
+
+	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	Set<Event> events=new HashSet<Event>();
 
 	public int getId() {
 		return id;
@@ -81,8 +84,8 @@ public class District {
 	public void setTrainingInfos(Set<TrainingInformation> trainingInfos) {
 		this.trainingInfos = trainingInfos;
 	}
-	
-	
+
+
 
 
 
