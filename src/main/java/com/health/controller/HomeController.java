@@ -16,6 +16,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.EmitUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -2095,7 +2096,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/updateEvent", method = RequestMethod.POST)
-	public String updateEventGet(HttpServletRequest req,Model model,Principal principal) {
+	public String updateEventGet(HttpServletRequest req,Model model,Principal principal,
+			@RequestParam("Image") MultipartFile[] files) {
 
 		User usr=new User();
 
@@ -2119,9 +2121,11 @@ public class HomeController {
 		Date endDate;
 
 		Event event= eventservice.findById(Integer.parseInt(eventId));
+		
+		model.addAttribute("events", event);
 
 		if(event==null) {
-			model.addAttribute("msg","Event doesn't exist");
+			model.addAttribute("error_msg","Event doesn't exist");
 			return "updateEvent";
 		}
 
@@ -2131,22 +2135,27 @@ public class HomeController {
 
 			if(endDate.before(startDate)) {      // throws error if end date is previous to start date
 
-				model.addAttribute("msg","End date must be after Start date");
+				model.addAttribute("error_msg","End date must be after Start date");
 				return "updateEvent";
 			}
 
 			if(contactNumber.length() != 10) {        // throw error on wrong phone number
 
-				model.addAttribute("msg","Contact number must be 10 digit");
+				model.addAttribute("error_msg","Contact number must be 10 digit");
 				return "updateEvent";
 			}
 
 			if(!ServiceUtility.checkEmailValidity(email)) {    // throw error on wrong email
 
-				model.addAttribute("msg",CommonData.NOT_VALID_EMAIL_ERROR);
+				model.addAttribute("error_msg",CommonData.NOT_VALID_EMAIL_ERROR);
 				return "updateEvent";
 			}
-
+				
+			if(!ServiceUtility.checkFileExtensionImage(files)) { // throw error on extension
+					model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
+					return "updateEvent";
+			}
+			
 			long contact=Long.parseLong(contactNumber);
 
 			event.setContactPerson(contactPerson);
@@ -2157,17 +2166,27 @@ public class HomeController {
 			event.setContactNumber(contact);
 			event.setEventName(eventName);
 			event.setLocation(venueName);
+				
+			String pathtoUploadPoster=ServiceUtility.uploadFile(files, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+event.getEventId());
+			int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+			String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+
+			event.setPosterPath(document);
+			
 
 			eventservice.save(event);
 
 		}catch (Exception e) {
 			// TODO: handle exception
-			model.addAttribute("msg",CommonData.RECORD_ERROR);
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			model.addAttribute("events", event);
 			return "updateEvent";        // need to add some error message
 		}
 
 
-		model.addAttribute("msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);
+		model.addAttribute("success_msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);
+		model.addAttribute("events", event);
 
 		return "updateEvent";
 	}
@@ -3695,6 +3714,89 @@ public class HomeController {
 
 	}
 
+	@RequestMapping(value = "/trainee/edit/{id}", method = RequestMethod.GET)
+	public String editTraineeGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		TraineeInformation trainee=traineeService.findById(id);
+		
+		if(trainee.getTraineeInfos().getUser().getId() != usr.getId()) {
+			
+			 return "redirect:/viewTrainee";
+		}
+
+		model.addAttribute("trainee",trainee);
+
+		return "editTrainee";  // need to accomdate view part
+	}
+	
+	@RequestMapping(value = "/updateTrainee", method = RequestMethod.POST)
+	public String editTraineeGet(Model model,Principal principal,HttpServletRequest req) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		String Id=req.getParameter("traineeId");
+		String name = req.getParameter("name");
+		String age = req.getParameter("age");
+		String email = req.getParameter("email");
+		String gender = req.getParameter("gender");
+		String aadhar = req.getParameter("aadhar");
+		String org = req.getParameter("org");
+		String phone=req.getParameter("contactnumber");
+	
+		TraineeInformation trainee=traineeService.findById(Integer.parseInt(Id));
+	
+		model.addAttribute("trainee",trainee);
+		
+		if(Long.parseLong(aadhar)!=12) {
+			 // throw error
+			model.addAttribute("error_msg", "Invalid aadhar number");
+			return "editTrainee";
+		}
+
+		if(Long.parseLong(phone)!=10) {
+
+			// throw error
+			model.addAttribute("error_msg", "Invalid phone number");
+			return "editTrainee";
+		}
+		
+		if(!ServiceUtility.checkEmailValidity(email)) {   // need to accommodate
+
+			model.addAttribute("error_msg", "E-mail Wrong");
+			return "editTrainee";
+		}
+		
+		trainee.setAadhar(Long.parseLong(aadhar));
+		trainee.setAge(Integer.parseInt(age));
+		trainee.setEmail(email);
+		trainee.setGender(gender);
+		trainee.setOrganization(org);
+		trainee.setPhone(Long.parseLong(phone));
+		trainee.setName(name);
+		
+		traineeService.save(trainee);
+		
+		model.addAttribute("trainee",trainee);
+		model.addAttribute("success_msg",CommonData.RECORD_UPDATE_SUCCESS_MSG);
+		
+		return "editTrainee";  // need to accomdate view part
+	}
 
 	@RequestMapping(value = "/addTrainingInfo", method = RequestMethod.POST)
 	public String addTrainingInfoPost(Model model,Principal principal,
@@ -4248,6 +4350,110 @@ public class HomeController {
 		model.addAttribute("brochuresData", dataToSend);
 
 		return "brochures";  // view name
+	}
+	
+	
+	@RequestMapping(value = "/training/edit/{id}", method = RequestMethod.GET)
+	public String editTrainingGet(@PathVariable int id,Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		TrainingInformation training=trainingInfoService.getById(id);
+		
+		if(training.getUser().getId() != usr.getId()) {
+			
+			 return "redirect:/viewTrainee";
+		}
+		
+		List<State> states=stateService.findAll();
+		
+		model.addAttribute("states",states);
+
+		model.addAttribute("training",training);
+
+		return "updateTraining";  // need to accomdate view part
+	}
+	
+	@RequestMapping(value = "/updateTraining", method = RequestMethod.POST)
+	public String updateTrainingPost(Model model,Principal principal,
+			@RequestParam("ParticipantsPhoto") MultipartFile[] trainingImage,
+			@RequestParam("traineeInformation") MultipartFile traineeInfo,
+			@RequestParam(value="stateName") int state,
+			@RequestParam(value="districtName") int district,
+			@RequestParam(value="cityName") int city,
+			@RequestParam(value="traningInfo") String trainingInformation,
+			@RequestParam(value = "totalPar") int totaltrainee,
+			@RequestParam(value="addressInformationName") String address,
+			@RequestParam(value="pinCode") int pinCode,
+			@RequestParam(value="titleName") String titleName,
+			@RequestParam(value="trainingId") int trainingId) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		List<State> states=stateService.findAll();
+		
+		model.addAttribute("states",states);
+		
+		model.addAttribute("userInfo", usr);
+		
+		TrainingInformation trainingData=trainingInfoService.getById(trainingId);
+		
+		model.addAttribute("training",trainingData);
+		
+		if(trainingInfoService.findByTopicName(titleName) != null) {
+
+			// throw error on output
+			model.addAttribute("error_msg",CommonData.NAME_ERROR);
+			return "updateTraining";
+		}
+
+		State stat=stateService.findById(state);
+		District districtTemp=districtService.findById(district);
+		City cityTemp=cityService.findById(city);
+	
+		
+		trainingData.setCity(cityTemp);
+		
+		trainingData.setState(stat);
+		trainingData.setDistrict(districtTemp);
+		
+		trainingData.setTitleName(titleName);
+		trainingData.setTotalParticipant(totaltrainee);
+		trainingData.setPincode(pinCode);
+		trainingData.setAddress(address);
+	
+		
+
+		try {
+			trainingInfoService.save(trainingData);
+			
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 // throw a error
+			model.addAttribute("error_msg",CommonData.EVENT_ERROR);
+			return "updateTraining";
+		}
+
+
+		model.addAttribute("success_msg",CommonData.EVENT_SUCCESS);
+		model.addAttribute("training",trainingData);
+		return "updateTraining";
+
 	}
 
 }

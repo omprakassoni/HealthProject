@@ -3819,6 +3819,46 @@ $(document).ready(function() {
 
 					});
 			
+			
+			$('#disaaprovemasterId').click(function() {
+				// use localStorage to retrieve information on
+				// page refresh
+				localStorage.setItem('activeTab',"MasterTrainer");
+
+				var contributionId = $(this).val();
+		
+
+				$.ajax({
+					type : "GET",
+					url : projectPath+"deleteMasterRole",
+					data : {
+						"id" : contributionId
+					},
+					contentType : "application/json",
+					success : function(result) {
+
+						$("#statusMaster").prop('disabled',false);
+						$('#statusMaster').html(result);
+						localStorage.setItem('msg', result);
+
+						$('#ContributerPage').on('hidden.bs.modal', function() {
+
+									location.reload();
+
+						});
+
+						location.reload();
+
+					},
+
+					error : function(err) {
+						console.lo3g("not working. ERROR: "+ JSON.stringify(err));
+					}
+
+				});
+
+			});
+			
 /**************************************** End ************************************************************/
 
 			// here is code for approve DomainReviwer By admin

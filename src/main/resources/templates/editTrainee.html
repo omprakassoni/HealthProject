@@ -34,77 +34,62 @@
 						role="tabpanel" aria-labelledby="home-tab">
 						<div class="card">
 							<div class="card-header">
-								<h4>Update Event</h4>
+								<h4>Update Trainee</h4>
 							</div>
 							<div class="card-body">
 								<div class="row">
 									<div class="col-lg-6">
-										<form class="form-horizontal" th:action="@{/updateEvent}"
+										<form class="form-horizontal" th:action="@{/updateTrainee}"
 											method="post" enctype="multipart/form-data">
 											<div class="form-group">
 
-												<label for="event">Event Name</label> <input type="text"
-													class="form-control" id="event" name="eventname"
-													required="required" th:value="${events.getEventName()}" />
+												<label for="event">E-mail</label> <input type="email"
+													class="form-control" id="event" name="email"
+													required="required" th:value="${trainee.getEmail()}" />
 											</div>
 									
 											<div class="form-group">
 
-												<label for="eventdate">Start Date</label> <input type="date"
-													class="form-control" id="eventdate" name="date"
-													required="required" th:value="${events.getStartDate()}"/>
+												<label for="eventdate">Age</label> <input type="number"
+													class="form-control" id="eventdate" name="age"
+													required="required" th:value="${trainee.getAge()}"/>
 
 											</div>
 											
 											 
-  											<input type="hidden"  name="eventId"  th:value="${events.getEventId()}"/>
+  											<input type="hidden"  name="traineeId"  th:value="${trainee.getTrainingId()}"/>
 
 											<div class="form-group">
 
-												<label for="endDate">End Date</label> <input type="date"
-													class="form-control" id="endDatee" name="endDate"
-													required="required" th:value="${events.getEndDate()}" />
+												<label for="endDate">Aaadhar</label> <input type="number"
+													class="form-control" id="endDatee" name="aadhar"
+													required="required" th:value="${trainee.getAadhar()}" />
 
 											</div>
 
 
 											<div class="form-group">
-												<label for="eventDescription" style="padding-top: 40px">Enter
-													Description</label>
-												<textarea class="form-control" rows="5"
-													id="eventDescription" name="description"
-													required="required" th:text="${events.getDescription()}"></textarea>
+												<label for="endDate">Gender</label> <input type="text"
+													class="form-control" id="endDatee" name="gender"
+													required="required" th:value="${trainee.getGender()}" />
+
 											</div>
 											<div class="form-group">
-												<label for="venue">Venue Name</label> <input type="text"
-													class="form-control" id="venue" name="venuename"
-													required="required" th:value="${events.getLocation()}"/>
+												<label for="venue">Name</label> <input type="text"
+													class="form-control" id="venue" name="name"
+													required="required" th:value="${trainee.getName()}"/>
 											</div>
 											<div class="form-group">
-												<label for="contactperson">Contact Person</label> <input
+												<label for="contactperson">Organization</label> <input
 													type="text" class="form-control" id="contactperson"
-													name="contactperson" required="required" th:value="${events.getContactPerson()}"/>
+													name="org" required="required" th:value="${trainee.getOrganization()}"/>
 											</div>
 											<div class="form-group">
 												<label for="contactnumber">Contact Number</label> <input
 													type="number" class="form-control" id="conatctNumber"
-													name="contactnumber" required="required" th:value="${events.getContactNumber()}" />
-											</div>
-											<div class="form-group">
-
-												<label for="email">Email Id</label> <input type="email"
-													class="form-control" id="email" name="email"
-													required="required" th:value="${events.getEmail()}"/>
+													name="contactnumber" required="required" th:value="${trainee.getPhone()}" />
 											</div>
 											
-											<div class="form-group">
-												<label for="Image" style="padding-top: 8px">Event Image </label> <input type="file" style="padding-right: 50px"
-													class="form-control-file " id="Image"
-													name="Image" placeholder="uploadFile"
-													accept=".jpg, .jpeg ,.png" required/>
-
-											</div>
-
 											<button type="submit" class="btn a-btn">Submit</button>
 											&nbsp;&nbsp;&nbsp;
 											<button type="reset" class="btn a-btn">Reset</button>

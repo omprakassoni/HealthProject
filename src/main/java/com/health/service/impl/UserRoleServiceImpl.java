@@ -106,4 +106,10 @@ public class UserRoleServiceImpl implements UserRoleService{
 		return usrRoleRepo.findByRoleUserStatus(usr, role, status);
 	}
 
+	@Override
+	public void delete(UserRole u) {
+		// TODO Auto-generated method stub
+		usrRoleRepo.delete(u);
+	}
+
 }

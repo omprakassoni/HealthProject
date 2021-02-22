@@ -28,5 +28,7 @@ public interface EventRepository extends  CrudRepository<Event, Integer> {
 //	@Query("from Event  order by timedate desc")
 //	List<Event> findBylatestdate();
 
+	@Query("from Event e order by e.startDate desc")  // fetching list of event
+	List<Event> getAllEvent();
 
 }

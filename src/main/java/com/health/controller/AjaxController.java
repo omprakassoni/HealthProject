@@ -459,6 +459,42 @@ public class AjaxController{
 
 		return CommonData.ROLE_APPROVED_SUCCESS_MSG;
 	}
+	
+	@RequestMapping("/deleteMasterRole")
+	public @ResponseBody String deleteMasterRoleById(@RequestParam(value = "id") long id) {
+
+		UserRole usrRole=usrRoleService.findById(id);
+
+		if(usrRole != null) {
+			try {
+				
+				User usr = usrRole.getUser();
+				usr.setOrgRolev(null);
+				usr.setOrganization(null);
+				usr.setAge(0);
+				usr.setUserRoles(null);
+				usrservice.save(usr);
+				System.out.println("vikash");
+				usrRole.setRole(null);
+				usrRole.setUser(null);
+				
+				usrRoleService.save(usrRole);
+				
+			}catch (Exception e) {
+				// TODO: handle exception
+
+				// return error
+			}
+
+
+		}else {
+
+			// return error
+		}
+
+
+		return "Role Disaaproved";
+	}
 
 
 	@RequestMapping("/loadLanguageByUser")
