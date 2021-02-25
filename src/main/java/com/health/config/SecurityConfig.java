@@ -86,12 +86,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/updateQuestion/**",
 			"/addBrouchure/**",
 			"/addCarousel/**",
-			"/addEvent/**",
-			"/addTestimonial/**",
-			"/event/edit/**",
-			"/updateEvent/**",
-			"/testimonial/edit/**",
-			"/updateTestimonial/**",
 			"/approveRole/**",
 			"/assignTutorialToContributor/**",
 			"/assignContributor/edit/**",
@@ -106,17 +100,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	};
 
 	public static final String[] MASTERTRAINER_URL= {
-			"/addEvent/**",
-			"/addTestimonial/**",
-			"/event/edit/**",
-			"/updateEvent/**",
-			"/testimonial/edit/**",
-			"/updateTestimonial/**",
-			"/viewTrainee/**",
+
 			"/masterTrainerOperation/**",
 			"/details/**",
 			"/addTrainingInfo/**",
-			"/downloadQuestion/**",
 			"/uploadfeedback/**",
 			"/uploadPostQuestionaire/**",
 			"/training/edit/**",
@@ -154,7 +141,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public static final String[] DOMAIN_URL= {
 			"/listTutorialForDomainReview/**",
 			"/domainreview/review/**",
-			"/acceptAdminVideo/**",
 			"/acceptDomainOutline/**",
 			"/acceptDomainScript/**",
 			"/acceptDomainVideo/**",
@@ -209,6 +195,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(ADMIN_URL).hasAnyAuthority("ADMIN_REVIEWER")
 			.antMatchers(DOMAIN_URL).hasAnyAuthority("DOMAIN_REVIEWER")
 			.antMatchers(QUALITY_URL).hasAnyAuthority("QUALITY_REVIEWER")
+			.antMatchers("/addEvent/**","/addTestimonial/**","/event/edit/**","/updateEvent/**","/testimonial/edit/**","/updateTestimonial/**","/viewTrainee/**","/downloadQuestion/**").hasAnyAuthority("SUPER_USER","MASTER_TRAINER")
 			.antMatchers(PUBLIC_MATCHERS).
 				permitAll().anyRequest().authenticated().
 				and()
