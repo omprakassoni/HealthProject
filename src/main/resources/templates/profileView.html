@@ -228,14 +228,15 @@
         </button>
       </div>
       <div class="modal-body">
-      	<h4 style="text-align:center;color:green;display:none;" id="profileText">Profile Picture Updated Successfully</h4>
+      	<h4 style="text-align:center;color:green;display:none;font-size: 1rem;" id="profileText">Profile Picture Updated Successfully</h4>
       	<form action="" method="post" enctype="multipart/form-data" id="uploadProfilePic">
       		<span th:if="${userInfo.getProfilePic()}">
                 <img class="avatar border-gray" id="pictureShow" th:src="@{files/}+@{${userInfo.getProfilePic()}}" width="100%" height="auto" /><br/>
             </span>
-            <span th:unless="${userInfo.getProfilePic()}">
-                <img class="avatar border-gray" id="pictureShow" th:src="@{/image/default-avatar.png}" width="100%" height="400px"/><br/>
-            </span>
+            <div th:unless="${userInfo.getProfilePic()}" class="text-center">
+                <img class="avatar border-gray" id="pictureShow" th:src="@{/image/default-avatar.png}" width="400px" height="auto"/><br/>
+            </div>
+            <hr>
 	      	
 	        <input type="file" id="profilePicture" name="profilePicture"/>
 	    </form>

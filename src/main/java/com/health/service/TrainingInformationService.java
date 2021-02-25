@@ -19,7 +19,7 @@ public interface TrainingInformationService {
 
 	TrainingInformation getById(int id);
 
-	TrainingInformation findByTopicName(String topicName);
+//	TrainingInformation findByTopicName(String topicName);
 
 	List<TrainingInformation> findByUser(User user);
 }

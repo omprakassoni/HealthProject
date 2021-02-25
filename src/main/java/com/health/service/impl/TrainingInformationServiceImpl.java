@@ -64,11 +64,11 @@ public class TrainingInformationServiceImpl implements TrainingInformationServic
 		}
 	}
 
-	@Override
-	public TrainingInformation findByTopicName(String topicName) {
-		// TODO Auto-generated method stub
-		return trainingInfoRepo.findBytitleName(topicName);
-	}
+//	@Override
+//	public TrainingInformation findByTopicName(String topicName) {
+//		// TODO Auto-generated method stub
+//		return trainingInfoRepo.findBytitleName(topicName);
+//	}
 
 	@Override
 	public List<TrainingInformation> findByUser(User user) {

@@ -84,7 +84,7 @@
 														</select>
 													</div>
 
-													<div class="form-group">
+													<!-- <div class="form-group">
 
 														<label for="categoryName">Select category </label> <select
 															id="MasterCategoryId" class="form-control"
@@ -105,10 +105,10 @@
 															</select>
 
 														</div>
-													</div>
+													</div> -->
 
 
-													<div class="form-group ">
+												<!-- 	<div class="form-group ">
 
 														<label>Select Language</label> <select
 															id="selectLanguageId" class="form-control "
@@ -119,16 +119,16 @@
 																th:value="${lan.getLangName()}"
 																th:text="${lan.getLangName()}"></option>
 														</select>
-													</div>
-													<div class="form-group">
+													</div> -->
+													<!-- <div class="form-group">
 														<label for="titleName">Title Name</label> <input
 															type="text" class="form-control " name="titleName"
 															id="titleName" required="required" />
 													</div>
-
-													<span style="color: red;" th:if="${titleName}">Title
+ -->
+													<!-- <span style="color: red;" th:if="${titleName}">Title
 														Name already exists. Choose a different one.</span>
-
+ -->
 													<div class="form-group">
 														<label for="traningInformationMasterId">Training
 															Information</label>
@@ -138,40 +138,7 @@
 
 													</div>
 
-													<div class="form-group">
-
-														<label for="stateName">State</label> <select
-															id="stateNameId" class="form-control " name="stateName"
-															required="required">
-
-															<option selected="selected">Select State</option>
-															<option th:each="state: ${states}"
-																th:value="${state.getId()}"
-																th:text="${state.getStateName()}"></option>
-														</select>
-
-													</div>
-
-													<div class="form-group">
-
-														<label for="district">District</label> <select
-															id="districtId" class="form-control " name="districtName"
-															required="required">
-															<option selected="selected">Select District</option>
-														</select>
-
-													</div>
-
-													<div class="form-group">
-
-														<label for="cityName">City</label> <select id="cityId"
-															class="form-control" name="cityName" required="required">
-															<option selected="selected">Select City</option>
-														</select>
-
-													</div>
-
-													<div class="form-group">
+													<!-- <div class="form-group">
 
 														<label for="addressInformationId">Address
 															Information</label>
@@ -180,16 +147,7 @@
 															name="addressInformationName" rows="5"
 															id="addressInformationId" required="required"></textarea>
 
-													</div>
-
-
-													<div class="form-group">
-														<label for="pinCodeId">PinCode</label> <input
-															type="number" class="form-control" name="pinCode"
-															pattern="[0-9]" id="pinCodeId" minlength="6"
-															maxlength="6" required="required" />
-													</div>
-
+													</div> -->
 
 													<div class="form-group">
 														<label for="totalParID">Total Participants</label> <input
