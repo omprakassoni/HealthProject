@@ -9,10 +9,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.health.domain.security.Role;
+import com.health.domain.security.UserRole;
 import com.health.model.Event;
 import com.health.model.User;
 import com.health.repository.EventRepository;
+import com.health.repository.RoleRepository;
 import com.health.service.EventService;
+import com.health.utility.CommonData;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -21,11 +25,14 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	private EventRepository eventRepo;
 
+	@Autowired
+	private RoleRepository roleRepo;
+
 
 	@Override
 	public List<Event> findAll() {
 
-		List<Event> local = (List<Event>) eventRepo.getAllEvent();
+		List<Event> local = eventRepo.getAllEvent();
 		return local;
 
 	}
@@ -86,8 +93,27 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public List<Event> findByUser(User usr) {
+		Role adminRole = roleRepo.findByname(CommonData.superUserRole);
+		for(UserRole item : usr.getUserRoles()) {
+			if(item.getRole()==adminRole) {
+				return (List<Event>) eventRepo.findAll();
+			}
+		}
+			return eventRepo.findByuser(usr);
+	}
+
+	@Override
+	public Event getById(int id) {
 		// TODO Auto-generated method stub
-		return eventRepo.findByuser(usr);
+		try {
+			Optional<Event> local = eventRepo.findById(id);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 

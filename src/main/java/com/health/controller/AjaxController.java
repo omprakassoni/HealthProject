@@ -29,6 +29,7 @@ import com.health.model.Comment;
 import com.health.model.Consultant;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
+import com.health.model.Event;
 import com.health.model.FeedbackForm;
 import com.health.model.Language;
 import com.health.model.LogManegement;
@@ -48,6 +49,7 @@ import com.health.service.CommentService;
 import com.health.service.ConsultantService;
 import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
+import com.health.service.EventService;
 import com.health.service.FeedbackService;
 import com.health.service.LanguageService;
 import com.health.service.LogMangementService;
@@ -141,6 +143,9 @@ public class AjaxController{
 
 	@Autowired
 	private LanguageService langService;
+
+	@Autowired
+	private EventService eventService;
 
 
 	@GetMapping("/enableDisableBrouchure")
@@ -326,7 +331,9 @@ public class AjaxController{
 
 		for(TrainingTopic x :trainingTopic) {
 			TrainingInformation temp = trainingInforService.getById(x.getTraineeInfos().getTrainingId());
-			topicName.put(temp.getTrainingId(), temp.getTitleName());
+			Event event = eventService.getById(x.getEvent().getEventId());
+//			topicName.put(temp.getTrainingId(), temp.getTitleName());
+			topicName.put(event.getEventId(), event.getEventName());
 		}
 
 		/*
@@ -459,7 +466,7 @@ public class AjaxController{
 
 		return CommonData.ROLE_APPROVED_SUCCESS_MSG;
 	}
-	
+
 	@RequestMapping("/deleteMasterRole")
 	public @ResponseBody String deleteMasterRoleById(@RequestParam(value = "id") long id) {
 
@@ -467,7 +474,7 @@ public class AjaxController{
 
 		if(usrRole != null) {
 			try {
-				
+
 				User usr = usrRole.getUser();
 				usr.setOrgRolev(null);
 				usr.setOrganization(null);
@@ -477,9 +484,9 @@ public class AjaxController{
 				System.out.println("vikash");
 				usrRole.setRole(null);
 				usrRole.setUser(null);
-				
+
 				usrRoleService.save(usrRole);
-				
+
 			}catch (Exception e) {
 				// TODO: handle exception
 
@@ -1367,7 +1374,7 @@ public class AjaxController{
 
 	}
 
-	
+
 
 	/***********************************END ***************************************************************/
 /******************************* COMMENT MODULE UNDER CREATION PART ********************************/

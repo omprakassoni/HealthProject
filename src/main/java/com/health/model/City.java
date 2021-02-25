@@ -8,8 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,18 +19,18 @@ public class City {
 	@Id
 	@Column(name = "city_id", nullable = false)
 	private int id;
-	
+
 	private Timestamp dateAdded;
-	
+
 	private String cityName;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="district_id")
 	private District district;
-	
-	@OneToMany(mappedBy = "city",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private Set<TrainingInformation> trainingInfo =new HashSet<TrainingInformation>();
 
+
+	@OneToMany(mappedBy = "city",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Set<Event> events=new HashSet<Event>();
 	public int getId() {
 		return id;
 	}
@@ -65,18 +63,5 @@ public class City {
 		this.district = district;
 	}
 
-	public Set<TrainingInformation> getTrainingInfo() {
-		return trainingInfo;
-	}
 
-	public void setTrainingInfo(Set<TrainingInformation> trainingInfo) {
-		this.trainingInfo = trainingInfo;
-	}
-	
-	
-
-
-	
-	
-	
 }

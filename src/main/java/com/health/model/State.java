@@ -3,35 +3,32 @@ package com.health.model;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
-
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-
 import javax.persistence.Id;
-
 import javax.persistence.OneToMany;
 
 
 @Entity
 public class State {
 
-	@Id 
+	@Id
 	@Column(name = "state_id", nullable = false)
-	private int id;	
-	
+	private int id;
+
 	private String stateName;
-	
+
 	private Timestamp dateAdded;
-	
+
 	@OneToMany(mappedBy = "state", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<District>  Districts=new HashSet<District>();
-	
+
 	@OneToMany(mappedBy = "state", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private Set<TrainingInformation>  trainigInfos=new HashSet<TrainingInformation>();
+	private Set<Event>  events=new HashSet<Event>();
 
 	public int getId() {
 		return id;
@@ -65,19 +62,5 @@ public class State {
 		Districts = districts;
 	}
 
-	public Set<TrainingInformation> getTrainigInfos() {
-		return trainigInfos;
-	}
 
-	public void setTrainigInfos(Set<TrainingInformation> trainigInfos) {
-		this.trainigInfos = trainigInfos;
-	}
-	
-	
-	
-
-	
-
-	
-	
 }

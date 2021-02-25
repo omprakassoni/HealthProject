@@ -3,15 +3,12 @@ package com.health.model;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,41 +17,44 @@ import javax.persistence.OneToMany;
 import com.health.domain.security.UserRole;
 
 
-@Entity 
+@Entity
 public class Language {
-	
+
 	@Id
 	@Column(name = "lan_id",updatable = false,nullable = false)
 	private int lanId;
-	
+
 	@Column(nullable = false)
 	private String langName;
-	
+
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
-	
+
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserRole> userRoles=new HashSet<UserRole>();
-	
+
 	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Question> questions=new HashSet<Question>();
-	
+
 	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
-	
+
 	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingInformation> trainingInfos=new HashSet<TrainingInformation>();
 
 	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Brouchure> brouchure=new HashSet<Brouchure>();
-	
+
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Event> events=new HashSet<Event>();
+
 	public int getLanId() {
 		return lanId;
 	}
@@ -127,21 +127,21 @@ public class Language {
 	public void setTrainingInfos(Set<TrainingInformation> trainingInfos) {
 		this.trainingInfos = trainingInfos;
 	}
-	
-	
-  
-	
-//  @Id  
+
+
+
+
+//  @Id
 //  @GeneratedValue(strategy=GenerationType.AUTO)
 //  @Column(name="id", nullable = false, updatable = false)
-//  		
+//
 //  	private int id;
 //	private  String languageName ;
-//	
-//	private Timestamp timedate;
-//	
 //
-//	
+//	private Timestamp timedate;
+//
+//
+//
 //	  public Timestamp getTimedate() {
 //		return timedate;
 //	}
@@ -151,7 +151,7 @@ public class Language {
 //	}
 //
 //	private String createdBy;
-//	
+//
 //	  public String getCreatedBy() {
 //		  return createdBy;
 //	  }
@@ -162,29 +162,29 @@ public class Language {
 //
 //	/*
 //	 * @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	 * 
+//	 *
 //	 * @JoinColumn(name="user_id") private User user;
 //	 */
 //
-//	@OneToMany(mappedBy = "lan",cascade =CascadeType.ALL) 
+//	@OneToMany(mappedBy = "lan",cascade =CascadeType.ALL)
 //	private List<Tutorial> tutorials;
-//	
+//
 //	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL)
 //	private List<contributor_Role> contributor_Roles;
-//	 
+//
 //	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 //	private Set<UserRole> userRoles = new HashSet<>();
 //
-//	
+//
 //	@OneToMany(mappedBy = "lan", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 //	private Set<language_assign> languages= new HashSet<>();
-//	
+//
 //	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 //	private Set<commentOnComponent>  commentOnComponent= new HashSet<>();
-//	
-//	
+//
+//
 //	public Set<UserRole> getUserRoles() {
-//		
+//
 //		return userRoles;
 //	}
 //
@@ -217,23 +217,22 @@ public class Language {
 //	}
 //
 //
-//		public int getId() { 
+//		public int getId() {
 //		  return id; }
-//	  
-//	  public void setId(int id) { 
+//
+//	  public void setId(int id) {
 //		  this.id = id; }
-//	  
-//	 
-//	  public String getLanguageName() { 
+//
+//
+//	  public String getLanguageName() {
 //		  return languageName; }
-//	  
-//	
-//	
-//	  public void setLanguageName(String languageName) 
+//
+//
+//
+//	  public void setLanguageName(String languageName)
 //	  { this.languageName =
 //	  languageName; }
-//	  
+//
 
- 
+
   }
- 
