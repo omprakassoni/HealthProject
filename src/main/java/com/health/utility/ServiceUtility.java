@@ -1,21 +1,24 @@
 package com.health.utility;
 
 import java.io.File;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
+
 import java.util.regex.Pattern;
+
 
 import org.springframework.web.multipart.MultipartFile;
 
+
 public class ServiceUtility {
 	
-	
-	private static String uploadDirectory="src/main/resources/static"+"/Media/content/";
 	
 	public static Timestamp getCurrentTime() {								// Current Date
 		
@@ -183,4 +186,6 @@ public class ServiceUtility {
 		java.util.Date dateUtil=sd1.parse(date);
 		return new java.sql.Date(dateUtil.getTime());
 	}
+	
+	
 }
