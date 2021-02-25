@@ -28,8 +28,6 @@ public class City {
 	@JoinColumn(name="district_id")
 	private District district;
 
-	@OneToMany(mappedBy = "city",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private Set<TrainingInformation> trainingInfo =new HashSet<TrainingInformation>();
 
 	@OneToMany(mappedBy = "city",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Event> events=new HashSet<Event>();
@@ -64,19 +62,6 @@ public class City {
 	public void setDistrict(District district) {
 		this.district = district;
 	}
-
-	public Set<TrainingInformation> getTrainingInfo() {
-		return trainingInfo;
-	}
-
-	public void setTrainingInfo(Set<TrainingInformation> trainingInfo) {
-		this.trainingInfo = trainingInfo;
-	}
-
-
-
-
-
 
 
 }

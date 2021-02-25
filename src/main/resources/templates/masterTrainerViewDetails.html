@@ -78,7 +78,7 @@
 													<thead>
 														<tr>
 															<th>Id</th>
-															<th>Training Name</th>
+															<!-- <th>Training Name</th> -->
 															<th>Training Date</th>
 															<th>Location</th>
 															<th>Category</th>
@@ -91,7 +91,7 @@
 													<tbody>
 														<tr th:each="t : ${trainingInfo}">
 															<td th:text="${t.getTrainingId()}">ID</td>
-															<td th:text="${t.getTitleName()}">Training Name</td>
+															<!-- <td th:text="${t.getTitleName()}">Training Name</td> -->
 															<td th:text="${t.getEvent().getStartDate()}">Date</td>
 															<td><span th:text="${t.getState().getStateName()}"></span>(
 																<span th:text="${t.getCity().getCityName()}"></span> )</td>
@@ -132,7 +132,7 @@
 														<thead>
 															<tr>
 																<th>Id</th>
-																<th>Training Name</th>
+																<!-- <th>Training Name</th> -->
 																<th>Category</th>
 																<th>Training Date</th>
 																<th>Language</th>
@@ -144,7 +144,7 @@
 														<tbody>
 															<tr th:each="q : ${postQuestionnaire}">
 																<td th:text="${q.getId()}">ID</td>
-																<td th:text="${q.getTraineeInfos().getTitleName()}">Training</td>
+																<!-- <td th:text="${q.getTraineeInfos().getTitleName()}">Training</td> -->
 																<td>
 																	<div
 																		th:each="item: ${q.getTraineeInfos().getTrainingTopicId()}">
@@ -192,7 +192,7 @@
 														<thead>
 															<tr>
 																<th>Id</th>
-																<th>Training Name</th>
+																<!-- <th>Training Name</th> -->
 																<th>Category</th>
 																<th>Training Date</th>
 																<th>Feedback</th>
@@ -203,7 +203,7 @@
 														<tbody>
 															<tr th:each="ft : ${feedbackMasterTrainer}">
 																<td th:text="${ft.getId()}">ID</td>
-																<td th:text="${ft.getTraineeInfos().getTitleName()}">ID</td>
+																<!-- <td th:text="${ft.getTraineeInfos().getTitleName()}">ID</td> -->
 																<td>
 																	<div
 																		th:each="item: ${ft.getTraineeInfos().getTrainingTopicId()}">
@@ -251,7 +251,7 @@
 														<thead>
 															<tr>
 																<th>Id</th>
-																<th>Training Name</th>
+																<!-- <th>Training Name</th> -->
 																<th>Category</th>
 																<th>Training Date</th>
 																<th>Feedback</th>
@@ -262,7 +262,7 @@
 														<tbody>
 															<tr th:each="ft : ${feedbackMasterTrainer}">
 																<td th:text="${ft.getId()}">ID</td>
-																<td th:text="${ft.getTraineeInfos().getTitleName()}">ID</td>
+																<!-- <td th:text="${ft.getTraineeInfos().getTitleName()}">ID</td> -->
 																<td>
 																	<div
 																		th:each="item: ${ft.getTraineeInfos().getTrainingTopicId()}">

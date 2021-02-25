@@ -34,11 +34,9 @@ import com.health.domain.security.UserRole;
 import com.health.model.Brouchure;
 import com.health.model.Carousel;
 import com.health.model.Category;
-import com.health.model.City;
 import com.health.model.Comment;
 import com.health.model.Consultant;
 import com.health.model.ContributorAssignedTutorial;
-import com.health.model.District;
 import com.health.model.Event;
 import com.health.model.FeedbackMasterTrainer;
 import com.health.model.IndianLanguage;
@@ -1782,7 +1780,7 @@ public class HomeController {
 			event.setCity(cityService.findById(Integer.parseInt(cityName)));
 			event.setPincode(Integer.parseInt(pinCode));
 			event.setState(stateService.findById(Integer.parseInt(stateName)));
-			event.setLan(lanService.getById(Integer.parseInt(language)));
+			event.setLan(lanService.getByLanName(language));
 			Set<TrainingTopic> trainingTopicTemp = new HashSet<>();
 			Category cat=catService.findByid(catName);
 
@@ -2896,7 +2894,7 @@ public class HomeController {
 
 		Role role = roleService.findByname(CommonData.masterTrainerRole);
 
-		if(usrRoleService.findByRoleUser(usr, role) != null) {
+		if(!usrRoleService.findByRoleUser(usr, role).isEmpty()) {
 
 			model.addAttribute("success_msg", "Request Already submitted for role");
 			model.addAttribute("alredaySubmittedFlag", true);
@@ -3972,18 +3970,9 @@ public class HomeController {
 	public String addTrainingInfoPost(Model model,Principal principal,
 			@RequestParam("ParticipantsPhoto") MultipartFile trainingImage,
 			@RequestParam("traineeInformation") MultipartFile traineeInfo,
-			@RequestParam(value="categoryName") int catName,
-			@RequestParam(value="inputTopic") int[] topicId,
-			@RequestParam(value="language") String lanName,
 			@RequestParam(value="event") int eventId,
-			@RequestParam(value="stateName") int state,
-			@RequestParam(value="districtName") int district,
-			@RequestParam(value="cityName") int city,
 			@RequestParam(value="traningInfo") String trainingInformation,
-			@RequestParam(value = "totalPar") int totaltrainee,
-			@RequestParam(value="addressInformationName") String address,
-			@RequestParam(value="pinCode") int pinCode,
-			@RequestParam(value="titleName") String titleName) {
+			@RequestParam(value = "totalPar") int totaltrainee) {
 
 		User usr=new User();
 
@@ -3996,7 +3985,7 @@ public class HomeController {
 
 		Event event = eventservice.findById(eventId);
 
-		Set<TrainingTopic> trainingTopicTemp = new HashSet<>();
+//		Set<TrainingTopic> trainingTopicTemp = new HashSet<>();
 
 		if(!ServiceUtility.checkFileExtensiononeFileCSV(traineeInfo)) {
 
@@ -4012,51 +4001,41 @@ public class HomeController {
 			return "masterTrainerOperation";
 		}
 
-		if(trainingInfoService.findByTopicName(titleName) != null) {
+//		if(trainingInfoService.findByTopicName(titleName) != null) {
+//
+//			// throw error on output
+//			model.addAttribute("error_msg",CommonData.NAME_ERROR);
+//			return "masterTrainerOperation";
+//		}
 
-			// throw error on output
-			model.addAttribute("error_msg",CommonData.NAME_ERROR);
-			return "masterTrainerOperation";
-		}
+//		Language lan=lanService.getByLanName(lanName);
 
-
-
-		State stat=stateService.findById(state);
-		District districtTemp=districtService.findById(district);
-		City cityTemp=cityService.findById(city);
-		Language lan=lanService.getByLanName(lanName);
-		Category cat=catService.findByid(catName);
 
 //		Topic topic=topicService.findById(topicId);
 //		TopicCategoryMapping topicCatMap=topicCatService.findAllByCategoryAndTopic(cat, topic);
 
 		int newTrainingdata=trainingInfoService.getNewId();
 		TrainingInformation trainingData=new TrainingInformation();
-		trainingData.setCity(cityTemp);
 		trainingData.setDateAdded(ServiceUtility.getCurrentTime());
-		trainingData.setState(stat);
-		trainingData.setDistrict(districtTemp);
 		trainingData.setTrainingId(newTrainingdata);
-		trainingData.setTitleName(titleName);
 		trainingData.setTotalParticipant(totaltrainee);
-		trainingData.setPincode(pinCode);
-		trainingData.setLan(lan);
-		trainingData.setAddress(address);
+//		trainingData.setLan(lan);
+//		trainingData.setAddress(address);
 		trainingData.setUser(usr);
 		trainingData.setEvent(event);
 
 		try {
 			trainingInfoService.save(trainingData);
 			int trainingTopicId=trainingTopicServ.getNewId();
-			for(int topicID : topicId) {
-				Topic topicTemp=topicService.findById(topicID);
-				TopicCategoryMapping topicCatMap=topicCatService.findAllByCategoryAndTopic(cat, topicTemp);
-				TrainingTopic trainingTemp=new TrainingTopic(trainingTopicId++, topicCatMap, trainingData);
-				trainingTopicTemp.add(trainingTemp);
-
-			}
-
-			trainingData.setTrainingTopicId(trainingTopicTemp);
+//			for(int topicID : topicId) {
+//				Topic topicTemp=topicService.findById(topicID);
+//				TopicCategoryMapping topicCatMap=topicCatService.findAllByCategoryAndTopic(cat, topicTemp);
+//				TrainingTopic trainingTemp=new TrainingTopic(trainingTopicId++, topicCatMap, trainingData);
+//				trainingTopicTemp.add(trainingTemp);
+//
+//			}
+//
+//			trainingData.setTrainingTopicId(trainingTopicTemp);
 			trainingInfoService.save(trainingData);
 
 				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryMasterTrainer+newTrainingdata);
@@ -4559,7 +4538,6 @@ public class HomeController {
 			@RequestParam(value = "totalPar") int totaltrainee,
 			@RequestParam(value="addressInformationName") String address,
 			@RequestParam(value="pinCode") int pinCode,
-			@RequestParam(value="titleName") String titleName,
 			@RequestParam(value="trainingId") int trainingId) {
 
 		User usr=new User();
@@ -4579,26 +4557,15 @@ public class HomeController {
 
 		model.addAttribute("training",trainingData);
 
-		if(trainingInfoService.findByTopicName(titleName) != null) {
+//		if(trainingInfoService.findByTopicName(titleName) != null) {
+//
+//			// throw error on output
+//			model.addAttribute("error_msg",CommonData.NAME_ERROR);
+//			return "updateTraining";
+//		}
 
-			// throw error on output
-			model.addAttribute("error_msg",CommonData.NAME_ERROR);
-			return "updateTraining";
-		}
-
-		State stat=stateService.findById(state);
-		District districtTemp=districtService.findById(district);
-		City cityTemp=cityService.findById(city);
-
-
-		trainingData.setCity(cityTemp);
-
-		trainingData.setState(stat);
-		trainingData.setDistrict(districtTemp);
-
-		trainingData.setTitleName(titleName);
 		trainingData.setTotalParticipant(totaltrainee);
-		trainingData.setPincode(pinCode);
+
 		trainingData.setAddress(address);
 
 

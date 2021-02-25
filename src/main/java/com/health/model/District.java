@@ -32,9 +32,6 @@ public class District {
 	Set<City> cities=new HashSet<City>();
 
 	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	Set<TrainingInformation> trainingInfos=new HashSet<TrainingInformation>();
-
-	@OneToMany(mappedBy = "district",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	Set<Event> events=new HashSet<Event>();
 
 	public int getId() {
@@ -76,16 +73,6 @@ public class District {
 	public void setCities(Set<City> cities) {
 		this.cities = cities;
 	}
-
-	public Set<TrainingInformation> getTrainingInfos() {
-		return trainingInfos;
-	}
-
-	public void setTrainingInfos(Set<TrainingInformation> trainingInfos) {
-		this.trainingInfos = trainingInfos;
-	}
-
-
 
 
 

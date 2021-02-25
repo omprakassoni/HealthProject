@@ -32,7 +32,7 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<Event> findAll() {
 
-		List<Event> local = (List<Event>) eventRepo.getAllEvent();
+		List<Event> local = eventRepo.getAllEvent();
 		return local;
 
 	}
@@ -100,6 +100,20 @@ public class EventServiceImpl implements EventService {
 			}
 		}
 			return eventRepo.findByuser(usr);
+	}
+
+	@Override
+	public Event getById(int id) {
+		// TODO Auto-generated method stub
+		try {
+			Optional<Event> local = eventRepo.findById(id);
+			return local.get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 

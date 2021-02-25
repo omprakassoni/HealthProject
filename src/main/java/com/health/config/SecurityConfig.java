@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/tutorialView/**",
 			"/getConsultantDetails/**"
 	};
-	
+
 	public static final String[] SUPERUSER_URL= {
 			"/addCategory/**",
 			"/updateCategory/**",
@@ -101,7 +101,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/enableRoleById/**",
 			"/deleteMasterRole/**",
 			"/viewTrainee/**",
-			
+			"/details/**",
+
 	};
 
 	public static final String[] MASTERTRAINER_URL= {
@@ -122,10 +123,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/updateTraining/**",
 			"/trainee/edit/**",
 			"/updateTrainee/**",
-			
-					
+
+
 	};
-	
+
 	public static final String[] CONTRIBUTOR_URL= {
 			"/uploadTutorial/**",
 			"/addOutline/**",
@@ -137,19 +138,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/addScript/**",
 			"/listTutorialForContributorReview/**",
 			"/Contributor/review/**",
-			
-			
-					
+
+
+
 	};
-	
+
 	public static final String[] ADMIN_URL= {
 			"/listTutorialForAdminReview/**",
 			"/adminreview/review/**",
 			"/acceptAdminVideo/**",
-			
-					
+
+
 	};
-	
+
 	public static final String[] DOMAIN_URL= {
 			"/listTutorialForDomainReview/**",
 			"/domainreview/review/**",
@@ -160,9 +161,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/acceptDomainSlide/**",
 			"/acceptDomainKeywords/**",
 			"/acceptDomainPreRequistic/**",
-					
+
 	};
-	
+
 	public static final String[] QUALITY_URL= {
 			"/listTutorialForQualityReview/**",
 			"/publish/**",
@@ -174,7 +175,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/acceptQualitySlide/**",
 			"/acceptQualityKeywords/**",
 			"/acceptQualityPreRequistic/**",
-					
+
 	};
 
 	@Override

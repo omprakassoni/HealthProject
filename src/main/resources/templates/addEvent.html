@@ -55,6 +55,8 @@
 													class="form-control" id="event" name="eventname"
 													required="required" />
 											</div>
+											<div class="row">
+											<div class="col-md-6">
 											<div class="form-group">
 
 												<label for="eventdate">Start Date</label> <input type="date"
@@ -62,7 +64,8 @@
 													required="required" />
 
 											</div>
-
+											</div>
+											<div class="col-md-6">
 											<div class="form-group">
 
 												<label for="endDate">End Date</label> <input type="date"
@@ -70,27 +73,24 @@
 													required="required" />
 
 											</div>
-
-
+											</div>
+											</div>
 											<div class="form-group">
-												<label for="eventDescription" style="padding-top: 40px">Enter
+												<label for="eventDescription">Enter
 													Description</label>
 												<textarea class="form-control" rows="5"
 													id="eventDescription" name="description"
 													required="required" placeholder="Description of the event"></textarea>
 											</div>
+											<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Venue Details : </span></div>
 											<div class="form-group">
 												<label for="venue">Venue Name</label> <input type="text"
 													class="form-control" id="venue" name="venuename"
 													required="required" />
 											</div>
+											<div class="row">
+											<div class="col-md-6">
 											<div class="form-group">
-														<label for="pinCodeId">PinCode</label> <input
-															type="number" class="form-control" name="pinCode"
-															pattern="[0-9]" id="pinCodeId" minlength="6"
-															maxlength="6" required="required" />
-													</div>
-												<div class="form-group">
 
 														<label for="stateName">State</label> <select
 															id="stateNameId" class="form-control " name="stateName"
@@ -103,8 +103,9 @@
 														</select>
 
 													</div>
-
-													<div class="form-group">
+											</div>
+											<div class="col-md-6">
+											<div class="form-group">
 
 														<label for="district">District</label> <select
 															id="districtId" class="form-control " name="districtName"
@@ -112,9 +113,11 @@
 															<option selected="selected">Select District</option>
 														</select>
 
-													</div>
-
-													<div class="form-group">
+													</div></div>
+											</div>
+											<div class="row">
+											<div class="col-md-6">
+											<div class="form-group">
 
 														<label for="cityName">City</label> <select id="cityId"
 															class="form-control" name="cityName" required="required">
@@ -122,16 +125,29 @@
 														</select>
 
 													</div>
+											</div>
+											<div class="col-md-6">
+											<div class="form-group">
+														<label for="pinCodeId">PinCode</label> <input
+															type="number" class="form-control" name="pinCode"
+															pattern="[0-9]" id="pinCodeId" minlength="6"
+															maxlength="6" required="required" />
+													</div>
+											</div>
+											</div>
 													<div class="form-group">
 
 														<label for="addressInformationId">Address
-															Information</label>
+															Details</label>
 
 														<textarea class="form-control"
 															name="addressInformationName" rows="5"
 															id="addressInformationId" required="required"></textarea>
 
 													</div>
+													<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Event Content Details : </span></div>
+													<div class="row">
+													<div class="col-md-6">
 													<div class="form-group ">
 
 														<label>Select Language</label> <select
@@ -144,6 +160,8 @@
 																th:text="${lan.getLangName()}"></option>
 														</select>
 													</div>
+													</div>
+													<div class="col-md-6">
 													<div class="form-group">
 
 														<label for="categoryName">Select category </label> <select
@@ -156,6 +174,10 @@
 																th:text="${category.getCatName()}"></option>
 														</select>
 													</div>
+													</div>
+													</div>
+													
+													
 													<div class="form-group ">
 														<div class="form-group">
 															<label for="catgoryByContributor">Select Topic</label> <select
@@ -166,30 +188,45 @@
 
 														</div>
 													</div>
-											<div class="form-group">
-												<label for="contactperson">Contact Person</label> <input
-													type="text" class="form-control" id="contactperson"
-													name="contactperson" required="required" />
-											</div>
-											<div class="form-group">
-												<label for="contactnumber">Contact Number</label> <input
-													type="number" class="form-control" id="conatctNumber"
-													name="contactnumber" required="required" />
-											</div>
-											<div class="form-group">
-
-												<label for="email">Email Id</label> <input type="email"
-													class="form-control" id="email" name="email"
-													required="required" />
-											</div>
-											
-											<div class="form-group">
+													<div class="form-group">
 												<label for="Image" style="padding-top: 8px">Event Image </label> <input type="file" style="padding-right: 50px"
 													class="form-control-file " id="Image"
 													name="Image" placeholder="uploadFile"
 													accept=".jpg, .jpeg ,.png" required="required" />
 
 											</div>
+													<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Contact Details : </span></div>
+											<div class="row">
+											<div class="col-12">
+											<div class="form-group">
+												<label for="contactperson">Contact Person</label> <input
+													type="text" class="form-control" id="contactperson"
+													name="contactperson" required="required" />
+											</div>
+											</div>
+											</div>
+											<div class="row">
+											<div class="col-md-5">
+											<div class="form-group">
+												<label for="contactnumber">Contact Number</label> <input
+													type="number" class="form-control" id="conatctNumber"
+													name="contactnumber" required="required" />
+											</div>
+											</div>
+											<div class="col-md-7">
+											<div class="form-group">
+
+												<label for="email">Email Id</label> <input type="email"
+													class="form-control" id="email" name="email"
+													required="required" />
+											</div>
+											</div>
+											</div>
+											
+											
+											
+											
+											
 
 											<button type="submit" class="btn a-btn">Submit</button>
 											&nbsp;&nbsp;&nbsp;
