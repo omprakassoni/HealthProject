@@ -96,7 +96,7 @@
 
 														<textarea class="form-control"
 															name="addressInformationName" rows="5"
-															id="addressInformationId" required="required" th:text="${training.getAddress()}"></textarea>
+															id="addressInformationId" required="required" th:text="${training.getEvent().getAddress()}"></textarea>
 
 													</div>
 
@@ -105,7 +105,7 @@
 														<label for="pinCodeId">PinCode</label> <input
 															type="number" class="form-control" name="pinCode"
 															pattern="[0-9]" id="pinCodeId" minlength="6"
-															maxlength="6" required="required" th:value="${training.getPincode()}"/>
+															maxlength="6" required="required" th:value="${training.getEvent().getPincode()}"/>
 													</div>
 
 

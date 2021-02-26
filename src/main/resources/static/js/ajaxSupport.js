@@ -275,7 +275,6 @@ $(document).ready(function() {
 						      html +='<td>'+ value.email + '</td>';
 						      html +='<td>'+ value.gender + '</td>';
 						      html +='</tr>';
-						      alert(key.name);
 						  });
 						
 						$('#tableBody').html(html);

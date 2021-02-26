@@ -94,7 +94,7 @@
 															<td th:text="${traineeInformation.getOrganization()}">description</td>
 															<td th:text="${traineeInformation. getEmail()}">description</td>
 															<td th:text="${traineeInformation. getGender()}">description</td>
-															<td th:text="${traineeInformation. getTraineeInfos().getTitleName()}">description</td>
+															<td th:text="${traineeInformation. getTraineeInfos().getEvent().getEventName()}">description</td>
 															<td><a th:href="@{${'/trainee/edit/' + traineeInformation.getTrainingId()}}">Edit</a></td>
 
 
@@ -151,30 +151,10 @@
 															<th>Organization</th>
 															<th>email</th>
 															<th>Gender</th>
-															<th>Edit</th>
-
-
 														</tr>
 
 													</thead>
 													<tbody id="tableBody">
-														<!-- <tr th:each="traineeInformation : ${TraineesData}">
-															<td>Name</td>
-															<td>Date of birth</td>
-															<td>Aadhar</td>
-															<td>Phone</td>
-															<td>Organization</td>
-															<td>Email</td>
-															<td>Gender</td>
-															 <td th:text="${traineeInformation.premark}">description</td>  
-					                <td th:text="${traineeInformation.postmark}">description</td> 
-															<td>
-																<a th:href="${'/masterTrainee/edit/' + traineeInformation.id}"><i class="fa fa-link" aria-hidden="true">Edit</i></a>
-															</td>
-
-
-														</tr> -->
-
 													</tbody>
 												</table>
 						

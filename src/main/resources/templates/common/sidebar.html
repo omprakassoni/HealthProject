@@ -62,7 +62,7 @@
   bottom: 0;
   left: 0;
   z-index: 100; /* Behind the navbar */
-  padding: 48px 0 0; /* Height of navbar */
+  /* padding: 48px 0 0;  *//* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
@@ -151,12 +151,19 @@
 	margin-left: 16px;
 }
 .sidebar-icon{
-	font-size: 1.5rem!important;
+	font-size: 1.2rem!important;
 	margin-right:6px;
+	color: #014F7A;
 }
 .sidebar-icon-sm{
 	color: rgba(0,0,0,0.4);
 	margin-right: 16px;
+}
+
+a:hover {
+  background: white; 
+  /* font-weight: bold; */
+  /* color: red; */
 }
 
       @media (min-width: 768px) {
@@ -166,20 +173,19 @@
       }
 
     </style>
- <nav id="sidebarMenu" class="d-md-block bg-light sidebar collapse">
+ <nav id="sidebarMenu" class="d-md-block bg-light sidebar collapse pt-4">
       <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
       <li class="nav-item">
-      		<div> </div>
-            <a class="nav-link active" th:href="@{/profile}">
-              <i class="fas fa-user"></i>
+            <a class="nav-link " th:href="@{/profile}" style="border-bottom: 1px solid orange;">
+              <i class="fas fa-user sidebar-icon"></i>
               <span th:text="${userInfo.getFirstName()}"></span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" th:href="@{/dashBoard}">
+            <a class="nav-link " th:href="@{/dashBoard}">
               <span data-feather="home"></span>
-             <i class="fas fa-home"></i> Dashboard <span class="sr-only">(current)</span>
+             <i class="fas fa-home sidebar-icon"></i> Dashboard <span class="sr-only">(current)</span>
             </a>
           </li>
       </ul>
@@ -187,13 +193,13 @@
         
           <li class="nav-item">
             <a class="nav-link" th:href="@{/approveRole}">
-              <span data-feather="file"></span>
+              
               <i class="fas fa-user-tag sidebar-icon"></i>Approve Role
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#content">
-              <span data-feather="file"></span>
+              
               <i class="fas fa-database sidebar-icon"></i>Content
             </a>
           </li>
@@ -236,7 +242,7 @@
           </li>
           <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/assignTutorialToContributor}">
-              <span data-feather="file"></span>
+              
               Assign Contributor
             </a>
           </li>
@@ -331,7 +337,7 @@
           </li>
           <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/uploadTutorial}">
-              <span data-feather="file"></span>
+              
               Upload/Update Tutorial
             </a>
           </li>
@@ -351,7 +357,7 @@
           </li>
           <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/listTutorialForDomainReview}">
-              <span data-feather="file"></span>
+              
               Tutorials waiting for Domain review
             </a>
           </li>
@@ -366,7 +372,7 @@
           </li>
           <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/listTutorialForQualityReview}">
-              <span data-feather="file"></span>
+              
               Tutorials pending for Quality Review
             </a>
           </li>
@@ -387,7 +393,7 @@
           </li>
           <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/listTutorialForAdminReview}">
-              <span data-feather="file"></span>
+              
               Tutorials pending for Admin Review
             </a>
           </li>
@@ -473,31 +479,31 @@
           </li>
            <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
             <a class="nav-link revoke_role" th:href="@{/}">
-              <span data-feather="file"></span>
+              
                Admin Reviewer
             </a>
           </li>
           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''CONTRIBUTOR'')')}">
             <a class="nav-link revoke_role" th:href="@{/revokeRoleContributor}">
-              <span data-feather="file"></span>
+              
                Contributor
             </a>
           </li>
             <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''DOMAIN_REVIEWER'')')}">
             <a class="nav-link revoke_role" th:href="@{/revokeRoleDomain}">
-              <span data-feather="file"></span>
+              
                Domain Reviewer
             </a>
           </li>
           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''MASTER_TRAINER'')')}">
             <a class="nav-link revoke_role" th:href="@{/revokeRoleMaster}">
-              <span data-feather="file"></span>
+              
                Master Trainer 
             </a>
           </li>
           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''QUALITY_REVIEWER'')')}">
             <a class="nav-link revoke_role" th:href="@{/revokeRoleQuality}">
-              <span data-feather="file"></span>
+              
                Quality Reviewer
             </a>
           </li>

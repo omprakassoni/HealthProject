@@ -1857,8 +1857,10 @@ public class HomeController {
 
 		List<Testimonial> testimonials = testService.findAll();
 		List<TrainingInformation> trainings = trainingInfoService.findAll();
+		List<Event> events = eventservice.findAll();
 		model.addAttribute("testimonials", testimonials);
 		model.addAttribute("trainings", trainings);
+		model.addAttribute("events", events);
 
 		return "addTestimonial";
 

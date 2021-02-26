@@ -1,3 +1,4 @@
+
 package com.health.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,10 +97,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/deleteMasterRole/**",
 			"/viewTrainee/**",
 			"/details/**",
+
 	};
 
 	public static final String[] MASTERTRAINER_URL= {
-			
+
 			"/masterTrainerOperation/**",
 			"/details/**",
 			"/addTrainingInfo/**",
