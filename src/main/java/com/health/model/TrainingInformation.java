@@ -37,7 +37,6 @@ public class TrainingInformation{
 	@JoinColumn(name="user_id")
 	private User user;
 
-
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 
