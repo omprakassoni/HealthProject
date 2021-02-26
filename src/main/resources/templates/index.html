@@ -396,10 +396,10 @@
 				  <source th:src="@{/files/}+@{${testimonial.getFilePath()}}" type="video/mp4" />
 				 Your browser does not support HTML video.
 				</video> </div>
-		       <span th:text="${#strings.abbreviate(testimonial.getDescription(),150)}"></span>
+		       <span th:text="${testimonial.getDescription()}"></span>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background: #014F7A;">Close</button>
 		      </div>
 		    </div>
 		  </div>

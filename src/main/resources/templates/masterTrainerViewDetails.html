@@ -93,8 +93,8 @@
 															<td th:text="${t.getTrainingId()}">ID</td>
 															<!-- <td th:text="${t.getTitleName()}">Training Name</td> -->
 															<td th:text="${t.getEvent().getStartDate()}">Date</td>
-															<td><span th:text="${t.getState().getStateName()}"></span>(
-																<span th:text="${t.getCity().getCityName()}"></span> )</td>
+															<td><span th:text="${t.getEvent().getState().getStateName()}"></span>(
+																<span th:text="${t.getEvent().getCity().getCityName()}"></span> )</td>
 
 															<td>
 																<div th:each="item: ${t.getTrainingTopicId()}">
@@ -106,7 +106,7 @@
 
 															</td>
 
-															<td th:text="${t.getLan().getLangName()}">Language</td>
+															<td th:text="${t.getEvent().getLan().getLangName()}">Language</td>
 															<td><a th:href="@{${'/training/edit/' + t.getTrainingId()}}">Edit</a></td>
 
 
@@ -127,7 +127,7 @@
 										aria-labelledby="profile-tab">
 										<div class="container">
 											<div class="row py-3">
-												<div>
+												<div class="col-12">
 													<table id="questionnaire_table" class="table table-striped">
 														<thead>
 															<tr>
@@ -137,7 +137,7 @@
 																<th>Training Date</th>
 																<th>Language</th>
 																<th>Questionnaire</th>
-																<th>Location</th>
+																<th>Location</th> 
 
 															</tr>
 														</thead>
@@ -159,16 +159,16 @@
 																	th:text="${q.getTraineeInfos().getEvent().getStartDate()}">Workshop
 																	Date</td>
 																<td
-																	th:text="${q.getTraineeInfos().getLan().getLangName()}">Language</td>
+																	th:text="${q.getTraineeInfos().getEvent().getLan().getLangName()}">Language</td>
 																<td class="text-center"><a
 																	th:href="@{/files/}+@{${q.getQuestionPath()}}"
 																	target="_blank" class="pdfclass"><i
 																		class="fas fa-file-archive"></i></a></td>
-																<td><span
-																	th:text="${q.getTraineeInfos().getState().getStateName()}"></span>(
+																 <td><span
+																	th:text="${q.getTraineeInfos().getEvent().getState().getStateName()}"></span>(
 																	<span
-																	th:text="${q.getTraineeInfos().getCity().getCityName()}"></span>
-																	)</td>
+																	th:text="${q.getTraineeInfos().getEvent().getCity().getCityName()}"></span>
+																	)</td> 
 															</tr>
 
 														</tbody>
@@ -219,9 +219,9 @@
 
 																<td th:text="${ft.getDescription()}">Training</td>
 																<td><span
-																	th:text="${ft.getTraineeInfos().getState().getStateName()}"></span>(
+																	th:text="${ft.getTraineeInfos().getEvent().getState().getStateName()}"></span>(
 																	<span
-																	th:text="${ft.getTraineeInfos().getCity().getCityName()}"></span>
+																	th:text="${ft.getTraineeInfos().getEvent().getCity().getCityName()}"></span>
 																	)</td>
 																
 															</tr>
@@ -281,9 +281,9 @@
 																	target="_blank" class="pdfclass"><i
 																		class="fas fa-file-archive"></i></a></td>
 																<td><span
-																	th:text="${ft.getTraineeInfos().getState().getStateName()}"></span>(
+																	th:text="${ft.getTraineeInfos().getEvent().getState().getStateName()}"></span>(
 																	<span
-																	th:text="${ft.getTraineeInfos().getCity().getCityName()}"></span>
+																	th:text="${ft.getTraineeInfos().getEvent().getCity().getCityName()}"></span>
 																	)</td>
 																
 															</tr>
