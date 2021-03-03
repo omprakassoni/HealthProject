@@ -2,37 +2,29 @@ package com.health.utility;
 
 import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
+import com.health.domain.security.Role;
+import com.health.model.Category;
+import com.health.model.Language;
 import com.health.model.User;
 
 @Component
 public class MailConstructor {
-	@Autowired
-	private Environment env;
 	
 	public SimpleMailMessage constructResetTokenEmail(
-			String contextPath, Locale locale, String token, User user, String password
-			)
+			String contextPath, Locale locale, String token, User user)
 	
 	{
 		
-		String url = contextPath + "/newUser?token="+token;
-		String message = "\nPlease click on this link to verify your email and edit your personal information. Your password is: \n"+password;
+		String url = contextPath + "/reset?token="+token;
+		String message = "\nPlease click on this link to Update your password";
 		SimpleMailMessage email = new SimpleMailMessage();
 		email.setTo(user.getEmail());
-		email.setSubject("Spoken - New User");
+		email.setSubject("Reset Password");
 		email.setText(url+message);
-		email.setFrom(env.getProperty("support.email"));
-		
-		
 		return email;
-		
-		
-		
 		
 	}
 	
@@ -42,6 +34,46 @@ public class MailConstructor {
 				+ "password : "+ CommonData.COMMON_PASSWORD;
 		SimpleMailMessage email=new SimpleMailMessage();
 		email.setSubject("Credentials to login into Health Website");
+		email.setText(message);
+		email.setTo(usr.getEmail());
+	
+		return email;
+	}
+	
+	public SimpleMailMessage approveRole(User usr, Role role, Category cat, Language lan) {
+		
+		String message;
+		
+		if(role.getRoleId() == 8) {
+			 message="Your request for "+ role.getName() + "role under the language " + lan.getLangName() +" is been approved.";
+		}else if(role.getRoleId() == 7){
+			 message="Your request for "+ role.getName() + " is been approved.";
+		}else {
+			message="Your request for "+ role.getName() + "role under the category "+cat.getCatName() + " and language " + lan.getLangName() +" is been approved.";
+		}
+		
+		SimpleMailMessage email=new SimpleMailMessage();
+		email.setSubject("Update on Role Request");
+		
+		email.setText(message);
+		email.setTo(usr.getEmail());
+		return email;
+	}
+	
+	public SimpleMailMessage rejectRole(User usr, Role role, Category cat, Language lan) {
+		
+		String message;
+		
+		if(role.getRoleId() == 8) {
+			 message="Your request for "+ role.getName() + "role under the language " + lan.getLangName() +" is been approved.";
+		}else if(role.getRoleId() == 7){
+			 message="Your request for "+ role.getName() + " is been approved.";
+		}else {
+			message="Your request for "+ role.getName() + "role under the category "+cat.getCatName() + " and language " + lan.getLangName() +" is been approved.";
+		}
+		
+		SimpleMailMessage email=new SimpleMailMessage();
+		email.setSubject("Update on Role Request");
 		email.setText(message);
 		email.setTo(usr.getEmail());
 		return email;

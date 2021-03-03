@@ -15,11 +15,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -494,6 +498,33 @@ public class HomeController {
 	public String forgetPasswordPost(HttpServletRequest request, @ModelAttribute("email") String email, Model model) {
 
 		model.addAttribute("classActiveForgetPassword", true);
+		
+		User usr = userService.findByEmail(email);
+		
+		if (usr == null) {
+			model.addAttribute("emailNotExist", true);
+			return "signup";
+		}
+		
+		try {
+			
+			String token = UUID.randomUUID().toString();
+			usr.setToken(token);
+			userService.save(usr);
+			
+			String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+			System.out.println(appUrl);
+			SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, usr);
+
+			mailSender.send(newEmail);
+
+			model.addAttribute("forgetPasswordEmailSent", true);
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			model.addAttribute("error", true);
+		}
+		
 		return "signup";
 	}
 
@@ -502,6 +533,74 @@ public class HomeController {
 
 		model.addAttribute("classActiveForgetPassword", true);
 		return "signup";
+	}
+	
+	@RequestMapping(value = "/reset", method = RequestMethod.GET)
+	public ModelAndView resetPasswordGet(ModelAndView mv, @RequestParam("token") String token,Principal principal) {
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+			mv.setViewName("accessDeniedPage");
+			return mv;
+		}
+
+		User usr = userService.findBytoken(token);
+		if (usr == null) {
+			mv.setViewName("redirect:/");
+			return mv;
+		}
+
+		System.out.println(token);
+		mv.addObject("resetToken", usr.getToken());
+		mv.setViewName("resetPassword");
+		return mv;
+
+	}
+	
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public ModelAndView resetPasswordPost(ModelAndView mv, HttpServletRequest req,Principal principal) {
+
+		String newPassword = req.getParameter("Password");
+		String confNewPassword = req.getParameter("Confirm");
+		String token = req.getParameter("token");
+		
+		if(principal != null) {
+			User localUser=userService.findByUsername(principal.getName());
+			
+			mv.addObject("LoggedUser",localUser);
+			
+			mv.setViewName("redirect:/");
+			return mv;
+		}
+
+
+		User usr = userService.findBytoken(token);
+		if (usr == null) {
+			mv.addObject("Error", "Invalid Request");
+			return mv;
+		}
+
+		if (!newPassword.contentEquals(confNewPassword)) {
+			mv.addObject("Error", "Both password doesn't match");
+			return mv;
+		}
+		
+		if(newPassword.length()<6) {
+			mv.addObject("Error", "Password must be atleast 6 character");
+			return mv;
+		}
+		
+		usr.setPassword(SecurityUtility.passwordEncoder().encode(newPassword));
+		usr.setToken(null);
+		userService.save(usr);
+
+		mv.addObject("Success", "Password got updated Successfully");
+		mv.setViewName("resetPassword");
+		return mv;
+
 	}
 
 	@RequestMapping(value = "/categories",method = RequestMethod.GET)

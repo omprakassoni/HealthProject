@@ -65,7 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/fonts/**",
 			"/eventDetails/**",
 			"/tutorialView/**",
-			"/getConsultantDetails/**"
+			"/getConsultantDetails/**",
+			"/reset/**",
+			"/resetPassword/**"
 	};
 
 	public static final String[] SUPERUSER_URL= {

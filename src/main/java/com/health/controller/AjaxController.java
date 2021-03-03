@@ -10,6 +10,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,6 +67,7 @@ import com.health.service.TutorialService;
 import com.health.service.UserRoleService;
 import com.health.service.UserService;
 import com.health.utility.CommonData;
+import com.health.utility.MailConstructor;
 import com.health.utility.SecurityUtility;
 import com.health.utility.ServiceUtility;
 
@@ -146,6 +149,12 @@ public class AjaxController{
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private MailConstructor mailConstructor;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 
 	@GetMapping("/enableDisableBrouchure")
@@ -446,10 +455,15 @@ public class AjaxController{
 	public @ResponseBody String enableRoleById(@RequestParam(value = "id") long id) {
 
 		UserRole usrRole=usrRoleService.findById(id);
+	
 
 		if(usrRole != null) {
 			try {
 				int val=usrRoleService.enableRole(usrRole);
+				SimpleMailMessage msg = mailConstructor.approveRole(usrRole.getUser(), usrRole.getRole(), usrRole.getCategory(), usrRole.getLan());
+				
+				mailSender.send(msg);
+				
 				if(val == 0) {
 					// return error
 				}

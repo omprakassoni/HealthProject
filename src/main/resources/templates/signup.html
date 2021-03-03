@@ -280,7 +280,8 @@
 									style="background-color: #ededed; margin-top: 20px;"> -->
 									<div>
 									<div th:if="${emailNotExist}" class="alert alert-danger">Email doesn't exist.</div>
-									<div th:if="${forgetPasswordEmailSent}" class="alert alert-success">Email sent.</div>
+									<div th:if="${forgetPasswordEmailSent}" class="alert alert-success">Link to reset password has been sent to your E-mail ID.</div>
+									<div th:if="${error}" class="alert alert-danger">Technical Error</div>
 									<form th:action="@{/forgetPassword}" method="post">
 										<div class="form-group">
 											<label for="recoverEmail">Registered Email Id </label> <input

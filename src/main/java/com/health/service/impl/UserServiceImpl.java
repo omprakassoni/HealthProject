@@ -151,6 +151,12 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	@Override
+	public User findBytoken(String token) {
+		// TODO Auto-generated method stub
+		return userRepository.findBytoken(token);
+	}
+
 
 	
 }

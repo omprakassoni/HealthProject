@@ -19,7 +19,7 @@ import com.health.model.UserIndianLanguageMapping;
 public interface UserService {
 	
 	
-	
+	User findBytoken(String token);
 	
 	User findByUsername(String username);   // in use
 	
