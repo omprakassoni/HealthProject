@@ -34,6 +34,9 @@ public class Testimonial {
 	@Column(name ="approved", nullable = false)
 	private boolean approved=true;
 	
+	@Column(name = "consent")
+	String consentLetter = null;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -104,6 +107,14 @@ public class Testimonial {
 
 	public void setTraineeInfos(TrainingInformation traineeInfos) {
 		this.traineeInfos = traineeInfos;
+	}
+
+	public String getConsentLetter() {
+		return consentLetter;
+	}
+
+	public void setConsentLetter(String consentLetter) {
+		this.consentLetter = consentLetter;
 	}
 
 

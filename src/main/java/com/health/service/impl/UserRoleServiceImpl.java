@@ -72,7 +72,7 @@ public class UserRoleServiceImpl implements UserRoleService{
 		
 		List<UserRole> temp=usrRoleRepo.findAllByrole(role);
 		for(UserRole local:temp) {
-			if(local.getStatus()== status && local.isRevoked() == revokeStatus) {
+			if(local.getStatus()== status && local.isRevoked() == revokeStatus && local.isRejected() == false) {
 				data.add(local);
 			}
 		}
@@ -109,7 +109,7 @@ public class UserRoleServiceImpl implements UserRoleService{
 	@Override
 	public void delete(UserRole u) {
 		// TODO Auto-generated method stub
-		usrRoleRepo.delete(u);
+		usrRoleRepo.deleteById(u.getUserRoleId());
 	}
 
 }

@@ -57,8 +57,6 @@ public class User implements UserDetails{
 	private OrganizationRole orgRolev;
 
 
-
-
 	public OrganizationRole getOrgRolev() {
 		return orgRolev;
 	}

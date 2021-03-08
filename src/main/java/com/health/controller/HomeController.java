@@ -462,7 +462,7 @@ public class HomeController {
 
 			return "tutorial";
 	}
-
+	
 	@RequestMapping("/login")									// in use
 	public String loginGet(Model model) {
 		model.addAttribute("classActiveLogin", true);
@@ -1765,6 +1765,10 @@ public class HomeController {
 			usrRole.setCreated(ServiceUtility.getCurrentTime());
 
 			usrRoleService.save(usrRole);
+			
+			SimpleMailMessage msg = mailConstructor.domainRoleMailSend(userTemp);
+			
+			mailSender.send(msg);
 
 
 
@@ -1969,6 +1973,7 @@ public class HomeController {
 	@RequestMapping(value = "/addTestimonial",method = RequestMethod.POST)
 	public String addTestimonialPost(Model model,Principal principal,
 									@RequestParam("uploadTestimonial") MultipartFile file,
+									@RequestParam("consent") MultipartFile consent,
 									@RequestParam("testimonialName") String name,
 									@RequestParam("description") String desc,
 									@RequestParam(value ="trainingName", required = false ) String trainingId) {
@@ -1986,6 +1991,11 @@ public class HomeController {
 		List<TrainingInformation> trainings = trainingInfoService.findAll();
 		model.addAttribute("testimonials", testimonials);
 		model.addAttribute("trainings", trainings);
+		
+		if(!ServiceUtility.checkFileExtensionImage(consent) && !ServiceUtility.checkFileExtensiononeFilePDF(consent)) {
+			model.addAttribute("error_msg",CommonData.VIDEO_CONSENT_FILE_EXTENSION_ERROR);
+			return "addTestimonial";
+		}
 
 		if(!file.isEmpty()) {
 		if(!ServiceUtility.checkFileExtensionVideo(file)) { // throw error on extension
@@ -2064,6 +2074,13 @@ public class HomeController {
 				Testimonial temp=testService.findById(newTestiId);
 
 				temp.setFilePath(document);
+				
+				pathtoUploadPoster=ServiceUtility.uploadFile(consent, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+newTestiId);
+				indexToStart=pathtoUploadPoster.indexOf("Media");
+
+				document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+				
+				temp.setConsentLetter(document);
 
 				testService.save(temp);
 
@@ -2096,6 +2113,28 @@ public class HomeController {
 			testi.add(test);
 
 			userService.addUserToTestimonial(usr, testi);
+			
+			try {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
+				String pathtoUploadPoster=ServiceUtility.uploadFile(consent, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
+				int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+				
+				test.setConsentLetter(document);
+
+				testService.save(test);
+
+
+		}catch (Exception e) {
+			// TODO: handle exception
+
+			e.printStackTrace();
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			return "addTestimonial";    // throw a error
+		}
+			
+			
 		}
 
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);

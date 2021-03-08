@@ -3819,7 +3819,7 @@ $(document).ready(function() {
 					});
 			
 			
-			$('#disaaprovemasterId').click(function() {
+			$('.rejectRole').click(function() {
 				// use localStorage to retrieve information on
 				// page refresh
 				localStorage.setItem('activeTab',"MasterTrainer");
@@ -3829,7 +3829,7 @@ $(document).ready(function() {
 
 				$.ajax({
 					type : "GET",
-					url : projectPath+"deleteMasterRole",
+					url : projectPath+"deleteRole",
 					data : {
 						"id" : contributionId
 					},
@@ -3840,13 +3840,13 @@ $(document).ready(function() {
 						$('#statusMaster').html(result);
 						localStorage.setItem('msg', result);
 
-						$('#ContributerPage').on('hidden.bs.modal', function() {
+					/*	$('#ContributerPage').on('hidden.bs.modal', function() {
 
 									location.reload();
 
 						});
 
-						location.reload();
+						location.reload();*/
 
 					},
 

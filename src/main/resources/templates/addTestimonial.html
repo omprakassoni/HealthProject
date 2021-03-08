@@ -85,6 +85,13 @@
 												id="testimonialVideo" name="uploadTestimonial" accept=".mp4"
 												placeholder="uploadFile" />
 										</div>
+										
+										<div class="form-group">
+											<label for="testimonialConsent" style="padding-top: 8px">Add
+												Consent</label> <input type="file" class="form-control-file"
+												id="testimonialConsent" name="consent"
+												placeholder="uploadFile" required/>
+										</div>
 										<button type="submit" value="showAlert" onclick="showAlert();"
 											class="btn a-btn">Submit</button>
 										&nbsp;&nbsp;&nbsp;
@@ -108,6 +115,7 @@
 									<div sec:authorize="hasAnyAuthority('SUPER_USER')">
 										<th>Approved/Reject</th>
 									</div>
+									<th>Consent</th>
 									<th>Edit</th>
 									<!-- <th>Disable</th> -->
 								</tr>
@@ -130,6 +138,7 @@
 												</video>
 											</div>
 										</td>
+										
 
 										<div sec:authorize="hasAnyAuthority('SUPER_USER')">
 											<td>
@@ -153,7 +162,14 @@
 
 											</td>
 										</div>
-
+										<td>
+											<div th:if="${testimonial.getConsentLetter() != null}"
+												style="width: 400px;">
+												<a th:href="@{/files/}+@{${testimonial.getConsentLetter()}}"
+													target="_blank" class="pdfclass"><img id="pdfsource"
+													th:src="${testimonial.getConsentLetter()}" alt="Click here"></img></a>
+											</div>
+										</td>
 										<td><a
 											th:href="@{${'/testimonial/edit/' + testimonial.getTestimonialId()}}">Edit</a></td>
 
@@ -201,7 +217,14 @@
 
 											</td>
 										</div>
-
+										<td>
+											<div th:if="${testimonial.getConsentLetter() != null}"
+												style="width: 400px;">
+												<a th:href="@{/files/}+@{${testimonial.getConsentLetter()}}"
+													target="_blank" class="pdfclass"><img id="pdfsource"
+													th:src="${testimonial.getConsentLetter()}" alt="Click here"></img></a>
+											</div>
+										</td>
 										<td><a
 											th:href="@{${'/testimonial/edit/' + testimonial.getTestimonialId()}}">Edit</a></td>
 

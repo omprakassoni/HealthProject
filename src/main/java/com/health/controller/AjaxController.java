@@ -483,7 +483,7 @@ public class AjaxController{
 		return CommonData.ROLE_APPROVED_SUCCESS_MSG;
 	}
 
-	@RequestMapping("/deleteMasterRole")
+	@RequestMapping("/deleteRole")
 	public @ResponseBody String deleteMasterRoleById(@RequestParam(value = "id") long id) {
 
 		UserRole usrRole=usrRoleService.findById(id);
@@ -491,17 +491,27 @@ public class AjaxController{
 		if(usrRole != null) {
 			try {
 
-				User usr = usrRole.getUser();
-				usr.setOrgRolev(null);
-				usr.setOrganization(null);
-				usr.setAge(0);
-				usr.setUserRoles(null);
-				usrservice.save(usr);
+				if(usrRole.getRole().getRoleId() == 7) {
+					User usr = usrRole.getUser();
+					usr.setOrgRolev(null);
+					usr.setOrganization(null);
+					usr.setAge(0);
+					usr.setUserRoles(null);
+					usrservice.save(usr);
+				}
+				
 				System.out.println("vikash");
+				
 				usrRole.setRole(null);
 				usrRole.setUser(null);
-
+				usrRole.setCat(null);
+				usrRole.setLan(null);
+				usrRole.setRejected(true);
 				usrRoleService.save(usrRole);
+				
+				SimpleMailMessage msg = mailConstructor.rejectRole(usrRole.getUser(), usrRole.getRole(), usrRole.getCategory(), usrRole.getLan());
+				
+				mailSender.send(msg);
 
 			}catch (Exception e) {
 				// TODO: handle exception
