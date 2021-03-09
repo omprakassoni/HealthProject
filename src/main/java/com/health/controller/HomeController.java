@@ -434,6 +434,10 @@ public class HomeController {
 			@PathVariable int id,
 			Principal principal,Model model) {
 			 Tutorial tutorial = tutService.getById(id);
+			 
+			 if(tutorial == null) {
+				 return "redirect:/";
+			 }
 			 model.addAttribute("tutorial", tutorial);
 
 			 Category category = catService.findByid(tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCategoryId());
@@ -748,6 +752,16 @@ public class HomeController {
 
 		String categoryName = req.getParameter("categoryname");
 		String categoryDesc = req.getParameter("categoryDesc");
+
+		if(categoryName == null) {
+			model.addAttribute("error_msg", "Please Try Again");
+			return "addCategory";
+		}
+		
+		if(categoryDesc == null) {
+			model.addAttribute("error_msg", "Please Try Again");
+			return "addCategory";
+		}
 
 		if(catService.findBycategoryname(categoryName)!=null) {
 			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
@@ -1075,6 +1089,16 @@ public class HomeController {
 		List<Carousel> cara = caroService.findAll();
 
 		model.addAttribute("carousels", cara);
+		
+		if(name == null) {  // throw error
+			model.addAttribute("error_msg","Please Try Again");
+			return "addCarousel";
+		}
+		
+		if(desc == null) {  // throw error
+			model.addAttribute("error_msg","Please Try Again");
+			return "addCarousel";
+		}
 
 		if(!ServiceUtility.checkFileExtensionImage(file)) {  // throw error
 			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
@@ -1154,12 +1178,25 @@ public class HomeController {
 		List<Category> categories=catService.findAll();
 		model.addAttribute("categories", categories);
 		model.addAttribute("languages", languages);
+		
 		if(!ServiceUtility.checkFileExtensionImage(brochure)) {  // throw error
 			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
 			return "addBrouchure";
 		}
+		
 		Category cat=catService.findByid(categoryId);
 		Topic topic=topicService.findById(topicId);
+		
+		if(cat == null) {  // throw error
+			model.addAttribute("error_msg","Please Try again");
+			return "addBrouchure";
+		}
+		
+		if(topic == null) {  // throw error
+			model.addAttribute("error_msg","Please Try again");
+			return "addBrouchure";
+		}
+		
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		Language lan=lanService.getById(languageId);
 
@@ -1319,6 +1356,10 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Topic topic=topicService.findById(id);
+		
+		if(topic == null) {
+			return "redirect:/addTopic";
+		}
 
 		model.addAttribute("topic",topic);
 
@@ -1426,6 +1467,12 @@ public class HomeController {
 		model.addAttribute("roles", roles);
 
 		String roleName = req.getParameter("roleName");
+		
+		if(roleName == null) {
+
+			model.addAttribute("error_msg", "Please Try Again");
+			return "addNewRole";
+		}
 
 		if(roleService.findByname(roleName)!=null) {
 
@@ -1521,6 +1568,19 @@ public class HomeController {
 
 		Category cat=catService.findByid(categoryId);
 		Topic topic=topicService.findById(topicId);
+		
+		if(cat == null) {  // throw error
+
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			return "uploadQuestion";
+		}
+		
+		if(topic == null) {  // throw error
+
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			return "uploadQuestion";
+		}
+		
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		Language lan=lanService.getById(languageId);
 
@@ -1596,6 +1656,10 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Question ques = questService.findById(id);
+		
+		if(ques == null) {
+			return "redirect:/uploadQuestion";
+		}
 
 		model.addAttribute("question",ques);
 
@@ -1619,6 +1683,13 @@ public class HomeController {
 		String quesIdInString=req.getParameter("id");
 		int idQues =  Integer.parseInt(quesIdInString);
 		Question ques = questService.findById(idQues);
+		
+		if(ques == null) {  // throw error
+
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			model.addAttribute("question",ques);
+			return "updateQuestion"; // accomodate error
+		}
 
 		if(!ServiceUtility.checkFileExtensiononeFilePDF(quesPdf)) {  // throw error
 
@@ -1730,6 +1801,19 @@ public class HomeController {
 
 		Category cats = catService.findByid(catId);
 		Language lan =lanService.getById(lanId);
+		
+		if(cats == null){  // throw email wromng error
+
+			model.addAttribute("msg", "Please Try Again");
+			return "addConsultant";
+		}
+		
+		if(lan == null) {  // throw email wromng error
+
+			model.addAttribute("msg", "Please Try Again");
+			return "addConsultant";
+		}
+		
 		Role role = roleService.findByname(CommonData.domainReviewerRole);
 
 		User userTemp = new User();
@@ -2179,6 +2263,10 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Category cat=catService.findByid(id);
+		
+		if(cat == null) {
+			return "redirect:/category";
+		}
 
 		model.addAttribute("category",cat);
 
@@ -2280,6 +2368,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Event event= eventservice.findById(id);
+		
+		if(event == null) {
+			return "redirect:/event";
+		}
+		
 		model.addAttribute("event", event);
 
 		return "event";
@@ -2316,6 +2409,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Event event= eventservice.findById(id);
+		
+		if(event == null) {
+
+			return "redirect:/addEvent";
+		}
 
 		if(event.getUser().getId() != usr.getId()) {
 
@@ -2463,6 +2561,10 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Language lan=lanService.getById(id);
+		
+		if(lan == null) {
+			return "redirect:/addLanguage";
+		}
 
 		model.addAttribute("language",lan);
 
@@ -2616,9 +2718,7 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 		List<PostQuestionaire> postQuestionnaires = postQuestionService.findAll();
-//		Role master=roleService.findByname(CommonData.masterTrainerRole);
 
-//		List<UserRole> masters = usrRoleService.findAllByRole(master);
 		model.addAttribute("postQuestionnaires", postQuestionnaires);
 
 		return "viewQuestionnaire";
@@ -2671,6 +2771,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Testimonial test=testService.findById(id);
+		
+		if(test == null) {
+
+			return "redirect:/addTestimonial";
+		}
 
 		if(test.getUser().getId() != usr.getId()) {
 
@@ -2811,8 +2916,18 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		String lanName=req.getParameter("selectedLan");
+		
+		if(lanName == null) {
+			
+			return "redirect:/addContributorRole";
+		}
 
 		Language lan=lanService.getByLanName(lanName);
+		
+		if(lan == null) {
+			
+			return "redirect:/addContributorRole";
+		}
 
 		Role role=roleService.findByname(CommonData.contributorRole);
 		List<UserRole> userRoles = usrRoleService.findByLanUser(lan, usr, role);
@@ -2897,13 +3012,37 @@ public class HomeController {
 		Category cat=catService.findBycategoryname(catName);
 
 		Language lan=lanService.getByLanName(lanName);
+		
+		if(cat == null) {
+
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+
+			model.addAttribute("categories", categories);
+
+			model.addAttribute("languages", languages);
+			model.addAttribute("error_msg", "Please Try Again");
+
+			return "addAdminRole";
+		}
+		
+		if(lan == null) {
+
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+
+			model.addAttribute("categories", categories);
+
+			model.addAttribute("languages", languages);
+			model.addAttribute("error_msg", "Please Try Again");
+
+			return "addAdminRole";
+		}
 
 		Role role=roleService.findByname(CommonData.adminReviewerRole);
 
 		if(usrRoleService.findByLanCatUser(lan, cat, usr, role)!=null) {
 
-			// throw error
-			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
 			List<Language> languages=lanService.getAllLanguages();
 			List<Category> categories=catService.findAll();
 
@@ -2983,6 +3122,37 @@ public class HomeController {
 		Category cat=catService.findBycategoryname(catName);
 
 		Language lan=lanService.getByLanName(lanName);
+		
+		if(cat == null) {
+
+			// throw error
+			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+
+			model.addAttribute("categories", categories);
+
+			model.addAttribute("languages", languages);
+			model.addAttribute("error_msg", "Please try Again");
+
+			return "addQualityRole";
+		}
+		
+		if(lan == null) {
+
+			// throw error
+			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+
+			model.addAttribute("categories", categories);
+
+			model.addAttribute("languages", languages);
+			model.addAttribute("error_msg", "Please try Again");
+
+			return "addQualityRole";
+		}
+		
 		Role role=roleService.findByname(CommonData.qualityReviewerRole);
 
 		if(usrRoleService.findByLanCatUser(lan, cat, usr, role)!=null) {
@@ -3619,7 +3789,7 @@ public class HomeController {
 		}
 
 
-		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.adminReviewerRole);
+		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, tutorial);
 
 		model.addAttribute("comVideo", comVideo);
 
@@ -3699,13 +3869,13 @@ public class HomeController {
 
 		}
 
-		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.domainReviewerRole);
-		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.domainReviewerRole);
-		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO,  tutorial);
+		List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT,tutorial);
+		List<Comment> comSlide = comService.getCommentBasedOnTutorialType(CommonData.SLIDE, tutorial);
 
-		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.domainReviewerRole);
-		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.domainReviewerRole);
-		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comKeyword = comService.getCommentBasedOnTutorialType(CommonData.KEYWORD, tutorial);
+		List<Comment> comPreRequistic = comService.getCommentBasedOnTutorialType(CommonData.PRE_REQUISTIC,  tutorial);
+		List<Comment> comOutline = comService.getCommentBasedOnTutorialType(CommonData.OUTLINE, tutorial);
 
 		model.addAttribute("comOutline", comOutline);
 		model.addAttribute("comScript",comScript );
@@ -3990,13 +4160,13 @@ public class HomeController {
 		}
 
 
-		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.qualityReviewerRole);
-		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.qualityReviewerRole);
-		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO,  tutorial);
+		List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT,tutorial);
+		List<Comment> comSlide = comService.getCommentBasedOnTutorialType(CommonData.SLIDE,  tutorial);
 
-		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.qualityReviewerRole);
-		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.qualityReviewerRole);
-		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comKeyword = comService.getCommentBasedOnTutorialType(CommonData.KEYWORD,  tutorial);
+		List<Comment> comPreRequistic = comService.getCommentBasedOnTutorialType(CommonData.PRE_REQUISTIC,  tutorial);
+		List<Comment> comOutline = comService.getCommentBasedOnTutorialType(CommonData.OUTLINE, tutorial);
 
 		model.addAttribute("comOutline", comOutline);
 		model.addAttribute("comScript",comScript );
@@ -4169,6 +4339,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		TraineeInformation trainee=traineeService.findById(id);
+		
+		if(trainee == null) {
+
+			 return "redirect:/viewTrainee";
+		}
 
 		if(trainee.getTraineeInfos().getUser().getId() != usr.getId()) {
 
