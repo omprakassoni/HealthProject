@@ -51,7 +51,7 @@
 											id="MasterCategoryId" class="form-control"
 											name="categoryName" required="required">
 
-											<option>Select Category</option>
+											<option value="0">Select Category</option>
 												<option 
 												th:each="category: ${categories}"
 												th:value="${category.getCategoryId()}" th:text="${category.getCatName()}">

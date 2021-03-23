@@ -53,7 +53,7 @@
 											id="MasterCategoryId" class="form-control"
 											name="categoryName" required="required">
 
-											<option>Select Category</option>
+											<option value="0">Select Category</option>
 											
 												<option 
 												th:each="category: ${categories}"
@@ -159,9 +159,11 @@
 
 	</div>
 <div th:replace="common/trail :: body-bottom-scripts"></div>
-<script type="text/javascript">
+<script>
 $(document).ready( function () {
     $('#myTable').DataTable();
+    
+    
 } );
 </script>
 

@@ -11,6 +11,17 @@ $(document).ready(function() {
 			$('.not-required').tooltip({ title: 'Not Required' });
 			
 			
+			   $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+			        localStorage.setItem('activeTab', $(e.target).attr('href'));
+			    });
+			    var activeTab = localStorage.getItem('activeTab');
+			    if(activeTab){
+			        $('#myTab a[href="' + activeTab + '"]').tab('show');
+			    }
+			    
+
+			
+			
 /******************* Changes made by om prakash *************************************/
 			
 		$('.enableBrouchure').click(function() {

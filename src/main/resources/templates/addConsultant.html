@@ -42,7 +42,7 @@
 													<label for="categoryId">Select Category</label> 
 													<select id="categoryId" class="form-control" name="categoryName" required="required">
 				
-													<option>Select Category</option>
+													<option value="0"> Select Category</option>
 													
 														<option th:each="category: ${categories}" th:value="${category.getCategoryId()}" th:text="${category.getCatName()}">
 																</option>
@@ -55,7 +55,7 @@
 													<label for="lanId">Select Language</label> 
 													<select id="lanId" class="form-control" name="lanName" required="required">
 				
-													<option>Select Language</option>
+													<option value="0">Select Language</option>
 													
 														<option th:each="lan: ${languages}" th:value="${lan.getLanId()}" th:text="${lan.getLangName()}">
 																</option>
@@ -79,7 +79,7 @@
 													name="uploadConsaltantImage" placeholder="uploadFile"
 													accept=".jpg, .jpeg,.png" required="required" /> -->
 													
-													<input required="required" type="text" class="form-control" id="email" name="email" />
+													<input required="required" type="email" class="form-control" id="email" name="email" />
 											</div>
 											
 
