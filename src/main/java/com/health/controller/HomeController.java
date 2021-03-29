@@ -4095,8 +4095,6 @@ public class HomeController {
 
 		model.addAttribute("tutorial", published);
 		
-		
-
 	
         List<String> scopes = Lists.newArrayList("https://www.googleapis.com/auth/youtube.upload");
 
@@ -5084,12 +5082,8 @@ public class HomeController {
 
 		trainingData.setAddress(address);
 
-
-
 		try {
 			trainingInfoService.save(trainingData);
-
-
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -5105,5 +5099,103 @@ public class HomeController {
 		return "updateTraining";
 
 	}
+	
+	@GetMapping("/tutorialStatus")
+	public String tutorialStatus(Principal principal,Model model){
 
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		List<Tutorial> published = new ArrayList<Tutorial>();
+		List<Tutorial> tutorials =  tutService.findAll();
+		for(Tutorial temp:tutorials) {
+
+			if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getVideoStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
+
+				published.add(temp);
+			}
+
+		}
+
+		model.addAttribute("tutorial", published);
+
+		return "listTutorialSuperAdmin";
+	}
+	
+	@RequestMapping(value = "/tutorialStatus/{id}", method = RequestMethod.GET)
+	public String publishTutorial(@PathVariable int id,Principal principal,Model model) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		List<Tutorial> published = new ArrayList<Tutorial>();
+		List<Tutorial> tutorials ;
+		
+		
+		Tutorial tut = tutService.getById(id);
+		if(tut.isStatus()) {
+			tut.setStatus(false);
+			model.addAttribute("success_msg", "Tutorial unpublished Successfully");
+		}else {
+			tut.setStatus(true);
+			model.addAttribute("success_msg", "Tutorial published Successfully");
+		}
+		
+		try {
+			
+			tutService.save(tut);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			
+			tutorials =  tutService.findAll();
+			for(Tutorial temp:tutorials) {
+
+				if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
+						temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
+						temp.getVideoStatus() == CommonData.PUBLISH_STATUS &&
+						temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
+
+					published.add(temp);
+				}
+
+			}
+			model.addAttribute("tutorial", published);
+			model.addAttribute("error_msg", "Please Try again.");
+			return "listTutorialSuperAdmin";
+		}
+		
+		
+		tutorials =  tutService.findAll();
+		for(Tutorial temp:tutorials) {
+
+			if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getVideoStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
+
+				published.add(temp);
+			}
+
+		}
+
+		model.addAttribute("tutorial", published);
+
+		return "listTutorialSuperAdmin";
+		
+	}
+	
 }

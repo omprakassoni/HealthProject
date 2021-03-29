@@ -99,6 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/deleteMasterRole/**",
 			"/viewTrainee/**",
 			"/details/**",
+			"/tutorialStatus/**"
 
 	};
 
