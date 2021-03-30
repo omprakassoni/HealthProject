@@ -1699,4 +1699,46 @@ public class AjaxController{
 	}
 
 	/************************************ END ********************************************************/
+	
+	/**************************** UPLOAD TIME SCRIPT ***********************************************/
+	
+	@RequestMapping("/addTimeScript")
+	public @ResponseBody String addTimeScript(@RequestParam(value = "id") int tutorialId,
+			@RequestParam(value = "uploadsScriptFile") MultipartFile File,
+											Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=usrservice.findByUsername(principal.getName());
+		}
+
+		if(tutorialId != 0) {
+			Tutorial tut=tutService.getById(tutorialId);
+			
+			try {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/TimeScript");
+					String pathtoUploadPoster=ServiceUtility.uploadFile(File, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/TimeScript");
+					int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+					String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+
+					tut.setTimeScript(document);
+					tutService.save(tut);
+
+					return CommonData.Script_SAVE_SUCCESS_MSG;
+
+			}catch (Exception e) {
+				// TODO: handle exception
+
+				// throw error
+			}
+
+		}
+		return CommonData.Script_SAVE_SUCCESS_MSG;
+
+	}
+	
+	/*********************************** END ********************************************************/
 }

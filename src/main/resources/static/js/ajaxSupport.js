@@ -19,7 +19,53 @@ $(document).ready(function() {
 			        $('#myTab a[href="' + activeTab + '"]').tab('show');
 			    }
 			    
+/********************* Chnages made by om prakash ************************************************/
+			    
+			    $(".timeScriptFetchData").click(function(){
+  					var tut_id=$(this).attr('value');
+  						
+  					$('#tutorialId').prop('value',tut_id);
+  					$('#uploadTimescript').modal('show');
+  				}) 
+  				
+  				
+  				$('#timeScript').click(function() {
+  					
+  					var TutorialID=$("#tutorialId").val();
 
+						var form = $('#upload-file-form-script')[0];
+						var formData = new FormData(form);
+						formData.append('id',TutorialID);
+
+						$.ajax({
+							type : "POST",
+							url : projectPath+"addTimeScript",
+							data : formData,
+							enctype : 'multipart/form-data',
+							processData : false,
+							contentType : false,
+							cache : false,
+							success : function(result) {
+							
+								$('#viewScript').html(result);
+						
+								var result = "Script updated successfully";
+								showStatus(SUCCESS,result);
+								$('.upload-status').hide();
+							},
+
+							error : function(err) {
+								console.log("not working. ERROR: "+ JSON.stringify(err));
+								var result = "Error";
+								showStatus(ERROR,result);
+							}
+						});
+
+					});
+			    
+			    
+			    
+/**********************************end***********************************************************/
 			
 			
 /******************* Changes made by om prakash *************************************/

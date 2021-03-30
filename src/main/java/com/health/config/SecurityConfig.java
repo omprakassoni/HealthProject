@@ -129,6 +129,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/addScript/**",
 			"/listTutorialForContributorReview/**",
 			"/Contributor/review/**",
+			"/uploadTimescript/**",
 
 
 
