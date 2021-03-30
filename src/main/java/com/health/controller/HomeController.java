@@ -3645,6 +3645,34 @@ public class HomeController {
 		Topic topic=topicService.findById(topicId);
 		Language lan=lanService.getByLanName(langName);
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
+		
+		if(!lan.getLangName().equalsIgnoreCase("english")) {
+			
+			boolean goAhead = false;
+			List<Tutorial> tutTemp = null ;
+			List<ContributorAssignedTutorial> tempCon = conRepo.findByTopicCat(topicCat);
+			for(ContributorAssignedTutorial x : tempCon) {
+				if(x.getLan().getLangName().equalsIgnoreCase("english")) {
+					goAhead =true;
+					tutTemp = tutService.findAllByContributorAssignedTutorial(x);
+					break;
+				}
+			}
+			
+			if(goAhead == false) {
+				model.addAttribute("error_msg", "Please Add English Verion of tutorial first");
+				return "uploadTutorialPost";
+			}else {
+				for(Tutorial x : tutTemp) {
+					if(!x.isStatus()) {
+						model.addAttribute("error_msg", "Please Add English Verion of tutorial first");
+						return "uploadTutorialPost";
+					}
+				}
+			}
+			
+		}
+		
 		ContributorAssignedTutorial conTutorial=conRepo.findByUserTopicCatLan(usr, topicCat, lan);
 		List<Tutorial> tutorials=tutService.findAllByContributorAssignedTutorial(conTutorial);
 
