@@ -52,6 +52,10 @@ public class Tutorial {
 
 	@Column(name = "preRequistic_status")
 	private int preRequisticStatus = 0;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "relatedVideo")
+	private Tutorial relatedVideo;
 
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
@@ -80,6 +84,9 @@ public class Tutorial {
 
 	@OneToMany(mappedBy = "preRequistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Tutorial> preRequisticTutorial =new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "relatedVideo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Tutorial> relatedTutorial =new HashSet<Tutorial>();
 
 	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<LogManegement> logs =new HashSet<LogManegement>();
@@ -243,6 +250,32 @@ public class Tutorial {
 	public void setLogs(Set<LogManegement> logs) {
 		this.logs = logs;
 	}
+
+	public Tutorial getRelatedVideo() {
+		return relatedVideo;
+	}
+
+	public void setRelatedVideo(Tutorial relatedVideo) {
+		this.relatedVideo = relatedVideo;
+	}
+
+	public Set<Tutorial> getPreRequisticTutorial() {
+		return preRequisticTutorial;
+	}
+
+	public void setPreRequisticTutorial(Set<Tutorial> preRequisticTutorial) {
+		this.preRequisticTutorial = preRequisticTutorial;
+	}
+
+	public Set<Tutorial> getRelatedTutorial() {
+		return relatedTutorial;
+	}
+
+	public void setRelatedTutorial(Set<Tutorial> relatedTutorial) {
+		this.relatedTutorial = relatedTutorial;
+	}
+	
+	
 
 
 }

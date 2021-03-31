@@ -430,9 +430,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/tutorialView/{id}", method = RequestMethod.GET)
-	public String viewTutorial(HttpServletRequest req,
-			@PathVariable int id,
-			Principal principal,Model model) {
+	public String viewTutorial(HttpServletRequest req,@PathVariable int id,Principal principal,Model model) {
+		
 			 Tutorial tutorial = tutService.getById(id);
 			 
 			 if(tutorial == null) {
@@ -3479,7 +3478,7 @@ public class HomeController {
 	/******************************************END **************************************************/
 
 
-	/*************************************** ASSIGN CONTRINUTOR ****************************************/
+	/*************************************** ASSIGN CONTRINUTOR (NOT IN USE FOR NOW) ****************************************/
 	@RequestMapping(value = "/assignContributor/edit/{id}", method = RequestMethod.GET)
 	public String editAssignContributor(@PathVariable Long id,Model model,Principal principal) {
 
@@ -3512,9 +3511,13 @@ public class HomeController {
 
 		Role role=roleService.findByname(CommonData.contributorRole);
 
-		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+		List<ContributorAssignedTutorial> userRoles = conRepo.findAll();
+		
+		List<UserRole> userRolesTemp= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
 
-		model.addAttribute("userByContributors", userRoles);
+		model.addAttribute("userByContributorsAssigned", userRoles);
+		
+		model.addAttribute("userByContributors", userRolesTemp);
 
 		return "assignContributorList";
 	}
@@ -3537,9 +3540,13 @@ public class HomeController {
 
 		Role role=roleService.findByname(CommonData.contributorRole);
 
-		List<UserRole> userRoles= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+		List<ContributorAssignedTutorial> userRoles = conRepo.findAll();
 
-		model.addAttribute("userByContributors", userRoles);
+		List<UserRole> userRolesTemp= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+
+		model.addAttribute("userByContributorsAssigned", userRoles);
+		
+		model.addAttribute("userByContributors", userRolesTemp);
 
 		System.out.println(catName);
 
@@ -3582,9 +3589,13 @@ public class HomeController {
 
 		userService.addUserToContributorTutorial(userAssigned, conTutorials);
 		
-		userRoles= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+		userRoles = conRepo.findAll();
 
-		model.addAttribute("userByContributors", userRoles);
+		userRolesTemp= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+
+		model.addAttribute("userByContributorsAssigned", userRoles);
+		
+		model.addAttribute("userByContributors", userRolesTemp);
 
 
 		model.addAttribute("success_msg", CommonData.CONTRIBUTOR_ASSIGNED_TUTORIAL);
@@ -3663,12 +3674,20 @@ public class HomeController {
 				model.addAttribute("error_msg", "Please Add English Verion of tutorial first");
 				return "uploadTutorialPost";
 			}else {
-				for(Tutorial x : tutTemp) {
-					if(!x.isStatus()) {
-						model.addAttribute("error_msg", "Please Add English Verion of tutorial first");
-						return "uploadTutorialPost";
+				
+				if(tutTemp.isEmpty()) {
+					model.addAttribute("error_msg", "Please Add English Verion of tutorial first");
+					return "uploadTutorialPost";
+					
+				}else {
+					for(Tutorial x : tutTemp) {
+						if(!x.isStatus()) {
+							model.addAttribute("error_msg", "Please Add English Verion of tutorial first");
+							return "uploadTutorialPost";
+						}
 					}
 				}
+				
 			}
 			
 		}
@@ -3721,6 +3740,11 @@ public class HomeController {
 		model.addAttribute("topic", topic);
 		model.addAttribute("language", lan);
 		model.addAttribute("categories", categories);
+		if(!lan.getLangName().equalsIgnoreCase("english")) {
+			model.addAttribute("otherLan", false);
+		}else {
+			model.addAttribute("otherLan", true);
+		}
 		return "uploadTutorialPost";
 	}
 
