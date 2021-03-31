@@ -173,6 +173,8 @@ public class CommonData {
 	public static String NOT_VALID_EMAIL_ERROR= "Please Enter Correct Email";
 
 	public static String VIDEO_FILE_EXTENSION_ERROR= "Provide MP4 extension File";
+	
+	public static String VIDEO_CONSENT_FILE_EXTENSION_ERROR= "Provide pdf or jpg/png Image";
 
 	public static String TESTIMONIAL_NOT_ERROR= "Testimonial doesn't exist";
 	

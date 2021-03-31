@@ -1,7 +1,5 @@
 package com.health.domain.security;
 
-
-
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
@@ -29,17 +27,14 @@ public class UserRole
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
-	
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="role_id")
 	private Role role;
 	
-	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="lan_id")
 	private Language lan;
-	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cat_id")
@@ -49,6 +44,7 @@ public class UserRole
 	
 	private boolean revoked = false;
 	
+	private boolean rejected = false;
 
 	public Category getCategory() {
 		return cat;
@@ -144,5 +140,14 @@ public class UserRole
 	public void setRevoked(boolean revoked) {
 		this.revoked = revoked;
 	}
+
+	public boolean isRejected() {
+		return rejected;
+	}
+
+	public void setRejected(boolean rejected) {
+		this.rejected = rejected;
+	}
+	
 	
 }

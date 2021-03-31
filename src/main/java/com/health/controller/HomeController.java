@@ -434,6 +434,10 @@ public class HomeController {
 			@PathVariable int id,
 			Principal principal,Model model) {
 			 Tutorial tutorial = tutService.getById(id);
+			 
+			 if(tutorial == null) {
+				 return "redirect:/";
+			 }
 			 model.addAttribute("tutorial", tutorial);
 
 			 Category category = catService.findByid(tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCategoryId());
@@ -462,7 +466,7 @@ public class HomeController {
 
 			return "tutorial";
 	}
-
+	
 	@RequestMapping("/login")									// in use
 	public String loginGet(Model model) {
 		model.addAttribute("classActiveLogin", true);
@@ -749,6 +753,16 @@ public class HomeController {
 		String categoryName = req.getParameter("categoryname");
 		String categoryDesc = req.getParameter("categoryDesc");
 
+		if(categoryName == null) {
+			model.addAttribute("error_msg", "Please Try Again");
+			return "addCategory";
+		}
+		
+		if(categoryDesc == null) {
+			model.addAttribute("error_msg", "Please Try Again");
+			return "addCategory";
+		}
+
 		if(catService.findBycategoryname(categoryName)!=null) {
 			model.addAttribute("error_msg", CommonData.RECORD_EXISTS);
 			return "addCategory";
@@ -801,6 +815,8 @@ public class HomeController {
 			return "addCategory";
 		}
 
+		categoriesTemp = catService.findAll();
+		model.addAttribute("categories", categoriesTemp);
 		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 		return "addCategory";
 
@@ -869,6 +885,9 @@ public class HomeController {
 		Set<OrganizationRole> roles=new HashSet<OrganizationRole>();
 		roles.add(orgRole);
 
+		orgRoles=organizationRoleService.findAll();
+
+		model.addAttribute("orgRoles", orgRoles);
 		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 
 		return "addOrganizationRole";
@@ -1031,6 +1050,9 @@ public class HomeController {
 			return "addlanguage";
 		}
 
+		languagesTemp=lanService.getAllLanguages();
+
+		model.addAttribute("languages", languagesTemp);
 
 		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 
@@ -1075,6 +1097,16 @@ public class HomeController {
 		List<Carousel> cara = caroService.findAll();
 
 		model.addAttribute("carousels", cara);
+		
+		if(name == null) {  // throw error
+			model.addAttribute("error_msg","Please Try Again");
+			return "addCarousel";
+		}
+		
+		if(desc == null) {  // throw error
+			model.addAttribute("error_msg","Please Try Again");
+			return "addCarousel";
+		}
 
 		if(!ServiceUtility.checkFileExtensionImage(file)) {  // throw error
 			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
@@ -1108,6 +1140,9 @@ public class HomeController {
 				return "addCarousel";
 			}
 
+		cara = caroService.findAll();
+
+		model.addAttribute("carousels", cara);
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 
 		return "addCarousel";
@@ -1154,12 +1189,25 @@ public class HomeController {
 		List<Category> categories=catService.findAll();
 		model.addAttribute("categories", categories);
 		model.addAttribute("languages", languages);
+		
 		if(!ServiceUtility.checkFileExtensionImage(brochure)) {  // throw error
 			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
 			return "addBrouchure";
 		}
+		
 		Category cat=catService.findByid(categoryId);
 		Topic topic=topicService.findById(topicId);
+		
+		if(cat == null) {  // throw error
+			model.addAttribute("error_msg","Please Try again");
+			return "addBrouchure";
+		}
+		
+		if(topic == null) {  // throw error
+			model.addAttribute("error_msg","Please Try again");
+			return "addBrouchure";
+		}
+		
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		Language lan=lanService.getById(languageId);
 
@@ -1198,6 +1246,8 @@ public class HomeController {
 			return "addBrouchure";
 		}
 
+		brouchures = broService.findAll();
+		model.addAttribute("brouchures", brouchures);
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 
 		return "addBrouchure";
@@ -1300,6 +1350,10 @@ public class HomeController {
 			model.addAttribute("error_msg", CommonData.RECORD_ERROR);
 			return "addTopic";
 		}
+		
+		topicsTemp = topicService.findAll();
+
+		model.addAttribute("topics", topicsTemp);
 
 		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 		return "addTopic";
@@ -1319,6 +1373,10 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Topic topic=topicService.findById(id);
+		
+		if(topic == null) {
+			return "redirect:/addTopic";
+		}
 
 		model.addAttribute("topic",topic);
 
@@ -1426,6 +1484,12 @@ public class HomeController {
 		model.addAttribute("roles", roles);
 
 		String roleName = req.getParameter("roleName");
+		
+		if(roleName == null) {
+
+			model.addAttribute("error_msg", "Please Try Again");
+			return "addNewRole";
+		}
 
 		if(roleService.findByname(roleName)!=null) {
 
@@ -1447,6 +1511,9 @@ public class HomeController {
 			return "addNewRole";
 		}
 
+		roles = roleService.findAll();
+
+		model.addAttribute("roles", roles);
 		model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 		return "addNewRole";
 
@@ -1521,6 +1588,19 @@ public class HomeController {
 
 		Category cat=catService.findByid(categoryId);
 		Topic topic=topicService.findById(topicId);
+		
+		if(cat == null) {  // throw error
+
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			return "uploadQuestion";
+		}
+		
+		if(topic == null) {  // throw error
+
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			return "uploadQuestion";
+		}
+		
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		Language lan=lanService.getById(languageId);
 
@@ -1576,6 +1656,9 @@ public class HomeController {
 			return "uploadQuestion";
 		}
 
+		questionsTemp = questService.findAll();
+		model.addAttribute("questions", questionsTemp);
+
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 
 		return "uploadQuestion";
@@ -1596,6 +1679,10 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Question ques = questService.findById(id);
+		
+		if(ques == null) {
+			return "redirect:/uploadQuestion";
+		}
 
 		model.addAttribute("question",ques);
 
@@ -1619,6 +1706,13 @@ public class HomeController {
 		String quesIdInString=req.getParameter("id");
 		int idQues =  Integer.parseInt(quesIdInString);
 		Question ques = questService.findById(idQues);
+		
+		if(ques == null) {  // throw error
+
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			model.addAttribute("question",ques);
+			return "updateQuestion"; // accomodate error
+		}
 
 		if(!ServiceUtility.checkFileExtensiononeFilePDF(quesPdf)) {  // throw error
 
@@ -1689,7 +1783,6 @@ public class HomeController {
 
 	@RequestMapping(value = "/addConsultant",method = RequestMethod.POST)
 	public String addConsultantPost(Model model,Principal principal,
-									@RequestParam("uploadConsaltantImage") MultipartFile[] file,
 									@RequestParam("nameConsaltant") String name,
 									@RequestParam("categoryName") int catId,
 									@RequestParam("lanName") int lanId,
@@ -1730,6 +1823,19 @@ public class HomeController {
 
 		Category cats = catService.findByid(catId);
 		Language lan =lanService.getById(lanId);
+		
+		if(cats == null){  // throw email wromng error
+
+			model.addAttribute("msg", "Please Try Again");
+			return "addConsultant";
+		}
+		
+		if(lan == null) {  // throw email wromng error
+
+			model.addAttribute("msg", "Please Try Again");
+			return "addConsultant";
+		}
+		
 		Role role = roleService.findByname(CommonData.domainReviewerRole);
 
 		User userTemp = new User();
@@ -1765,6 +1871,10 @@ public class HomeController {
 			usrRole.setCreated(ServiceUtility.getCurrentTime());
 
 			usrRoleService.save(usrRole);
+			
+			SimpleMailMessage msg = mailConstructor.domainRoleMailSend(userTemp);
+			
+			mailSender.send(msg);
 
 
 
@@ -1840,6 +1950,31 @@ public class HomeController {
 		Date startDate;
 		Date endDate;
 		int newEventid;
+		
+		if(stateService.findById(Integer.parseInt(stateName))==null){
+			model.addAttribute("error_msg", "Please Select State");
+			return "addEvent";
+		}
+		
+		if(districtService.findById(Integer.parseInt(districtName))==null){
+			model.addAttribute("error_msg", "Please Select District");
+			return "addEvent";
+		}
+		
+		if(cityService.findById(Integer.parseInt(cityName))==null){
+			model.addAttribute("error_msg", "Please Select City");
+			return "addEvent";
+		}
+		
+		if(lanService.getByLanName(language)==null){
+			model.addAttribute("error_msg", "Please Select language");
+			return "addEvent";
+		}
+		
+		if(catService.findByid(catName)==null){
+			model.addAttribute("error_msg", "Please Select Category");
+			return "addEvent";
+		}
 
 		try {
 			startDate=ServiceUtility.convertStringToDate(startDateTemp);
@@ -1894,7 +2029,6 @@ public class HomeController {
 			event.setDistrict(districtService.findById(Integer.parseInt(districtName)));
 			event.setCity(cityService.findById(Integer.parseInt(cityName)));
 			event.setPincode(Integer.parseInt(pinCode));
-			event.setState(stateService.findById(Integer.parseInt(stateName)));
 			event.setLan(lanService.getByLanName(language));
 			Set<TrainingTopic> trainingTopicTemp = new HashSet<>();
 			Category cat=catService.findByid(catName);
@@ -1930,7 +2064,8 @@ public class HomeController {
 
 		}
 
-
+		eventsTemp = eventservice.findAll();
+		model.addAttribute("events", eventsTemp);
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 		return "addEvent";
 
@@ -1969,6 +2104,7 @@ public class HomeController {
 	@RequestMapping(value = "/addTestimonial",method = RequestMethod.POST)
 	public String addTestimonialPost(Model model,Principal principal,
 									@RequestParam("uploadTestimonial") MultipartFile file,
+									@RequestParam("consent") MultipartFile consent,
 									@RequestParam("testimonialName") String name,
 									@RequestParam("description") String desc,
 									@RequestParam(value ="trainingName", required = false ) String trainingId) {
@@ -1986,6 +2122,11 @@ public class HomeController {
 		List<TrainingInformation> trainings = trainingInfoService.findAll();
 		model.addAttribute("testimonials", testimonials);
 		model.addAttribute("trainings", trainings);
+		
+		if(!ServiceUtility.checkFileExtensionImage(consent) && !ServiceUtility.checkFileExtensiononeFilePDF(consent)) {
+			model.addAttribute("error_msg",CommonData.VIDEO_CONSENT_FILE_EXTENSION_ERROR);
+			return "addTestimonial";
+		}
 
 		if(!file.isEmpty()) {
 		if(!ServiceUtility.checkFileExtensionVideo(file)) { // throw error on extension
@@ -2064,6 +2205,13 @@ public class HomeController {
 				Testimonial temp=testService.findById(newTestiId);
 
 				temp.setFilePath(document);
+				
+				pathtoUploadPoster=ServiceUtility.uploadFile(consent, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+newTestiId);
+				indexToStart=pathtoUploadPoster.indexOf("Media");
+
+				document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+				
+				temp.setConsentLetter(document);
 
 				testService.save(temp);
 
@@ -2096,8 +2244,32 @@ public class HomeController {
 			testi.add(test);
 
 			userService.addUserToTestimonial(usr, testi);
+			
+			try {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
+				String pathtoUploadPoster=ServiceUtility.uploadFile(consent, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTestimonial+test.getTestimonialId());
+				int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+				
+				test.setConsentLetter(document);
+
+				testService.save(test);
+
+
+		}catch (Exception e) {
+			// TODO: handle exception
+
+			e.printStackTrace();
+			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
+			return "addTestimonial";    // throw a error
+		}
+			
+			
 		}
 
+		testimonials = testService.findAll();
+		model.addAttribute("testimonials", testimonials);
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 		return "addTestimonial";
 
@@ -2140,6 +2312,10 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Category cat=catService.findByid(id);
+		
+		if(cat == null) {
+			return "redirect:/category";
+		}
 
 		model.addAttribute("category",cat);
 
@@ -2241,6 +2417,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Event event= eventservice.findById(id);
+		
+		if(event == null) {
+			return "redirect:/event";
+		}
+		
 		model.addAttribute("event", event);
 
 		return "event";
@@ -2277,6 +2458,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Event event= eventservice.findById(id);
+		
+		if(event == null) {
+
+			return "redirect:/addEvent";
+		}
 
 		if(event.getUser().getId() != usr.getId()) {
 
@@ -2424,6 +2610,10 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Language lan=lanService.getById(id);
+		
+		if(lan == null) {
+			return "redirect:/addLanguage";
+		}
 
 		model.addAttribute("language",lan);
 
@@ -2577,9 +2767,7 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 		List<PostQuestionaire> postQuestionnaires = postQuestionService.findAll();
-//		Role master=roleService.findByname(CommonData.masterTrainerRole);
 
-//		List<UserRole> masters = usrRoleService.findAllByRole(master);
 		model.addAttribute("postQuestionnaires", postQuestionnaires);
 
 		return "viewQuestionnaire";
@@ -2632,6 +2820,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Testimonial test=testService.findById(id);
+		
+		if(test == null) {
+
+			return "redirect:/addTestimonial";
+		}
 
 		if(test.getUser().getId() != usr.getId()) {
 
@@ -2772,8 +2965,18 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		String lanName=req.getParameter("selectedLan");
+		
+		if(lanName == null) {
+			
+			return "redirect:/addContributorRole";
+		}
 
 		Language lan=lanService.getByLanName(lanName);
+		
+		if(lan == null) {
+			
+			return "redirect:/addContributorRole";
+		}
 
 		Role role=roleService.findByname(CommonData.contributorRole);
 		List<UserRole> userRoles = usrRoleService.findByLanUser(lan, usr, role);
@@ -2858,13 +3061,37 @@ public class HomeController {
 		Category cat=catService.findBycategoryname(catName);
 
 		Language lan=lanService.getByLanName(lanName);
+		
+		if(cat == null) {
+
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+
+			model.addAttribute("categories", categories);
+
+			model.addAttribute("languages", languages);
+			model.addAttribute("error_msg", "Please Try Again");
+
+			return "addAdminRole";
+		}
+		
+		if(lan == null) {
+
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+
+			model.addAttribute("categories", categories);
+
+			model.addAttribute("languages", languages);
+			model.addAttribute("error_msg", "Please Try Again");
+
+			return "addAdminRole";
+		}
 
 		Role role=roleService.findByname(CommonData.adminReviewerRole);
 
 		if(usrRoleService.findByLanCatUser(lan, cat, usr, role)!=null) {
 
-			// throw error
-			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
 			List<Language> languages=lanService.getAllLanguages();
 			List<Category> categories=catService.findAll();
 
@@ -2944,6 +3171,37 @@ public class HomeController {
 		Category cat=catService.findBycategoryname(catName);
 
 		Language lan=lanService.getByLanName(lanName);
+		
+		if(cat == null) {
+
+			// throw error
+			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+
+			model.addAttribute("categories", categories);
+
+			model.addAttribute("languages", languages);
+			model.addAttribute("error_msg", "Please try Again");
+
+			return "addQualityRole";
+		}
+		
+		if(lan == null) {
+
+			// throw error
+			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+
+			model.addAttribute("categories", categories);
+
+			model.addAttribute("languages", languages);
+			model.addAttribute("error_msg", "Please try Again");
+
+			return "addQualityRole";
+		}
+		
 		Role role=roleService.findByname(CommonData.qualityReviewerRole);
 
 		if(usrRoleService.findByLanCatUser(lan, cat, usr, role)!=null) {
@@ -3323,6 +3581,11 @@ public class HomeController {
 
 
 		userService.addUserToContributorTutorial(userAssigned, conTutorials);
+		
+		userRoles= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+
+		model.addAttribute("userByContributors", userRoles);
+
 
 		model.addAttribute("success_msg", CommonData.CONTRIBUTOR_ASSIGNED_TUTORIAL);
 
@@ -3382,6 +3645,34 @@ public class HomeController {
 		Topic topic=topicService.findById(topicId);
 		Language lan=lanService.getByLanName(langName);
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
+		
+		if(!lan.getLangName().equalsIgnoreCase("english")) {
+			
+			boolean goAhead = false;
+			List<Tutorial> tutTemp = null ;
+			List<ContributorAssignedTutorial> tempCon = conRepo.findByTopicCat(topicCat);
+			for(ContributorAssignedTutorial x : tempCon) {
+				if(x.getLan().getLangName().equalsIgnoreCase("english")) {
+					goAhead =true;
+					tutTemp = tutService.findAllByContributorAssignedTutorial(x);
+					break;
+				}
+			}
+			
+			if(goAhead == false) {
+				model.addAttribute("error_msg", "Please Add English Verion of tutorial first");
+				return "uploadTutorialPost";
+			}else {
+				for(Tutorial x : tutTemp) {
+					if(!x.isStatus()) {
+						model.addAttribute("error_msg", "Please Add English Verion of tutorial first");
+						return "uploadTutorialPost";
+					}
+				}
+			}
+			
+		}
+		
 		ContributorAssignedTutorial conTutorial=conRepo.findByUserTopicCatLan(usr, topicCat, lan);
 		List<Tutorial> tutorials=tutService.findAllByContributorAssignedTutorial(conTutorial);
 
@@ -3580,7 +3871,7 @@ public class HomeController {
 		}
 
 
-		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.adminReviewerRole);
+		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, tutorial);
 
 		model.addAttribute("comVideo", comVideo);
 
@@ -3660,13 +3951,13 @@ public class HomeController {
 
 		}
 
-		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.domainReviewerRole);
-		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.domainReviewerRole);
-		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO,  tutorial);
+		List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT,tutorial);
+		List<Comment> comSlide = comService.getCommentBasedOnTutorialType(CommonData.SLIDE, tutorial);
 
-		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.domainReviewerRole);
-		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.domainReviewerRole);
-		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.domainReviewerRole);
+		List<Comment> comKeyword = comService.getCommentBasedOnTutorialType(CommonData.KEYWORD, tutorial);
+		List<Comment> comPreRequistic = comService.getCommentBasedOnTutorialType(CommonData.PRE_REQUISTIC,  tutorial);
+		List<Comment> comOutline = comService.getCommentBasedOnTutorialType(CommonData.OUTLINE, tutorial);
 
 		model.addAttribute("comOutline", comOutline);
 		model.addAttribute("comScript",comScript );
@@ -3832,101 +4123,99 @@ public class HomeController {
 
 		model.addAttribute("tutorial", published);
 		
-		
-//
-//	
-//        List<String> scopes = Lists.newArrayList("https://www.googleapis.com/auth/youtube.upload");
-//
-//        try {
-//            
-//            Credential credential = Auth.authorize(scopes, "uploadvideo");
-//
-//           
-//            youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential).build();
-//
-//            System.out.println("Uploading: " + tutorial.getTutorialId());
-//
-//            
-//            Video videoObjectDefiningMetadata = new Video();
-//
-//            VideoStatus status = new VideoStatus();
-//            status.setPrivacyStatus("public");
-//            videoObjectDefiningMetadata.setStatus(status);
-//
-//            VideoSnippet snippet = new VideoSnippet();
-//
-//            Calendar cal = Calendar.getInstance();
-//            snippet.setTitle("sample" + cal.getTime());
-//            snippet.setDescription(
-//                    "Video uploaded via YouTube Data API V3 using the Java library " + "on " + cal.getTime());
-//            
-//            List<String> tags = new ArrayList<String>();
-//            tags.add("test");
-//            tags.add("example");
-//            tags.add("java");
-//            tags.add("YouTube Data API V3");
-//            tags.add("erase me");
-//            snippet.setTags(tags);
-//
-//            videoObjectDefiningMetadata.setSnippet(snippet);
-//            
-//            InputStream sam = new FileInputStream(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo());
-//
-//            InputStreamContent mediaContent = new InputStreamContent(VIDEO_FILE_FORMAT,sam);
-//
-//            YouTube.Videos.Insert videoInsert = youtube.videos()
-//                    .insert("snippet,statistics,status", videoObjectDefiningMetadata, mediaContent);
-//
-//            MediaHttpUploader uploader = videoInsert.getMediaHttpUploader();
-//
-//            uploader.setDirectUploadEnabled(false);
-//
-//            MediaHttpUploaderProgressListener progressListener = new MediaHttpUploaderProgressListener() {
-//                public void progressChanged(MediaHttpUploader uploader) throws IOException {
-//                    switch (uploader.getUploadState()) {
-//                        case INITIATION_STARTED:
-//                            System.out.println("Initiation Started");
-//                            break;
-//                        case INITIATION_COMPLETE:
-//                            System.out.println("Initiation Completed");
-//                            break;
-//                        case MEDIA_IN_PROGRESS:
-//                            System.out.println("Upload in progress");
-//                            System.out.println("Upload percentage: " + uploader.getProgress());
-//                            break;
-//                        case MEDIA_COMPLETE:
-//                            System.out.println("Upload Completed!");
-//                            break;
-//                        case NOT_STARTED:
-//                            System.out.println("Upload Not Started!");
-//                            break;
-//                    }
-//                }
-//            };
-//            uploader.setProgressListener(progressListener);
-//
-//           
-//            Video returnedVideo = videoInsert.execute();
-//
-//            System.out.println("\n================== Returned Video ==================\n");
-//            System.out.println("  - Id: " + returnedVideo.getId());
-//            System.out.println("  - Title: " + returnedVideo.getSnippet().getTitle());
-//            System.out.println("  - Tags: " + returnedVideo.getSnippet().getTags());
-//            System.out.println("  - Privacy Status: " + returnedVideo.getStatus().getPrivacyStatus());
-//            System.out.println("  - Video Count: " + returnedVideo.getStatistics().getViewCount());
-//
-//        } catch (GoogleJsonResponseException e) {
-//            System.err.println("GoogleJsonResponseException code: " + e.getDetails().getCode() + " : "
-//                    + e.getDetails().getMessage());
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            System.err.println("IOException: " + e.getMessage());
-//            e.printStackTrace();
-//        } catch (Throwable t) {
-//            System.err.println("Throwable: " + t.getMessage());
-//            t.printStackTrace();
-//        }
-//        
+	
+        List<String> scopes = Lists.newArrayList("https://www.googleapis.com/auth/youtube.upload");
+
+        try {
+            
+            Credential credential = Auth.authorize(scopes, "uploadvideo");
+
+           
+            youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential).build();
+
+            System.out.println("Uploading: " + tutorial.getTutorialId());
+
+            
+            Video videoObjectDefiningMetadata = new Video();
+
+            VideoStatus status = new VideoStatus();
+            status.setPrivacyStatus("public");
+            videoObjectDefiningMetadata.setStatus(status);
+
+            VideoSnippet snippet = new VideoSnippet();
+
+            Calendar cal = Calendar.getInstance();
+            snippet.setTitle("sample" + cal.getTime());
+            snippet.setDescription(
+                    "Video uploaded via YouTube Data API V3 using the Java library " + "on " + cal.getTime());
+            
+            List<String> tags = new ArrayList<String>();
+            tags.add("test");
+            tags.add("example");
+            tags.add("java");
+            tags.add("YouTube Data API V3");
+            tags.add("erase me");
+            snippet.setTags(tags);
+
+            videoObjectDefiningMetadata.setSnippet(snippet);
+            
+            InputStream sam = new FileInputStream(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo());
+
+            InputStreamContent mediaContent = new InputStreamContent(VIDEO_FILE_FORMAT,sam);
+
+            YouTube.Videos.Insert videoInsert = youtube.videos()
+                    .insert("snippet,statistics,status", videoObjectDefiningMetadata, mediaContent);
+
+            MediaHttpUploader uploader = videoInsert.getMediaHttpUploader();
+
+            uploader.setDirectUploadEnabled(false);
+
+            MediaHttpUploaderProgressListener progressListener = new MediaHttpUploaderProgressListener() {
+                public void progressChanged(MediaHttpUploader uploader) throws IOException {
+                    switch (uploader.getUploadState()) {
+                        case INITIATION_STARTED:
+                            System.out.println("Initiation Started");
+                            break;
+                        case INITIATION_COMPLETE:
+                            System.out.println("Initiation Completed");
+                            break;
+                        case MEDIA_IN_PROGRESS:
+                            System.out.println("Upload in progress");
+                            System.out.println("Upload percentage: " + uploader.getProgress());
+                            break;
+                        case MEDIA_COMPLETE:
+                            System.out.println("Upload Completed!");
+                            break;
+                        case NOT_STARTED:
+                            System.out.println("Upload Not Started!");
+                            break;
+                    }
+                }
+            };
+            uploader.setProgressListener(progressListener);
+
+           
+            Video returnedVideo = videoInsert.execute();
+
+            System.out.println("\n================== Returned Video ==================\n");
+            System.out.println("  - Id: " + returnedVideo.getId());
+            System.out.println("  - Title: " + returnedVideo.getSnippet().getTitle());
+            System.out.println("  - Tags: " + returnedVideo.getSnippet().getTags());
+            System.out.println("  - Privacy Status: " + returnedVideo.getStatus().getPrivacyStatus());
+            System.out.println("  - Video Count: " + returnedVideo.getStatistics().getViewCount());
+
+        } catch (GoogleJsonResponseException e) {
+            System.err.println("GoogleJsonResponseException code: " + e.getDetails().getCode() + " : "
+                    + e.getDetails().getMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Throwable t) {
+            System.err.println("Throwable: " + t.getMessage());
+            t.printStackTrace();
+        }
+        
         
         return "listTutorialPublishQualityReviwer";
 		
@@ -3951,13 +4240,13 @@ public class HomeController {
 		}
 
 
-		List<Comment> comVideo = comService.getCommentBasedOnUserTutorialType(CommonData.VIDEO, usr, tutorial,CommonData.qualityReviewerRole);
-		List<Comment> comScript = comService.getCommentBasedOnUserTutorialType(CommonData.SCRIPT, usr, tutorial,CommonData.qualityReviewerRole);
-		List<Comment> comSlide = comService.getCommentBasedOnUserTutorialType(CommonData.SLIDE, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO,  tutorial);
+		List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT,tutorial);
+		List<Comment> comSlide = comService.getCommentBasedOnTutorialType(CommonData.SLIDE,  tutorial);
 
-		List<Comment> comKeyword = comService.getCommentBasedOnUserTutorialType(CommonData.KEYWORD, usr, tutorial,CommonData.qualityReviewerRole);
-		List<Comment> comPreRequistic = comService.getCommentBasedOnUserTutorialType(CommonData.PRE_REQUISTIC, usr, tutorial,CommonData.qualityReviewerRole);
-		List<Comment> comOutline = comService.getCommentBasedOnUserTutorialType(CommonData.OUTLINE, usr, tutorial,CommonData.qualityReviewerRole);
+		List<Comment> comKeyword = comService.getCommentBasedOnTutorialType(CommonData.KEYWORD,  tutorial);
+		List<Comment> comPreRequistic = comService.getCommentBasedOnTutorialType(CommonData.PRE_REQUISTIC,  tutorial);
+		List<Comment> comOutline = comService.getCommentBasedOnTutorialType(CommonData.OUTLINE, tutorial);
 
 		model.addAttribute("comOutline", comOutline);
 		model.addAttribute("comScript",comScript );
@@ -4131,6 +4420,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		TraineeInformation trainee=traineeService.findById(id);
+		
+		if(trainee == null) {
+
+			 return "redirect:/viewTrainee";
+		}
 
 		if(trainee.getTraineeInfos().getUser().getId() != usr.getId()) {
 
@@ -4482,6 +4776,19 @@ public class HomeController {
 
 		Category category = catService.findBycategoryname(cat);
 		Language language = lanService.getByLanName(lan);
+		
+		if(language == null) {
+			model.addAttribute("error_msg", "Please select language");
+
+			return "assignRoleToDomain";
+		}
+		
+		if(category == null) {
+			model.addAttribute("error_msg", "Please select Category");
+
+			return "assignRoleToDomain";
+		}
+		
 		Role role = roleService.findByname(CommonData.adminReviewerRole);
 
 		if(usrRoleService.findByLanCatUser(language, category, usr, role)!=null) {
@@ -4804,12 +5111,8 @@ public class HomeController {
 
 		trainingData.setAddress(address);
 
-
-
 		try {
 			trainingInfoService.save(trainingData);
-
-
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -4825,5 +5128,130 @@ public class HomeController {
 		return "updateTraining";
 
 	}
+	
+	@GetMapping("/tutorialStatus")
+	public String tutorialStatus(Principal principal,Model model){
 
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		List<Tutorial> published = new ArrayList<Tutorial>();
+		List<Tutorial> tutorials =  tutService.findAll();
+		for(Tutorial temp:tutorials) {
+
+			if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getVideoStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
+
+				published.add(temp);
+			}
+
+		}
+
+		model.addAttribute("tutorial", published);
+
+		return "listTutorialSuperAdmin";
+	}
+	
+	@RequestMapping(value = "/tutorialStatus/{id}", method = RequestMethod.GET)
+	public String publishTutorial(@PathVariable int id,Principal principal,Model model) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		List<Tutorial> published = new ArrayList<Tutorial>();
+		List<Tutorial> tutorials ;
+		
+		
+		Tutorial tut = tutService.getById(id);
+		if(tut.isStatus()) {
+			tut.setStatus(false);
+			model.addAttribute("success_msg", "Tutorial unpublished Successfully");
+		}else {
+			tut.setStatus(true);
+			model.addAttribute("success_msg", "Tutorial published Successfully");
+		}
+		
+		try {
+			
+			tutService.save(tut);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			
+			tutorials =  tutService.findAll();
+			for(Tutorial temp:tutorials) {
+
+				if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
+						temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
+						temp.getVideoStatus() == CommonData.PUBLISH_STATUS &&
+						temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
+
+					published.add(temp);
+				}
+
+			}
+			model.addAttribute("tutorial", published);
+			model.addAttribute("error_msg", "Please Try again.");
+			return "listTutorialSuperAdmin";
+		}
+		
+		
+		tutorials =  tutService.findAll();
+		for(Tutorial temp:tutorials) {
+
+			if(temp.getOutlineStatus() == CommonData.PUBLISH_STATUS && temp.getScriptStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getSlideStatus() == CommonData.PUBLISH_STATUS && temp.getKeywordStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getVideoStatus() == CommonData.PUBLISH_STATUS &&
+					temp.getPreRequisticStatus() == CommonData.PUBLISH_STATUS) {
+
+				published.add(temp);
+			}
+
+		}
+
+		model.addAttribute("tutorial", published);
+
+		return "listTutorialSuperAdmin";
+		
+	}
+	
+	@RequestMapping(value = "/uploadTimescript", method = RequestMethod.GET)
+	public String uploadTimescriptGet(Principal principal,Model model) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		List<Tutorial> published = new ArrayList<Tutorial>();
+		List<Tutorial> tutorials =  tutService.findAll();
+		for(Tutorial temp:tutorials) {
+
+			if(temp.isStatus()) {
+
+				published.add(temp);
+			}
+
+		}
+
+		model.addAttribute("tutorial", published);
+
+		return "uploadTimescript";
+	}
+	
 }

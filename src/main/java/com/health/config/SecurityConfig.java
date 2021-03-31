@@ -99,6 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/deleteMasterRole/**",
 			"/viewTrainee/**",
 			"/details/**",
+			"/tutorialStatus/**"
 
 	};
 
@@ -128,6 +129,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/addScript/**",
 			"/listTutorialForContributorReview/**",
 			"/Contributor/review/**",
+			"/uploadTimescript/**",
 
 
 

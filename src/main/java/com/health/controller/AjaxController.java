@@ -483,7 +483,7 @@ public class AjaxController{
 		return CommonData.ROLE_APPROVED_SUCCESS_MSG;
 	}
 
-	@RequestMapping("/deleteMasterRole")
+	@RequestMapping("/deleteRole")
 	public @ResponseBody String deleteMasterRoleById(@RequestParam(value = "id") long id) {
 
 		UserRole usrRole=usrRoleService.findById(id);
@@ -491,17 +491,27 @@ public class AjaxController{
 		if(usrRole != null) {
 			try {
 
-				User usr = usrRole.getUser();
-				usr.setOrgRolev(null);
-				usr.setOrganization(null);
-				usr.setAge(0);
-				usr.setUserRoles(null);
-				usrservice.save(usr);
+				if(usrRole.getRole().getRoleId() == 7) {
+					User usr = usrRole.getUser();
+					usr.setOrgRolev(null);
+					usr.setOrganization(null);
+					usr.setAge(0);
+					usr.setUserRoles(null);
+					usrservice.save(usr);
+				}
+				
 				System.out.println("vikash");
+				
 				usrRole.setRole(null);
 				usrRole.setUser(null);
-
+				usrRole.setCat(null);
+				usrRole.setLan(null);
+				usrRole.setRejected(true);
 				usrRoleService.save(usrRole);
+				
+				SimpleMailMessage msg = mailConstructor.rejectRole(usrRole.getUser(), usrRole.getRole(), usrRole.getCategory(), usrRole.getLan());
+				
+				mailSender.send(msg);
 
 			}catch (Exception e) {
 				// TODO: handle exception
@@ -1689,4 +1699,46 @@ public class AjaxController{
 	}
 
 	/************************************ END ********************************************************/
+	
+	/**************************** UPLOAD TIME SCRIPT ***********************************************/
+	
+	@RequestMapping("/addTimeScript")
+	public @ResponseBody String addTimeScript(@RequestParam(value = "id") int tutorialId,
+			@RequestParam(value = "uploadsScriptFile") MultipartFile File,
+											Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=usrservice.findByUsername(principal.getName());
+		}
+
+		if(tutorialId != 0) {
+			Tutorial tut=tutService.getById(tutorialId);
+			
+			try {
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/TimeScript");
+					String pathtoUploadPoster=ServiceUtility.uploadFile(File, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryTutorial+tut.getTutorialId()+"/TimeScript");
+					int indexToStart=pathtoUploadPoster.indexOf("Media");
+
+					String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+
+					tut.setTimeScript(document);
+					tutService.save(tut);
+
+					return CommonData.Script_SAVE_SUCCESS_MSG;
+
+			}catch (Exception e) {
+				// TODO: handle exception
+
+				// throw error
+			}
+
+		}
+		return CommonData.Script_SAVE_SUCCESS_MSG;
+
+	}
+	
+	/*********************************** END ********************************************************/
 }

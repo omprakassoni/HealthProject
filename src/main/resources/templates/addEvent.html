@@ -96,7 +96,7 @@
 															id="stateNameId" class="form-control " name="stateName"
 															required="required">
 
-															<option selected="selected">Select State</option>
+															<option selected="selected" value="0">Select State</option>
 															<option th:each="state: ${states}"
 																th:value="${state.getId()}"
 																th:text="${state.getStateName()}"></option>
@@ -110,7 +110,7 @@
 														<label for="district">District</label> <select
 															id="districtId" class="form-control " name="districtName"
 															required="required">
-															<option selected="selected">Select District</option>
+															<option selected="selected" value="0">Select District</option>
 														</select>
 
 													</div></div>
@@ -121,7 +121,7 @@
 
 														<label for="cityName">City</label> <select id="cityId"
 															class="form-control" name="cityName" required="required">
-															<option selected="selected">Select City</option>
+															<option selected="selected" value="0">Select City</option>
 														</select>
 
 													</div>
@@ -155,7 +155,7 @@
 															id="selectLanguageId" class="form-control "
 															name="language" required="required">
 
-															<option>Select Language</option>
+															<option value="0">Select Language</option>
 															<option th:each="lan: ${lans}"
 																th:value="${lan.getLangName()}"
 																th:text="${lan.getLangName()}"></option>
@@ -169,7 +169,7 @@
 															id="MasterCategoryId" class="form-control"
 															name="categoryName" required="required">
 
-															<option>Select Category</option>
+															<option value="0">Select Category</option>
 															<option th:each="category: ${categories}"
 																th:value="${category.getCategoryId()}"
 																th:text="${category.getCatName()}"></option>

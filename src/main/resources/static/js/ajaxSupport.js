@@ -11,6 +11,63 @@ $(document).ready(function() {
 			$('.not-required').tooltip({ title: 'Not Required' });
 			
 			
+			   $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+			        localStorage.setItem('activeTab', $(e.target).attr('href'));
+			    });
+			    var activeTab = localStorage.getItem('activeTab');
+			    if(activeTab){
+			        $('#myTab a[href="' + activeTab + '"]').tab('show');
+			    }
+			    
+/********************* Chnages made by om prakash ************************************************/
+			    
+			    $(".timeScriptFetchData").click(function(){
+  					var tut_id=$(this).attr('value');
+  						
+  					$('#tutorialId').prop('value',tut_id);
+  					$('#uploadTimescript').modal('show');
+  				}) 
+  				
+  				
+  				$('#timeScript').click(function() {
+  					
+  					var TutorialID=$("#tutorialId").val();
+
+						var form = $('#upload-file-form-script')[0];
+						var formData = new FormData(form);
+						formData.append('id',TutorialID);
+
+						$.ajax({
+							type : "POST",
+							url : projectPath+"addTimeScript",
+							data : formData,
+							enctype : 'multipart/form-data',
+							processData : false,
+							contentType : false,
+							cache : false,
+							success : function(result) {
+							
+								$('#viewScript').html(result);
+						
+								var result = "Script updated successfully";
+								showStatus(SUCCESS,result);
+								$('.upload-status').hide();
+							},
+
+							error : function(err) {
+								console.log("not working. ERROR: "+ JSON.stringify(err));
+								var result = "Error";
+								showStatus(ERROR,result);
+							}
+						});
+
+					});
+			    
+			    
+			    
+/**********************************end***********************************************************/
+			
+			
 /******************* Changes made by om prakash *************************************/
 			
 		$('.enableBrouchure').click(function() {
@@ -3819,7 +3876,7 @@ $(document).ready(function() {
 					});
 			
 			
-			$('#disaaprovemasterId').click(function() {
+			$('.rejectRole').click(function() {
 				// use localStorage to retrieve information on
 				// page refresh
 				localStorage.setItem('activeTab',"MasterTrainer");
@@ -3829,7 +3886,7 @@ $(document).ready(function() {
 
 				$.ajax({
 					type : "GET",
-					url : projectPath+"deleteMasterRole",
+					url : projectPath+"deleteRole",
 					data : {
 						"id" : contributionId
 					},
@@ -3840,13 +3897,13 @@ $(document).ready(function() {
 						$('#statusMaster').html(result);
 						localStorage.setItem('msg', result);
 
-						$('#ContributerPage').on('hidden.bs.modal', function() {
+					/*	$('#ContributerPage').on('hidden.bs.modal', function() {
 
 									location.reload();
 
 						});
 
-						location.reload();
+						location.reload();*/
 
 					},
 

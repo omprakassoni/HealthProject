@@ -65,6 +65,7 @@ body {
 											<th>Category</th>
 											<th>Langauge</th>
 											<th>Approve</th>
+											<th>Reject</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -79,6 +80,11 @@ body {
 												<button id="approveAdminId" type="button"
 													th:value="${admin.getUserRoleId()}"
 													class="btn btn-info approveAdmin">Approve</button>
+											</td>
+											<td>
+												<button id="disaapro" type="button"
+													th:value="${admin.getUserRoleId()}"
+													class="btn btn-danger btn-sm rejectRole">Reject</button>
 											</td>
 										</tr>
 									</tbody>
@@ -99,6 +105,7 @@ body {
 											<th>Last Name</th>
 											<th>Language</th>
 											<th>Approve</th>
+											<th>Reject</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -115,6 +122,11 @@ body {
 												<button id="approveContributorId" type="button"
 													th:value="${approve.getUserRoleId()}"
 													class="btn btn-info approveContributor">Approve</button>
+											</td>
+											<td>
+												<button id="disaapr" type="button"
+													th:value="${approve.getUserRoleId()}"
+													class="btn btn-danger btn-sm rejectRole">Reject</button>
 											</td>
 										</tr>
 									</tbody>
@@ -136,6 +148,7 @@ body {
 											<th>Language</th>
 											<th>Category</th>
 											<th>Approve</th>
+											<th>Reject</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -152,6 +165,11 @@ body {
 												<button id="approveContributorId" type="button"
 													th:value="${approve.getUserRoleId()}"
 													class="btn btn-info approveContributor">Approve</button>
+											</td>
+											<td>
+												<button id="disaaprovemaste" type="button"
+													th:value="${approve.getUserRoleId()}"
+													class="btn btn-danger btn-sm rejectRole">Reject</button>
 											</td>
 										</tr>
 									</tbody>
@@ -198,7 +216,7 @@ body {
 											<td>
 												<button id="disaaprovemasterId" type="button"
 													th:value="${master.getUserRoleId()}"
-													class="btn btn-danger btn-sm">Reject</button>
+													class="btn btn-danger btn-sm rejectRole">Reject</button>
 											</td>
 										</tr>
 									</tbody>
@@ -220,6 +238,7 @@ body {
 											<th>Category</th>
 											<th>Langauge</th>
 											<th>Approve</th>
+											<th>Reject</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -237,6 +256,11 @@ body {
 												<button id="approveQualityId" type="button"
 													th:value="${quality.getUserRoleId()}"
 													class="btn btn-info approveQuality">Approve</button>
+											</td>
+											<td>
+												<button id="disaaprovemas" type="button"
+													th:value="${quality.getUserRoleId()}"
+													class="btn btn-danger btn-sm rejectRole">Reject</button>
 											</td>
 										</tr>
 									</tbody>
@@ -280,6 +304,7 @@ body {
 															<th>Category</th>
 															<th>Langauge</th>
 															<th>Approve</th>
+															<th>Reject</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -321,6 +346,7 @@ body {
 															<th>Experience</th>
 															<th>Contact Info</th>
 															<th>Approve</th>
+															<th>Reject</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -358,6 +384,7 @@ body {
 															<th>Last Name</th>
 															<th>Language</th>
 															<th>Approve</th>
+															<th>Reject</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -393,6 +420,7 @@ body {
 															<th>Category</th>
 															<th>Langauge</th>
 															<th>Approve</th>
+															<th>Reject</th>
 														</tr>
 													</thead>
 													<tbody>
