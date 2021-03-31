@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 <head th:replace="common/trail :: common-trail"></head>
@@ -78,9 +77,10 @@
 											<div class="form-group">
 												<label for="eventDescription">Enter
 													Description</label>
-												<textarea class="form-control" rows="5"
+												<textarea class="form-control" rows="10"
 													id="eventDescription" name="description"
-													required="required" placeholder="Description of the event"></textarea>
+													required="required" placeholder="Description of the event" maxlength="5000"></textarea>
+													<small>Characters limit : 5000</small>
 											</div>
 											<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Venue Details : </span></div>
 											<div class="form-group">
@@ -142,7 +142,8 @@
 
 														<textarea class="form-control"
 															name="addressInformationName" rows="5"
-															id="addressInformationId" required="required"></textarea>
+															id="addressInformationId" required="required" maxlength="200"></textarea>
+															<small>Characters limit : 200</small>
 
 													</div>
 													<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Event Content Details : </span></div>
@@ -192,7 +193,8 @@
 												<label for="Image" style="padding-top: 8px">Event Image </label> <input type="file" style="padding-right: 50px"
 													class="form-control-file " id="Image"
 													name="Image" placeholder="uploadFile"
-													accept=".jpg, .jpeg ,.png" required="required" />
+													accept=".jpg, .jpeg ,.png" onchange="validate_file_size(this,500000)" required="required"/>
+													<small>Max file size : 500 kB <br>Suggested Dimension : 600 x 400</small>
 
 											</div>
 													<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Contact Details : </span></div>

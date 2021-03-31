@@ -1870,14 +1870,14 @@ public class HomeController {
 			newEventid=eventservice.getNewEventId();
 			Event event=new Event();
 
-			ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+newEventid);
-			String pathtoUploadPoster=ServiceUtility.uploadFile(files, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+newEventid);
-			int indexToStart=pathtoUploadPoster.indexOf("Media");
-
-			String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
-
-			event.setPosterPath(document);
-
+			
+				ServiceUtility.createFolder(env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+newEventid);
+				String pathtoUploadPoster=ServiceUtility.uploadFile(files, env.getProperty("spring.applicationexternalPath.name")+CommonData.uploadDirectoryEvent+newEventid);
+				int indexToStart=pathtoUploadPoster.indexOf("Media");
+				String document=pathtoUploadPoster.substring(indexToStart, pathtoUploadPoster.length());
+				event.setPosterPath(document);
+			
+			
 			event.setEventId(newEventid);
 			event.setContactPerson(contactPerson);
 			event.setDateAdded(ServiceUtility.getCurrentTime());
@@ -4079,6 +4079,7 @@ public class HomeController {
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
 		Language lan = lanService.getByLanName(lanName);
 		Question questions = questService.getQuestionBasedOnTopicCatAndLan(topicCat, lan);
+		model.addAttribute("post", "true");
 		model.addAttribute("Questions", questions);
 
 		List<Category> cats=catService.findAll();

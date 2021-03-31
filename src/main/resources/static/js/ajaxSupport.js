@@ -6298,6 +6298,8 @@ $(document).ready(function() {
 				}
 			});
 			
+			
+			
 			/*$('#eventCategory').on('change', function() {
 				category_id = this.value;
 //				  alert( this.value );
@@ -6479,7 +6481,16 @@ function readImageUrl(input) {
 	    reader.readAsDataURL(input.files[0]); // convert to base64 string
 	  }
 	}
-
+function validate_file_size(elem,s){
+	console.log(elem.files[0].size);
+	console.log(s);
+	var fileSize = elem.files[0].size;
+	if(fileSize > s){
+		alert("Please check file size");
+		elem.value="";
+		return false;
+	}
+}
 
 /* here is code for download question */
 
