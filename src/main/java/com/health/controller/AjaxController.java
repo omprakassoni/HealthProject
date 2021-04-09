@@ -675,6 +675,13 @@ public class AjaxController{
 			local.setOutline(outlineData);
 			local.setOutlineStatus(CommonData.DOMAIN_STATUS);
 			local.setTutorialId(tutService.getNewId());
+			
+			if(!lan.getLangName().equalsIgnoreCase("English")) {
+				Language lanEng = lanService.getByLanName("English");
+				ContributorAssignedTutorial conLocal1 = conService.findByTopicCatAndLanViewPart(localTopicCat, lanEng);
+				local.setRelatedVideo(tutService.findAllByContributorAssignedTutorial(conLocal1).get(0));
+				
+			}
 
 			try {
 				tutService.save(local);
@@ -922,6 +929,13 @@ public class AjaxController{
 			local.setDateAdded(ServiceUtility.getCurrentTime());
 			local.setConAssignedTutorial(conLocal);
 			local.setTutorialId(newTutorialid);
+			
+			if(!lan.getLangName().equalsIgnoreCase("English")) {
+				Language lanEng = lanService.getByLanName("English");
+				ContributorAssignedTutorial conLocal1 = conService.findByTopicCatAndLanViewPart(localTopicCat, lanEng);
+				local.setRelatedVideo(tutService.findAllByContributorAssignedTutorial(conLocal1).get(0));
+				
+			}
 
 			try {
 				tutService.save(local);
@@ -1098,6 +1112,13 @@ public class AjaxController{
 			local.setDateAdded(ServiceUtility.getCurrentTime());
 			local.setConAssignedTutorial(conLocal);
 			local.setTutorialId(newTutorialid);
+			
+			if(!lan.getLangName().equalsIgnoreCase("English")) {
+				Language lanEng = lanService.getByLanName("English");
+				ContributorAssignedTutorial conLocal1 = conService.findByTopicCatAndLanViewPart(localTopicCat, lanEng);
+				local.setRelatedVideo(tutService.findAllByContributorAssignedTutorial(conLocal1).get(0));
+				
+			}
 
 			try {
 				tutService.save(local);

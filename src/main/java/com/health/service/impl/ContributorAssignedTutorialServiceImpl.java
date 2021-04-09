@@ -97,4 +97,10 @@ public class ContributorAssignedTutorialServiceImpl implements ContributorAssign
 		return conRepo.findAllBylan(lan);
 	}
 
+	@Override
+	public List<ContributorAssignedTutorial> findAll() {
+		// TODO Auto-generated method stub
+		return (List<ContributorAssignedTutorial>) conRepo.findAll();
+	}
+
 }

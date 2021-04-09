@@ -479,6 +479,12 @@ a:hover {
               Quality Reviewer
             </a>
           </li>
+          <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/addDomainRole}">
+              <span data-feather="shopping-cart"></span>
+              Domain Reviewer
+            </a>
+          </li>
           
         </ul>
         <ul class="nav flex-column" th:if="!${#authorization.expression('hasAuthority(''SUPER_USER'')')}">

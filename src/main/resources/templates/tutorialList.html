@@ -96,7 +96,12 @@
 			<span th:text="${tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName()}"></span>
 			<span>(</span><i th:text="${tutorial.getConAssignedTutorial().getLan().getLangName()}" class=""></i><span>)</span>
 			</h6>
-			<p th:utext="${tutorial.getOutline()}" class="mx-0"> </p>
+			<div th:if="${tutorial.getRelatedVideo()}">
+				<p th:utext="${tutorial.getRelatedVideo().getOutline()}" class="mx-0"> </p>
+			</div>
+			<div th:unless="${tutorial.getRelatedVideo()}">
+				<p th:utext="${tutorial.getOutline()}" class="mx-0"> </p>
+			</div>
 		</a>
 		</div>
 	</div>
