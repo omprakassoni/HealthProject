@@ -216,7 +216,10 @@
 	    		</div>
 	    		<hr style="border: 1px solid orange; width: 50%;">
 	    		<p class="mb-1"><span th:text="${category.getCatName()}"></span></p>
-	    		<small class="text-justify"><span th:text="${category.getDescription()}"></span></small>
+	    		<small><p th:text="${#strings.abbreviate(category.getDescription(),150)} "></small>
+	    		<p><button type="button" class="btn btn-light" data-toggle="modal" th:attr="data-target='#detail_'+${category.getCategoryId() }" >
+  Details
+</button></p></p>
 	    		</div>
 	    	</div>
    		 </div>
@@ -224,6 +227,27 @@
    		 <div class="w-100 text-center"><a th:href="@{/categories}" target="_blank" class="button catBtn mb-5">View all Categories</a></div> 
     </div>  
   </section>
+  <!-- modal for displaying full category description -->
+<!-- Modal -->
+<div th:if="${listofCategories}">
+<div class="modal fade" th:each="category : ${listofCategories}" th:attrappend="id=${'detail'+'_'+category.getCategoryId()}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><span th:text="${category.getCatName()}"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<small class="text-justify"><span th:text="${category.getDescription()}"></span></small>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+<!-- modal for displaying full category description ends-->
     
     <section id="parallax-2" class="py-4" th:if="${listOfConsultant}">
     <h1 class="text-center spk-title" style="color:#fff!important;">Consultants</h1>
