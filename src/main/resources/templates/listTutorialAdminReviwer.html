@@ -52,9 +52,9 @@
 					            </thead>
 					            <tbody>	
 					            
-					            	<tr th:each="componenettutorial : ${tutorialToReview}">
+					            	<tr th:each="componenettutorial,rowStat : ${tutorialToReview}">
 					  					
-					  					<td th:text="${componenettutorial.getTutorialId()}"><i style="color: green;" class="fas fa-check-circle"></i> </td>  						              	
+					  					<td th:text="${rowStat.count}"><i style="color: green;" class="fas fa-check-circle"></i> </td>  						              	
 						              	<td th:text="${componenettutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName()}"><i style="color: green;" class="fas fa-check-circle"></i> </td>     
 						                <td th:text="${componenettutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName()}"><i style="color: green;" class="fas fa-check-circle"></i> </td>  
 						                <td th:text="${componenettutorial.getConAssignedTutorial().getLan().getLangName()}"><i  style="color: maroon;" class="fas fa-check-circle"></i> </td>
