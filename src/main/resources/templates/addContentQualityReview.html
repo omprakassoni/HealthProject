@@ -68,7 +68,7 @@
 												<th>Sr No</th>
 												<th>Component</th>
 												<th>Status</th>
-												<th>User</th>
+												<!-- <th>User</th> -->
 												<th><i style="color: purple; width: 30px"
 													class="fas fa-cogs"></i></th>
 
@@ -82,7 +82,7 @@
 												<td><span th:each="statusOutline : ${statusOutline}">
 														<span style="color: green;" th:text="${statusOutline}">Pending</span>
 												</span></td>
-												<th>-</th>
+												
 												<th>
 													<button type="button" class="btn btn-info"
 														data-toggle="modal" data-target="#outlineViewModelDomain"
@@ -99,7 +99,7 @@
 												<td><span th:each="statusScript :${statusScript}">
 														<span style="color: green;" th:text="${statusScript}">Pending</span>
 												</span></td>
-												<th>-</th>
+												
 												<th>
 													  <span><button
 															type="button" class="btn btn-info" data-toggle="modal"
@@ -118,7 +118,7 @@
 														<span style="color: green;" th:text="${statusSlide}">Pending</span>
 												</span></td>
 
-												<th>-</th>
+												
 												<th>
 													 
 													<button type="button" class="btn btn-info"
@@ -139,7 +139,7 @@
 														<span style="color: green;" th:text="${statusVideo}">Pending</span>
 												</span></td>
 
-												<th>-</th>
+												
 												<th>
 													<button type="button" class="btn btn-info"
 														data-toggle="modal" data-target="#videoViewIdDomain"
@@ -157,7 +157,7 @@
 												<td><span th:each=" statusKeyword: ${statusKeyword}">
 														<span style="color: green;" th:text="${statusKeyword}">Pending</span>
 												</span></td>
-												<th>-</th>
+												
 												<th>
 													<button type="button" class="btn btn-info"
 														data-toggle="modal"
@@ -175,7 +175,7 @@
 												<td>Prerequisite</td>
 												<td><span class="status-contri"
 													th:text="${statusPreReq}"></span></td>
-												<th>-</th>
+												
 												<th>
 													<button type="button" class="btn btn-info"
 														data-toggle="modal" data-target="#PreViewQualityId"
