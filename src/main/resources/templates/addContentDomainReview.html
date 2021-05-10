@@ -101,7 +101,7 @@ color : #014F7A;}
 										<th>Sr No</th>
 										<th>Component</th>
 										<th>Status</th>
-										<th>User</th>
+										<!-- <th>User</th> -->
 										<th><i style="color: purple; width: 30px"
 											class="fas fa-cogs"></i></th>
 
@@ -115,7 +115,7 @@ color : #014F7A;}
 										<td><span th:each="statusOutline : ${statusOutline}">
 												<span style="color: green;" th:text="${statusOutline}"></span>
 										</span></td>
-										<th>-</th>
+										<!--  -->
 										<th>
 											<button type="button" class="btn btn-info"
 												data-toggle="modal" data-target="#outlineViewModelDomain"
@@ -139,7 +139,7 @@ color : #014F7A;}
 										<td><span th:each="statusScript :${statusScript}">
 												<span style="color: green;" th:text="${statusScript}">Pending</span>
 										</span></td>
-										<th>-</th>
+										
 										<th><!-- <span id="scriptIdDomain"
 											th:each="scriptpath : ${tutorialComponenet}"> <a
 												class="btn btn-info" target="_blank" id="cat"
@@ -174,7 +174,7 @@ color : #014F7A;}
 												<span style="color: green;" th:text="${statusVideo}">Pending</span>
 										</span></td>
 
-										<th>-</th>
+										
 										<th>
 											<button type="button" class="btn btn-info"
 												data-toggle="modal" data-target="#videoViewIdDomain"
@@ -200,7 +200,7 @@ color : #014F7A;}
 										<td><span th:each="statusSlide: ${statusSlide}"> <span
 												style="color: green;" th:text="${statusSlide}">Pending</span>
 										</span></td>
-										<th>-</th>
+										
 										<th><!-- <span id="scriptIdDomain"
 											th:each="scriptpath : ${tutorialComponenet}"> <a
 												class="btn btn-info" target="_blank" id="slidName"
@@ -222,7 +222,7 @@ color : #014F7A;}
 										<td><span th:each=" statusKeyword: ${statusKeyword}">
 												<span style="color: green;" th:text="${statusKeyword}">Pending</span>
 										</span></td>
-										<th>-</th>
+										
 
 										<th>
 											<button type="button" class="btn btn-info"
@@ -243,9 +243,9 @@ color : #014F7A;}
 
 										<tr>
 										<td>6</td>
-										<td>Pre-Requisites</td>
+										<td>Pre-Requisite</td>
 										<td><span style="color: green;" class="status-contri" th:text="${statusPreReq}"></span></td>
-										<th>-</th>
+										
 
 										<th>
 								

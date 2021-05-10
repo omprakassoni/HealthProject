@@ -84,8 +84,8 @@
 
 										<label for="brouchure">Brochure</label> <input type="file"
 											class="form-control" id="brouchure" name="brouchure"
-											accept=".jpeg,.jpg,.png" required="required" />
-
+											accept=" .jpeg,.jpg,.png" required="required" onchange="validate_file_size(this,1024000)"/>
+										<small>Max file size : 1 MB</small>
 									</div>
 
 

@@ -3875,14 +3875,33 @@ $(document).ready(function() {
 
 					});
 			
+			//Following function refreshes the table dynamically whenever a row is deleted
+			$('.dynamicTable tbody').on( 'click', '.rejectRole', function () {
+				//alert('a');
+				var elem = $(this).parents('table');
+				var id = $(elem).attr('id');
+				var table = $('#'+id).DataTable();	
+		    	table.row( $(this).parents('tr') ).remove().draw();
+			} );
+			
+			//Following function refreshes the table dynamically whenever a row is deleted
+			$('.dynamicTable tbody').on( 'click', '.approveRole', function () {
+				//alert('b');
+				var elem = $(this).parents('table');
+				var id = $(elem).attr('id');
+				var table = $('#'+id).DataTable();	
+		    	table.row( $(this).parents('tr') ).remove().draw();
+			} );
 			
 			$('.rejectRole').click(function() {
 				// use localStorage to retrieve information on
 				// page refresh
+				//alert('Here');
 				localStorage.setItem('activeTab',"MasterTrainer");
-
 				var contributionId = $(this).val();
-		
+				
+				
+				var table = $('#tableIdContributor').DataTable();
 
 				$.ajax({
 					type : "GET",
@@ -3896,7 +3915,7 @@ $(document).ready(function() {
 						$("#statusMaster").prop('disabled',false);
 						$('#statusMaster').html(result);
 						localStorage.setItem('msg', result);
-
+						table.draw();
 					/*	$('#ContributerPage').on('hidden.bs.modal', function() {
 
 									location.reload();
@@ -6355,6 +6374,8 @@ $(document).ready(function() {
 				}
 			});
 			
+			
+			
 			/*$('#eventCategory').on('change', function() {
 				category_id = this.value;
 //				  alert( this.value );
@@ -6536,7 +6557,16 @@ function readImageUrl(input) {
 	    reader.readAsDataURL(input.files[0]); // convert to base64 string
 	  }
 	}
-
+function validate_file_size(elem,s){
+	console.log(elem.files[0].size);
+	console.log(s);
+	var fileSize = elem.files[0].size;
+	if(fileSize > s){
+		alert("Please check file size");
+		elem.value="";
+		return false;
+	}
+}
 
 /* here is code for download question */
 

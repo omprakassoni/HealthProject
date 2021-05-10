@@ -240,9 +240,12 @@
 													</form>
 												</div>
 												<div class="col-12">
-
-													<div th:if="${#lists.isEmpty(Questions)}">Nothing
-														exist</div>
+													<div th:if="${post == 'true'}">
+													<div th:if="${#lists.isEmpty(Questions)}">
+													No data for selected criteria
+														</div>
+													</div>
+													
 
 													<div th:unless="${#lists.isEmpty(Questions)}">
 														<span th:each="quest : ${Questions}">
@@ -318,6 +321,7 @@
 															<label for="fileId">Upload Feedbacks</label> <input
 																type="file" class="form-control " name="feedbackForm"
 																id="fileId" accept=".zip" required="required"></input>
+																<small>Upload .zip file</small>
 
 														</div>
 
