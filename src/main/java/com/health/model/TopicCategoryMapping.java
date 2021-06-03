@@ -26,6 +26,9 @@ public class TopicCategoryMapping {
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 	
+	@Column(name = "orderValue")
+	private int order = 0;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private Category cat;
@@ -83,12 +86,13 @@ public class TopicCategoryMapping {
 		
 	}
 	
-	public TopicCategoryMapping(int topicCategoryId, boolean status, Category cat, Topic topic) {
+	public TopicCategoryMapping(int topicCategoryId, boolean status, Category cat, Topic topic,int order) {
 		super();
 		this.topicCategoryId = topicCategoryId;
 		this.status = status;
 		this.cat = cat;
 		this.topic = topic;
+		this.order = order;
 	}
 
 
@@ -122,6 +126,14 @@ public class TopicCategoryMapping {
 
 	public void setBrochures(Set<Brouchure> brochures) {
 		this.brochures = brochures;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 

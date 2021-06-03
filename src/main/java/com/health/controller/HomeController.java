@@ -10,6 +10,7 @@ import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -54,6 +55,7 @@ import com.health.model.Carousel;
 import com.health.model.Category;
 import com.health.model.Comment;
 import com.health.model.Consultant;
+import com.health.model.ContributorAssignedMultiUserTutorial;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.Event;
 import com.health.model.FeedbackMasterTrainer;
@@ -78,6 +80,7 @@ import com.health.service.CategoryService;
 import com.health.service.CityService;
 import com.health.service.CommentService;
 import com.health.service.ConsultantService;
+import com.health.service.ContributorAssignedMultiUserTutorialService;
 import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
 import com.health.service.EventService;
@@ -152,6 +155,9 @@ public class HomeController {
 
 	@Autowired
 	private ContributorAssignedTutorialService conRepo;
+	
+	@Autowired
+	private ContributorAssignedMultiUserTutorialService conMultiUser;
 
 	@Autowired
 	private TutorialService tutService;
@@ -424,6 +430,9 @@ public class HomeController {
 		for(Tutorial temp :tutToView) {
 			System.out.println(temp.getTutorialId() +"***********");
 		}
+		
+		Collections.sort(tutToView);  // sorting based on order value
+		
 		model.addAttribute("tutorials", tutToView);
 
 		return "tutorialList";   // add view name (filename)
@@ -433,6 +442,7 @@ public class HomeController {
 	public String viewTutorial(HttpServletRequest req,@PathVariable int id,Principal principal,Model model) {
 		
 			 Tutorial tutorial = tutService.getById(id);
+			 List<Tutorial> relatedTutorial = new ArrayList<>();
 			 
 			 if(tutorial == null) {
 				 return "redirect:/";
@@ -443,7 +453,15 @@ public class HomeController {
 			 List<TopicCategoryMapping> topicCatMapping = topicCatService.findAllByCategory(category);
 			 List<ContributorAssignedTutorial> contriAssignedTut = conRepo.findAllByTopicCat(topicCatMapping);
 			 List<Tutorial> tutorials = tutService.findAllByContributorAssignedTutorialList(contriAssignedTut);
-			 model.addAttribute("tutorials", tutorials);
+			 
+			 for(Tutorial x: tutorials) {
+				 if(x.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase(tutorial.getConAssignedTutorial().getLan().getLangName())) {
+					 relatedTutorial.add(x);
+				 }
+			 }
+			 Collections.sort(relatedTutorial);
+			 
+			 model.addAttribute("tutorials", relatedTutorial);
 			 System.out.println("*******************");
 			 System.out.println(tutorials);
 			 System.out.println("*******************");
@@ -1285,7 +1303,8 @@ public class HomeController {
 	@RequestMapping(value = "/addTopic",method = RequestMethod.POST)
 	public String addTopicPost(Model model,Principal principal,
 							   @RequestParam(name = "categoryName") int categoryId,
-							   @RequestParam(name = "topicName") String topicName ) {
+							   @RequestParam(name = "topicName") String topicName,
+							   @RequestParam(name = "orderValue") int orderValue) {
 
 		User usr=new User();
 
@@ -1316,7 +1335,7 @@ public class HomeController {
 
 			if(topicCatService.findAllByCategoryAndTopic(cat, topicTemp)==null) {
 
-				TopicCategoryMapping localTopicMap=new TopicCategoryMapping(topicCatService.getNewId(), true, cat, topicTemp);
+				TopicCategoryMapping localTopicMap=new TopicCategoryMapping(topicCatService.getNewId(), true, cat, topicTemp,orderValue);
 				topicCatService.save(localTopicMap);
 				model.addAttribute("success_msg", CommonData.RECORD_SAVE_SUCCESS_MSG);
 				return "addTopic";
@@ -1339,7 +1358,7 @@ public class HomeController {
 
 		try {
 			userService.addUserToTopic(usr, topics);
-			TopicCategoryMapping localTopicMap=new TopicCategoryMapping(topicCatService.getNewId(), true, cat, local);
+			TopicCategoryMapping localTopicMap=new TopicCategoryMapping(topicCatService.getNewId(), true, cat, local,orderValue);
 			topicCatService.save(localTopicMap);
 
 
@@ -3642,10 +3661,16 @@ public class HomeController {
 		List<ContributorAssignedTutorial> userRoles = conRepo.findAll();
 		
 		List<UserRole> userRolesTemp= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+		
+		HashSet<String> userRolesUniqueTemp = new HashSet<>();
+		
+		for(UserRole x : userRolesTemp) {
+			userRolesUniqueTemp.add(x.getUser().getUsername());
+		}
 
 		model.addAttribute("userByContributorsAssigned", userRoles);
 		
-		model.addAttribute("userByContributors", userRolesTemp);
+		model.addAttribute("userByContributors", userRolesUniqueTemp);
 
 		return "assignContributorList";
 	}
@@ -3671,10 +3696,16 @@ public class HomeController {
 		List<ContributorAssignedTutorial> userRoles = conRepo.findAll();
 
 		List<UserRole> userRolesTemp= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+		
+		HashSet<String> userRolesUniqueTemp = new HashSet<>();
+		
+		for(UserRole x : userRolesTemp) {
+			userRolesUniqueTemp.add(x.getUser().getUsername());
+		}
 
 		model.addAttribute("userByContributorsAssigned", userRoles);
 		
-		model.addAttribute("userByContributors", userRolesTemp);
+		model.addAttribute("userByContributors", userRolesUniqueTemp);
 
 		System.out.println(catName);
 
@@ -3683,6 +3714,7 @@ public class HomeController {
 		User userAssigned=userService.findByUsername(contributorName);
 		Set<ContributorAssignedTutorial> conTutorials=new HashSet<ContributorAssignedTutorial>();
 		int conNewId=conRepo.getNewId();
+		int conMutliUserNewId = conMultiUser.getNewId();
 
 		for(String topic:topics) {
 
@@ -3696,13 +3728,22 @@ public class HomeController {
 
 				if(x == null) {
 
-					ContributorAssignedTutorial temp=new ContributorAssignedTutorial(conNewId++, ServiceUtility.getCurrentTime(), userAssigned, topicCat, lan);
-					conTutorials.add(temp);
+					ContributorAssignedTutorial temp=new ContributorAssignedTutorial(conNewId++, ServiceUtility.getCurrentTime(), topicCat, lan);
+					conRepo.save(temp);
+					ContributorAssignedMultiUserTutorial multiUser = new ContributorAssignedMultiUserTutorial(conMutliUserNewId++, ServiceUtility.getCurrentTime(), userAssigned, temp);
+					conMultiUser.save(multiUser);
+					
+					//conTutorials.add(temp);
 
 				}else {
 					// throw error for repeated task
-					model.addAttribute("error_msg", CommonData.CONTRIBUTOR_ERROR_MSG);
-					return "assignContributorList";
+					
+					//model.addAttribute("error_msg", CommonData.CONTRIBUTOR_ERROR_MSG);
+					
+					ContributorAssignedMultiUserTutorial multiUser = new ContributorAssignedMultiUserTutorial(conMutliUserNewId++, ServiceUtility.getCurrentTime(), userAssigned, x);
+					conMultiUser.save(multiUser);
+					
+					// return "assignContributorList";
 				}
 
 
@@ -3715,15 +3756,19 @@ public class HomeController {
 		}
 
 
-		userService.addUserToContributorTutorial(userAssigned, conTutorials);
+		//userService.addUserToContributorTutorial(userAssigned, conTutorials);
 		
 		userRoles = conRepo.findAll();
 
 		userRolesTemp= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+		
+		for(UserRole x : userRolesTemp) {
+			userRolesUniqueTemp.add(x.getUser().getUsername());
+		}
 
 		model.addAttribute("userByContributorsAssigned", userRoles);
 		
-		model.addAttribute("userByContributors", userRolesTemp);
+		model.addAttribute("userByContributors", userRolesUniqueTemp);
 
 
 		model.addAttribute("success_msg", CommonData.CONTRIBUTOR_ASSIGNED_TUTORIAL);
@@ -3751,10 +3796,11 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<String> catName = new ArrayList<String>();
-		List<ContributorAssignedTutorial> con=conRepo.findAllByUser(usr);
+		List<ContributorAssignedMultiUserTutorial> con=conMultiUser.getAllByuser(usr);
 
-		for(ContributorAssignedTutorial temp:con) {
-			catName.add(temp.getTopicCatId().getCat().getCatName());
+		for(ContributorAssignedMultiUserTutorial temp:con) {
+			ContributorAssignedTutorial conTemp = conRepo.findById(temp.getConAssignedTutorial().getId());
+			catName.add(conTemp.getTopicCatId().getCat().getCatName());
 
 		}
 		HashSet<String> uniqueCatName=new HashSet<String>(catName);    // to return unique value
@@ -3820,7 +3866,7 @@ public class HomeController {
 			
 		}
 		
-		ContributorAssignedTutorial conTutorial=conRepo.findByUserTopicCatLan(usr, topicCat, lan);
+		ContributorAssignedTutorial conTutorial=conRepo.findByTopicCatAndLanViewPart( topicCat, lan);
 		List<Tutorial> tutorials=tutService.findAllByContributorAssignedTutorial(conTutorial);
 
 		if(tutorials.isEmpty()) {
@@ -3886,10 +3932,19 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
+		
+		Set<Tutorial> tutorials = new HashSet<Tutorial>();
 
-		List<ContributorAssignedTutorial> conTutorials=conRepo.findAllByUser(usr);
+		List<ContributorAssignedMultiUserTutorial> conTutorials=conMultiUser.getAllByuser(usr);
+		
+		for(ContributorAssignedMultiUserTutorial conMultiTemp : conTutorials) {
+			
+			ContributorAssignedTutorial conTemp = conRepo.findById(conMultiTemp.getConAssignedTutorial().getId());
+			
+			tutorials.addAll(tutService.findAllByContributorAssignedTutorial(conTemp));
+		}
 
-		List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
+		//List<Tutorial> tutorials =  tutService.findAllByContributorAssignedTutorialList(conTutorials);
 
 		model.addAttribute("tutorial", tutorials);
 
@@ -3917,10 +3972,10 @@ public class HomeController {
 
 		}
 
-		if(tutorial.getConAssignedTutorial().getUser().getId() != usr.getId()) {
-
-			return "redirect:/listTutorialForContributorReview";
-		}
+//		if(tutorial.getConAssignedTutorial().getUser().getId() != usr.getId()) {
+//
+//			return "redirect:/listTutorialForContributorReview";
+//		}
 
 		model.addAttribute("statusOutline", CommonData.tutorialStatus[tutorial.getOutlineStatus()]);
 		model.addAttribute("statusScript", CommonData.tutorialStatus[tutorial.getScriptStatus()]);
@@ -3949,6 +4004,12 @@ public class HomeController {
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic());
 		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan());
+		
+		if(!tutorial.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase("english")) {
+			model.addAttribute("otherLan", false);
+		}else {
+			model.addAttribute("otherLan", true);
+		}
 
 		return "uploadTutorialPost";
 
@@ -3972,8 +4033,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		List<Tutorial> toReview = new ArrayList<>();
-		List<Tutorial> reviewed = new ArrayList<>();
+		HashSet<Tutorial> toReview = new HashSet<>();
+		HashSet<Tutorial> reviewed = new HashSet<>();
 		Role role=roleService.findByname(CommonData.adminReviewerRole);
 
 		List<UserRole> userRoles=usrRoleService.findByRoleUser(usr, role);
@@ -4055,8 +4116,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		List<Tutorial> toReview = new ArrayList<>();
-		List<Tutorial> published = new ArrayList<>();
+		HashSet<Tutorial> toReview = new HashSet<>();
+		HashSet<Tutorial> published = new HashSet<>();
 		Role role=roleService.findByname(CommonData.domainReviewerRole);
 
 		List<UserRole> userRoles=usrRoleService.findByRoleUser(usr, role);
@@ -4152,8 +4213,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		List<Tutorial> toReview = new ArrayList<>();
-		List<Tutorial> published = new ArrayList<>();
+		HashSet<Tutorial> toReview = new HashSet<>();
+		HashSet<Tutorial> published = new HashSet<>();
 		Role role=roleService.findByname(CommonData.qualityReviewerRole);
 
 		List<UserRole> userRoles=usrRoleService.findByRoleUser(usr, role);
@@ -4194,7 +4255,7 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		List<Tutorial> published = new ArrayList<>();
+		HashSet<Tutorial> published = new HashSet<>();
 		Role role=roleService.findByname(CommonData.qualityReviewerRole);
 
 		List<UserRole> userRoles=usrRoleService.findByRoleUser(usr, role);

@@ -29,6 +29,7 @@ import com.health.model.Category;
 import com.health.model.City;
 import com.health.model.Comment;
 import com.health.model.Consultant;
+import com.health.model.ContributorAssignedMultiUserTutorial;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.District;
 import com.health.model.Event;
@@ -49,6 +50,7 @@ import com.health.service.CategoryService;
 import com.health.service.CityService;
 import com.health.service.CommentService;
 import com.health.service.ConsultantService;
+import com.health.service.ContributorAssignedMultiUserTutorialService;
 import com.health.service.ContributorAssignedTutorialService;
 import com.health.service.DistrictService;
 import com.health.service.EventService;
@@ -95,6 +97,9 @@ public class AjaxController{
 
 	@Autowired
 	private ContributorAssignedTutorialService conService;
+	
+	@Autowired
+	private ContributorAssignedMultiUserTutorialService conMultiService;
 
 	@Autowired
 	private TutorialService tutService;
@@ -578,13 +583,15 @@ public class AjaxController{
 
 		List<TopicCategoryMapping> localTopicCat = topicCatService.findAllByCategory(cat) ;
 
-		List<ContributorAssignedTutorial> conTutorialByUser=conService.findAllByUser(usr);
+		List<ContributorAssignedMultiUserTutorial> conTutorialByUser=conMultiService.getAllByuser(usr);
 
-		for(ContributorAssignedTutorial localCon:conTutorialByUser) {
+		for(ContributorAssignedMultiUserTutorial localCon:conTutorialByUser) {
 
 			for(TopicCategoryMapping topicTemp:localTopicCat) {
+				
+				ContributorAssignedTutorial conTemp = conService.findById(localCon.getConAssignedTutorial().getId());
 
-				if(localCon.getTopicCatId().getTopicCategoryId() == topicTemp.getTopicCategoryId()) {
+				if(conTemp.getTopicCatId().getTopicCategoryId() == topicTemp.getTopicCategoryId()) {
 
 					topicName.put(topicTemp.getTopic().getTopicId(), topicTemp.getTopic().getTopicName());
 				}
@@ -612,12 +619,13 @@ public class AjaxController{
 		Topic topic=topicService.findById(topicId);
 		TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
 
-		List<ContributorAssignedTutorial> conTutorialByUser=conService.findAllByUser(usr);
+		List<ContributorAssignedMultiUserTutorial> conTutorialByUser=conMultiService.getAllByuser(usr);
 
-		for(ContributorAssignedTutorial temp:conTutorialByUser) {
+		for(ContributorAssignedMultiUserTutorial temp:conTutorialByUser) {
 
-			if(temp.getTopicCatId().getTopicCategoryId() == localTopicCat.getTopicCategoryId()) {
-				languages.add(temp.getLan().getLangName());
+			ContributorAssignedTutorial conTemp = conService.findById(temp.getConAssignedTutorial().getId());
+			if(conTemp.getTopicCatId().getTopicCategoryId() == localTopicCat.getTopicCategoryId()) {
+				languages.add(conTemp.getLan().getLangName());
 			}
 		}
 
@@ -657,23 +665,26 @@ public class AjaxController{
 			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.OUTLINE, CommonData.DOMAIN_STATUS, tut.getOutlineStatus(), CommonData.contributorRole, usr, tut);
 			tut.setOutline(outlineData);
 			tut.setOutlineStatus(CommonData.DOMAIN_STATUS);
+			tut.setOutlineUser(usr);
 
 			tutService.save(tut);
 			logService.save(log);
 			return CommonData.Outline_SAVE_SUCCESS_MSG;
 
 		}else {
-
+			
 			Category cat = catService.findBycategoryname(catName);
 			Topic topic=topicService.findById(topicId);
 			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
 			Language lan=lanService.getByLanName(lanId);
-			ContributorAssignedTutorial conLocal=conService.findByUserTopicCatLan(usr, localTopicCat, lan);
+			ContributorAssignedTutorial conLocal=conService.findByTopicCatAndLanViewPart(localTopicCat, lan);
 			Tutorial local=new Tutorial();
 			local.setDateAdded(ServiceUtility.getCurrentTime());
 			local.setConAssignedTutorial(conLocal);
+			System.out.println(conLocal.getLan().getLangName());
 			local.setOutline(outlineData);
 			local.setOutlineStatus(CommonData.DOMAIN_STATUS);
+			local.setOutlineUser(usr);
 			local.setTutorialId(tutService.getNewId());
 			
 			if(!lan.getLangName().equalsIgnoreCase("English")) {
@@ -681,14 +692,30 @@ public class AjaxController{
 				ContributorAssignedTutorial conLocal1 = conService.findByTopicCatAndLanViewPart(localTopicCat, lanEng);
 				local.setRelatedVideo(tutService.findAllByContributorAssignedTutorial(conLocal1).get(0));
 				
+				Tutorial preReq =tutService.findAllByContributorAssignedTutorial(conLocal1).get(0).getPreRequistic();
+				
+				if(preReq == null) {
+					local.setPreRequistic(null);
+					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+				}else {
+					
+					ContributorAssignedTutorial conLocal2 = conService.findByTopicCatAndLanViewPart(preReq.getConAssignedTutorial().getTopicCatId(),lan);
+					local.setPreRequistic(tutService.findAllByContributorAssignedTutorial(conLocal2).get(0));
+					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+				}
+				
+				
+				
 			}
 
 			try {
 				tutService.save(local);
+				System.out.println("in Exception-block");
 				LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.OUTLINE, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
 				logService.save(log);
 			}catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 				return "error";       // throw error
 			}
 		}
@@ -727,6 +754,7 @@ public class AjaxController{
 			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.KEYWORD, CommonData.DOMAIN_STATUS, tut.getKeywordStatus(), CommonData.contributorRole, usr, tut);
 			tut.setKeyword(keywordData);
 			tut.setKeywordStatus(CommonData.DOMAIN_STATUS);
+			tut.setKeywordUser(usr);
 
 			tutService.save(tut);
 
@@ -739,13 +767,15 @@ public class AjaxController{
 			Topic topic=topicService.findById(topicId);
 			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
 			Language lan=lanService.getByLanName(lanId);
-			ContributorAssignedTutorial conLocal=conService.findByUserTopicCatLan(usr, localTopicCat, lan);
+			ContributorAssignedTutorial conLocal=conService.findByTopicCatAndLanViewPart(localTopicCat, lan);
 			Tutorial local=new Tutorial();
 			local.setDateAdded(ServiceUtility.getCurrentTime());
 			local.setConAssignedTutorial(conLocal);
 			local.setKeyword(keywordData);
 			local.setKeywordStatus(CommonData.DOMAIN_STATUS);
+			local.setKeywordUser(usr);
 			local.setTutorialId(tutService.getNewId());
+			
 
 			try {
 				tutService.save(local);
@@ -903,7 +933,7 @@ public class AjaxController{
 
 					tut.setVideo(document);
 					tut.setVideoStatus(CommonData.ADMIN_STATUS);
-
+					tut.setVideoUser(usr);
 
 					logService.save(log);
 					tutService.save(tut);
@@ -922,7 +952,7 @@ public class AjaxController{
 			Topic topic=topicService.findById(topicId);
 			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
 			Language lan=lanService.getByLanName(lanId);
-			ContributorAssignedTutorial conLocal=conService.findByUserTopicCatLan(usr, localTopicCat, lan);
+			ContributorAssignedTutorial conLocal=conService.findByTopicCatAndLanViewPart(localTopicCat,lan);
 			int newTutorialid=tutService.getNewId();
 
 			Tutorial local=new Tutorial();
@@ -935,7 +965,20 @@ public class AjaxController{
 				ContributorAssignedTutorial conLocal1 = conService.findByTopicCatAndLanViewPart(localTopicCat, lanEng);
 				local.setRelatedVideo(tutService.findAllByContributorAssignedTutorial(conLocal1).get(0));
 				
+				Tutorial preReq =tutService.findAllByContributorAssignedTutorial(conLocal1).get(0).getPreRequistic();
+				
+				if(preReq == null) {
+					local.setPreRequistic(null);
+					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+				}else {
+					
+					ContributorAssignedTutorial conLocal2 = conService.findByTopicCatAndLanViewPart(preReq.getConAssignedTutorial().getTopicCatId(),lan);
+					local.setPreRequistic(tutService.findAllByContributorAssignedTutorial(conLocal2).get(0));
+					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+				}
 			}
+			
+		
 
 			try {
 				tutService.save(local);
@@ -948,6 +991,7 @@ public class AjaxController{
 					Tutorial tut1=tutService.getById(newTutorialid);
 					tut1.setVideo(document);
 					tut1.setVideoStatus(CommonData.ADMIN_STATUS);
+					tut1.setVideoUser(usr);
 					tutService.save(tut1);
 
 					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.KEYWORD, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
@@ -1002,6 +1046,7 @@ public class AjaxController{
 
 					tut.setSlide(document);
 					tut.setSlideStatus(CommonData.DOMAIN_STATUS);
+					tut.setSlideUser(usr);
 					tutService.save(tut);
 					logService.save(log);
 					return CommonData.Slide_SAVE_SUCCESS_MSG;
@@ -1018,13 +1063,14 @@ public class AjaxController{
 			Topic topic=topicService.findById(topicId);
 			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
 			Language lan=lanService.getByLanName(lanId);
-			ContributorAssignedTutorial conLocal=conService.findByUserTopicCatLan(usr, localTopicCat, lan);
+			ContributorAssignedTutorial conLocal=conService.findByTopicCatAndLanViewPart(localTopicCat, lan);
 			int newTutorialid=tutService.getNewId();
 
 			Tutorial local=new Tutorial();
 			local.setDateAdded(ServiceUtility.getCurrentTime());
 			local.setConAssignedTutorial(conLocal);
 			local.setTutorialId(newTutorialid);
+			
 
 			try {
 				tutService.save(local);
@@ -1037,6 +1083,7 @@ public class AjaxController{
 					Tutorial tut1=tutService.getById(newTutorialid);
 					tut1.setSlide(document);
 					tut1.setSlideStatus(CommonData.DOMAIN_STATUS);
+					tut1.setSlideUser(usr);
 					tutService.save(tut1);
 
 					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SLIDE, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
@@ -1088,6 +1135,7 @@ public class AjaxController{
 
 					tut.setScript(document);
 					tut.setScriptStatus(CommonData.DOMAIN_STATUS);
+					tut.setScriptUser(usr);
 					tutService.save(tut);
 
 					logService.save(log);
@@ -1105,7 +1153,7 @@ public class AjaxController{
 			Topic topic=topicService.findById(topicId);
 			TopicCategoryMapping localTopicCat = topicCatService.findAllByCategoryAndTopic(cat, topic);
 			Language lan=lanService.getByLanName(lanId);
-			ContributorAssignedTutorial conLocal=conService.findByUserTopicCatLan(usr, localTopicCat, lan);
+			ContributorAssignedTutorial conLocal=conService.findByTopicCatAndLanViewPart( localTopicCat, lan);
 			int newTutorialid=tutService.getNewId();
 
 			Tutorial local=new Tutorial();
@@ -1118,7 +1166,19 @@ public class AjaxController{
 				ContributorAssignedTutorial conLocal1 = conService.findByTopicCatAndLanViewPart(localTopicCat, lanEng);
 				local.setRelatedVideo(tutService.findAllByContributorAssignedTutorial(conLocal1).get(0));
 				
+				Tutorial preReq =tutService.findAllByContributorAssignedTutorial(conLocal1).get(0).getPreRequistic();
+				
+				if(preReq == null) {
+					local.setPreRequistic(null);
+					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+				}else {
+					
+					ContributorAssignedTutorial conLocal2 = conService.findByTopicCatAndLanViewPart(preReq.getConAssignedTutorial().getTopicCatId(),lan);
+					local.setPreRequistic(tutService.findAllByContributorAssignedTutorial(conLocal2).get(0));
+					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+				}
 			}
+			
 
 			try {
 				tutService.save(local);
@@ -1131,6 +1191,7 @@ public class AjaxController{
 					Tutorial tut1=tutService.getById(newTutorialid);
 					tut1.setScript(document);
 					tut1.setScriptStatus(CommonData.DOMAIN_STATUS);
+					tut1.setScriptUser(usr);
 					tutService.save(tut1);
 
 					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SCRIPT, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);

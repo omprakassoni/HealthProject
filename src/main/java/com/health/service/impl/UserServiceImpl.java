@@ -137,8 +137,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User addUserToContributorTutorial(User usr, Set<ContributorAssignedTutorial> testi) {
 		// TODO Auto-generated method stub
-		usr.getConAssignedTutorial().addAll(testi);
-		userRepository.save(usr);
+//		usr.getConAssignedTutorial().addAll(testi);
+//		userRepository.save(usr);
 		return null;
 		
 	}

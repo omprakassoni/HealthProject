@@ -21,11 +21,7 @@ public class ContributorAssignedTutorial {
 	@Id
 	private int id;
 	private Timestamp dateAdded;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="user_assigned")
-	private User user;
-	
+		
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="topicCat_ID")
 	private TopicCategoryMapping topicCatId;
@@ -36,6 +32,9 @@ public class ContributorAssignedTutorial {
 	
 	@OneToMany(mappedBy = "conAssignedTutorial", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Tutorial> tutorials=new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "conAssignedTutorial", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<ContributorAssignedMultiUserTutorial> multiUserAssigned=new HashSet<ContributorAssignedMultiUserTutorial>();
 
 	public int getId() {
 		return id;
@@ -51,14 +50,6 @@ public class ContributorAssignedTutorial {
 
 	public void setDateAdded(Timestamp dateAdded) {
 		this.dateAdded = dateAdded;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public TopicCategoryMapping getTopicCatId() {
@@ -77,12 +68,11 @@ public class ContributorAssignedTutorial {
 		this.lan = lan;
 	}
 
-	public ContributorAssignedTutorial(int id, Timestamp dateAdded, User user, TopicCategoryMapping topicCatId,
+	public ContributorAssignedTutorial(int id, Timestamp dateAdded, TopicCategoryMapping topicCatId,
 			Language lan) {
 		super();
 		this.id = id;
 		this.dateAdded = dateAdded;
-		this.user = user;
 		this.topicCatId = topicCatId;
 		this.lan = lan;
 	}
@@ -99,7 +89,16 @@ public class ContributorAssignedTutorial {
 	public void setTutorials(Set<Tutorial> tutorials) {
 		this.tutorials = tutorials;
 	}
+
+	public Set<ContributorAssignedMultiUserTutorial> getMultiUserAssigned() {
+		return multiUserAssigned;
+	}
+
+	public void setMultiUserAssigned(Set<ContributorAssignedMultiUserTutorial> multiUserAssigned) {
+		this.multiUserAssigned = multiUserAssigned;
+	}
 	 
+	
  
 		
 }

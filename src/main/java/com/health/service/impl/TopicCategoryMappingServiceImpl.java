@@ -72,5 +72,11 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 		return topicCatRepo.findAllBytopic(topic);
 	}
 
+	@Override
+	public TopicCategoryMapping findByCategoryAndOrder(Category cat, int order) {
+		// TODO Auto-generated method stub
+		return topicCatRepo.findBycatAndorder(cat, order);
+	}
+
 
 }

@@ -58,8 +58,8 @@
 
 
 													<option th:each="contributors: ${userByContributors}"
-														th:value="${contributors.getUser().getUsername()}"
-														th:text="${contributors.getUser().getUsername()}"></option>
+														th:value="${contributors}"
+														th:text="${contributors}"></option>
 
 												</select>
 											</div>
@@ -112,8 +112,8 @@
   </thead>
   <tbody>
     <tr th:each="user : ${userByContributorsAssigned}">
-      <td scope="row"><span th:text = "${user.getUser().getFirstName()}"></span></td>
-      <td><span th:text = "${user.getUser().getLastName()}"></span></td>
+    <!--  <td scope="row"><span th:text = "${user.getUser().getFirstName()}"></span></td>
+      <td><span th:text = "${user.getUser().getLastName()}"></span></td> -->
       <td><span  th:text="${user.getTopicCatId().getCat().getCatName()}"> </span></td>
 	  <td><span  th:text="${user.getTopicCatId().getTopic().getTopicName()}"></span></td>
 	  <td><span  th:text="${user.getLan().getLangName()}"></span></td>

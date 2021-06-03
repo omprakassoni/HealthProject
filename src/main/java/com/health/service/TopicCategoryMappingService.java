@@ -20,5 +20,7 @@ public interface TopicCategoryMappingService {
 	List<TopicCategoryMapping> findAllByCategoryBasedOnUserRoles(List<UserRole> userRoles);
 	
 	TopicCategoryMapping findAllByCategoryAndTopic(Category cat,Topic topic);
+	
+	TopicCategoryMapping findByCategoryAndOrder(Category cat, int order);
 }
 

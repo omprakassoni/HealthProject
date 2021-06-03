@@ -12,9 +12,11 @@ public interface ContributorAssignedTutorialService {
 	
 	int getNewId();
 	
-	ContributorAssignedTutorial findByUserTopicCatLan(User usr,TopicCategoryMapping topicCat,Language lan);
+	void save(ContributorAssignedTutorial con);
 	
-	List<ContributorAssignedTutorial> findAllByUser(User user);
+	//ContributorAssignedTutorial findByUserTopicCatLan(User usr,TopicCategoryMapping topicCat,Language lan);
+	
+	//List<ContributorAssignedTutorial> findAllByUser(User user);
 	
 	List<ContributorAssignedTutorial> findAll();
 	
@@ -29,4 +31,6 @@ public interface ContributorAssignedTutorialService {
 	List<ContributorAssignedTutorial> findAllByTopicCatAndLanViewPart(List<TopicCategoryMapping> topCat,Language lan);
 	
 	ContributorAssignedTutorial findByTopicCatAndLanViewPart(TopicCategoryMapping topCat,Language lan);
+	
+	ContributorAssignedTutorial findById(int id);
 }

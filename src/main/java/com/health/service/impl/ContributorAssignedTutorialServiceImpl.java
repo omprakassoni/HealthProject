@@ -32,17 +32,17 @@ public class ContributorAssignedTutorialServiceImpl implements ContributorAssign
 		}
 	}
 
-	@Override
-	public ContributorAssignedTutorial findByUserTopicCatLan(User usr, TopicCategoryMapping topicCat, Language lan) {
-		// TODO Auto-generated method stub
-		return conRepo.findByUserTopicCatLan(usr, topicCat, lan);
-	}
-
-	@Override
-	public List<ContributorAssignedTutorial> findAllByUser(User user) {
-		// TODO Auto-generated method stub
-		return conRepo.findAllByuser(user);
-	}
+//	@Override
+//	public ContributorAssignedTutorial findByUserTopicCatLan(User usr, TopicCategoryMapping topicCat, Language lan) {
+//		// TODO Auto-generated method stub
+//		return conRepo.findByUserTopicCatLan(usr, topicCat, lan);
+//	}
+//
+//	@Override
+//	public List<ContributorAssignedTutorial> findAllByUser(User user) {
+//		// TODO Auto-generated method stub
+//		return conRepo.findAllByuser(user);
+//	}
 
 	@Override
 	public List<ContributorAssignedTutorial> findByTopicCatLan(List<TopicCategoryMapping> topCat, List<UserRole> usrRole) {
@@ -101,6 +101,18 @@ public class ContributorAssignedTutorialServiceImpl implements ContributorAssign
 	public List<ContributorAssignedTutorial> findAll() {
 		// TODO Auto-generated method stub
 		return (List<ContributorAssignedTutorial>) conRepo.findAll();
+	}
+
+	@Override
+	public void save(ContributorAssignedTutorial con) {
+		// TODO Auto-generated method stub
+		conRepo.save(con);
+	}
+
+	@Override
+	public ContributorAssignedTutorial findById(int id) {
+		// TODO Auto-generated method stub
+		return conRepo.findById(id).get();
 	}
 
 }

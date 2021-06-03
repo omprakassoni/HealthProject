@@ -115,9 +115,6 @@ public class User implements UserDetails{
 	private Set<Consultant> consults = new HashSet<Consultant>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingInformation> trainingInfo =new HashSet<TrainingInformation>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -131,8 +128,26 @@ public class User implements UserDetails{
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<PostQuestionaire> questionsPost =new HashSet<PostQuestionaire>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<ContributorAssignedMultiUserTutorial> multiUserOnTutorial =new HashSet<ContributorAssignedMultiUserTutorial>();
 
-
+	@OneToMany(mappedBy = "scriptUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Tutorial> tutorialScriptUser =new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "slideUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Tutorial> tutorialSlideUser =new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "keywordUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Tutorial> tutorialKeywordUser =new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "outlineUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Tutorial> tutorialOutlineUser =new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "videoUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Tutorial> tutorialVideoUser =new HashSet<Tutorial>();
+	
+	
 	public Set<Question> getQuestions() {
 		return questions;
 	}
@@ -314,12 +329,6 @@ public class User implements UserDetails{
 	}
 	public void setConsults(Set<Consultant> consults) {
 		this.consults = consults;
-	}
-	public Set<ContributorAssignedTutorial> getConAssignedTutorial() {
-		return conAssignedTutorial;
-	}
-	public void setConAssignedTutorial(Set<ContributorAssignedTutorial> conAssignedTutorial) {
-		this.conAssignedTutorial = conAssignedTutorial;
 	}
 	public Set<TrainingInformation> getTrainingInfo() {
 		return trainingInfo;

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tutorial_resource")
-public class Tutorial {
+public class Tutorial implements Comparable<Tutorial>{
 
 	@Id
 	@Column(name = "tutorial_id",updatable = false,nullable = false)
@@ -27,24 +27,52 @@ public class Tutorial {
 
 	@Column(name = "script_status")
 	private int scriptStatus = 0;
+	
+//	@Column(name = "script_user")
+//	private User scriptUser = null;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="user_script")
+	private User scriptUser;
 
 	@Column(name = "slide",length = 1000)
 	private String slide;
 
 	@Column(name = "slide_status")
 	private int slideStatus = 0;
+	
+//	@Column(name = "slide_user")
+//	private User slideUser = null;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="user_slide")
+	private User slideUser;
 
 	@Column(name = "keyword",length = 1000)
 	private String keyword;
 
 	@Column(name = "keyword_status")
 	private int keywordStatus = 0;
+	
+//	@Column(name = "keyword_user")
+//	private User keywordUser = null;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="user_keyword")
+	private User keywordUser;
 
 	@Column(name = "outline",length = 1000)
 	private String outline;
 
 	@Column(name = "outline_status")
 	private int outlineStatus = 0;
+	
+//	@Column(name = "outline_user")
+//	private User outlineUser = null;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="user_outline")
+	private User outlineUser;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "preRequistics")
@@ -74,6 +102,13 @@ public class Tutorial {
 
 	@Column(name = "video_status")
 	private int videoStatus = 0;
+	
+//	@Column(name = "video_user")
+//	private User videoUser = null;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="user_video")
+	private User videoUser;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "conAssignedTutorial")
@@ -273,6 +308,56 @@ public class Tutorial {
 
 	public void setRelatedTutorial(Set<Tutorial> relatedTutorial) {
 		this.relatedTutorial = relatedTutorial;
+	}
+
+	public User getScriptUser() {
+		return scriptUser;
+	}
+
+	public void setScriptUser(User scriptUser) {
+		this.scriptUser = scriptUser;
+	}
+
+	public User getSlideUser() {
+		return slideUser;
+	}
+
+	public void setSlideUser(User slideUser) {
+		this.slideUser = slideUser;
+	}
+
+	public User getKeywordUser() {
+		return keywordUser;
+	}
+
+	public void setKeywordUser(User keywordUser) {
+		this.keywordUser = keywordUser;
+	}
+
+	public User getOutlineUser() {
+		return outlineUser;
+	}
+
+	public void setOutlineUser(User outlineUser) {
+		this.outlineUser = outlineUser;
+	}
+
+	public User getVideoUser() {
+		return videoUser;
+	}
+
+	public void setVideoUser(User videoUser) {
+		this.videoUser = videoUser;
+	}
+	
+	public Integer getOrdering() {
+		return this.getConAssignedTutorial().getTopicCatId().getOrder();
+	}
+
+	@Override
+	public int compareTo(Tutorial o) {
+		// TODO Auto-generated method stub
+		return this.getOrdering().compareTo(o.getOrdering());
 	}
 	
 	
