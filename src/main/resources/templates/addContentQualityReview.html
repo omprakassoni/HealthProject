@@ -83,7 +83,7 @@
 														<span style="color: green;" th:text="${statusOutline}">Pending</span>
 												</span></td>
 												<td>
-												<span style="color: green;" th:text="${tutorial.getOutlineUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getOutlineUser()}" th:text="${tutorial.getOutlineUser().getUsername()}"></span>
 												</span></td>
 												
 												<th>
@@ -103,7 +103,7 @@
 														<span style="color: green;" th:text="${statusScript}">Pending</span>
 												</span></td>
 												<td>
-												<span style="color: green;" th:text="${tutorial.getScriptUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getScriptUser()}" th:text="${tutorial.getScriptUser().getUsername()}"></span>
 												</span></td>
 												
 												<th>
@@ -124,7 +124,7 @@
 														<span style="color: green;" th:text="${statusSlide}">Pending</span>
 												</span></td>
 												<td>
-												<span style="color: green;" th:text="${tutorial.getSlideUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getSlideUser()}" th:text="${tutorial.getSlideUser().getUsername()}"></span>
 												</span></td>
 												
 												<th>
@@ -147,7 +147,7 @@
 														<span style="color: green;" th:text="${statusVideo}">Pending</span>
 												</span></td>
 												<td>
-												<span style="color: green;" th:text="${tutorial.getVideoUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getVideoUser()}" th:text="${tutorial.getVideoUser().getUsername()}"></span>
 												</span></td>
 
 												
@@ -169,7 +169,7 @@
 														<span style="color: green;" th:text="${statusKeyword}">Pending</span>
 												</span></td>
 												<td>
-												<span style="color: green;" th:text="${tutorial.getKeywordUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getKeywordUser()}" th:text="${tutorial.getKeywordUser().getUsername()}"></span>
 												</span></td>
 												
 												<th>
@@ -190,7 +190,7 @@
 												<td><span class="status-contri"
 													th:text="${statusPreReq}"></span></td>
 												<td>
-												<span style="color: green;" th:text="${tutorial.getPreRequiticUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getPreRequiticUser()}" th:text="${tutorial.getPreRequiticUser().getUsername()}"></span>
 												</span></td>
 												
 												<th>

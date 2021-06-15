@@ -3896,17 +3896,17 @@ public class HomeController {
 
 				model.addAttribute("tutorial", local);
 				
-//				IContainer container = IContainer.make();
-//				int result=10;
-//				result = container.open(env.getProperty("spring.applicationexternalPath.name")+local.getVideo(),IContainer.Type.READ,null);
-//				
-//				System.out.println("Video Duration"+container.getDuration()/1000000);
-//				System.out.println("file Size"+container.getFileSize()/1000000);
-//				
-//				model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
-//				model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
-//				
-//				container.close();
+				IContainer container = IContainer.make();
+				int result=10;
+				result = container.open(env.getProperty("spring.applicationexternalPath.name")+local.getVideo(),IContainer.Type.READ,null);
+				
+				System.out.println("Video Duration"+container.getDuration()/1000000);
+				System.out.println("file Size"+container.getFileSize()/1000000);
+				
+				model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+				model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+				
+				container.close();
 				
 
 				List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, local);
@@ -4005,17 +4005,17 @@ public class HomeController {
 
 		model.addAttribute("tutorial", tutorial);
 		
-//		IContainer container = IContainer.make();
-//		int result=10;
-//		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
-//		
-//		System.out.println("Video Duration"+container.getDuration()/1000000);
-//		System.out.println("file Size"+container.getFileSize()/1000000);
-//		
-//		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
-//		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
-//		
-//		container.close();
+		IContainer container = IContainer.make();
+		int result=10;
+		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
+		
+		System.out.println("Video Duration"+container.getDuration()/1000000);
+		System.out.println("file Size"+container.getFileSize()/1000000);
+		
+		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+		
+		container.close();
 
 		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, tutorial);
 		List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT, tutorial);
@@ -4125,17 +4125,17 @@ public class HomeController {
 		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
 		model.addAttribute("tutorial", tutorial);
 		
-//		IContainer container = IContainer.make();
-//		int result=10;
-//		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
-//		
-//		System.out.println("Video Duration"+container.getDuration()/1000000);
-//		System.out.println("file Size"+container.getFileSize()/1000000);
-//		
-//		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
-//		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
-//		
-//		container.close();
+		IContainer container = IContainer.make();
+		int result=10;
+		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
+		
+		System.out.println("Video Duration"+container.getDuration()/1000000);
+		System.out.println("file Size"+container.getFileSize()/1000000);
+		
+		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+		
+		container.close();
 
 		model.addAttribute("success_msg", CommonData.Video_STATUS_SUCCESS_MSG);
 		return "addContentAdminReview";
@@ -4232,17 +4232,17 @@ public class HomeController {
 
 		model.addAttribute("tutorial", tutorial); 
 		
-//		IContainer container = IContainer.make();
-//		int result=10;
-//		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
-//		
-//		System.out.println("Video Duration"+container.getDuration()/1000000);
-//		System.out.println("file Size"+container.getFileSize()/1000000);
-//		
-//		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
-//		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
-//		
-//		container.close();
+		IContainer container = IContainer.make();
+		int result=10;
+		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
+		
+		System.out.println("Video Duration"+container.getDuration()/1000000);
+		System.out.println("file Size"+container.getFileSize()/1000000);
+		
+		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+		
+		container.close();
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
@@ -4540,17 +4540,17 @@ public class HomeController {
 
 		model.addAttribute("tutorial", tutorial);
 		
-//		IContainer container = IContainer.make();
-//		int result=10;
-//		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
-//		
-//		System.out.println("Video Duration"+container.getDuration()/1000000);
-//		System.out.println("file Size"+container.getFileSize()/1000000);
-//		
-//		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
-//		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
-//		
-//		container.close();
+		IContainer container = IContainer.make();
+		int result=10;
+		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
+		
+		System.out.println("Video Duration"+container.getDuration()/1000000);
+		System.out.println("file Size"+container.getFileSize()/1000000);
+		
+		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+		
+		container.close();
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
