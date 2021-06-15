@@ -6295,9 +6295,9 @@ $(document).ready(function() {
 					},
 					contentType : "application/json",
 					success : function(result) {
-
-						 $("#statusOutlineByDomain").prop('disabled',false);
-						 $('#statusOutlineByDomain').html(result);
+						
+						$('.commentS').addClass('d-block');
+						 $('.commentS').html(result);
 					},
 
 					error : function(err) {
