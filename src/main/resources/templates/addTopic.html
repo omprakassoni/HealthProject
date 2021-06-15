@@ -90,17 +90,21 @@
   <table class="table table-striped" id="myTable">
   <thead>
     <tr>
-      <th scope="col">ID</th>
+      <th scope="col">Category</th>
       <th scope="col">Topic Name</th>
+      <th scope="col">Order</th>
       <th scope="col">Edit</th>
 
     </tr>
   </thead>
   <tbody>
       <tr th:each="topic : ${topics}">
-      <td scope="row"><span th:text = "${topic.getTopicId()}"></span></td>
-      <td><span th:text = "${topic.getTopicName()}"></span></td>
-      <td><a th:href="@{${'/topic/edit/' + topic.getTopicId()}}">Edit</a></td>
+      <div th:each="topicTemp : ${topic.getTopicCategoryMap()}">
+      <td scope="row"><span th:text = "${topicTemp.getCat().getCatName()}"></span></td>
+	  <td><span th:text = "${topicTemp.getTopic().getTopicName()}"></span></td>
+      <td><span th:text = "${topicTemp.getOrder()}"></span></td>
+      <td><a th:href="@{${'/topic/edit/' + topicTemp.getTopic().getTopicId()}}">Edit</a></td>
+      </div>
     </tr>
    
   </tbody>

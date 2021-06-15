@@ -81,6 +81,18 @@ public class Tutorial implements Comparable<Tutorial>{
 	@Column(name = "preRequistic_status")
 	private int preRequisticStatus = 0;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="user_preRequistic")
+	private User preRequiticUser;
+	
+	public User getPreRequiticUser() {
+		return preRequiticUser;
+	}
+
+	public void setPreRequiticUser(User preRequiticUser) {
+		this.preRequiticUser = preRequiticUser;
+	}
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "relatedVideo")
 	private Tutorial relatedVideo;

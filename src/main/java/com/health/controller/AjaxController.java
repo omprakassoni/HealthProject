@@ -687,6 +687,7 @@ public class AjaxController{
 			local.setOutlineUser(usr);
 			local.setTutorialId(tutService.getNewId());
 			
+			
 			if(!lan.getLangName().equalsIgnoreCase("English")) {
 				Language lanEng = lanService.getByLanName("English");
 				ContributorAssignedTutorial conLocal1 = conService.findByTopicCatAndLanViewPart(localTopicCat, lanEng);
@@ -696,12 +697,16 @@ public class AjaxController{
 				
 				if(preReq == null) {
 					local.setPreRequistic(null);
-					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+					local.setPreRequisticStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setSlideStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setKeywordStatus(CommonData.WAITING_PUBLISH_STATUS);
 				}else {
 					
 					ContributorAssignedTutorial conLocal2 = conService.findByTopicCatAndLanViewPart(preReq.getConAssignedTutorial().getTopicCatId(),lan);
 					local.setPreRequistic(tutService.findAllByContributorAssignedTutorial(conLocal2).get(0));
-					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+					local.setPreRequisticStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setSlideStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setKeywordStatus(CommonData.WAITING_PUBLISH_STATUS);
 				}
 				
 				
@@ -818,6 +823,7 @@ public class AjaxController{
 
 			tut.setPreRequistic(null);
 			tut.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+			tut.setPreRequiticUser(usr);
 
 			tutService.save(tut);
 
@@ -857,6 +863,7 @@ public class AjaxController{
 
 			tut.setPreRequistic(tutorial_temp);
 			tut.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+			tut.setPreRequiticUser(usr);
 
 			tutService.save(tut);
 
@@ -960,6 +967,7 @@ public class AjaxController{
 			local.setConAssignedTutorial(conLocal);
 			local.setTutorialId(newTutorialid);
 			
+			
 			if(!lan.getLangName().equalsIgnoreCase("English")) {
 				Language lanEng = lanService.getByLanName("English");
 				ContributorAssignedTutorial conLocal1 = conService.findByTopicCatAndLanViewPart(localTopicCat, lanEng);
@@ -969,12 +977,16 @@ public class AjaxController{
 				
 				if(preReq == null) {
 					local.setPreRequistic(null);
-					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+					local.setPreRequisticStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setSlideStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setKeywordStatus(CommonData.WAITING_PUBLISH_STATUS);
 				}else {
 					
 					ContributorAssignedTutorial conLocal2 = conService.findByTopicCatAndLanViewPart(preReq.getConAssignedTutorial().getTopicCatId(),lan);
 					local.setPreRequistic(tutService.findAllByContributorAssignedTutorial(conLocal2).get(0));
-					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+					local.setPreRequisticStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setSlideStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setKeywordStatus(CommonData.WAITING_PUBLISH_STATUS);
 				}
 			}
 			
@@ -1161,6 +1173,7 @@ public class AjaxController{
 			local.setConAssignedTutorial(conLocal);
 			local.setTutorialId(newTutorialid);
 			
+			
 			if(!lan.getLangName().equalsIgnoreCase("English")) {
 				Language lanEng = lanService.getByLanName("English");
 				ContributorAssignedTutorial conLocal1 = conService.findByTopicCatAndLanViewPart(localTopicCat, lanEng);
@@ -1170,12 +1183,16 @@ public class AjaxController{
 				
 				if(preReq == null) {
 					local.setPreRequistic(null);
-					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+					local.setPreRequisticStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setSlideStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setKeywordStatus(CommonData.WAITING_PUBLISH_STATUS);
 				}else {
 					
 					ContributorAssignedTutorial conLocal2 = conService.findByTopicCatAndLanViewPart(preReq.getConAssignedTutorial().getTopicCatId(),lan);
 					local.setPreRequistic(tutService.findAllByContributorAssignedTutorial(conLocal2).get(0));
-					local.setPreRequisticStatus(CommonData.DOMAIN_STATUS);
+					local.setPreRequisticStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setSlideStatus(CommonData.WAITING_PUBLISH_STATUS);
+					local.setKeywordStatus(CommonData.WAITING_PUBLISH_STATUS);
 				}
 			}
 			

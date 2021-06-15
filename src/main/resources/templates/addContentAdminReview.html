@@ -132,6 +132,8 @@
 													<source th:src="@{/files/}+@{${tutorial.getVideo()}}" type="video/mp4"></source>
 													</video>
 </div>
+													<div> Video Duration : <span th:text="${FileDurationInSecond}"/> Seconds </div> 
+													<div> Video File Size : <span th:text="${fileSizeInMB}"/> MB </div>
 								<div class="row">
 								<div class="col-md-12">
 								<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
@@ -196,7 +198,7 @@
 				                  
 				       <div class="alert alert-info">
 				                  
-				               <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getComment()}"></span></strong>
+				               <strong style="color:green; text-transform:uppercase;"> <span style="color:green;" th:text="${mesComment.getUser().getUsername()}"></span></strong>
 				                  
 				                     <span style="color:green;" th:text="${mesComment.getComment()}">
 				                   

@@ -214,8 +214,12 @@
 								th:href="@{/files/}+@{${tutorial.getScript()}}" name="ScriptPdf"
 								target="_blank" id="ScriptPdf">Script</a> <a
 								name="ScriptPdf" target="_blank" id="viewScript" href="#"></a></li>
-							<li class="mb-3"><i class="fas fa-file-download mr-3"></i> 
+							<li class="mb-3" th:unless="${relatedContent}"><i class="fas fa-file-download mr-3"></i> 
 							<a name="sliedPdf" th:if="${tutorial.getSlideStatus() != 0}" target="_blank" th:href="@{/files/}+@{${tutorial.getSlide()}}"
+																	id="sliedPdf"> Slide</a>
+							</li>
+							<li class="mb-3" th:if="${relatedContent}"><i class="fas fa-file-download mr-3"> </i> 
+							<a name="sliedPdf" target="_blank" th:href="@{/files/}+@{${relatedContent.getSlide()}}"
 																	id="sliedPdf"> Slide</a>
 							</li>
 						</ul>

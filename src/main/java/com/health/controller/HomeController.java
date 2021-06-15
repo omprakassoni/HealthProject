@@ -448,6 +448,10 @@ public class HomeController {
 				 return "redirect:/";
 			 }
 			 model.addAttribute("tutorial", tutorial);
+			 
+			 if(!tutorial.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase("english")){
+				 model.addAttribute("relatedContent", tutorial.getRelatedVideo());
+			 }
 
 			 Category category = catService.findByid(tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCategoryId());
 			 List<TopicCategoryMapping> topicCatMapping = topicCatService.findAllByCategory(category);
@@ -3891,6 +3895,19 @@ public class HomeController {
 				model.addAttribute("statusPreReq", CommonData.tutorialStatus[local.getPreRequisticStatus()]);
 
 				model.addAttribute("tutorial", local);
+				
+//				IContainer container = IContainer.make();
+//				int result=10;
+//				result = container.open(env.getProperty("spring.applicationexternalPath.name")+local.getVideo(),IContainer.Type.READ,null);
+//				
+//				System.out.println("Video Duration"+container.getDuration()/1000000);
+//				System.out.println("file Size"+container.getFileSize()/1000000);
+//				
+//				model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+//				model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+//				
+//				container.close();
+				
 
 				List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, local);
 				List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT, local);
@@ -3960,7 +3977,9 @@ public class HomeController {
 
 			usr=userService.findByUsername(principal.getName());
 		}
-
+		
+		List<Category> categories = catService.findAll();
+		model.addAttribute("categories", categories);
 		model.addAttribute("userInfo", usr);
 		Tutorial tutorial=tutService.getById(id);
 
@@ -3985,6 +4004,18 @@ public class HomeController {
 		model.addAttribute("statusPreReq", CommonData.tutorialStatus[tutorial.getPreRequisticStatus()]);
 
 		model.addAttribute("tutorial", tutorial);
+		
+//		IContainer container = IContainer.make();
+//		int result=10;
+//		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
+//		
+//		System.out.println("Video Duration"+container.getDuration()/1000000);
+//		System.out.println("file Size"+container.getFileSize()/1000000);
+//		
+//		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+//		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+//		
+//		container.close();
 
 		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, tutorial);
 		List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT, tutorial);
@@ -4093,6 +4124,18 @@ public class HomeController {
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
 		model.addAttribute("tutorial", tutorial);
+		
+//		IContainer container = IContainer.make();
+//		int result=10;
+//		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
+//		
+//		System.out.println("Video Duration"+container.getDuration()/1000000);
+//		System.out.println("file Size"+container.getFileSize()/1000000);
+//		
+//		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+//		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+//		
+//		container.close();
 
 		model.addAttribute("success_msg", CommonData.Video_STATUS_SUCCESS_MSG);
 		return "addContentAdminReview";
@@ -4187,11 +4230,29 @@ public class HomeController {
 		model.addAttribute("statusKeyword", CommonData.tutorialStatus[tutorial.getKeywordStatus()]);
 		model.addAttribute("statusPreReq", CommonData.tutorialStatus[tutorial.getPreRequisticStatus()]);
 
-		model.addAttribute("tutorial", tutorial);
+		model.addAttribute("tutorial", tutorial); 
+		
+//		IContainer container = IContainer.make();
+//		int result=10;
+//		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
+//		
+//		System.out.println("Video Duration"+container.getDuration()/1000000);
+//		System.out.println("file Size"+container.getFileSize()/1000000);
+//		
+//		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+//		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+//		
+//		container.close();
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
+		
+		if(!tutorial.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase("english")) {
+			model.addAttribute("otherLan", false);
+		}else {
+			model.addAttribute("otherLan", true);
+		}
 
 		return "addContentDomainReview";
 
@@ -4313,7 +4374,7 @@ public class HomeController {
 		tutService.save(tutorial);
 		model.addAttribute("success_msg", CommonData.PUBLISHED_SUCCESS);
 		
-		List<Tutorial> published = new ArrayList<>();
+		HashSet<Tutorial> published = new HashSet<>();
 		Role role=roleService.findByname(CommonData.qualityReviewerRole);
 
 		List<UserRole> userRoles=usrRoleService.findByRoleUser(usr, role);
@@ -4478,10 +4539,28 @@ public class HomeController {
 		model.addAttribute("statusPreReq", CommonData.tutorialStatus[tutorial.getPreRequisticStatus()]);
 
 		model.addAttribute("tutorial", tutorial);
+		
+//		IContainer container = IContainer.make();
+//		int result=10;
+//		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
+//		
+//		System.out.println("Video Duration"+container.getDuration()/1000000);
+//		System.out.println("file Size"+container.getFileSize()/1000000);
+//		
+//		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
+//		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
+//		
+//		container.close();
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
+		
+		if(!tutorial.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase("english")) {
+			model.addAttribute("otherLan", false);
+		}else {
+			model.addAttribute("otherLan", true);
+		}
 
 		return "addContentQualityReview";
 

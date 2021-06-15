@@ -1429,6 +1429,13 @@ $(document).ready(function() {
 						console.log("success");
 						$("#exampleModalLabelPre").prop('disabled',false);
 						$("#exampleModalLabelPre").html("Result");
+						
+						var msg = 'Pre-Requistic updated successfully.'
+									// $('#statusOutline').html(html);
+									$('#statusPreReq')
+									.addClass(
+									'd-block');
+								$('#statusPreReq').html(msg);
 
 					},
 
@@ -1436,6 +1443,13 @@ $(document).ready(function() {
 						console.log("error");
 						console
 						.log("not working. ERROR: "+ JSON.stringify(err));
+						
+						var msg = 'Error in updating Pre-Requistic.'
+									// $('#statusOutline').html(html);
+									$('#statusPreReq').addClass('d-block');
+								 $('#statusPreReq').addClass('alert-danger');
+
+								$('#statusPreReq').html(msg);
 					}
 
 				});
@@ -3360,6 +3374,7 @@ $(document).ready(function() {
 						$('#editOutline').toggle();
 
 						var saveInfo = editor.getData();
+						alert(saveInfo);
 						var tutorialId=$("#tutorialId").val();
 						
 						console.log("******************");
@@ -6211,7 +6226,7 @@ $(document).ready(function() {
 
 						} else if (vals == '2') {
 
-							var msg = $("#msgkeywordQuality")
+							var msg = $("#msgVideoQuality")
 							.val();
 
 							$
@@ -6427,16 +6442,23 @@ $(document).ready(function() {
 					},
 					contentType : "application/json",
 					success : function(result) {
-						var msg = "Prerequisite saved successfully!";
-						$('#statusPrereq').html(msg);
-						$('#statusPrereq')
-						.addClass(
-						'd-block');
+						var msg = 'Pre-Requistic updated successfully.'
+									// $('#statusOutline').html(html);
+									$('#statusPreReq')
+									.addClass(
+									'd-block');
+								$('#statusPreReq').html(msg);
 					},
 
 					error : function(err) {
 						alert('error');
 						console.log("not working. ERROR: "+ JSON.stringify(err));
+							var msg = 'Error in updating Pre-Requistic.'
+									// $('#statusOutline').html(html);
+									$('#statusPreReq').addClass('d-block');
+								 $('#statusPreReq').addClass('alert-danger');
+
+								$('#statusPreReq').html(msg);
 
 					}
 				});

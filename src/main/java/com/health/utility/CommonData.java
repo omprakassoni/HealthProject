@@ -86,7 +86,7 @@ public class CommonData {
 
 	public static String ADMIN_REVIEW_MSG = "Waiting for Admin Review";
 
-	public static String NEED_IMPROVEMENT_MSG = "Need of Improvement";
+	public static String NEED_IMPROVEMENT_MSG = "Need Improvement";
 
 	public static String ADD_CONTENT = "Add Content";
 

@@ -86,66 +86,69 @@ public class User implements UserDetails{
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Category> categories = new HashSet<Category>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Topic> topics = new HashSet<Topic>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Language> languages = new HashSet<Language>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Question> questions = new HashSet<Question>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Event> events = new HashSet<Event>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Testimonial> testi = new HashSet<Testimonial>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Consultant> consults = new HashSet<Consultant>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<TrainingInformation> trainingInfo =new HashSet<TrainingInformation>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> comments =new HashSet<Comment>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<LogManegement> logs =new HashSet<LogManegement>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<UserIndianLanguageMapping> userKnownLans =new HashSet<UserIndianLanguageMapping>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<PostQuestionaire> questionsPost =new HashSet<PostQuestionaire>();
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<ContributorAssignedMultiUserTutorial> multiUserOnTutorial =new HashSet<ContributorAssignedMultiUserTutorial>();
 
-	@OneToMany(mappedBy = "scriptUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "scriptUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> tutorialScriptUser =new HashSet<Tutorial>();
 	
-	@OneToMany(mappedBy = "slideUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "slideUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> tutorialSlideUser =new HashSet<Tutorial>();
 	
-	@OneToMany(mappedBy = "keywordUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "keywordUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> tutorialKeywordUser =new HashSet<Tutorial>();
 	
-	@OneToMany(mappedBy = "outlineUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "outlineUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> tutorialOutlineUser =new HashSet<Tutorial>();
 	
-	@OneToMany(mappedBy = "videoUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "videoUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> tutorialVideoUser =new HashSet<Tutorial>();
+	
+	@OneToMany(mappedBy = "preRequiticUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Tutorial> tutorialPreReqUser =new HashSet<Tutorial>();
 	
 	
 	public Set<Question> getQuestions() {
@@ -377,6 +380,48 @@ public class User implements UserDetails{
 	}
 	public void setQuestionsPost(Set<PostQuestionaire> questionsPost) {
 		this.questionsPost = questionsPost;
+	}
+	public Set<ContributorAssignedMultiUserTutorial> getMultiUserOnTutorial() {
+		return multiUserOnTutorial;
+	}
+	public void setMultiUserOnTutorial(Set<ContributorAssignedMultiUserTutorial> multiUserOnTutorial) {
+		this.multiUserOnTutorial = multiUserOnTutorial;
+	}
+	public Set<Tutorial> getTutorialScriptUser() {
+		return tutorialScriptUser;
+	}
+	public void setTutorialScriptUser(Set<Tutorial> tutorialScriptUser) {
+		this.tutorialScriptUser = tutorialScriptUser;
+	}
+	public Set<Tutorial> getTutorialSlideUser() {
+		return tutorialSlideUser;
+	}
+	public void setTutorialSlideUser(Set<Tutorial> tutorialSlideUser) {
+		this.tutorialSlideUser = tutorialSlideUser;
+	}
+	public Set<Tutorial> getTutorialKeywordUser() {
+		return tutorialKeywordUser;
+	}
+	public void setTutorialKeywordUser(Set<Tutorial> tutorialKeywordUser) {
+		this.tutorialKeywordUser = tutorialKeywordUser;
+	}
+	public Set<Tutorial> getTutorialOutlineUser() {
+		return tutorialOutlineUser;
+	}
+	public void setTutorialOutlineUser(Set<Tutorial> tutorialOutlineUser) {
+		this.tutorialOutlineUser = tutorialOutlineUser;
+	}
+	public Set<Tutorial> getTutorialVideoUser() {
+		return tutorialVideoUser;
+	}
+	public void setTutorialVideoUser(Set<Tutorial> tutorialVideoUser) {
+		this.tutorialVideoUser = tutorialVideoUser;
+	}
+	public Set<Tutorial> getTutorialPreReqUser() {
+		return tutorialPreReqUser;
+	}
+	public void setTutorialPreReqUser(Set<Tutorial> tutorialPreReqUser) {
+		this.tutorialPreReqUser = tutorialPreReqUser;
 	}
 
 

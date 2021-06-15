@@ -83,6 +83,7 @@
 												<th>Sr.No</th>
 												<th>Component</th>
 												<th>Status</th>
+												<th>User</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -91,6 +92,10 @@
 												<td>Outline</td>
 												<td><span class="status-contri"
 													th:text="${statusOutline}"></span></td>
+												<td>
+												<div th:if="${tutorial}">
+												<span style="color: green;" th:if="${tutorial.getOutlineUser()}" th:text="${tutorial.getOutlineUser().getUsername()}"></span>
+												</span></div></td>
 												
 												<th><span>
 														<button type="button" class="btn btn-info"
@@ -106,6 +111,10 @@
 												<td>Script</td>
 												<td><span class="status-contri"
 													th:text="${statusScript}">Pending</span></td>
+												<td>
+												<div th:if="${tutorial}">
+												<span style="color: green;" th:if="${tutorial.getScriptUser()}" th:text="${tutorial.getScriptUser().getUsername()}"></span>
+												</span></div></td>
 												
 												<th><span>
 														<button type="button" class="btn btn-info"
@@ -124,6 +133,10 @@
 												<td>Slide</td>
 												<td><span class="status-contri"
 													th:text="${statusSlide}">Pending</span></td>
+												<td>
+												<div th:if="${tutorial}">
+												<span style="color: green;" th:if="${tutorial.getSlideUser()}" th:text="${tutorial.getSlideUser().getUsername()}"></span>
+												</span></div></td>
 												
 												<th><span>
 														<button type="button" class="btn btn-info"
@@ -141,6 +154,10 @@
 												<td>Video</td>
 												<td><span class="status-contri"
 													th:text="${statusVideo}">Pending</span></td>
+												<td>
+												<div th:if="${tutorial}">
+												<span style="color: green;" th:if="${tutorial.getVideoUser()}" th:text="${tutorial.getVideoUser().getUsername()}"></span>
+												</span></div></td>
 												
 												<th><span>
 														<button type="button" class="btn btn-info"
@@ -156,6 +173,10 @@
 												<td>Keywords</td>
 												<td><span class="status-contri"
 													th:text="${statusKeyword}">Pending</span></td>
+												<td>
+												<div th:if="${tutorial}">
+												<span style="color: green;" th:if="${tutorial.getKeywordUser()}" th:text="${tutorial.getKeywordUser().getUsername()}"></span>
+												</span></div></td>
 												
 												<th><span>
 														<button type="button" class="btn btn-info"
@@ -171,6 +192,9 @@
 												<td>Prerequisite</td>
 												<td><span class="status-contri"
 													th:text="${statusPreReq}"></span></td>
+												<td><div th:if="${tutorial}">
+												<span style="color: green;" th:if="${tutorial.getPreRequiticUser()}" th:text="${tutorial.getPreRequiticUser().getUsername()}"></span>
+												</span></div></td>
 												<th>
 													<button type="button" class="btn btn-info"
 														data-toggle="modal" data-target="#prerequisiteModale"
@@ -239,10 +263,10 @@
 															<label for="message-text" class="col-form-label"></label>
 															<textarea class="form-control editor" name="editor"
 																id="editor" rows="10">
-										        		  <p>
+										        		  
 																	<span th:if="${tutorial}"
 																		th:text="${tutorial.getOutline()}"></span>
-																</p> 
+																 
 										          			 </textarea>
 														</div>
 													</form>
@@ -359,32 +383,25 @@
 																		th:src="@{/files/}+@{${tutorial.getVideo()}}"
 																		type="video/mp4"></source>
 																</video>
+																
 															</div>
 
 														</div>
-
+														<div> Video Duration : <span th:text="${FileDurationInSecond}"/> Seconds </div> 
+														<div> Video File Size : <span th:text="${fileSizeInMB}"/> MB </div> 
 													</div>
 												</form>
 												<form id="upload-file-form-video"
 													onsubmit="return submitForm(this);">
 													<div class="custom-file mb-3">
-														<div th:if="${tutorial}">
-															<div
-																th:if="${tutorial.getVideoStatus() == 0 or tutorial.getVideoStatus() == 4}">
+														
+															<div>
 																<input type="file" class="custom-file-input"
 																	id="videoFileIdA" name="videoFileName"
 																	placeholder="uploadVideo" accept=".mp4"
 																	required="required"></input>
 															</div>
-															<div
-																th:unless="${tutorial.getVideoStatus() == 0 or tutorial.getVideoStatus() == 4}">
-																<input type="file" class="custom-file-input"
-																	id="videoFileIdA" name="videoFileName"
-																	placeholder="uploadVideo" accept=".mp4"
-																	disabled="disabled"></input>
-															</div>
-
-														</div>
+															
 
 
 														<label class="custom-file-label" for="videoFileIdA">Choose
@@ -489,7 +506,8 @@
 															Keyword</label>
 														<textarea class="form-control" name="keywordArea"
 															id="keywordArea" rows="10" required="required">
-							            </textarea>
+															<span th:if="${tutorial}" th:text="${tutorial.getKeyword()}"/>
+							            				</textarea>
 													</div>
 												</form>
 											</div>
@@ -626,8 +644,14 @@
 										</button>
 									</div>
 									<div class="modal-body">
+										<div class="alert alert-success d-none w-100" role="alert"
+											id="statusPreReq"></div>
 										<div class="row">
-											<div class="col-12">
+											<div class="col-12" th:unless="${tutorial}">
+												Please Add Some Component First
+											</div>
+											
+											<div class="col-12" th:if="${tutorial}">
 												<form method="post">
 
 													<div class="form-group">
@@ -945,10 +969,7 @@
 										<div class="row">
 											<div class="col-12">
 												<div class="alert alert-msg" style="display: none;"></div>
-												<div th:unless="${tutorial}"
-													class="alert alert-secondary upload-status" role="alert">
-													<i class="far fa-file"></i> No slide has been added yet.
-												</div>
+		
 
 												<form class="form-horizontal mb-3"
 													th:action="@{/addkeyword}"
@@ -972,22 +993,15 @@
 													submit="return submitForm(this);">
 													<div class="form-group">
 														<div class="custom-file">
-															<div th:if="${tutorial}">
-																<div
-																	th:if="${tutorial.getSlideStatus() == 0 or tutorial.getSlideStatus() == 4}">
+															
+																<div>
 																	<input type="file" class="custom-file-input"
 																		id="uploadsSlideFileId" name="uploadsSlideFile"
 																		placeholder="uploadFile" accept=".zip,.pdf"
 																		required="required"></input>
 																</div>
-																<div
-																	th:unless="${tutorial.getSlideStatus() == 0 or tutorial.getSlideStatus() == 4}">
-																	<input type="file" class="custom-file-input"
-																		id="uploadsSlideFileId" name="uploadsSlideFile"
-																		placeholder="uploadFile" accept=".zip,.pdf"
-																		disabled="disabled"></input>
-																</div>
-															</div>
+																
+															
 
 															<label class="custom-file-label" for="uploadsSlideFileId">Choose
 																file...</label>
