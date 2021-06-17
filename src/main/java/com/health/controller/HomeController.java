@@ -107,6 +107,8 @@ import com.health.utility.MailConstructor;
 import com.health.utility.SecurityUtility;
 import com.health.utility.ServiceUtility;
 import com.xuggle.xuggler.IContainer;
+import com.xuggle.xuggler.IStream;
+import com.xuggle.xuggler.IStreamCoder;
 
 @Controller
 public class HomeController {
@@ -447,7 +449,12 @@ public class HomeController {
 			 if(tutorial == null) {
 				 return "redirect:/";
 			 }
+			 
+			 tutorial.setUserVisit(tutorial.getUserVisit()+1);
+			 tutService.save(tutorial);
+			 
 			 model.addAttribute("tutorial", tutorial);
+			 
 			 
 			 if(!tutorial.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase("english")){
 				 model.addAttribute("relatedContent", tutorial.getRelatedVideo());
@@ -3902,7 +3909,15 @@ public class HomeController {
 				
 				System.out.println("Video Duration"+container.getDuration()/1000000);
 				System.out.println("file Size"+container.getFileSize()/1000000);
+			
+					
+				IStream stream = container.getStream(0);
+				IStreamCoder coder = stream.getStreamCoder();
+				System.out.println("width :"+coder.getWidth());
+				System.out.println("Height :"+coder.getHeight());
 				
+				model.addAttribute("FileWidth", coder.getWidth());
+				model.addAttribute("FileHeight", coder.getHeight());
 				model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 				model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 				
@@ -4011,6 +4026,14 @@ public class HomeController {
 		
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
+		
+		IStream stream = container.getStream(0);
+		IStreamCoder coder = stream.getStreamCoder();
+		System.out.println("width :"+coder.getWidth());
+		System.out.println("Height :"+coder.getHeight());
+		
+		model.addAttribute("FileWidth", coder.getWidth());
+		model.addAttribute("FileHeight", coder.getHeight());
 		
 		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
@@ -4132,6 +4155,14 @@ public class HomeController {
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
 		
+		IStream stream = container.getStream(0);
+		IStreamCoder coder = stream.getStreamCoder();
+		System.out.println("width :"+coder.getWidth());
+		System.out.println("Height :"+coder.getHeight());
+		
+		model.addAttribute("FileWidth", coder.getWidth());
+		model.addAttribute("FileHeight", coder.getHeight());
+		
 		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 		
@@ -4238,6 +4269,14 @@ public class HomeController {
 		
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
+		
+		IStream stream = container.getStream(0);
+		IStreamCoder coder = stream.getStreamCoder();
+		System.out.println("width :"+coder.getWidth());
+		System.out.println("Height :"+coder.getHeight());
+		
+		model.addAttribute("FileWidth", coder.getWidth());
+		model.addAttribute("FileHeight", coder.getHeight());
 		
 		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
@@ -4546,6 +4585,14 @@ public class HomeController {
 		
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
+		
+		IStream stream = container.getStream(0);
+		IStreamCoder coder = stream.getStreamCoder();
+		System.out.println("width :"+coder.getWidth());
+		System.out.println("Height :"+coder.getHeight());
+		
+		model.addAttribute("FileWidth", coder.getWidth());
+		model.addAttribute("FileHeight", coder.getHeight());
 		
 		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);

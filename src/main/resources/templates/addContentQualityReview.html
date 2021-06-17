@@ -462,6 +462,8 @@
 													</div>
 													<div> Video Duration : <span th:text="${FileDurationInSecond}"/> Seconds </div> 
 													<div> Video File Size : <span th:text="${fileSizeInMB}"/> MB </div>
+													<div> Video Width : <span th:text="${FileWidth}"/> </div> 
+													<div> Video Height : <span th:text="${FileHeight}"/>  </div>
 													<div th:if="${tutorial.getVideoStatus() == 3}">
 														<form class="form-horizontal"
 															th:action="@{/addOutlineStataus}"

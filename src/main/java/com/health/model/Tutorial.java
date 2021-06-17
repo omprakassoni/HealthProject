@@ -22,6 +22,9 @@ public class Tutorial implements Comparable<Tutorial>{
 	@Column(name = "tutorial_id",updatable = false,nullable = false)
 	private int tutorialId;
 	
+	@Column(name = "userVisit")
+	private int UserVisit = 0;
+	
 	@Column(name = "script",length = 1000)
 	private String script;
 
@@ -370,6 +373,14 @@ public class Tutorial implements Comparable<Tutorial>{
 	public int compareTo(Tutorial o) {
 		// TODO Auto-generated method stub
 		return this.getOrdering().compareTo(o.getOrdering());
+	}
+
+	public int getUserVisit() {
+		return UserVisit;
+	}
+
+	public void setUserVisit(int userVisit) {
+		UserVisit = userVisit;
 	}
 	
 	

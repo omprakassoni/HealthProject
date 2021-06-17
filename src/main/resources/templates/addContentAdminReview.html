@@ -134,6 +134,8 @@
 </div>
 													<div> Video Duration : <span th:text="${FileDurationInSecond}"/> Seconds </div> 
 													<div> Video File Size : <span th:text="${fileSizeInMB}"/> MB </div>
+													<div> Video Width : <span th:text="${FileWidth}"/> </div> 
+													<div> Video Height : <span th:text="${FileHeight}"/>  </div>
 								<div class="row">
 								<div class="col-md-12">
 								<form  class="form-horizontal"  th:action="@{/addkeyword}" onsubmit="return submitForm(this);" method="post" >
