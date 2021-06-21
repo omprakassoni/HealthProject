@@ -41,6 +41,7 @@ public class User implements UserDetails{
 
 	private String lastName;
 
+	@Column(length = 1000)
 	private String address;
 
 	@Column(name = "token")

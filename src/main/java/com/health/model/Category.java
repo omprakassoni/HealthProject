@@ -38,7 +38,7 @@ public class Category {
 	@Column(name = "Image_path", nullable = false)
 	private String posterPath;
 	
-	@Column(name = "Description", nullable = false)
+	@Column(name = "Description", nullable = false,length = 2000)
 	private String description;
 	
 	@ManyToOne(fetch = FetchType.EAGER)

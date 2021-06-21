@@ -21,10 +21,10 @@ public class Event {
 	@Column(name = "event_id",updatable = false,nullable = false)
 	private int eventId;
 
-	@Column(name = "event_name", nullable = false)
+	@Column(name = "event_name", nullable = false,length = 1000)
 	private String eventName;
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = false,length = 2000)
 	private String description;
 
 	@Column(name = "location", nullable = false)

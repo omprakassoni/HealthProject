@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -155,6 +156,12 @@ public class UserServiceImpl implements UserService{
 	public User findBytoken(String token) {
 		// TODO Auto-generated method stub
 		return userRepository.findBytoken(token);
+	}
+
+	@Override
+	public List<User> findAll() {
+		// TODO Auto-generated method stub
+		return (List<User>) userRepository.findAll();
 	}
 
 

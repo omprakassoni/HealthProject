@@ -1,5 +1,6 @@
 package com.health.service;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -48,6 +49,8 @@ public interface UserService {
 	User addUserToContributorTutorial(User usr,Set<ContributorAssignedTutorial> testi);     // in use
 	
 	User addUserToUserIndianMapping(User usr,Set<UserIndianLanguageMapping> userMapping);  
+	
+	List<User> findAll();
 
 	
 }

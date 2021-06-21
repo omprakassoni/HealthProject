@@ -5593,4 +5593,24 @@ public class HomeController {
 		return "uploadTimescript";
 	}
 	
+	
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public String usersGet(Principal principal,Model model) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+	
+		List<User> allUser= userService.findAll();
+		
+		model.addAttribute("users", allUser);
+
+		return "showUsers";
+	}
+	
 }

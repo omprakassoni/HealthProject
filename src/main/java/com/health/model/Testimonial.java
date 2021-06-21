@@ -22,7 +22,7 @@ public class Testimonial {
 	@Column(name = "name", nullable = false)
 	private String name ;
 	
-	@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = false,length = 2000)
 	private String description;
 	
 	@Column(name = "filePath", nullable = false)

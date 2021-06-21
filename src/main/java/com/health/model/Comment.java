@@ -20,6 +20,7 @@ public class Comment{
 	@Id
 	private int commentId;
 	
+	@Column(length = 2000)
 	private String comment;
 	
 	@Column(name = "date_added", nullable = false)

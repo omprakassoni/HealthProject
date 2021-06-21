@@ -18,7 +18,7 @@ public class Consultant{
 	@Column(name = "consult_id",updatable = false,nullable = false)
 	private int consultantId;
 	
-	@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = false,length = 2000)
 	private String description;
 	
 	@Column(name = "date_added", nullable = false)

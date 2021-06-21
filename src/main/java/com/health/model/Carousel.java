@@ -1,5 +1,6 @@
 package com.health.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,9 +13,11 @@ public class Carousel {
 	private String posterPath;
 
 	private boolean showOnHomepage=false;
-
+	
+	@Column(length = 1000)
 	private String eventName;
 
+	@Column(length = 2000)
 	private String description;
 
 	public int getId() {

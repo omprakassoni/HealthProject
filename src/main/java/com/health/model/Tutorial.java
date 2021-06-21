@@ -25,7 +25,7 @@ public class Tutorial implements Comparable<Tutorial>{
 	@Column(name = "userVisit")
 	private int UserVisit = 0;
 	
-	@Column(name = "script",length = 1000)
+	@Column(name = "script",length = 2000)
 	private String script;
 
 	@Column(name = "script_status")
@@ -38,7 +38,7 @@ public class Tutorial implements Comparable<Tutorial>{
 	@JoinColumn(name="user_script")
 	private User scriptUser;
 
-	@Column(name = "slide",length = 1000)
+	@Column(name = "slide",length = 2000)
 	private String slide;
 
 	@Column(name = "slide_status")
@@ -51,7 +51,7 @@ public class Tutorial implements Comparable<Tutorial>{
 	@JoinColumn(name="user_slide")
 	private User slideUser;
 
-	@Column(name = "keyword",length = 1000)
+	@Column(name = "keyword",length = 2000)
 	private String keyword;
 
 	@Column(name = "keyword_status")
@@ -64,7 +64,7 @@ public class Tutorial implements Comparable<Tutorial>{
 	@JoinColumn(name="user_keyword")
 	private User keywordUser;
 
-	@Column(name = "outline",length = 1000)
+	@Column(name = "outline",length = 2000)
 	private String outline;
 
 	@Column(name = "outline_status")

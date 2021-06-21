@@ -16,6 +16,7 @@ public class FeedbackMasterTrainer {
 	@Id
 	private int TrainerFeedId;
 
+	@Column(length = 2000)
 	private String description;
 
 	@Column(name = "date_added", nullable = false)
