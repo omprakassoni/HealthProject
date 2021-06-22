@@ -27,7 +27,7 @@ public class Consultant{
 	@Column(name = "showonhomepage", nullable = false)
 	private boolean onHome = false;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 

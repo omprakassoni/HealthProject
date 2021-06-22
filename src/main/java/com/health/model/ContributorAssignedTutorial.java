@@ -22,18 +22,18 @@ public class ContributorAssignedTutorial {
 	private int id;
 	private Timestamp dateAdded;
 		
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="topicCat_ID")
 	private TopicCategoryMapping topicCatId;
 	 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="language_id")
 	private Language lan;
 	
-	@OneToMany(mappedBy = "conAssignedTutorial", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "conAssignedTutorial", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> tutorials=new HashSet<Tutorial>();
 	
-	@OneToMany(mappedBy = "conAssignedTutorial", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "conAssignedTutorial", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<ContributorAssignedMultiUserTutorial> multiUserAssigned=new HashSet<ContributorAssignedMultiUserTutorial>();
 
 	public int getId() {

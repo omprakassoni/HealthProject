@@ -17,7 +17,7 @@ public class IndianLanguage {
 	
 	private String lanName;
 	
-	@OneToMany(mappedBy = "indianlan", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "indianlan", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<UserIndianLanguageMapping> userLans = new HashSet<UserIndianLanguageMapping>();
 
 	public int getId() {

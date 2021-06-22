@@ -33,26 +33,26 @@ public class Language {
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<UserRole> userRoles=new HashSet<UserRole>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Question> questions=new HashSet<Question>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<TrainingInformation> trainingInfos=new HashSet<TrainingInformation>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Brouchure> brouchure=new HashSet<Brouchure>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Event> events=new HashSet<Event>();
 
 	public int getLanId() {

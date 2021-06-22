@@ -24,11 +24,11 @@ public class ContributorAssignedMultiUserTutorial implements Serializable {
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_assigned")
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "conAssignedTutorial")
 	private ContributorAssignedTutorial conAssignedTutorial;
 

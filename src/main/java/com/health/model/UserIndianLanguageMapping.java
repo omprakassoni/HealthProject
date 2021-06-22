@@ -19,11 +19,11 @@ public class UserIndianLanguageMapping {
 	
 	private boolean speaking = false;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lan_id")
 	private IndianLanguage indianlan;
 

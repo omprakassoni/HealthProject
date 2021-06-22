@@ -34,7 +34,7 @@ public class Tutorial implements Comparable<Tutorial>{
 //	@Column(name = "script_user")
 //	private User scriptUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_script")
 	private User scriptUser;
 
@@ -47,7 +47,7 @@ public class Tutorial implements Comparable<Tutorial>{
 //	@Column(name = "slide_user")
 //	private User slideUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_slide")
 	private User slideUser;
 
@@ -60,7 +60,7 @@ public class Tutorial implements Comparable<Tutorial>{
 //	@Column(name = "keyword_user")
 //	private User keywordUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_keyword")
 	private User keywordUser;
 
@@ -73,18 +73,18 @@ public class Tutorial implements Comparable<Tutorial>{
 //	@Column(name = "outline_user")
 //	private User outlineUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_outline")
 	private User outlineUser;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "preRequistics")
 	private Tutorial preRequistic;
 
 	@Column(name = "preRequistic_status")
 	private int preRequisticStatus = 0;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_preRequistic")
 	private User preRequiticUser;
 	
@@ -96,7 +96,7 @@ public class Tutorial implements Comparable<Tutorial>{
 		this.preRequiticUser = preRequiticUser;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "relatedVideo")
 	private Tutorial relatedVideo;
 
@@ -121,24 +121,24 @@ public class Tutorial implements Comparable<Tutorial>{
 //	@Column(name = "video_user")
 //	private User videoUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_video")
 	private User videoUser;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "conAssignedTutorial")
 	private ContributorAssignedTutorial conAssignedTutorial;
 
-	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> comments =new HashSet<Comment>();
 
-	@OneToMany(mappedBy = "preRequistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "preRequistic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> preRequisticTutorial =new HashSet<Tutorial>();
 	
-	@OneToMany(mappedBy = "relatedVideo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "relatedVideo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> relatedTutorial =new HashSet<Tutorial>();
 
-	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<LogManegement> logs =new HashSet<LogManegement>();
 
 	public int getTutorialId() {
