@@ -13,12 +13,20 @@ import com.health.model.Testimonial;
 import com.health.repository.TestimonialRepository;
 import com.health.service.TestimonialService;
 
+/**
+ * Default implementation of the {@link com.health.service.TestimonialService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class TestimonialServiceImpl implements  TestimonialService {
 
 	@Autowired
 	private TestimonialRepository testRepo;
 	
+	/**
+	 * @see com.health.service.TestimonialService#findAll()
+	 */
 	@Override
 	public List<Testimonial> findAll() {
 		// TODO Auto-generated method stub
@@ -26,12 +34,18 @@ public class TestimonialServiceImpl implements  TestimonialService {
 		return test;
 	}
 
+	/**
+	 * @see com.health.service.TestimonialService#deleteProduct(Integer)
+	 */
 	@Override
 	public void deleteProduct(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * @see com.health.service.TestimonialService#findById(int)
+	 */
 	@Override
 	public Testimonial findById(int id) {
 		// TODO Auto-generated method stub
@@ -46,7 +60,9 @@ public class TestimonialServiceImpl implements  TestimonialService {
 	}
 
 	
-
+	/**
+	 * @see com.health.service.TestimonialService#getNewTestimonialId()
+	 */
 	@Override
 	public int getNewTestimonialId() {
 		// TODO Auto-generated method stub
@@ -59,6 +75,9 @@ public class TestimonialServiceImpl implements  TestimonialService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.TestimonialService#save(Testimonial)
+	 */
 	@Override
 	public void save(Testimonial temp) {
 		// TODO Auto-generated method stub
@@ -66,6 +85,9 @@ public class TestimonialServiceImpl implements  TestimonialService {
 		testRepo.save(temp);
 	}
 
+	/**
+	 * @see com.health.service.TestimonialService#findByApproved(boolean)
+	 */
 	@Override
 	public List<Testimonial> findByApproved(boolean value) {
 		// TODO Auto-generated method stub

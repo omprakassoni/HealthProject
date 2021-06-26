@@ -11,11 +11,20 @@ import com.health.model.TrainingTopic;
 import com.health.repository.TrainingTopicRepository;
 import com.health.service.TrainingTopicService;
 
+/**
+ * Default implementation of the {@link com.health.service.TrainingTopicService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class TrainingTopicServiceImpl implements TrainingTopicService {
 
 	@Autowired
 	private TrainingTopicRepository trainingTopicRepo;
+	
+	/**
+	 * @see com.health.service.TrainingTopicService#getNewId()
+	 */
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -27,6 +36,10 @@ public class TrainingTopicServiceImpl implements TrainingTopicService {
 			return 1;
 		}
 	}
+	
+	/**
+	 * @see com.health.service.TrainingTopicService#findByTopicCat(List)
+	 */
 	@Override
 	public Set<TrainingTopic> findByTopicCat(List<TopicCategoryMapping> topics) {
 		// TODO Auto-generated method stub

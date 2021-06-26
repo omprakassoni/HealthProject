@@ -15,7 +15,11 @@ import com.health.model.User;
 import com.health.repository.LangaugeRepository;
 import com.health.service.LanguageService;
 
-
+/**
+ * Default implementation of the {@link com.health.service.LanguageService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class LanguageServiceImp implements LanguageService
 {
@@ -23,6 +27,9 @@ public class LanguageServiceImp implements LanguageService
 	@Autowired
 	private LangaugeRepository languageRepo;
 
+	/**
+	 * @see com.health.service.LanguageService#getAllLanguages()
+	 */
 	@Override
 	public List<Language> getAllLanguages() {
 		// TODO Auto-generated method stub
@@ -30,6 +37,9 @@ public class LanguageServiceImp implements LanguageService
 		
 	}
 
+	/**
+	 * @see com.health.service.LanguageService#getnewLanId()
+	 */
 	@Override
 	public int getnewLanId() {
 		// TODO Auto-generated method stub
@@ -42,6 +52,9 @@ public class LanguageServiceImp implements LanguageService
 		}
 	}
 
+	/**
+	 * @see com.health.service.LanguageService#getByLanName(String)
+	 */
 	@Override
 	public Language getByLanName(String langName) {
 		// TODO Auto-generated method stub
@@ -55,6 +68,9 @@ public class LanguageServiceImp implements LanguageService
 		
 	}
 
+	/**
+	 * @see com.health.service.LanguageService#getById(int)
+	 */
 	@Override
 	public Language getById(int lanId) {
 		// TODO Auto-generated method stub
@@ -69,6 +85,9 @@ public class LanguageServiceImp implements LanguageService
 		}
 	}
 
+	/**
+	 * @see com.health.service.LanguageService#save(Language)
+	 */
 	@Override
 	public void save(Language lan) {
 		// TODO Auto-generated method stub
@@ -78,14 +97,5 @@ public class LanguageServiceImp implements LanguageService
 	
 	
 	
-	/*
-	 * @Transactional public Boolean findByExcludeLanguage(String languageName) {
-	 * int lanNames=languagedao.findByExcludeLanguage(languageName);
-	 * 
-	 * 
-	 * if(lanNames >0) { return true;
-	 * 
-	 * }else { return false; } }
-	 */
 	
 }

@@ -10,12 +10,20 @@ import com.health.repository.FeedBackRepository;
 import com.health.repository.FeedbackContactFormRepository;
 import com.health.service.FeedbackService;
 
+/**
+ * Default implementation of the {@link com.health.service.FeedbackService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
 
 	@Autowired
 	private FeedbackContactFormRepository fRepo;
 
+	/**
+	 * @see com.health.service.FeedbackService#getNewId()
+	 */
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -28,6 +36,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.FeedbackService#getNewId()
+	 */
 	@Override
 	public void save(FeedbackForm ff) {
 		// TODO Auto-generated method stub
@@ -35,6 +46,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 		fRepo.save(ff);
 	}
 
+	/**
+	 * @see com.health.service.FeedbackService#findAll()
+	 */
 	@Override
 	public List<FeedbackForm> findAll() {
 		// TODO Auto-generated method stub

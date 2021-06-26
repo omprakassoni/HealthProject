@@ -10,12 +10,20 @@ import com.health.model.Topic;
 import com.health.repository.TopicRepository;
 import com.health.service.TopicService;
 
+/**
+ * Default implementation of the {@link com.health.service.TopicService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class TopicServiceImpl implements TopicService {
 
 	@Autowired
 	private TopicRepository topicRepo;
 	
+	/**
+	 * @see com.health.service.TopicService#getNewTopicId()
+	 */
 	@Override
 	public int getNewTopicId() {
 		// TODO Auto-generated method stub
@@ -28,12 +36,18 @@ public class TopicServiceImpl implements TopicService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.TopicService#findBytopicName(String)
+	 */
 	@Override
 	public Topic findBytopicName(String topic) {
 		// TODO Auto-generated method stub
 		return topicRepo.findBytopicName(topic);
 	}
 
+	/**
+	 * @see com.health.service.TopicService#findById(int)
+	 */
 	@Override
 	public Topic findById(int id) {
 		// TODO Auto-generated method stub
@@ -47,12 +61,18 @@ public class TopicServiceImpl implements TopicService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.TopicService#findAll()
+	 */
 	@Override
 	public List<Topic> findAll() {
 		// TODO Auto-generated method stub
 		return (List<Topic>) topicRepo.findAll();
 	}
 
+	/**
+	 * @see com.health.service.TopicService#save(Topic)
+	 */
 	@Override
 	public void save(Topic topic) {
 		// TODO Auto-generated method stub

@@ -15,24 +15,45 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * This modal is representation of mappin between category and topic
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 @Table(name = "topic_category")
 public class TopicCategoryMapping {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "topic_category_id",nullable = false,updatable = false)
 	private int topicCategoryId;
 	
+	/**
+	 * boolean value to show/disable
+	 */
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 	
+	/**
+	 * order value
+	 */
 	@Column(name = "orderValue")
 	private int order = 0;
 	
+	/**
+	 * category 
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category cat;
 	
+	/**
+	 * topic
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "topic_id")
 	private Topic topic;

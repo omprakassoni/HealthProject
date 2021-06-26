@@ -12,19 +12,28 @@ import com.health.model.Topic;
 import com.health.model.TopicCategoryMapping;
 import com.health.model.Tutorial;
 
+/**
+ * This Interface Extend CrudRepository to handle all database operation related to Question object
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 public interface QuestionRepository extends CrudRepository<Question, Integer> {
 	
-//	
-//	  @Query("from Question u where u.topic=?1")
-//	  List<Question> findByTutorial(Topic topic);
-//	  
-//	  
-//	  @Query("from Question u where u.topic=?1 and u.category=?2 and u.lan=?3")
-//	  List<Question> findByQuestion(Topic topic,Category category,Language language);
 	  
+	/**
+	 * Find the next unique id for the object
+	 * @return primitive integer value
+	 */
      @Query("select max(questionId) from Question")
 	 int getNewId();
 	
+     /**
+      * Find Question object given TopicCategoryMapping and Language object
+      * @param topicCat TopicCategoryMapping object
+      * @param lan Language object
+      * @return Question object
+      */
 	 @Query("from Question where topicCatId = ?1 and lan = ?2")
 	 Question findByTopicLan(TopicCategoryMapping topicCat, Language lan);
 	 

@@ -13,17 +13,35 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+/**
+ * District object to store info on database
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class District {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "district_id", nullable = false)
 	int id;
 
+	/**
+	 * name of district
+	 */
 	private String districtName;
 
+	/**
+	 * timestamp on which created
+	 */
 	private Timestamp dateAdded;
 
+	/**
+	 * state under which district comes
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="state_id")
 	private State state;

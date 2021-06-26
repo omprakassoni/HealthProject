@@ -346,7 +346,7 @@ public class AjaxController{
 
 		for(TrainingTopic x :trainingTopic) {
 //			TrainingInformation temp = trainingInforService.getById(x.getTraineeInfos().getTrainingId());
-			Event event = eventService.getById(x.getEvent().getEventId());
+			Event event = eventService.findById(x.getEvent().getEventId());
 			System.err.println("***********************");
 			System.err.println(event);
 //			topicName.put(temp.getTrainingId(), temp.getTitleName());

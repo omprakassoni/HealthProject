@@ -97,6 +97,8 @@ public class RestApi {
 			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 		}
 		
+		Map<String, Map<String, List<Map<String, String>>>> mapdataReturn = new HashMap<String,Map<String, List<Map<String, String>>>>();
+		
 		Map<String, List<Map<String, String>>> mapdata = new HashMap<String,List<Map<String, String>>>();
 		
 		List<Map<String, String>> alltutorial = new ArrayList<>();
@@ -119,14 +121,18 @@ public class RestApi {
 			
 			Map<String, String> temp = new HashMap<String, String>();
 			temp.put("id", Integer.toString(x.getTutorialId()));
+			temp.put("outline", x.getOutline());
+			temp.put("tutorial", x.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 			
 			alltutorial.add(temp);
 		}
 		
-		mapdata.put("topics", alltutorial);
+		mapdata.put("tutorials", alltutorial);
+		
+		mapdataReturn.put("healthnutrition", mapdata);
 		
 		
-		return new ResponseEntity<Object>(mapdata,HttpStatus.OK);
+		return new ResponseEntity<Object>(mapdataReturn,HttpStatus.OK);
 		
 	}
 

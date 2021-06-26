@@ -6,20 +6,38 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * Training topic information object saved in database
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class TrainingTopic {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	private int trainingTopicId;
 
+	/**
+	 * topic category mapping
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="topicCat_id")
 	private TopicCategoryMapping topicCatId;
 
+	/**
+	 * training object
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="Training_id")
 	private TrainingInformation traineeInfos;
 
+	/**
+	 * event object
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="Event_id")
 	private Event event;

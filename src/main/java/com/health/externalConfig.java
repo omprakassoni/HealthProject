@@ -23,6 +23,12 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * This class to add external path to system
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Configuration
 public class externalConfig implements WebMvcConfigurer {
 

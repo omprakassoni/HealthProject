@@ -9,12 +9,20 @@ import com.health.model.IndianLanguage;
 import com.health.repository.IndianLanguageRepository;
 import com.health.service.IndianLanguageService;
 
+/**
+ * Default implementation of the {@link com.health.service.IndianLanguageService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class IndianLanguageServiceImpl implements IndianLanguageService{
 
 	@Autowired
 	private IndianLanguageRepository repo;
 
+	/**
+	 * @see com.health.service.IndianLanguageService#getNewId()
+	 */
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -27,6 +35,9 @@ public class IndianLanguageServiceImpl implements IndianLanguageService{
 		}
 	}
 
+	/**
+	 * @see com.health.service.IndianLanguageService#findByName(String)
+	 */
 	@Override
 	public IndianLanguage findByName(String lanName) {
 		// TODO Auto-generated method stub
@@ -39,6 +50,9 @@ public class IndianLanguageServiceImpl implements IndianLanguageService{
 		}
 	}
 
+	/**
+	 * @see com.health.service.IndianLanguageService#findAll()
+	 */
 	@Override
 	public List<IndianLanguage> findAll() {
 		// TODO Auto-generated method stub

@@ -15,27 +15,50 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+/**
+ * This modal class to record the question
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Entity
 public class Question{
 	
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "question_id",updatable = false,nullable = false)
 	private int questionId;
 	
+	/**
+	 * relative path of question
+	 */
 	@Column(name = "question_path",nullable = false)
 	private String questionPath;
 	
+	/**
+	 * timestamp of object created
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * user who added question
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	/**
+	 * language for question
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lan_id")
 	private Language lan;
 	
+	/**
+	 * category and topic of question
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "topic_cat_id")
 	private TopicCategoryMapping topicCatId;

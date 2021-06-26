@@ -11,18 +11,29 @@ import com.health.model.District;
 import com.health.repository.CityRepository;
 import com.health.service.CityService;
 
+/**
+ * Default implementation of the {@link com.health.service.CityService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class CityServiceImpl implements CityService {
 
 	@Autowired
 	private CityRepository cityRepo;
 	
+	/**
+	 * @see com.health.service.CityService#save(City)
+	 */
 	@Override
 	public void save(City city) {
 		// TODO Auto-generated method stub
 		cityRepo.save(city);
 	}
 
+	/**
+	 * @see com.health.service.CityService#findById(int)
+	 */
 	@Override
 	public City findById(int id) {
 		// TODO Auto-generated method stub
@@ -36,6 +47,9 @@ public class CityServiceImpl implements CityService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.CityService#findAll()
+	 */
 	@Override
 	public List<City> findAll() {
 		// TODO Auto-generated method stub
@@ -43,6 +57,9 @@ public class CityServiceImpl implements CityService {
 		return local;
 	}
 
+	/**
+	 * @see com.health.service.CityService#findAllByDistrict(District)
+	 */
 	@Override
 	public List<City> findAllByDistrict(District district) {
 		// TODO Auto-generated method stub

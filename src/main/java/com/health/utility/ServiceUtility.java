@@ -16,10 +16,18 @@ import java.util.regex.Pattern;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
+/**
+ * Utility class
+ * @author om Prakash
+ * @version 1.0
+ *
+ */
 public class ServiceUtility {
 	
-	
+	/**
+	 * To get current time
+	 * @return Timestamp object
+	 */
 	public static Timestamp getCurrentTime() {								// Current Date
 		
 		Date date=new Date();
@@ -30,6 +38,11 @@ public class ServiceUtility {
 	}
 	
 	
+	/**
+	 * return no of days between present date and given date
+	 * @param date Timestamp object
+	 * @return String 
+	 */
 	public static String daysDifference(Timestamp date) {						// days Difference Between 2 date(current - given)
 		
 		Timestamp presentdate=getCurrentTime();
@@ -41,7 +54,11 @@ public class ServiceUtility {
 	}
 	
 	
-	
+	/**
+	 * to create folder in system
+	 * @param path relative path
+	 * @return
+	 */
 	public static boolean createFolder(String path) {					// check for existence of path
 		boolean status=false;
 		if(!new File(path).exists()) {
@@ -52,6 +69,13 @@ public class ServiceUtility {
 	}
 	
 
+	/**
+	 * to upload file in system
+	 * @param uploadFile Multipart object
+	 * @param pathToUpload relative path
+	 * @return
+	 * @throws Exception not found
+	 */
 	public static String uploadFile(MultipartFile uploadFile,String pathToUpload) throws Exception{		// uploading file
 		String path=null;	
 		
@@ -68,7 +92,13 @@ public class ServiceUtility {
 	
 
 	
-	
+	/**
+	 * to upload video file in system
+	 * @param file multipart object
+	 * @param pathToUpload relative path 
+	 * @return
+	 * @throws Exception not found
+	 */
 	public static String uploadVideoFile(MultipartFile file,String pathToUpload) throws Exception{		// uploading file
 		String path=null;	
 		
@@ -84,6 +114,11 @@ public class ServiceUtility {
 	}
 	
 
+	/**
+	 * to check whether PDF file or not
+	 * @param pdfFile MultipartFile object
+	 * @return
+	 */
 	public static boolean checkFileExtensiononeFilePDF(MultipartFile pdfFile) {				// validate file against PDF extension
 		
 		
@@ -94,6 +129,11 @@ public class ServiceUtility {
 		return true;
 	}
 	
+	/**
+	 * to check whether CSV file or not
+	 * @param pdfFile MultipartFile object
+	 * @return
+	 */
 	public static boolean checkFileExtensiononeFileCSV(MultipartFile pdfFile) {				// validate file against PDF extension
 		
 		
@@ -106,7 +146,11 @@ public class ServiceUtility {
 	
 	
 	
-	
+	/**
+	 * to check whether IMAGE file or not
+	 * @param pdfFile MultipartFile object
+	 * @return
+	 */
 	public static boolean checkFileExtensionImage(MultipartFile temp) {			// validate file against Image Extension
 		
 		
@@ -120,7 +164,11 @@ public class ServiceUtility {
 	}
 	
 	
-	
+	/**
+	 * to check whether MP4 file or not
+	 * @param pdfFile MultipartFile object
+	 * @return
+	 */
 	public static boolean checkFileExtensionVideo(MultipartFile videoFile) {			// validate file against Image Extension
 		
 		
@@ -133,6 +181,11 @@ public class ServiceUtility {
 	}
 	
 
+	/**
+	 * to check whether ZIP file or not
+	 * @param pdfFile MultipartFile object
+	 * @return
+	 */
 	public static boolean checkFileExtensionZip(MultipartFile temp) {			// validate file against HTML Extension
 		
 		
@@ -145,7 +198,10 @@ public class ServiceUtility {
 	}
 	
 	
-	
+	/**
+	 * to get present working path
+	 * @return
+	 */
 	public static String presentDirectory() {
 		Path currentRelativePath = Paths.get("");
 		String currentpath = currentRelativePath.toAbsolutePath().toString();
@@ -154,6 +210,11 @@ public class ServiceUtility {
 	}
 	
 	
+	/**
+	 * to validate email
+	 * @param email String object
+	 * @return
+	 */
 	public static boolean checkEmailValidity(String email) {
 
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
@@ -169,6 +230,11 @@ public class ServiceUtility {
 	}
 	
 
+	/**
+	 * to check numeral value in string
+	 * @param input String object
+	 * @return
+	 */
 	public static boolean checkContainNumeralInString(String input) {
 		for(int i=0 ; i<input.length();i++) {
 			if(input.charAt(i)=='0' || input.charAt(i)=='1' || input.charAt(i)=='2' || input.charAt(i)=='3' ||
@@ -180,6 +246,12 @@ public class ServiceUtility {
 		return true;
 	}
 	
+	/**
+	 * to convert String into date Object
+	 * @param date String object
+	 * @return 
+	 * @throws ParseException
+	 */
 
 	public static java.sql.Date convertStringToDate(String date) throws ParseException{
 		SimpleDateFormat sd1=new SimpleDateFormat("yyyy-MM-dd");

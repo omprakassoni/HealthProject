@@ -22,37 +22,79 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.health.domain.security.Authority;
 import com.health.domain.security.UserRole;
 
+/**
+ * User Object
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class User implements UserDetails{
 
+	/**
+	 * unique id
+	 */
 	@Id
 	@Column(name="id", nullable = false, updatable = false)
 	private Long id;
 
+	/**
+	 * username of user
+	 */
 	private String username;
 
+	/**
+	 * date of birth of user
+	 */
 	private Date dob;
 
+	/**
+	 * password of user
+	 */
 	private String password;
 
+	/**
+	 * first name of user
+	 */
 	private String firstName;
 
+	/**
+	 * gender of user
+	 */
 	private String gender;
 
+	/**
+	 * last name of user
+	 */
 	private String lastName;
 
+	/**
+	 * address of user
+	 */
 	@Column(length = 1000)
 	private String address;
 
+	/**
+	 * token used for forget password
+	 */
 	@Column(name = "token")
 	private String token;
 
+	/**
+	 * age of user
+	 */
 	@Column(name = "age")
 	private int age;
 
+	/**
+	 * rorganization
+	 */
 	@Column(name = "master_trainer_organization")
 	private String organization ;
 
+	/**
+	 * org object
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "org_role_id")
 	private OrganizationRole orgRolev;
@@ -64,25 +106,49 @@ public class User implements UserDetails{
 	public void setOrgRolev(OrganizationRole orgRolev) {
 		this.orgRolev = orgRolev;
 	}
+	/**
+	 * experience in year
+	 */
 	@Column(name = "master_trainer_experience")
 	private int experience;
 
+	/**
+	 * aadhar number
+	 */
 	@Column(name = "master_trainer_aadhar")
 	private long aadharNumber;
 
+	/**
+	 * relative path of profile picture
+	 */
 	@Column(name="profilePic")
 	private String profilePic;
 
+	/**
+	 * e-mail of user
+	 */
 	@Column(name="email", nullable = false, updatable = false)
 	private String email;
 
+	/**
+	 * contact number
+	 */
 	private long phone;
 
+	/**
+	 * status of user
+	 */
 	private boolean registered=true;
 
+	/**
+	 * timestamp when object is created
+	 */
 	@Column(name = "dateAdded",nullable = false,updatable = false)
 	private Timestamp dateAdded;
 
+	/**
+	 * user roles
+	 */
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<UserRole>();

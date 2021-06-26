@@ -12,19 +12,29 @@ import com.health.model.Tutorial;
 import com.health.repository.TutorialRepository;
 import com.health.service.TutorialService;
 
-
+/**
+ * Default implementation of the {@link com.health.service.TutorialService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class TutorialServiceImpl implements TutorialService {
 
 	@Autowired
 	private TutorialRepository tutorialRepo;
 
+	/**
+	 * @see com.health.service.TutorialService#findAll()
+	 */
 	@Override
 	public List<Tutorial> findAll() {
 		// TODO Auto-generated method stub
 		return (List<Tutorial>) tutorialRepo.findAll();
 	}
 
+	/**
+	 * @see com.health.service.TutorialService#getNewId()
+	 */
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -37,18 +47,27 @@ public class TutorialServiceImpl implements TutorialService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.TutorialService#findAllByContributorAssignedTutorial(ContributorAssignedTutorial)
+	 */
 	@Override
 	public List<Tutorial> findAllByContributorAssignedTutorial(ContributorAssignedTutorial con) {
 		// TODO Auto-generated method stub
 		return tutorialRepo.findAllByconAssignedTutorial(con);
 	}
 
+	/**
+	 * @see com.health.service.TutorialService#save(Tutorial)
+	 */
 	@Override
 	public void save(Tutorial tut) {
 		// TODO Auto-generated method stub
 		tutorialRepo.save(tut);
 	}
 
+	/**
+	 * @see com.health.service.TutorialService#getById(int)
+	 */
 	@Override
 	public Tutorial getById(int id) {
 		// TODO Auto-generated method stub
@@ -62,6 +81,9 @@ public class TutorialServiceImpl implements TutorialService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.TutorialService#findAllByContributorAssignedTutorialList(List)
+	 */
 	@Override
 	public List<Tutorial> findAllByContributorAssignedTutorialList(List<ContributorAssignedTutorial> con) {
 		// TODO Auto-generated method stub
@@ -73,6 +95,9 @@ public class TutorialServiceImpl implements TutorialService {
 
 	}
 
+	/**
+	 * @see com.health.service.TutorialService#findAllBystatus(boolean)
+	 */
 	@Override
 	public List<Tutorial> findAllBystatus(boolean status) {
 		// TODO Auto-generated method stub

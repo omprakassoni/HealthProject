@@ -16,23 +16,42 @@ import javax.persistence.OneToMany;
 
 import com.health.domain.security.UserRole;
 
-
+/**
+ * Language object to store related information in database
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Entity
 public class Language {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "lan_id",updatable = false,nullable = false)
 	private int lanId;
 
+	/**
+	 * language name
+	 */
 	@Column(nullable = false)
 	private String langName;
 
+	/**
+	 * timestamp when added
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 
+	/**
+	 * boolean value to show or not
+	 */
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 
+	/**
+	 * user who added language
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;

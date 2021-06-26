@@ -10,12 +10,20 @@ import com.health.model.User;
 import com.health.repository.FeedBackRepository;
 import com.health.service.FeedBackMasterTrainerService;
 
+/**
+ * Default implementation of the {@link com.health.service.FeedBackMasterTrainerService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class FeedBackMasterTrainerServiceImpl implements FeedBackMasterTrainerService {
 
 	@Autowired
 	private FeedBackRepository feedRepo;
 
+	/**
+	 * @see com.health.service.FeedBackMasterTrainerService#getNewId()
+	 */
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -28,12 +36,18 @@ public class FeedBackMasterTrainerServiceImpl implements FeedBackMasterTrainerSe
 		}
 	}
 
+	/**
+	 * @see com.health.service.FeedBackMasterTrainerService#save(FeedbackMasterTrainer)
+	 */
 	@Override
 	public void save(FeedbackMasterTrainer temp) {
 		// TODO Auto-generated method stub
 		feedRepo.save(temp);
 	}
 
+	/**
+	 * @see com.health.service.FeedBackMasterTrainerService#findByUser(User)
+	 */
 	@Override
 	public List<FeedbackMasterTrainer> findByUser(User user) {
 

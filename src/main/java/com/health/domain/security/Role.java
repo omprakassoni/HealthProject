@@ -13,11 +13,22 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GeneratorType;
 
+/**
+ * Role object
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Entity
 public class Role {
 
+	/**
+	 * unique id of object
+	 */
 	@Id	
 	private int roleId;		
+	/**
+	 * role name
+	 */
 	private String name;
 	
 	@OneToMany(mappedBy = "role", cascade=CascadeType.ALL, fetch=FetchType.EAGER)

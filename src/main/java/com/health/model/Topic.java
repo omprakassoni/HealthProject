@@ -17,24 +17,44 @@ import java.util.Set;
 	import javax.persistence.OneToOne;
 	import javax.persistence.Table;
 
-	  
+	/**
+	 * This modal add topic object into database  
+	 * @author om prakash soni
+	 * @version 1.0
+	 *
+	 */
 @Entity
 @Table(name="topic")
 public class Topic {
 	
+	/**
+	 * unique id
+	 */
 	@Id
 	@Column(name="topic_id",nullable = false, updatable = false)
 	private int topicId;
 	
+	/**
+	 * topic name
+	 */
 	@Column(name="topic_name",nullable = false)
 	private String topicName;
 	
+	/**
+	 * timestamp of object created
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * boolean value to show/disable on application
+	 */
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 	
+	/**
+	 * user who add this
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;

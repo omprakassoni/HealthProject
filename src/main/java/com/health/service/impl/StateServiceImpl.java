@@ -11,18 +11,29 @@ import com.health.model.District;
 import com.health.model.State;
 import com.health.repository.StateRepository;
 import com.health.service.StateService;
-
+/**
+ * Default implementation of the {@link com.health.service.StateService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class StateServiceImpl implements StateService {
 
 	@Autowired
 	private StateRepository stateRepo;
+	
+	/**
+	 * @see com.health.service.StateService#save(State)
+	 */
 	@Override
 	public void save(State state) {
 		// TODO Auto-generated method stub
 		stateRepo.save(state);
 	}
 
+	/**
+	 * @see com.health.service.StateService#findById(int)
+	 */
 	@Override
 	public State findById(int id) {
 		// TODO Auto-generated method stub
@@ -36,6 +47,9 @@ public class StateServiceImpl implements StateService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.StateService#findAll()
+	 */
 	@Override
 	public List<State> findAll() {
 		// TODO Auto-generated method stub
@@ -43,6 +57,9 @@ public class StateServiceImpl implements StateService {
 		return local;
 	}
 
+	/**
+	 * @see com.health.service.StateService#addStateToDistrict(State, Set)
+	 */
 	@Override
 	public State addStateToDistrict(State state, Set<District> districts) {
 		// TODO Auto-generated method stub
