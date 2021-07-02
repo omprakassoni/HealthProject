@@ -11,36 +11,68 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
+/**
+ * this modal records information of testimonial object into database
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class Testimonial {
 	
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "testi_id",updatable = false,nullable = false)
 	private int testimonialId;
 	
+	/**
+	 * name of person
+	 */
 	@Column(name = "name", nullable = false)
 	private String name ;
 	
-	@Column(name = "description", nullable = false)
+	/**
+	 * description
+	 */
+	@Column(name = "description", nullable = false,length = 2000)
 	private String description;
 	
+	/**
+	 * relative path of video or file
+	 */
 	@Column(name = "filePath", nullable = false)
 	private String filePath;
 	
+	/**
+	 * timestamp when object is created
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * boolean to accept/reject
+	 */
 	@Column(name ="approved", nullable = false)
 	private boolean approved=true;
 	
+	/**
+	 * relative path of consent letter
+	 */
 	@Column(name = "consent")
 	String consentLetter = null;
 	
+	/**
+	 * user who adds
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	/**
+	 * testimonial added for training
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="Training_id")
 	private TrainingInformation traineeInfos;

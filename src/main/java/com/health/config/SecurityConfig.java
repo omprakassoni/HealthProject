@@ -14,7 +14,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.health.service.impl.UserSecurityService;
 import com.health.utility.SecurityUtility;
-
+/**
+ * Spring security configuration file
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
@@ -29,6 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return SecurityUtility.passwordEncoder();
 	}
 
+	/**
+	 * public matcher doesn't require authentication
+	 */
 	private static final String[] PUBLIC_MATCHERS = {
 			"/css/**",
 			"/js/**",
@@ -67,9 +75,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/tutorialView/**",
 			"/getConsultantDetails/**",
 			"/reset/**",
-			"/resetPassword/**"
+			"/resetPassword/**",
+			"/getCatAndLan/**",
+			"/getTopicOnCatAndLan/**"
 	};
 
+	/**
+	 * url matcher for SUPERADMIN
+	 */
 	public static final String[] SUPERUSER_URL= {
 			"/addCategory/**",
 			"/updateCategory/**",
@@ -99,10 +112,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/deleteMasterRole/**",
 			"/viewTrainee/**",
 			"/details/**",
-			"/tutorialStatus/**"
+			"/tutorialStatus/**",
+			"/users/**"
 
 	};
 
+	/**
+	 * url matcher for MASTERTRAINER
+	 */
 	public static final String[] MASTERTRAINER_URL= {
 
 			"/masterTrainerOperation/**",
@@ -118,6 +135,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	};
 
+	/**
+	 * url matcher for CONTRIBUTOR
+	 */
 	public static final String[] CONTRIBUTOR_URL= {
 			"/uploadTutorial/**",
 			"/addOutline/**",
@@ -135,6 +155,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	};
 
+	/**
+	 * url matcher for Admin Role
+	 */
 	public static final String[] ADMIN_URL= {
 			"/listTutorialForAdminReview/**",
 			"/adminreview/review/**",
@@ -143,6 +166,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	};
 
+	/**
+	 * url matcher for domain role
+	 */
 	public static final String[] DOMAIN_URL= {
 			"/listTutorialForDomainReview/**",
 			"/domainreview/review/**",
@@ -155,6 +181,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	};
 
+	/**
+	 * url matcher for quality role
+	 */
 	public static final String[] QUALITY_URL= {
 			"/listTutorialForQualityReview/**",
 			"/publish/**",
@@ -169,6 +198,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	};
 
+	/**
+	 * configuration method
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -208,14 +240,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 			http.headers().frameOptions().disable();
 
-
-		/*
-		 * http
-		 *
-		 * .authorizeRequests() .antMatchers("/userDetail/**").hasRole("ROLE_USER")
-		 * .antMatchers("/adminDeatail/**").access("ROLE_ADMIN").anyRequest().
-		 * authenticated();
-		 */
 
 		  http.
 		  formLogin().

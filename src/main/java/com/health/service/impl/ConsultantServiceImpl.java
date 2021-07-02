@@ -15,13 +15,20 @@ import com.health.repository.ConsultantRepository;
 
 import com.health.service.ConsultantService;
 
-
+/**
+ * Default implementation of the {@link com.health.service.ConsultantService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class ConsultantServiceImpl implements ConsultantService {
 
 	@Autowired
 	private ConsultantRepository consultantRepo;
 
+	/**
+	 * @see com.health.service.ConsultantService#findAll()
+	 */
 	@Override
 	public List<Consultant> findAll() {
 
@@ -31,6 +38,9 @@ public class ConsultantServiceImpl implements ConsultantService {
 
 	}
 	
+	/**
+	 * @see com.health.service.ConsultantService#deleteProduct(Integer)
+	 */
 	@Override
 	public void deleteProduct(Integer id){
 
@@ -38,24 +48,10 @@ public class ConsultantServiceImpl implements ConsultantService {
 																																																																												
 	}
 
-	@Override
-	@Transactional
-	public Boolean UpdateConsalantant(String description,String name, String uploadVideo,int id) {
-		
-//		int status=	consultantRepo.updateconsalantant( description,name,uploadVideo,id);
-//		
-//		System.err.println(status);
-//		
-//		if(status>0) {
-//			return true;
-//		}else {
-//			return false;
-//		}
 	
-		return true;
-	}
-	
-	
+	/**
+	 * @see com.health.service.ConsultantService#findById(int)
+	 */
 	@Override
 	public Consultant findById(int id) {
 		// TODO Auto-generated method stub
@@ -69,6 +65,9 @@ public class ConsultantServiceImpl implements ConsultantService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.ConsultantService#save(Consultant)
+	 */
 	@Override
 	public void save(Consultant consult) {
 		// TODO Auto-generated method stub
@@ -76,6 +75,9 @@ public class ConsultantServiceImpl implements ConsultantService {
 		consultantRepo.save(consult);
 	}
 
+	/**
+	 * @see com.health.service.ConsultantService#getNewConsultantId()
+	 */
 	@Override
 	public int getNewConsultantId() {
 		// TODO Auto-generated method stub
@@ -88,12 +90,18 @@ public class ConsultantServiceImpl implements ConsultantService {
 		}
 	}
 
+	/**
+	 * @see com.health.service.ConsultantService#findByUser(User)
+	 */
 	@Override
 	public Consultant findByUser(User usr) {
 		// TODO Auto-generated method stub
 		return consultantRepo.findByuser(usr);
 	}
 
+	/**
+	 * @see com.health.service.ConsultantService#findByOnHome(boolean)
+	 */
 	@Override
 	public List<Consultant> findByOnHome(boolean value) {
 		// TODO Auto-generated method stub

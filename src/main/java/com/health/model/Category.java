@@ -18,37 +18,63 @@ import javax.persistence.Table;
 
 import com.health.domain.security.UserRole;
 
+/**
+ * category Object to store category related data on database
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Entity
 @Table(name = "category")
 public class Category {
 
+	/**
+	 * unique id to identify object
+	 */
 	@Id
 	@Column(name = "category_id", nullable = false, updatable = false)
 	private int categoryId;
 	
+	/**
+	 * category name
+	 */
 	@Column(name = "category_name", nullable = false)
 	private String catName;
 	
+	/**
+	 * Timestamp on added 
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 	
+	/**
+	 * boolean value to mark visible/invisible in application
+	 */
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 	
+	/**
+	 * relative path of image stored
+	 */
 	@Column(name = "Image_path", nullable = false)
 	private String posterPath;
 	
-	@Column(name = "Description", nullable = false)
+	/**
+	 * description of category
+	 */
+	@Column(name = "Description", nullable = false,length = 2000)
 	private String description;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * user who created it
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<TopicCategoryMapping> topicCategoryMap=new HashSet<TopicCategoryMapping>();
 	
-	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<UserRole> userRoles=new HashSet<UserRole>();
 	
 

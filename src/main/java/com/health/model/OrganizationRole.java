@@ -6,16 +6,31 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * Organization role for master trainer
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class OrganizationRole {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "org_role_id",updatable = false,nullable = false)
 	private int roleId;
 
+	/**
+	 * role name
+	 */
 	@Column(nullable = false)
 	private String role;
 
+	/**
+	 * timestamp of object created
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 

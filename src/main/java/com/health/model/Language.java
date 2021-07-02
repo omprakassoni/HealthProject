@@ -16,43 +16,62 @@ import javax.persistence.OneToMany;
 
 import com.health.domain.security.UserRole;
 
-
+/**
+ * Language object to store related information in database
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Entity
 public class Language {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "lan_id",updatable = false,nullable = false)
 	private int lanId;
 
+	/**
+	 * language name
+	 */
 	@Column(nullable = false)
 	private String langName;
 
+	/**
+	 * timestamp when added
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 
+	/**
+	 * boolean value to show or not
+	 */
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * user who added language
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<UserRole> userRoles=new HashSet<UserRole>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Question> questions=new HashSet<Question>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<TrainingInformation> trainingInfos=new HashSet<TrainingInformation>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Brouchure> brouchure=new HashSet<Brouchure>();
 
-	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Event> events=new HashSet<Event>();
 
 	public int getLanId() {

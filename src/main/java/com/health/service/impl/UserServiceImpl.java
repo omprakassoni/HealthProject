@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -22,6 +23,11 @@ import com.health.repository.RoleRepository;
 import com.health.repository.UserRepository;
 import com.health.service.UserService;
 
+/**
+ * Default implementation of the {@link com.health.service.UserService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class UserServiceImpl implements UserService{
 	
@@ -33,16 +39,26 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	/**
+	 * @see com.health.service.UserService#findByUsername(String)
+	 * 
+	 */
 	@Override
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 	
+	/**
+	 * @see com.health.service.UserService#findByEmail(String)
+	 */
 	@Override
 	public User findByEmail (String email) {
 		return userRepository.findByEmail(email);
 	}
 	
+	/**
+	 * @see com.health.service.UserService#createUser(User, Set)
+	 */
 	@Override
 	public User createUser(User user, Set<UserRole> userRoles){
 		User localUser = userRepository.findByUsername(user.getUsername());
@@ -63,12 +79,17 @@ public class UserServiceImpl implements UserService{
 		return localUser;
 	}
 	
+	/**
+	 * @see com.health.service.UserService#save(User)
+	 */
 	@Override
 	public User save(User user) {
 		return userRepository.save(user);
 	}
 
-	
+	/**
+	 * @see com.health.service.UserService#getNewId()
+	 */
 	@Override
 	public long getNewId() {
 		// TODO Auto-generated method stub
@@ -76,6 +97,9 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	/**
+	 * @see com.health.service.UserService#addUserToCategory(User, Set)
+	 */
 	@Override
 	public User addUserToCategory(User usr, Set<Category> categories) {
 		// TODO Auto-generated method stub
@@ -85,6 +109,9 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	/**
+	 * @see com.health.service.UserService#addUserToTopic(User, Set)
+	 */
 	@Override
 	public User addUserToTopic(User usr, Set<Topic> topics) {
 		// TODO Auto-generated method stub
@@ -93,6 +120,9 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	/**
+	 * @see com.health.service.UserService#addUserToLanguage(User, Set)
+	 */
 	@Override
 	public User addUserToLanguage(User usr, Set<Language> languages) {
 		// TODO Auto-generated method stub
@@ -102,6 +132,9 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	/**
+	 * @see com.health.service.UserService#addUserToQuestion(User, Set)
+	 */
 	@Override
 	public User addUserToQuestion(User usr, Set<Question> questions) {
 		// TODO Auto-generated method stub
@@ -110,6 +143,9 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	/**
+	 * @see com.health.service.UserService#addUserToEvent(User, Set)
+	 */
 	@Override
 	public User addUserToEvent(User usr, Set<Event> events) {
 		// TODO Auto-generated method stub
@@ -118,6 +154,9 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	/**
+	 * @see com.health.service.UserService#addUserToConsultant(User, Set)
+	 */
 	@Override
 	public User addUserToConsultant(User usr, Set<Consultant> consultant) {
 		// TODO Auto-generated method stub
@@ -126,6 +165,9 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	/**
+	 * @see com.health.service.UserService#addUserToTestimonial(User, Set)
+	 */
 	@Override
 	public User addUserToTestimonial(User usr, Set<Testimonial> testi) {
 		// TODO Auto-generated method stub
@@ -134,6 +176,9 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	/**
+	 * @see com.health.service.UserService#addUserToContributorTutorial(User, Set)
+	 */
 	@Override
 	public User addUserToContributorTutorial(User usr, Set<ContributorAssignedTutorial> testi) {
 		// TODO Auto-generated method stub
@@ -143,6 +188,9 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	/**
+	 * @see com.health.service.UserService#addUserToUserIndianMapping(User, Set)
+	 */
 	@Override
 	public User addUserToUserIndianMapping(User usr, Set<UserIndianLanguageMapping> userMapping) {
 		// TODO Auto-generated method stub
@@ -151,10 +199,22 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	/**
+	 * @see com.health.service.UserService#findBytoken(String)
+	 */
 	@Override
 	public User findBytoken(String token) {
 		// TODO Auto-generated method stub
 		return userRepository.findBytoken(token);
+	}
+
+	/**
+	 * @see com.health.service.UserService#findAll()
+	 */
+	@Override
+	public List<User> findAll() {
+		// TODO Auto-generated method stub
+		return (List<User>) userRepository.findAll();
 	}
 
 

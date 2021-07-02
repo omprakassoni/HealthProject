@@ -7,6 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class is responsible for configuration on how password is saved on database
+ * @author om prakash
+ * @version 1.0
+ *
+ */
 @Component
 public class SecurityUtility {
 	private static final String SALT = "salt"; // Salt should be protected carefully

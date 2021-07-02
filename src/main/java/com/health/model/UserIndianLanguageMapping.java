@@ -7,23 +7,44 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * this modal is used for master trainer
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class UserIndianLanguageMapping {
 
+	/**
+	 * unique id
+	 */
 	@Id
 	private int id;
 	
+	/**
+	 * redaing check 
+	 */
 	private boolean reading = false;
 	
+	/**
+	 * write check
+	 */
 	private boolean writing = false;
 	
+	/**
+	 * speak check
+	 */
 	private boolean speaking = false;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * user object
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lan_id")
 	private IndianLanguage indianlan;
 

@@ -9,25 +9,49 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
+/**
+ * feedbackMasterTrainer object to store data in database
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class FeedbackMasterTrainer {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	private int TrainerFeedId;
 
+	/**
+	 * description
+	 */
+	@Column(length = 2000)
 	private String description;
 
+	/**
+	 * timestamp feedback given
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 
+	/**
+	 * relative path where feedback is given
+	 */
 	private String path;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * feedback given for training
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="Training_id")
 	private TrainingInformation traineeInfos;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * user who given feedback
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 

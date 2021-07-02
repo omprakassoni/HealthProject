@@ -1,5 +1,11 @@
 package com.health.utility;
 
+/**
+ * coomon data used in application
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 public class CommonData {
 	
 	public static final long videoDuration=300000000L;

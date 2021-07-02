@@ -6,21 +6,42 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * Brochure Object to store brochure related data on database 
+ * @author Om Prakash Soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class Brouchure {
 
+	/**
+	 * unique brochure id 
+	 */
 	@Id
 	private int id;
 	
+	/**
+	 * Location to store brochure 
+	 */
 	private String posterPath;
 	
+	/**
+	 * Boolean value to show on Homepage or not
+	 */
 	private boolean showOnHomepage=false;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * Language mapped object it is associated with
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lan_id")
 	private Language lan;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * Topic category Mapped object to which it belongs
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "topicCat_id")
 	private TopicCategoryMapping topicCatId;
 

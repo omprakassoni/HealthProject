@@ -14,73 +14,134 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+/**
+ *  Event Object to store Event related data on database
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class Event {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "event_id",updatable = false,nullable = false)
 	private int eventId;
 
-	@Column(name = "event_name", nullable = false)
+	/**
+	 * name of event
+	 */
+	@Column(name = "event_name", nullable = false,length = 1000)
 	private String eventName;
 
-	@Column(name = "description", nullable = false)
+	/**
+	 * description of event
+	 */
+	@Column(name = "description", nullable = false,length = 2000)
 	private String description;
 
+	/**
+	 * location of event
+	 */
 	@Column(name = "location", nullable = false)
 	private String location;
 
+	/**
+	 * coordinator of event
+	 */
 	@Column(name = "contactPerson", nullable = false)
 	private String contactPerson;
 
+	/**
+	 * coordinator contact number
+	 */
 	@Column(name = "contactNumber", nullable = false)
 	private long contactNumber;
 
+	/**
+	 * E-mail
+	 */
 	@Column(name = "email", nullable = false)
 	private String email;
 
+	/**
+	 * relative path of poster
+	 */
 	@Column(name = "path", nullable = false)
 	private String posterPath;
 
+	/**
+	 * start date of event
+	 */
 	@Column(name = "start_Date", nullable = false)
 	private Date startDate ;
 
+	
+	/**
+	 * end date of event
+	 */
 	@Column(name = "end_date", nullable = false)
 	private Date endDate ;
 
+	/**
+	 * timestamp of event added
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 
+	/**
+	 * pincode of location
+	 */
 	@Column(name = "pincode")
 	private int pincode;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * langauge in which event is occuring
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="lan_id")
 	private Language lan;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * state of location
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="state_id")
 	private State state;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * district of location
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="district_id")
 	private District district;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * city of location
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="city_id")
 	private City city;
 
+	/**
+	 * full address
+	 */
 	@Column(name = "address" ,length = 10000)
 	private String address;
 
-	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "traineeInfos" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<TrainingTopic> trainingTopicId = new HashSet<TrainingTopic>();
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * user who added
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<TrainingInformation> trainings =new HashSet<TrainingInformation>();
 
 	public int getEventId() {

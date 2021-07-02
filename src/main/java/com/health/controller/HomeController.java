@@ -107,6 +107,8 @@ import com.health.utility.MailConstructor;
 import com.health.utility.SecurityUtility;
 import com.health.utility.ServiceUtility;
 import com.xuggle.xuggler.IContainer;
+import com.xuggle.xuggler.IStream;
+import com.xuggle.xuggler.IStreamCoder;
 
 @Controller
 public class HomeController {
@@ -447,7 +449,12 @@ public class HomeController {
 			 if(tutorial == null) {
 				 return "redirect:/";
 			 }
+			 
+			 tutorial.setUserVisit(tutorial.getUserVisit()+1);
+			 tutService.save(tutorial);
+			 
 			 model.addAttribute("tutorial", tutorial);
+			 
 			 
 			 if(!tutorial.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase("english")){
 				 model.addAttribute("relatedContent", tutorial.getRelatedVideo());
@@ -2163,6 +2170,7 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 
 		IContainer container = IContainer.make();
 		int result=10;
@@ -3896,17 +3904,34 @@ public class HomeController {
 
 				model.addAttribute("tutorial", local);
 				
+
+				
+				if(local.getVideo() != null) {
+
 				IContainer container = IContainer.make();
 				int result=10;
 				result = container.open(env.getProperty("spring.applicationexternalPath.name")+local.getVideo(),IContainer.Type.READ,null);
 				
 				System.out.println("Video Duration"+container.getDuration()/1000000);
 				System.out.println("file Size"+container.getFileSize()/1000000);
+
+			
+					
+				IStream stream = container.getStream(0);
+				IStreamCoder coder = stream.getStreamCoder();
+				System.out.println("width :"+coder.getWidth());
+				System.out.println("Height :"+coder.getHeight());
 				
+				model.addAttribute("FileWidth", coder.getWidth());
+				model.addAttribute("FileHeight", coder.getHeight());
 				model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 				model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 				
 				container.close();
+
+
+				}
+
 				
 
 				List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, local);
@@ -4004,6 +4029,9 @@ public class HomeController {
 
 		model.addAttribute("tutorial", tutorial);
 		
+
+		if(tutorial.getVideo() != null) {
+
 		IContainer container = IContainer.make();
 		int result=10;
 		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
@@ -4011,10 +4039,23 @@ public class HomeController {
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
 		
+
+		IStream stream = container.getStream(0);
+		IStreamCoder coder = stream.getStreamCoder();
+		System.out.println("width :"+coder.getWidth());
+		System.out.println("Height :"+coder.getHeight());
+		
+		model.addAttribute("FileWidth", coder.getWidth());
+		model.addAttribute("FileHeight", coder.getHeight());
+		
+
 		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 		
 		container.close();
+
+		}
+
 
 		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, tutorial);
 		List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT, tutorial);
@@ -4124,6 +4165,8 @@ public class HomeController {
 		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
 		model.addAttribute("tutorial", tutorial);
 		
+
+		if(tutorial.getVideo() != null) {
 		IContainer container = IContainer.make();
 		int result=10;
 		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
@@ -4131,10 +4174,22 @@ public class HomeController {
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
 		
+
+		IStream stream = container.getStream(0);
+		IStreamCoder coder = stream.getStreamCoder();
+		System.out.println("width :"+coder.getWidth());
+		System.out.println("Height :"+coder.getHeight());
+		
+		model.addAttribute("FileWidth", coder.getWidth());
+		model.addAttribute("FileHeight", coder.getHeight());
+		
 		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 		
 		container.close();
+		
+		}
+		
 
 		model.addAttribute("success_msg", CommonData.Video_STATUS_SUCCESS_MSG);
 		return "addContentAdminReview";
@@ -4231,6 +4286,8 @@ public class HomeController {
 
 		model.addAttribute("tutorial", tutorial); 
 		
+
+		if(tutorial.getVideo() != null) {
 		IContainer container = IContainer.make();
 		int result=10;
 		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
@@ -4238,10 +4295,21 @@ public class HomeController {
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
 		
+
+		IStream stream = container.getStream(0);
+		IStreamCoder coder = stream.getStreamCoder();
+		System.out.println("width :"+coder.getWidth());
+		System.out.println("Height :"+coder.getHeight());
+		
+		model.addAttribute("FileWidth", coder.getWidth());
+		model.addAttribute("FileHeight", coder.getHeight());
+		
 		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 		
 		container.close();
+		}
+
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
@@ -4539,6 +4607,8 @@ public class HomeController {
 
 		model.addAttribute("tutorial", tutorial);
 		
+
+		if(tutorial.getVideo() != null) {
 		IContainer container = IContainer.make();
 		int result=10;
 		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
@@ -4546,10 +4616,22 @@ public class HomeController {
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
 		
+
+		IStream stream = container.getStream(0);
+		IStreamCoder coder = stream.getStreamCoder();
+		System.out.println("width :"+coder.getWidth());
+		System.out.println("Height :"+coder.getHeight());
+		
+		model.addAttribute("FileWidth", coder.getWidth());
+		model.addAttribute("FileHeight", coder.getHeight());
+		
 		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 		
 		container.close();
+
+		}
+
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
@@ -5543,6 +5625,26 @@ public class HomeController {
 		model.addAttribute("tutorial", published);
 
 		return "uploadTimescript";
+	}
+	
+	
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public String usersGet(Principal principal,Model model) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+	
+		List<User> allUser= userService.findAll();
+		
+		model.addAttribute("users", allUser);
+
+		return "showUsers";
 	}
 	
 }

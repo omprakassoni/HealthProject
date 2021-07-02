@@ -15,35 +15,68 @@ import com.health.model.Category;
 import com.health.model.Language;
 import com.health.model.User;
 
+/**
+ * Mapping object between user and role object
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 @Table(name="user_role")
 public class UserRole 
 {	
+	/**
+	 * unique id of object
+	 */
 	@Id
 	private  Long userRoleId;
 	
+	/**
+	 * timestamp when object is created
+	 */
 	private Timestamp created;
 	
+	/**
+	 * user object
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 
+	/**
+	 * role object
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="role_id")
 	private Role role;
 	
+	/**
+	 * language objevct
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="lan_id")
 	private Language lan;
 	
+	/**
+	 * category object
+	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cat_id")
 	private Category cat;
 	
+	/**
+	 * status value
+	 */
 	private boolean status=false;
 	
+	/**
+	 * revoke status
+	 */
 	private boolean revoked = false;
 	
+	/**
+	 * rejected flag
+	 */
 	private boolean rejected = false;
 
 	public Category getCategory() {

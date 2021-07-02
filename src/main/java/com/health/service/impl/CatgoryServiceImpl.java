@@ -14,13 +14,20 @@ import com.health.model.Category;
 import com.health.repository.CategoryRepository;
 import com.health.service.CategoryService;
 
-
+/**
+ * Default implementation of the {@link com.health.service.CategoryService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class CatgoryServiceImpl implements CategoryService {
 
 	@Autowired 
 	private CategoryRepository  categoryRepo;
 	
+	/**
+	 * @see com.health.service.CategoryService#findAll()
+	 */
 	@Override
 	public List<Category> findAll() {
 
@@ -29,6 +36,9 @@ public class CatgoryServiceImpl implements CategoryService {
 
 	}
 	
+	/**
+	 * @see com.health.service.CategoryService#findBycategoryname(String)
+	 */
 	@Override
 	public Category findBycategoryname(String name) {
 
@@ -44,13 +54,18 @@ public class CatgoryServiceImpl implements CategoryService {
 
 	}
 	
+	/**
+	 * @see com.health.service.CategoryService#deleteProduct(Integer)
+	 */
 	@Override
 	public void deleteProduct(Integer id){
 
 		categoryRepo.deleteById(id);																																																																									
 	}
 	
-	   
+	/**
+	 * @see com.health.service.CategoryService#updateCategory(String, int)
+	 */ 
 	@Override
 	@Transactional																																																							
 	public Boolean updateCategory(String testimonialName,int id) {
@@ -66,7 +81,9 @@ public class CatgoryServiceImpl implements CategoryService {
 		
 	}
 		  
-	  
+	/**
+	 * @see com.health.service.CategoryService#findByid(int)
+	 */
 	@Override 
 	public Category findByid(int id){
 	  
@@ -81,6 +98,9 @@ public class CatgoryServiceImpl implements CategoryService {
 	  
 	 }
 
+	/**
+	 * @see com.health.service.CategoryService#getNewCatId()
+	 */
 	@Override
 	public int getNewCatId() {
 		
@@ -94,6 +114,9 @@ public class CatgoryServiceImpl implements CategoryService {
 		
 	}
 
+	/**
+	 * @see com.health.service.CategoryService#save(Category)
+	 */
 	@Override
 	public Category save(Category cat) {
 		// TODO Auto-generated method stub

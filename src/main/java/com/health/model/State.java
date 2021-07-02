@@ -12,16 +12,30 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-
+/**
+ * this modal object records state object in database
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 public class State {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "state_id", nullable = false)
 	private int id;
 
+	/**
+	 * name of state
+	 */
 	private String stateName;
 
+	/**
+	 * timestamp of object created
+	 */
 	private Timestamp dateAdded;
 
 	@OneToMany(mappedBy = "state", cascade=CascadeType.ALL, fetch=FetchType.EAGER)

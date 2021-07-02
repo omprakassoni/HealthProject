@@ -3,6 +3,7 @@ package com.health.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -345,7 +346,7 @@ public class AjaxController{
 
 		for(TrainingTopic x :trainingTopic) {
 //			TrainingInformation temp = trainingInforService.getById(x.getTraineeInfos().getTrainingId());
-			Event event = eventService.getById(x.getEvent().getEventId());
+			Event event = eventService.findById(x.getEvent().getEventId());
 			System.err.println("***********************");
 			System.err.println(event);
 //			topicName.put(temp.getTrainingId(), temp.getTitleName());
@@ -446,8 +447,11 @@ public class AjaxController{
 			System.out.println(temp.getTutorialId());
 			System.out.println("*********************");
 			if(temp.getTutorialId() != tut.getTutorialId()) {
-
-				topicName.put(temp.getTutorialId(), temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
+				
+				if(temp.isStatus()) {
+					topicName.put(temp.getTutorialId(), temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
+				}
+				
 			}
 
 		}
@@ -604,10 +608,10 @@ public class AjaxController{
 	}
 
 	@RequestMapping("/loadLanguageForContributorRoleTutorial")
-	public @ResponseBody List<String> getLanguageByContributorRole(@RequestParam(value = "id") String catName,
+	public @ResponseBody Set<String> getLanguageByContributorRole(@RequestParam(value = "id") String catName,
 															@RequestParam(value = "topicId") int topicId,Principal principal) {
 
-		List<String> languages=new ArrayList<String>();
+		Set<String> languages=new HashSet<String>();
 
 		User usr=new User();
 
@@ -1840,4 +1844,8 @@ public class AjaxController{
 	}
 	
 	/*********************************** END ********************************************************/
+	
+	
+
+		
 }

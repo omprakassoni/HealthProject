@@ -391,6 +391,8 @@
 														</div>
 														<div> Video Duration : <span th:text="${FileDurationInSecond}"/> Seconds </div> 
 														<div> Video File Size : <span th:text="${fileSizeInMB}"/> MB </div> 
+														<div> Video Width : <span th:text="${FileWidth}"/> </div> 
+														<div> Video Height : <span th:text="${FileHeight}"/>  </div> 
 													</div>
 												</form>
 												<form id="upload-file-form-video"
@@ -1000,7 +1002,7 @@
 																<div>
 																	<input type="file" class="custom-file-input"
 																		id="uploadsSlideFileId" name="uploadsSlideFile"
-																		placeholder="uploadFile" accept=".zip,.pdf"
+																		placeholder="uploadFile" accept=".zip"
 																		required="required"></input>
 																</div>
 																

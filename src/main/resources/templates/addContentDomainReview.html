@@ -116,7 +116,7 @@ color : #014F7A;}
 												<span style="color: green;" th:text="${statusOutline}"></span>
 										</span></td>
 										<td>
-												<span style="color: green;" th:text="${tutorial.getOutlineUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getOutlineUser()}" th:text="${tutorial.getOutlineUser().getUsername()}"></span>
 										</span></td>
 										<th>
 											<button type="button" class="btn btn-info"
@@ -143,7 +143,7 @@ color : #014F7A;}
 										</span></td>
 										
 										<td>
-												<span style="color: green;" th:text="${tutorial.getScriptUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getScriptUser()}" th:text="${tutorial.getScriptUser().getUsername()}"></span>
 										</span></td>
 										
 										<th><!-- <span id="scriptIdDomain"
@@ -181,7 +181,7 @@ color : #014F7A;}
 										</span></td>
 
 										<td>
-												<span style="color: green;" th:text="${tutorial.getVideoUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getVideoUser()}" th:text="${tutorial.getVideoUser().getUsername()}"></span>
 										</span></td>
 										<th>
 											<button type="button" class="btn btn-info"
@@ -210,7 +210,7 @@ color : #014F7A;}
 										</span></td>
 										
 										<td>
-												<span style="color: green;" th:text="${tutorial.getSlideUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getSlideUser()}" th:text="${tutorial.getSlideUser().getUsername()}"></span>
 										</span></td>
 										
 										<th><!-- <span id="scriptIdDomain"
@@ -236,7 +236,7 @@ color : #014F7A;}
 										</span></td>
 										
 										<td>
-												<span style="color: green;" th:text="${tutorial.getKeywordUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getKeywordUser()}" th:text="${tutorial.getKeywordUser().getUsername()}"></span>
 										</span></td>
 
 										<th>
@@ -261,7 +261,7 @@ color : #014F7A;}
 										<td>Pre-Requisite</td>
 										<td><span style="color: green;" class="status-contri" th:text="${statusPreReq}"></span></td>
 										<td>
-												<span style="color: green;" th:text="${tutorial.getPreRequiticUser().getUsername()}"></span>
+												<span style="color: green;" th:if="${tutorial.getPreRequiticUser()}" th:text="${tutorial.getPreRequiticUser().getUsername()}"></span>
 										</span></td>
 										
 
@@ -641,6 +641,8 @@ color : #014F7A;}
 											</div>
 											<div> Video Duration : <span th:text="${FileDurationInSecond}"/> Seconds </div> 
 											<div> Video File Size : <span th:text="${fileSizeInMB}"/> MB </div>
+											<div> Video Width : <span th:text="${FileWidth}"/> </div> 
+											<div> Video Height : <span th:text="${FileHeight}"/>  </div>
 
 											</div>
 											<div>

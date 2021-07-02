@@ -11,12 +11,20 @@ import com.health.model.TrainingInformation;
 import com.health.repository.TraineeInformationRepository;
 import com.health.service.TraineeInformationService;
 
+/**
+ * Default implementation of the {@link com.health.service.TraineeInformationService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class TraineeInformationServiceImpl implements TraineeInformationService{
 
 	@Autowired
 	private TraineeInformationRepository repo;
 	
+	/**
+	 * @see com.health.service.TraineeInformationService#getNewId()
+	 */
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -29,18 +37,27 @@ public class TraineeInformationServiceImpl implements TraineeInformationService{
 		}
 	}
 
+	/**
+	 * @see com.health.service.TraineeInformationService#findAll()
+	 */
 	@Override
 	public List<TraineeInformation> findAll() {
 		// TODO Auto-generated method stub
 		return (List<TraineeInformation>) repo.findAll();
 	}
 
+	/**
+	 * @see com.health.service.TraineeInformationService#findAllBytraineeInfos(TrainingInformation)
+	 */
 	@Override
 	public List<TraineeInformation> findAllBytraineeInfos(TrainingInformation trainingId) {
 		// TODO Auto-generated method stub
 		return repo.findAllBytraineeInfos(trainingId);
 	}
 
+	/**
+	 * @see com.health.service.TraineeInformationService#findById(int)
+	 */
 	@Override
 	public TraineeInformation findById(int traineeId) {
 		// TODO Auto-generated method stub
@@ -53,6 +70,9 @@ public class TraineeInformationServiceImpl implements TraineeInformationService{
 		}
 	}
 
+	/**
+	 * @see com.health.service.TraineeInformationService#save(TraineeInformation)
+	 */
 	@Override
 	public void save(TraineeInformation temp) {
 		// TODO Auto-generated method stub

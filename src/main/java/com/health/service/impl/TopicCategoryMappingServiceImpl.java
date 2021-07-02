@@ -13,12 +13,20 @@ import com.health.model.TopicCategoryMapping;
 import com.health.repository.TopicCategoryMappingRepository;
 import com.health.service.TopicCategoryMappingService;
 
+/**
+ * Default implementation of the {@link com.health.service.TopicCategoryMappingService} interface.  
+ * @author om prakash soni
+ * @version 1.0
+ */
 @Service
 public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingService {
 
 	@Autowired
 	private TopicCategoryMappingRepository topicCatRepo;
 
+	/**
+	 * @see com.health.service.TopicCategoryMappingService#save(TopicCategoryMapping)
+	 */
 	@Override
 	public void save(TopicCategoryMapping local) {
 		// TODO Auto-generated method stub
@@ -26,6 +34,9 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 
 	}
 
+	/**
+	 * @see com.health.service.TopicCategoryMappingService#getNewId()
+	 */
 	@Override
 	public int getNewId() {
 		// TODO Auto-generated method stub
@@ -38,6 +49,9 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 		}
 	}
 
+	/**
+	 * @see com.health.service.TopicCategoryMappingService#findAllByCategoryBasedOnUserRoles(List)
+	 */
 	@Override
 	public List<TopicCategoryMapping> findAllByCategoryBasedOnUserRoles(List<UserRole> userRoles) {
 		// TODO Auto-generated method stub
@@ -54,24 +68,36 @@ public class TopicCategoryMappingServiceImpl implements TopicCategoryMappingServ
 		return temp;
 	}
 
+	/**
+	 * @see com.health.service.TopicCategoryMappingService#findAllByCategoryAndTopic(Category, Topic)
+	 */
 	@Override
 	public TopicCategoryMapping findAllByCategoryAndTopic(Category cat, Topic topic) {
 		// TODO Auto-generated method stub
 		return topicCatRepo.findBycatAndtopic(cat, topic);
 	}
 
+	/**
+	 * @see com.health.service.TopicCategoryMappingService#findAllByCategory(Category)
+	 */
 	@Override
 	public List<TopicCategoryMapping> findAllByCategory(Category cat) {
 		// TODO Auto-generated method stub
 		return topicCatRepo.findAllBycat(cat);
 	}
 
+	/**
+	 * @see com.health.service.TopicCategoryMappingService#findAllByTopic(Topic)
+	 */
 	@Override
 	public List<TopicCategoryMapping> findAllByTopic(Topic topic) {
 		// TODO Auto-generated method stub
 		return topicCatRepo.findAllBytopic(topic);
 	}
 
+	/**
+	 * @see com.health.service.TopicCategoryMappingService#findByCategoryAndOrder(Category, int)
+	 */
 	@Override
 	public TopicCategoryMapping findByCategoryAndOrder(Category cat, int order) {
 		// TODO Auto-generated method stub

@@ -14,74 +14,134 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Tutorial object 
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 @Table(name = "tutorial_resource")
 public class Tutorial implements Comparable<Tutorial>{
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "tutorial_id",updatable = false,nullable = false)
 	private int tutorialId;
 	
-	@Column(name = "script",length = 1000)
+	/**
+	 * number of user visit 
+	 */
+	@Column(name = "userVisit")
+	private int UserVisit = 0;
+	
+	/**
+	 * relative path of script
+	 */
+	@Column(name = "script",length = 2000)
 	private String script;
 
+	/**
+	 * scrpt status
+	 */
 	@Column(name = "script_status")
 	private int scriptStatus = 0;
 	
 //	@Column(name = "script_user")
 //	private User scriptUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	/**
+	 * user object added script
+	 */
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_script")
 	private User scriptUser;
 
-	@Column(name = "slide",length = 1000)
+	/**
+	 * relative path of slide
+	 */
+	@Column(name = "slide",length = 2000)
 	private String slide;
 
+	/**
+	 * slide status
+	 */
 	@Column(name = "slide_status")
 	private int slideStatus = 0;
 	
 //	@Column(name = "slide_user")
 //	private User slideUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	/**
+	 * user object who added slide
+	 */
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_slide")
 	private User slideUser;
 
-	@Column(name = "keyword",length = 1000)
+	/**
+	 * keyword 
+	 */
+	@Column(name = "keyword",length = 2000)
 	private String keyword;
 
+	/**
+	 * keyword status
+	 */
 	@Column(name = "keyword_status")
 	private int keywordStatus = 0;
 	
 //	@Column(name = "keyword_user")
 //	private User keywordUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	/**
+	 * user object who added slide
+	 */
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_keyword")
 	private User keywordUser;
 
-	@Column(name = "outline",length = 1000)
+	/**
+	 * outline
+	 */
+	@Column(name = "outline",length = 2000)
 	private String outline;
 
+	/**
+	 * outline status
+	 */
 	@Column(name = "outline_status")
 	private int outlineStatus = 0;
 	
 //	@Column(name = "outline_user")
 //	private User outlineUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	/**
+	 * user object who added slide
+	 */
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_outline")
 	private User outlineUser;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * tutorial object for pre-rrquisite
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "preRequistics")
 	private Tutorial preRequistic;
 
+	/**
+	 * pre-requisite status
+	 */
 	@Column(name = "preRequistic_status")
 	private int preRequisticStatus = 0;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	/**
+	 * user object who added slide
+	 */
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_preRequistic")
 	private User preRequiticUser;
 	
@@ -93,49 +153,76 @@ public class Tutorial implements Comparable<Tutorial>{
 		this.preRequiticUser = preRequiticUser;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * tutorial object when other language except English used
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "relatedVideo")
 	private Tutorial relatedVideo;
 
+	/**
+	 * timestamp when object created
+	 */
 	@Column(name = "date_added", nullable = false)
 	private Timestamp dateAdded;
 
+	/**
+	 * boolean value to show /disable
+	 */
 	@Column(name = "enabled")
 	private boolean status;
 
+	/**
+	 * relative path of timescript
+	 */
 	@Column(name = "timescript",length = 1000)
 	private String timeScript;
 
+	/**
+	 * name of topic name
+	 */
 	@Column(name = "topicName",length = 1000)
 	private String topicName;
 
+	/**
+	 * relative path of video
+	 */
 	@Column(name = "video",length = 1000)
 	private String video;
 
+	/**
+	 * video status
+	 */
 	@Column(name = "video_status")
 	private int videoStatus = 0;
 	
 //	@Column(name = "video_user")
 //	private User videoUser = null;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	/**
+	 * user object who added slide
+	 */
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_video")
 	private User videoUser;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * tutorial topic category information
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "conAssignedTutorial")
 	private ContributorAssignedTutorial conAssignedTutorial;
 
-	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Comment> comments =new HashSet<Comment>();
 
-	@OneToMany(mappedBy = "preRequistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "preRequistic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> preRequisticTutorial =new HashSet<Tutorial>();
 	
-	@OneToMany(mappedBy = "relatedVideo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "relatedVideo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Tutorial> relatedTutorial =new HashSet<Tutorial>();
 
-	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "tutorialInfos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<LogManegement> logs =new HashSet<LogManegement>();
 
 	public int getTutorialId() {
@@ -370,6 +457,14 @@ public class Tutorial implements Comparable<Tutorial>{
 	public int compareTo(Tutorial o) {
 		// TODO Auto-generated method stub
 		return this.getOrdering().compareTo(o.getOrdering());
+	}
+
+	public int getUserVisit() {
+		return UserVisit;
+	}
+
+	public void setUserVisit(int userVisit) {
+		UserVisit = userVisit;
 	}
 	
 	

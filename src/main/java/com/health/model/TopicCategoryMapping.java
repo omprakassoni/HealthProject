@@ -15,38 +15,59 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * This modal is representation of mappin between category and topic
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Entity
 @Table(name = "topic_category")
 public class TopicCategoryMapping {
 
+	/**
+	 * unique id of object
+	 */
 	@Id
 	@Column(name = "topic_category_id",nullable = false,updatable = false)
 	private int topicCategoryId;
 	
+	/**
+	 * boolean value to show/disable
+	 */
 	@Column(name = "status", nullable = false)
 	private boolean status=true;
 	
+	/**
+	 * order value
+	 */
 	@Column(name = "orderValue")
 	private int order = 0;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * category 
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category cat;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	/**
+	 * topic
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "topic_id")
 	private Topic topic;
 	
-	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Question> questions=new HashSet<Question>();
 	
-	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<ContributorAssignedTutorial> conAssignedTutorial=new HashSet<ContributorAssignedTutorial>();
 		
-	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
 	private Set<TrainingTopic> trainingTopic=new HashSet<TrainingTopic>();
 	
-	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+	@OneToMany(mappedBy = "topicCatId", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
 	private Set<Brouchure> brochures=new HashSet<Brouchure>();
 	
 
