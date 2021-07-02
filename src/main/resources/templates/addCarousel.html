@@ -52,18 +52,18 @@
 											
 											
 											  <div class="form-group">
-											  <label for="event_name_carousel">Event/workshop name</label>
+											  <label for="event_name_carousel">Event/Workshop Name *</label>
 											    <input class="form-control" type="text"  id="event_name_carousel" name="eventName" required>
 											    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 											  </div>
 											  <div class="form-group">
-											<label for="desc_carousel">Short description</label>
+											<label for="desc_carousel">Short Description *</label>
 											    <textarea class="form-control" rows="3" id="desc_carousel" name="eventDesc" maxlength="100" required></textarea>
-											    <small>Characters limit : 100</small>
+											    <small>Character limit : 100</small>
 											  </div>
 											  <div class="form-group">
 
-											    <label for="img_carousel">Upload Carousel image</label>
+											    <label for="img_carousel">Upload Carousel image *</label><small>(.jpg or .png format only)</small>
 											    <input type="file" class="form-control-file" id="img_carousel" name="file" required onchange="validate_file_size(this,500000)">
 											    <small>Max file size : 500 kB <br>Suggested Dimension : 600 x 400</small>
 
@@ -93,7 +93,7 @@
 							<thead>
 								<tr>
 									<th scope="col">Event Name</th>
-									<th scope="col">Desc</th>
+									<th scope="col">Short Description</th>
 									<th scope="col">Poster</th>
 								</tr>
 							</thead>

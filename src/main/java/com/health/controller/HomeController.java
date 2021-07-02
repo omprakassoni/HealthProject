@@ -1180,8 +1180,8 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/******************************ADD BROUCHURE ******************************************/
-	@RequestMapping(value = "/addBrouchure",method = RequestMethod.GET)
-	public String addBrouchureGet(Model model,Principal principal) {
+	@RequestMapping(value = "/addBrochure",method = RequestMethod.GET)
+	public String addBrochureGet(Model model,Principal principal) {
 		User usr=new User();
 		if(principal!=null) {
 			usr=userService.findByUsername(principal.getName());
@@ -1193,11 +1193,11 @@ public class HomeController {
 		model.addAttribute("languages", lans);
 		List<Brouchure> brouchures = broService.findAll();
 		model.addAttribute("brouchures", brouchures);
-		return "addBrouchure";
+		return "addBrochure";
 	}
 
-	@RequestMapping(value = "/addBrouchure",method = RequestMethod.POST)
-	public String addBrouchurePost(Model model,Principal principal,
+	@RequestMapping(value = "/addBrochure",method = RequestMethod.POST)
+	public String addBrochurePost(Model model,Principal principal,
 								  @RequestParam("brouchure") MultipartFile brochure,
 								  @RequestParam(value = "categoryName") int categoryId,
 								  @RequestParam(name = "inputTopicName") int topicId,
@@ -1220,7 +1220,7 @@ public class HomeController {
 		
 		if(!ServiceUtility.checkFileExtensionImage(brochure)) {  // throw error
 			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
-			return "addBrouchure";
+			return "addBrochure";
 		}
 		
 		Category cat=catService.findByid(categoryId);
@@ -1228,12 +1228,12 @@ public class HomeController {
 		
 		if(cat == null) {  // throw error
 			model.addAttribute("error_msg","Please Try again");
-			return "addBrouchure";
+			return "addBrochure";
 		}
 		
 		if(topic == null) {  // throw error
 			model.addAttribute("error_msg","Please Try again");
-			return "addBrouchure";
+			return "addBrochure";
 		}
 		
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
@@ -1252,7 +1252,7 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
-			return "addBrouchure";
+			return "addBrochure";
 		}
 
 		try {
@@ -1271,14 +1271,14 @@ public class HomeController {
 			e.printStackTrace();
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 			broService.delete(brochureTemp);
-			return "addBrouchure";
+			return "addBrochure";
 		}
 
 		brouchures = broService.findAll();
 		model.addAttribute("brouchures", brouchures);
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 
-		return "addBrouchure";
+		return "addBrochure";
 
 
 	}

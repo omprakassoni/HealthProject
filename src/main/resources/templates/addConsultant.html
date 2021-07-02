@@ -39,10 +39,10 @@
 											enctype="multipart/form-data">
 											
 											<div class="form-group">
-													<label for="categoryId">Select Category</label> 
+													<label for="categoryId">Select Category *</label> 
 													<select id="categoryId" class="form-control" name="categoryName" required="required">
 				
-													<option value="0"> Select Category</option>
+													<option value="0">Select any one category</option>
 													
 														<option th:each="category: ${categories}" th:value="${category.getCategoryId()}" th:text="${category.getCatName()}">
 																</option>
@@ -52,7 +52,7 @@
 											</div>
 											
 											<div class="form-group">
-													<label for="lanId">Select Language</label> 
+													<label for="lanId">Select any one language *</label> 
 													<select id="lanId" class="form-control" name="lanName" required="required">
 				
 													<option value="0">Select Language</option>
@@ -65,7 +65,7 @@
 											</div>
 
 											<div class="form-group">
-												<label for="nameConsaltant">Name</label> <input type="text"
+												<label for="nameConsaltant">Name *<span class="text-muted">( Full Name with the official Title )</span></label> <input type="text"
 													class="form-control" id="nameConsaltant"
 													name="nameConsaltant" required="required"
 													placeholder="Name of the consultant" />
@@ -74,7 +74,7 @@
 											
 											<div class="form-group">
 												<label for="email" style="padding-top: 8px">Add
-													Email</label> <!-- <input type="file" style="padding-right: 50px"
+													Email *</label> <!-- <input type="file" style="padding-right: 50px"
 													class="form-control-file" id="consaltantImage"
 													name="uploadConsaltantImage" placeholder="uploadFile"
 													accept=".jpg, .jpeg,.png" required="required" /> -->
