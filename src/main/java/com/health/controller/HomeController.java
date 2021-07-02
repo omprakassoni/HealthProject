@@ -22,6 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -110,6 +113,12 @@ import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IStream;
 import com.xuggle.xuggler.IStreamCoder;
 
+/**
+ * This Controller Class takes website request and process it accordingly
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Controller
 public class HomeController {
 
@@ -120,7 +129,7 @@ public class HomeController {
 	private MailConstructor mailConstructor;
 
 	@Autowired
-	private UserService userService;  // in use
+	private UserService userService;  
 
 	@Autowired
 	private LanguageService lanService;
@@ -210,6 +219,11 @@ public class HomeController {
     
 	private static final String VIDEO_FILE_FORMAT = "video/*";
 
+	/**
+	 * Index page Url
+	 * @param model Model Object
+	 * @return String object (Webpapge)
+	 */
 
 	@RequestMapping("/")
 	public String index(Model model) {
@@ -332,11 +346,22 @@ public class HomeController {
 		return "index";
 	}
 
+	/**
+	 * Redirects to Tutorials Page
+	 * @param req HttpServletRequest object
+	 * @param cat String object
+	 * @param topic String object
+	 * @param lan String object
+	 * @param principal principal object
+	 * @param model model object
+	 * @return String object (Webpapge)
+	 */
 	@RequestMapping(value = "/tutorials", method = RequestMethod.GET)
 	public String viewCoursesAvailable(HttpServletRequest req,
 			@RequestParam(name = "categoryName") String cat,
 			@RequestParam(name = "topic") String topic,
-			@RequestParam(name = "lan") String lan,Principal principal,Model model) {
+			@RequestParam(name = "lan") String lan,
+			@RequestParam(name ="page",defaultValue = "0") int page , Principal principal,Model model) {
 
 		Set<String> catTemp = new HashSet<String>();
 		Set<String> topicTemp = new HashSet<String>();
@@ -352,6 +377,10 @@ public class HomeController {
 		model.addAttribute("categories", catTemp);
 		model.addAttribute("languages", lanTemp);
 		model.addAttribute("topics", topicTemp);
+		
+		model.addAttribute("category", cat);
+		model.addAttribute("language", lan);
+		model.addAttribute("topic", topic);
 
 		Category localCat = null;
 		Language localLan = null;
@@ -361,7 +390,7 @@ public class HomeController {
 		List<ContributorAssignedTutorial> conAssigTutorialList =null;
 		ContributorAssignedTutorial conAssigTutorial = null;
 
-		List<Tutorial> tut = null;
+		Page<Tutorial> tut = null;
 		List<Tutorial> tutToView = new ArrayList<Tutorial>();
 
 		User usr=new User();
@@ -412,14 +441,17 @@ public class HomeController {
 			}
 		}
 
-
+		Pageable pageable = PageRequest.of(page, 20);
 
 		if(conAssigTutorial != null) {
-			tut = tutService.findAllByContributorAssignedTutorial(conAssigTutorial);
+			tut = tutService.findAllByconAssignedTutorialPagination(conAssigTutorial,pageable);
+			
 		} else if(conAssigTutorialList != null) {
-			tut =tutService.findAllByContributorAssignedTutorialList(conAssigTutorialList);
+			tut =tutService.findAllByconAssignedTutorialListPagination(conAssigTutorialList, pageable);
+			
 		}else {
-			tut = tutService.findAll();
+			tut = tutService.findAllPagination(pageable);
+	
 		}
 
 		for(Tutorial temp :tut) {
@@ -436,10 +468,20 @@ public class HomeController {
 		Collections.sort(tutToView);  // sorting based on order value
 		
 		model.addAttribute("tutorials", tutToView);
+		model.addAttribute("currentPage",page);
+		model.addAttribute("totalPages",tut.getTotalPages());
 
 		return "tutorialList";   // add view name (filename)
 	}
 
+	/**
+	 * redirects to tutorial specific page
+	 * @param req HttpServletRequest object
+	 * @param id integer value
+	 * @param principal Principal object
+	 * @param model Model object
+	 * @return String object (Webpapge)
+	 */
 	@RequestMapping(value = "/tutorialView/{id}", method = RequestMethod.GET)
 	public String viewTutorial(HttpServletRequest req,@PathVariable int id,Principal principal,Model model) {
 		
@@ -495,12 +537,22 @@ public class HomeController {
 			return "tutorial";
 	}
 	
+	/**
+	 * Redirects to Login Page
+	 * @param model Model object
+	 * @return String object (Webpapge)
+	 */
 	@RequestMapping("/login")									// in use
 	public String loginGet(Model model) {
 		model.addAttribute("classActiveLogin", true);
 		return "signup";
 	}
 
+	/**
+	 * Redirects to ShowEvent Page
+	 * @param model Model object
+	 * @return String object (Webpapge)
+	 */
 	@RequestMapping(value = "/showEvent",method = RequestMethod.GET)
 	public String showEventGet(Model model) {
 
@@ -509,6 +561,11 @@ public class HomeController {
 		return "events";
 	}
 
+	/**
+	 * Redirects to Consultant Page
+	 * @param model Model object
+	 * @return String object (Webpapge)
+	 */
 	@RequestMapping(value = "/showConsultant",method = RequestMethod.GET)
 	public String showConsultantGet(Model model) {
 
@@ -518,6 +575,11 @@ public class HomeController {
 		return "Consultants";
 	}
 
+	/**
+	 * Redirects to Testimonail Page
+	 * @param model Model object
+	 * @return String object (Webpapge)
+	 */
 	@RequestMapping(value = "/showTestimonial",method = RequestMethod.GET)
 	public String showTestimonialGet(Model model) {
 
@@ -526,6 +588,13 @@ public class HomeController {
 		return "signup";
 	}
 
+	/**
+	 * redirects to Forget Password Post method
+	 * @param request HttpServletRequest object
+	 * @param email String object
+	 * @param model model object
+	 * @return String object (Webpapge)
+	 */
 	@RequestMapping(value = "/forgetPassword",method = RequestMethod.POST)
 	public String forgetPasswordPost(HttpServletRequest request, @ModelAttribute("email") String email, Model model) {
 
@@ -560,6 +629,11 @@ public class HomeController {
 		return "signup";
 	}
 
+	/**
+	 * Redirects to Forget Password Page
+	 * @param model Model object
+	 * @return String object (Webpapge)
+	 */
 	@RequestMapping("/forgetPassword")									// in use
 	public String forgetPasswordGet(Model model) {
 
@@ -567,6 +641,13 @@ public class HomeController {
 		return "signup";
 	}
 	
+	/**
+	 * Url to reset password of the user
+	 * @param mv ModelAndView Object
+	 * @param token String object
+	 * @param principal Princiapl Object
+	 * @return String object (Webpapge)
+	 */
 	@RequestMapping(value = "/reset", method = RequestMethod.GET)
 	public ModelAndView resetPasswordGet(ModelAndView mv, @RequestParam("token") String token,Principal principal) {
 		
@@ -592,6 +673,13 @@ public class HomeController {
 
 	}
 	
+	/**
+	 * redirects to forget password page
+	 * @param mv ModelAndView object
+	 * @param req HttpServletRequest object
+	 * @param principal HttpServletRequest object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	public ModelAndView resetPasswordPost(ModelAndView mv, HttpServletRequest req,Principal principal) {
 
@@ -635,6 +723,11 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirects to category page
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/categories",method = RequestMethod.GET)
 	public String showCategoriesGet(Model model) {
 
@@ -646,6 +739,21 @@ public class HomeController {
 
 	/**************************** USER REGISTRATION *************************************************/
 
+	/**
+	 * Url to add user into system
+	 * @param request HttpServletRequest object
+	 * @param username String object
+	 * @param firstName String object
+	 * @param lastName String object
+	 * @param userEmail String object
+	 * @param password String object
+	 * @param address String object
+	 * @param phone String object
+	 * @param gender String object
+	 * @param model Model Object
+	 * @return String object(Webpage)
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/newUser", method = RequestMethod.POST)    // in use
 	public String newUserPost(
 			HttpServletRequest request,
@@ -704,6 +812,11 @@ public class HomeController {
 
 	}
 
+	/**
+	 * Redirects to adduser page
+	 * @param model Model Object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping("/newUser")										// in use
 	public String newUserGet (Model model) {
 
@@ -717,6 +830,12 @@ public class HomeController {
 
 	/**************************** DASHBAORD PAGE FOR ALL USER *****************************************/
 
+	/**
+	 * redirects to user Dashboard page 
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/dashBoard",method = RequestMethod.GET)
 	public String dashBoardGet (Model model,Principal principal) {
 
@@ -744,6 +863,13 @@ public class HomeController {
 	}
 
 	/****************************************** ADD CATEGORY *************************************************/
+	
+	/**
+	 * redirects to add category page
+	 * @param model model Object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addCategory",method = RequestMethod.GET)
 	public String addCategoryGet(Model model,Principal principal) {
 
@@ -763,6 +889,14 @@ public class HomeController {
 
 	}
 
+	/**
+	 * Url to add category to object
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest object
+	 * @param files MultipartFile object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addCategory",method = RequestMethod.POST)
 	public String addCategoryPost(Model model,Principal principal,HttpServletRequest req,
 								  @RequestParam("categoryImage") MultipartFile files) {
@@ -852,6 +986,7 @@ public class HomeController {
 
 	/************************************END**********************************************/
 	/************************************ADD ORGANIZATIONAL ROLE**********************************************/
+
 
 	@RequestMapping(value = "/addOrganizationRole",method = RequestMethod.GET)
 	public String addOrganizationRoleGet(Model model,Principal principal) {

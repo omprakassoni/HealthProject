@@ -2,6 +2,9 @@ package com.health.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.Tutorial;
 
@@ -13,7 +16,35 @@ import com.health.model.Tutorial;
  */
 public interface TutorialService {
 
-
+	
+	/**
+	 * List out all the tutorial given list of ContributorAssignedTutorial object under pagination concept
+	 * @param con list of ContributorAssignedTutorial object
+	 * @param page Pageable object
+	 * @return page object
+	 */
+	Page<Tutorial> findAllByconAssignedTutorialListPagination(List<ContributorAssignedTutorial> con,Pageable page);
+	
+	
+	/**
+	 * List out all the tutorial given ContributorAssignedTutorial object under paginaytion concept
+	 * @param con ContributorAssignedTutorial object
+	 * @param page Pageable object
+	 * @return page object
+	 */
+	Page<Tutorial> findAllByconAssignedTutorialPagination(ContributorAssignedTutorial con,Pageable page);
+	
+	/**
+	 * List out all the tutorial based on pagination
+	 * @param page Pageable object
+	 * @return Page object
+	 */
+	Page<Tutorial> findAllPagination(Pageable page);
+	
+	/**
+	 * List out all the tutorial object from database
+	 * @return list of Tutorial object
+	 */
 	List<Tutorial> findAll();
 
 	/**

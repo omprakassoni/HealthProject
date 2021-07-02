@@ -3374,7 +3374,6 @@ $(document).ready(function() {
 						$('#editOutline').toggle();
 
 						var saveInfo = editor.getData();
-						alert(saveInfo);
 						var tutorialId=$("#tutorialId").val();
 						
 						console.log("******************");

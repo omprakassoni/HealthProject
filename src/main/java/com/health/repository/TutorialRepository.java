@@ -2,6 +2,9 @@ package com.health.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -20,7 +23,7 @@ import com.health.model.Topic;
  * @version 1.0
  *
  */
-public interface TutorialRepository extends CrudRepository<Tutorial, Integer> {
+public interface TutorialRepository extends JpaRepository<Tutorial, Integer> {
 
 	/**
 	 * Find the next unique id for the object
@@ -42,6 +45,27 @@ public interface TutorialRepository extends CrudRepository<Tutorial, Integer> {
 	 * @return list of Tutorial object
 	 */
 	List<Tutorial> findAllBystatus(boolean status);
+	
+	/**
+	 * List out all the tutorial based on pagination
+	 * @param page Pageable object
+	 * @return Page object
+	 */
+	@Query("from Tutorial t where t.status = true")
+	Page<Tutorial> findAllByPagination(Pageable page);
+	
+	/**
+	 * List out all the tutorial given ContributorAssignedTutorial object under pagination concept
+	 * @param con ContributorAssignedTutorial object
+	 * @param page Pageable object
+	 * @return page object
+	 */
+	@Query("from Tutorial t where t.status = true and t.conAssignedTutorial = ?1")
+	Page<Tutorial> findAllByconAssignedTutorialPagination(ContributorAssignedTutorial con,Pageable page);
+	
+	
+	@Query("from Tutorial t where t.conAssignedTutorial IN (:con) and t.status = true")
+	public Page<Tutorial> findAllByconAssignedTutorialListPagination(@Param("con")List<ContributorAssignedTutorial> con,Pageable page);
 	
 
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.health.model.ContributorAssignedTutorial;
@@ -102,6 +104,32 @@ public class TutorialServiceImpl implements TutorialService {
 	public List<Tutorial> findAllBystatus(boolean status) {
 		// TODO Auto-generated method stub
 		return tutorialRepo.findAllBystatus(status);
+	}
+
+	/**
+	 * @see com.health.service.TutorialService#findAllPagination(Pageable)
+	 */
+	@Override
+	public Page<Tutorial> findAllPagination(Pageable page) {
+		// TODO Auto-generated method stub
+		return tutorialRepo.findAll(page);
+	}
+
+	/**
+	 * @see com.health.service.TutorialService#findAllByconAssignedTutorialPagination(ContributorAssignedTutorial, Pageable)
+	 */
+	@Override
+	public Page<Tutorial> findAllByconAssignedTutorialPagination(ContributorAssignedTutorial con, Pageable page) {
+		// TODO Auto-generated method stub
+		return tutorialRepo.findAllByconAssignedTutorialPagination(con, page);
+		
+	}
+
+	@Override
+	public Page<Tutorial> findAllByconAssignedTutorialListPagination(List<ContributorAssignedTutorial> con,
+			Pageable page) {
+		// TODO Auto-generated method stub
+		return tutorialRepo.findAllByconAssignedTutorialListPagination(con, page);
 	}
 
 

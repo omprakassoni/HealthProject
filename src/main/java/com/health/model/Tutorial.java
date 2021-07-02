@@ -106,7 +106,7 @@ public class Tutorial implements Comparable<Tutorial>{
 	/**
 	 * outline
 	 */
-	@Column(name = "outline",length = 2000)
+	@Column(name = "outline",length = 3000)
 	private String outline;
 
 	/**

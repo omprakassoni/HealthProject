@@ -77,7 +77,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/reset/**",
 			"/resetPassword/**",
 			"/getCatAndLan/**",
-			"/getTopicOnCatAndLan/**"
+			"/getTopicOnCatAndLan/**",
+			"/getRolesOnCatLanUser/**",
+			"/getTutorial/**"
 	};
 
 	/**
