@@ -26,17 +26,17 @@ public class CommonData {
 
 	public static String Video_SAVE_SUCCESS_MSG = "Video Saved Successfully !";
 
-	public static String Video_STATUS_SUCCESS_MSG = "Video Status Updated Successfully !";
+	public static String Video_STATUS_SUCCESS_MSG = "Video status updated successfully";
 
-	public static String Script_SAVE_SUCCESS_MSG = "Script Saved Successfully !";
+	public static String Script_SAVE_SUCCESS_MSG = "Script saved successfully";
 
-	public static String Slide_SAVE_SUCCESS_MSG = "Slide Saved Successfully !";
+	public static String Slide_SAVE_SUCCESS_MSG = "Slide saved successfully";
 
-	public static String PRE_REQUISTIC_SAVE_SUCCESS_MSG = "Pre Requistic Saved Successfully !";
+	public static String PRE_REQUISTIC_SAVE_SUCCESS_MSG = "Pre-Requistic saved successfully";
 
-	public static String Graphics_SAVE_SUCCESS_MSG = "Graphics Saved Successfully !";
+	public static String Graphics_SAVE_SUCCESS_MSG = "Graphics saved successfully";
 
-	public static String RECORD_SAVE_SUCCESS_MSG = "Record Saved Successfully !";
+	public static String RECORD_SAVE_SUCCESS_MSG = "Record saved successfully.";
 
 	public static String EVENT_CHECK_DATE = "Please check event date";
 
@@ -44,7 +44,7 @@ public class CommonData {
 
 	public static String EVENT_CHECK_EMAIL = "Please check email id";
 
-	public static String RECORD_UPDATE_SUCCESS_MSG = "Record Updated Successfully!";
+	public static String RECORD_UPDATE_SUCCESS_MSG = "Record updated successfully!";
 
 	public static String RECORD_EXISTS = "Record Already Exists!";
 
@@ -58,9 +58,9 @@ public class CommonData {
 
 	public static String ROLE_APPROVED_SUCCESS_MSG= "Role approved";
 
-	public static String CONTRIBUTOR_ADDED_SUCCESS_MSG = "Contributor added Successfully!";
+	public static String CONTRIBUTOR_ADDED_SUCCESS_MSG = "Contributor added successfully!";
 
-	public static String CONTRIBUTOR_ASSIGNED_TUTORIAL = "Contributor assigned Successfully!";
+	public static String CONTRIBUTOR_ASSIGNED_TUTORIAL = "Contributor assigned successfully!";
 
 	public static String CONTRIBUTOR_ERROR = "Contributor already assigned for selected language!";
 
@@ -68,7 +68,7 @@ public class CommonData {
 
 	public static String CONTRIBUTOR_TOPIC_ERROR = "Error in assigning topic";
 
-	public static String MASTER_TRAINER_ADDED_SUCCESS_MSG = "Master Trainer added Successfully!";
+	public static String MASTER_TRAINER_ADDED_SUCCESS_MSG = "Master Trainer added successfully!";
 
 	public static String ADMIN_ADDED_SUCCESS_MSG = "Admin added Successfully!";
 
