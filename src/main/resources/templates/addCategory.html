@@ -48,7 +48,7 @@
 										<form th:action="@{/addCategory}" method="post"
 											enctype="multipart/form-data">
 											<div class="form-group">
-												<label for="Category">Category Name : </label> <input
+												<label for="Category">Category Name * </label> <input
 													type="text" class="form-control " id="Category"
 													name="categoryname" required="required" /> <span
 													style="color: red;" th:if="${statusOutline}">Category
@@ -56,7 +56,7 @@
 											</div>
 											<div class="form-group">
 												<label for="categoryImage" style="padding-top: 8px">Category
-													Logo : </label> <input type="file" style="padding-right: 50px"
+													Logo * <span class="text-muted">(Only png/jpeg/jpg format)</span></label> <input type="file" style="padding-right: 50px"
 													class="form-control-file " id="categoryImage"
 													name="categoryImage" placeholder="uploadFile"
 													accept=".jpg, .jpeg ,.png" required="required" onchange="validate_file_size(this,500000)"/>
@@ -64,8 +64,8 @@
 
 											</div>
 											<div class="form-group">
-												<label for="categoryDesc">Description : <small>(
-														1000 characters limit )</small></label>
+												<label for="categoryDesc">Description *<span class="text-muted">(
+														 Character limit : 1000 )</span></label>
 												<textarea class="form-control" id="categoryDesc" rows="3"
 													name="categoryDesc" maxlength="1000" required="required"></textarea>
 											</div>
@@ -84,10 +84,10 @@
   <table class="table table-striped" id="myTable">
   <thead>
     <tr>
-      <th scope="col">Name</th>
-      <th scope="col">description</th>
-      <th scope="col">Poster</th>
-      <th scope="col">Edit</th>
+      <th scope="col">Category</th>
+      <th scope="col">Description</th>
+      <th scope="col">Logo</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>

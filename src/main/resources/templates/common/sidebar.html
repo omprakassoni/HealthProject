@@ -204,13 +204,13 @@ a:hover {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#content">
+            <span class="nav-link" >
               
               <i class="fas fa-database sidebar-icon"></i>Content
-            </a>
+            </span>
           </li>
           <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/addBrouchure}">
+            <a class="nav-link" th:href="@{/addBrochure}">
               <span data-feather="bar-chart-2"></span>
               Brochure
             </a>
@@ -241,9 +241,39 @@ a:hover {
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="#content">
+            <span class="nav-link" >
               <i class="far fa-newspaper sidebar-icon"></i>
               Creation
+            </span>
+          </li>
+          <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/addCategory}">
+              <span data-feather="shopping-cart"></span>
+              Add Category
+            </a>
+          </li>
+          <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/addLanguage}">
+              <span data-feather="users"></span>
+              Add Language
+            </a>
+          </li>
+          <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/addTopic}">
+              <span data-feather="bar-chart-2"></span>
+              Add Topic
+            </a>
+          </li>
+          <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/addRole}">
+              <span data-feather="bar-chart-2"></span>
+              Add Role
+            </a>
+          </li>
+          <li class="nav-item border-lt">
+            <a class="nav-link" th:href="@{/addOrganizationRole}">
+              <span data-feather="users"></span>
+              Add Organization Roles
             </a>
           </li>
           <li class="nav-item border-lt">
@@ -252,41 +282,11 @@ a:hover {
               Assign Contributor
             </a>
           </li>
-          <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/addCategory}">
-              <span data-feather="shopping-cart"></span>
-              Category
-            </a>
-          </li>
-          <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/addOrganizationRole}">
-              <span data-feather="users"></span>
-              Organization Roles
-            </a>
-          </li>
-          <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/addLanguage}">
-              <span data-feather="users"></span>
-              Language
-            </a>
-          </li>
-          <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/addRole}">
-              <span data-feather="bar-chart-2"></span>
-              Role
-            </a>
-          </li>
-           <li class="nav-item border-lt">
-            <a class="nav-link" th:href="@{/addTopic}">
-              <span data-feather="bar-chart-2"></span>
-              Topic
-            </a>
-          </li>
           <li class="nav-item ">
-            <a class="nav-link" href="#content">
+            <span class="nav-link">
               <i class="far fa-newspaper sidebar-icon"></i>
               Training
-            </a>
+            </span>
           </li>
            <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/tutorialStatus}">

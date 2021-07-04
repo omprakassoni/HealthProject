@@ -46,12 +46,12 @@
 					<div class="card-body">
 						<div class="row">
 							<div class="col-lg-6">
-								<form th:action="@{/addBrouchure}"
+								<form th:action="@{/addBrochure}"
 									method="post" enctype="multipart/form-data">
 									<div class="form-group">
-										<label for="MasterCategoryId">Select category </label> <select
+										<label for="MasterCategoryId">Select Category *</label> <select
 											id="MasterCategoryId" class="form-control"
-											name="categoryName" required="required">
+											name="categoryName" required>
 
 											<option value="0">Select Category</option>
 											
@@ -64,13 +64,13 @@
 									</div>
 
 									<div class="form-group">
-										<label for="inputTopic">Select Topic</label> <select
+										<label for="inputTopic">Select Topic *</label> <select
 											id="inputTopic" class="form-control" name="inputTopicName"
 											required="required">
 										</select>
 									</div>
 									<div class="form-group">
-										<label for="languageNameId">Select Language </label> <select
+										<label for="languageNameId">Select Language *</label> <select
 											id="languageNameId" class="form-control" name="languageyName"
 											required="required">
 												<option th:each="lan: ${languages}" th:value="${lan.getLanId()}" th:text="${lan.getLangName()}"></option>
@@ -82,7 +82,7 @@
 
 									<div class="form-group">
 
-										<label for="brouchure">Brochure</label> <input type="file"
+										<label for="brouchure">Brochure *</label><small> (PDF Format Only)</small> <input type="file"
 											class="form-control" id="brouchure" name="brouchure"
 											accept=" .jpeg,.jpg,.png" required="required" onchange="validate_file_size(this,1024000)"/>
 										<small>Max file size : 1 MB</small>
@@ -118,7 +118,7 @@
       <th scope="col">Category Name</th>
       <th scope="col">Topic Name</th>
       <th scope="col">Language</th>
-      <th scope="col">Brouchure</th>
+      <th scope="col">Brochure</th>
       <th scope="col">Enable/Disable</th>
     </tr>
   </thead>
@@ -134,10 +134,10 @@
 	  <td>
 	  		
 	   			<div th:if="${bro.isShowOnHomepage()}">
-	   				<a class="disableBrouchure" th:value="${bro.getId()}" title="Click to Disable Brouchure"><i class="fas fa-times-circle" th:id="${bro.getId()}" style="color:red"></i></a>
+	   				<a class="disableBrouchure" th:value="${bro.getId()}" title="Click to Disable Brochure"><i class="fas fa-times-circle" th:id="${bro.getId()}" style="color:red"></i></a>
 	   			</div>
 	   			<div th:unless="${bro.isShowOnHomepage()}">
-	   				<a class="enableBrouchure" th:value="${bro.getId()}" title="Click to Enable Brouchure"><i class="fas fa-check-circle" th:id="${bro.getId()}" style="color:green"></i> </a>
+	   				<a class="enableBrouchure" th:value="${bro.getId()}" title="Click to Enable Brochure"><i class="fas fa-check-circle" th:id="${bro.getId()}" style="color:green"></i> </a>
 	   			</div>
 	   		
 	  

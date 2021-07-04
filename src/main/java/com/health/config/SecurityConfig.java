@@ -102,7 +102,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/uploadQuestion/**",
 			"/question/edit/**",
 			"/updateQuestion/**",
-			"/addBrouchure/**",
+			"/addBrochure/**",
 			"/addCarousel/**",
 			"/approveRole/**",
 			"/assignTutorialToContributor/**",

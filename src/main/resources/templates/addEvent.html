@@ -50,7 +50,7 @@
 											method="post" enctype="multipart/form-data">
 											<div class="form-group">
 
-												<label for="event">Event Name</label> <input type="text"
+												<label for="event">Event Name *</label> <input type="text"
 													class="form-control" id="event" name="eventname"
 													required="required" />
 											</div>
@@ -58,7 +58,7 @@
 											<div class="col-md-6">
 											<div class="form-group">
 
-												<label for="eventdate">Start Date</label> <input type="date"
+												<label for="eventdate">Start Date *</label> <input type="date"
 													class="form-control" id="eventdate" name="date"
 													required="required" />
 
@@ -67,7 +67,7 @@
 											<div class="col-md-6">
 											<div class="form-group">
 
-												<label for="endDate">End Date</label> <input type="date"
+												<label for="endDate">End Date *</label> <input type="date"
 													class="form-control" id="endDatee" name="endDate"
 													required="required" />
 
@@ -75,16 +75,16 @@
 											</div>
 											</div>
 											<div class="form-group">
-												<label for="eventDescription">Enter
-													Description</label>
+												<label for="eventDescription">Event
+													Description *</label>
 												<textarea class="form-control" rows="10"
 													id="eventDescription" name="description"
 													required="required" placeholder="Description of the event" maxlength="5000"></textarea>
-													<small>Characters limit : 5000</small>
+													<small>Character limit : 5000</small>
 											</div>
 											<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Venue Details : </span></div>
 											<div class="form-group">
-												<label for="venue">Venue Name</label> <input type="text"
+												<label for="venue">Venue Name *</label> <input type="text"
 													class="form-control" id="venue" name="venuename"
 													required="required" />
 											</div>
@@ -92,7 +92,7 @@
 											<div class="col-md-6">
 											<div class="form-group">
 
-														<label for="stateName">State</label> <select
+														<label for="stateName">State *</label> <select
 															id="stateNameId" class="form-control " name="stateName"
 															required="required">
 
@@ -107,7 +107,7 @@
 											<div class="col-md-6">
 											<div class="form-group">
 
-														<label for="district">District</label> <select
+														<label for="district">District *</label> <select
 															id="districtId" class="form-control " name="districtName"
 															required="required">
 															<option selected="selected" value="0">Select District</option>
@@ -119,7 +119,7 @@
 											<div class="col-md-6">
 											<div class="form-group">
 
-														<label for="cityName">City</label> <select id="cityId"
+														<label for="cityName">City *</label> <select id="cityId"
 															class="form-control" name="cityName" required="required">
 															<option selected="selected" value="0">Select City</option>
 														</select>
@@ -128,7 +128,7 @@
 											</div>
 											<div class="col-md-6">
 											<div class="form-group">
-														<label for="pinCodeId">PinCode</label> <input
+														<label for="pinCodeId">PinCode *</label> <input
 															type="number" class="form-control" name="pinCode"
 															pattern="[0-9]" id="pinCodeId" minlength="6"
 															maxlength="6" required="required" />
@@ -138,20 +138,20 @@
 													<div class="form-group">
 
 														<label for="addressInformationId">Address
-															Details</label>
+															Details *</label>
 
 														<textarea class="form-control"
 															name="addressInformationName" rows="5"
 															id="addressInformationId" required="required" maxlength="200"></textarea>
-															<small>Characters limit : 200</small>
+															<small>Character limit : 200</small>
 
 													</div>
-													<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Event Content Details : </span></div>
+													<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Content for the Event : </span></div>
 													<div class="row">
 													<div class="col-md-6">
 													<div class="form-group ">
 
-														<label>Select Language</label> <select
+														<label>Select Language *</label> <select
 															id="selectLanguageId" class="form-control "
 															name="language" required="required">
 
@@ -165,7 +165,7 @@
 													<div class="col-md-6">
 													<div class="form-group">
 
-														<label for="categoryName">Select category </label> <select
+														<label for="categoryName">Select Category *</label> <select
 															id="MasterCategoryId" class="form-control"
 															name="categoryName" required="required">
 
@@ -181,7 +181,7 @@
 													
 													<div class="form-group ">
 														<div class="form-group">
-															<label for="catgoryByContributor">Select Topic</label> <select
+															<label for="catgoryByContributor">Select Topic *<span class="text-muted">(For multiple topic selection, press Ctrl key)</span></label> <select
 																id="inputTopic" class="form-control select selectpicker"
 																name="inputTopic" required="required"
 																multiple="multiple">
@@ -190,18 +190,18 @@
 														</div>
 													</div>
 													<div class="form-group">
-												<label for="Image" style="padding-top: 8px">Event Image </label> <input type="file" style="padding-right: 50px"
+												<label for="Image" style="padding-top: 8px">Poster of the Event *</label> <input type="file" style="padding-right: 50px"
 													class="form-control-file " id="Image"
 													name="Image" placeholder="uploadFile"
 													accept=".jpg, .jpeg ,.png" onchange="validate_file_size(this,500000)" required="required"/>
 													<small>Max file size : 500 kB <br>Suggested Dimension : 600 x 400</small>
 
 											</div>
-													<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Contact Details : </span></div>
+													<div style="border-bottom: 2px solid #014F7A;" class="mb-2"><span style="font-size: 1rem; color: #014F7A;">Details of Contact Person for the Event : </span></div>
 											<div class="row">
 											<div class="col-12">
 											<div class="form-group">
-												<label for="contactperson">Contact Person</label> <input
+												<label for="contactperson">Contact Person Name *</label> <input
 													type="text" class="form-control" id="contactperson"
 													name="contactperson" required="required" />
 											</div>
@@ -210,7 +210,7 @@
 											<div class="row">
 											<div class="col-md-5">
 											<div class="form-group">
-												<label for="contactnumber">Contact Number</label> <input
+												<label for="contactnumber">Phone Number *</label> <input
 													type="number" class="form-control" id="conatctNumber"
 													name="contactnumber" required="required" />
 											</div>
@@ -218,7 +218,7 @@
 											<div class="col-md-7">
 											<div class="form-group">
 
-												<label for="email">Email Id</label> <input type="email"
+												<label for="email">Email Id *</label> <input type="email"
 													class="form-control" id="email" name="email"
 													required="required" />
 											</div>
@@ -248,15 +248,15 @@
   <thead>
     <tr>
       <th scope="col">Event Name</th>
-       <th scope="col">Description</th>
-      <th scope="col">Location</th>
-      <th scope="col">Contact Person</th>
-      <th scope="col">Contact Number</th>
-      <th scope="col">Email</th>
+       <th scope="col">Event Description</th>
+      <th scope="col">Event Location</th>
+      <th scope="col">Name of Contact Person</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Email Id</th>
       <th scope="col">Start Date</th>
       <th scope="col">End Date</th>
       <th scope="col">Poster</th>
-      <th scope="col">Edit</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>

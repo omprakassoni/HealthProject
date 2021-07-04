@@ -1315,8 +1315,8 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/******************************ADD BROUCHURE ******************************************/
-	@RequestMapping(value = "/addBrouchure",method = RequestMethod.GET)
-	public String addBrouchureGet(Model model,Principal principal) {
+	@RequestMapping(value = "/addBrochure",method = RequestMethod.GET)
+	public String addBrochureGet(Model model,Principal principal) {
 		User usr=new User();
 		if(principal!=null) {
 			usr=userService.findByUsername(principal.getName());
@@ -1328,11 +1328,11 @@ public class HomeController {
 		model.addAttribute("languages", lans);
 		List<Brouchure> brouchures = broService.findAll();
 		model.addAttribute("brouchures", brouchures);
-		return "addBrouchure";
+		return "addBrochure";
 	}
 
-	@RequestMapping(value = "/addBrouchure",method = RequestMethod.POST)
-	public String addBrouchurePost(Model model,Principal principal,
+	@RequestMapping(value = "/addBrochure",method = RequestMethod.POST)
+	public String addBrochurePost(Model model,Principal principal,
 								  @RequestParam("brouchure") MultipartFile brochure,
 								  @RequestParam(value = "categoryName") int categoryId,
 								  @RequestParam(name = "inputTopicName") int topicId,
@@ -1355,7 +1355,7 @@ public class HomeController {
 		
 		if(!ServiceUtility.checkFileExtensionImage(brochure)) {  // throw error
 			model.addAttribute("error_msg",CommonData.JPG_PNG_EXT);
-			return "addBrouchure";
+			return "addBrochure";
 		}
 		
 		Category cat=catService.findByid(categoryId);
@@ -1363,12 +1363,12 @@ public class HomeController {
 		
 		if(cat == null) {  // throw error
 			model.addAttribute("error_msg","Please Try again");
-			return "addBrouchure";
+			return "addBrochure";
 		}
 		
 		if(topic == null) {  // throw error
 			model.addAttribute("error_msg","Please Try again");
-			return "addBrouchure";
+			return "addBrochure";
 		}
 		
 		TopicCategoryMapping topicCat=topicCatService.findAllByCategoryAndTopic(cat, topic);
@@ -1387,7 +1387,7 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
-			return "addBrouchure";
+			return "addBrochure";
 		}
 
 		try {
@@ -1406,14 +1406,14 @@ public class HomeController {
 			e.printStackTrace();
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 			broService.delete(brochureTemp);
-			return "addBrouchure";
+			return "addBrochure";
 		}
 
 		brouchures = broService.findAll();
 		model.addAttribute("brouchures", brouchures);
 		model.addAttribute("success_msg",CommonData.RECORD_SAVE_SUCCESS_MSG);
 
-		return "addBrouchure";
+		return "addBrochure";
 
 
 	}
@@ -4039,14 +4039,17 @@ public class HomeController {
 
 				model.addAttribute("tutorial", local);
 				
+
 				
 				if(local.getVideo() != null) {
+
 				IContainer container = IContainer.make();
 				int result=10;
 				result = container.open(env.getProperty("spring.applicationexternalPath.name")+local.getVideo(),IContainer.Type.READ,null);
 				
 				System.out.println("Video Duration"+container.getDuration()/1000000);
 				System.out.println("file Size"+container.getFileSize()/1000000);
+
 			
 					
 				IStream stream = container.getStream(0);
@@ -4060,7 +4063,10 @@ public class HomeController {
 				model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 				
 				container.close();
+
+
 				}
+
 				
 
 				List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, local);
@@ -4077,7 +4083,6 @@ public class HomeController {
 				model.addAttribute("comVideo", comVideo);
 				model.addAttribute("comKeyword", comKeyword);
 				model.addAttribute("comPreReq", comPreRequistic);
-
 			}
 		}
 
@@ -4159,7 +4164,9 @@ public class HomeController {
 
 		model.addAttribute("tutorial", tutorial);
 		
+
 		if(tutorial.getVideo() != null) {
+
 		IContainer container = IContainer.make();
 		int result=10;
 		result = container.open(env.getProperty("spring.applicationexternalPath.name")+tutorial.getVideo(),IContainer.Type.READ,null);
@@ -4167,6 +4174,7 @@ public class HomeController {
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
 		
+
 		IStream stream = container.getStream(0);
 		IStreamCoder coder = stream.getStreamCoder();
 		System.out.println("width :"+coder.getWidth());
@@ -4175,11 +4183,14 @@ public class HomeController {
 		model.addAttribute("FileWidth", coder.getWidth());
 		model.addAttribute("FileHeight", coder.getHeight());
 		
+
 		model.addAttribute("fileSizeInMB", container.getFileSize()/1000000);
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 		
 		container.close();
+
 		}
+
 
 		List<Comment> comVideo = comService.getCommentBasedOnTutorialType(CommonData.VIDEO, tutorial);
 		List<Comment> comScript = comService.getCommentBasedOnTutorialType(CommonData.SCRIPT, tutorial);
@@ -4289,6 +4300,7 @@ public class HomeController {
 		model.addAttribute("language", tutorial.getConAssignedTutorial().getLan().getLangName());
 		model.addAttribute("tutorial", tutorial);
 		
+
 		if(tutorial.getVideo() != null) {
 		IContainer container = IContainer.make();
 		int result=10;
@@ -4297,6 +4309,7 @@ public class HomeController {
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
 		
+
 		IStream stream = container.getStream(0);
 		IStreamCoder coder = stream.getStreamCoder();
 		System.out.println("width :"+coder.getWidth());
@@ -4312,6 +4325,7 @@ public class HomeController {
 		
 		}
 		
+
 		model.addAttribute("success_msg", CommonData.Video_STATUS_SUCCESS_MSG);
 		return "addContentAdminReview";
 
@@ -4407,6 +4421,7 @@ public class HomeController {
 
 		model.addAttribute("tutorial", tutorial); 
 		
+
 		if(tutorial.getVideo() != null) {
 		IContainer container = IContainer.make();
 		int result=10;
@@ -4415,6 +4430,7 @@ public class HomeController {
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
 		
+
 		IStream stream = container.getStream(0);
 		IStreamCoder coder = stream.getStreamCoder();
 		System.out.println("width :"+coder.getWidth());
@@ -4428,6 +4444,7 @@ public class HomeController {
 		
 		container.close();
 		}
+
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
@@ -4725,6 +4742,7 @@ public class HomeController {
 
 		model.addAttribute("tutorial", tutorial);
 		
+
 		if(tutorial.getVideo() != null) {
 		IContainer container = IContainer.make();
 		int result=10;
@@ -4733,6 +4751,7 @@ public class HomeController {
 		System.out.println("Video Duration"+container.getDuration()/1000000);
 		System.out.println("file Size"+container.getFileSize()/1000000);
 		
+
 		IStream stream = container.getStream(0);
 		IStreamCoder coder = stream.getStreamCoder();
 		System.out.println("width :"+coder.getWidth());
@@ -4745,7 +4764,9 @@ public class HomeController {
 		model.addAttribute("FileDurationInSecond", container.getDuration()/1000000);
 		
 		container.close();
+
 		}
+
 
 		model.addAttribute("category", tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName());
 		model.addAttribute("topic", tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
