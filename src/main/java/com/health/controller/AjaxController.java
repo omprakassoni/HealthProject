@@ -74,7 +74,12 @@ import com.health.utility.MailConstructor;
 import com.health.utility.SecurityUtility;
 import com.health.utility.ServiceUtility;
 
-
+/**
+ * This Controller Class takes website AJAX request and process it accordingly
+ * @author om prakash soni
+ * @version 1.0
+ *
+ */
 @Controller
 public class AjaxController{
 
@@ -163,6 +168,11 @@ public class AjaxController{
 	private JavaMailSender mailSender;
 
 
+	/**
+	 * make visible/disable brochure object in system
+	 * @param id int value
+	 * @return Boolean value
+	 */
 	@GetMapping("/enableDisableBrouchure")
 	public @ResponseBody boolean enableDisableBrouchure(int id){
 		Brouchure bro = broService.findById(id);
@@ -186,6 +196,11 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * make visible/disable Consultant object in system
+	 * @param id int value
+	 * @return Boolean value
+	 */
 	@GetMapping("/enableDisableConsultant")
 	public @ResponseBody boolean enableDisableConsultant(int id){
 		Consultant con = consultService.findById(id);
@@ -209,6 +224,11 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * make visible/disable Testimonial object in system
+	 * @param id int value
+	 * @return Boolean value
+	 */
 	@GetMapping("/enableDisableTestimonial")
 	public @ResponseBody boolean enableDisableTestimonial(int id){
 		Testimonial test = testService.findById(id);
@@ -232,6 +252,19 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * update trainee object
+	 * @param addharNo String 
+	 * @param age int 
+	 * @param principal Principal object
+	 * @param email String
+	 * @param gender String
+	 * @param name String
+	 * @param org String
+	 * @param phone String
+	 * @param traineeId int
+	 * @return List of String
+	 */
 	@RequestMapping("/updateTrainee")
 	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "aadhar") String addharNo,
 												@RequestParam(value = "age") int age,Principal principal,
@@ -278,6 +311,13 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * update password of user
+	 * @param newPass string
+	 * @param oldPass string 
+	 * @param principal Principal object
+	 * @return List of String object
+	 */
 	@RequestMapping("/updatePassword")
 	public @ResponseBody List<String> updateUserPassword(@RequestParam(value = "password") String newPass,
 												@RequestParam(value = "currentPassword") String oldPass,Principal principal){
@@ -316,6 +356,11 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * return trainee object based on given training id
+	 * @param id int 
+	 * @return list of string
+	 */
 	@RequestMapping("/loadTraineeByTrainingId")
 	public @ResponseBody List<TraineeInformation> getTraineeInfoOnTrainingId(@RequestParam(value = "id") int id) {
 
@@ -334,6 +379,11 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * return title name for the training conducted given id
+	 * @param id int 
+	 * @return HashMap
+	 */
 	@RequestMapping("/loadTitleNameInMasterTraining")
 	public @ResponseBody HashMap<Integer, String> getTopicNameFromMasterTrainer(@RequestParam(value = "id") int id) {
 
@@ -362,6 +412,11 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * return district given state id
+	 * @param id int 
+	 * @return HashMap
+	 */
 	@RequestMapping("/loadDistrictByState")
 	public @ResponseBody HashMap<Integer, String> getDistrictByState(@RequestParam(value = "id") int id) {
 
@@ -379,6 +434,11 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * return city given district id
+	 * @param id int 
+	 * @return HashMap
+	 */
 	@RequestMapping("/loadCityByDistrict")
 	public @ResponseBody HashMap<Integer, String> getCityByDistrict(@RequestParam(value = "id") int id) {
 
@@ -396,6 +456,11 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * return topic given category id
+	 * @param id int 
+	 * @return HashMap
+	 */
 	@RequestMapping("/loadTopicByCategory")
 	public @ResponseBody HashMap<Integer, String> getTopicByCategory(@RequestParam(value = "id") int id) {
 
@@ -414,6 +479,13 @@ public class AjaxController{
 	}
 
 
+	/**
+	 * return published tutorial 
+	 * @param id int value
+	 * @param tutorialId int 
+	 * @param langName String
+	 * @return hashMao
+	 */
 	@RequestMapping("/loadTopicByCategoryPreRequistic")
 	public @ResponseBody HashMap<Integer, String> getTopicByCategoryPreRequistic(@RequestParam(value = "id") String id,
 																			@RequestParam(value = "tutorialId") int tutorialId,
@@ -460,6 +532,11 @@ public class AjaxController{
 	}
 
 
+	/**
+	 * Enable role from approve role tab under super admin role
+	 * @param id int 
+	 * @return String object
+	 */
 	@RequestMapping("/enableRoleById")
 	public @ResponseBody String enableRoleById(@RequestParam(value = "id") long id) {
 
@@ -492,6 +569,11 @@ public class AjaxController{
 		return CommonData.ROLE_APPROVED_SUCCESS_MSG;
 	}
 
+	/**
+	 * delete role
+	 * @param id int 
+	 * @return String
+	 */
 	@RequestMapping("/deleteRole")
 	public @ResponseBody String deleteMasterRoleById(@RequestParam(value = "id") long id) {
 
@@ -539,6 +621,11 @@ public class AjaxController{
 	}
 
 
+	/**
+	 * return the language for which user has contributor role
+	 * @param username string
+	 * @return list of string
+	 */
 	@RequestMapping("/loadLanguageByUser")
 	public @ResponseBody List<String> getLanguageByContributor(@RequestParam(value = "id") String username) {
 
@@ -557,6 +644,10 @@ public class AjaxController{
 		return langauges;
 	}
 
+	/**
+	 * return all the category
+	 * @return hashmap
+	 */
 	@RequestMapping("/loadCategory")
 	public @ResponseBody HashMap<Integer, String> getCategory() {
 
@@ -571,6 +662,12 @@ public class AjaxController{
 		return categories;
 	}
 
+	/**
+	 * return topic under category for contributor
+	 * @param catName String 
+	 * @param principal Principal object
+	 * @return hashmap
+	 */
 	@RequestMapping("/loadTopicByCategoryOnContributorRole")
 	public @ResponseBody HashMap<Integer, String> getTopicByCategoryOnContributorRole(@RequestParam(value = "id") String catName,Principal principal) {
 
@@ -607,6 +704,13 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * Load langauge for contributor role
+	 * @param catName String 
+	 * @param topicId int value
+	 * @param principal Principal object
+	 * @return Set
+	 */
 	@RequestMapping("/loadLanguageForContributorRoleTutorial")
 	public @ResponseBody Set<String> getLanguageByContributorRole(@RequestParam(value = "id") String catName,
 															@RequestParam(value = "topicId") int topicId,Principal principal) {
@@ -637,6 +741,11 @@ public class AjaxController{
 	}
 
 	/*********************************** CONTRIBUTOR SIDE *********************************************/
+	/**
+	 * return outline given tutorial id
+	 * @param tutorialId int
+	 * @return string
+	 */
 	@RequestMapping("/viewOutline")
 	public @ResponseBody String viewOutline(@RequestParam(value = "id") int tutorialId) {
 
@@ -648,6 +757,16 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * add outline to the tutorial
+	 * @param tutorialId int 
+	 * @param outlineData string
+	 * @param catName string
+	 * @param topicId int
+	 * @param lanId string
+	 * @param principal principal object
+	 * @return string
+	 */
 	@RequestMapping("/addOutline")
 	public @ResponseBody String addOutline(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "saveOutline") String outlineData,
@@ -732,6 +851,11 @@ public class AjaxController{
 		return CommonData.Outline_SAVE_SUCCESS_MSG;
 	}
 
+	/**
+	 * view keyword of tutorial given tutorial id
+	 * @param tutorialId int
+	 * @return string
+	 */
 	@RequestMapping("/viewKeyword")
 	public @ResponseBody String viewkeyword(@RequestParam(value = "id") int tutorialId) {
 
@@ -743,6 +867,16 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * add keyword to the tutorial
+	 * @param id int 
+	 * @param savekeyword string
+	 * @param categoryname string
+	 * @param topicId int
+	 * @param lanId string
+	 * @param principal principal object
+	 * @return string
+	 */
 	@RequestMapping("/addKeyword")
 	public @ResponseBody String addKeyword(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "savekeyword") String keywordData,
@@ -804,6 +938,12 @@ public class AjaxController{
 	}
 
 
+	/**
+	 * Add pre requisite component of tutorial when none given
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String object
+	 */
 	@RequestMapping("/addPreRequisticWhenNotRequired")
 	public @ResponseBody String addPreRequistic(@RequestParam(value = "id") int tutorialId,
 			Principal principal) {
@@ -841,6 +981,15 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * Add pre requisite component of tutorial
+	 * @param tutorialId int value
+	 * @param catName String
+ 	 * @param topicId int
+	 * @param lanId string
+	 * @param principal Principal object
+	 * @return string 
+	 */
 	@RequestMapping("/addPreRequistic")
 	public @ResponseBody String addPreRequistic(@RequestParam(value = "id") int tutorialId,
 			@RequestParam(value = "categoryname") String catName,
@@ -915,7 +1064,16 @@ public class AjaxController{
 
 	}
 
-
+	/**
+	 * Add video component of tutorial
+	 * @param tutorialId int value
+	 * @param videoFileName MultipartFile
+	 * @param categoryName String
+ 	 * @param topicId int
+	 * @param lanId string
+	 * @param principal Principal object
+	 * @return string 
+	 */
 	@RequestMapping("/addVideo")
 	public @ResponseBody String addKeyword(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "videoFileName") MultipartFile videoFile,
@@ -1033,7 +1191,16 @@ public class AjaxController{
 
 	}
 
-
+	/**
+	 * Add Slide component of tutorial
+	 * @param tutorialId int value
+	 * @param uploadSlideFile MultipartFile
+	 * @param categoryName String
+ 	 * @param topicId int
+	 * @param lanId string
+	 * @param principal Principal object
+	 * @return string 
+	 */
 	@RequestMapping("/addSlide")
 	public @ResponseBody String addSlide(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "uploadsSlideFile") MultipartFile videoFile,
@@ -1124,6 +1291,16 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * Add script component of tutorial
+	 * @param tutorialId int value
+	 * @param uploadScriptFile MultipartFile
+	 * @param categoryName String
+ 	 * @param topicId int
+	 * @param lanId string
+	 * @param principal Principal object
+	 * @return string 
+	 */
 	@RequestMapping("/addScript")
 	public @ResponseBody String addScript(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "uploadsScriptFile") MultipartFile videoFile,
@@ -1243,6 +1420,13 @@ public class AjaxController{
 
 
 	/********************************** operation at Admin End *****************************************/
+	
+	/**
+	 * accept video component from admin reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptAdminVideo")
 	public @ResponseBody String addAdminVideo(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1268,6 +1452,13 @@ public class AjaxController{
 	/***********************************END ***************************************************************/
 
 	/********************************** operation at DOMAIN USER *****************************************/
+	
+	/**
+	 * accept outline component from domain reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptDomainOutline")
 	public @ResponseBody String acceptDomainOutline(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1287,6 +1478,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept script component from domain reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptDomainScript")
 	public @ResponseBody String acceptDomainScript(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1308,6 +1505,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept video component from domain reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptDomainVideo")
 	public @ResponseBody String acceptDomainVideo(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1328,6 +1531,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept slide component from domain reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptDomainSlide")
 	public @ResponseBody String acceptDomainSlide(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1347,6 +1556,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept keyword component from domain reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptDomainKeywords")
 	public @ResponseBody String acceptDomainKeywords(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1366,6 +1581,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept pre requisite component from domain reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptDomainPreRequistic")
 	public @ResponseBody String acceptDomainPreRequistic(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1389,6 +1610,13 @@ public class AjaxController{
 	/***********************************END ***************************************************************/
 
 	/********************************** operation at Quality USER *****************************************/
+	
+	/**
+	 * accept outline component from quality reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptQualityOutline")
 	public @ResponseBody String acceptQualityOutline(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1408,6 +1636,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept script component from quality reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptQualityScript")
 	public @ResponseBody String acceptQualityScript(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1427,6 +1661,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept video component from quality reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptQualityVideo")
 	public @ResponseBody String acceptQualityVideo(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1446,6 +1686,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept slide component from quality reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptQualitySlide")
 	public @ResponseBody String acceptQualitySlide(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1465,6 +1711,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept keyword component from quality reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptQualityKeywords")
 	public @ResponseBody String acceptQualityKeywords(@RequestParam(value = "id") int tutorialId,Principal principal) {
 
@@ -1484,6 +1736,12 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * accept pre requisite component from quality reviewer
+	 * @param tutorialId int value
+	 * @param principal Principal object
+	 * @return String
+	 */
 	@RequestMapping("/acceptQualityPreRequistic")
 	public @ResponseBody String acceptQualityPreRequistic(@RequestParam(value = "id") int tutorialId, Principal principal) {
 
@@ -1508,6 +1766,13 @@ public class AjaxController{
 	/***********************************END ***************************************************************/
 /******************************* COMMENT MODULE UNDER CREATION PART ********************************/
 
+	/**
+	 * records comment made by user under admin role interface
+	 * @param tutorialId int value
+	 * @param msg string
+	 * @param principal Principal object
+	 * @return string
+	 */
 	@RequestMapping("/commentByAdminReviewer")
 	public @ResponseBody String commentByAdminReviewer(@RequestParam(value = "id") int tutorialId,
 													@RequestParam(value = "msg") String msg, Principal principal) {
@@ -1548,6 +1813,14 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * records comment made by user given type of component
+	 * @param tutorialId int value
+	 * @param msg string
+	 * @param type string
+	 * @param principal Principal object
+	 * @return string
+	 */
 	@RequestMapping("/commentByReviewer")
 	public @ResponseBody String commentByReviewer(@RequestParam(value = "id") int tutorialId,
 													@RequestParam(value = "msg") String msg,
@@ -1652,6 +1925,14 @@ public class AjaxController{
 	}
 
 
+	/**
+	 * records comment made by user under contributor role given type of component
+	 * @param tutorialId int value
+	 * @param msg string
+	 * @param type string
+	 * @param principal Principal object
+	 * @return string
+	 */
 	@RequestMapping("/commentByContributor")
 	public @ResponseBody String commentByContributor(@RequestParam(value = "id") int tutorialId,
 													@RequestParam(value = "type") String type,
@@ -1709,7 +1990,11 @@ public class AjaxController{
 	}
 
 
-
+/**
+ * Add user details from homepage to database
+ * @param contactData FeedbackForm object
+ * @return list of String
+ */
 	@PostMapping("/addContactForm")
 	public @ResponseBody List<String> addContactData(@Valid @RequestBody FeedbackForm contactData){
 		List<String> status=new ArrayList<String>();
@@ -1739,6 +2024,13 @@ public class AjaxController{
 	}
 
 
+	/**
+	 * add profile picture of user
+	 * @param uploadPhoto MultipartFile
+	 * @param principal Principal object
+	 * @return string
+	 * @throws Exception
+	 */
 	@PostMapping("/updateProfilePic")
 	public @ResponseBody String updateProfilePic(@RequestParam("profilePicture") MultipartFile uploadPhoto,Principal principal) throws Exception{
 
@@ -1761,6 +2053,11 @@ public class AjaxController{
 		return "ok";
 	}
 
+	/**
+	 * return consultant record
+	 * @param consultantId int value
+	 * @return list of String
+	 */
 	@GetMapping("/getConsultantDetails")
 	public @ResponseBody List<String> getConsultantDetailsInfo(@RequestParam(value = "id") int consultantId) {
 		System.err.print("inside*********************************************");
@@ -1788,6 +2085,10 @@ public class AjaxController{
 
 	}
 
+	/**
+	 * returns all the language available in the database
+	 * @return list of string
+	 */
 	@RequestMapping("/loadLanguages")
 	public @ResponseBody List<String> getLanguages() {
 
@@ -1805,6 +2106,13 @@ public class AjaxController{
 	
 	/**************************** UPLOAD TIME SCRIPT ***********************************************/
 	
+	/**
+	 * add Timescript from contributor role
+	 * @param tutorialId int value
+	 * @param File  MultipartFile
+	 * @param principal Principal
+	 * @return string
+	 */
 	@RequestMapping("/addTimeScript")
 	public @ResponseBody String addTimeScript(@RequestParam(value = "id") int tutorialId,
 			@RequestParam(value = "uploadsScriptFile") MultipartFile File,
