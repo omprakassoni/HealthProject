@@ -148,7 +148,7 @@ public class ServiceUtility {
 	
 	/**
 	 * to check whether IMAGE file or not
-	 * @param pdfFile MultipartFile object
+	 * @param temp MultipartFile object
 	 * @return
 	 */
 	public static boolean checkFileExtensionImage(MultipartFile temp) {			// validate file against Image Extension
@@ -166,7 +166,7 @@ public class ServiceUtility {
 	
 	/**
 	 * to check whether MP4 file or not
-	 * @param pdfFile MultipartFile object
+	 * @param videoFile MultipartFile object
 	 * @return
 	 */
 	public static boolean checkFileExtensionVideo(MultipartFile videoFile) {			// validate file against Image Extension
@@ -183,7 +183,7 @@ public class ServiceUtility {
 
 	/**
 	 * to check whether ZIP file or not
-	 * @param pdfFile MultipartFile object
+	 * @param temp MultipartFile object
 	 * @return
 	 */
 	public static boolean checkFileExtensionZip(MultipartFile temp) {			// validate file against HTML Extension

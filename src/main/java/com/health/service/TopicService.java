@@ -20,7 +20,7 @@ public interface TopicService {
 	
 	/**
 	 * Find Topic object given topic name
-	 * @param topicName String object
+	 * @param topic String object
 	 * @return Topic object
 	 */
 	Topic findBytopicName(String topic);

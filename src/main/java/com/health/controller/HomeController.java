@@ -354,6 +354,7 @@ public class HomeController {
 	 * @param lan String object
 	 * @param principal principal object
 	 * @param model model object
+	 * @param page int value
 	 * @return String object (Webpapge)
 	 */
 	@RequestMapping(value = "/tutorials", method = RequestMethod.GET)
@@ -2224,7 +2225,7 @@ public class HomeController {
 	 * redirect to add page
 	 * @param model Model object
 	 * @param principal principal object
-	 * @return
+	 * @return String object
 	 */
 	@RequestMapping(value = "/addEvent",method = RequestMethod.GET)
 	public String addEventGet(Model model,Principal principal) {

@@ -57,7 +57,7 @@ public interface ContributorAssignedTutorialService {
 	
 	/**
 	 * Find list of ContributorAssignedTutorial object given list of TopicCategoryMapping object and list of UserRole object
-	 * @param topicCat list of TopicCategoryMapping object
+	 * @param topCat list of TopicCategoryMapping object
 	 * @param usrRole list of UserRole object
 	 * @return list of ContributorAssignedTutorial object
 	 */

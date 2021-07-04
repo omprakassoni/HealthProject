@@ -29,7 +29,7 @@ public interface ContributorAssignedMultiUserTutorialService {
 	
 	/**
 	 * Find list of ContributorAssignedMultiUserTutorial object given user object
-	 * @param user user object
+	 * @param usr user object
 	 * @return list of ContributorAssignedMultiUserTutorial object
 	 */
 	List<ContributorAssignedMultiUserTutorial> getAllByuser(User usr);

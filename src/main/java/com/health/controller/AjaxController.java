@@ -869,9 +869,9 @@ public class AjaxController{
 
 	/**
 	 * add keyword to the tutorial
-	 * @param id int 
-	 * @param savekeyword string
-	 * @param categoryname string
+	 * @param tutorialId int 
+	 * @param keywordData string
+	 * @param catName string
 	 * @param topicId int
 	 * @param lanId string
 	 * @param principal principal object
@@ -1067,8 +1067,8 @@ public class AjaxController{
 	/**
 	 * Add video component of tutorial
 	 * @param tutorialId int value
-	 * @param videoFileName MultipartFile
-	 * @param categoryName String
+	 * @param videoFile MultipartFile
+	 * @param catName String
  	 * @param topicId int
 	 * @param lanId string
 	 * @param principal Principal object
@@ -1194,8 +1194,8 @@ public class AjaxController{
 	/**
 	 * Add Slide component of tutorial
 	 * @param tutorialId int value
-	 * @param uploadSlideFile MultipartFile
-	 * @param categoryName String
+	 * @param videoFile MultipartFile
+	 * @param catName String
  	 * @param topicId int
 	 * @param lanId string
 	 * @param principal Principal object
@@ -1294,8 +1294,8 @@ public class AjaxController{
 	/**
 	 * Add script component of tutorial
 	 * @param tutorialId int value
-	 * @param uploadScriptFile MultipartFile
-	 * @param categoryName String
+	 * @param videoFile MultipartFile
+	 * @param catName String
  	 * @param topicId int
 	 * @param lanId string
 	 * @param principal Principal object
@@ -1818,6 +1818,7 @@ public class AjaxController{
 	 * @param tutorialId int value
 	 * @param msg string
 	 * @param type string
+	 * @param role String
 	 * @param principal Principal object
 	 * @return string
 	 */

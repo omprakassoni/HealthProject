@@ -21,14 +21,14 @@ public interface CategoryService {
 	
 	/**
 	 * Find Category object  based on given category name
-	 * @param cat String value
+	 * @param name String value
 	 * @return Category object
 	 */
 	Category findBycategoryname(String name);
 	
 	/**
 	 * delete the Category from the database
-	 * @param temp primitive integer value
+	 * @param id primitive integer value
 	 */
     void deleteProduct(Integer id);
    

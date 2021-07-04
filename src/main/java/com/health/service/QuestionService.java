@@ -21,7 +21,7 @@ public interface QuestionService {
 	
 	/**
 	 * Persist Question object into database
-	 * @param temp Question object
+	 * @param ques Question object
 	 */
 	void save(Question ques);
 	
