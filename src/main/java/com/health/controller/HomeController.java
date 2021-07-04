@@ -987,7 +987,12 @@ public class HomeController {
 	/************************************END**********************************************/
 	/************************************ADD ORGANIZATIONAL ROLE**********************************************/
 
-
+	/**
+	 * redirect to add organization role page
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addOrganizationRole",method = RequestMethod.GET)
 	public String addOrganizationRoleGet(Model model,Principal principal) {
 
@@ -1008,6 +1013,13 @@ public class HomeController {
 
 	}
 
+	/**
+	 * add organization role object to database
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addOrganizationRole",method = RequestMethod.POST)
 	public String addOrganizationRolePost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -1056,6 +1068,14 @@ public class HomeController {
 		return "addOrganizationRole";
 
 	}
+	
+	/**
+	 * redirect to edit organization role page given id
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/organization_role/edit/{id}", method = RequestMethod.GET)
 	public String editOrganizationRoleGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -1076,6 +1096,13 @@ public class HomeController {
 		return "updateOrganizationalRole";
 	}
 
+	/**
+	 * update organization role object to database
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/update_organization_role",method = RequestMethod.POST)
 	public String updateOrganizationRolePost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -1144,6 +1171,12 @@ public class HomeController {
 
 	/************************************ADD LANGUAGE**********************************************/
 
+	/**
+	 * redirect to add language page
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addLanguage",method = RequestMethod.GET)
 	public String addLanguageGet(Model model,Principal principal) {
 
@@ -1164,6 +1197,13 @@ public class HomeController {
 
 	}
 
+	/**
+	 * add language object to database
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addLanguage",method = RequestMethod.POST)
 	public String addLanguagePost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -1226,6 +1266,13 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/******************************ADD CAROUSEL ******************************************/
+	
+	/**
+	 * redirect to add carousel page
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addCarousel",method = RequestMethod.GET)
 	public String addCarouselGet(Model model,Principal principal) {
 		User usr=new User();
@@ -1241,6 +1288,15 @@ public class HomeController {
 		return "addCarousel";
 	}
 
+	/**
+	 * Add Carousel object
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param file MultipartFile
+	 * @param name String object
+	 * @param desc String object
+ 	 * @return String object
+	 */
 	@RequestMapping(value = "/addCarousel",method = RequestMethod.POST)
 	public String addCarouselPost(Model model,Principal principal,
 								  @RequestParam("file") MultipartFile file,
@@ -1315,6 +1371,13 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/******************************ADD BROUCHURE ******************************************/
+	
+	/**
+	 * redirect to add brochure page
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addBrochure",method = RequestMethod.GET)
 	public String addBrochureGet(Model model,Principal principal) {
 		User usr=new User();
@@ -1331,6 +1394,16 @@ public class HomeController {
 		return "addBrochure";
 	}
 
+	/**
+	 * Add brochure to the system
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param brochure MultipartFile
+	 * @param categoryId int value
+	 * @param topicId int value
+	 * @param languageId int value
+	 * @return String object
+	 */
 	@RequestMapping(value = "/addBrochure",method = RequestMethod.POST)
 	public String addBrochurePost(Model model,Principal principal,
 								  @RequestParam("brouchure") MultipartFile brochure,
@@ -1422,6 +1495,12 @@ public class HomeController {
 
 	/************************************ADD TOPIC**********************************************/
 
+	/**
+	 * redirect to add topic page
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addTopic",method = RequestMethod.GET)
 	public String addTopicGet(Model model,Principal principal) {
 
@@ -1446,6 +1525,15 @@ public class HomeController {
 
 	}
 
+	/**
+	 * add topic into database
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param categoryId int value
+	 * @param topicName String object
+	 * @param orderValue int value
+	 * @return String object
+	 */
 	@RequestMapping(value = "/addTopic",method = RequestMethod.POST)
 	public String addTopicPost(Model model,Principal principal,
 							   @RequestParam(name = "categoryName") int categoryId,
@@ -1524,6 +1612,13 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirects to edit page of topic given id
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param id int value
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/topic/edit/{id}", method = RequestMethod.GET)
 	public String editTopicGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -1547,6 +1642,13 @@ public class HomeController {
 		return "updateTopic";  // need to accomdate view part
 	}
 
+	/**
+	 * update topic object 
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/updateTopic",method = RequestMethod.POST)
 	public String updateTopicPost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -1611,6 +1713,12 @@ public class HomeController {
 
 	/************************************ADD ROLE**********************************************/
 
+	/**
+	 * redirect to add role page
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addRole",method = RequestMethod.GET)
 	public String addRoleGet(Model model,Principal principal) {
 
@@ -1631,6 +1739,13 @@ public class HomeController {
 
 	}
 
+	/**
+	 * add role object into database
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addRole",method = RequestMethod.POST)
 	public String addRolePost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -1689,6 +1804,12 @@ public class HomeController {
 
 	/************************************ADD QUESTION**********************************************/
 
+	/**
+	 * redirects to upload question page
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return Strig object (webpage)
+	 */
 	@RequestMapping(value = "/uploadQuestion",method = RequestMethod.GET)
 	public String addQuestionGet(Model model,Principal principal) {
 
@@ -1717,6 +1838,16 @@ public class HomeController {
 
 	}
 
+	/**
+	 * upload question object into database
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param quesPdf MultipartFile
+	 * @param categoryId int value
+	 * @param topicId int value
+	 * @param languageId int value
+	 * @return string object
+	 */
 	@RequestMapping(value = "/uploadQuestion",method = RequestMethod.POST)
 	public String addQuestionPost(Model model,Principal principal,
 								  @RequestParam("questionName") MultipartFile quesPdf,
@@ -1830,6 +1961,13 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirect to edit question page given id
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/question/edit/{id}", method = RequestMethod.GET)
 	public String editQuestionGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -1853,7 +1991,14 @@ public class HomeController {
 		return "updateQuestion"; // question edit page
 	}
 
-
+	/**
+	 * update question object
+	 * @param req HttpServletRequest
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param quesPdf MultipartFile object
+	 * @return String object
+	 */
 	@RequestMapping(value = "/updateQuestion",method = RequestMethod.POST)
 	public String updateQuestionPost(HttpServletRequest req,Model model,Principal principal,
 								  @RequestParam("questionName") MultipartFile quesPdf) {
@@ -1921,6 +2066,12 @@ public class HomeController {
 
 	/************************************ADD CONSULTANT**********************************************/
 
+	/**
+	 *  redirect to add consultant page
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return String object (Webpage)
+	 */ 
 	@RequestMapping(value = "/addConsultant",method = RequestMethod.GET)
 	public String addConsultantGet(Model model,Principal principal) {
 
@@ -1945,6 +2096,16 @@ public class HomeController {
 
 	}
 
+	/**
+	 * Add consultant to the system
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param name String object
+	 * @param catId int value
+	 * @param lanId int value
+	 * @param email String object
+	 * @return String object
+	 */
 	@RequestMapping(value = "/addConsultant",method = RequestMethod.POST)
 	public String addConsultantPost(Model model,Principal principal,
 									@RequestParam("nameConsaltant") String name,
@@ -2059,6 +2220,12 @@ public class HomeController {
 	/************************************END**********************************************/
 
 	/************************************ADD EVENT**********************************************/
+	/**
+	 * redirect to add page
+	 * @param model Model object
+	 * @param principal principal object
+	 * @return
+	 */
 	@RequestMapping(value = "/addEvent",method = RequestMethod.GET)
 	public String addEventGet(Model model,Principal principal) {
 		User usr=new User();
@@ -2078,6 +2245,16 @@ public class HomeController {
 		return "addEvent";
 	}
 
+	/**
+	 *  Add Event object into database
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param req  HttpServletRequest object
+	 * @param files MultipartFile
+	 * @param topicId list of integer value
+	 * @param catName int value
+	 * @return String (webpage)
+	 */
 	@RequestMapping(value = "/addEvent",method = RequestMethod.POST)
 	public String addEventPost(Model model,Principal principal,HttpServletRequest req,
 						@RequestParam("Image") MultipartFile files,@RequestParam(value="inputTopic") int[] topicId,
@@ -2241,6 +2418,12 @@ public class HomeController {
 
 	/************************************ADD TESTIMONIAL**********************************************/
 
+	/**
+	 * redirects page to add testimonial page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/addTestimonial",method = RequestMethod.GET)
 	public String addTestimonialGet(Model model,Principal principal) {
 
@@ -2265,6 +2448,17 @@ public class HomeController {
 
 	}
 
+	/**
+	 * Add testimonial into database
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param file MultipartFile
+	 * @param consent MultipartFile
+	 * @param name String 
+	 * @param desc String
+	 * @param trainingId String
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addTestimonial",method = RequestMethod.POST)
 	public String addTestimonialPost(Model model,Principal principal,
 									@RequestParam("uploadTestimonial") MultipartFile file,
@@ -2445,6 +2639,12 @@ public class HomeController {
 
 	/************************************UPDATE SECTION AND VIEW OF CATEGORY**********************************************/
 
+	/**
+	 * redirects to add category page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String viewCategoryGet(Model model,Principal principal) {
 
@@ -2464,6 +2664,13 @@ public class HomeController {
 		return "category";
 	}
 
+	/**
+	 * redirects to edit category page
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/category/edit/{id}", method = RequestMethod.GET)
 	public String editCategoryGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -2487,6 +2694,14 @@ public class HomeController {
 		return "updateCategory";
 	}
 
+	/**
+	 * update category object
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest object
+	 * @param file MultipartFile object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/updateCategory", method = RequestMethod.POST)
 	public String updateCategoryGet(Model model,Principal principal,HttpServletRequest req,
 			@RequestParam("categoryImage") MultipartFile file) {
@@ -2569,6 +2784,13 @@ public class HomeController {
 
 	/************************************UPDATE AND VIEW SECTION OF EVENT**********************************************/
 
+	/**
+	 * redirects to event details in homepage
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/eventDetails/{id}", method = RequestMethod.GET)
 	public String eventGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -2592,6 +2814,12 @@ public class HomeController {
 		return "event";
 	}
 
+	/**
+	 * redirects to add event page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String viewEventGet(Model model,Principal principal) {
 
@@ -2610,6 +2838,13 @@ public class HomeController {
 		return "event";
 	}
 
+	/**
+	 * redirects to edit event page given id
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/event/edit/{id}", method = RequestMethod.GET)
 	public String editEventGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -2638,6 +2873,14 @@ public class HomeController {
 		return "updateEvent";
 	}
 
+	/**
+	 * update event object 
+	 * @param req HttpServletRequest object
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param files MultipartFile object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/updateEvent", method = RequestMethod.POST)
 	public String updateEventGet(HttpServletRequest req,Model model,Principal principal,
 			@RequestParam("Image") MultipartFile files) {
@@ -2745,6 +2988,12 @@ public class HomeController {
 	/************************************VIEW SECTION OF LANGAUAGE**********************************************/
 
 
+	/**
+	 * redirects to add language page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/language", method = RequestMethod.GET)
 	public String viewLanguageGet(Model model,Principal principal) {
 
@@ -2762,6 +3011,13 @@ public class HomeController {
 		return "language";
 	}
 
+	/**
+	 * redirects to edit language page given id
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/language/edit/{id}", method = RequestMethod.GET)
 	public String editLanguageGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -2784,7 +3040,14 @@ public class HomeController {
 
 		return "updateLanguage";  // need to accomdate view part
 	}
-
+	
+	/**
+	 * update language object
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/updateLanguage",method = RequestMethod.POST)
 	public String updateLanguagePost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -2848,6 +3111,12 @@ public class HomeController {
 
 	/*********************************** VIEW SECTION OF DOMAIN REVIEWER ************************************/
 
+	/**
+	 * redirects to domain reviewer page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/domainReviewer", method = RequestMethod.GET)
 	public String viewDomaineGet(Model model,Principal principal) {
 
@@ -2873,6 +3142,12 @@ public class HomeController {
 
 	/*********************************** VIEW SECTION OF QUALITY REVIEWER ************************************/
 
+	/**
+	 * redirects to quality reviewer page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/qualityReviewer", method = RequestMethod.GET)
 	public String viewQualityeGet(Model model,Principal principal) {
 
@@ -2897,6 +3172,12 @@ public class HomeController {
 
 	/*********************************** VIEW SECTION OF MASTER TRAINER ************************************/
 
+	/**
+	 * redirects to master trainer page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/masterTrainer", method = RequestMethod.GET)
 	public String viewMasterTrainerGet(Model model,Principal principal) {
 
@@ -2946,6 +3227,12 @@ public class HomeController {
 	/************************************END**********************************************/
 	/************************************UPDATE AND VIEW SECTION OF TESTIMONIAL**********************************************/
 
+	/**
+	 * redirects to testimonial page on homepage
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/testimonialList", method = RequestMethod.GET)
 	public String viewtestimonialListGet(Model model,Principal principal) {
 		List<Testimonial> test=testService.findAll();
@@ -2954,7 +3241,12 @@ public class HomeController {
 		return "testimonialList";
 	}
 
-
+	/**
+	 * redirects to testimonial page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/testimonial", method = RequestMethod.GET)
 	public String viewtestimonialGet(Model model,Principal principal) {
 
@@ -2972,6 +3264,13 @@ public class HomeController {
 		return "testimonial";
 	}
 
+	/**
+	 * redirects to edit testimonial page given testimonial id
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/testimonial/edit/{id}", method = RequestMethod.GET)
 	public String edittestimonialGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -3001,6 +3300,14 @@ public class HomeController {
 		return "updateTestimonial";
 	}
 
+	/**
+	 * Update testimonial object in database
+	 * @param req HttpServletRequest object
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param file MultipartFile object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/updateTestimonial", method = RequestMethod.POST)
 	public String updatetestimonialGet(HttpServletRequest req,Model model,Principal principal,@RequestParam("TestiVideo") MultipartFile file) {
 
@@ -3099,6 +3406,12 @@ public class HomeController {
 
 	/************************************ROLE MANGAEMENT OPERATION**********************************************/
 
+	/**
+	 * redirects to add contributor page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addContributorRole", method = RequestMethod.GET)
 	public String addContributorGet(Model model,Principal principal) {
 
@@ -3117,6 +3430,13 @@ public class HomeController {
 		return "addContributorRole";
 	}
 
+	/**
+	 * add contributor role into system
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addContributorRole", method = RequestMethod.POST)
 	public String addContributorPost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -3186,6 +3506,12 @@ public class HomeController {
 		return "addContributorRole";
 	}
 
+	/**
+	 * redirects to add admin role page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addAdminRole", method = RequestMethod.GET)
 	public String addAdminPost(Model model,Principal principal) {
 
@@ -3208,6 +3534,13 @@ public class HomeController {
 		return "addAdminRole";
 	}
 
+	/**
+	 * add admin role into system
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addAdminRole", method = RequestMethod.POST)
 	public String addAdminPost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -3296,6 +3629,12 @@ public class HomeController {
 		return "addAdminRole";
 	}
 
+	/**
+	 * redirects to add domain role page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addDomainRole", method = RequestMethod.GET)
 	public String addDomainGet(Model model,Principal principal) {
 
@@ -3318,6 +3657,13 @@ public class HomeController {
 		return "addDomainRole";
 	}
 
+	/**
+	 * add domain role into system
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addDomainRole", method = RequestMethod.POST)
 	public String addDomainPost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -3424,6 +3770,12 @@ public class HomeController {
 		return "addDomainRole";
 	}
 	
+	/**
+	 * redirects to add quality page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addQualityRole", method = RequestMethod.GET)
 	public String addQualityGet(Model model,Principal principal) {
 
@@ -3446,6 +3798,13 @@ public class HomeController {
 		return "addQualityRole";
 	}
 
+	/**
+	 * add quality role into system
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addQualityRole", method = RequestMethod.POST)
 	public String addQualityPost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -3540,6 +3899,12 @@ public class HomeController {
 		return "addQualityRole";
 	}
 
+	/**
+	 * redirects to add master trainer page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addMasterTrainerRole", method = RequestMethod.GET)
 	public String addMasterTrainerGet(Model model,Principal principal) {
 
@@ -3578,6 +3943,13 @@ public class HomeController {
 		return "addMasterTrainerRole";
 	}
 
+	/**
+	 * add master trainer into system
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addMasterTrainerRole", method = RequestMethod.POST)
 	public String addMasterTrainerPost(Model model,Principal principal,HttpServletRequest req) {
 
@@ -3732,6 +4104,12 @@ public class HomeController {
 
 	/*********************************** Approve Role ************************************************/
 
+	/**
+	 * redirects to approve role page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/approveRole", method = RequestMethod.GET)
 	public String approveRoleGet(Model model,Principal principal) {
 
@@ -3773,6 +4151,14 @@ public class HomeController {
 
 
 	/*************************************** ASSIGN CONTRINUTOR (NOT IN USE FOR NOW) ****************************************/
+	
+	/**
+	 * redirects to assign contributor edit page
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/assignContributor/edit/{id}", method = RequestMethod.GET)
 	public String editAssignContributor(@PathVariable Long id,Model model,Principal principal) {
 
@@ -3791,6 +4177,12 @@ public class HomeController {
 		return "updateAssignContributor";
 	}
 
+	/**
+	 * redirects to assign contributor page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/assignTutorialToContributor", method = RequestMethod.GET)
 	public String assignTutorialToContributoreGet(Model model,Principal principal) {
 
@@ -3822,6 +4214,16 @@ public class HomeController {
 		return "assignContributorList";
 	}
 
+	/**
+	 * Assign tutorial to contributor
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param contributorName String object
+	 * @param lanName String object
+	 * @param catName String object
+	 * @param topics list of String object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/assignTutorialToContributor", method = RequestMethod.POST)
 	public String assignTutorialToContributorePost(Model model,Principal principal,
 												@RequestParam(name = "contributorName") String contributorName,
@@ -3930,6 +4332,12 @@ public class HomeController {
 
 
 	/*********************************** CONTRIBUTOR ROLE OPERATION *************************************/
+	/**
+	 * redirects page to uplaod tutorial under contributor role
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/uploadTutorial", method = RequestMethod.GET)
 	public String uploadTutorialGet(Model model,Principal principal) {
 
@@ -3958,6 +4366,15 @@ public class HomeController {
 	}
 
 
+	/**
+	 * load tutorial component page to add various component for the tutorial
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param categoryName String object
+	 * @param topicId int value
+	 * @param langName String object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/uploadTutorial", method = RequestMethod.POST)
 	public String uploadTutorialPost(Model model,Principal principal,
 										@RequestParam(value="categoryName") String categoryName,
@@ -4098,6 +4515,12 @@ public class HomeController {
 		return "uploadTutorialPost";
 	}
 
+	/**
+	 * List all the tutorial for contributor  to review
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "listTutorialForContributorReview", method = RequestMethod.GET)
 	public String listContributorReviewTutorialGet(Model model,Principal principal) {
 		User usr=new User();
@@ -4128,6 +4551,13 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirect to contributor review page given tutorial id
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "Contributor/review/{id}", method = RequestMethod.GET)
 	public String listContributorReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
 		User usr=new User();
@@ -4229,6 +4659,13 @@ public class HomeController {
 	/****************************************END********************************************************/
 
 /********************************** operation at Admin End *****************************************/
+	
+	/**
+	 * List all the tutorial for Admin reviewer to review
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "listTutorialForAdminReview", method = RequestMethod.GET)
 	public String listAdminReviewTutorialGet(Model model,Principal principal) {
 		User usr=new User();
@@ -4266,6 +4703,13 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirect to admin review page given tutorial id
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "adminreview/review/{id}", method = RequestMethod.GET)
 	public String listAdminReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
 		User usr=new User();
@@ -4338,6 +4782,13 @@ public class HomeController {
 	/***********************************END ***************************************************************/
 
 	/*************************** OPERATION AT DOMAIN REVIEWER END ***********************************/
+	
+	/**
+	 * List all the tutorial for domain reviewer to review
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "listTutorialForDomainReview", method = RequestMethod.GET)
 	public String listDomainReviewTutorialGet(Model model,Principal principal) {
 		User usr=new User();
@@ -4377,6 +4828,13 @@ public class HomeController {
 		return "listTutorialDomainReviewer";
 	}
 
+	/**
+	 * redirect to domain review page given tutorial id
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "domainreview/review/{id}", method = RequestMethod.GET)
 	public String listDomainReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
 		User usr=new User();
@@ -4466,6 +4924,12 @@ public class HomeController {
 
 	/*************************** OPERATION AT QUALITY REVIEWER END ***********************************/
 
+	/**
+	 * List all the tutorial for quality review
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "listTutorialForQualityReview", method = RequestMethod.GET)
 	public String listQualityReviewTutorialGet(Model model,Principal principal) {
 		User usr=new User();
@@ -4508,6 +4972,12 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirects page to view all the tutorial to be published
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "tutorialToPublish", method = RequestMethod.GET)
 	public String tutorialToPublishGet(Model model,Principal principal) {
 		User usr=new User();
@@ -4546,6 +5016,14 @@ public class HomeController {
 
 	}
 
+	/**
+	 * publish the tutorial under quality role
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal principal object
+	 * @param redirectAttributes RedirectAttributes object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "publish/{id}", method = RequestMethod.GET)
 	public String publishTutorialGet(@PathVariable int id,Model model,Principal principal,RedirectAttributes redirectAttributes) {
 		User usr=new User();
@@ -4698,6 +5176,13 @@ public class HomeController {
 		
 	}
 
+	/**
+	 * redirects to quality review page given tutorial id
+	 * @param id int value
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "qualityreview/review/{id}", method = RequestMethod.GET)
 	public String listQualityReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
 		User usr=new User();
@@ -4805,6 +5290,12 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirects to master trainer operation page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/masterTrainerOperation", method = RequestMethod.GET)
 	public String MasterTrainerGet(Model model,Principal principal) {
 		User usr=new User();
@@ -4835,6 +5326,12 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirects page to view master trainer details
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public String MasterTrainerDetailsGet(Model model,Principal principal) {
 		User usr=new User();
@@ -4857,6 +5354,15 @@ public class HomeController {
 
 	}
 
+	/**
+	 * Download question 
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param catName int value
+	 * @param topicId int value
+	 * @param lanName String object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/downloadQuestion", method = RequestMethod.POST)
 	public String downloadQuestionPost(Model model,Principal principal,
 										@RequestParam(value="catMasterId") int catName,
@@ -4895,6 +5401,12 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirects page to view all the trainee
+	 * @param model Model object
+	 * @param principal Principal Object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/viewTrainee", method = RequestMethod.GET)
 	public String downloadQuestionPost(Model model,Principal principal) {
 		User usr=new User();
@@ -4915,6 +5427,13 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirects to edit trainee information given trainee id
+	 * @param id int value
+	 * @param model model object
+	 * @param principal principal object
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/trainee/edit/{id}", method = RequestMethod.GET)
 	public String editTraineeGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -4944,6 +5463,13 @@ public class HomeController {
 		return "editTrainee";  // need to accomdate view part
 	}
 
+	/**
+	 * update trainee information 
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest object
+	 * @return String object (Webpage)
+	 */
 	@RequestMapping(value = "/updateTrainee", method = RequestMethod.POST)
 	public String editTraineeGet(Model model,Principal principal,HttpServletRequest req) {
 
@@ -5004,6 +5530,17 @@ public class HomeController {
 		return "editTrainee";  // need to accomdate view part
 	}
 
+	/**
+	 * Add training information into object
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param trainingImage MultipartFile object 
+	 * @param traineeInfo MultipartFile object
+	 * @param eventId int value
+	 * @param trainingInformation String object
+	 * @param totaltrainee int value
+	 * @return String object (webpage)
+	 */
 	@RequestMapping(value = "/addTrainingInfo", method = RequestMethod.POST)
 	public String addTrainingInfoPost(Model model,Principal principal,
 			@RequestParam("ParticipantsPhoto") MultipartFile trainingImage,
@@ -5119,6 +5656,16 @@ public class HomeController {
 
 	}
 
+	/**
+	 * upload feedback given by master trainer
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param catId int value
+	 * @param trainingTitle int value
+	 * @param feedbackFile MultipartFile object
+	 * @param desc String object
+	 * @return String object (Webpage)
+	 */
 	@RequestMapping(value = "/uploadfeedback", method = RequestMethod.POST)
 	public String uploadFeedbackPost(Model model,Principal principal,
 								@RequestParam(value = "catMasId") int catId,
@@ -5179,6 +5726,15 @@ public class HomeController {
 	}
 
 
+	/**
+	 * upload post questionnaire under master trainer role
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param catId int value
+	 * @param trainingTitle int value
+	 * @param postQuestions MultipartFile object
+	 * @return String object(Webpage)
+	 */
 	@RequestMapping(value = "/uploadPostQuestionaire", method = RequestMethod.POST)
 	public String uploadQuestionPost(Model model,Principal principal,
 								@RequestParam(value = "catMasPostId") int catId,
@@ -5241,6 +5797,12 @@ public class HomeController {
 
 	/************************ DOMAIN ROLE CONSULTANT MAPPING *************************************/
 
+	/**
+	 * redirects to admin role request page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object(Webpage)
+	 */
 	@RequestMapping(value = "/assignRoleToAdmin" , method = RequestMethod.GET)
 	public String assignRoleToDomainGet(Model model,Principal principal) {
 		User usr=new User();
@@ -5263,6 +5825,14 @@ public class HomeController {
 
 	}
 
+	/**
+	 * Assign role to admin given category name and language name
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param cat String object
+	 * @param lan String object
+	 * @return String object(Webpage)
+	 */
 	@RequestMapping(value = "/assignRoleToAdmin" , method = RequestMethod.POST)
 	public String assignRoleToDomainPost(Model model,Principal principal,
 									@RequestParam(value = "category") String cat,
@@ -5342,6 +5912,12 @@ public class HomeController {
 
 	/****************************** END ***********************************************************/
 
+	/**
+	 * redirects to profile page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profileUserGet(Model model,Principal principal) {
 		User usr=new User();
@@ -5357,6 +5933,13 @@ public class HomeController {
 
 	}
 
+	/**
+	 * Revoke role from user interface
+	 * @param usrRoleId long value
+	 * @param principal Principal object
+	 * @param model Model object
+	 * @return String object (Webpage)
+	 */
 	@GetMapping("/revokeRole/{usrRoleId}")
 	public String revokeRoleByRole(@PathVariable long usrRoleId,Principal principal,Model model){
 
@@ -5385,6 +5968,20 @@ public class HomeController {
 	}
 
 	/************************ PROFILE UPDATE SECTION *****************************************/
+	
+	/**
+	 * update profile data on user object
+	 * @param req HttpServletRequest object
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param firstName String object
+	 * @param lastName String object
+	 * @param phone String object
+	 * @param address String object
+	 * @param dob String object
+	 * @param desc String object
+	 * @return String object(Webpage)
+	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String updateuserdataPost(HttpServletRequest req,Model model,Principal principal,
 			 						@ModelAttribute("firstName") String firstName,
@@ -5442,6 +6039,12 @@ public class HomeController {
 
 	}
 
+	/**
+	 * redirects to revoke role page under Contributor role
+	 * @param principal Principal Object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@GetMapping("/revokeRoleContributor")
 	public String revokeRoleByContributor(Principal principal,Model model){
 
@@ -5463,6 +6066,12 @@ public class HomeController {
 		return "revokeRole";
 	}
 
+	/**
+	 * redirects to revoke role page under Admin role
+	 * @param principal Principal Object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@GetMapping("/revokeRoleDomain")
 	public String revokeRoleByDomain(Principal principal,Model model){
 
@@ -5484,6 +6093,12 @@ public class HomeController {
 		return "revokeRole";
 	}
 
+	/**
+	 * redirects to revoke role page under Quality role
+	 * @param principal Principal Object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@GetMapping("/revokeRoleQuality")
 	public String revokeRoleBYQuality(Principal principal,Model model){
 
@@ -5505,6 +6120,12 @@ public class HomeController {
 		return "revokeRole";
 	}
 
+	/**
+	 * redirects to revoke role page under master role
+	 * @param principal Principal Object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@GetMapping("/revokeRoleMaster")
 	public String revokeRoleMaster(Principal principal,Model model){
 
@@ -5526,6 +6147,12 @@ public class HomeController {
 		return "revokeRole";
 	}
 
+	/**
+	 * redirects to brochure page
+	 * @param principal Principal Object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@GetMapping("/brochure")
 	public String brochure(Principal principal,Model model){
 
@@ -5553,6 +6180,13 @@ public class HomeController {
 	}
 
 
+	/**
+	 * redirects page to edit the training data given training id
+	 * @param id  int value
+	 * @param principal Principal Object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/training/edit/{id}", method = RequestMethod.GET)
 	public String editTrainingGet(@PathVariable int id,Model model,Principal principal) {
 
@@ -5581,6 +6215,19 @@ public class HomeController {
 		return "updateTraining";  // need to accomdate view part
 	}
 
+	/**
+	 * update training object
+	 * @param model model object
+	 * @param principal Principal Object
+	 * @param state int value
+	 * @param district int value
+	 * @param city int value
+	 * @param totaltrainee int value
+	 * @param address int value
+	 * @param pinCode int value
+	 * @param trainingId int value
+	 * @return String object(Webpage)
+	 */
 	@RequestMapping(value = "/updateTraining", method = RequestMethod.POST)
 	public String updateTrainingPost(Model model,Principal principal,
 			@RequestParam(value="stateName") int state,
@@ -5637,6 +6284,12 @@ public class HomeController {
 
 	}
 	
+	/**
+	 * Redirects page to list all the tutorial under super admin interface
+	 * @param principal Principal Object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@GetMapping("/tutorialStatus")
 	public String tutorialStatus(Principal principal,Model model){
 
@@ -5667,6 +6320,13 @@ public class HomeController {
 		return "listTutorialSuperAdmin";
 	}
 	
+	/**
+	 * publish or unpublish tutorial from the system under super admin role
+	 * @param id tutorial id int value
+	 * @param principal Principal Object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/tutorialStatus/{id}", method = RequestMethod.GET)
 	public String publishTutorial(@PathVariable int id,Principal principal,Model model) {
 		
@@ -5735,6 +6395,12 @@ public class HomeController {
 		
 	}
 	
+	/**
+	 * Redirects to upload time script for the tutorial
+	 * @param principal Principal Object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/uploadTimescript", method = RequestMethod.GET)
 	public String uploadTimescriptGet(Principal principal,Model model) {
 		
@@ -5762,7 +6428,12 @@ public class HomeController {
 		return "uploadTimescript";
 	}
 	
-	
+	/**
+	 * Url to show entire user in a system on super admin interface
+	 * @param principal Principal object
+	 * @param model Model object
+	 * @return String object(webpage)
+	 */
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String usersGet(Principal principal,Model model) {
 		
