@@ -3196,7 +3196,6 @@ $(document).ready(function() {
 			/* Access topic according to langaueg */
 /*********************************** Changes By Om Prakash **************************************************/
 			$('#MasterCategoryId').change(function() {
-//						alert('here');
 						var categoryid = $(this).find(":selected").val();
 						$.ajax({
 
@@ -3210,7 +3209,7 @@ $(document).ready(function() {
 
 								var html = '';
 								var len = result.length;
-//								html += '<option value="0">Select Topic</option>';
+//								html += '<option value="0">Select any one topic</option>';
 	  	  			            $.each(result , function( key, value ) {
 		  	  			        html += '<option value=' + key + '>'
 		  			               + value
@@ -3336,7 +3335,7 @@ $(document).ready(function() {
 
 								var html = '';
 								var len = result.length;
-								html += '<option value="0">Select Languge</option>';
+								html += '<option value="0">Select any one language</option>';
 								for (var i = 0; i < len; i++) {
 									html += '<option value="'
 										+ result[i]
