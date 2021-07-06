@@ -106,7 +106,7 @@
       <th scope="col">Category</th>
       <th scope="col">Topic</th>
       <th scope="col">Language</th>
-      <th scope="col">UserName</th>
+      <th scope="col">Full Name</th>
       <!-- <th scope="col">Edit</th> -->
     </tr>
   </thead>
@@ -115,7 +115,7 @@
       <td><span  th:text="${user.getTopicCatId().getCat().getCatName()}"> </span></td>
 	  <td><span  th:text="${user.getTopicCatId().getTopic().getTopicName()}"></span></td>
 	  <td><span  th:text="${user.getLan().getLangName()}"></span></td>
-	  <td><div th:each="usr :${user.getMultiUserAssigned()}" th:text = "${usr.getUser().getUsername()}"></div></td>
+	  <td><div th:each="usr :${user.getMultiUserAssigned()}" th:text = "${usr.getUser().getFullName()}"></div></td>
 	<!-- <td><a th:href="@{${'/assignContributor/edit/' + user.getUser().getId()}}">Edit</a></td> -->
     </tr>
   
