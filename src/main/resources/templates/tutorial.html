@@ -130,7 +130,7 @@
 					<h5 class="main-color">Related Videos</h5>
 					<div class="t-related">
 					<div class="row rel-vid-b mb-2" th:each="tutorial : ${tutorials}" style="border-bottom: 1px solid rgba(0,0,0,0.2);">
-					<a th:href="@{'/tutorialView/'+ ${tutorial.getTutorialId()}}">
+					<a th:href="@{'/tutorialView/'+ ${tutorial.getTutorialId()}}" class="col-12">
 						
 							
 							<div class="col-md-4">
@@ -140,9 +140,9 @@
 									allowfullscreen></iframe> -->
 							</div>
 							<div class="col-md-8">
-								<h4 ><span th:text="${tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName()}"></span></h4>
+								<h4 style="width:100%;"><span ><i class="far fa-play-circle mr-3" style="color:#1C7871; "></i><span th:text="${tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName()}"></span></span></h4>
 								<h6><span th:text="${tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName()}"></span></h6>
-								<p class="outline" th:utext="${tutorial.getOutline()}"></p>
+								<!-- <p class="outline" th:utext="${tutorial.getOutline()}"></p> -->
 							</div>
 							
 						
@@ -198,7 +198,7 @@
 					<li class="nav-item link-style"><a class="nav-link"
 						id="pills-script-tab" data-toggle="pill" href="#pills-script"
 						role="tab" aria-controls="pills-script" aria-selected="false"><i
-							class="far fa-file-alt mr-2 t-icon"></i> Downloads</a></li>
+							class="far fa-file-alt mr-2 t-icon"></i> Resources</a></li>
 					<!-- <li class="nav-item link-style">
 			    <a class="nav-link" id="pills-slides-tab" data-toggle="pill" href="#pills-slides" role="tab" aria-controls="pills-slides" aria-selected="false"><i class="far fa-folder-open mr-2 t-icon"></i> Slides</a>
 			  </li> -->

@@ -95,8 +95,11 @@
 			<h6 style="color: #014F7A;font-size: 1rem;">
 			<span th:text="${tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName()}"></span>
 			<span>(</span><i th:text="${tutorial.getConAssignedTutorial().getLan().getLangName()}" class=""></i><span>)</span>
+			
 			</h6>
-				<p th:utext="${tutorial.getOutline()}" class="mx-0"> </p>
+				<!-- <p th:utext="${tutorial.getOutline()}" class="mx-0"> </p> -->
+				<p th:utext="${#strings.abbreviate(tutorial.getOutline(),1000)}" class="mx-0"></p>
+				
 			
 		</a>
 		</div>

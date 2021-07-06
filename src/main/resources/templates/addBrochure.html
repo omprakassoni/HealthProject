@@ -53,7 +53,7 @@
 											id="MasterCategoryId" class="form-control"
 											name="categoryName" required>
 
-											<option value="0">Select Category</option>
+											<option value="0">Select any one category</option>
 											
 												<option 
 												th:each="category: ${categories}"
@@ -82,7 +82,7 @@
 
 									<div class="form-group">
 
-										<label for="brouchure">Brochure *</label><small> (PDF Format Only)</small> <input type="file"
+										<label for="brouchure">Brochure *</label><small> (.jpg or .png Format Only)</small> <input type="file"
 											class="form-control" id="brouchure" name="brouchure"
 											accept=" .jpeg,.jpg,.png" required="required" onchange="validate_file_size(this,1024000)"/>
 										<small>Max file size : 1 MB</small>
