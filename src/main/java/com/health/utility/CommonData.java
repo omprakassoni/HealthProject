@@ -189,6 +189,16 @@ public class CommonData {
 	public static String ADD_PROFILE_PIC_CONSTRAINT= "Please Add profile pic and user deatils before Requesting Master Trainer Role";
 	
 	public static String ADMIN_REVIEWER_REQ= "Admin Reviewer role request submitted";
+	
+	public static final long videoSize=400*1024*1024;
+	
+	public static final long videoSizeTest=20*1024*1024;
+	
+	public static final long fileSize=20*1024*1024;
+	
+	public static final long categoryFileSizeImageFileSize = 1*1024*1024;
+	
+	
 
 
 

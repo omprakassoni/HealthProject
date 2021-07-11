@@ -768,13 +768,14 @@ public class AjaxController{
 	 * @return string
 	 */
 	@RequestMapping("/addOutline")
-	public @ResponseBody String addOutline(@RequestParam(value = "id") int tutorialId,
+	public @ResponseBody HashMap<Integer, String> addOutline(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "saveOutline") String outlineData,
 											@RequestParam(value = "categoryname") String catName,
 											@RequestParam(value = "topicid") int topicId,
 											@RequestParam(value = "lanId") String lanId,
 											Principal principal) {
 
+		HashMap<Integer, String> temp = new HashMap<>();
 		User usr=new User();
 
 		if(principal!=null) {
@@ -790,9 +791,16 @@ public class AjaxController{
 			tut.setOutlineStatus(CommonData.DOMAIN_STATUS);
 			tut.setOutlineUser(usr);
 
-			tutService.save(tut);
-			logService.save(log);
-			return CommonData.Outline_SAVE_SUCCESS_MSG;
+			try {
+				tutService.save(tut);
+				logService.save(log);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				temp.put(0, "Please Try again");
+				return temp;
+			}
+			temp.put(1, CommonData.Outline_SAVE_SUCCESS_MSG);
+			return temp;
 
 		}else {
 			
@@ -844,11 +852,13 @@ public class AjaxController{
 			}catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
-				return "error";       // throw error
+				temp.put(0, "Please Try again");
+				return temp;      // throw error
 			}
 		}
 
-		return CommonData.Outline_SAVE_SUCCESS_MSG;
+		temp.put(1, CommonData.Outline_SAVE_SUCCESS_MSG);
+		return temp;
 	}
 
 	/**
@@ -878,13 +888,15 @@ public class AjaxController{
 	 * @return string
 	 */
 	@RequestMapping("/addKeyword")
-	public @ResponseBody String addKeyword(@RequestParam(value = "id") int tutorialId,
+	public @ResponseBody HashMap<Integer, String> addKeyword(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "savekeyword") String keywordData,
 											@RequestParam(value = "categoryname") String catName,
 											@RequestParam(value = "topicid") int topicId,
 											@RequestParam(value = "lanId") String lanId,
 											Principal principal) {
 
+		HashMap<Integer, String> temp = new HashMap<>();
+		
 		User usr=new User();
 
 		if(principal!=null) {
@@ -902,7 +914,7 @@ public class AjaxController{
 			tutService.save(tut);
 
 			logService.save(log);
-			return CommonData.Keyword_SAVE_SUCCESS_MSG;
+			temp.put(1,  CommonData.Keyword_SAVE_SUCCESS_MSG);
 
 		}else {
 
@@ -925,15 +937,16 @@ public class AjaxController{
 
 				LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.KEYWORD, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
 				logService.save(log);
+				temp.put(1,  CommonData.Keyword_SAVE_SUCCESS_MSG);
 			}catch (Exception e) {
 				// TODO: handle exception
-				return "error";       // throw error
+				temp.put(0,  "Please try again");      // throw error
 			}
 
 
 		}
 
-		return CommonData.Keyword_SAVE_SUCCESS_MSG;
+		return temp;
 
 	}
 
@@ -945,9 +958,11 @@ public class AjaxController{
 	 * @return String object
 	 */
 	@RequestMapping("/addPreRequisticWhenNotRequired")
-	public @ResponseBody String addPreRequistic(@RequestParam(value = "id") int tutorialId,
+	public @ResponseBody HashMap<Integer, String> addPreRequistic(@RequestParam(value = "id") int tutorialId,
 			Principal principal) {
 		System.out.println("******************************************Here");
+		
+		HashMap<Integer, String> temp = new HashMap<>();
 		User usr=new User();
 
 		if(principal!=null) {
@@ -972,12 +987,12 @@ public class AjaxController{
 			tutService.save(tut);
 
 			logService.save(log);
-			return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
+			temp.put(1,  CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG);
 
 		}
 
 
-		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
+		return temp;
 
 	}
 
@@ -991,11 +1006,13 @@ public class AjaxController{
 	 * @return string 
 	 */
 	@RequestMapping("/addPreRequistic")
-	public @ResponseBody String addPreRequistic(@RequestParam(value = "id") int tutorialId,
+	public @ResponseBody HashMap<Integer, String> addPreRequistic(@RequestParam(value = "id") int tutorialId,
 			@RequestParam(value = "categoryname") String catName,
 			@RequestParam(value = "topicid") int topicId,
 			@RequestParam(value = "lanId") String lanId,Principal principal) {
 		System.out.println("******************************************Here");
+		
+		HashMap<Integer, String> temp = new HashMap<>();
 		User usr=new User();
 
 		if(principal!=null) {
@@ -1021,7 +1038,7 @@ public class AjaxController{
 			tutService.save(tut);
 
 			logService.save(log);
-			return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
+			temp.put(1,  CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG);
 
 		}
 
@@ -1060,7 +1077,7 @@ public class AjaxController{
 //		}
 
 //>>>>>>> c22072d4967124d69c0e3524156a07ce6a2ad4e2
-		return CommonData.PRE_REQUISTIC_SAVE_SUCCESS_MSG;
+		return temp;
 
 	}
 
@@ -1075,18 +1092,34 @@ public class AjaxController{
 	 * @return string 
 	 */
 	@RequestMapping("/addVideo")
-	public @ResponseBody String addKeyword(@RequestParam(value = "id") int tutorialId,
+	public @ResponseBody HashMap<Integer, String> addKeyword(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "videoFileName") MultipartFile videoFile,
 											@RequestParam(value = "categoryname") String catName,
 											@RequestParam(value = "topicid") int topicId,
 											@RequestParam(value = "lanId") String lanId,
 											Principal principal) {
 
+		
+		HashMap<Integer, String> temp = new HashMap<>();
+		
 		User usr=new User();
 
 		if(principal!=null) {
 
 			usr=usrservice.findByUsername(principal.getName());
+		}
+		
+		
+		if(!ServiceUtility.checkFileExtensionVideo(videoFile)) { // throw error on extension
+			
+			temp.put(0, "File extension must be in MP4") ;
+			return temp;
+		}
+		
+		if(!ServiceUtility.checkVideoSize(videoFile)) {
+			
+			temp.put(0, "File Size must be under 400 MB") ;
+			return temp;
 		}
 
 		if(tutorialId != 0) {
@@ -1107,12 +1140,12 @@ public class AjaxController{
 					logService.save(log);
 					tutService.save(tut);
 
-					return CommonData.Video_SAVE_SUCCESS_MSG;
+					temp.put(1, CommonData.Video_SAVE_SUCCESS_MSG) ;
 
 			}catch (Exception e) {
 				// TODO: handle exception
-
 				// throw error
+				temp.put(0, "Please Try again") ;
 			}
 
 		}else {
@@ -1171,23 +1204,23 @@ public class AjaxController{
 					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.KEYWORD, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
 					logService.save(log);
 
-					return CommonData.Video_SAVE_SUCCESS_MSG;
+					temp.put(1, CommonData.Video_SAVE_SUCCESS_MSG) ;
 
 				}else {
 
-					return "error" ; /////////////////  throw error
+					temp.put(0, "Please Try again") ; /////////////////  throw error
 				}
 
 
 			}catch (Exception e) {
 				// TODO: handle exception
-				return "error";       // throw error
+				temp.put(0, "Please Try again") ;     // throw error
 			}
 
 
 		}
 
-		return CommonData.Video_SAVE_SUCCESS_MSG;
+		return temp;
 
 	}
 
@@ -1202,13 +1235,15 @@ public class AjaxController{
 	 * @return string 
 	 */
 	@RequestMapping("/addSlide")
-	public @ResponseBody String addSlide(@RequestParam(value = "id") int tutorialId,
+	public @ResponseBody HashMap<Integer, String> addSlide(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "uploadsSlideFile") MultipartFile videoFile,
 											@RequestParam(value = "categoryname") String catName,
 											@RequestParam(value = "topicid") int topicId,
 											@RequestParam(value = "lanId") String lanId,
 											Principal principal) {
 
+		HashMap<Integer, String> temp = new HashMap<>();
+		
 		User usr=new User();
 
 		if(principal!=null) {
@@ -1216,6 +1251,19 @@ public class AjaxController{
 			usr=usrservice.findByUsername(principal.getName());
 		}
 
+		
+		if(!ServiceUtility.checkFileExtensionZip(videoFile)) { // throw error on extension
+			
+			temp.put(0, "File extension must be in ZIP") ;
+			return temp;
+		}
+		
+		if(!ServiceUtility.checkScriptSlideProfileQuestion(videoFile)) {
+			
+			temp.put(0, "File Size must be under 20 MB") ;
+			return temp;
+		}
+		
 		if(tutorialId != 0) {
 			Tutorial tut=tutService.getById(tutorialId);
 			LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SLIDE, CommonData.DOMAIN_STATUS, tut.getSlideStatus(), CommonData.contributorRole, usr, tut);
@@ -1232,11 +1280,11 @@ public class AjaxController{
 					tut.setSlideUser(usr);
 					tutService.save(tut);
 					logService.save(log);
-					return CommonData.Slide_SAVE_SUCCESS_MSG;
+					temp.put(1, CommonData.Slide_SAVE_SUCCESS_MSG) ;
 
 			}catch (Exception e) {
 				// TODO: handle exception
-
+				temp.put(0, "Please Try again") ;
 				// throw error
 			}
 
@@ -1271,23 +1319,23 @@ public class AjaxController{
 
 					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SLIDE, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
 					logService.save(log);
-					return CommonData.Slide_SAVE_SUCCESS_MSG;
+					temp.put(1, CommonData.Slide_SAVE_SUCCESS_MSG) ;
 
 				}else {
 
-					return "error" ; /////////////////  throw error
+					temp.put(0, "Please Try again") ; /////////////////  throw error
 				}
 
 
 			}catch (Exception e) {
 				// TODO: handle exception
-				return "error";       // throw error
+				temp.put(0, "Please Try again") ;     // throw error
 			}
 
 
 		}
 
-		return CommonData.Slide_SAVE_SUCCESS_MSG;
+		return temp;
 
 	}
 
@@ -1302,18 +1350,33 @@ public class AjaxController{
 	 * @return string 
 	 */
 	@RequestMapping("/addScript")
-	public @ResponseBody String addScript(@RequestParam(value = "id") int tutorialId,
+	public @ResponseBody HashMap<Integer, String> addScript(@RequestParam(value = "id") int tutorialId,
 											@RequestParam(value = "uploadsScriptFile") MultipartFile videoFile,
 											@RequestParam(value = "categoryname") String catName,
 											@RequestParam(value = "topicid") int topicId,
 											@RequestParam(value = "lanId") String lanId,
 											Principal principal) {
 
+		HashMap<Integer, String> temp = new HashMap<>();
+		
 		User usr=new User();
 
 		if(principal!=null) {
 
 			usr=usrservice.findByUsername(principal.getName());
+		}
+		
+		
+		if(!ServiceUtility.checkFileExtensiononeFilePDF(videoFile)) { // throw error on extension
+			
+			temp.put(0, "File extension must be in PDF") ;
+			return temp;
+		}
+		
+		if(!ServiceUtility.checkScriptSlideProfileQuestion(videoFile)) {
+			
+			temp.put(0, "File Size must be under 20 MB") ;
+			return temp;
 		}
 
 		if(tutorialId != 0) {
@@ -1329,15 +1392,22 @@ public class AjaxController{
 					tut.setScript(document);
 					tut.setScriptStatus(CommonData.DOMAIN_STATUS);
 					tut.setScriptUser(usr);
-					tutService.save(tut);
+					try {
+						tutService.save(tut);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						temp.put(0, "Please Try again") ;
+						return temp;
+					}
 
 					logService.save(log);
-					return CommonData.Script_SAVE_SUCCESS_MSG;
+					temp.put(1, CommonData.Script_SAVE_SUCCESS_MSG);
+					return temp;
 
 			}catch (Exception e) {
-				// TODO: handle exception
-
-				// throw error
+				temp.put(0, "Please Try again") ;
+				return temp;
 			}
 
 		}else {
@@ -1394,23 +1464,25 @@ public class AjaxController{
 
 					LogManegement log = new LogManegement(logService.getNewId(), ServiceUtility.getCurrentTime(), CommonData.SCRIPT, CommonData.DOMAIN_STATUS, 0, CommonData.contributorRole, usr, local);
 					logService.save(log);
-					return CommonData.Script_SAVE_SUCCESS_MSG;
+					temp.put(1, CommonData.Script_SAVE_SUCCESS_MSG);
+					return temp;
 
 				}else {
 
-					return "error" ; /////////////////  throw error
+					temp.put(0, "Please Try again") ;
+					return temp; /////////////////  throw error
 				}
 
 
 			}catch (Exception e) {
 				// TODO: handle exception
-				return "error";       // throw error
+				temp.put(0, "Please Try again") ;
+				return temp;       // throw error
 			}
 
 
 		}
 
-		return CommonData.Script_SAVE_SUCCESS_MSG;
 
 	}
 

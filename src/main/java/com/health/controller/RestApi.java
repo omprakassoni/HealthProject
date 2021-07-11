@@ -195,15 +195,15 @@ public class RestApi {
 		for(UserRole x : usrRole) {
 		
 			if(x.getStatus()) {
-				if(x.getRole().getName().equalsIgnoreCase(CommonData.contributorRole)) {
+				if(x.getRole().getName().equalsIgnoreCase(CommonData.contributorRole) && x.getLan().getLangName().equalsIgnoreCase(lan.getLangName())) {
 					roles.add("Contributor");
-				}else if(x.getRole().getName().equalsIgnoreCase(CommonData.domainReviewerRole)) {
+				}else if(x.getRole().getName().equalsIgnoreCase(CommonData.domainReviewerRole) && x.getLan().getLangName().equalsIgnoreCase(lan.getLangName()) && x.getCat().getCatName().equalsIgnoreCase(cat.getCatName())) {
 					roles.add("Domain-Reviewer");
 					
-				}else if(x.getRole().getName().equalsIgnoreCase(CommonData.qualityReviewerRole)) {
+				}else if(x.getRole().getName().equalsIgnoreCase(CommonData.qualityReviewerRole) && x.getLan().getLangName().equalsIgnoreCase(lan.getLangName()) && x.getCat().getCatName().equalsIgnoreCase(cat.getCatName())) {
 					roles.add("Quality-Reviewer");
 					
-				}else {
+				}else if(x.getRole().getName().equalsIgnoreCase(CommonData.adminReviewerRole) && x.getLan().getLangName().equalsIgnoreCase(lan.getLangName()) && x.getCat().getCatName().equalsIgnoreCase(cat.getCatName())) {
 					roles.add(x.getRole().getName());
 				}
 			}
@@ -262,6 +262,8 @@ public class RestApi {
 		return new ResponseEntity<Object>(mapdataReturn,HttpStatus.OK);
 		
 	}
+	
+	
 	
 
 }

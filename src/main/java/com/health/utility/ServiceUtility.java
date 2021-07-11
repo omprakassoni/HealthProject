@@ -197,6 +197,57 @@ public class ServiceUtility {
 		return true;
 	}
 	
+	/**
+	 * to check whether size of file is within the limit
+	 * @param temp MultipartFile object
+	 * @return
+	 */
+	public static boolean checkVideoSize(MultipartFile temp) {
+		
+		if(temp.getSize() > CommonData.videoSize) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * to check whether size of Testimonial video is within the limit
+	 * @param temp MultipartFile object
+	 * @return
+	 */
+	public static boolean checkVideoSizeTestimonial(MultipartFile temp) {
+		
+		if(temp.getSize() > CommonData.videoSizeTest) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * to check whether size of file is within the limit
+	 * @param temp MultipartFile object
+	 * @return
+	 */
+	public static boolean checkScriptSlideProfileQuestion(MultipartFile temp) {
+		
+		if(temp.getSize() > CommonData.fileSize) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * to check whether size of file is within the limit
+	 * @param temp MultipartFile object
+	 * @return
+	 */
+	public static boolean checkCatAndAllImageFile(MultipartFile temp) {
+		
+		if(temp.getSize() > CommonData.categoryFileSizeImageFileSize) {
+			return false;
+		}
+		return true;
+	}
 	
 	/**
 	 * to get present working path

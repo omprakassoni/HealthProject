@@ -3400,12 +3400,26 @@ $(document).ready(function() {
 							success : function(result) {
 								// $("#statusOutline").prop('disabled',
 								// false);
-								var msg = 'Outline updated successfully.'
+								//var msg = 'Outline updated successfully.'
 									// $('#statusOutline').html(html);
-									$('#statusOutlineC')
-									.addClass(
-									'd-block');
-								$('#statusOutlineC').html(msg);
+									//$('#statusOutlineC')
+									//.addClass(
+									//'d-block');
+								//$('#statusOutlineC').html(msg);
+								
+								$.each(result , function( key, value ) {
+			  	  			        if(key == 1){
+										
+										$('#statusOutlineC').addClass('d-block');
+										$('#statusOutlineC').html(value);
+										
+									}else{
+										$('#statusOutlineC').addClass('d-block');
+								 		$('#statusOutlineC').addClass('alert-danger');
+
+										$('#statusOutlineC').html(value);
+									}
+			  	  			     })
 
 							},
 							error : function(err) {
@@ -6380,7 +6394,7 @@ $(document).ready(function() {
 			$(".logoToUpload").on('change', function() {
 
 				var fileSize = this.files[0].size;
-				if(fileSize > 200000){
+				if(fileSize > 500000){
 					alert("File size should be less than 5kB");
 					this.value="";
 					return false;

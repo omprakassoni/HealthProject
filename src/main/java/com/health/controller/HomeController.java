@@ -489,7 +489,7 @@ public class HomeController {
 			 Tutorial tutorial = tutService.getById(id);
 			 List<Tutorial> relatedTutorial = new ArrayList<>();
 			 
-			 if(tutorial == null) {
+			 if(tutorial == null || tutorial.isStatus() == false) {
 				 return "redirect:/";
 			 }
 			 
@@ -1881,6 +1881,12 @@ public class HomeController {
 			model.addAttribute("error_msg",CommonData.RECORD_ERROR);
 			return "uploadQuestion";
 		}
+		
+		if(!ServiceUtility.checkScriptSlideProfileQuestion(quesPdf)) {
+			
+			model.addAttribute("error_msg","File Size must be less than 20MB");
+			return "uploadQuestion";
+		}
 
 		Category cat=catService.findByid(categoryId);
 		Topic topic=topicService.findById(topicId);
@@ -2031,6 +2037,12 @@ public class HomeController {
 			return "updateQuestion"; // accomodate error
 		}
 
+		if(!ServiceUtility.checkScriptSlideProfileQuestion(quesPdf)) {
+			
+			model.addAttribute("error_msg","File Size must be less than 20MB");
+			model.addAttribute("question",ques);
+			return "updateQuestion";
+		}
 
 		try {
 
@@ -2490,6 +2502,11 @@ public class HomeController {
 		if(!file.isEmpty()) {
 		if(!ServiceUtility.checkFileExtensionVideo(file)) { // throw error on extension
 			model.addAttribute("error_msg",CommonData.VIDEO_FILE_EXTENSION_ERROR);
+			return "addTestimonial";
+		}
+		
+		if(!ServiceUtility.checkVideoSizeTestimonial(file)) {
+			model.addAttribute("error_msg","File size must be less than 20MB");
 			return "addTestimonial";
 		}
 
@@ -6413,18 +6430,27 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		List<Tutorial> published = new ArrayList<Tutorial>();
-		List<Tutorial> tutorials =  tutService.findAll();
-		for(Tutorial temp:tutorials) {
+		
+		Set<Tutorial> tutorials = new HashSet<Tutorial>();
+		Set<Tutorial> published = new HashSet<Tutorial>();
 
-			if(temp.isStatus()) {
-
-				published.add(temp);
+		List<ContributorAssignedMultiUserTutorial> conTutorials=conMultiUser.getAllByuser(usr);
+		
+		for(ContributorAssignedMultiUserTutorial conMultiTemp : conTutorials) {
+			
+			ContributorAssignedTutorial conTemp = conRepo.findById(conMultiTemp.getConAssignedTutorial().getId());
+			
+			tutorials.addAll(tutService.findAllByContributorAssignedTutorial(conTemp));
+		}
+		
+		for(Tutorial x : tutorials) {
+			if(x.isStatus()) {
+				published.add(x);
 			}
-
 		}
 
 		model.addAttribute("tutorial", published);
+
 
 		return "uploadTimescript";
 	}
