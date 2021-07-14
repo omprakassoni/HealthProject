@@ -3512,7 +3512,6 @@ $(document).ready(function() {
 			 */
 
 			$('#scriptId').click(function() {
-
 						// here1
 						var categoryid = $("#categoryId").val();
 						var topicid = $("#topicID").val();
@@ -3544,9 +3543,21 @@ $(document).ready(function() {
 								$('#viewScript').html(result);
 //								source = document.getElementById('storedVideoId');
 //								source.setAttribute('src',result[1]);
-								var result = "Script updated successfully";
-								showStatus(SUCCESS,result);
+								//var result = "Script updated successfully";
+								//showStatus(SUCCESS,result);
 								$('.upload-status').hide();
+								$.each(result , function( key, value ) {
+			  	  			        if(key == 1){
+										$('#status_script').addClass('d-block');
+										$('#status_script').html(value);
+										
+									}else{
+										$('#status_script').addClass('d-block');
+								 		$('#status_script').addClass('alert-danger');
+										$('#status_script').html(value);
+									}
+			  	  			     })
+								
 							},
 
 							error : function(err) {
@@ -3563,7 +3574,6 @@ $(document).ready(function() {
 			 */
 
 			$('#slideId').click(function() {
-
 						var categoryid = $("#categoryId").val();
 						var topicid = $("#topicID").val();
 						var lanId = $("#lanId").val();
@@ -3594,12 +3604,26 @@ $(document).ready(function() {
 
 //								$('#sliedPdf').html(projectPath);
 								/*$("#sliedPdf").prop('href', result[1]);*/
-								var result = "Slide uploaded successfully";
-								showStatus(SUCCESS,result);
+								//var result = "Slide uploaded successfully";
+								//showStatus(SUCCESS,result);
+								$.each(result , function( key, value ) {
+			  	  			        if(key == 1){
+										$('#status_slide').addClass('d-block');
+										$('#status_slide').addClass('alert-success');
+										$('#status_slide').html(value);
+										
+									}else{
+										$('#status_slide').addClass('d-block');
+								 		$('#status_slide').addClass('alert-danger');
+										$('#status_slide').html(value);
+									}
+			  	  			     })
 
 							},
 
-							error : function(err) {console.log("not working. ERROR: "+ JSON.stringify(err));
+							error : function(err) {
+								alert('error');
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							var result = "Slide uploaded successfully";
 							showStatus(SUCCESS,result);
 							}

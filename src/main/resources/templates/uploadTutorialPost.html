@@ -843,7 +843,7 @@
 									<div class="modal-body">
 										<div class="row">
 											<div class="col-12">
-												<div class="alert alert-msg" style="display: none;"></div>
+												<div class="alert alert-success d-none w-100" role="alert" id="status_script"></div>
 												<div class="alert alert-success d-none w-100 commentS" role="alert"></div>
 												<form class="form-horizontal mb-3"
 													th:action="@{/addkeyword}"
@@ -973,7 +973,7 @@
 									<div class="modal-body">
 										<div class="row">
 											<div class="col-12">
-												<div class="alert alert-msg" style="display: none;"></div>
+												<div class="alert d-none w-100" role="alert" id="status_slide"></div>
 												<div class="alert alert-success d-none w-100 commentS" role="alert"></div>
 
 												<form class="form-horizontal mb-3"
@@ -1064,7 +1064,7 @@
 											</div>
 										</div>
 										<div th:unless="${tutorial}">
-											<button id="scriptId" type="button" class="btn btn-success">Upload</button>
+											<button id="slideId" type="button" class="btn btn-success">Upload</button>
 										</div>
 
 										<button type="button" class="btn btn-secondary"
