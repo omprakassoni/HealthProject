@@ -502,7 +502,7 @@
 
 										<div class="row">
 											<div class="col-12">
-												<div class="alert alert-msg" style="display: none;"></div>
+												<div class="alert d-none w-100" role="alert" id="status_kw"></div>
 												<div class="alert alert-success d-none w-100 commentS" role="alert"></div>
 												<form class="form-horizontal" th:action="@{/addkeyword}"
 													onsubmit="return submitForm(this);" method="post">
@@ -649,6 +649,7 @@
 										</button>
 									</div>
 									<div class="modal-body">
+									<div class="alert d-none w-100" role="alert" id="status_pr"></div>
 										<div class="alert alert-success d-none w-100" role="alert"
 											id="statusPreReq"></div>
 										<div class="row">
