@@ -3692,11 +3692,23 @@ $(document).ready(function() {
 
 								$("#statusofVideo").prop('disabled',true);
 //								$('#statusofVideo').html(result);
-								showStatus(SUCCESS,result);
+								//showStatus(SUCCESS,result);
 
 							/*	source = document.getElementById('storedVideoId');
 								source.setAttribute('src',result[1]);
 								source.setAttribute('type','video/mp4')*/
+								$.each(result , function( key, value ) {
+			  	  			        if(key == 1){
+										$('#status_video').addClass('d-block');
+										$('#status_video').addClass('alert-success');
+										$('#status_video').html(value);
+										
+									}else{
+										$('#status_video').addClass('d-block');
+								 		$('#status_video').addClass('alert-danger');
+										$('#status_video').html(value);
+									}
+			  	  			     })
 
 							},
 
