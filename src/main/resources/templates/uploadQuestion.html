@@ -123,7 +123,7 @@
       <td><a th:href="@{/files/}+@{${question.getQuestionPath()}}"
 			target="_blank" class="pdfclass"><img id="pdfsource"
 			th:src="${question.getQuestionPath()}" alt="Click here"></img></a></td>
-	  <td><a th:href="@{${'/question/edit/' + question.getQuestionId()}}">Edit</a></td>
+	  <td><a th:href="@{${'/question/edit/' + question.getTopicCatId().getCat().getCatName() + '/' + question.getTopicCatId().getTopic().getTopicName() + '/' + question.getLan().getLangName()}}">Edit</a></td>
     </tr>
    
   </tbody>

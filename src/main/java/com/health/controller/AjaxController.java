@@ -2226,7 +2226,36 @@ public class AjaxController{
 	
 	/*********************************** END ********************************************************/
 	
-	
+	@RequestMapping("/tutCountOnCat")
+	public @ResponseBody String getTotalCountCat(String id) {
 
+		Category cat = catService.findBycategoryname(id);
+		int total = 0;
+		List<Tutorial> tutorials = tutService.findAllBystatus(true);
+		
+		for(Tutorial temp :tutorials) {
+			if(temp.getConAssignedTutorial().getTopicCatId().getCat().getCatName().equalsIgnoreCase(cat.getCatName())) {
+				total++;
+			}
+		}
+		
+		return "Total number of tutorial under "+id +" is "+total;
+	}
+	
+	@RequestMapping("/tutCountOnLan")
+	public @ResponseBody String getTotalCountLan(String id) {
+
+		Language lan = lanService.getByLanName(id);
+		int total = 0;
+		List<Tutorial> tutorials = tutService.findAllBystatus(true);
+		
+		for(Tutorial temp :tutorials) {
+			if(temp.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase(lan.getLangName())) {
+				total++;
+			}
+		}
+		
+		return "Total number of tutorial under "+id +" Language is "+total;
+	}
 		
 }

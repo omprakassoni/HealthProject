@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.api.services.youtube.YouTube.Thumbnails.Set;
 import com.health.domain.security.UserRole;
 import com.health.model.Category;
+import com.health.model.ContributorAssignedMultiUserTutorial;
 import com.health.model.ContributorAssignedTutorial;
 import com.health.model.Language;
 import com.health.model.TopicCategoryMapping;
@@ -43,7 +44,6 @@ public class RestApi {
 	@Autowired
 	private CategoryService catService;
 	
-
 	@Autowired
 	private LanguageService lanService;
 	
@@ -263,6 +263,44 @@ public class RestApi {
 		
 	}
 	
+	/**
+	 * This url tells whether a user has contributor role or not on tutorial
+	 * @param tutId int value
+	 * @param lanId int value
+	 * @param username String object
+	 * @return ResponseEntity object
+	 */
+	@GetMapping("/getContributorByTutLanUser/{tutorialId}/{lanId}/{username}")
+	public ResponseEntity<Object> getContributorBoolean(@PathVariable (name = "tutorialId") int tutId,
+			@PathVariable (name = "lanId") int lanId,@PathVariable (name = "username") String username){
+		
+		Tutorial tut = tutService.getById(tutId);
+		Language lan = lanService.getById(lanId);
+		User usr = userService.findByUsername(username);
+		
+		if(tut == null || lan==null || usr == null) {
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		Map<String, Boolean> mapdata = new HashMap<String,Boolean>();
+		
+		boolean role = false; 
+		
+		if(tut.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase(lan.getLangName())){
+			
+			for(ContributorAssignedMultiUserTutorial x :tut.getConAssignedTutorial().getMultiUserAssigned()) {
+				if(x.getUser().getUsername().equalsIgnoreCase(usr.getUsername())) {
+					role = true;
+				}
+			}
+		}
+		
+		mapdata.put("healthnutrition", role);
+			
+		return new ResponseEntity<Object>(mapdata,HttpStatus.OK);
+		
+	}
 	
 	
 

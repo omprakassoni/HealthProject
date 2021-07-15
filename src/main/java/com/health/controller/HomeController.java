@@ -10,6 +10,7 @@ import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -246,7 +247,13 @@ public class HomeController {
 			lanTemp.add(temp.getConAssignedTutorial().getLan().getLangName());
 			topicTemp.add(temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 		}
-
+		
+		List<String> catTempSorted =new ArrayList<String>(catTemp);
+		Collections.sort(catTempSorted);
+		
+		List<String> lanTempSorted =new ArrayList<String>(lanTemp);
+		Collections.sort(lanTempSorted);
+		
 		List<Event> evnHome = new ArrayList<>();
 		List<Testimonial> testHome = new ArrayList<>();
 		List<Consultant> consulHome = new ArrayList<>();
@@ -317,8 +324,8 @@ public class HomeController {
 
 
 
-		model.addAttribute("categories", catTemp);
-		model.addAttribute("languages", lanTemp);
+		model.addAttribute("categories", catTempSorted);
+		model.addAttribute("languages", lanTempSorted);
 		model.addAttribute("topics", topicTemp);
 
 		if(!carouselHome.isEmpty()) {
@@ -374,9 +381,15 @@ public class HomeController {
 			lanTemp.add(temp.getConAssignedTutorial().getLan().getLangName());
 			topicTemp.add(temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 		}
+		
+		List<String> catTempSorted =new ArrayList<String>(catTemp);
+		Collections.sort(catTempSorted);
+		
+		List<String> lanTempSorted =new ArrayList<String>(lanTemp);
+		Collections.sort(lanTempSorted);
 
-		model.addAttribute("categories", catTemp);
-		model.addAttribute("languages", lanTemp);
+		model.addAttribute("categories", catTempSorted);
+		model.addAttribute("languages", lanTempSorted);
 		model.addAttribute("topics", topicTemp);
 		
 		model.addAttribute("category", cat);
@@ -483,10 +496,25 @@ public class HomeController {
 	 * @param model Model object
 	 * @return String object (Webpapge)
 	 */
-	@RequestMapping(value = "/tutorialView/{id}", method = RequestMethod.GET)
-	public String viewTutorial(HttpServletRequest req,@PathVariable int id,Principal principal,Model model) {
+	@RequestMapping(value = "/tutorialView/{catName}/{topicName}/{language}", method = RequestMethod.GET)
+	public String viewTutorial(HttpServletRequest req,@PathVariable(name = "catName") String cat,
+			@PathVariable (name = "topicName") String topic,
+			@PathVariable (name = "language") String lan,Principal principal,Model model) {
 		
-			 Tutorial tutorial = tutService.getById(id);
+		Category catName = catService.findBycategoryname(cat);
+		Topic topicName = topicService.findBytopicName(topic);
+		Language lanName = lanService.getByLanName(lan);
+		TopicCategoryMapping topicCatMap = topicCatService.findAllByCategoryAndTopic(catName, topicName);
+		ContributorAssignedTutorial conTut = conRepo.findByTopicCatAndLanViewPart(topicCatMap, lanName);
+		
+		if(catName == null || topicName == null || lanName == null || topicCatMap == null || conTut == null) {
+			return "redirect:/";
+		}
+		
+		
+		
+		
+			 Tutorial tutorial = tutService.findAllByContributorAssignedTutorial(conTut).get(0);
 			 List<Tutorial> relatedTutorial = new ArrayList<>();
 			 
 			 if(tutorial == null || tutorial.isStatus() == false) {
@@ -530,9 +558,15 @@ public class HomeController {
 					lanTemp.add(temp.getConAssignedTutorial().getLan().getLangName());
 					topicTemp.add(temp.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName());
 				}
+				
+				List<String> catTempSorted =new ArrayList<String>(catTemp);
+				Collections.sort(catTempSorted);
+				
+				List<String> lanTempSorted =new ArrayList<String>(lanTemp);
+				Collections.sort(lanTempSorted);
 
-				model.addAttribute("categories", catTemp);
-				model.addAttribute("languages", lanTemp);
+				model.addAttribute("categories", catTempSorted);
+				model.addAttribute("languages", lanTempSorted);
 				model.addAttribute("topics", topicTemp);
 
 			return "tutorial";
@@ -1077,8 +1111,8 @@ public class HomeController {
 	 * @param principal principal object
 	 * @return String object (webpage)
 	 */
-	@RequestMapping(value = "/organization_role/edit/{id}", method = RequestMethod.GET)
-	public String editOrganizationRoleGet(@PathVariable int id,Model model,Principal principal) {
+	@RequestMapping(value = "/organization_role/edit/{name}", method = RequestMethod.GET)
+	public String editOrganizationRoleGet(@PathVariable(name = "name") String orgname,Model model,Principal principal) {
 
 		User usr=new User();
 
@@ -1089,8 +1123,7 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
-		OrganizationRole role = organizationRoleService.getById(id);
-//		Language lan=lanService.getById(id);
+		OrganizationRole role = organizationRoleService.getByRole(orgname);
 
 		model.addAttribute("role",role);
 
@@ -1515,6 +1548,8 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		List<Category> category = catService.findAll();
+		
+		Collections.sort(category);
 
 		model.addAttribute("categories", category);
 
@@ -1620,8 +1655,8 @@ public class HomeController {
 	 * @param id int value
 	 * @return String object (webpage)
 	 */
-	@RequestMapping(value = "/topic/edit/{id}", method = RequestMethod.GET)
-	public String editTopicGet(@PathVariable int id,Model model,Principal principal) {
+	@RequestMapping(value = "/topic/edit/{topicName}", method = RequestMethod.GET)
+	public String editTopicGet(@PathVariable(name = "topicName") String topicTemp,Model model,Principal principal) {
 
 		User usr=new User();
 
@@ -1632,7 +1667,7 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
-		Topic topic=topicService.findById(id);
+		Topic topic=topicService.findBytopicName(topicTemp);
 		
 		if(topic == null) {
 			return "redirect:/addTopic";
@@ -1975,8 +2010,10 @@ public class HomeController {
 	 * @param principal principal object
 	 * @return String object (webpage)
 	 */
-	@RequestMapping(value = "/question/edit/{id}", method = RequestMethod.GET)
-	public String editQuestionGet(@PathVariable int id,Model model,Principal principal) {
+	@RequestMapping(value = "/question/edit/{catName}/{topicName}/{language}", method = RequestMethod.GET)
+	public String editQuestionGet(@PathVariable(name = "catName") String cat,
+			@PathVariable (name = "topicName") String topic,
+			@PathVariable (name = "language") String lan,Model model,Principal principal) {
 
 		User usr=new User();
 
@@ -1986,13 +2023,19 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-
-		Question ques = questService.findById(id);
 		
-		if(ques == null) {
+		Category catName = catService.findBycategoryname(cat);
+		Topic topicName = topicService.findBytopicName(topic);
+		Language lanName = lanService.getByLanName(lan);
+		TopicCategoryMapping topicCatMap = topicCatService.findAllByCategoryAndTopic(catName, topicName);
+		
+		Question ques = questService.getQuestionBasedOnTopicCatAndLan(topicCatMap, lanName);
+		
+		if(catName == null || topicName == null || lanName == null || topicCatMap == null || ques == null) {
 			return "redirect:/uploadQuestion";
 		}
 
+		
 		model.addAttribute("question",ques);
 
 		return "updateQuestion"; // question edit page
@@ -2689,8 +2732,8 @@ public class HomeController {
 	 * @param principal Principal object
 	 * @return String object (webpage)
 	 */
-	@RequestMapping(value = "/category/edit/{id}", method = RequestMethod.GET)
-	public String editCategoryGet(@PathVariable int id,Model model,Principal principal) {
+	@RequestMapping(value = "/category/edit/{catName}", method = RequestMethod.GET)
+	public String editCategoryGet(@PathVariable(name = "catName") String catName,Model model,Principal principal) {
 
 		User usr=new User();
 
@@ -2701,7 +2744,7 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
-		Category cat=catService.findByid(id);
+		Category cat=catService.findBycategoryname(catName);
 		
 		if(cat == null) {
 			return "redirect:/category";
@@ -3036,8 +3079,8 @@ public class HomeController {
 	 * @param principal Principal object
 	 * @return String object (webpage)
 	 */
-	@RequestMapping(value = "/language/edit/{id}", method = RequestMethod.GET)
-	public String editLanguageGet(@PathVariable int id,Model model,Principal principal) {
+	@RequestMapping(value = "/language/edit/{lanName}", method = RequestMethod.GET)
+	public String editLanguageGet(@PathVariable(name = "lanName") String lanTemp,Model model,Principal principal) {
 
 		User usr=new User();
 
@@ -3048,7 +3091,7 @@ public class HomeController {
 
 		model.addAttribute("userInfo", usr);
 
-		Language lan=lanService.getById(id);
+		Language lan=lanService.getByLanName(lanTemp);
 		
 		if(lan == null) {
 			return "redirect:/addLanguage";
@@ -4576,8 +4619,10 @@ public class HomeController {
 	 * @param principal Principal object
 	 * @return String object (webpage)
 	 */
-	@RequestMapping(value = "Contributor/review/{id}", method = RequestMethod.GET)
-	public String listContributorReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
+	@RequestMapping(value = "Contributor/review/{catName}/{topicName}/{language}", method = RequestMethod.GET)
+	public String listContributorReviewTutorialGet(@PathVariable(name = "catName") String cat,
+			@PathVariable (name = "topicName") String topic,
+			@PathVariable (name = "language") String lan,Model model,Principal principal) {
 		User usr=new User();
 
 		if(principal!=null) {
@@ -4588,7 +4633,18 @@ public class HomeController {
 		List<Category> categories = catService.findAll();
 		model.addAttribute("categories", categories);
 		model.addAttribute("userInfo", usr);
-		Tutorial tutorial=tutService.getById(id);
+		
+		Category catName = catService.findBycategoryname(cat);
+		Topic topicName = topicService.findBytopicName(topic);
+		Language lanName = lanService.getByLanName(lan);
+		TopicCategoryMapping topicCatMap = topicCatService.findAllByCategoryAndTopic(catName, topicName);
+		ContributorAssignedTutorial conTut = conRepo.findByTopicCatAndLanViewPart(topicCatMap, lanName);
+		
+		if(catName == null || topicName == null || lanName == null || topicCatMap == null || conTut == null) {
+			return "redirect:/listTutorialForContributorReview";
+		}
+		
+		Tutorial tutorial=tutService.findAllByContributorAssignedTutorial(conTut).get(0);
 
 		if(tutorial == null) {
 			// throw a error
@@ -4728,8 +4784,10 @@ public class HomeController {
 	 * @param principal Principal object
 	 * @return String object (webpage)
 	 */
-	@RequestMapping(value = "adminreview/review/{id}", method = RequestMethod.GET)
-	public String listAdminReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
+	@RequestMapping(value = "adminreview/review/{catName}/{topicName}/{language}", method = RequestMethod.GET)
+	public String listAdminReviewTutorialGet(@PathVariable(name = "catName") String cat,
+			@PathVariable (name = "topicName") String topic,
+			@PathVariable (name = "language") String lan,Model model,Principal principal) {
 		User usr=new User();
 
 		if(principal!=null) {
@@ -4738,7 +4796,18 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		Tutorial tutorial=tutService.getById(id);
+		
+		Category catName = catService.findBycategoryname(cat);
+		Topic topicName = topicService.findBytopicName(topic);
+		Language lanName = lanService.getByLanName(lan);
+		TopicCategoryMapping topicCatMap = topicCatService.findAllByCategoryAndTopic(catName, topicName);
+		ContributorAssignedTutorial conTut = conRepo.findByTopicCatAndLanViewPart(topicCatMap, lanName);
+		
+		if(catName == null || topicName == null || lanName == null || topicCatMap == null || conTut == null) {
+			return "redirect:/listTutorialForAdminReview";
+		}
+		
+		Tutorial tutorial=tutService.findAllByContributorAssignedTutorial(conTut).get(0);
 
 		if(tutorial.getVideoStatus() != CommonData.ADMIN_STATUS) {
 			 // return some error
@@ -4853,8 +4922,10 @@ public class HomeController {
 	 * @param principal Principal object
 	 * @return String object (webpage)
 	 */
-	@RequestMapping(value = "domainreview/review/{id}", method = RequestMethod.GET)
-	public String listDomainReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
+	@RequestMapping(value = "domainreview/review/{catName}/{topicName}/{language}", method = RequestMethod.GET)
+	public String listDomainReviewTutorialGet(@PathVariable(name = "catName") String cat,
+			@PathVariable (name = "topicName") String topic,
+			@PathVariable (name = "language") String lan,Model model,Principal principal) {
 		User usr=new User();
 
 		if(principal!=null) {
@@ -4863,7 +4934,18 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		Tutorial tutorial=tutService.getById(id);
+		
+		Category catName = catService.findBycategoryname(cat);
+		Topic topicName = topicService.findBytopicName(topic);
+		Language lanName = lanService.getByLanName(lan);
+		TopicCategoryMapping topicCatMap = topicCatService.findAllByCategoryAndTopic(catName, topicName);
+		ContributorAssignedTutorial conTut = conRepo.findByTopicCatAndLanViewPart(topicCatMap, lanName);
+		
+		if(catName == null || topicName == null || lanName == null || topicCatMap == null || conTut == null) {
+			return "redirect:/listTutorialForDomainReview";
+		}
+		
+		Tutorial tutorial=tutService.findAllByContributorAssignedTutorial(conTut).get(0);
 
 
 		if(tutorial == null) {
@@ -5201,8 +5283,10 @@ public class HomeController {
 	 * @param principal Principal object
 	 * @return String object(webpage)
 	 */
-	@RequestMapping(value = "qualityreview/review/{id}", method = RequestMethod.GET)
-	public String listQualityReviewTutorialGet(@PathVariable int id,Model model,Principal principal) {
+	@RequestMapping(value = "qualityreview/review/{catName}/{topicName}/{language}", method = RequestMethod.GET)
+	public String listQualityReviewTutorialGet(@PathVariable(name = "catName") String cat,
+			@PathVariable (name = "topicName") String topic,
+			@PathVariable (name = "language") String lan,Model model,Principal principal) {
 		User usr=new User();
 
 		if(principal!=null) {
@@ -5211,7 +5295,19 @@ public class HomeController {
 		}
 
 		model.addAttribute("userInfo", usr);
-		Tutorial tutorial=tutService.getById(id);
+		
+		Category catName = catService.findBycategoryname(cat);
+		Topic topicName = topicService.findBytopicName(topic);
+		Language lanName = lanService.getByLanName(lan);
+		TopicCategoryMapping topicCatMap = topicCatService.findAllByCategoryAndTopic(catName, topicName);
+		ContributorAssignedTutorial conTut = conRepo.findByTopicCatAndLanViewPart(topicCatMap, lanName);
+		
+		if(catName == null || topicName == null || lanName == null || topicCatMap == null || conTut == null) {
+			return "redirect:/listTutorialForQualityReview";
+		}
+		
+		Tutorial tutorial=tutService.findAllByContributorAssignedTutorial(conTut).get(0);
+		
 
 		if(tutorial == null) {
 			return "redirect:/listTutorialForQualityReview";
@@ -6479,5 +6575,120 @@ public class HomeController {
 
 		return "showUsers";
 	}
+	
+	@RequestMapping(value = "/statistics",method = RequestMethod.GET)
+	public String statistics(Principal principal, Model model) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		List<Category> cat = catService.findAll();
+		List<Language> lan =lanService.getAllLanguages();
+		List<Tutorial> tut = tutService.findAll();
+		
+		for(Tutorial x : tut) {
+			if(x.isStatus()) {
+				tut.remove(x);
+			}
+		}
+		
+		model.addAttribute("categories", cat);
+		model.addAttribute("languages", lan);
+		model.addAttribute("catTotal", cat.size());
+		model.addAttribute("lanTotal", lan.size());
+		model.addAttribute("tutTotal", tut.size());
+		
+		return "statistics";
+	}
+	
+	@RequestMapping(value = "/cdContentInfo",method = RequestMethod.GET)
+	public String cdContentInfoGet(Principal principal, Model model) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		List<Category> cat = catService.findAll();
+		List<Language> lan =lanService.getAllLanguages();
+	
+		
+		model.addAttribute("categories", cat);
+		model.addAttribute("languages", lan);
+		
+		return "cdContent";
+	}
+	
+	@RequestMapping(value = "/cdContentInfo",method = RequestMethod.POST)
+	public String cdContentInfoPost(@RequestParam(name = "categoryName") String category,
+			@RequestParam(name = "lan") String language,Principal principal, Model model) {
+		
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+		
+		long totalSize = 0;
+		
+		List<Category> cat = catService.findAll();
+		List<Language> lan =lanService.getAllLanguages();
+	
+		model.addAttribute("categories", cat);
+		model.addAttribute("languages", lan);
+		
+		Category catTemp = catService.findBycategoryname(category);
+		Language lanTemp = lanService.getByLanName(language);
+		
+		if(catTemp == null || lanTemp == null ) {
+			System.out.println("vik");
+			return "redirect:/cdContentInfo";
+		}
+		
+		model.addAttribute("categoryName", category);
+		model.addAttribute("lanName", language);
+		
+		List<Tutorial> tutorials = tutService.findAll();
+		
+		for(Tutorial x : tutorials) {
+			if(x.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase(lanTemp.getLangName()) &&
+					x.getConAssignedTutorial().getTopicCatId().getCat().getCatName().equalsIgnoreCase(catTemp.getCatName())){
+				
+				Path path = Paths.get(env.getProperty("spring.applicationexternalPath.name")+x.getVideo());
+				
+				try {
+					totalSize += Files.size(path);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println(totalSize);
+		model.addAttribute("value", totalSize/1024/1024);
+		if(totalSize > 0) {
+		if(usr != null) {
+			model.addAttribute("rate", "free");
+		}else {
+			model.addAttribute("rate", "500");
+		}
+		}
+		
+		return "cdContent";
+	}
+	
 	
 }

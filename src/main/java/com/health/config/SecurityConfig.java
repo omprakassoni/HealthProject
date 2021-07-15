@@ -79,7 +79,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/getCatAndLan/**",
 			"/getTopicOnCatAndLan/**",
 			"/getRolesOnCatLanUser/**",
-			"/getTutorial/**"
+			"/getTutorial/**",
+			"/statistics/**",
+			"/tutCountOnCat/**",
+			"/tutCountOnLan/**",
+			"/cdContentInfo/**",
+			"/getContributorByTutLanUser/**"
 	};
 
 	/**

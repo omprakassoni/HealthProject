@@ -34,7 +34,7 @@
 					<div class="card-body" th:if="${alredaySubmittedFlag != true}">
 						<div class="row">
 							<div class="col-lg-6">
-								<form action="/addMasterTrainerRole" method="post"
+								<form action="@{/addMasterTrainerRole}" method="post"
 									enctype="multipart/form-data">
 									<div class="form-group ">
 										<label for="textMasterName">Name </label> <input type="text"

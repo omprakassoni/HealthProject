@@ -21,6 +21,61 @@ $(document).ready(function() {
 			    
 /********************* Chnages made by om prakash ************************************************/
 			    
+			    $('.catStat').change(function() {
+					
+  					var catName=$(this).find(":selected").val();
+
+						$.ajax({
+							type : "GET",
+							url : projectPath+"tutCountOnCat",
+							data : {
+								"id" : catName
+							},
+							contentType : "application/json",
+							success : function(result) {
+							
+								$('#onChangedataStat').html(result);
+								$('#statBox').hide();
+							},
+
+							error : function(err) {
+								console.log("not working. ERROR: "+ JSON.stringify(err));
+								var result = "Error";
+								showStatus(ERROR,result);
+							}
+						});
+
+					});
+			    
+			    
+			     $('.lanStat').change(function() {
+					
+  					var lanName=$(this).find(":selected").val();
+
+						$.ajax({
+							type : "GET",
+							url : projectPath+"tutCountOnLan",
+							data : {
+								"id" : lanName
+							},
+							contentType : "application/json",
+							success : function(result) {
+							
+								$('#onChangedataStat').html(result);
+								$('#statBox').hide();
+							},
+
+							error : function(err) {
+								console.log("not working. ERROR: "+ JSON.stringify(err));
+								var result = "Error";
+								showStatus(ERROR,result);
+							}
+						});
+
+					});
+					
+					
+			    
 			    $(".timeScriptFetchData").click(function(){
   					var tut_id=$(this).attr('value');
   						

@@ -97,7 +97,7 @@
       <td><img id="imagesource" th:src="@{/files/}+@{${category.getPosterPath()}}"
 			style="width: 150px; height: 100px" />
 	  </td>
-      <td><a th:href="@{${'/category/edit/' + category.getCategoryId()}}">Edit</a></td>
+      <td><a th:href="@{${'/category/edit/' + category.getCatName()}}">Edit</a></td>
     </tr>
   
   </tbody>

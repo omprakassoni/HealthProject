@@ -110,6 +110,8 @@
 						th:text="${tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName()}">
 					</span> : <span
 						th:text="${tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName()}"
+						style="color: black;"> (Topic)</span>: <span
+						th:text="${tutorial.getConAssignedTutorial().getLan().getLangName()}"
 						style="color: black;"> (Language)</span>
 				</h1>
 			</div>
@@ -127,10 +129,10 @@
 					</div>
 				</div>
 				<div class="col-md-4 px-5 d-none d-md-block">
-					<h5 class="main-color">Related Videos</h5>
+					<h5 class="main-color">Related Videos(<span th:text="${tutorial.getConAssignedTutorial().getLan().getLangName()}"/>)</h5>
 					<div class="t-related">
 					<div class="row rel-vid-b mb-2" th:each="tutorial : ${tutorials}" style="border-bottom: 1px solid rgba(0,0,0,0.2);">
-					<a th:href="@{'/tutorialView/'+ ${tutorial.getTutorialId()}}" class="col-12">
+					<a th:href="@{'/tutorialView/'+ ${tutorial.getConAssignedTutorial().getTopicCatId().getCat().getCatName()} + '/' +${tutorial.getConAssignedTutorial().getTopicCatId().getTopic().getTopicName()} +'/'+${tutorial.getConAssignedTutorial().getLan().getLangName()}}" class="col-12">
 						
 							
 							<div class="col-md-4">
@@ -149,40 +151,12 @@
 					</a>
 					</div>
 
-		<!--				<div class="row rel-vid-b">
-							<div class="col-md-4">
-								<iframe width="100%" height="auto"
-									src="https://www.youtube.com/embed/UmljXZIypDc" frameborder="0"
-									allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-									allowfullscreen></iframe>
-							</div>
-							<div class="col-md-8">
-								<h4>Topic Name</h4>
-								<h6>Category Name - Language</h6>
-								<p class="outline">Outline : Outline Text here</p>
-							</div>
-						</div>
-
-						<div class="row rel-vid-b">
-							<div class="col-md-4">
-								<iframe width="100%" height="auto"
-									src="https://www.youtube.com/embed/UmljXZIypDc" frameborder="0"
-									allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-							</div>
-							<div class="col-md-8">
-								<h5>Topic Name</h5>
-								<p>
-									<bold>Category Name - Language</bold>
-								</p>
-
-								<p class="outline">Outline : Outline Text here</p>
-							</div>
-						</div>-->
+	
 					</div>
 				</div>
 			</div>
 		</section>
-		<section th:if="${tutorial.getPreRequistic() != null}"><p>Watch pre-requisite : <a th:href="@{'/tutorialView/'+ ${tutorial.getPreRequistic().getTutorialId()}}">
+		<section th:if="${tutorial.getPreRequistic() != null}"><p>Watch pre-requisite : <a th:href="@{'/tutorialView/'+ ${tutorial.getPreRequistic().getConAssignedTutorial().getTopicCatId().getCat().getCatName()} + '/' +${tutorial.getPreRequistic().getConAssignedTutorial().getTopicCatId().getTopic().getTopicName()} +'/'+${tutorial.getPreRequistic().getConAssignedTutorial().getLan().getLangName()}}">
 		<span th:text="${tutorial.getPreRequistic().getConAssignedTutorial().getTopicCatId().getCat().getCatName()}"></span> :
 		<span th:text="${tutorial.getPreRequistic().getConAssignedTutorial().getTopicCatId().getTopic().getTopicName()}"></span>
 		</a></p></section>
