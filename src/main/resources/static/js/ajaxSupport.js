@@ -1459,7 +1459,6 @@ $(document).ready(function() {
 			// Changes made by om prakash
 
 			$('#uploadpreRequsiteId').click(function() {
-
 //				var tutorialId = $("#inputLanguageAll").val();
 				var tutorialId = $("#tutorialId").val();
 				var categoryid = $("#categoryId").val();
@@ -1481,20 +1480,29 @@ $(document).ready(function() {
 					contentType : "application/json",
 					success : function(result) 
 					{
-						console.log("success");
-						$("#exampleModalLabelPre").prop('disabled',false);
-						$("#exampleModalLabelPre").html("Result");
+						//$("#exampleModalLabelPre").prop('disabled',false);
+						//$("#exampleModalLabelPre").html("Result");
 						
 						var msg = 'Pre-Requistic updated successfully.'
-									// $('#statusOutline').html(html);
-									$('#statusPreReq')
-									.addClass(
-									'd-block');
+									$('#statusPreReq').addClass('d-block');
 								$('#statusPreReq').html(msg);
+						$.each(result , function( key, value ) {
+			  	  			        if(key == 1){
+										$('#status_pr').addClass('d-block');
+										$('#status_pr').addClass('alert-success');
+										$('#status_pr').html(value);
+										
+									}else{
+										$('#status_pr').addClass('d-block');
+								 		$('#status_pr').addClass('alert-danger');
+										$('#status_pr').html(value);
+									}
+			  	  			     })
 
 					},
 
 					error : function(err) {
+						alert('error uploadpreRequsiteId');
 						console.log("error");
 						console
 						.log("not working. ERROR: "+ JSON.stringify(err));
@@ -2873,8 +2881,6 @@ $(document).ready(function() {
 					},
 					contentType : "application/json",
 					success : function(result) {
-						alert("ter");
-
 						var html = '';
 						var len = result.length;
 						html += '<option value="0">Select Topic</option>';
@@ -2943,7 +2949,6 @@ $(document).ready(function() {
 
 			$('#categoryId')
 			.on('change',function() {
-				alert('here again');
 				var catgoryid = $(this).find(
 				":selected").val();
 				$
@@ -2991,7 +2996,6 @@ $(document).ready(function() {
 
 			$('#categoryId')
 			.on('change',function() {
-				alert('!!!!');
 				var catgoryid = $(this).find(
 				":selected").val();
 				$
@@ -3041,8 +3045,6 @@ $(document).ready(function() {
 			$('#preRequsite')
 			.change(
 					function() {
-						alert('show topics');
-
 						var catgoryid = $(this).find(
 						":selected").val();
 						$
@@ -3550,6 +3552,18 @@ $(document).ready(function() {
 //								$("#statuskeyword").prop('disabled',
 //								false);
 //								$('#statuskeyword').html(result);
+								$.each(result , function( key, value ) {
+			  	  			        if(key == 1){
+										$('#status_kw').addClass('d-block');
+										$('#status_kw').addClass('alert-success');
+										$('#status_kw').html(value);
+										
+									}else{
+										$('#status_kw').addClass('d-block');
+								 		$('#status_kw').addClass('alert-danger');
+										$('#status_kw').html(value);
+									}
+			  	  			     })
 
 							},
 
@@ -3567,7 +3581,6 @@ $(document).ready(function() {
 			 */
 
 			$('#scriptId').click(function() {
-
 						// here1
 						var categoryid = $("#categoryId").val();
 						var topicid = $("#topicID").val();
@@ -3599,9 +3612,21 @@ $(document).ready(function() {
 								$('#viewScript').html(result);
 //								source = document.getElementById('storedVideoId');
 //								source.setAttribute('src',result[1]);
-								var result = "Script updated successfully";
-								showStatus(SUCCESS,result);
+								//var result = "Script updated successfully";
+								//showStatus(SUCCESS,result);
 								$('.upload-status').hide();
+								$.each(result , function( key, value ) {
+			  	  			        if(key == 1){
+										$('#status_script').addClass('d-block');
+										$('#status_script').html(value);
+										
+									}else{
+										$('#status_script').addClass('d-block');
+								 		$('#status_script').addClass('alert-danger');
+										$('#status_script').html(value);
+									}
+			  	  			     })
+								
 							},
 
 							error : function(err) {
@@ -3618,7 +3643,6 @@ $(document).ready(function() {
 			 */
 
 			$('#slideId').click(function() {
-
 						var categoryid = $("#categoryId").val();
 						var topicid = $("#topicID").val();
 						var lanId = $("#lanId").val();
@@ -3649,12 +3673,26 @@ $(document).ready(function() {
 
 //								$('#sliedPdf').html(projectPath);
 								/*$("#sliedPdf").prop('href', result[1]);*/
-								var result = "Slide uploaded successfully";
-								showStatus(SUCCESS,result);
+								//var result = "Slide uploaded successfully";
+								//showStatus(SUCCESS,result);
+								$.each(result , function( key, value ) {
+			  	  			        if(key == 1){
+										$('#status_slide').addClass('d-block');
+										$('#status_slide').addClass('alert-success');
+										$('#status_slide').html(value);
+										
+									}else{
+										$('#status_slide').addClass('d-block');
+								 		$('#status_slide').addClass('alert-danger');
+										$('#status_slide').html(value);
+									}
+			  	  			     })
 
 							},
 
-							error : function(err) {console.log("not working. ERROR: "+ JSON.stringify(err));
+							error : function(err) {
+								alert('error');
+								console.log("not working. ERROR: "+ JSON.stringify(err));
 							var result = "Slide uploaded successfully";
 							showStatus(SUCCESS,result);
 							}
@@ -3709,11 +3747,23 @@ $(document).ready(function() {
 
 								$("#statusofVideo").prop('disabled',true);
 //								$('#statusofVideo').html(result);
-								showStatus(SUCCESS,result);
+								//showStatus(SUCCESS,result);
 
 							/*	source = document.getElementById('storedVideoId');
 								source.setAttribute('src',result[1]);
 								source.setAttribute('type','video/mp4')*/
+								$.each(result , function( key, value ) {
+			  	  			        if(key == 1){
+										$('#status_video').addClass('d-block');
+										$('#status_video').addClass('alert-success');
+										$('#status_video').html(value);
+										
+									}else{
+										$('#status_video').addClass('d-block');
+								 		$('#status_video').addClass('alert-danger');
+										$('#status_video').html(value);
+									}
+			  	  			     })
 
 							},
 
