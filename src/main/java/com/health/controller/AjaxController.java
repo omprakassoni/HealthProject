@@ -633,8 +633,10 @@ public class AjaxController{
 
 		User usr=usrservice.findByUsername(username);
 		Role role=roleService.findByname(CommonData.contributorRole);
+		Role role1=roleService.findByname(CommonData.externalContributorRole);
 
 		List<UserRole> userRoles=usrRoleService.findAllByRoleUserStatus(role, usr, true);
+		userRoles.addAll(usrRoleService.findAllByRoleUserStatus(role1, usr, true));
 		for(UserRole temp:userRoles) {
 			if(temp.getLanguage()!=null) {
 				langauges.add(temp.getLanguage().getLangName());

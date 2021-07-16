@@ -22,7 +22,7 @@ import com.health.domain.security.UserRole;
  * @version 1.0
  */
 @Entity
-public class Language {
+public class Language implements Comparable<Language>{
 
 	/**
 	 * unique id of object
@@ -147,111 +147,13 @@ public class Language {
 		this.trainingInfos = trainingInfos;
 	}
 
+	@Override
+	public int compareTo(Language o) {
+		// TODO Auto-generated method stub
+		return this.getLangName().compareTo(o.getLangName());
+	}
 
 
-
-//  @Id
-//  @GeneratedValue(strategy=GenerationType.AUTO)
-//  @Column(name="id", nullable = false, updatable = false)
-//
-//  	private int id;
-//	private  String languageName ;
-//
-//	private Timestamp timedate;
-//
-//
-//
-//	  public Timestamp getTimedate() {
-//		return timedate;
-//	}
-//
-//	public void setTimedate(Timestamp timedate) {
-//		this.timedate = timedate;
-//	}
-//
-//	private String createdBy;
-//
-//	  public String getCreatedBy() {
-//		  return createdBy;
-//	  }
-//
-//	public void setCreatedBy(String createdBy) {
-//		this.createdBy = createdBy;
-//	}
-//
-//	/*
-//	 * @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	 *
-//	 * @JoinColumn(name="user_id") private User user;
-//	 */
-//
-//	@OneToMany(mappedBy = "lan",cascade =CascadeType.ALL)
-//	private List<Tutorial> tutorials;
-//
-//	@OneToMany(mappedBy = "lan", cascade = CascadeType.ALL)
-//	private List<contributor_Role> contributor_Roles;
-//
-//	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-//	private Set<UserRole> userRoles = new HashSet<>();
-//
-//
-//	@OneToMany(mappedBy = "lan", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-//	private Set<language_assign> languages= new HashSet<>();
-//
-//	@OneToMany(mappedBy = "language", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-//	private Set<commentOnComponent>  commentOnComponent= new HashSet<>();
-//
-//
-//	public Set<UserRole> getUserRoles() {
-//
-//		return userRoles;
-//	}
-//
-//	public List<contributor_Role> getContributor_Roles() {
-//		return contributor_Roles;
-//	}
-//
-//	public void setContributor_Roles(List<contributor_Role> contributor_Roles) {
-//		this.contributor_Roles = contributor_Roles;
-//	}
-//
-//	public void setUserRoles(Set<UserRole> userRoles) {
-//		this.userRoles = userRoles;
-//	}
-//
-//	public List<Tutorial> getTutorials() {
-//		return tutorials;
-//	}
-//
-//	public Set<language_assign> getLanguages() {
-//		return languages;
-//	}
-//
-//	public void setLanguages(Set<language_assign> languages) {
-//		this.languages = languages;
-//	}
-//
-//	public void setTutorials(List<Tutorial> tutorials) {
-//		this.tutorials = tutorials;
-//	}
-//
-//
-//		public int getId() {
-//		  return id; }
-//
-//	  public void setId(int id) {
-//		  this.id = id; }
-//
-//
-//	  public String getLanguageName() {
-//		  return languageName; }
-//
-//
-//
-//	  public void setLanguageName(String languageName)
-//	  { this.languageName =
-//	  languageName; }
-//
 
 
   }

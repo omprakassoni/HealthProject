@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,7 @@ public class CityServiceImpl implements CityService {
 	public List<City> findAll() {
 		// TODO Auto-generated method stub
 		List<City> local=(List<City>) cityRepo.findAll();
+		Collections.sort(local);
 		return local;
 	}
 
@@ -64,6 +66,7 @@ public class CityServiceImpl implements CityService {
 	public List<City> findAllByDistrict(District district) {
 		// TODO Auto-generated method stub
 		List<City> local=cityRepo.findAllBydistrict(district);
+		Collections.sort(local);
 		return local;
 	}
 

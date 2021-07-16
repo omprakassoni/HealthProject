@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,9 @@ public class OrganizationRoleServiceImpl implements OrganizationRoleService {
 	@Override
 	public List<OrganizationRole> findAll() {
 
-		return (List<OrganizationRole>) (repo.findAll());
+		List<OrganizationRole> local= (List<OrganizationRole>) (repo.findAll());
+		Collections.sort(local);
+		return local;
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +68,9 @@ public class TopicServiceImpl implements TopicService {
 	@Override
 	public List<Topic> findAll() {
 		// TODO Auto-generated method stub
-		return (List<Topic>) topicRepo.findAll();
+		List<Topic> topics= (List<Topic>) topicRepo.findAll();
+		Collections.sort(topics);
+		return topics;
 	}
 
 	/**

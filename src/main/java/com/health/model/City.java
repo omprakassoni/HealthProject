@@ -1,6 +1,7 @@
 package com.health.model;
 
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ import javax.persistence.OneToMany;
  * @version 1.0
  */
 @Entity
-public class City {
+public class City implements Comparable<City>{
 
 	/**
 	 * unique id of object
@@ -77,6 +78,12 @@ public class City {
 
 	public void setDistrict(District district) {
 		this.district = district;
+	}
+
+	@Override
+	public int compareTo(City o) {
+		// TODO Auto-generated method stub
+		return this.getCityName().compareTo(o.getCityName());
 	}
 
 

@@ -3566,6 +3566,106 @@ public class HomeController {
 
 		return "addContributorRole";
 	}
+	
+	/**
+	 * redirects to add contributor page
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @return String object (webpage)
+	 */
+	@RequestMapping(value = "/addExternalContributorRole", method = RequestMethod.GET)
+	public String addExternalContributorGet(Model model,Principal principal) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		List<Language> languages=lanService.getAllLanguages();
+
+		model.addAttribute("languages", languages);
+		return "addExternalContributorRole";
+	}
+
+	/**
+	 * add contributor role into system
+	 * @param model Model object
+	 * @param principal Principal object
+	 * @param req HttpServletRequest
+	 * @return String object (webpage)
+	 */
+	@RequestMapping(value = "/addExternalContributorRole", method = RequestMethod.POST)
+	public String addExternalContributorPost(Model model,Principal principal,HttpServletRequest req) {
+
+		User usr=new User();
+
+		if(principal!=null) {
+
+			usr=userService.findByUsername(principal.getName());
+		}
+
+		model.addAttribute("userInfo", usr);
+
+		String lanName=req.getParameter("selectedLan");
+		
+		if(lanName == null) {
+			
+			return "redirect:/addExternalContributorRole";
+		}
+
+		Language lan=lanService.getByLanName(lanName);
+		
+		if(lan == null) {
+			
+			return "redirect:/addExternalContributorRole";
+		}
+
+		Role role=roleService.findByname(CommonData.externalContributorRole);
+		List<UserRole> userRoles = usrRoleService.findByLanUser(lan, usr, role);
+		if(!userRoles.isEmpty()) {
+			System.out.println("***************IF True*****");
+			System.out.println(usrRoleService.findByLanUser(lan, usr, role));
+
+			// throw error
+			//model.addAttribute("msgSuccefull", CommonData.ADMIN_ADDED_SUCCESS_MSG);
+			List<Language> languages=lanService.getAllLanguages();
+			List<Category> categories=catService.findAll();
+
+			model.addAttribute("categories", categories);
+
+			model.addAttribute("languages", languages);
+
+			model.addAttribute("error_msg", CommonData.CONTRIBUTOR_ERROR);
+
+			return "addExternalContributorRole";
+		}
+
+		UserRole usrRole=new UserRole();
+		usrRole.setCreated(ServiceUtility.getCurrentTime());
+		usrRole.setUser(usr);
+		usrRole.setRole(role);
+		usrRole.setLanguage(lan);
+		usrRole.setUserRoleId(usrRoleService.getNewUsrRoletId());
+
+		try {
+			usrRoleService.save(usrRole);
+			model.addAttribute("success_msg", CommonData.CONTRIBUTOR_ADDED_SUCCESS_MSG);
+		} catch (Exception e) {
+			model.addAttribute("error_msg", CommonData.CONTRIBUTOR_ERROR_MSG);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		List<Language> languages=lanService.getAllLanguages();
+
+		model.addAttribute("languages", languages);
+
+		return "addExternalContributorRole";
+	}
 
 	/**
 	 * redirects to add admin role page
@@ -4188,18 +4288,22 @@ public class HomeController {
 		Role master=roleService.findByname(CommonData.masterTrainerRole);
 		Role quality=roleService.findByname(CommonData.qualityReviewerRole);
 		Role domain=roleService.findByname(CommonData.domainReviewerRole);
+		Role external=roleService.findByname(CommonData.externalContributorRole);
 
 		List<UserRole> adminReviewer = usrRoleService.findAllByRoleAndStatusAndRevoked(admin,false,false);
 		List<UserRole> masterTrainer = usrRoleService.findAllByRoleAndStatusAndRevoked(master,false,false);
 		List<UserRole> qualityReviewer = usrRoleService.findAllByRoleAndStatusAndRevoked(quality,false,false);
 		List<UserRole> contributorReviewer = usrRoleService.findAllByRoleAndStatusAndRevoked(contributor,false,false);
 		List<UserRole> domainReviewer = usrRoleService.findAllByRoleAndStatusAndRevoked(domain,false,false);
+		List<UserRole> externalUser= usrRoleService.findAllByRoleAndStatusAndRevoked(external,false,false);
+		
 
 		model.addAttribute("userInfoAdmin", adminReviewer);
 		model.addAttribute("userInfoQuality", qualityReviewer);
 		model.addAttribute("userInfoContributor", contributorReviewer);
 		model.addAttribute("userInfoMaster", masterTrainer);
 		model.addAttribute("userInfoDomain", domainReviewer);
+		model.addAttribute("userInfoExternal", externalUser);
 
 
 		return "approveRole";
@@ -4257,10 +4361,12 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Role role=roleService.findByname(CommonData.contributorRole);
+		Role role1=roleService.findByname(CommonData.externalContributorRole);
 
 		List<ContributorAssignedTutorial> userRoles = conRepo.findAll();
 		
 		List<UserRole> userRolesTemp= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+		userRolesTemp.addAll(usrRoleService.findAllByRoleAndStatusAndRevoked(role1, true,false));
 		
 		HashSet<String> userRolesUniqueTemp = new HashSet<>();
 		
@@ -4302,10 +4408,12 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 
 		Role role=roleService.findByname(CommonData.contributorRole);
+		Role role1=roleService.findByname(CommonData.externalContributorRole);
 
 		List<ContributorAssignedTutorial> userRoles = conRepo.findAll();
 
 		List<UserRole> userRolesTemp= usrRoleService.findAllByRoleAndStatusAndRevoked(role, true,false);
+		userRolesTemp.addAll(usrRoleService.findAllByRoleAndStatusAndRevoked(role1, true,false));
 		
 		HashSet<String> userRolesUniqueTemp = new HashSet<>();
 		
@@ -6590,14 +6698,10 @@ public class HomeController {
 		
 		List<Category> cat = catService.findAll();
 		List<Language> lan =lanService.getAllLanguages();
-		List<Tutorial> tut = tutService.findAll();
-		
-		for(Tutorial x : tut) {
-			if(x.isStatus()) {
-				tut.remove(x);
-			}
-		}
-		
+		List<Tutorial> tut = tutService.findAllBystatus(true);
+		Collections.sort(cat);
+		Collections.sort(lan);
+			
 		model.addAttribute("categories", cat);
 		model.addAttribute("languages", lan);
 		model.addAttribute("catTotal", cat.size());
@@ -6621,7 +6725,8 @@ public class HomeController {
 		
 		List<Category> cat = catService.findAll();
 		List<Language> lan =lanService.getAllLanguages();
-	
+		Collections.sort(cat);
+		Collections.sort(lan);
 		
 		model.addAttribute("categories", cat);
 		model.addAttribute("languages", lan);
@@ -6643,10 +6748,13 @@ public class HomeController {
 		model.addAttribute("userInfo", usr);
 		
 		long totalSize = 0;
+		int totalNumberOfVideo=0;
 		
 		List<Category> cat = catService.findAll();
 		List<Language> lan =lanService.getAllLanguages();
-	
+		Collections.sort(cat);
+		Collections.sort(lan);
+		
 		model.addAttribute("categories", cat);
 		model.addAttribute("languages", lan);
 		
@@ -6671,6 +6779,7 @@ public class HomeController {
 				
 				try {
 					totalSize += Files.size(path);
+					totalNumberOfVideo+=1;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -6679,12 +6788,13 @@ public class HomeController {
 		}
 		System.out.println(totalSize);
 		model.addAttribute("value", totalSize/1024/1024);
-		if(totalSize > 0) {
-		if(usr != null) {
-			model.addAttribute("rate", "free");
-		}else {
-			model.addAttribute("rate", "500");
-		}
+		model.addAttribute("totalVideo", totalNumberOfVideo);
+		if(totalSize > 0 && totalNumberOfVideo > 0) {
+			if(principal == null) {
+				model.addAttribute("rate", "500");
+			}else {
+				model.addAttribute("rate", "Free");
+			}
 		}
 		
 		return "cdContent";

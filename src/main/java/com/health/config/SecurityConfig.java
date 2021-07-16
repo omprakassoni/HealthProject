@@ -161,6 +161,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 	};
+	/**
+	 * url matcher for CONTRIBUTOR (EXTERNAL)
+	 */
+	public static final String[] EXTERNAL_CONTRIBUTOR_URL= {
+			"/uploadTutorial/**",
+			"/addOutline/**",
+			"/addKeyword**",
+			"/addPreRequisticWhenNotRequired/**",
+			"/addPreRequistic/**",
+			"/addVideo/**",
+			"/addSlide/**",
+			"/addScript/**",
+			"/listTutorialForContributorReview/**",
+			"/Contributor/review/**",
+			"/uploadTimescript/**",
+
+
+
+	};
 
 	/**
 	 * url matcher for Admin Role
@@ -236,6 +255,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(SUPERUSER_URL).hasAnyAuthority("SUPER_USER")
 			.antMatchers(MASTERTRAINER_URL).hasAnyAuthority("MASTER_TRAINER")
 			.antMatchers(CONTRIBUTOR_URL).hasAnyAuthority("CONTRIBUTOR")
+			.antMatchers(EXTERNAL_CONTRIBUTOR_URL).hasAnyAuthority("EXTERNAL_CONTRIBUTOR")
 			.antMatchers(ADMIN_URL).hasAnyAuthority("ADMIN_REVIEWER")
 			.antMatchers(DOMAIN_URL).hasAnyAuthority("DOMAIN_REVIEWER")
 			.antMatchers(QUALITY_URL).hasAnyAuthority("QUALITY_REVIEWER")

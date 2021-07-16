@@ -25,6 +25,8 @@ public class CommonData {
 	public static String masterTrainerRole = "MASTER_TRAINER";
 
 	public static String contributorRole= "CONTRIBUTOR";
+	
+	public static String externalContributorRole= "EXTERNAL_CONTRIBUTOR" ;
 
 	public static String Outline_SAVE_SUCCESS_MSG = "Outline Saved Successfully !";
 

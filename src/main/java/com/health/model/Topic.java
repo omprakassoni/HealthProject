@@ -25,7 +25,7 @@ import java.util.Set;
 	 */
 @Entity
 @Table(name="topic")
-public class Topic {
+public class Topic implements Comparable<Topic>{
 	
 	/**
 	 * unique id
@@ -109,6 +109,12 @@ public class Topic {
 
 	public void setTopicCategoryMap(Set<TopicCategoryMapping> topicCategoryMap) {
 		this.topicCategoryMap = topicCategoryMap;
+	}
+
+	@Override
+	public int compareTo(Topic o) {
+		// TODO Auto-generated method stub
+		return this.getTopicName().compareTo(o.getTopicName());
 	}
 
 	  
