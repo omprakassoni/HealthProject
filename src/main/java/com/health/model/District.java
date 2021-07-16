@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-public class District {
+public class District implements Comparable<District> {
 
 	/**
 	 * unique id of object
@@ -90,6 +90,12 @@ public class District {
 
 	public void setCities(Set<City> cities) {
 		this.cities = cities;
+	}
+
+	@Override
+	public int compareTo(District o) {
+		// TODO Auto-generated method stub
+		return this.getDistrictName().compareTo(o.getDistrictName());
 	}
 
 

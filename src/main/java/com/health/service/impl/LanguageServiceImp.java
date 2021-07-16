@@ -1,6 +1,7 @@
 package com.health.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,9 @@ public class LanguageServiceImp implements LanguageService
 	@Override
 	public List<Language> getAllLanguages() {
 		// TODO Auto-generated method stub
-		return languageRepo.findAll();
+		List<Language> lans= languageRepo.findAll();
+		Collections.sort(lans);
+		return lans;
 		
 	}
 

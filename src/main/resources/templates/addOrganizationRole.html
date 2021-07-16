@@ -95,7 +95,7 @@ font-weight:bold!important;
     <tr th:each="role : ${orgRoles}">
       <td scope="row"><span th:text = "${role.getRoleId()}"></span></td>
       <td><span th:text = "${role.getRole()}"></span></td>
-      <td><a th:href="@{${'/organization_role/edit/' + role.getRoleId()}}">Edit</a></td>
+      <td><a th:href="@{${'/organization_role/edit/' + role.getRole()}}">Edit</a></td>
     </tr>
    
    

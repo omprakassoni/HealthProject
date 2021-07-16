@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -214,7 +215,9 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<User> findAll() {
 		// TODO Auto-generated method stub
-		return (List<User>) userRepository.findAll();
+		List<User> users= (List<User>) userRepository.findAll();
+		
+		return users;
 	}
 
 

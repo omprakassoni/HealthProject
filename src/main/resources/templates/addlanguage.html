@@ -94,7 +94,7 @@ font-weight:bold!important;
     <tr th:each="lan : ${languages}">
       <td scope="row"><span th:text = "${lan.getLanId()}"></span></td>
       <td><span th:text = "${lan.getLangName()}"></span></td>
-      <td><a th:href="@{${'/language/edit/' + lan.getLanId()}}">Edit</a></td>
+      <td><a th:href="@{${'/language/edit/' + lan.getLangName()}}">Edit</a></td>
     </tr>
    
    

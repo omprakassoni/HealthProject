@@ -1,5 +1,6 @@
 package com.health.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,9 @@ public class CatgoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> findAll() {
 
-		return (List<Category>) categoryRepo.findAll();
-
+		List<Category> cats= (List<Category>) categoryRepo.findAll();
+		Collections.sort(cats);
+		return cats;
 
 	}
 	

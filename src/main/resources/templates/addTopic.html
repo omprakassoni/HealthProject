@@ -113,7 +113,7 @@ font-weight:bold!important;
       <td scope="row"><span th:text = "${topicTemp.getCat().getCatName()}"></span></td>
 	  <td><span th:text = "${topicTemp.getTopic().getTopicName()}"></span></td>
       <td><span th:text = "${topicTemp.getOrder()}"></span></td>
-      <td><a th:href="@{${'/topic/edit/' + topicTemp.getTopic().getTopicId()}}">Edit</a></td>
+      <td><a th:href="@{${'/topic/edit/' + topicTemp.getTopic().getTopicName()}}">Edit</a></td>
       </tr>
     </div>
    

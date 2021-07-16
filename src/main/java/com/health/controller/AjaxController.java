@@ -633,8 +633,10 @@ public class AjaxController{
 
 		User usr=usrservice.findByUsername(username);
 		Role role=roleService.findByname(CommonData.contributorRole);
+		Role role1=roleService.findByname(CommonData.externalContributorRole);
 
 		List<UserRole> userRoles=usrRoleService.findAllByRoleUserStatus(role, usr, true);
+		userRoles.addAll(usrRoleService.findAllByRoleUserStatus(role1, usr, true));
 		for(UserRole temp:userRoles) {
 			if(temp.getLanguage()!=null) {
 				langauges.add(temp.getLanguage().getLangName());
@@ -2226,7 +2228,36 @@ public class AjaxController{
 	
 	/*********************************** END ********************************************************/
 	
-	
+	@RequestMapping("/tutCountOnCat")
+	public @ResponseBody String getTotalCountCat(String id) {
 
+		Category cat = catService.findBycategoryname(id);
+		int total = 0;
+		List<Tutorial> tutorials = tutService.findAllBystatus(true);
+		
+		for(Tutorial temp :tutorials) {
+			if(temp.getConAssignedTutorial().getTopicCatId().getCat().getCatName().equalsIgnoreCase(cat.getCatName())) {
+				total++;
+			}
+		}
+		
+		return "Total number of tutorial under "+id +" is "+total;
+	}
+	
+	@RequestMapping("/tutCountOnLan")
+	public @ResponseBody String getTotalCountLan(String id) {
+
+		Language lan = lanService.getByLanName(id);
+		int total = 0;
+		List<Tutorial> tutorials = tutService.findAllBystatus(true);
+		
+		for(Tutorial temp :tutorials) {
+			if(temp.getConAssignedTutorial().getLan().getLangName().equalsIgnoreCase(lan.getLangName())) {
+				total++;
+			}
+		}
+		
+		return "Total number of tutorial under "+id +" Language is "+total;
+	}
 		
 }

@@ -13,7 +13,7 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class OrganizationRole {
+public class OrganizationRole implements Comparable<OrganizationRole> {
 
 	/**
 	 * unique id of object
@@ -56,6 +56,12 @@ public class OrganizationRole {
 
 	public void setDateAdded(Timestamp dateAdded) {
 		this.dateAdded = dateAdded;
+	}
+
+	@Override
+	public int compareTo(OrganizationRole o) {
+		// TODO Auto-generated method stub
+		return this.getRole().compareTo(o.getRole());
 	}
 
 
