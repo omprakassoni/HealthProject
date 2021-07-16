@@ -29,7 +29,7 @@
 	            
 	         
 	         
-	       	   <form class="form-horizontal"  th:action="@{/addDistrictCityName}" method="post"  enctype="multipart/form-data" onsubmit="return submitForm(this);">
+	       	   <form class="form-horizontal"  th:action="@{/addDistrictCityName}" method="post"  enctype="multipart/form-data" >
  
 				    	 <div class="form-group">
 								 	  
@@ -70,20 +70,9 @@
 	 						 <input type="text" class="form-control" id="cityId" name="cityName" required="required"/>
 							
 							<span style="color: red;" th:if="${msgCity}" >City already exists. Choose a different one.</span>
-	 						 
-	 				
 						</div>
-							
-					
-	 		 
-                          <button type="submit" value="showAlert"  class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
-                           <button type="reset" class="btn btn-success">Reset</button>
-                                                
-              
+                          <button type="submit" value="showAlert"  class="btn btn-success">Submit</button>
                      </form>
-                     
-                     
-  				 	
 					<script>
 					function submitForm() {
 						  return confirm('Do you really want to submit the form?');
