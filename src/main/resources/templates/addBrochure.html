@@ -1,7 +1,18 @@
-
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-<head th:replace="common/trail :: common-trail"></head>
+<head th:replace="common/trail :: common-trail">
+</head>
+<style>
+.nav-brochure{
+border-right: 5px solid orange;
+font-size:0.9rem;
+/* text-decoration: underline; */
+}
+.nav-brochure a{
+color: #044F7A!important;
+font-weight:bold!important;
+}
+</style>
 <body>
 	<div th:replace="common/sidebar :: top_header"></div>
 	<div class="container-fluid">
