@@ -342,7 +342,7 @@ a:hover {
         
         <ul class="nav flex-column" sec:authorize="hasAnyAuthority('CONTRIBUTOR','EXTERNAL_CONTRIBUTOR')">
         	<li class="nav-item ">
-            <a class="nav-link" href="#View">
+            <span class="nav-link" href="#View">
               <span data-feather="bar-chart-2"></span>
              <i class="fas fa-tag"></i> Contributor
             </span>
@@ -468,7 +468,7 @@ a:hover {
             </a>
           </li>
 
-           <li class="nav-item border-lt">
+           <li class="nav-item border-lt nav-super-Econtri">
             <a class="nav-link" th:href="@{/addExternalContributorRole}">
               <span data-feather="shopping-cart"></span>
              External Contributor
