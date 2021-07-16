@@ -173,7 +173,7 @@ a:hover {
       }
 
     </style>
- <nav id="sidebarMenu" class="d-md-block bg-light sidebar collapse pt-4">
+ <nav id="sidebarMenu" class="d-md-block bg-light sidebar collapse pt-4 pb-5">
       <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
       <li class="nav-item">
@@ -182,7 +182,7 @@ a:hover {
               <span th:text="${userInfo.getFirstName()}"></span>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item nav-db">
             <a class="nav-link " th:href="@{/dashBoard}">
               <span data-feather="home"></span>
              <i class="fas fa-home sidebar-icon"></i> Dashboard <span class="sr-only">(current)</span>
@@ -191,13 +191,13 @@ a:hover {
       </ul>
         <ul class="nav flex-column" sec:authorize="hasAnyAuthority('SUPER_USER')">
         
-          <li class="nav-item">
+          <li class="nav-item nav-approve-role">
             <a class="nav-link" th:href="@{/approveRole}">
               
               <i class="fas fa-user-tag sidebar-icon"></i>Approve Role
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item nav-users">
             <a class="nav-link" th:href="@{/users}">
               
               <i class="fas fa-user-tag sidebar-icon"></i>Users 
@@ -209,32 +209,32 @@ a:hover {
               <i class="fas fa-database sidebar-icon"></i>Content
             </span>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-brochure">
             <a class="nav-link" th:href="@{/addBrochure}">
               <span data-feather="bar-chart-2"></span>
               Brochure
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-carousel">
             <a class="nav-link" th:href="@{/addCarousel}">
               <span data-feather="bar-chart-2"></span>
               Carousel
             </a>
           </li>
            
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-consultants">
             <a class="nav-link" th:href="@{/addConsultant}">
               <span data-feather="shopping-cart"></span>
               Consultants
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-events">
             <a class="nav-link" th:href="@{/addEvent}">
               <span data-feather="users"></span>
               Events
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-testimonials">
             <a class="nav-link" th:href="@{/addTestimonial}">
               <span data-feather="bar-chart-2"></span>
               Testimonials
@@ -246,61 +246,61 @@ a:hover {
               Creation
             </span>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-category">
             <a class="nav-link" th:href="@{/addCategory}">
               <span data-feather="shopping-cart"></span>
               Add Category
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-language">
             <a class="nav-link" th:href="@{/addLanguage}">
               <span data-feather="users"></span>
               Add Language
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-topic">
             <a class="nav-link" th:href="@{/addTopic}">
               <span data-feather="bar-chart-2"></span>
               Add Topic
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-role">
             <a class="nav-link" th:href="@{/addRole}">
               <span data-feather="bar-chart-2"></span>
               Add Role
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-org-role">
             <a class="nav-link" th:href="@{/addOrganizationRole}">
               <span data-feather="users"></span>
               Add Organization Roles
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-assign-contri">
             <a class="nav-link" th:href="@{/assignTutorialToContributor}">
               
               Assign Contributor
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item nav-training">
             <span class="nav-link">
               <i class="far fa-newspaper sidebar-icon"></i>
               Training
             </span>
           </li>
-           <li class="nav-item border-lt">
+           <li class="nav-item border-lt nav-tut-list">
             <a class="nav-link" th:href="@{/tutorialStatus}">
               <span data-feather="bar-chart-2"></span>
               Tutorial List
             </a>
           </li>
-           <li class="nav-item border-lt">
+           <li class="nav-item border-lt nav-upload-ques">
             <a class="nav-link" th:href="@{/uploadQuestion}">
               <span data-feather="bar-chart-2"></span>
               Upload Questionnaire
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-download-ques">
             <a class="nav-link" th:href="@{/details}">
               <span data-feather="bar-chart-2"></span>
               Download Questionnaire
@@ -308,7 +308,7 @@ a:hover {
           </li>
           
            
-           <li class="nav-item border-lt">
+           <li class="nav-item border-lt nav-master-trainer">
             <a class="nav-link" th:href="@{/masterTrainer}">
               <span data-feather="bar-chart-2"></span>
               Master Trainer
@@ -332,7 +332,7 @@ a:hover {
               Testimonial
             </a>
           </li> -->
-           <li class="nav-item border-lt">
+           <li class="nav-item border-lt nav-view-trainee">
             <a class="nav-link" th:href="@{/viewTrainee}">
               <span data-feather="bar-chart-2"></span>
               View Trainee
@@ -345,20 +345,20 @@ a:hover {
             <a class="nav-link" href="#View">
               <span data-feather="bar-chart-2"></span>
              <i class="fas fa-tag"></i> Contributor
-            </a>
+            </span>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-con-upload">
             <a class="nav-link" th:href="@{/uploadTutorial}">
               Upload/Update Tutorial
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-con-status">
             <a class="nav-link" th:href="@{/listTutorialForContributorReview}">
               <span data-feather="shopping-cart"></span>
               Tutorial Review Status
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-con-timescript">
             <a class="nav-link" th:href="@{/uploadTimescript}">
               Upload Timescript
             </a>
@@ -366,12 +366,12 @@ a:hover {
         </ul>
          <ul class="nav flex-column" sec:authorize="hasAnyAuthority('DOMAIN_REVIEWER')">
         	<li class="nav-item ">
-            <a class="nav-link" href="#View">
+            <span class="nav-link" href="#View">
               <span data-feather="bar-chart-2"></span>
               <i class="fas fa-tag"></i> Domain Reviewer
-            </a>
+            </span>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-dom-review">
             <a class="nav-link" th:href="@{/listTutorialForDomainReview}">
               
               Tutorials waiting for Domain review
@@ -380,19 +380,19 @@ a:hover {
           
         </ul>
         <ul class="nav flex-column" sec:authorize="hasAnyAuthority('QUALITY_REVIEWER')">
-        	<li class="nav-item ">
-            <a class="nav-link" href="#View">
+        	<li class="nav-item">
+            <span class="nav-link" href="#View">
               <span data-feather="bar-chart-2"></span>
               <i class="fas fa-tag"></i> Quality Reviewer
-            </a>
+            </span>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-quality-pending">
             <a class="nav-link" th:href="@{/listTutorialForQualityReview}">
               
               Tutorials pending for Quality Review
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-quality-publish">
             <a class="nav-link" th:href="@{/tutorialToPublish}">
               <span data-feather="shopping-cart"></span>
               Tutorials ready to publish
@@ -401,13 +401,13 @@ a:hover {
           
         </ul>
         <ul class="nav flex-column" sec:authorize="hasAnyAuthority('ADMIN_REVIEWER')">
-        	<li class="nav-item ">
-            <a class="nav-link" href="#View">
+        	<li class="nav-item nav-admin-rev">
+            <span class="nav-link" href="#View">
               <span data-feather="bar-chart-2"></span>
              <i class="fas fa-tag"></i> Admin Reviewer
-            </a>
+            </span>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-admin-pending">
             <a class="nav-link" th:href="@{/listTutorialForAdminReview}">
               
               Tutorials pending for Admin Review
@@ -416,44 +416,44 @@ a:hover {
          
         </ul>
         <ul class="nav flex-column" sec:authorize="hasAnyAuthority('MASTER_TRAINER')">
-        	<li class="nav-item ">
+        	<li class="nav-item nav-master-trainer">
             <a class="nav-link" href="#View">
               <span data-feather="bar-chart-2"></span>
               <i class="fas fa-user-tag sidebar-icon"></i> Master Trainer
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-master-testimonial">
             <a class="nav-link" th:href="@{/addTestimonial}">
               <i class="far fa-comment-alt sidebar-icon-sm"></i>
               Testimonials
             </a>
           </li>
-           <li class="nav-item border-lt">
+           <li class="nav-item border-lt nav-master-events">
             <a class="nav-link" th:href="@{/addEvent}">
               <i class="fas fa-calendar-day sidebar-icon-sm"></i>Events
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-master-view-trainee">
             <a class="nav-link" th:href="@{/viewTrainee}">
               <i class="fas fa-users sidebar-icon-sm"></i>View Trainee
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-master-form">
             <a class="nav-link" th:href="@{/masterTrainerOperation}">
               <i class="far fa-file-alt sidebar-icon-sm"></i>Training Form
             </a>
           </li>
-           <li class="nav-item border-lt">
+           <li class="nav-item border-lt nav-master-workshop">
             <a class="nav-link" th:href="@{/details}">
               <i class="far fa-file-alt sidebar-icon-sm"></i>Workshop Details
             </a>
           </li>
         </ul>
         <ul class="nav flex-column" th:if="!${#authorization.expression('hasAuthority(''SUPER_USER'')')}">
-        	<li class="nav-item " >
-            <a class="nav-link" href="#View">
+        	<li class="nav-item nav-super-add-role" >
+            <span class="nav-link" href="#View">
               <i class="fas fa-user-plus sidebar-icon"></i>Add Role
-            </a>
+            </span>
           </li>
          <!--  <li class="nav-item border-lt" th:unless="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
             <a class="nav-link" th:href="@{/addAdminRole}">
@@ -461,37 +461,38 @@ a:hover {
              Admin Reviewer
             </a>
           </li> -->
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-super-contri">
             <a class="nav-link" th:href="@{/addContributorRole}">
               <span data-feather="shopping-cart"></span>
              Contributor
             </a>
           </li>
+
            <li class="nav-item border-lt">
             <a class="nav-link" th:href="@{/addExternalContributorRole}">
               <span data-feather="shopping-cart"></span>
              External Contributor
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-super-admin-rev">
             <a class="nav-link" th:href="@{/assignRoleToAdmin}">
               <span data-feather="shopping-cart"></span>
               Admin Reviewer
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-super-master">
             <a class="nav-link" th:href="@{/addMasterTrainerRole}">
               <span data-feather="shopping-cart"></span>
               Master Trainer
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-super-quality">
             <a class="nav-link" th:href="@{/addQualityRole}">
               <span data-feather="shopping-cart"></span>
               Quality Reviewer
             </a>
           </li>
-          <li class="nav-item border-lt">
+          <li class="nav-item border-lt nav-super-domain">
             <a class="nav-link" th:href="@{/addDomainRole}">
               <span data-feather="shopping-cart"></span>
               Domain Reviewer
@@ -500,24 +501,24 @@ a:hover {
           
         </ul>
         <ul class="nav flex-column" th:if="!${#authorization.expression('hasAuthority(''SUPER_USER'')')}">
-        	<li class="nav-item " >
-            <a class="nav-link revoke_role" href="#View">
+        	<li class="nav-item nav-super-remove" >
+            <span class="nav-link revoke_role" href="#View">
               <i class="fas fa-user-minus sidebar-icon"></i>Remove Role
-            </a>
+            </span>
           </li>
-           <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
+           <li class="nav-item border-lt nav-super-revoke-admin" th:if="${#authorization.expression('hasAuthority(''ADMIN_REVIEWER'')')}">
             <a class="nav-link revoke_role" th:href="@{/}">
               
                Admin Reviewer
             </a>
           </li>
-          <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''CONTRIBUTOR'')')}">
+          <li class="nav-item border-lt nav-super-revoke-contri" th:if="${#authorization.expression('hasAuthority(''CONTRIBUTOR'')')}">
             <a class="nav-link revoke_role" th:href="@{/revokeRoleContributor}">
               
                Contributor
             </a>
           </li>
-            <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''DOMAIN_REVIEWER'')')}">
+            <li class="nav-item border-lt nav-super-revoke-domain" th:if="${#authorization.expression('hasAuthority(''DOMAIN_REVIEWER'')')}">
             <a class="nav-link revoke_role" th:href="@{/revokeRoleDomain}">
               
                Domain Reviewer
@@ -529,7 +530,7 @@ a:hover {
                Master Trainer 
             </a>
           </li>
-          <li class="nav-item border-lt" th:if="${#authorization.expression('hasAuthority(''QUALITY_REVIEWER'')')}">
+          <li class="nav-item border-lt nav-super-revoke-quality" th:if="${#authorization.expression('hasAuthority(''QUALITY_REVIEWER'')')}">
             <a class="nav-link revoke_role" th:href="@{/revokeRoleQuality}">
               
                Quality Reviewer
