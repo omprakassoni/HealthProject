@@ -56,8 +56,8 @@
     About Us
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#parallax-1">About</a>
-    <a class="dropdown-item" href="#parallax-2">Consultants</a>
+    <a class="dropdown-item" href="#about">About</a>
+    <a class="dropdown-item" href="#consultants">Consultants</a>
     <a class="dropdown-item" href="#events">Events</a>
     <a class="dropdown-item" href="#testimonial">Testimonials</a>
   </div>
@@ -150,7 +150,7 @@
 <section>
 
 </section>
-<section id="parallax-1">
+<section id="about">
 	<div class="container-lg py-5">
 		<div class="row">
 		<div class="col-md-6">
@@ -250,7 +250,7 @@
 </div>
 <!-- modal for displaying full category description ends-->
     
-    <section id="parallax-2" class="py-4" th:if="${listOfConsultant}">
+    <section id="consultants" class="py-4" th:if="${listOfConsultant}">
     <h1 class="text-center spk-title" style="color:#fff!important;">Consultants</h1>
     <div class="container-lg">
     	<div class="row" style="color: #fff;">
@@ -431,7 +431,7 @@
 		</div>
     </section>
    
-    <section style="background: #F8F9FA;" class="p-5">
+    <section style="background: #F8F9FA;" class="p-5" id="contact">
     <div class="container-md">
     	<div class="row">
     	<div class="col-lg-6 mb-3" >
@@ -500,14 +500,6 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	alert('ready');
-	EPLiteClient client = new EPLiteClient("http://localhost:9001", "a04f17343b51afaa036a7428171dd873469cd85911ab43be0503d29d2acbbd58");
-	client.createPad("my_pad");
-	client.setText("my_pad", "foo!!");
-	String text = client.getText("my_pad").get("text").toString();
-	console.log("******************************");
-	console.log(text);
-	console.log("******************************");
 	$("#myCarousel").carousel();
 	$('.venobox').venobox(); 
 	$('.consultant_modal').on('shown.bs.modal', function () {
